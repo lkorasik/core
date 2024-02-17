@@ -7,15 +7,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.urfu.mm.core.dto.AccessTokenDto;
-import ru.urfu.mm.core.dto.LoginDTO;
-import ru.urfu.mm.core.dto.RegistrationAdministratorDTO;
-import ru.urfu.mm.core.dto.TokenDTO;
+import ru.urfu.mm.core.dto.*;
+import ru.urfu.mm.core.entity.User;
 import ru.urfu.mm.core.entity.UserRole;
 import ru.urfu.mm.core.service.AuthenticationService;
 import ru.urfu.mm.core.service.UserService;
-
-import java.util.HashMap;
 
 @RestController
 @RequestMapping("/api/authentication/")
@@ -40,9 +36,22 @@ public class AuthController {
         return new AccessTokenDto(token, user.getRegistrationToken(), UserRole.ADMIN);
     }
 
+    @PostMapping("/registerStudent")
+    public AccessTokenDto registerStudent(@RequestBody RegistrationStudentDto user) {
+        logger.debug("Request for student registration: " + user);
+
+        userService.createStudent(user);
+        String token = authenticationService.generateToken(user);
+
+        return new AccessTokenDto(token, user.getRegistrationToken(), UserRole.STUDENT);
+    }
+
     @PostMapping("/login")
-    public String login(@RequestBody LoginDTO loginDTO) {
-        return authenticationService.generateToken(loginDTO);
+    public AccessTokenDto login(@RequestBody LoginDTO loginDTO) {
+        User user = userService.login(loginDTO);
+        String token = authenticationService.generateToken(loginDTO);
+
+        return new AccessTokenDto(token, loginDTO.getEmail(), user.getRole());
     }
 
     @PostMapping("/validateToken")

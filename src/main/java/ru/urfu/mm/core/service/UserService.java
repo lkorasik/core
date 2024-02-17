@@ -7,10 +7,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.urfu.mm.core.dto.LoginDTO;
 import ru.urfu.mm.core.dto.RegistrationAdministratorDTO;
+import ru.urfu.mm.core.dto.RegistrationStudentDto;
+import ru.urfu.mm.core.entity.Student;
 import ru.urfu.mm.core.entity.User;
 import ru.urfu.mm.core.entity.UserRole;
 import ru.urfu.mm.core.repository.RegistrationTokenRepository;
+import ru.urfu.mm.core.repository.StudentRepository;
 import ru.urfu.mm.core.repository.UserRepository;
 
 import java.util.Collections;
@@ -20,7 +24,9 @@ import java.util.UUID;
 public class UserService implements UserDetailsService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
-    private UserRepository repository;
+    private UserRepository userRepository;
+    @Autowired
+    private StudentRepository studentRepository;
     @Autowired
     private RegistrationTokenRepository registrationTokenRepository;
 
@@ -37,16 +43,46 @@ public class UserService implements UserDetailsService {
         ensureRole(UserRole.ADMIN, token, dto.getClass().getName(), registrationToken.toString());
 
         User user = new User(registrationToken, passwordEncoder.encode(dto.getPassword()), UserRole.ADMIN);
-        repository.save(user);
+        userRepository.save(user);
 
         registrationTokenRepository.deleteById(registrationToken);
     }
 
+    public void createStudent(RegistrationStudentDto dto) {
+        UUID registrationToken = UUID.fromString(dto.getRegistrationToken());
+
+        UserRole token = registrationTokenRepository
+                .findByRegistrationToken(registrationToken)
+                .orElseThrow(() -> new RuntimeException("Error in database"))
+                .userRole;
+        ensureRole(UserRole.STUDENT, token, dto.getClass().getName(), registrationToken.toString());
+
+        User user = new User(registrationToken, passwordEncoder.encode(dto.getPassword()), UserRole.STUDENT);
+        userRepository.save(user);
+
+        Student student = new Student(registrationToken, dto.getEducationalProgramId(), dto.getGroup(), user);
+        studentRepository.save(student);
+
+        // todo: надо доделать часть, которая отвечает за регистрацию студента
+        registrationTokenRepository.deleteById(registrationToken);
+    }
+
+    public User login(LoginDTO loginDTO) {
+        UUID uuid = UUID.fromString(loginDTO.getEmail());
+        User user = userRepository.getReferenceById(uuid);
+
+        // todo: в чем прикол getReferenceById?
+        if (!passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())){
+            throw new RuntimeException("Bad credentials");
+        }
+
+        return user;
+    }
 
 //    @Transactional
     public UserDetails loadUserByUsername(String username) {
-        User user = repository.findAllByLogin(UUID.fromString(username)).orElseThrow();
-        return new org.springframework.security.core.userdetails.User(user.login.toString(), user.password, Collections.emptyList());
+        User user = userRepository.findAllByLogin(UUID.fromString(username)).orElseThrow();
+        return new org.springframework.security.core.userdetails.User(user.getLogin().toString(), user.getPassword(), Collections.emptyList());
     }
 
     private void ensureRole(UserRole expected, UserRole current, String dtoName, String token) {

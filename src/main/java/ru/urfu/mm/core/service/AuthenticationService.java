@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import ru.urfu.mm.core.dto.LoginDTO;
 import ru.urfu.mm.core.dto.RegistrationAdministratorDTO;
+import ru.urfu.mm.core.dto.RegistrationStudentDto;
 
 @Service
 public class AuthenticationService {
@@ -26,6 +27,12 @@ public class AuthenticationService {
     public String generateToken(RegistrationAdministratorDTO registrationAdministratorDTO) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(registrationAdministratorDTO.getRegistrationToken(), registrationAdministratorDTO.getPassword()));
         UserDetails userDetails = userService.loadUserByUsername(registrationAdministratorDTO.getRegistrationToken());
+        return jwtService.generateToken(userDetails);
+    }
+
+    public String generateToken(RegistrationStudentDto registrationStudentDto) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(registrationStudentDto.getRegistrationToken(), registrationStudentDto.getPassword()));
+        UserDetails userDetails = userService.loadUserByUsername(registrationStudentDto.getRegistrationToken());
         return jwtService.generateToken(userDetails);
     }
 

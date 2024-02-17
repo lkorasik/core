@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import ru.urfu.mm.core.entity.RegistrationToken;
 import ru.urfu.mm.core.entity.UserRole;
 import ru.urfu.mm.core.repository.RegistrationTokenRepository;
+import ru.urfu.mm.core.repository.StudentRepository;
 import ru.urfu.mm.core.repository.UserRepository;
 
 import java.util.List;
@@ -19,22 +20,25 @@ class CoreApplicationTests {
 	public RegistrationTokenRepository registrationTokenRepository;
 	@Autowired
 	public UserRepository userRepository;
+	@Autowired
+	public StudentRepository studentRepository;
 
 	@Test
 	public void init() {
 		// Инициализация
 
-		Iterable<RegistrationToken> tokens = List.of(new RegistrationToken[]{
+		Iterable<RegistrationToken> tokens = List.of(
 				new RegistrationToken(UUID.randomUUID(), UserRole.STUDENT),
 				new RegistrationToken(UUID.randomUUID(), UserRole.UNIVERSITY_EMPLOYEE),
 				new RegistrationToken(UUID.randomUUID(), UserRole.ADMIN)
-		});
+		);
 		registrationTokenRepository.saveAll(tokens);
 	}
 
 	@Test
 	public void drop() {
 		registrationTokenRepository.deleteAll();
+		studentRepository.deleteAll();
 		userRepository.deleteAll();
 	}
 
