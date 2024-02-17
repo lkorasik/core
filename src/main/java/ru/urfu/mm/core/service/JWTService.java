@@ -19,6 +19,10 @@ public class JWTService {
     @Value("${jwt.lifetime}")
     private Duration jwtLifetime;
 
+    public void validateToken(String token) {
+        Jwts.parserBuilder().setSigningKey(getSigningKey()).build().parse(token);
+    }
+
     public String generateToken(UserDetails userDetails) {
         Date issuedDate = new Date();
         Date expireDate;
@@ -28,11 +32,20 @@ public class JWTService {
             expireDate = new Date(issuedDate.getTime() + jwtLifetime.toMillis());
         }
 
+        Map<String, String> claims = new HashMap<>();
+        claims.put("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name", userDetails.getUsername());
+        claims.put("http://schemas.microsoft.com/ws/2008/06/identity/claims/role", "Admin"); // todo: Fix it
+        claims.put("nbf", "1708189417");
+        claims.put("exp", "1708275817");
+        claims.put("iss", "MyAuthServer");
+        claims.put("aud", "MyAuthClient");
+
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(issuedDate)
                 .setExpiration(expireDate)
                 .signWith(getSigningKey())
+                .setClaims(claims)
                 .compact();
     }
 
@@ -42,8 +55,10 @@ public class JWTService {
     }
 
     public Claims getAllClaimsFromToken(String token) {
-        return Jwts.parser()
-                .setSigningKey(secret)
+        return Jwts
+                .parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
                 .parseClaimsJws(token)
                 .getBody();
     }

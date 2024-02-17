@@ -2,24 +2,26 @@ package ru.urfu.mm.core.entity;
 
 import jakarta.persistence.*;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    public long id = 0;
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column
+    public UUID login;
 
-    @Column(name = "username")
-    public String username = "";
+    @Column
+    public String password;
 
-    @Column(name = "password")
-    public String password = "";
+    @Column
+    public UserRole role;
 
-    public User(long id, String username, String password) {
-        this.id = id;
-        this.username = username;
+    public User(UUID login, String password, UserRole role) {
+        this.login = login;
         this.password = password;
+        this.role = role;
     }
 
     public User() {

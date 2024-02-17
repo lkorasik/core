@@ -17,7 +17,7 @@ import ru.urfu.mm.core.service.UserService;
 
 @Configuration
 @EnableWebSecurity
-public class SecurtyConfigurtion {
+public class SecurityConfiguration {
     @Autowired
     private UserService userService;
 
@@ -29,7 +29,8 @@ public class SecurtyConfigurtion {
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests((request) -> {
             request
-                    .requestMatchers("/auth/**").permitAll()
+                    .requestMatchers("/api/authentication/**").permitAll()
+                    .requestMatchers("/api/educationalPrograms").permitAll()
                     .anyRequest().authenticated();
         });
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

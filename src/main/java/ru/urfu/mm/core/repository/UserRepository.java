@@ -5,8 +5,9 @@ import org.springframework.stereotype.Repository;
 import ru.urfu.mm.core.entity.User;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findAllByUsername(String username);
+public interface UserRepository extends JpaRepository<User, UUID> {
+    Optional<User> findAllByLogin(UUID login);
 }
