@@ -6,23 +6,31 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import ru.urfu.mm.core.dto.LoginDTO;
+import ru.urfu.mm.core.dto.RegistrationAdministratorDTO;
 
 @Service
 public class AuthenticationService {
-    private final UserService userService;
-    private final AuthenticationManager authenticationManager;
-    private final JWTService jwtService;
-
     @Autowired
-    public AuthenticationService(UserService userService, AuthenticationManager authenticationManager, JWTService jwtService) {
-        this.authenticationManager = authenticationManager;
-        this.userService = userService;
-        this.jwtService = jwtService;
-    }
+    private UserService userService;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private JWTService jwtService;
 
     public String generateToken(LoginDTO loginDTO) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getName(), loginDTO.getPassword()));
-        UserDetails userDetails = userService.loadUserByUsername(loginDTO.getName());
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword()));
+        UserDetails userDetails = userService.loadUserByUsername(loginDTO.getEmail());
         return jwtService.generateToken(userDetails);
+    }
+
+    public String generateToken(RegistrationAdministratorDTO registrationAdministratorDTO) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(registrationAdministratorDTO.getRegistrationToken(), registrationAdministratorDTO.getPassword()));
+        UserDetails userDetails = userService.loadUserByUsername(registrationAdministratorDTO.getRegistrationToken());
+        return jwtService.generateToken(userDetails);
+    }
+
+    public void validateToken(String token) {
+        jwtService.validateToken(token);
+        System.out.println("Everything okay");
     }
 }
