@@ -8,15 +8,14 @@ import java.util.UUID;
 @Table(name = "users")
 public class User {
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
-    public UUID login;
+    private UUID login;
 
     @Column
-    public String password;
+    private String password;
 
     @Column
-    public UserRole role;
+    private UserRole role;
 
     public User(UUID login, String password, UserRole role) {
         this.login = login;
@@ -25,5 +24,17 @@ public class User {
     }
 
     public User() {
+    }
+
+    public UUID getLogin() {
+        return login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public UserRole getRole() {
+        return role;
     }
 }
