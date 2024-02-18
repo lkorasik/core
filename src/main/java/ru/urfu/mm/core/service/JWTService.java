@@ -64,7 +64,7 @@ public class JWTService {
     }
 
     public String getUsername(String token) {
-        return getAllClaimsFromToken(token).getSubject();
+        return (String) getAllClaimsFromToken(token).get("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name");
     }
 
     public List<String> getRoles(String token) {
