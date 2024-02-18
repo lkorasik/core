@@ -10,13 +10,10 @@ public class Student {
     @Id
     @Column
     public UUID login;
-
     @Column
     public UUID educationalProgramId;
-
     @Column(name = "`group`")
     public String group;
-
     @OneToOne
     @JoinColumn(name = "users_login")
     public User user;

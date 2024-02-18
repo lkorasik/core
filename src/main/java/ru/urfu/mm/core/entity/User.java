@@ -10,10 +10,8 @@ public class User {
     @Id
     @Column
     private UUID login;
-
     @Column
     private String password;
-
     @Column
     private UserRole role;
 
