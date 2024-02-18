@@ -251,8 +251,16 @@ class CoreApplicationTests {
 
 	@Test
 	public void drop() {
-		registrationTokenRepository.deleteAll();
 		studentRepository.deleteAll();
+		courseToResultSkillsRepository.deleteAll();
+		courseToRequiredSkillsRepository.deleteAll();
+		skillRepository.deleteAll();
+		educationalProgramToCoursesWithSemestersRepository.deleteAll();
+		semesterRepository.deleteAll();
+		specialCourseRepository.deleteAll();
+		educationalModuleRepository.deleteAll();
+		educationalProgramRepository.deleteAll();
+		registrationTokenRepository.deleteAll();
 		userRepository.deleteAll();
 	}
 

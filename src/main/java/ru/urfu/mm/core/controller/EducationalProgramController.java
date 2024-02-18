@@ -28,7 +28,7 @@ public class EducationalProgramController {
         UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
 
         Student student = studentService.getStudent(authentication.getName());
-        EducationalProgram educationalProgram = educationalProgramService.getEducationalProgram(student.getEducationalProgramId());
+        EducationalProgram educationalProgram = educationalProgramService.getEducationalProgram(student.getEducationalProgram().getId());
         HashMap semesterIdToRequiredCreditsCount = educationalProgramService.getSemesterIdToRequiredCreditsCount(educationalProgram);
 
         return new EducationalProgramInfoDto(educationalProgram.getId(), educationalProgram.getName(), semesterIdToRequiredCreditsCount);

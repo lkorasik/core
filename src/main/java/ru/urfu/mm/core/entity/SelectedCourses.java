@@ -1,9 +1,6 @@
 package ru.urfu.mm.core.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.UUID;
 
@@ -13,16 +10,41 @@ public class SelectedCourses {
     @Id
     @Column
     private UUID id;
-    @Column
-    private String studentLogin;
-    @Column
-    // [ForeignKey("Semester")]
-    private UUID semesterId;
-    @Column
-    // [ForeignKey("SpecialCourse")]
-    private UUID specialCourseId;
+    @ManyToOne
+    @JoinColumn(name = "student_login")
+    private Student student;
+    @ManyToOne
+    @JoinColumn(name = "semester_id")
+    private Semester semester;
+    @ManyToOne
+    @JoinColumn(name = "special_course_id")
+    private SpecialCourse specialCourse;
 
-//    public StudentModel Student { get; set; }
-//    public SemesterModel Semester { get; set; }
-//    public SpecialCourseModel SpecialCourse { get; set; }
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public SpecialCourse getSpecialCourse() {
+        return specialCourse;
+    }
+
+    public void setSpecialCourse(SpecialCourse specialCourse) {
+        this.specialCourse = specialCourse;
+    }
+
+    public Semester getSemester() {
+        return semester;
+    }
+
+    public void setSemester(Semester semester) {
+        this.semester = semester;
+    }
+
+    public UUID getId() {
+        return id;
+    }
 }

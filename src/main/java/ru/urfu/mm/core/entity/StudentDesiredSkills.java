@@ -1,9 +1,6 @@
 package ru.urfu.mm.core.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.UUID;
 
@@ -13,11 +10,19 @@ public class StudentDesiredSkills {
     @Id
     @Column
     private String studentLogin;
-    @Column
-    // [ForeignKey("SkillModel")]
-    private UUID skillId;
+    @ManyToOne
+    @JoinColumn(name = "skill_id")
+    private Skill skill;
     @Column
     private SkillLevel level;
+
+    public Skill getSkill() {
+        return skill;
+    }
+
+    public void setSkill(Skill skill) {
+        this.skill = skill;
+    }
 
 //    public Student Student { get; set; }
 //    public Skill Skill { get; set; }

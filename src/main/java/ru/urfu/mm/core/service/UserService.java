@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 import ru.urfu.mm.core.dto.LoginDTO;
 import ru.urfu.mm.core.dto.RegistrationAdministratorDTO;
 import ru.urfu.mm.core.dto.RegistrationStudentDto;
+import ru.urfu.mm.core.entity.EducationalProgram;
 import ru.urfu.mm.core.entity.Student;
 import ru.urfu.mm.core.entity.User;
 import ru.urfu.mm.core.entity.UserRole;
+import ru.urfu.mm.core.repository.EducationalProgramRepository;
 import ru.urfu.mm.core.repository.RegistrationTokenRepository;
 import ru.urfu.mm.core.repository.StudentRepository;
 import ru.urfu.mm.core.repository.UserRepository;
@@ -29,6 +31,8 @@ public class UserService implements UserDetailsService {
     private StudentRepository studentRepository;
     @Autowired
     private RegistrationTokenRepository registrationTokenRepository;
+    @Autowired
+    private EducationalProgramRepository educationalProgramRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -60,7 +64,9 @@ public class UserService implements UserDetailsService {
         User user = new User(registrationToken, passwordEncoder.encode(dto.getPassword()), UserRole.STUDENT);
         userRepository.save(user);
 
-        Student student = new Student(registrationToken, dto.getEducationalProgramId(), dto.getGroup(), user);
+        EducationalProgram educationalProgram = educationalProgramRepository.getReferenceById(dto.getEducationalProgramId());
+
+        Student student = new Student(registrationToken, educationalProgram, dto.getGroup(), user);
         studentRepository.save(student);
 
         // todo: надо доделать часть, которая отвечает за регистрацию студента
