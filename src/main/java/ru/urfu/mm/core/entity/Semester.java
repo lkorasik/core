@@ -19,6 +19,12 @@ public class Semester {
     public Semester() {
     }
 
+    public Semester(UUID id, int year, int semesterNumber) {
+        this.id = id;
+        this.year = year;
+        this.semesterNumber = semesterNumber;
+    }
+
     public Semester(int year, int semesterNumber) {
         this.year = year;
         this.semesterNumber = semesterNumber;
