@@ -9,14 +9,14 @@ import java.util.UUID;
 public class Student {
     @Id
     @Column
-    public UUID login;
+    private UUID login;
     @Column
-    public UUID educationalProgramId;
+    private UUID educationalProgramId;
     @Column(name = "`group`")
-    public String group;
+    private String group;
     @OneToOne
     @JoinColumn(name = "users_login")
-    public User user;
+    private User user;
 
     public Student() {
     }
@@ -26,5 +26,21 @@ public class Student {
         this.educationalProgramId = educationalProgramId;
         this.group = group;
         this.user = user;
+    }
+
+    public UUID getLogin() {
+        return login;
+    }
+
+    public UUID getEducationalProgramId() {
+        return educationalProgramId;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public User getUser() {
+        return user;
     }
 }
