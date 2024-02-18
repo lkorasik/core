@@ -3,10 +3,7 @@ package ru.urfu.mm.core.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.core.dto.GetCoursesDTO;
 import ru.urfu.mm.core.entity.Student;
 import ru.urfu.mm.core.service.CourseForEducationalProgram;
@@ -23,7 +20,7 @@ public class SpecialCourseController {
     @Autowired
     private StudentService studentService;
 
-    @GetMapping("/")
+    @PostMapping
     public List<CourseForEducationalProgram> specialCourse(@RequestBody GetCoursesDTO getCoursesDTO) {
         UsernamePasswordAuthenticationToken authentication =
                 (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
@@ -33,4 +30,9 @@ public class SpecialCourseController {
         return specialCourseService
                 .getCoursesByEducationalProgramAndSemesters(student.getEducationalProgram().getId(), getCoursesDTO.getSemesterIds());
     }
+
+//    @PostMapping("/selected")
+//    public void selected() {
+
+//    }
 }
