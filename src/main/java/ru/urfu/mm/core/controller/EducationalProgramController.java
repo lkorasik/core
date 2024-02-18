@@ -7,7 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.urfu.mm.core.dto.EducationalProgramInfoDto;
+import ru.urfu.mm.core.dto.EducationalProgramInfoDTO;
 import ru.urfu.mm.core.entity.EducationalProgram;
 import ru.urfu.mm.core.entity.Student;
 import ru.urfu.mm.core.service.EducationalProgramService;
@@ -24,26 +24,26 @@ public class EducationalProgramController {
     private EducationalProgramService educationalProgramService;
 
     @GetMapping("/current")
-    public EducationalProgramInfoDto current() throws JsonProcessingException {
+    public EducationalProgramInfoDTO current() throws JsonProcessingException {
         UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
 
         Student student = studentService.getStudent(authentication.getName());
         EducationalProgram educationalProgram = educationalProgramService.getEducationalProgram(student.getEducationalProgram().getId());
         HashMap semesterIdToRequiredCreditsCount = educationalProgramService.getSemesterIdToRequiredCreditsCount(educationalProgram);
 
-        return new EducationalProgramInfoDto(educationalProgram.getId(), educationalProgram.getName(), semesterIdToRequiredCreditsCount);
+        return new EducationalProgramInfoDTO(educationalProgram.getId(), educationalProgram.getName(), semesterIdToRequiredCreditsCount);
     }
 
     @GetMapping
-    public List<EducationalProgramInfoDto> getEducationalProgram() throws JsonProcessingException {
+    public List<EducationalProgramInfoDTO> getEducationalProgram() throws JsonProcessingException {
         var programs = educationalProgramService.getEducationalPrograms();
 
-        var result = new ArrayList<EducationalProgramInfoDto>();
+        var result = new ArrayList<EducationalProgramInfoDTO>();
         for(var program: programs) {
             EducationalProgram educationalProgram = educationalProgramService.getEducationalProgram(program.getId());
             HashMap semesterIdToRequiredCreditsCount = educationalProgramService.getSemesterIdToRequiredCreditsCount(educationalProgram);
 
-            var dto = new EducationalProgramInfoDto(
+            var dto = new EducationalProgramInfoDTO(
                     program.getId(),
                     program.getName(),
                     semesterIdToRequiredCreditsCount

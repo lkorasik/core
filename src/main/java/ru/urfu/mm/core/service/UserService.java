@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.urfu.mm.core.dto.LoginDTO;
 import ru.urfu.mm.core.dto.RegistrationAdministratorDTO;
-import ru.urfu.mm.core.dto.RegistrationStudentDto;
+import ru.urfu.mm.core.dto.RegistrationStudentDTO;
 import ru.urfu.mm.core.entity.EducationalProgram;
 import ru.urfu.mm.core.entity.Student;
 import ru.urfu.mm.core.entity.User;
@@ -52,7 +52,7 @@ public class UserService implements UserDetailsService {
         registrationTokenRepository.deleteById(registrationToken);
     }
 
-    public void createStudent(RegistrationStudentDto dto) {
+    public void createStudent(RegistrationStudentDTO dto) {
         UUID registrationToken = UUID.fromString(dto.getRegistrationToken());
 
         UserRole token = registrationTokenRepository

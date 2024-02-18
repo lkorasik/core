@@ -2,14 +2,14 @@ package ru.urfu.mm.core.dto;
 
 import java.util.UUID;
 
-public class RegistrationStudentDto {
+public class RegistrationStudentDTO {
     private final String registrationToken;
     private final UUID educationalProgramId;
     private final String group;
     private final String password;
     private final String passwordAgain;
 
-    public RegistrationStudentDto(String registrationToken, UUID educationalProgramId, String group, String password, String passwordAgain) {
+    public RegistrationStudentDTO(String registrationToken, UUID educationalProgramId, String group, String password, String passwordAgain) {
         this.registrationToken = registrationToken;
         this.educationalProgramId = educationalProgramId;
         this.group = group;

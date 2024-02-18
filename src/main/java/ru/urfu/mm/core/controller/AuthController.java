@@ -27,31 +27,31 @@ public class AuthController {
     }
 
     @PostMapping("/registerAdministration")
-    public AccessTokenDto registerAdministration(@RequestBody RegistrationAdministratorDTO user) {
+    public AccessTokenDTO registerAdministration(@RequestBody RegistrationAdministratorDTO user) {
         logger.debug("Request for admin registration: " + user);
 
         userService.createAdmin(user);
         String token = authenticationService.generateToken(user);
 
-        return new AccessTokenDto(token, user.getRegistrationToken(), UserRole.ADMIN);
+        return new AccessTokenDTO(token, user.getRegistrationToken(), UserRole.ADMIN);
     }
 
     @PostMapping("/registerStudent")
-    public AccessTokenDto registerStudent(@RequestBody RegistrationStudentDto user) {
+    public AccessTokenDTO registerStudent(@RequestBody RegistrationStudentDTO user) {
         logger.debug("Request for student registration: " + user);
 
         userService.createStudent(user);
         String token = authenticationService.generateToken(user);
 
-        return new AccessTokenDto(token, user.getRegistrationToken(), UserRole.STUDENT);
+        return new AccessTokenDTO(token, user.getRegistrationToken(), UserRole.STUDENT);
     }
 
     @PostMapping("/login")
-    public AccessTokenDto login(@RequestBody LoginDTO loginDTO) {
+    public AccessTokenDTO login(@RequestBody LoginDTO loginDTO) {
         User user = userService.login(loginDTO);
         String token = authenticationService.generateToken(loginDTO);
 
-        return new AccessTokenDto(token, loginDTO.getEmail(), user.getRole());
+        return new AccessTokenDTO(token, loginDTO.getEmail(), user.getRole());
     }
 
     @PostMapping("/validateToken")
