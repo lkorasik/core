@@ -34,7 +34,7 @@ public class SpecialCourseController {
         Student student = studentService.getStudent(authentication.getName());
 
         return specialCourseService
-                .getCoursesByEducationalProgramAndSemesters(student.getEducationalProgram().getId(), getCoursesDTO.getSemesterIds());
+                .getCoursesByEducationalProgramAndSemesters(student.getEducationalProgram().getId(), getCoursesDTO.getSemestersIds());
     }
 
     @PostMapping("/selected")

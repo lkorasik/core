@@ -5,18 +5,18 @@ import java.util.UUID;
 
 public class GetCoursesDTO {
     private UUID educationalProgramId;
-    private List<UUID> semesterIds;
+    private List<UUID> semestersIds;
 
-    public GetCoursesDTO(UUID educationalProgramId, List<UUID> semesterIds) {
+    public GetCoursesDTO(UUID educationalProgramId, List<UUID> semestersIds) {
         this.educationalProgramId = educationalProgramId;
-        this.semesterIds = semesterIds;
+        this.semestersIds = semestersIds;
     }
 
     public UUID getEducationalProgramId() {
         return educationalProgramId;
     }
 
-    public List<UUID> getSemesterIds() {
-        return semesterIds;
+    public List<UUID> getSemestersIds() {
+        return semestersIds;
     }
 }

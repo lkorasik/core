@@ -24,10 +24,19 @@ public class SpecialCourseService {
                 .stream()
                 .filter(x -> x.getEducationalProgram().getId() == educationalProgramId)
                 .toList();
-        var courseIdToCourseInfo = new HashMap<UUID, List<EducationalProgramToCoursesWithSemesters>>();
-        for(var info : coursesInfos) {
-            var list = coursesInfos.stream().filter(x -> containsSemester(x, semestersIds)).toList();
-            courseIdToCourseInfo.put(info.getId(), list);
+        var courseIdToCourseInfo =
+                coursesInfos
+                        .stream()
+                        .collect(
+                                Collectors
+                                        .groupingBy(x -> x.getSpecialCourse().getId())
+                        );
+        for (var key : courseIdToCourseInfo.keySet()) {
+            var list = courseIdToCourseInfo.get(key)
+                    .stream()
+                    .filter(x -> containsSemester(x, semestersIds))
+                    .toList();
+            courseIdToCourseInfo.put(key, list);
         }
         var coursesForEducationalProgram = new ArrayList<CourseForEducationalProgram>();
         for (var courseId : courseIdToCourseInfo.keySet()) {
@@ -51,13 +60,11 @@ public class SpecialCourseService {
                     firstCourseInfo.getCreditsCount(),
                     firstCourseInfo.getControl(),
                     firstCourseInfo.getDescription(),
-                    info.stream().map(x -> {
-                        return new Semester(
-                                x.getSemester().getId(),
-                                x.getSemester().getYear(),
-                                x.getSemester().getYear() // todo: фикси ошибку
-                        );
-                    }).toList(),
+                    info.stream().map(x -> new Semester(
+                            x.getSemester().getId(),
+                            x.getSemester().getYear(),
+                            x.getSemester().getYear() // todo: фикси ошибку
+                    )).toList(),
                     firstCourseInfo.getEducationalModule().getId(),
                     requiredSemesterId
             );
