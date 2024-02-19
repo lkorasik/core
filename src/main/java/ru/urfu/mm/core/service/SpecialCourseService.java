@@ -6,13 +6,17 @@ import ru.urfu.mm.core.entity.EducationalProgramToCoursesWithSemesters;
 import ru.urfu.mm.core.entity.Semester;
 import ru.urfu.mm.core.entity.SpecialCourse;
 import ru.urfu.mm.core.repository.EducationalProgramToCoursesWithSemestersRepository;
+import ru.urfu.mm.core.repository.SelectedCoursesRepository;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class SpecialCourseService {
     @Autowired
     private EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository;
+    @Autowired
+    private SelectedCoursesRepository selectedCoursesRepository;
 
     public ArrayList<CourseForEducationalProgram> getCoursesByEducationalProgramAndSemesters(UUID educationalProgramId, List<UUID> semestersIds) {
         var coursesInfos = educationalProgramToCoursesWithSemestersRepository
@@ -61,6 +65,19 @@ public class SpecialCourseService {
         }
 
         return coursesForEducationalProgram;
+    }
+
+    public Map<UUID, List<UUID>> getSelectedCoursesIds(UUID studentLogin, List<UUID> semestersIds) {
+        var semesterIdsSet = new HashSet<UUID>(semestersIds);
+        var selectedCourses = selectedCoursesRepository
+                .findAll()
+                .stream()
+                .filter(x -> x.getStudent().getLogin().equals(studentLogin))
+                .toList();
+        return selectedCourses
+                .stream()
+                .filter(x -> semesterIdsSet.contains(x.getSemester().getId()))
+                .collect(Collectors.toMap(x -> x.getId(), x -> List.of(x.getSpecialCourse().getId())));
     }
 
     private boolean containsSemester(EducationalProgramToCoursesWithSemesters model, List<UUID> semestersIds)
