@@ -3,11 +3,9 @@ package ru.urfu.mm.core;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.io.IOException;
-
 @SpringBootApplication
 public class CoreApplication {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 		SpringApplication.run(CoreApplication.class, args);
     }
 }
