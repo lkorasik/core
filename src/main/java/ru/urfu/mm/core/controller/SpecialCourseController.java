@@ -7,11 +7,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.function.ServerResponse;
 import ru.urfu.mm.core.dto.CoursesBySemesterDTO;
 import ru.urfu.mm.core.dto.GetCoursesDTO;
 import ru.urfu.mm.core.dto.GetSelectedCoursesDTO;
+import ru.urfu.mm.core.dto.SelectedCoursesDTO;
 import ru.urfu.mm.core.entity.Student;
+import ru.urfu.mm.core.exceptions.CoursesSelectionValidationException;
 import ru.urfu.mm.core.service.CourseForEducationalProgram;
+import ru.urfu.mm.core.service.CoursesSelectionService;
 import ru.urfu.mm.core.service.SpecialCourseService;
 import ru.urfu.mm.core.service.StudentService;
 
@@ -25,6 +29,8 @@ public class SpecialCourseController {
     private SpecialCourseService specialCourseService;
     @Autowired
     private StudentService studentService;
+    @Autowired
+    private CoursesSelectionService coursesSelectionService;
 
     @PostMapping
     public List<CourseForEducationalProgram> specialCourse(@RequestBody GetCoursesDTO getCoursesDTO) {
@@ -52,5 +58,23 @@ public class SpecialCourseController {
             result.add(item);
         }
         return result;
+    }
+
+    @PostMapping("/select")
+    public ServerResponse d(@RequestBody SelectedCoursesDTO selectedCourses) {
+        UsernamePasswordAuthenticationToken authentication =
+                (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+
+        Student student = studentService.getStudent(authentication.getName());
+
+        try {
+            coursesSelectionService.validateCoursesSelection(student.getLogin(), selectedCourses.getCoursesBySemesters());
+        } catch (CoursesSelectionValidationException e) {
+            return ServerResponse.badRequest().build();
+        }
+
+        coursesSelectionService.saveCoursesSelection(student.getLogin(), selectedCourses.getCoursesBySemesters());
+
+        return ServerResponse.ok().build();
     }
 }

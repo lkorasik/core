@@ -20,6 +20,15 @@ public class SelectedCourses {
     @JoinColumn(name = "special_course_id")
     private SpecialCourse specialCourse;
 
+    public SelectedCourses() {
+    }
+
+    public SelectedCourses(Student student, Semester semester, SpecialCourse specialCourse) {
+        this.student = student;
+        this.semester = semester;
+        this.specialCourse = specialCourse;
+    }
+
     public Student getStudent() {
         return student;
     }
