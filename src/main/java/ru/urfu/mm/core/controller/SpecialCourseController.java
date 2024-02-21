@@ -61,20 +61,13 @@ public class SpecialCourseController {
     }
 
     @PostMapping("/select")
-    public ServerResponse d(@RequestBody SelectedCoursesDTO selectedCourses) {
+    public void select(@RequestBody SelectedCoursesDTO selectedCourses) {
         UsernamePasswordAuthenticationToken authentication =
                 (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
 
         Student student = studentService.getStudent(authentication.getName());
 
-        try {
-            coursesSelectionService.validateCoursesSelection(student.getLogin(), selectedCourses.getCoursesBySemesters());
-        } catch (CoursesSelectionValidationException e) {
-            return ServerResponse.badRequest().build();
-        }
-
+        coursesSelectionService.validateCoursesSelection(student.getLogin(), selectedCourses.getCoursesBySemesters());
         coursesSelectionService.saveCoursesSelection(student.getLogin(), selectedCourses.getCoursesBySemesters());
-
-        return ServerResponse.ok().build();
     }
 }

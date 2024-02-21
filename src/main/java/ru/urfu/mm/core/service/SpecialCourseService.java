@@ -43,7 +43,7 @@ public class SpecialCourseService {
         var coursesForEducationalProgram = new ArrayList<CourseForEducationalProgram>();
         for (var courseId : courseIdToCourseInfo.keySet()) {
             var info = courseIdToCourseInfo.get(courseId);
-            if (info != null) {
+            if ((info == null) || info.isEmpty()) {
                 continue;
             }
             var first = info.getFirst();

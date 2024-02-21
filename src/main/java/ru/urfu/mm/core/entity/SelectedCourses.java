@@ -8,6 +8,7 @@ import java.util.UUID;
 @Table(name = "selected_courses")
 public class SelectedCourses {
     @Id
+    @GeneratedValue
     @Column
     private UUID id;
     @ManyToOne

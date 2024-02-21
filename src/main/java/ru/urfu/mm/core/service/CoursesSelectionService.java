@@ -69,12 +69,12 @@ public class CoursesSelectionService {
         var selectedCoursesIdsSet = new HashSet<>(selectedCoursesIds);
 
         var student = studentRepository.getReferenceById(studentId);
-        var courses = specialCourseService.getCoursesByEducationalProgramAndSemesters(student.getEducationalProgram().getId(), null)
+        var courses = specialCourseService
+                .getCoursesByEducationalProgramAndSemesters(student.getEducationalProgram().getId(), null)
                 .stream()
-                .collect(
-                        Collectors.toMap(CourseForEducationalProgram::getEducationalModuleId, CourseForEducationalProgram::getId)
-                );
-        for (var educationalModuleIdWithCoursesIds : courses.entrySet()) {
+                .map(x -> Map.entry(x.getEducationalModuleId(), x.getId()))
+                .toList();
+        for (var educationalModuleIdWithCoursesIds : courses) {
             if(educationalModuleIdWithCoursesIds.getKey() == null) {
                 continue;
             }
@@ -104,7 +104,6 @@ public class CoursesSelectionService {
                 semesterIdToValidationStatus.put(coursesBySemester.getSemesterId(), validationResult);
             }
         }
-
         if(!semesterIdToValidationStatus.isEmpty()) {
             throw new CoursesSelectionValidationException(true);
         }
