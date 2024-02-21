@@ -100,7 +100,7 @@ public class DocumentService {
 
     private XWPFDocument readTemplate() throws IOException {
         XWPFDocument document;
-        try (var stream = getClass().getResourceAsStream(TEMPLATE_PATH)) {
+        try (var stream = getClass().getResourceAsStream("/" + TEMPLATE_PATH)) {
             Objects.requireNonNull(stream);
 
             document = new XWPFDocument(stream);
