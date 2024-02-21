@@ -42,6 +42,8 @@ class CoreApplicationTests {
 	@Autowired
 	public CourseToRequiredSkillsRepository courseToRequiredSkillsRepository;
 	@Autowired
+	public SelectedCoursesRepository selectedCoursesRepository;
+	@Autowired
 	public ObjectMapper serializer;
 
 	@Test
@@ -250,6 +252,7 @@ class CoreApplicationTests {
 
 	@Test
 	public void drop() {
+		selectedCoursesRepository.deleteAll();
 		studentRepository.deleteAll();
 		courseToResultSkillsRepository.deleteAll();
 		courseToRequiredSkillsRepository.deleteAll();

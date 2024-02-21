@@ -36,7 +36,7 @@ public class CoursesSelectionService {
         var coursesIdsForEducationalProgram = specialCourseService
                 .getCoursesByEducationalProgramAndSemesters(student.getEducationalProgram().getId(), List.of(semesterId))
                 .stream()
-                .map(x -> x.getId())
+                .map(CourseForEducationalProgram::getId)
                 .collect(Collectors.toSet());
         var requiredCoursesIds = specialCourseService
                 .getRequiredCoursesForEducationalProgram(student.getEducationalProgram().getId())
