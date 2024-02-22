@@ -2,6 +2,7 @@ package ru.urfu.mm.core.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.urfu.mm.core.dto.SpecialCourseStatisticsDTO;
 import ru.urfu.mm.core.entity.EducationalProgramToCoursesWithSemesters;
 import ru.urfu.mm.core.entity.Semester;
 import ru.urfu.mm.core.entity.SpecialCourse;
@@ -109,6 +110,34 @@ public class SpecialCourseService {
             throw new RuntimeException("There is more than one semester, in which course is required");
         }
         return requiredCourses;
+    }
+
+    public List<SpecialCourseStatisticsDTO> getActualSpecialCoursesStatistics(List<UUID> semestersId) {
+        var courses = educationalProgramToCoursesWithSemestersRepository
+                .findAll()
+                .stream()
+                .filter(x -> semestersId.contains(x.getSemester().getId()))
+                .distinct()
+                .toList();
+        return courses
+                .stream()
+                .map(x -> new SpecialCourseStatisticsDTO(
+                        x.getSpecialCourse().getId(),
+                        x.getSpecialCourse().getName(),
+                        specialCourseStudentsCount(x.getSpecialCourse().getId())
+                        ))
+                .toList();
+    }
+
+    private int specialCourseStudentsCount(UUID courseId) {
+        var coursesModels = selectedCoursesRepository
+                .findAll()
+                .stream()
+                .filter(x -> x.getSpecialCourse().getId().equals(courseId))
+                .map(x -> x.getStudent().getLogin())
+                .distinct()
+                .toList();
+        return coursesModels.size();
     }
 
     private boolean containsSemester(EducationalProgramToCoursesWithSemesters model, List<UUID> semestersIds)
