@@ -4,10 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ru.urfu.mm.core.dto.EducationalProgramIdDTO;
 import ru.urfu.mm.core.dto.EducationalProgramInfoDTO;
+import ru.urfu.mm.core.dto.FullEducationalProgramDTO;
 import ru.urfu.mm.core.entity.EducationalProgram;
 import ru.urfu.mm.core.entity.Student;
 import ru.urfu.mm.core.service.EducationalProgramService;
@@ -29,7 +29,7 @@ public class EducationalProgramController {
 
         Student student = studentService.getStudent(authentication.getName());
         EducationalProgram educationalProgram = educationalProgramService.getEducationalProgram(student.getEducationalProgram().getId());
-        HashMap semesterIdToRequiredCreditsCount = educationalProgramService.getSemesterIdToRequiredCreditsCount(educationalProgram);
+        Map<UUID, Integer> semesterIdToRequiredCreditsCount = educationalProgramService.getSemesterIdToRequiredCreditsCount(educationalProgram);
 
         return new EducationalProgramInfoDTO(educationalProgram.getId(), educationalProgram.getName(), semesterIdToRequiredCreditsCount);
     }
@@ -41,7 +41,7 @@ public class EducationalProgramController {
         var result = new ArrayList<EducationalProgramInfoDTO>();
         for(var program: programs) {
             EducationalProgram educationalProgram = educationalProgramService.getEducationalProgram(program.getId());
-            HashMap semesterIdToRequiredCreditsCount = educationalProgramService.getSemesterIdToRequiredCreditsCount(educationalProgram);
+            Map<UUID, Integer> semesterIdToRequiredCreditsCount = educationalProgramService.getSemesterIdToRequiredCreditsCount(educationalProgram);
 
             var dto = new EducationalProgramInfoDTO(
                     program.getId(),
@@ -53,5 +53,10 @@ public class EducationalProgramController {
         }
 
         return result;
+    }
+
+    @PostMapping("/program")
+    public FullEducationalProgramDTO getEducationalProgram(@RequestBody EducationalProgramIdDTO educationalProgramIdDto) throws JsonProcessingException {
+        return educationalProgramService.getEducationalProgramById(educationalProgramIdDto.getId());
     }
 }

@@ -2,6 +2,8 @@ package ru.urfu.mm.core.entity;
 
 import jakarta.persistence.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @Entity
