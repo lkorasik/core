@@ -1,19 +1,21 @@
 package ru.urfu.mm.core.service;
 
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-import org.apache.poi.xwpf.usermodel.XWPFRun;
-import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.apache.poi.xwpf.usermodel.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.urfu.mm.core.entity.EducationalProgramToCoursesWithSemesters;
+import ru.urfu.mm.core.entity.SelectedCourses;
+import ru.urfu.mm.core.repository.EducationalProgramToCoursesWithSemestersRepository;
+import ru.urfu.mm.core.repository.SelectedCoursesRepository;
+import ru.urfu.mm.core.repository.StudentRepository;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class DocumentService {
@@ -28,7 +30,14 @@ public class DocumentService {
     private final String EDUCATIONAL_PROGRAM_PLACEHOLDER = "EducationalProgram";
     private final String DEADLINE_FOR_SUBMITTING_BACHELORS_DIPLOMA_PLACEHOLDER = "DeadlineForSumbittingBachelorsDiploma";
 
-    public byte[] generateDocument() throws IOException {
+    @Autowired
+    private StudentRepository studentRepository;
+    @Autowired
+    private SelectedCoursesRepository selectedCoursesRepository;
+    @Autowired
+    private EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository;
+
+    public byte[] generateDocument(UUID studentId) throws IOException {
         XWPFDocument document = readTemplate();
         var tables = document.getTables().iterator();
 
@@ -39,8 +48,30 @@ public class DocumentService {
                 "Современные проблемы компьютерных наук",
                 "Май 2025");
 
-        var list = generateData();
-        fillCourseTables(tables, list);
+        var student = studentRepository.findByLogin(studentId).get();
+        var courses = educationalProgramToCoursesWithSemestersRepository
+                .findAll()
+                .stream()
+                .filter(x -> x.getEducationalProgram().getId() == student.getEducationalProgram().getId())
+                .toList();
+        var selectedCourses = selectedCoursesRepository
+                .findAll()
+                .stream()
+                .filter(x -> x.getStudent().getLogin() == studentId)
+                .toList();
+        var semesterToCourse = courses
+                .stream()
+                .collect(
+                        Collectors.groupingBy(
+                                x -> x.getSemester().getSemesterNumber(),
+                                Collectors.mapping(
+                                        x -> x,
+                                        Collectors.toList()
+                                )
+                        )
+                );
+
+        fillCourseTables(tables, semesterToCourse, selectedCourses);
 
         var path = writeText(document);
 
@@ -61,39 +92,46 @@ public class DocumentService {
         }
     }
 
-    @Deprecated
-    private List<List<String>> generateData() {
-        return List.of(
-            List.of("1", "Алгоритмы и структуры данных. Часть 1", "288", "8", "Экзамен", ""),
-            List.of("2", "Компьютерные науки", "72", "2", "Экзамен", ""),
-            List.of("3", "Современные научные исследования", "144", "4", "Экзамен", "")
-        );
-    }
+    private void fillCourseTables(Iterator<XWPFTable> tables, Map<Integer, List<EducationalProgramToCoursesWithSemesters>> semesterToCourse, List<SelectedCourses> selectedCourses) {
+        for(int i = 0; i < 4; i++) {
+            var courses = semesterToCourse.get(i + 1);
 
-    private void fillCourseTables(Iterator<XWPFTable> tables, List<List<String>> data) {
-        for (int i = 0; i < 4; i++) {
-            var firstRequiredTable = tables.next();
-            for (var row : data) {
-                var newRow = firstRequiredTable.createRow();
-                for(int j = 0; i < 6; i++) {
-                    newRow.getTableCells().get(j).appendText(row.get(j));
-                }
+            var requiredTable = tables.next();
+            if(courses != null) {
+                var requiredCourses = courses
+                        .stream()
+                        .filter(EducationalProgramToCoursesWithSemesters::isRequiredCourse)
+                        .filter(x -> {
+                            var item = x.getSpecialCourse().getId();
+                            return selectedCourses
+                                    .stream()
+                                    .map(y -> y.getSpecialCourse().getId())
+                                    .toList()
+                                    .contains(item);
+                        })
+                        .toList();
+                fillTable(requiredCourses, requiredTable);
             }
 
-            var firstOptionalTable = tables.next();
-            for (var row : data) {
-                var newRow = firstOptionalTable.createRow();
-                for(int j = 0; i < 6; i++) {
-                    newRow.getTableCells().get(j).appendText(row.get(j));
-                }
+            var optionalTable = tables.next();
+            if(courses != null) {
+                var optionalCourses = courses
+                        .stream()
+                        .filter(x -> !x.isRequiredCourse())
+                        .filter(x ->
+                                selectedCourses
+                                        .stream()
+                                        .map(y -> y.getSpecialCourse().getId())
+                                        .toList()
+                                        .contains(x.getSpecialCourse().getId())
+                        )
+                        .toList();
+                fillTable(optionalCourses, optionalTable);
             }
 
-            var firstScienceTable = tables.next();
-            for (var row : data) {
-                var newRow = firstScienceTable.createRow();
-                for(int j = 0; i < 6; i++) {
-                    newRow.getTableCells().get(j).appendText(row.get(j));
-                }
+            var scienceTable = tables.next();
+            if(courses != null) {
+                fillTable(Collections.emptyList(), scienceTable);
             }
         }
     }
@@ -107,6 +145,23 @@ public class DocumentService {
         }
 
         return document;
+    }
+
+    private void fillTable(List<EducationalProgramToCoursesWithSemesters> courses, XWPFTable table) {
+        for(var j = 0; j < courses.size(); j++) {
+            var course = courses.get(j);
+            var row = table.createRow();
+            fillRow(row, course, j + 1);
+        }
+    }
+
+    private void fillRow(XWPFTableRow row, EducationalProgramToCoursesWithSemesters course, int ordinal) {
+        row.getTableCells().get(0).appendText(String.valueOf(ordinal));
+        row.getTableCells().get(1).appendText(course.getSpecialCourse().getName());
+        row.getTableCells().get(2).appendText("0");
+        row.getTableCells().get(3).appendText(String.valueOf(course.getSpecialCourse().getCreditsCount()));
+        row.getTableCells().get(4).appendText(course.getSpecialCourse().getControl().getDocumentaryValue());
+        row.getTableCells().get(5).appendText("0");
     }
 
     private void fillGeneralTableInformation(Iterator<XWPFTable> tables, String trainingDirection, String educationalProgram, String deadlineForSubmittingBachelorsDiploma) {
@@ -143,47 +198,5 @@ public class DocumentService {
                 }
             }
         }
-    }
-}
-
-class Row {
-    private final String number;
-    private final String name;
-    private final String hours;
-    private final String volums;
-    private final String check;
-    private final String mark;
-
-    public Row(String number, String name, String hours, String volums, String check, String mark) {
-        this.number = number;
-        this.name = name;
-        this.hours = hours;
-        this.volums = volums;
-        this.check = check;
-        this.mark = mark;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getHours() {
-        return hours;
-    }
-
-    public String getVolums() {
-        return volums;
-    }
-
-    public String getCheck() {
-        return check;
-    }
-
-    public String getMark() {
-        return mark;
     }
 }
