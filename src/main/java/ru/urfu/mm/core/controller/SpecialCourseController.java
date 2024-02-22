@@ -3,15 +3,9 @@ package ru.urfu.mm.core.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.function.ServerResponse;
-import ru.urfu.mm.core.dto.CoursesBySemesterDTO;
-import ru.urfu.mm.core.dto.GetCoursesDTO;
-import ru.urfu.mm.core.dto.GetSelectedCoursesDTO;
-import ru.urfu.mm.core.dto.SelectedCoursesDTO;
+import ru.urfu.mm.core.dto.*;
 import ru.urfu.mm.core.entity.Student;
 import ru.urfu.mm.core.exceptions.CoursesSelectionValidationException;
 import ru.urfu.mm.core.service.CourseForEducationalProgram;
@@ -21,6 +15,7 @@ import ru.urfu.mm.core.service.StudentService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/specialCourses")
@@ -70,4 +65,18 @@ public class SpecialCourseController {
         coursesSelectionService.validateCoursesSelection(student.getLogin(), selectedCourses.getCoursesBySemesters());
         coursesSelectionService.saveCoursesSelection(student.getLogin(), selectedCourses.getCoursesBySemesters());
     }
+
+    @GetMapping("/statistics")
+    public List<SpecialCourseStatisticsDTO> getActualSpecialCoursesStatistics(@RequestParam List<UUID> semestersId) {
+        return specialCourseService.getActualSpecialCoursesStatistics(semestersId);
+    }
+
+    /*
+        public SpecialCourseStatistics[] GetActualSpecialCoursesStatistics([FromQuery] GetActualSpecialCoursesStatisticsRequest getActualSpecialCoursesStatisticsRequest)
+        {
+            var actualSpecialCoursesStatistics = specialCoursesRepository.GetActualSpecialCoursesStatistics(getActualSpecialCoursesStatisticsRequest.SemestersId)
+                .GetAwaiter().GetResult();
+            return actualSpecialCoursesStatistics;
+        }
+     */
 }
