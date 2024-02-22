@@ -1,9 +1,6 @@
 package ru.urfu.mm.core.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.UUID;
 
@@ -11,15 +8,29 @@ import java.util.UUID;
 @Table(name = "student_skills")
 public class StudentSkills {
     @Id
-    @Column
-    // [ForeignKey("Student")]
-    private String studentLogin;
-    @Column
-    // [ForeignKey("Skill")]
-    private UUID skillId;
+    private UUID id;
+    @ManyToOne
+    @JoinColumn(name = "student_login")
+    private Student student;
+    @ManyToOne
+    @JoinColumn(name = "skill_id")
+    private Skill skill;
     @Column
     private SkillLevel level;
 
-//    public Student Student { get; set; }
-//    public Skill Skill { get; set; }
+    public Skill getSkill() {
+        return skill;
+    }
+
+    public void setSkill(Skill skill) {
+        this.skill = skill;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
 }

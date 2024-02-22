@@ -9,22 +9,43 @@ import java.util.UUID;
 public class Student {
     @Id
     @Column
-    public UUID login;
-    @Column
-    public UUID educationalProgramId;
+    private UUID login;
+    @ManyToOne
+    @JoinColumn(name = "educational_program_id")
+    private EducationalProgram educationalProgram;
     @Column(name = "`group`")
-    public String group;
+    private String group;
     @OneToOne
     @JoinColumn(name = "users_login")
-    public User user;
+    private User user;
+
+    public EducationalProgram getEducationalProgram() {
+        return educationalProgram;
+    }
+
+    public void setEducationalProgram(EducationalProgram educationalProgram) {
+        this.educationalProgram = educationalProgram;
+    }
 
     public Student() {
     }
 
-    public Student(UUID login, UUID educationalProgramId, String group, User user) {
+    public Student(UUID login, EducationalProgram educationalProgram, String group, User user) {
         this.login = login;
-        this.educationalProgramId = educationalProgramId;
+        this.educationalProgram = educationalProgram;
         this.group = group;
         this.user = user;
+    }
+
+    public UUID getLogin() {
+        return login;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public User getUser() {
+        return user;
     }
 }

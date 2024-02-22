@@ -5,6 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import ru.urfu.mm.core.entity.EducationalProgram;
+import ru.urfu.mm.core.entity.RegistrationToken;
+import ru.urfu.mm.core.entity.Semester;
+import ru.urfu.mm.core.entity.UserRole;
+import ru.urfu.mm.core.repository.*;
 import ru.urfu.mm.core.entity.*;
 import ru.urfu.mm.core.repository.*;
 
@@ -12,8 +17,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-//@DataJpaTest
-//@AutoConfigureTestDatabase
 @SpringBootTest
 class CoreApplicationTests {
 	@Autowired
@@ -23,11 +26,11 @@ class CoreApplicationTests {
 	@Autowired
 	public StudentRepository studentRepository;
 	@Autowired
+	public EducationalProgramRepository educationalProgramRepository;
+	@Autowired
 	public SemesterRepository semesterRepository;
 	@Autowired
 	public EducationalModuleRepository educationalModuleRepository;
-	@Autowired
-	public EducationalProgramRepository educationalProgramRepository;
 	@Autowired
 	public SpecialCourseRepository specialCourseRepository;
 	@Autowired
@@ -38,6 +41,8 @@ class CoreApplicationTests {
 	public CourseToResultSkillsRepository courseToResultSkillsRepository;
 	@Autowired
 	public CourseToRequiredSkillsRepository courseToRequiredSkillsRepository;
+	@Autowired
+	public SelectedCoursesRepository selectedCoursesRepository;
 	@Autowired
 	public ObjectMapper serializer;
 
@@ -114,7 +119,6 @@ class CoreApplicationTests {
 						"-",
 						"Кафедра вычислительной математики и компьютерных наук",
 						"Хачай, Михаил Юрьевич",
-
 						modules.get(3)
 				)
 		);
@@ -248,8 +252,17 @@ class CoreApplicationTests {
 
 	@Test
 	public void drop() {
-		registrationTokenRepository.deleteAll();
+		selectedCoursesRepository.deleteAll();
 		studentRepository.deleteAll();
+		courseToResultSkillsRepository.deleteAll();
+		courseToRequiredSkillsRepository.deleteAll();
+		skillRepository.deleteAll();
+		educationalProgramToCoursesWithSemestersRepository.deleteAll();
+		semesterRepository.deleteAll();
+		specialCourseRepository.deleteAll();
+		educationalModuleRepository.deleteAll();
+		educationalProgramRepository.deleteAll();
+		registrationTokenRepository.deleteAll();
 		userRepository.deleteAll();
 	}
 

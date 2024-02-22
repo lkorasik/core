@@ -3,12 +3,12 @@ package ru.urfu.mm.core.dto;
 import java.util.Map;
 import java.util.UUID;
 
-public class EducationalProgramInfoDto {
+public class EducationalProgramInfoDTO {
     private final UUID id;
     private final String name;
     private final Map<UUID, Integer> semesterIdToRequiredCreditsCount;
 
-    public EducationalProgramInfoDto(UUID id, String name, Map<UUID, Integer> semesterIdToRequiredCreditsCount) {
+    public EducationalProgramInfoDTO(UUID id, String name, Map<UUID, Integer> semesterIdToRequiredCreditsCount) {
         this.id = id;
         this.name = name;
         this.semesterIdToRequiredCreditsCount = semesterIdToRequiredCreditsCount;

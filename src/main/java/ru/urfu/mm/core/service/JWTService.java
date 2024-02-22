@@ -34,18 +34,20 @@ public class JWTService {
 
         Map<String, String> claims = new HashMap<>();
         claims.put("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name", userDetails.getUsername());
-        claims.put("http://schemas.microsoft.com/ws/2008/06/identity/claims/role", "Admin"); // todo: Fix it
-        claims.put("nbf", "1708189417");
-        claims.put("exp", "1708275817");
-        claims.put("iss", "MyAuthServer");
-        claims.put("aud", "MyAuthClient");
+//        claims.put("http://schemas.microsoft.com/ws/2008/06/identity/claims/role", "Admin"); // todo: Fix it
+//        claims.put("nbf", "1708189417");
+//        claims.put("nbf", issuedDate.getTime() + "");
+//        claims.put("exp", "1708275817");
+//        claims.put("exp", expireDate.getTime() + "");
+//        claims.put("iss", "MyAuthServer");
+//        claims.put("aud", "MyAuthClient");
 
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(issuedDate)
                 .setExpiration(expireDate)
-                .signWith(getSigningKey())
                 .setClaims(claims)
+                .signWith(getSigningKey())
                 .compact();
     }
 
@@ -64,7 +66,7 @@ public class JWTService {
     }
 
     public String getUsername(String token) {
-        return getAllClaimsFromToken(token).getSubject();
+        return (String) getAllClaimsFromToken(token).get("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name");
     }
 
     public List<String> getRoles(String token) {

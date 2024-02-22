@@ -2,12 +2,12 @@ package ru.urfu.mm.core.dto;
 
 import ru.urfu.mm.core.entity.UserRole;
 
-public class AccessTokenDto {
+public class AccessTokenDTO {
     private String accessToken;
     private String login;
     private UserRole userRole;
 
-    public AccessTokenDto(String accessToken, String login, UserRole userRole) {
+    public AccessTokenDTO(String accessToken, String login, UserRole userRole) {
         this.accessToken = accessToken;
         this.login = login;
         this.userRole = userRole;
