@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import ru.urfu.mm.core.dto.CreateEducationalProgramDTO;
 import ru.urfu.mm.core.dto.EducationalProgramIdDTO;
 import ru.urfu.mm.core.dto.EducationalProgramInfoDTO;
 import ru.urfu.mm.core.dto.FullEducationalProgramDTO;
@@ -58,5 +59,10 @@ public class EducationalProgramController {
     @PostMapping("/program")
     public FullEducationalProgramDTO getEducationalProgram(@RequestBody EducationalProgramIdDTO educationalProgramIdDto) throws JsonProcessingException {
         return educationalProgramService.getEducationalProgramById(educationalProgramIdDto.getId());
+    }
+
+    @PostMapping("/create")
+    public void createEducationalProgram(@RequestBody CreateEducationalProgramDTO educationalProgramDTO) throws JsonProcessingException {
+        educationalProgramService.createEducationalProgram(educationalProgramDTO);
     }
 }
