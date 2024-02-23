@@ -159,4 +159,17 @@ public class SpecialCourseService {
     {
         return semestersIds == null || semestersIds.contains(model.getSemester().getId());
     }
+
+    public List<SpecialCourseDTO> getEducationalModuleCourses(UUID educationalModuleId) {
+        var courses = specialCourseRepository
+                .findAll()
+                .stream()
+                .filter(x -> educationalModuleId.equals(x.getEducationalModule().getId()))
+                .toList();
+
+        return courses
+                .stream()
+                .map(ModelConverterHelper::toDomain)
+                .toList();
+    }
 }
