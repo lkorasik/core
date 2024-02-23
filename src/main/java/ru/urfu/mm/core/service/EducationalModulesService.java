@@ -42,4 +42,21 @@ public class EducationalModulesService {
             specialCourseModel.get().setEducationalModule(educationalModuleEntity);
         }
     }
+
+    public void deleteModuleById(UUID educationalModuleId) {
+        var module = educationalModuleRepository
+                .findById(educationalModuleId)
+                .get();
+
+        var moduleCourses = specialCourseRepository
+                .findAll()
+                .stream()
+                .filter(x -> educationalModuleId.equals(x.getEducationalModule().getId()))
+                .toList();
+
+        for(var specialCourse : moduleCourses) {
+            specialCourse.setEducationalModule(null);
+        }
+        educationalModuleRepository.delete(module);
+    }
 }

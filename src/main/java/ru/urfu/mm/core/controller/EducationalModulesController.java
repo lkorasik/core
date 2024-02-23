@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.core.dto.CreateModuleDTO;
 import ru.urfu.mm.core.dto.GetModulesDTO;
+import ru.urfu.mm.core.dto.ModuleIdDTO;
 import ru.urfu.mm.core.entity.EducationalModule;
 import ru.urfu.mm.core.service.EducationalModulesService;
 
@@ -30,5 +31,10 @@ public class EducationalModulesController {
         educationalModulesService.createModuleWithCourses(
                 createModuleDTO.getEducationalModuleName(),
                 createModuleDTO.getSpecialCoursesIds());
+    }
+
+    @DeleteMapping("/delete")
+    public void deleteModule(@RequestBody ModuleIdDTO moduleIdDTO) {
+        educationalModulesService.deleteModuleById(moduleIdDTO.getEducationalModuleId());
     }
 }
