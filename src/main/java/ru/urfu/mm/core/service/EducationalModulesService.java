@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.urfu.mm.core.entity.EducationalModule;
 import ru.urfu.mm.core.repository.EducationalModuleRepository;
+import ru.urfu.mm.core.repository.SpecialCourseRepository;
 
 import java.util.List;
 import java.util.UUID;
@@ -12,6 +13,8 @@ import java.util.UUID;
 public class EducationalModulesService {
     @Autowired
     private EducationalModuleRepository educationalModuleRepository;
+    @Autowired
+    private SpecialCourseRepository specialCourseRepository;
 
     public List<EducationalModule> getAllModules() {
         return educationalModuleRepository.findAll();
@@ -24,5 +27,19 @@ public class EducationalModulesService {
                 .filter(x -> educationalModulesIds.contains(x.getId()))
                 .map(x -> new EducationalModule(x.getId(), x.getName()))
                 .toList();
+    }
+
+    public void createModuleWithCourses(String educationalModuleName, List<UUID> specialCoursesIds) {
+        var educationalModuleEntity = educationalModuleRepository
+                .save(new EducationalModule(educationalModuleName));
+        for(var specialCourseId : specialCoursesIds) {
+            var specialCourseModel = specialCourseRepository
+                    .findAll()
+                    .stream()
+                    .filter(x -> x.getId().equals(specialCourseId))
+                    .findFirst();
+
+            specialCourseModel.get().setEducationalModule(educationalModuleEntity);
+        }
     }
 }
