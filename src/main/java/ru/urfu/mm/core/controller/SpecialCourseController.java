@@ -71,12 +71,8 @@ public class SpecialCourseController {
         return specialCourseService.getActualSpecialCoursesStatistics(semestersId);
     }
 
-    /*
-        public SpecialCourseStatistics[] GetActualSpecialCoursesStatistics([FromQuery] GetActualSpecialCoursesStatisticsRequest getActualSpecialCoursesStatisticsRequest)
-        {
-            var actualSpecialCoursesStatistics = specialCoursesRepository.GetActualSpecialCoursesStatistics(getActualSpecialCoursesStatisticsRequest.SemestersId)
-                .GetAwaiter().GetResult();
-            return actualSpecialCoursesStatistics;
-        }
-     */
+    @GetMapping("/allCourses")
+    public List<SpecialCourseDTO> getAllCourses() {
+        return specialCourseService.getAllCourses();
+    }
 }

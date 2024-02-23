@@ -2,12 +2,14 @@ package ru.urfu.mm.core.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.urfu.mm.core.dto.SpecialCourseDTO;
 import ru.urfu.mm.core.dto.SpecialCourseStatisticsDTO;
 import ru.urfu.mm.core.entity.EducationalProgramToCoursesWithSemesters;
 import ru.urfu.mm.core.entity.Semester;
 import ru.urfu.mm.core.entity.SpecialCourse;
 import ru.urfu.mm.core.repository.EducationalProgramToCoursesWithSemestersRepository;
 import ru.urfu.mm.core.repository.SelectedCoursesRepository;
+import ru.urfu.mm.core.repository.SpecialCourseRepository;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -18,6 +20,8 @@ public class SpecialCourseService {
     private EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository;
     @Autowired
     private SelectedCoursesRepository selectedCoursesRepository;
+    @Autowired
+    private SpecialCourseRepository specialCourseRepository;
 
     public ArrayList<CourseForEducationalProgram> getCoursesByEducationalProgramAndSemesters(UUID educationalProgramId, List<UUID> semestersIds) {
         var coursesInfos = educationalProgramToCoursesWithSemestersRepository
@@ -126,6 +130,17 @@ public class SpecialCourseService {
                         x.getSpecialCourse().getName(),
                         specialCourseStudentsCount(x.getSpecialCourse().getId())
                         ))
+                .toList();
+    }
+
+    public List<SpecialCourseDTO> getAllCourses() {
+        var courses = specialCourseRepository
+                .findAll()
+                .stream()
+                .toList();
+        return courses
+                .stream()
+                .map(ModelConverterHelper::toDomain)
                 .toList();
     }
 
