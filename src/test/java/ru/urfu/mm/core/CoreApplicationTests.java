@@ -70,7 +70,7 @@ class CoreApplicationTests {
 				new SpecialCourse(
 						"Введение в Kaggle",
 						6,
-						ru.urfu.mm.core.entity.Control.EXAM,
+						Control.EXAM,
 						"-",
 						"-",
 						"-",

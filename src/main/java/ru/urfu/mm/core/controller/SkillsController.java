@@ -15,7 +15,7 @@ public class SkillsController {
     @Autowired
     private SkillsService skillsService;
 
-    @GetMapping("/")
+    @GetMapping
     public List<SkillInfoDTO> getSkills() {
         return skillsService
                 .getSkills()
@@ -23,19 +23,4 @@ public class SkillsController {
                 .map(x -> new SkillInfoDTO(x.getId(), x.getName()))
                 .toList();
     }
-
-    /*
-
-        [HttpGet]
-        public async Task<SkillInfoDto[]> GetAllSkills()
-        {
-            return (await skillsRepository.GetAllSkills())
-                .Select(x => new SkillInfoDto()
-                {
-                    Id = x.Id,
-                    Name = x.Name
-                })
-                .ToArray();
-        }
-     */
 }
