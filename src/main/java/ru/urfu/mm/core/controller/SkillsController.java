@@ -55,4 +55,11 @@ public class SkillsController {
 
         return desiredSkillsService.getSkillsForStudent(UUID.fromString(authentication.getName()));
     }
+
+    @PostMapping("/desired")
+    public void saveDesiredSkills(@RequestBody SaveSkillsDTO saveSkillsDTO) {
+        UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+
+        desiredSkillsService.saveSkillsForStudent(UUID.fromString(authentication.getName()), saveSkillsDTO.getSkills());
+    }
 }

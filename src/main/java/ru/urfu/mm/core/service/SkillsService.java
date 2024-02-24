@@ -46,9 +46,6 @@ public class SkillsService {
 
         Student student = studentRepository.getReferenceById(studentId);
 
-        SkillDTO skill = skills.get(0);
-        StudentSkills studentSkills = new StudentSkills(student, skillRepository.findById(skill.getId()).get(), skill.getLevel());
-
         var newSkills = skills
                 .stream()
                 .map(x -> Pair.of(skillRepository.findById(x.getId()).get(), x.getLevel()))
