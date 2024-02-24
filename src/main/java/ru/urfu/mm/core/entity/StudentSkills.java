@@ -33,4 +33,12 @@ public class StudentSkills {
     public void setStudent(Student student) {
         this.student = student;
     }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public SkillLevel getLevel() {
+        return level;
+    }
 }

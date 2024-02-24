@@ -1,13 +1,17 @@
 package ru.urfu.mm.core.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.urfu.mm.core.dto.SkillDTO;
 import ru.urfu.mm.core.dto.SkillInfoDTO;
 import ru.urfu.mm.core.service.SkillsService;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/skills")
@@ -21,6 +25,17 @@ public class SkillsController {
                 .getSkills()
                 .stream()
                 .map(x -> new SkillInfoDTO(x.getId(), x.getName()))
+                .toList();
+    }
+
+    @GetMapping("/actual")
+    public List<SkillDTO> getActualSkills() {
+        UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+
+        return skillsService
+                .getSkillsForStudent(UUID.fromString(authentication.getName()))
+                .stream()
+                .map(x -> new SkillDTO(x.getId(), x.getSkill().getName(), x.getLevel()))
                 .toList();
     }
 }
