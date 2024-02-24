@@ -8,6 +8,7 @@ import java.util.UUID;
 @Table(name = "student_skills")
 public class StudentSkills {
     @Id
+    @GeneratedValue
     private UUID id;
     @ManyToOne
     @JoinColumn(name = "student_login")
@@ -17,6 +18,12 @@ public class StudentSkills {
     private Skill skill;
     @Column
     private SkillLevel level;
+
+    public StudentSkills(Student student, Skill skill, SkillLevel level) {
+        this.student = student;
+        this.skill = skill;
+        this.level = level;
+    }
 
     public Skill getSkill() {
         return skill;

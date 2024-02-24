@@ -3,9 +3,8 @@ package ru.urfu.mm.core.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ru.urfu.mm.core.dto.SaveSkillsDTO;
 import ru.urfu.mm.core.dto.SkillDTO;
 import ru.urfu.mm.core.dto.SkillInfoDTO;
 import ru.urfu.mm.core.service.SkillsService;
@@ -37,5 +36,12 @@ public class SkillsController {
                 .stream()
                 .map(x -> new SkillDTO(x.getId(), x.getSkill().getName(), x.getLevel()))
                 .toList();
+    }
+
+    @PostMapping("/actual")
+    public void saveActualSkills(@RequestBody SaveSkillsDTO saveSkillsDTO) {
+        UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+
+        skillsService.saveSkillsForStudent(UUID.fromString(authentication.getName()), saveSkillsDTO.getSkills());
     }
 }
