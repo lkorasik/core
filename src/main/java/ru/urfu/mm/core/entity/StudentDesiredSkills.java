@@ -8,13 +8,23 @@ import java.util.UUID;
 @Table(name = "students_desired_skills")
 public class StudentDesiredSkills {
     @Id
-    @Column
-    private String studentLogin;
+    private UUID id;
+    @ManyToOne
+    @JoinColumn(name = "student_login")
+    private Student student;
     @ManyToOne
     @JoinColumn(name = "skill_id")
     private Skill skill;
     @Column
     private SkillLevel level;
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
 
     public Skill getSkill() {
         return skill;
@@ -23,7 +33,4 @@ public class StudentDesiredSkills {
     public void setSkill(Skill skill) {
         this.skill = skill;
     }
-
-//    public Student Student { get; set; }
-//    public Skill Skill { get; set; }
 }

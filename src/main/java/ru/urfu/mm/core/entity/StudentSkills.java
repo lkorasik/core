@@ -19,6 +19,10 @@ public class StudentSkills {
     @Column
     private SkillLevel level;
 
+    public StudentSkills() {
+
+    }
+
     public StudentSkills(Student student, Skill skill, SkillLevel level) {
         this.student = student;
         this.skill = skill;

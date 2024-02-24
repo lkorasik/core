@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.core.dto.SaveSkillsDTO;
 import ru.urfu.mm.core.dto.SkillDTO;
 import ru.urfu.mm.core.dto.SkillInfoDTO;
+import ru.urfu.mm.core.entity.Skill;
+import ru.urfu.mm.core.service.DesiredSkillsService;
 import ru.urfu.mm.core.service.SkillsService;
 
 import java.util.List;
@@ -17,6 +19,8 @@ import java.util.UUID;
 public class SkillsController {
     @Autowired
     private SkillsService skillsService;
+    @Autowired
+    private DesiredSkillsService desiredSkillsService;
 
     @GetMapping
     public List<SkillInfoDTO> getSkills() {
@@ -43,5 +47,12 @@ public class SkillsController {
         UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
 
         skillsService.saveSkillsForStudent(UUID.fromString(authentication.getName()), saveSkillsDTO.getSkills());
+    }
+
+    @GetMapping("/desired")
+    public List<Skill> getDesiredSkills() {
+        UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+
+        return desiredSkillsService.getSkillsForStudent(UUID.fromString(authentication.getName()));
     }
 }
