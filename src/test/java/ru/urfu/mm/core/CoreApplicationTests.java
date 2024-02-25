@@ -20,29 +20,33 @@ import java.util.UUID;
 @SpringBootTest
 class CoreApplicationTests {
 	@Autowired
-	public RegistrationTokenRepository registrationTokenRepository;
-	@Autowired
-	public UserRepository userRepository;
-	@Autowired
-	public StudentRepository studentRepository;
-	@Autowired
-	public EducationalProgramRepository educationalProgramRepository;
-	@Autowired
-	public SemesterRepository semesterRepository;
-	@Autowired
-	public EducationalModuleRepository educationalModuleRepository;
-	@Autowired
-	public SpecialCourseRepository specialCourseRepository;
-	@Autowired
-	public EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository;
-	@Autowired
-	public SkillRepository skillRepository;
+	public CourseToRequiredSkillsRepository courseToRequiredSkillsRepository;
 	@Autowired
 	public CourseToResultSkillsRepository courseToResultSkillsRepository;
 	@Autowired
-	public CourseToRequiredSkillsRepository courseToRequiredSkillsRepository;
+	private DesiredSkillsRepository desiredSkillsRepository;
+	@Autowired
+	public EducationalModuleRepository educationalModuleRepository;
+	@Autowired
+	public EducationalProgramRepository educationalProgramRepository;
+	@Autowired
+	public EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository;
+	@Autowired
+	public RegistrationTokenRepository registrationTokenRepository;
 	@Autowired
 	public SelectedCoursesRepository selectedCoursesRepository;
+	@Autowired
+	public SemesterRepository semesterRepository;
+	@Autowired
+	public SkillRepository skillRepository;
+	@Autowired
+	public SpecialCourseRepository specialCourseRepository;
+	@Autowired
+	public StudentRepository studentRepository;
+	@Autowired
+	public UserRepository userRepository;
+	@Autowired
+	private StudentSkillRepository studentSkillRepository;
 	@Autowired
 	public ObjectMapper serializer;
 
@@ -252,11 +256,13 @@ class CoreApplicationTests {
 
 	@Test
 	public void drop() {
+		studentSkillRepository.deleteAll();
+		desiredSkillsRepository.deleteAll();
 		selectedCoursesRepository.deleteAll();
-		studentRepository.deleteAll();
 		courseToResultSkillsRepository.deleteAll();
 		courseToRequiredSkillsRepository.deleteAll();
 		skillRepository.deleteAll();
+		studentRepository.deleteAll();
 		educationalProgramToCoursesWithSemestersRepository.deleteAll();
 		semesterRepository.deleteAll();
 		specialCourseRepository.deleteAll();
