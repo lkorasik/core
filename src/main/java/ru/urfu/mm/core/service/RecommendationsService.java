@@ -56,6 +56,13 @@ public class RecommendationsService {
                 studentSkills,
                 studentDesiredSkills
         );
+        var partiallySuitableCoursesIds = getPartiallySuitableCoursesIds(
+                courseIdToRequiredSkills,
+                courseIdToResultSkills,
+                studentSkills,
+                studentDesiredSkills
+        );
+
         var perfectCourses = buildCoursesWithSkills(
                 perfectCoursesIds,
                 courseIdToRequiredSkills,
@@ -77,6 +84,24 @@ public class RecommendationsService {
                 })
                 .toList();
 
+        var partiallySuitableCourses = buildCoursesWithSkills(
+                partiallySuitableCoursesIds,
+                courseIdToRequiredSkills,
+                courseIdToResultSkills
+        );
+        partiallySuitableCourses.sort(Collections.reverseOrder());
+        var partiallySuitableCourses2 = partiallySuitableCourses
+                .stream()
+                .map(x -> {
+                    var studentActualSkillsIds = studentSkills.stream().map(y -> y.getSkill().getId()).toList();
+                    var desiredSkillsIds = studentDesiredSkills.stream().map(y -> y.getSkill().getId()).toList();
+                    var courseRequiredSkillsIds = x.requiredSkills.stream().map(y -> y.getSkill().getId()).toList();
+                    var courseResultSkillsIds = x.requiredSkills.stream().map(y -> y.getSkill().getId()).toList();
+
+                    return intersection(courseRequiredSkillsIds, studentActualSkillsIds).size() * 1000 + intersection(courseResultSkillsIds, desiredSkillsIds).size();
+                })
+                .toList();
+
         var coursesById = courses
                 .stream()
                 .collect(
@@ -93,7 +118,10 @@ public class RecommendationsService {
                         .stream()
                         .map(x -> buildRecommendedCourse(coursesById, x))
                         .toList(),
-                List.of(),
+                partiallySuitableCourses
+                        .stream()
+                        .map(x -> buildRecommendedCourse(coursesById, x))
+                        .toList(),
                 List.of(),
                 List.of()
         );
@@ -102,12 +130,6 @@ public class RecommendationsService {
     /*
     public async Task<RecommendationResultDto> CalculateRecommendations(string studentLogin)
 {
-    var partiallySuitableCoursesIds = GetPartiallySuitableCoursesIds(
-        courseIdToRequiredSkills,
-        courseIdToResultSkills,
-        studentSkills,
-        studentDesiredSkills
-    );
     var complementaryCoursesIds = GetComplementaryCoursesIds(
         courseIdToRequiredSkills,
         courseIdToResultSkills,
@@ -115,19 +137,6 @@ public class RecommendationsService {
         partiallySuitableCoursesIds
     );
 
-    var partiallySuitableCourses =
-        BuildCoursesWithSkills(partiallySuitableCoursesIds, courseIdToRequiredSkills, courseIdToResultSkills)
-        .OrderByDescending(x =>
-        {
-            var studentActualSkillsIds = studentSkills.Select(x => x.Id);
-            var desiredSkillsIds = studentDesiredSkills.Select(x => x.Id);
-            var courseRequiredSkillsIds = x.RequiredSkills.Select(x => x.Id);
-            var courseResultSkillsIds = x.ResultSkills.Select(y => y.Id);
-
-            // Двухступенчатая сортировка. Сначала по требуемым курсам, потом по желаемым для изучения
-            return courseRequiredSkillsIds.Intersect(studentActualSkillsIds).Count() * 1000 +
-                   courseResultSkillsIds.Intersect(desiredSkillsIds).Count();
-        });
     var complementaryCourses =
         BuildCoursesWithSkills(complementaryCoursesIds, courseIdToRequiredSkills, courseIdToResultSkills)
             .OrderByDescending(x =>
@@ -143,9 +152,6 @@ public class RecommendationsService {
 
     return new RecommendationResultDto
     {
-        PerfectCourses = perfectCourses.Select(x => BuildRecommendedCourse(coursesById, x)).ToArray(),
-        PartiallySuitableCourses = partiallySuitableCourses.Select(x => BuildRecommendedCourse(coursesById, x))
-            .ToArray(),
         ComplementaryCourses =
             complementaryCourses.Select(x => BuildRecommendedCourse(coursesById, x)).ToArray(),
         ModuleCourses = coursesByModule.Select(x => new ModuleCoursesDto()
@@ -186,6 +192,34 @@ public class RecommendationsService {
         }
 
         return list;
+    }
+
+    public List<UUID> getPartiallySuitableCoursesIds(
+            Map<UUID, List<StudentSkills>> courseIdToRequiredSkills,
+            Map<UUID, List<StudentSkills>> courseIdToResultSkills,
+            List<StudentSkills> studentSkills,
+            List<StudentDesiredSkills> studentDesiredSkills
+    ) {
+        var resultCoursesIds = new ArrayList<UUID>();
+        for (var entry : courseIdToRequiredSkills.entrySet()) {
+            var courseId = entry.getKey();
+            var skills = entry.getValue();
+            if (doHaveSomeRequiredSkillsForCourse(skills, studentSkills) && !doHaveAllRequiredSkillsForCourse(skills, studentSkills)) {
+                var resultSkillsForCourse = courseIdToResultSkills.get(courseId);
+                if (doesCourseImproveSkills(studentDesiredSkills, resultSkillsForCourse)) {
+                    resultCoursesIds.add(courseId);
+                }
+            }
+        }
+        return resultCoursesIds;
+    }
+
+    private static boolean doHaveSomeRequiredSkillsForCourse(List<StudentSkills> courseRequiredSkills, List<StudentSkills> studentSkills) {
+        return courseRequiredSkills
+                .stream()
+                .anyMatch(x -> studentSkills
+                        .stream()
+                        .anyMatch(y -> y.getId() == x.getId() && y.getLevel() == x.getLevel()));
     }
 
     private List<UUID> getPerfectCoursesIds(
@@ -267,27 +301,6 @@ public class RecommendationsService {
                         .toList()
         );
     }
-    /*
-
-        private static RecommendedCourse BuildRecommendedCourse(
-            Dictionary<Guid, CourseForEducationalProgram> coursesById, CourseWithSkills courseWithSkills)
-        {
-            var course = coursesById[courseWithSkills.CourseId];
-            return new RecommendedCourse
-            {
-                Id = courseWithSkills.CourseId,
-                Name = course.Name,
-                CreditsCount = course.CreditsCount,
-                Control = course.Control,
-                Description = course.Description,
-                Semesters = course.Semesters,
-                EducationalModuleId = course.EducationalModuleId,
-                RequiredSemesterId = course.RequiredSemesterId,
-                RequiredSkills = courseWithSkills.RequiredSkills,
-                ResultSkills = courseWithSkills.ResultSkills,
-            };
-        }
-     */
 
     private static class CourseWithSkills {
         private final UUID courseId;
