@@ -38,6 +38,5 @@ public class AuthenticationService {
 
     public void validateToken(String token) {
         jwtService.validateToken(token);
-        System.out.println("Everything okay");
     }
 }
