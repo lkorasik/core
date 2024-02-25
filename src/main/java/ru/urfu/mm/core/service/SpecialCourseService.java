@@ -3,6 +3,7 @@ package ru.urfu.mm.core.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.urfu.mm.core.dto.CreateModuleSpecialCourseDTO;
+import ru.urfu.mm.core.dto.EditModuleSpecialCourseDTO;
 import ru.urfu.mm.core.dto.SpecialCourseDTO;
 import ru.urfu.mm.core.dto.SpecialCourseStatisticsDTO;
 import ru.urfu.mm.core.entity.EducationalProgramToCoursesWithSemesters;
@@ -211,5 +212,22 @@ public class SpecialCourseService {
 
     public void deleteCourse(UUID courseId) {
         specialCourseRepository.deleteById(courseId);
+    }
+
+    public void editModuleSpecialCourse(EditModuleSpecialCourseDTO editModuleSpecialCourseDTO) {
+        var oldCourseValue = specialCourseRepository
+                .findById(editModuleSpecialCourseDTO.getSpecialCourseId())
+                .get();
+
+        if (oldCourseValue != null) {
+            oldCourseValue.setName(editModuleSpecialCourseDTO.getCourseName());
+            oldCourseValue.setDepartment(editModuleSpecialCourseDTO.getDepartment());
+            oldCourseValue.setTeacherName(editModuleSpecialCourseDTO.getTeacherName());
+            oldCourseValue.setControl(editModuleSpecialCourseDTO.getControl());
+            oldCourseValue.setCreditsCount(editModuleSpecialCourseDTO.getCreditsCount());
+            oldCourseValue.setDescription(editModuleSpecialCourseDTO.getCourseDescription());
+
+            specialCourseRepository.save(oldCourseValue);
+        }
     }
 }

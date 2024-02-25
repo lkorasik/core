@@ -95,4 +95,9 @@ public class SpecialCourseController {
     public void deleteSpecialCourse(@RequestBody CourseIdDTO courseIdDTO) {
         specialCourseService.deleteCourse(courseIdDTO.getSpecialCourseId());
     }
+
+    @PostMapping("/educationalModuleCourses/edit")
+    public void editModuleCourse(@RequestBody EditModuleSpecialCourseDTO editModuleSpecialCourseDTO) {
+        specialCourseService.editModuleSpecialCourse(editModuleSpecialCourseDTO);
+    }
 }
