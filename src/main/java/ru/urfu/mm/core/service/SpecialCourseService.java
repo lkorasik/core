@@ -2,11 +2,13 @@ package ru.urfu.mm.core.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.urfu.mm.core.dto.CreateModuleSpecialCourseDTO;
 import ru.urfu.mm.core.dto.SpecialCourseDTO;
 import ru.urfu.mm.core.dto.SpecialCourseStatisticsDTO;
 import ru.urfu.mm.core.entity.EducationalProgramToCoursesWithSemesters;
 import ru.urfu.mm.core.entity.Semester;
 import ru.urfu.mm.core.entity.SpecialCourse;
+import ru.urfu.mm.core.repository.EducationalModuleRepository;
 import ru.urfu.mm.core.repository.EducationalProgramToCoursesWithSemestersRepository;
 import ru.urfu.mm.core.repository.SelectedCoursesRepository;
 import ru.urfu.mm.core.repository.SpecialCourseRepository;
@@ -22,6 +24,8 @@ public class SpecialCourseService {
     private SelectedCoursesRepository selectedCoursesRepository;
     @Autowired
     private SpecialCourseRepository specialCourseRepository;
+    @Autowired
+    private EducationalModuleRepository educationalModuleRepository;
 
     public ArrayList<CourseForEducationalProgram> getCoursesByEducationalProgramAndSemesters(UUID educationalProgramId, List<UUID> semestersIds) {
         var coursesInfos = educationalProgramToCoursesWithSemestersRepository
@@ -187,5 +191,21 @@ public class SpecialCourseService {
                 course.getTeacherName(),
                 course.getDepartment()
         );
+    }
+
+    public void createModuleSpecialCourse(CreateModuleSpecialCourseDTO createModuleSpecialCourseDTO) {
+        var educationalModule = educationalModuleRepository
+                .findById(createModuleSpecialCourseDTO.getEducationalModuleId())
+                .get();
+        var course = new SpecialCourse(
+                createModuleSpecialCourseDTO.getCourseName(),
+                createModuleSpecialCourseDTO.getCreditsCount(),
+                createModuleSpecialCourseDTO.getControl(),
+                createModuleSpecialCourseDTO.getCourseDescription(),
+                createModuleSpecialCourseDTO.getDepartment(),
+                createModuleSpecialCourseDTO.getTeacherName(),
+                educationalModule
+        );
+        specialCourseRepository.save(course);
     }
 }
