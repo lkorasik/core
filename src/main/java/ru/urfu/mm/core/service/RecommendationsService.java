@@ -6,6 +6,7 @@ import ru.urfu.mm.core.dto.*;
 import ru.urfu.mm.core.entity.Student;
 import ru.urfu.mm.core.entity.StudentDesiredSkills;
 import ru.urfu.mm.core.entity.StudentSkills;
+import ru.urfu.mm.core.utils.Pair;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -71,10 +72,7 @@ public class RecommendationsService {
                 courseIdToRequiredSkills,
                 courseIdToResultSkills
         );
-        perfectCourses.sort(Collections.reverseOrder());
-        var perfectCourses2 = perfectCourses
-                .stream()
-                .map(x -> {
+        perfectCourses.sort(Comparator.comparing(x -> {
                     var desiredSkillsIds = studentDesiredSkills
                             .stream()
                             .map(y -> y.getSkill().getId())
@@ -84,36 +82,28 @@ public class RecommendationsService {
                             .map(y -> y.getSkill().getId())
                             .toList();
                     return intersection(courseResultSkillsIds, desiredSkillsIds).size();
-                })
-                .toList();
+                }));
 
         var partiallySuitableCourses = buildCoursesWithSkills(
                 partiallySuitableCoursesIds,
                 courseIdToRequiredSkills,
                 courseIdToResultSkills
         );
-        partiallySuitableCourses.sort(Collections.reverseOrder());
-        var partiallySuitableCourses2 = partiallySuitableCourses
-                .stream()
-                .map(x -> {
+        partiallySuitableCourses.sort(Comparator.comparing(x -> {
                     var studentActualSkillsIds = studentSkills.stream().map(y -> y.getSkill().getId()).toList();
                     var desiredSkillsIds = studentDesiredSkills.stream().map(y -> y.getSkill().getId()).toList();
                     var courseRequiredSkillsIds = x.requiredSkills.stream().map(y -> y.getSkill().getId()).toList();
                     var courseResultSkillsIds = x.requiredSkills.stream().map(y -> y.getSkill().getId()).toList();
 
                     return intersection(courseRequiredSkillsIds, studentActualSkillsIds).size() * 1000 + intersection(courseResultSkillsIds, desiredSkillsIds).size();
-                })
-                .toList();
+                }));
 
         var complementaryCourses = buildCoursesWithSkills(
                 complementaryCoursesIds,
                 courseIdToRequiredSkills,
                 courseIdToResultSkills
         );
-        complementaryCourses.sort(Collections.reverseOrder());
-        var complementaryCourses2 = complementaryCourses
-                .stream()
-                .map(x -> {
+        complementaryCourses.sort(Comparator.comparing(x -> {
                     var skillsToLearn = getSkillsToLearn(
                             partiallySuitableCourses
                                     .stream()
@@ -132,8 +122,7 @@ public class RecommendationsService {
                             .map(y -> y.getSkill().getId())
                             .toList();
                     return intersection(skillsToLearnIds, courseResultSkillsIds).size();
-                })
-                .toList();
+                }));
 
         var coursesById = courses
                 .stream()
@@ -314,14 +303,6 @@ public class RecommendationsService {
         return resultCoursesIds;
     }
 
-    private static boolean doHaveSomeRequiredSkillsForCourse(List<StudentSkills> courseRequiredSkills, List<StudentSkills> studentSkills) {
-        return courseRequiredSkills
-                .stream()
-                .anyMatch(x -> studentSkills
-                        .stream()
-                        .anyMatch(y -> y.getId() == x.getId() && y.getLevel() == x.getLevel()));
-    }
-
     private List<UUID> getPerfectCoursesIds(
             Map<UUID, List<StudentSkills>> courseIdToRequiredSkills,
             Map<UUID, List<StudentSkills>> courseIdToResultSkills,
@@ -347,8 +328,16 @@ public class RecommendationsService {
                 .stream()
                 .allMatch(requiredSkill -> studentSkills
                         .stream()
-                        .anyMatch(studentSkill -> studentSkill.getId().equals(requiredSkill.getId())
+                        .anyMatch(studentSkill -> studentSkill.getSkill().getId().equals(requiredSkill.getSkill().getId())
                                                   && studentSkill.getLevel() == requiredSkill.getLevel()));
+    }
+
+    private static boolean doHaveSomeRequiredSkillsForCourse(List<StudentSkills> courseRequiredSkills, List<StudentSkills> studentSkills) {
+        return courseRequiredSkills
+                .stream()
+                .anyMatch(x -> studentSkills
+                        .stream()
+                        .anyMatch(y -> y.getSkill().getId().equals(x.getSkill().getId()) && y.getLevel() == x.getLevel()));
     }
 
     private boolean doesCourseImproveSkills(List<StudentDesiredSkills> wantedSkills, List<StudentSkills> courseResultSkills) {
@@ -356,7 +345,7 @@ public class RecommendationsService {
                 .stream()
                 .anyMatch(x -> wantedSkills
                         .stream()
-                        .anyMatch(y -> y.getSkill().getId() == x.getSkill().getId() && y.getLevel().ordinal() <= x.getLevel().ordinal()));
+                        .anyMatch(y -> y.getSkill().getId().equals(x.getSkill().getId()) && y.getLevel().ordinal() <= x.getLevel().ordinal()));
     }
 
     private boolean doesCourseImproveSkills2(List<StudentSkills> wantedSkills, List<StudentSkills> courseResultSkills) {
