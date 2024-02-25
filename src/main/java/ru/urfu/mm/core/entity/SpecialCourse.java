@@ -86,4 +86,28 @@ public class SpecialCourse {
     public void setEducationalModule(EducationalModule educationalModule) {
         this.educationalModule = educationalModule;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCreditsCount(int creditsCount) {
+        this.creditsCount = creditsCount;
+    }
+
+    public void setControl(Control control) {
+        this.control = control;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
+    }
 }
