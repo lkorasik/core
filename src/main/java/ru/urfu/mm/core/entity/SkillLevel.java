@@ -3,18 +3,18 @@ package ru.urfu.mm.core.entity;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum SkillLevel {
-    BEGINNER(0),
-    INTERMEDIATE(1),
-    ADVANCED(2);
+    BEGINNER("Beginner"),
+    INTERMEDIATE("Intermediate"),
+    ADVANCED("Advanced");
 
-    private int value;
+    private String value;
 
-    SkillLevel(int value) {
+    SkillLevel(String value) {
         this.value = value;
     }
 
     @JsonValue
-    public int getValue() {
+    public String getValue() {
         return value;
     }
 }

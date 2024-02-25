@@ -52,6 +52,11 @@ public class CourseToRequiredSkills {
         this.specialCourse = specialCourse;
     }
 
-//    public SpecialCourseModel SpecialCourseModel { get; set; }
-//    public SkillModel SkillModel { get; set; }
+    public UUID getId() {
+        return id;
+    }
+
+    public SkillLevel getSkillLevel() {
+        return skillLevel;
+    }
 }
