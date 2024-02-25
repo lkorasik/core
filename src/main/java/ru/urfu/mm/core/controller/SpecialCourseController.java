@@ -90,4 +90,9 @@ public class SpecialCourseController {
     public void createModuleCourse(@RequestBody CreateModuleSpecialCourseDTO createModuleSpecialCourseDTO) {
         specialCourseService.createModuleSpecialCourse(createModuleSpecialCourseDTO);
     }
+
+    @DeleteMapping("/delete")
+    public void deleteSpecialCourse(@RequestBody CourseIdDTO courseIdDTO) {
+        specialCourseService.deleteCourse(courseIdDTO.getSpecialCourseId());
+    }
 }

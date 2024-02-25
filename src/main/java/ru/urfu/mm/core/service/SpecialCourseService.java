@@ -208,4 +208,8 @@ public class SpecialCourseService {
         );
         specialCourseRepository.save(course);
     }
+
+    public void deleteCourse(UUID courseId) {
+        specialCourseRepository.deleteById(courseId);
+    }
 }
