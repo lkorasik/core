@@ -19,6 +19,10 @@ public class StudentDesiredSkills {
     @Column
     private SkillLevel level;
 
+    public StudentDesiredSkills() {
+
+    }
+
     public StudentDesiredSkills(Student student, Skill skill, SkillLevel level) {
         this.student = student;
         this.skill = skill;
@@ -39,5 +43,13 @@ public class StudentDesiredSkills {
 
     public void setSkill(Skill skill) {
         this.skill = skill;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public SkillLevel getLevel() {
+        return level;
     }
 }

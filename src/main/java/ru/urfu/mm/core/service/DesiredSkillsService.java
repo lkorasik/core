@@ -24,16 +24,13 @@ public class DesiredSkillsService {
     @Autowired
     private StudentRepository studentRepository;
 
-    public List<Skill> getSkillsForStudent(UUID studentId) {
+    public List<StudentDesiredSkills> getSkillsForStudent(UUID studentId) {
         var studentSkills = desiredSkillsRepository
                 .findAll()
                 .stream()
                 .filter(x -> x.getStudent().getLogin().equals(studentId))
                 .toList();
-        return studentSkills
-                .stream()
-                .map(StudentDesiredSkills::getSkill)
-                .toList();
+        return studentSkills;
     }
 
     public void saveSkillsForStudent(UUID studentId, List<SkillDTO> skills) {

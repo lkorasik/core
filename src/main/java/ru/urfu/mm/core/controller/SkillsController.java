@@ -8,6 +8,7 @@ import ru.urfu.mm.core.dto.SaveSkillsDTO;
 import ru.urfu.mm.core.dto.SkillDTO;
 import ru.urfu.mm.core.dto.SkillInfoDTO;
 import ru.urfu.mm.core.entity.Skill;
+import ru.urfu.mm.core.entity.StudentDesiredSkills;
 import ru.urfu.mm.core.service.DesiredSkillsService;
 import ru.urfu.mm.core.service.SkillsService;
 
@@ -53,7 +54,10 @@ public class SkillsController {
     public List<Skill> getDesiredSkills() {
         UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
 
-        return desiredSkillsService.getSkillsForStudent(UUID.fromString(authentication.getName()));
+        return desiredSkillsService.getSkillsForStudent(UUID.fromString(authentication.getName()))
+                .stream()
+                .map(StudentDesiredSkills::getSkill)
+                .toList();
     }
 
     @PostMapping("/desired")
