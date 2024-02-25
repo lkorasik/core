@@ -85,4 +85,9 @@ public class SpecialCourseController {
     public SpecialCourseDTO getCourseById(@RequestParam("specialCourseId") UUID specialCourseId) {
         return specialCourseService.getCourse(specialCourseId);
     }
+
+    @PostMapping("/educationalModuleCourses/create")
+    public void createModuleCourse(@RequestBody CreateModuleSpecialCourseDTO createModuleSpecialCourseDTO) {
+        specialCourseService.createModuleSpecialCourse(createModuleSpecialCourseDTO);
+    }
 }
