@@ -18,11 +18,11 @@ public class RecommendedCourseDTO {
      * Если курс является обязательным, то поле заполняется id семестра,
      * в котором этот курс будет обязательным, иначе - null.
      */
-    private Optional<UUID> requiredSemesterId;
+    private UUID requiredSemesterId;
     private List<SkillDTO> requiredSkills;
     private List<SkillDTO> resultSkills;
 
-    public RecommendedCourseDTO(UUID id, String name, int credits, Control control, String description, List<SemesterDTO> semesters, UUID educationalModuleId, Optional<UUID> requiredSemesterId, List<SkillDTO> requiredSkills, List<SkillDTO> resultSkills) {
+    public RecommendedCourseDTO(UUID id, String name, int credits, Control control, String description, List<SemesterDTO> semesters, UUID educationalModuleId, UUID requiredSemesterId, List<SkillDTO> requiredSkills, List<SkillDTO> resultSkills) {
         this.id = id;
         this.name = name;
         this.credits = credits;
@@ -67,7 +67,7 @@ public class RecommendedCourseDTO {
         return educationalModuleId;
     }
 
-    public Optional<UUID> getRequiredSemesterId() {
+    public UUID getRequiredSemesterId() {
         return requiredSemesterId;
     }
 

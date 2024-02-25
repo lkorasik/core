@@ -2,10 +2,7 @@ package ru.urfu.mm.core.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.urfu.mm.core.dto.RecommendationResultDTO;
-import ru.urfu.mm.core.dto.RecommendedCourseDTO;
-import ru.urfu.mm.core.dto.SemesterDTO;
-import ru.urfu.mm.core.dto.SkillDTO;
+import ru.urfu.mm.core.dto.*;
 import ru.urfu.mm.core.entity.Student;
 import ru.urfu.mm.core.entity.StudentDesiredSkills;
 import ru.urfu.mm.core.entity.StudentSkills;
@@ -62,6 +59,12 @@ public class RecommendationsService {
                 studentSkills,
                 studentDesiredSkills
         );
+        var complementaryCoursesIds = getComplementaryCoursesIds(
+                courseIdToRequiredSkills,
+                courseIdToResultSkills,
+                studentSkills,
+                partiallySuitableCoursesIds
+        );
 
         var perfectCourses = buildCoursesWithSkills(
                 perfectCoursesIds,
@@ -102,6 +105,36 @@ public class RecommendationsService {
                 })
                 .toList();
 
+        var complementaryCourses = buildCoursesWithSkills(
+                complementaryCoursesIds,
+                courseIdToRequiredSkills,
+                courseIdToResultSkills
+        );
+        complementaryCourses.sort(Collections.reverseOrder());
+        var complementaryCourses2 = complementaryCourses
+                .stream()
+                .map(x -> {
+                    var skillsToLearn = getSkillsToLearn(
+                            partiallySuitableCourses
+                                    .stream()
+                                    .flatMap(w -> w.getRequiredSkills().stream())
+                                    .toList(),
+                            studentSkills
+                    );
+
+                    var skillsToLearnIds = skillsToLearn
+                            .stream()
+                            .map(y -> y.getSkill().getId())
+                            .toList();
+                    var courseResultSkillsIds = x
+                            .resultSkills
+                            .stream()
+                            .map(y -> y.getSkill().getId())
+                            .toList();
+                    return intersection(skillsToLearnIds, courseResultSkillsIds).size();
+                })
+                .toList();
+
         var coursesById = courses
                 .stream()
                 .collect(
@@ -122,38 +155,42 @@ public class RecommendationsService {
                         .stream()
                         .map(x -> buildRecommendedCourse(coursesById, x))
                         .toList(),
-                List.of(),
-                List.of()
+                complementaryCourses
+                        .stream()
+                        .map(x -> buildRecommendedCourse(coursesById, x))
+                        .toList(),
+                coursesByModule
+                        .entrySet()
+                        .stream()
+                        .map(x -> new ModuleCoursesDTO(
+                                x.getKey(),
+                                x.getValue().stream().map(y -> new RecommendedCourseDTO(
+                                        y.getId(),
+                                        y.getName(),
+                                        y.getCreditsCount(),
+                                        y.getControl(),
+                                        y.getDescription(),
+                                        y.getSemesters().stream().map(w -> new SemesterDTO(w.getId(), w.getYear(), w.getSemesterNumber())).toList(),
+                                        y.getEducationalModuleId(),
+                                        y.requiredSemesterId,
+                                        courseIdToRequiredSkills.containsKey(y.getId())
+                                                ? courseIdToRequiredSkills.get(y.getId()).stream().map(w -> new SkillDTO(w.getId(), w.getSkill().getName(), w.getLevel())).toList()
+                                                : Collections.emptyList(),
+                                        courseIdToResultSkills.containsKey(y.getId())
+                                                ? courseIdToResultSkills.get(y.getId()).stream().map(w -> new SkillDTO(w.getId(), w.getSkill().getName(), w.getLevel())).toList()
+                                                : Collections.emptyList()
+                                ))
+                                        .toList()
+                        ))
+                        .toList()
         );
     }
-
     /*
     public async Task<RecommendationResultDto> CalculateRecommendations(string studentLogin)
 {
-    var complementaryCoursesIds = GetComplementaryCoursesIds(
-        courseIdToRequiredSkills,
-        courseIdToResultSkills,
-        studentSkills,
-        partiallySuitableCoursesIds
-    );
-
-    var complementaryCourses =
-        BuildCoursesWithSkills(complementaryCoursesIds, courseIdToRequiredSkills, courseIdToResultSkills)
-            .OrderByDescending(x =>
-            {
-                var skillsToLearn = GetSkillsToLearn(
-                    partiallySuitableCourses.SelectMany(y => y.RequiredSkills).ToArray(),
-                    studentSkills
-                );
-                var skillsToLearnIds = skillsToLearn.Select(y => y.Id);
-                var courseResultSkillsIds = x.ResultSkills.Select(y => y.Id);
-                return skillsToLearnIds.Intersect(courseResultSkillsIds).Count();
-            });
 
     return new RecommendationResultDto
     {
-        ComplementaryCourses =
-            complementaryCourses.Select(x => BuildRecommendedCourse(coursesById, x)).ToArray(),
         ModuleCourses = coursesByModule.Select(x => new ModuleCoursesDto()
             {
                 ModuleId = x.Key,
@@ -181,6 +218,69 @@ public class RecommendationsService {
     };
 }
      */
+
+    private List<UUID> getComplementaryCoursesIds(
+            Map<UUID, List<StudentSkills>> courseIdToRequiredSkills,
+            Map<UUID, List<StudentSkills>> courseIdToResultSkills,
+            List<StudentSkills> studentSkills,
+            List<UUID> partiallySuitableCoursesIds
+    ) {
+        var resultCoursesIds = new ArrayList<UUID>();
+        var requiredSkillsForPartiallySuitableCourses = partiallySuitableCoursesIds
+                .stream()
+                .map(x -> courseIdToRequiredSkills.get(x))
+                .toList()
+                .stream()
+                .flatMap(Collection::stream)
+                .toList();
+
+        var skillsToLearn = getSkillsToLearn(requiredSkillsForPartiallySuitableCourses, studentSkills);
+
+        for (var entry : courseIdToRequiredSkills.entrySet()) {
+            var courseId = entry.getKey();
+            List<StudentSkills> skills = entry.getValue();
+
+            if (doHaveAllRequiredSkillsForCourse(skills, studentSkills)) {
+                var resultSkillsForCourse = courseIdToResultSkills.get(courseId);
+                if (doesCourseImproveSkills2(skillsToLearn, resultSkillsForCourse)) {
+                    resultCoursesIds.add(courseId);
+                }
+            }
+        }
+
+        return resultCoursesIds;
+    }
+
+    /**
+     * Вычисляет скиллы для изучения. Смотрим на требующиеся скиллы для курсов из 2 группы и вычитаем то, что студент
+     * уже умеет.
+     */
+    public List<StudentSkills> getSkillsToLearn(List<StudentSkills> requiredSkillsForPartiallySuitableCourses, List<StudentSkills> studentSkills) {
+        return requiredSkillsForPartiallySuitableCourses
+                .stream()
+                .filter(x -> studentSkills.stream().noneMatch(y -> y.getId() == x.getId())
+                             || studentSkills.stream().anyMatch(y -> y.getId() == x.getId() && y.getLevel().ordinal() < x.getLevel().ordinal()))
+                .toList();
+    }
+
+    public static List<CourseWithSkills> buildCoursesWithSkills(
+            UUID[] coursesIds,
+            Map<UUID, List<StudentSkills>> courseIdToRequiredSkills,
+            Map<UUID, List<StudentSkills>> courseIdToResultSkills
+    ) {
+        List<CourseWithSkills> coursesWithSkillsList = new ArrayList<>();
+
+        for (UUID courseId : coursesIds) {
+            CourseWithSkills courseWithSkills = new CourseWithSkills(
+                    courseId,
+                    courseIdToRequiredSkills.get(courseId),
+                    courseIdToResultSkills.get(courseId));
+            coursesWithSkillsList.add(courseWithSkills);
+        }
+
+        return coursesWithSkillsList;
+    }
+
 
     private <T> List<T> intersection(List<T> list1, List<T> list2) {
         List<T> list = new ArrayList<T>();
@@ -259,6 +359,14 @@ public class RecommendationsService {
                         .anyMatch(y -> y.getSkill().getId() == x.getSkill().getId() && y.getLevel().ordinal() <= x.getLevel().ordinal()));
     }
 
+    private boolean doesCourseImproveSkills2(List<StudentSkills> wantedSkills, List<StudentSkills> courseResultSkills) {
+        return courseResultSkills
+                .stream()
+                .anyMatch(x -> wantedSkills
+                        .stream()
+                        .anyMatch(y -> y.getSkill().getId() == x.getSkill().getId() && y.getLevel().ordinal() <= x.getLevel().ordinal()));
+    }
+
     private List<CourseWithSkills> buildCoursesWithSkills(
             List<UUID> coursesIds,
             Map<UUID, List<StudentSkills>> courseIdToRequiredSkills,
@@ -290,7 +398,7 @@ public class RecommendationsService {
                         .map(x -> new SemesterDTO(x.getId(), x.getYear(), x.getSemesterNumber()))
                         .toList(),
                 course.getEducationalModuleId(),
-                Optional.of(course.requiredSemesterId),
+                course.requiredSemesterId,
                 courseWithSkills.requiredSkills
                         .stream()
                         .map(x -> new SkillDTO(x.getId(), x.getSkill().getName(), x.getLevel()))
