@@ -172,4 +172,20 @@ public class SpecialCourseService {
                 .map(ModelConverterHelper::toDomain)
                 .toList();
     }
+
+    public SpecialCourseDTO getCourse(UUID specialCourseId) {
+        var course = specialCourseRepository
+                .findById(specialCourseId)
+                .get();
+        return new SpecialCourseDTO(
+                course.getId(),
+                course.getName(),
+                course.getCreditsCount(),
+                course.getControl(),
+                course.getDescription(),
+                course.getEducationalModule().getId(),
+                course.getTeacherName(),
+                course.getDepartment()
+        );
+    }
 }

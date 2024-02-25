@@ -48,7 +48,7 @@ public class SpecialCourseController {
         var selected = specialCourseService.getSelectedCoursesIds(student.getLogin(), getSelectedCoursesDTO.getSemestersIds());
 
         var result = new ArrayList<CoursesBySemesterDTO>();
-        for(var key : selected.keySet()) {
+        for (var key : selected.keySet()) {
             var item = new CoursesBySemesterDTO(key, selected.get(key));
             result.add(item);
         }
@@ -79,5 +79,10 @@ public class SpecialCourseController {
     @GetMapping("/educationalModuleCourses")
     public List<SpecialCourseDTO> getEducationalModuleCourses(@RequestParam("educationalModuleId") String moduleIdDTO) {
         return specialCourseService.getEducationalModuleCourses(UUID.fromString(moduleIdDTO));
+    }
+
+    @GetMapping("/course")
+    public SpecialCourseDTO getCourseById(@RequestParam("specialCourseId") UUID specialCourseId) {
+        return specialCourseService.getCourse(specialCourseId);
     }
 }
