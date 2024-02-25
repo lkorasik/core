@@ -1,0 +1,103 @@
+.flexContainer {
+    margin-top: 3rem;
+}
+
+.flexElement {
+    flex-basis: 50%;
+    flex-shrink: 1;
+}
+
+.container {
+    padding-top: 39px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 1em;
+    background-color: #f6f6f6;
+}
+
+.background {
+    background-color: #f6f6f6;
+    background-size: cover;
+}
+
+.fontHeader1 {
+    font-family: Montserrat, sans-serif;
+    font-size: 52px;
+    font-weight: 600;
+    line-height: 57px;
+    letter-spacing: 0em;
+    width: 1103px;
+    min-height: 98px;
+    position: initial;
+
+    color: #1E4391;
+}
+
+.editButton {
+    margin-left: 18px;
+    background-image: url("../../../public/editButton.svg");
+    width: 52px;
+    height: 52px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scale: 1;
+    transition: scale 0.5s ease;
+}
+
+.editButton:hover {
+    cursor: pointer;
+    scale: 1.08;
+    transition: scale 0.5s ease;
+}
+
+.deleteButton {
+    margin-left: 18px;
+    background-image: url("../../../public/deleteButton.svg");
+    width: 52px;
+    height: 52px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scale: 1;
+    transition: scale 0.5s ease;
+}
+
+.deleteButton:hover {
+    cursor: pointer;
+    scale: 1.08;
+    transition: scale 0.5s ease;
+}
+
+.cancelButton {
+    margin-left: 18px;
+    background-image: url("../../../public/cancelButton.svg");
+    width: 52px;
+    height: 52px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scale: 1;
+    transition: scale 0.5s ease;
+}
+
+.cancelButton:hover {
+    cursor: pointer;
+    scale: 1.08;
+    transition: scale 0.5s ease;
+}
+
+.helperButtons {
+    display: flex;
+    background-position: center;
+    background-size: contain;
+    backgrount-repeat: none;
+    position: absolute;
+    right: 40px;
+    top: 147px;
+    vertical-align: bottom;
+    border: none;
+}

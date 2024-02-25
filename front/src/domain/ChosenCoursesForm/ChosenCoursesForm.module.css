@@ -1,0 +1,32 @@
+.requiredCoursesBox {
+    height: 20rem;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    background-color: #D9D9D9;
+}
+
+.chosenCoursesBox {
+    margin-top: 2rem;
+
+    height: 20rem;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    background-color: #D9D9D9;
+}
+
+.button {
+    margin-top: 2rem;
+    height: 5.75rem;
+    width: 17rem;
+    border-radius: 1rem;
+    border-color: #008BD0;
+    background-color: #008BD0;
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+.flexContainer {
+    margin-top: 1rem;
+}

@@ -1,0 +1,31 @@
+.button {
+    padding: 1.2em 3.5em;
+    border-radius: 1.2em;
+    border: none;
+    background-color: #EF302B;
+    color: #ffffff;
+    /* cursor: pointer; */
+    transition: background-color 0.2s ease-in;
+}
+
+.button:disabled {
+    background-color: #EF302B99;
+    transition: background-color 0.2s ease-in;
+}
+.button:enabled {
+    cursor: pointer;
+}
+
+.button:hover:enabled {
+    background-color: #C0231F;
+    transition: background-color 0.2s ease-in;
+}
+
+.button:active:enabled {
+    background-color: #A00B08;
+    transition: background-color 0.2s ease-in;
+}
+
+.innerText {
+    font-family: 'Montserrat', sans-serif;
+}

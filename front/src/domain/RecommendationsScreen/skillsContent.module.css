@@ -1,0 +1,51 @@
+.wrap {
+    width: 48vw;
+    padding-left: calc(8vw + 30px);
+}
+
+.helpText {
+    margin-bottom: 50px;
+}
+
+.elementContainer {
+    margin-top: 30px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    min-width: 668px;
+}
+
+.simpleCard {
+    color: white;
+    background-color: #3aa2d2;
+    padding: 20px;
+    border-radius: 20px;
+    max-width: 50%;
+
+    white-space: normal;
+    text-align: center;
+}
+
+.select {
+    width: 210px;
+}
+
+.continueButton {
+    position: fixed;
+    height: 100px;
+    left: 50vw;
+    bottom: 50px;
+
+    background-color: #4E6C99;
+}
+
+.continueButton:hover:enabled {
+    background-color: #008BD0;
+}
+
+.continueButton:disabled {
+    background-color: rgba(78, 108, 153, 0.6);
+}
