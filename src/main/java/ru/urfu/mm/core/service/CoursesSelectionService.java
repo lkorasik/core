@@ -129,7 +129,7 @@ public class CoursesSelectionService {
         var coursesToDelete = selectedCoursesRepository
                 .findAll()
                 .stream()
-                .filter(x -> x.getId().equals(studentId))
+                .filter(x -> x.getStudent().getLogin().equals(studentId))
                 .toList();
         var coursesIdToDelete = coursesToDelete
                 .stream()
