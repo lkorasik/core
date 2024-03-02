@@ -1,5 +1,7 @@
 package ru.urfu.mm.dto;
 
+import java.util.UUID;
+
 public class RegistrationAdministratorDTO {
     private final String registrationToken;
     private final String password;

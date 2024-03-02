@@ -14,6 +14,8 @@ import ru.urfu.mm.entity.EducationalProgram;
 import ru.urfu.mm.entity.Student;
 import ru.urfu.mm.entity.User;
 import ru.urfu.mm.entity.UserRole;
+import ru.urfu.mm.exceptions.IncorrectUserRoleException;
+import ru.urfu.mm.exceptions.RegistrationTokenNotExistException;
 import ru.urfu.mm.repository.EducationalProgramRepository;
 import ru.urfu.mm.repository.RegistrationTokenRepository;
 import ru.urfu.mm.repository.StudentRepository;
@@ -25,26 +27,34 @@ import java.util.UUID;
 @Service
 public class UserService implements UserDetailsService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private StudentRepository studentRepository;
-    @Autowired
-    private RegistrationTokenRepository registrationTokenRepository;
-    @Autowired
-    private EducationalProgramRepository educationalProgramRepository;
+    private final UserRepository userRepository;
+    private final StudentRepository studentRepository;
+    private final RegistrationTokenRepository registrationTokenRepository;
+    private final EducationalProgramRepository educationalProgramRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    public UserService(
+            UserRepository userRepository,
+            StudentRepository studentRepository,
+            RegistrationTokenRepository registrationTokenRepository,
+            EducationalProgramRepository educationalProgramRepository,
+            PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.studentRepository = studentRepository;
+        this.registrationTokenRepository = registrationTokenRepository;
+        this.educationalProgramRepository = educationalProgramRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public void createAdmin(RegistrationAdministratorDTO dto) {
         UUID registrationToken = UUID.fromString(dto.getRegistrationToken());
 
         UserRole token = registrationTokenRepository
                 .findByRegistrationToken(registrationToken)
-                .orElseThrow(() -> new RuntimeException("Error in database"))
+                .orElseThrow(() -> new RegistrationTokenNotExistException(registrationToken))
                 .userRole;
-        ensureRole(UserRole.ADMIN, token, dto.getClass().getName(), registrationToken.toString());
+        ensureRole(UserRole.ADMIN, token, registrationToken.toString());
 
         User user = new User(registrationToken, passwordEncoder.encode(dto.getPassword()), UserRole.ADMIN);
         userRepository.save(user);
@@ -57,19 +67,19 @@ public class UserService implements UserDetailsService {
 
         UserRole token = registrationTokenRepository
                 .findByRegistrationToken(registrationToken)
-                .orElseThrow(() -> new RuntimeException("Error in database"))
+                .orElseThrow(() -> new RegistrationTokenNotExistException(registrationToken))
                 .userRole;
-        ensureRole(UserRole.STUDENT, token, dto.getClass().getName(), registrationToken.toString());
+        ensureRole(UserRole.STUDENT, token, registrationToken.toString());
 
         User user = new User(registrationToken, passwordEncoder.encode(dto.getPassword()), UserRole.STUDENT);
         userRepository.save(user);
 
-        EducationalProgram educationalProgram = educationalProgramRepository.getReferenceById(dto.getEducationalProgramId());
+        EducationalProgram educationalProgram = educationalProgramRepository
+                .getReferenceById(dto.getEducationalProgramId());
 
         Student student = new Student(registrationToken, educationalProgram, dto.getGroup(), user);
         studentRepository.save(student);
 
-        // todo: надо доделать часть, которая отвечает за регистрацию студента
         registrationTokenRepository.deleteById(registrationToken);
     }
 
@@ -91,12 +101,12 @@ public class UserService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getLogin().toString(), user.getPassword(), Collections.emptyList());
     }
 
-    private void ensureRole(UserRole expected, UserRole current, String dtoName, String token) {
+    private void ensureRole(UserRole expected, UserRole current, String token) {
         if(current != expected) {
             if(current != null) {
                 logger.warn("Registration token " + token + " was used for " + expected + " registration");
             }
-            throw new IllegalArgumentException("Registration token " + token + " is invalid " + dtoName);
+            throw new IncorrectUserRoleException(token);
         }
     }
 }
