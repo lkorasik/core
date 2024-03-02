@@ -11,12 +11,19 @@ import ru.urfu.mm.dto.RegistrationStudentDTO;
 
 @Service
 public class AuthenticationService {
+    private final UserService userService;
+    private final AuthenticationManager authenticationManager;
+    private final JWTService jwtService;
+
     @Autowired
-    private UserService userService;
-    @Autowired
-    private AuthenticationManager authenticationManager;
-    @Autowired
-    private JWTService jwtService;
+    public AuthenticationService(
+            UserService userService,
+            AuthenticationManager authenticationManager,
+            JWTService jwtService) {
+        this.userService = userService;
+        this.authenticationManager = authenticationManager;
+        this.jwtService = jwtService;
+    }
 
     public String generateToken(LoginDTO loginDTO) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword()));
