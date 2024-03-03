@@ -1,5 +1,6 @@
 package ru.urfu.mm.dto;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class SemesterDTO {
@@ -23,5 +24,18 @@ public class SemesterDTO {
 
     public int getSemesterNumber() {
         return semesterNumber;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SemesterDTO that = (SemesterDTO) o;
+        return year == that.year && semesterNumber == that.semesterNumber && Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, year, semesterNumber);
     }
 }

@@ -13,8 +13,12 @@ import java.util.List;
 
 @Service
 public class SemesterService {
+    private final SemesterRepository semesterRepository;
+
     @Autowired
-    private SemesterRepository semesterRepository;
+    public SemesterService(SemesterRepository semesterRepository) {
+        this.semesterRepository = semesterRepository;
+    }
 
     public List<SemesterDTO> getActualSemesters() {
         ZonedDateTime now = Instant.now().atZone(ZoneId.systemDefault());
