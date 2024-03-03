@@ -25,25 +25,25 @@ public class AuthenticationService {
         this.jwtService = jwtService;
     }
 
-    public String generateToken(LoginDTO loginDTO) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword()));
-        UserDetails userDetails = userService.loadUserByUsername(loginDTO.getEmail());
-        return jwtService.generateToken(userDetails);
+    public String generateToken(LoginDTO dto) {
+        return generateToken(dto.getEmail(), dto.getPassword());
     }
 
-    public String generateToken(RegistrationAdministratorDTO registrationAdministratorDTO) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(registrationAdministratorDTO.getRegistrationToken(), registrationAdministratorDTO.getPassword()));
-        UserDetails userDetails = userService.loadUserByUsername(registrationAdministratorDTO.getRegistrationToken());
-        return jwtService.generateToken(userDetails);
+    public String generateToken(RegistrationAdministratorDTO dto) {
+        return generateToken(dto.getRegistrationToken(), dto.getPassword());
     }
 
-    public String generateToken(RegistrationStudentDTO registrationStudentDto) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(registrationStudentDto.getRegistrationToken(), registrationStudentDto.getPassword()));
-        UserDetails userDetails = userService.loadUserByUsername(registrationStudentDto.getRegistrationToken());
-        return jwtService.generateToken(userDetails);
+    public String generateToken(RegistrationStudentDTO dto) {
+        return generateToken(dto.getRegistrationToken(), dto.getPassword());
     }
 
     public void validateToken(String token) {
         jwtService.validateToken(token);
+    }
+
+    private String generateToken(String principal, String credentials) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(principal, credentials));
+        UserDetails userDetails = userService.loadUserByUsername(principal);
+        return jwtService.generateToken(userDetails);
     }
 }
