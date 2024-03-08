@@ -7,8 +7,10 @@ import ru.urfu.mm.dto.EditModuleSpecialCourseDTO;
 import ru.urfu.mm.dto.SpecialCourseDTO;
 import ru.urfu.mm.dto.SpecialCourseStatisticsDTO;
 import ru.urfu.mm.entity.EducationalProgramToCoursesWithSemesters;
+import ru.urfu.mm.entity.SelectedCourses;
 import ru.urfu.mm.entity.Semester;
 import ru.urfu.mm.entity.SpecialCourse;
+import ru.urfu.mm.exceptions.CourseRequiredCriteriaException;
 import ru.urfu.mm.repository.EducationalModuleRepository;
 import ru.urfu.mm.repository.EducationalProgramToCoursesWithSemestersRepository;
 import ru.urfu.mm.repository.SelectedCoursesRepository;
@@ -19,16 +21,24 @@ import java.util.stream.Collectors;
 
 @Service
 public class SpecialCourseService {
-    @Autowired
-    private EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository;
-    @Autowired
-    private SelectedCoursesRepository selectedCoursesRepository;
-    @Autowired
-    private SpecialCourseRepository specialCourseRepository;
-    @Autowired
-    private EducationalModuleRepository educationalModuleRepository;
+    private final EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository;
+    private final SelectedCoursesRepository selectedCoursesRepository;
+    private final SpecialCourseRepository specialCourseRepository;
+    private final EducationalModuleRepository educationalModuleRepository;
 
-    public ArrayList<CourseForEducationalProgram> getCoursesByEducationalProgramAndSemesters(UUID educationalProgramId, List<UUID> semestersIds) {
+    @Autowired
+    public SpecialCourseService(
+            EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository,
+            SelectedCoursesRepository selectedCoursesRepository,
+            SpecialCourseRepository specialCourseRepository,
+            EducationalModuleRepository educationalModuleRepository) {
+        this.educationalProgramToCoursesWithSemestersRepository = educationalProgramToCoursesWithSemestersRepository;
+        this.selectedCoursesRepository = selectedCoursesRepository;
+        this.specialCourseRepository = specialCourseRepository;
+        this.educationalModuleRepository = educationalModuleRepository;
+    }
+
+    public List<CourseForEducationalProgram> getCoursesByEducationalProgramAndSemesters(UUID educationalProgramId, List<UUID> semestersIds) {
         var coursesInfos = educationalProgramToCoursesWithSemestersRepository
                 .findAll()
                 .stream()
@@ -90,7 +100,7 @@ public class SpecialCourseService {
     }
 
     public Map<UUID, List<UUID>> getSelectedCoursesIds(UUID studentLogin, List<UUID> semestersIds) {
-        var semesterIdsSet = new HashSet<UUID>(semestersIds);
+        var semesterIdsSet = new HashSet<>(semestersIds);
         var selectedCourses = selectedCoursesRepository
                 .findAll()
                 .stream()
@@ -99,7 +109,7 @@ public class SpecialCourseService {
         return selectedCourses
                 .stream()
                 .filter(x -> semesterIdsSet.contains(x.getSemester().getId()))
-                .collect(Collectors.toMap(x -> x.getId(), x -> List.of(x.getSpecialCourse().getId())));
+                .collect(Collectors.toMap(SelectedCourses::getId, x -> List.of(x.getSpecialCourse().getId())));
     }
 
     public List<Map.Entry<UUID, UUID>> getRequiredCoursesForEducationalProgram(UUID educationalProgramId) {
@@ -113,10 +123,10 @@ public class SpecialCourseService {
                 .toList();
         var coursesIdsHashSet = requiredCourses
                 .stream()
-                .map(x -> x.getKey())
+                .map(Map.Entry::getKey)
                 .collect(Collectors.toSet());
-        if(requiredCourses.size() != coursesIdsHashSet.size()) {
-            throw new RuntimeException("There is more than one semester, in which course is required");
+        if (requiredCourses.size() != coursesIdsHashSet.size()) {
+            throw new CourseRequiredCriteriaException();
         }
         return requiredCourses;
     }
@@ -131,10 +141,11 @@ public class SpecialCourseService {
         return courses
                 .stream()
                 .map(x -> new SpecialCourseStatisticsDTO(
-                        x.getSpecialCourse().getId(),
-                        x.getSpecialCourse().getName(),
-                        specialCourseStudentsCount(x.getSpecialCourse().getId())
-                        ))
+                                x.getSpecialCourse().getId(),
+                                x.getSpecialCourse().getName(),
+                                specialCourseStudentsCount(x.getSpecialCourse().getId())
+                        )
+                )
                 .toList();
     }
 

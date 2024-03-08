@@ -23,6 +23,13 @@ public class SelectedCourses {
     public SelectedCourses() {
     }
 
+    public SelectedCourses(UUID id, Student student, Semester semester, SpecialCourse specialCourse) {
+        this.id = id;
+        this.student = student;
+        this.semester = semester;
+        this.specialCourse = specialCourse;
+    }
+
     public SelectedCourses(Student student, Semester semester, SpecialCourse specialCourse) {
         this.student = student;
         this.semester = semester;
