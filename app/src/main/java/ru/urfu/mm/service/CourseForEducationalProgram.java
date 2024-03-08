@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public class CourseForEducationalProgram {
     private UUID id;
-    public String name;
+    private String name;
     private int creditsCount;
     private Control control;
     private String description;

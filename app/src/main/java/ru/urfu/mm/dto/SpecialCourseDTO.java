@@ -2,6 +2,7 @@ package ru.urfu.mm.dto;
 
 import ru.urfu.mm.entity.Control;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class SpecialCourseDTO {
@@ -55,5 +56,27 @@ public class SpecialCourseDTO {
 
     public String getDepartment() {
         return department;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        SpecialCourseDTO that = (SpecialCourseDTO) o;
+        return creditsCount == that.creditsCount
+               && Objects.equals(id, that.id)
+               && Objects.equals(name, that.name)
+               && control == that.control
+               && Objects.equals(description, that.description)
+               && Objects.equals(educationalModuleId, that.educationalModuleId)
+               && Objects.equals(teacherName, that.teacherName)
+               && Objects.equals(department, that.department);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, creditsCount, control, description, educationalModuleId, teacherName, department);
     }
 }

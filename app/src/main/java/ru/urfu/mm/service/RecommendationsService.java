@@ -378,7 +378,7 @@ public class RecommendationsService {
         var course = coursesById.get(courseWithSkills.courseId);
         return new RecommendedCourseDTO(
                 courseWithSkills.courseId,
-                course.name,
+                course.getName(),
                 course.getCreditsCount(),
                 course.getControl(),
                 course.getDescription(),
