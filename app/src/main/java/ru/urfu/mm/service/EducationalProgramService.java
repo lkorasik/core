@@ -9,6 +9,7 @@ import ru.urfu.mm.dto.*;
 import ru.urfu.mm.entity.EducationalProgram;
 import ru.urfu.mm.entity.EducationalProgramToCoursesWithSemesters;
 import ru.urfu.mm.entity.Semester;
+import ru.urfu.mm.exceptions.EducationalProgramNotFoundException;
 import ru.urfu.mm.repository.EducationalProgramRepository;
 import ru.urfu.mm.repository.EducationalProgramToCoursesWithSemestersRepository;
 import ru.urfu.mm.repository.SemesterRepository;
@@ -19,21 +20,25 @@ import java.util.*;
 
 @Service
 public class EducationalProgramService {
+    private final EducationalProgramRepository educationalProgramRepository;
+    private final SemesterRepository semesterRepository;
+    private final SpecialCourseRepository specialCourseRepository;
+    private final EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository;
+    private final ObjectMapper serializer;
+
     @Autowired
-    private EducationalProgramRepository educationalProgramRepository;
-    @Autowired
-    private SemesterRepository semesterRepository;
-    @Autowired
-    private SpecialCourseRepository specialCourseRepository;
-    @Autowired
-    private EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository;
-    @Autowired
-    private ObjectMapper serializer;
+    public EducationalProgramService(EducationalProgramRepository educationalProgramRepository, SemesterRepository semesterRepository, SpecialCourseRepository specialCourseRepository, EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository, ObjectMapper serializer) {
+        this.educationalProgramRepository = educationalProgramRepository;
+        this.semesterRepository = semesterRepository;
+        this.specialCourseRepository = specialCourseRepository;
+        this.educationalProgramToCoursesWithSemestersRepository = educationalProgramToCoursesWithSemestersRepository;
+        this.serializer = serializer;
+    }
 
     public EducationalProgram getEducationalProgram(UUID educationalProgramId) {
         return educationalProgramRepository
                 .findById(educationalProgramId)
-                .orElseThrow();
+                .orElseThrow(() -> new EducationalProgramNotFoundException(educationalProgramId));
     }
 
     public Map<UUID, Integer> getSemesterIdToRequiredCreditsCount(EducationalProgram educationalProgram) throws JsonProcessingException {
@@ -122,11 +127,6 @@ public class EducationalProgramService {
     public void createEducationalProgram(CreateEducationalProgramDTO createEducationalProgramDTO) throws JsonProcessingException {
         createNecessarySemesters(createEducationalProgramDTO.getSemesters());
         var semestersIds = getSemesters();
-
-        // Add module
-        // Add course
-
-        //var requiredCoursesIds = educationalProgramRequest.Semesters.Select(x => x.RequiredCourses).ToList();
 
         var pairs = new ArrayList<List<UUID>>();
         for(var semester : createEducationalProgramDTO.getSemesters()) {
