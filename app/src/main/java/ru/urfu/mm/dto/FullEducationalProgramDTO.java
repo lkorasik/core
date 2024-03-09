@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.UUID;
 
 public class FullEducationalProgramDTO {
-    private UUID id;
-    private String title;
-    private List<Integer> recomendedCredits;
-    private List<FullSemesterDTO> semesters;
+    private final UUID id;
+    private final String title;
+    private final List<Integer> recomendedCredits;
+    private final List<FullSemesterDTO> semesters;
 
     public FullEducationalProgramDTO(UUID id, String title, List<Integer> recomendedCredits, List<FullSemesterDTO> semesters) {
         this.id = id;
