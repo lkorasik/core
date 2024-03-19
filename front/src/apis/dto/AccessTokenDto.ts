@@ -2,6 +2,6 @@ import {UserRole} from "./UserRole";
 
 export interface AccessTokenDto {
     accessToken: string;
-    login: string;
+    userToken: string;
     userRole: UserRole;
 }

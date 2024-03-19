@@ -44,8 +44,8 @@ export function WelcomeScreen(props: Props) {
 
     const registerStudent = async () => {
         const registeredToken = await apis.authenticationApi.registerStudent({
-            registrationToken: registrationToken,
-            educationalProgramId: selectedProgramId,
+            token: registrationToken,
+            programId: selectedProgramId,
             group: group,
             password: password,
             passwordAgain: passwordAgain
@@ -55,7 +55,7 @@ export function WelcomeScreen(props: Props) {
 
     const registerAdministration = async () => {
         const registeredToken = await apis.authenticationApi.registerAdmin({
-            registrationToken: registrationToken,
+            token: registrationToken,
             password: password,
             passwordAgain: passwordAgain
         });
@@ -64,7 +64,7 @@ export function WelcomeScreen(props: Props) {
 
     const login = async () => {
         const loginToken = await apis.authenticationApi.login({
-            email: registrationToken,
+            token: registrationToken,
             password: password,
         });
         saveLoginInfo(loginToken)

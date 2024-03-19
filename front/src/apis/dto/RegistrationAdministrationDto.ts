@@ -1,5 +1,5 @@
 export interface RegistrationAdministrationDto {
-    registrationToken: string;
+    token: string;
     password: string;
     passwordAgain: string;
 }

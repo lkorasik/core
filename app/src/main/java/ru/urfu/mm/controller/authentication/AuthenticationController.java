@@ -1,4 +1,4 @@
-package ru.urfu.mm.controller;
+package ru.urfu.mm.controller.authentication;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,13 +12,13 @@ import ru.urfu.mm.service.UserService;
 
 @RestController
 @RequestMapping("/api/authentication/")
-public class AuthController {
-    private final Logger logger = LoggerFactory.getLogger(AuthController.class);
+public class AuthenticationController {
+    private final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
     private final UserService userService;
     private final AuthenticationService authenticationService;
 
     @Autowired
-    public AuthController(UserService userService, AuthenticationService authenticationService) {
+    public AuthenticationController(UserService userService, AuthenticationService authenticationService) {
         this.userService = userService;
         this.authenticationService = authenticationService;
     }
@@ -30,7 +30,7 @@ public class AuthController {
         userService.createAdmin(user);
         String token = authenticationService.generateToken(user);
 
-        return new AccessTokenDTO(token, user.getRegistrationToken(), UserRole.ADMIN);
+        return new AccessTokenDTO(token, user.token(), UserRole.ADMIN);
     }
 
     @PostMapping("/registerStudent")
@@ -40,7 +40,7 @@ public class AuthController {
         userService.createStudent(user);
         String token = authenticationService.generateToken(user);
 
-        return new AccessTokenDTO(token, user.getRegistrationToken(), UserRole.STUDENT);
+        return new AccessTokenDTO(token, user.token(), UserRole.STUDENT);
     }
 
     @PostMapping("/login")
@@ -48,7 +48,7 @@ public class AuthController {
         User user = userService.login(loginDTO);
         String token = authenticationService.generateToken(loginDTO);
 
-        return new AccessTokenDTO(token, loginDTO.getEmail(), user.getRole());
+        return new AccessTokenDTO(token, loginDTO.token(), user.getRole());
     }
 
     @PostMapping("/validateToken")

@@ -11,9 +11,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.urfu.mm.dsl.DTO_DSL;
-import ru.urfu.mm.dto.LoginDTO;
-import ru.urfu.mm.dto.RegistrationAdministratorDTO;
-import ru.urfu.mm.dto.RegistrationStudentDTO;
+import ru.urfu.mm.controller.authentication.LoginDTO;
+import ru.urfu.mm.controller.authentication.RegistrationAdministratorDTO;
+import ru.urfu.mm.controller.authentication.RegistrationStudentDTO;
 import ru.urfu.mm.service.AuthenticationService;
 import ru.urfu.mm.service.JWTService;
 import ru.urfu.mm.service.UserService;
@@ -38,14 +38,14 @@ public class AuthenticationServiceTest {
     public void generateJWT_login() {
         LoginDTO loginDTO = DTO_DSL.createLoginDTO();
 
-        UserDetails userDetails = new User(loginDTO.getEmail(), loginDTO.getPassword(), Collections.emptyList());
+        UserDetails userDetails = new User(loginDTO.token(), loginDTO.password(), Collections.emptyList());
 
         String expectedJWT = "ghfdlsj";
 
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword());
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginDTO.token(), loginDTO.password());
 
         when(authenticationManager.authenticate(token)).thenReturn(null);
-        when(userService.loadUserByUsername(loginDTO.getEmail())).thenReturn(userDetails);
+        when(userService.loadUserByUsername(loginDTO.token())).thenReturn(userDetails);
         when(jwtService.generateToken(userDetails)).thenReturn(expectedJWT);
 
         AuthenticationService authenticationService = new AuthenticationService(
@@ -67,7 +67,7 @@ public class AuthenticationServiceTest {
         LoginDTO loginDTO = DTO_DSL.createLoginDTO();
 
         UsernamePasswordAuthenticationToken token =
-                new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword());
+                new UsernamePasswordAuthenticationToken(loginDTO.token(), loginDTO.password());
 
         when(authenticationManager.authenticate(token)).thenThrow(BadCredentialsException.class);
 
@@ -88,20 +88,20 @@ public class AuthenticationServiceTest {
         RegistrationAdministratorDTO registrationAdministratorDTO = DTO_DSL.createRegistrationAdministratorDTO();
 
         UserDetails userDetails = new User(
-                registrationAdministratorDTO.getRegistrationToken(),
-                registrationAdministratorDTO.getPassword(),
+                registrationAdministratorDTO.token(),
+                registrationAdministratorDTO.password(),
                 Collections.emptyList()
         );
 
         String expectedJWT = "ghfdlsj";
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                registrationAdministratorDTO.getRegistrationToken(),
-                registrationAdministratorDTO.getPassword()
+                registrationAdministratorDTO.token(),
+                registrationAdministratorDTO.password()
         );
 
         when(authenticationManager.authenticate(token)).thenReturn(null);
-        when(userService.loadUserByUsername(registrationAdministratorDTO.getRegistrationToken()))
+        when(userService.loadUserByUsername(registrationAdministratorDTO.token()))
                 .thenReturn(userDetails);
         when(jwtService.generateToken(userDetails)).thenReturn(expectedJWT);
 
@@ -124,8 +124,8 @@ public class AuthenticationServiceTest {
         RegistrationAdministratorDTO registrationAdministratorDTO = DTO_DSL.createRegistrationAdministratorDTO();
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                registrationAdministratorDTO.getRegistrationToken(),
-                registrationAdministratorDTO.getPassword()
+                registrationAdministratorDTO.token(),
+                registrationAdministratorDTO.password()
         );
 
         when(authenticationManager.authenticate(token)).thenThrow(BadCredentialsException.class);
@@ -150,20 +150,20 @@ public class AuthenticationServiceTest {
         RegistrationStudentDTO registrationStudentDTO = DTO_DSL.createRegistrationStudentDTO();
 
         UserDetails userDetails = new User(
-                registrationStudentDTO.getRegistrationToken(),
-                registrationStudentDTO.getPassword(),
+                registrationStudentDTO.token(),
+                registrationStudentDTO.password(),
                 Collections.emptyList()
         );
 
         String expectedJWT = "ghfdlsj";
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                registrationStudentDTO.getRegistrationToken(),
-                registrationStudentDTO.getPassword()
+                registrationStudentDTO.token(),
+                registrationStudentDTO.password()
         );
 
         when(authenticationManager.authenticate(token)).thenReturn(null);
-        when(userService.loadUserByUsername(registrationStudentDTO.getRegistrationToken()))
+        when(userService.loadUserByUsername(registrationStudentDTO.token()))
                 .thenReturn(userDetails);
         when(jwtService.generateToken(userDetails)).thenReturn(expectedJWT);
 
@@ -186,8 +186,8 @@ public class AuthenticationServiceTest {
         RegistrationStudentDTO registrationStudentDTO = DTO_DSL.createRegistrationStudentDTO();
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                registrationStudentDTO.getRegistrationToken(),
-                registrationStudentDTO.getPassword()
+                registrationStudentDTO.token(),
+                registrationStudentDTO.password()
         );
 
         when(authenticationManager.authenticate(token)).thenThrow(BadCredentialsException.class);

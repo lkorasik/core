@@ -5,9 +5,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import ru.urfu.mm.dto.LoginDTO;
-import ru.urfu.mm.dto.RegistrationAdministratorDTO;
-import ru.urfu.mm.dto.RegistrationStudentDTO;
+import ru.urfu.mm.controller.authentication.LoginDTO;
+import ru.urfu.mm.controller.authentication.RegistrationAdministratorDTO;
+import ru.urfu.mm.controller.authentication.RegistrationStudentDTO;
 
 @Service
 public class AuthenticationService {
@@ -26,15 +26,15 @@ public class AuthenticationService {
     }
 
     public String generateToken(LoginDTO dto) {
-        return generateToken(dto.getEmail(), dto.getPassword());
+        return generateToken(dto.token(), dto.password());
     }
 
     public String generateToken(RegistrationAdministratorDTO dto) {
-        return generateToken(dto.getRegistrationToken(), dto.getPassword());
+        return generateToken(dto.token(), dto.password());
     }
 
     public String generateToken(RegistrationStudentDTO dto) {
-        return generateToken(dto.getRegistrationToken(), dto.getPassword());
+        return generateToken(dto.token(), dto.password());
     }
 
     public void validateToken(String token) {

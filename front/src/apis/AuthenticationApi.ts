@@ -1,5 +1,5 @@
 import {ApiBase} from "./ApiBase/ApiBase";
-import { RegistrationDto } from "./dto/RegistrationDto";
+import { RegistrationStudentDto } from "./dto/RegistrationDto";
 import { RegistrationAdministrationDto } from "./dto/RegistrationAdministrationDto";
 import {LoginDto} from "./dto/LoginDto";
 import {TokenDto} from "./dto/TokenDto";
@@ -12,7 +12,7 @@ export class AuthenticationApi extends ApiBase implements IAuthenticationApi {
         })
     }
 
-    public async registerStudent(registrationDto: RegistrationDto): Promise<AccessTokenDto> {
+    public async registerStudent(registrationDto: RegistrationStudentDto): Promise<AccessTokenDto> {
         return await this.post("authentication/registerStudent", {}, {
             ...registrationDto
         })
@@ -33,7 +33,7 @@ export class AuthenticationApi extends ApiBase implements IAuthenticationApi {
 }
 
 export interface IAuthenticationApi {
-    registerStudent(registrationDto: RegistrationDto): Promise<AccessTokenDto>;
+    registerStudent(registrationDto: RegistrationStudentDto): Promise<AccessTokenDto>;
     registerAdmin(registrationDto: RegistrationAdministrationDto): Promise<AccessTokenDto>;
     login(loginDto: LoginDto): Promise<AccessTokenDto>;
     validateToken(tokenDto: TokenDto): Promise<void>;

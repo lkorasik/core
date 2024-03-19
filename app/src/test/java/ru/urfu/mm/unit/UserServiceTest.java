@@ -10,9 +10,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.urfu.mm.dsl.DTO_DSL;
 import ru.urfu.mm.dsl.EntityDSL;
-import ru.urfu.mm.dto.LoginDTO;
-import ru.urfu.mm.dto.RegistrationAdministratorDTO;
-import ru.urfu.mm.dto.RegistrationStudentDTO;
+import ru.urfu.mm.controller.authentication.LoginDTO;
+import ru.urfu.mm.controller.authentication.RegistrationAdministratorDTO;
+import ru.urfu.mm.controller.authentication.RegistrationStudentDTO;
 import ru.urfu.mm.entity.*;
 import ru.urfu.mm.exceptions.IncorrectUserRoleException;
 import ru.urfu.mm.exceptions.RegistrationTokenNotExistException;
@@ -22,7 +22,6 @@ import ru.urfu.mm.repository.StudentRepository;
 import ru.urfu.mm.repository.UserRepository;
 import ru.urfu.mm.service.UserService;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
@@ -50,7 +49,7 @@ public class UserServiceTest {
     @Test
     public void administratorRegistration() {
         RegistrationAdministratorDTO dto = DTO_DSL.createRegistrationAdministratorDTO();
-        UUID id = UUID.fromString(dto.getRegistrationToken());
+        UUID id = UUID.fromString(dto.token());
 
         RegistrationToken registrationToken = new RegistrationToken(id, UserRole.ADMIN);
 
@@ -61,7 +60,7 @@ public class UserServiceTest {
 
         userService.createAdmin(dto);
 
-        User user = new User(id, passwordEncoder.encode(dto.getPassword()), UserRole.ADMIN);
+        User user = new User(id, passwordEncoder.encode(dto.password()), UserRole.ADMIN);
         verify(userRepository, atMostOnce()).save(user);
 
         verify(registrationTokenRepository, atMostOnce()).deleteById(id);
@@ -73,7 +72,7 @@ public class UserServiceTest {
     @Test
     public void administratorRegistration_tokenNotFound() {
         RegistrationAdministratorDTO dto = DTO_DSL.createRegistrationAdministratorDTO();
-        UUID id = UUID.fromString(dto.getRegistrationToken());
+        UUID id = UUID.fromString(dto.token());
 
         when(registrationTokenRepository.findByRegistrationToken(id))
                 .thenReturn(Optional.empty());
@@ -82,7 +81,7 @@ public class UserServiceTest {
 
         Assertions.assertThrows(RegistrationTokenNotExistException.class, () -> userService.createAdmin(dto));
 
-        User user = new User(id, passwordEncoder.encode(dto.getPassword()), UserRole.ADMIN);
+        User user = new User(id, passwordEncoder.encode(dto.password()), UserRole.ADMIN);
         verify(userRepository, never()).save(user);
 
         verify(registrationTokenRepository, never()).deleteById(id);
@@ -94,7 +93,7 @@ public class UserServiceTest {
     @Test
     public void administratorRegistration_incorrectUserRole() {
         RegistrationAdministratorDTO dto = DTO_DSL.createRegistrationAdministratorDTO();
-        UUID id = UUID.fromString(dto.getRegistrationToken());
+        UUID id = UUID.fromString(dto.token());
 
         RegistrationToken registrationToken = new RegistrationToken(id, UserRole.STUDENT);
 
@@ -105,7 +104,7 @@ public class UserServiceTest {
 
         Assertions.assertThrows(IncorrectUserRoleException.class, () -> userService.createAdmin(dto));
 
-        User user = new User(id, passwordEncoder.encode(dto.getPassword()), UserRole.ADMIN);
+        User user = new User(id, passwordEncoder.encode(dto.password()), UserRole.ADMIN);
         verify(userRepository, never()).save(user);
 
         verify(registrationTokenRepository, never()).deleteById(id);
@@ -117,7 +116,7 @@ public class UserServiceTest {
     @Test
     public void studentRegistration() {
         RegistrationStudentDTO dto = DTO_DSL.createRegistrationStudentDTO();
-        UUID id = UUID.fromString(dto.getRegistrationToken());
+        UUID id = UUID.fromString(dto.token());
 
         RegistrationToken registrationToken = new RegistrationToken(id, UserRole.STUDENT);
 
@@ -125,17 +124,17 @@ public class UserServiceTest {
 
         when(registrationTokenRepository.findByRegistrationToken(id))
                 .thenReturn(Optional.of(registrationToken));
-        when(educationalProgramRepository.getReferenceById(dto.getEducationalProgramId()))
+        when(educationalProgramRepository.getReferenceById(dto.programId()))
                 .thenReturn(educationalProgram);
 
         initUserService();
 
         userService.createStudent(dto);
 
-        User user = new User(id, passwordEncoder.encode(dto.getPassword()), UserRole.ADMIN);
+        User user = new User(id, passwordEncoder.encode(dto.password()), UserRole.ADMIN);
         verify(userRepository, atMostOnce()).save(user);
 
-        Student student = new Student(user.getLogin(), educationalProgram, dto.getGroup(), user);
+        Student student = new Student(user.getLogin(), educationalProgram, dto.group(), user);
         verify(studentRepository, atMostOnce()).save(student);
 
         verify(registrationTokenRepository, atMostOnce()).deleteById(id);
@@ -147,7 +146,7 @@ public class UserServiceTest {
     @Test
     public void studentRegistration_tokenNotFound() {
         RegistrationStudentDTO dto = DTO_DSL.createRegistrationStudentDTO();
-        UUID id = UUID.fromString(dto.getRegistrationToken());
+        UUID id = UUID.fromString(dto.token());
 
         EducationalProgram educationalProgram = EntityDSL.createEducationalProgram();
 
@@ -158,12 +157,12 @@ public class UserServiceTest {
 
         Assertions.assertThrows(RegistrationTokenNotExistException.class, () -> userService.createStudent(dto));
 
-        User user = new User(id, passwordEncoder.encode(dto.getPassword()), UserRole.ADMIN);
+        User user = new User(id, passwordEncoder.encode(dto.password()), UserRole.ADMIN);
         verify(userRepository, never()).save(user);
 
         verify(educationalProgramRepository, never()).getReferenceById(educationalProgram.getId());
 
-        Student student = new Student(user.getLogin(), educationalProgram, dto.getGroup(), user);
+        Student student = new Student(user.getLogin(), educationalProgram, dto.group(), user);
         verify(studentRepository, never()).save(student);
 
         verify(registrationTokenRepository, never()).deleteById(id);
@@ -175,7 +174,7 @@ public class UserServiceTest {
     @Test
     public void studentRegistration_incorrectUserRole() {
         RegistrationStudentDTO dto = DTO_DSL.createRegistrationStudentDTO();
-        UUID id = UUID.fromString(dto.getRegistrationToken());
+        UUID id = UUID.fromString(dto.token());
 
         RegistrationToken registrationToken = new RegistrationToken(id, UserRole.ADMIN);
 
@@ -186,7 +185,7 @@ public class UserServiceTest {
 
         Assertions.assertThrows(IncorrectUserRoleException.class, () -> userService.createStudent(dto));
 
-        User user = new User(id, passwordEncoder.encode(dto.getPassword()), UserRole.STUDENT);
+        User user = new User(id, passwordEncoder.encode(dto.password()), UserRole.STUDENT);
         verify(userRepository, never()).save(user);
 
         verify(registrationTokenRepository, never()).deleteById(id);
@@ -205,7 +204,7 @@ public class UserServiceTest {
     @Test
     public void login() {
         LoginDTO loginDTO = DTO_DSL.createLoginDTO();
-        UUID id = UUID.fromString(loginDTO.getEmail());
+        UUID id = UUID.fromString(loginDTO.token());
         UUID mockedId = mock();
 
         User expected = new User();

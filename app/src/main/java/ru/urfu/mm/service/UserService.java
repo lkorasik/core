@@ -7,9 +7,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.urfu.mm.dto.LoginDTO;
-import ru.urfu.mm.dto.RegistrationAdministratorDTO;
-import ru.urfu.mm.dto.RegistrationStudentDTO;
+import ru.urfu.mm.controller.authentication.LoginDTO;
+import ru.urfu.mm.controller.authentication.RegistrationAdministratorDTO;
+import ru.urfu.mm.controller.authentication.RegistrationStudentDTO;
 import ru.urfu.mm.entity.EducationalProgram;
 import ru.urfu.mm.entity.Student;
 import ru.urfu.mm.entity.User;
@@ -48,7 +48,7 @@ public class UserService implements UserDetailsService {
     }
 
     public void createAdmin(RegistrationAdministratorDTO dto) {
-        UUID registrationToken = UUID.fromString(dto.getRegistrationToken());
+        UUID registrationToken = UUID.fromString(dto.token());
 
         UserRole token = registrationTokenRepository
                 .findByRegistrationToken(registrationToken)
@@ -56,14 +56,14 @@ public class UserService implements UserDetailsService {
                 .userRole;
         ensureRole(UserRole.ADMIN, token, registrationToken.toString());
 
-        User user = new User(registrationToken, passwordEncoder.encode(dto.getPassword()), UserRole.ADMIN);
+        User user = new User(registrationToken, passwordEncoder.encode(dto.password()), UserRole.ADMIN);
         userRepository.save(user);
 
         registrationTokenRepository.deleteById(registrationToken);
     }
 
     public void createStudent(RegistrationStudentDTO dto) {
-        UUID registrationToken = UUID.fromString(dto.getRegistrationToken());
+        UUID registrationToken = UUID.fromString(dto.token());
 
         UserRole token = registrationTokenRepository
                 .findByRegistrationToken(registrationToken)
@@ -71,24 +71,24 @@ public class UserService implements UserDetailsService {
                 .userRole;
         ensureRole(UserRole.STUDENT, token, registrationToken.toString());
 
-        User user = new User(registrationToken, passwordEncoder.encode(dto.getPassword()), UserRole.STUDENT);
+        User user = new User(registrationToken, passwordEncoder.encode(dto.password()), UserRole.STUDENT);
         userRepository.save(user);
 
         EducationalProgram educationalProgram = educationalProgramRepository
-                .getReferenceById(dto.getEducationalProgramId());
+                .getReferenceById(dto.programId());
 
-        Student student = new Student(registrationToken, educationalProgram, dto.getGroup(), user);
+        Student student = new Student(registrationToken, educationalProgram, dto.group(), user);
         studentRepository.save(student);
 
         registrationTokenRepository.deleteById(registrationToken);
     }
 
     public User login(LoginDTO loginDTO) {
-        UUID uuid = UUID.fromString(loginDTO.getEmail());
+        UUID uuid = UUID.fromString(loginDTO.token());
         User user = userRepository.getReferenceById(uuid);
 
         // todo: в чем прикол getReferenceById?
-        if (!passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())){
+        if (!passwordEncoder.matches(loginDTO.password(), user.getPassword())){
             throw new RuntimeException("Bad credentials");
         }
 
