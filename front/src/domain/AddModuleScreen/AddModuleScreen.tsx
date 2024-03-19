@@ -41,8 +41,8 @@ class AddModuleScreenClear extends React.Component<Props, State> {
 
     private async createEducationalModule() {
         await this.props.apis.educationalModulesApi.createModule({
-            educationalModuleName: this.state.moduleName,
-            specialCoursesIds: this.state.specialCoursesIdsForNewModule,
+            moduleName: this.state.moduleName,
+            coursesIds: this.state.specialCoursesIdsForNewModule,
         });
     }
 

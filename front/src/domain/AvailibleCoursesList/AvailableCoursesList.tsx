@@ -10,7 +10,7 @@ import {CardButtonAction, CardType, CourseCard} from "../СourseCard/CourseCard"
 import {CourseForEducationalProgram} from "../../apis/dto/CourseForEducationalProgram";
 import {connect, ConnectedProps} from "react-redux";
 import {RootState} from "../../index";
-import {EducationalModule} from "../../apis/dto/EducationalModule";
+import {ModuleDto} from "../../apis/api/modules/ModuleDto";
 import {SpecialCoursesHelper} from "../../helpers/SpecialCoursesHelper";
 
 
@@ -18,7 +18,7 @@ interface Props {
     isLoadingCourses: boolean;
     chosenSemesterId: string;
     specialCourses: CourseForEducationalProgram[];
-    modules: EducationalModule[];
+    modules: ModuleDto[];
 }
 
 type ExtendedProps = Props & IAllApisProp & ConnectedProps<typeof reduxConnector>;
@@ -86,7 +86,7 @@ class AvailableCoursesListClear extends React.Component<ExtendedProps> {
                 cardType={CardType.Module}
                 cardColor={"indigo"}
                 cardButtonAction={CardButtonAction.AddCourse}
-                educationalModule={{
+                module={{
                     id: moduleId,
                     name: this.props.modules.find(x => x.id === moduleId)!.name,
                 }}

@@ -24,12 +24,12 @@ public class SpecialCourse {
     private String teacherName;
     @ManyToOne
     @JoinColumn(name = "educational_module_id")
-    private EducationalModule educationalModule;
+    private Module module;
 
     public SpecialCourse() {
     }
 
-    public SpecialCourse(UUID id, String name, int creditsCount, Control control, String description, String department, String teacherName, EducationalModule educationalModule) {
+    public SpecialCourse(UUID id, String name, int creditsCount, Control control, String description, String department, String teacherName, Module module) {
         this.id = id;
         this.name = name;
         this.creditsCount = creditsCount;
@@ -37,17 +37,17 @@ public class SpecialCourse {
         this.description = description;
         this.department = department;
         this.teacherName = teacherName;
-        this.educationalModule = educationalModule;
+        this.module = module;
     }
 
-    public SpecialCourse(String name, int creditsCount, Control control, String description, String department, String teacherName, EducationalModule educationalModule) {
+    public SpecialCourse(String name, int creditsCount, Control control, String description, String department, String teacherName, Module module) {
         this.name = name;
         this.creditsCount = creditsCount;
         this.control = control;
         this.description = description;
         this.department = department;
         this.teacherName = teacherName;
-        this.educationalModule = educationalModule;
+        this.module = module;
     }
 
     public UUID getId() {
@@ -78,12 +78,12 @@ public class SpecialCourse {
         return teacherName;
     }
 
-    public EducationalModule getEducationalModule() {
-        return educationalModule;
+    public Module getEducationalModule() {
+        return module;
     }
 
-    public void setEducationalModule(EducationalModule educationalModule) {
-        this.educationalModule = educationalModule;
+    public void setEducationalModule(Module module) {
+        this.module = module;
     }
 
     public void setName(String name) {

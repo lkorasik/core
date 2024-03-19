@@ -8,7 +8,7 @@ import {connect, ConnectedProps} from "react-redux";
 import {RootState} from "../../index";
 import {CoursesStoreActionCreator} from "../../storing/coursesStore/coursesStore.actionCreator";
 import {CourseForEducationalProgram} from "../../apis/dto/CourseForEducationalProgram";
-import {EducationalModule} from "../../apis/dto/EducationalModule";
+import {ModuleDto} from "../../apis/api/modules/ModuleDto";
 
 interface CourseCardProps extends BaseProps {
     cardType: CardType.Course;
@@ -19,7 +19,7 @@ interface CourseCardProps extends BaseProps {
 interface ModuleCardProps extends BaseProps {
     cardType: CardType.Module;
     containedCourses: CourseForEducationalProgram[];
-    educationalModule: EducationalModule;
+    module: ModuleDto;
 }
 
 interface BaseProps {
@@ -82,7 +82,7 @@ class CourseCardClear extends React.Component<ExtendedProps, State> {
                         {
                             this.props.cardType === CardType.Course
                                 ? this.props.specialCourse.name.toUpperCase()
-                                : this.props.educationalModule.name.toUpperCase()
+                                : this.props.module.name.toUpperCase()
                         }
                     </Text>
                     <Text className={styles.creditsCount} size={1.75} fontWeight={"bold"} color={"rgba(255, 255, 255, 0.75)"}>

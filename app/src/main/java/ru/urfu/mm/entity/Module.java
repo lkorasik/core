@@ -5,7 +5,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "educational_modules")
-public class EducationalModule {
+public class Module {
     @Id
     @GeneratedValue
     @Column
@@ -13,15 +13,15 @@ public class EducationalModule {
     @Column
     private String name;
 
-    public EducationalModule(String name) {
+    public Module(String name) {
         this.name = name;
     }
 
-    public EducationalModule() {
+    public Module() {
 
     }
 
-    public EducationalModule(UUID id, String name) {
+    public Module(UUID id, String name) {
         this.id = id;
         this.name = name;
     }

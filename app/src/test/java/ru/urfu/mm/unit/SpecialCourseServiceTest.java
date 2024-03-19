@@ -1,6 +1,5 @@
 package ru.urfu.mm.unit;
 
-import org.antlr.v4.runtime.tree.pattern.ParseTreePatternMatcher;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,6 +9,7 @@ import ru.urfu.mm.dsl.EntityDSL;
 import ru.urfu.mm.dto.SpecialCourseDTO;
 import ru.urfu.mm.dto.SpecialCourseStatisticsDTO;
 import ru.urfu.mm.entity.*;
+import ru.urfu.mm.entity.Module;
 import ru.urfu.mm.exceptions.CourseRequiredCriteriaException;
 import ru.urfu.mm.repository.EducationalModuleRepository;
 import ru.urfu.mm.repository.EducationalProgramToCoursesWithSemestersRepository;
@@ -17,7 +17,6 @@ import ru.urfu.mm.repository.SelectedCoursesRepository;
 import ru.urfu.mm.repository.SpecialCourseRepository;
 import ru.urfu.mm.service.CourseForEducationalProgram;
 import ru.urfu.mm.service.SpecialCourseService;
-import ru.urfu.mm.service.StudentService;
 
 import java.util.List;
 import java.util.Map;
@@ -51,11 +50,11 @@ public class SpecialCourseServiceTest {
         EducationalProgram educationalProgram = EntityDSL.createEducationalProgram();
         EducationalProgram fakeEducationalProgram = EntityDSL.createEducationalProgram();
 
-        List<EducationalModule> modules = List.of(
-                new EducationalModule(UUID.randomUUID(), "M1"),
-                new EducationalModule(UUID.randomUUID(), "M2"),
-                new EducationalModule(UUID.randomUUID(), "M3"),
-                new EducationalModule(UUID.randomUUID(), "M4")
+        List<Module> modules = List.of(
+                new Module(UUID.randomUUID(), "M1"),
+                new Module(UUID.randomUUID(), "M2"),
+                new Module(UUID.randomUUID(), "M3"),
+                new Module(UUID.randomUUID(), "M4")
         );
 
         List<SpecialCourse> specialCourses = List.of(
@@ -193,11 +192,11 @@ public class SpecialCourseServiceTest {
         User user = new User(UUID.randomUUID(), "password", UserRole.STUDENT);
         Student student = new Student(UUID.randomUUID(), educationalProgram, "G1", user);
 
-        List<EducationalModule> modules = List.of(
-                new EducationalModule(UUID.randomUUID(), "M1"),
-                new EducationalModule(UUID.randomUUID(), "M2"),
-                new EducationalModule(UUID.randomUUID(), "M3"),
-                new EducationalModule(UUID.randomUUID(), "M4")
+        List<Module> modules = List.of(
+                new Module(UUID.randomUUID(), "M1"),
+                new Module(UUID.randomUUID(), "M2"),
+                new Module(UUID.randomUUID(), "M3"),
+                new Module(UUID.randomUUID(), "M4")
         );
 
         List<SpecialCourse> specialCourses = List.of(
@@ -251,11 +250,11 @@ public class SpecialCourseServiceTest {
 
         EducationalProgram educationalProgram = EntityDSL.createEducationalProgram();
 
-        List<EducationalModule> modules = List.of(
-                new EducationalModule(UUID.randomUUID(), "M1"),
-                new EducationalModule(UUID.randomUUID(), "M2"),
-                new EducationalModule(UUID.randomUUID(), "M3"),
-                new EducationalModule(UUID.randomUUID(), "M4")
+        List<Module> modules = List.of(
+                new Module(UUID.randomUUID(), "M1"),
+                new Module(UUID.randomUUID(), "M2"),
+                new Module(UUID.randomUUID(), "M3"),
+                new Module(UUID.randomUUID(), "M4")
         );
 
         List<SpecialCourse> specialCourses = List.of(
@@ -311,11 +310,11 @@ public class SpecialCourseServiceTest {
 
         EducationalProgram educationalProgram = EntityDSL.createEducationalProgram();
 
-        List<EducationalModule> modules = List.of(
-                new EducationalModule(UUID.randomUUID(), "M1"),
-                new EducationalModule(UUID.randomUUID(), "M2"),
-                new EducationalModule(UUID.randomUUID(), "M3"),
-                new EducationalModule(UUID.randomUUID(), "M4")
+        List<Module> modules = List.of(
+                new Module(UUID.randomUUID(), "M1"),
+                new Module(UUID.randomUUID(), "M2"),
+                new Module(UUID.randomUUID(), "M3"),
+                new Module(UUID.randomUUID(), "M4")
         );
 
         List<SpecialCourse> specialCourses = List.of(
@@ -364,11 +363,11 @@ public class SpecialCourseServiceTest {
         User user = new User(UUID.randomUUID(), "P", UserRole.STUDENT);
         Student student = new Student(UUID.randomUUID(), educationalProgram, "G1", user);
 
-        List<EducationalModule> modules = List.of(
-                new EducationalModule(UUID.randomUUID(), "M1"),
-                new EducationalModule(UUID.randomUUID(), "M2"),
-                new EducationalModule(UUID.randomUUID(), "M3"),
-                new EducationalModule(UUID.randomUUID(), "M4")
+        List<Module> modules = List.of(
+                new Module(UUID.randomUUID(), "M1"),
+                new Module(UUID.randomUUID(), "M2"),
+                new Module(UUID.randomUUID(), "M3"),
+                new Module(UUID.randomUUID(), "M4")
         );
 
         List<SpecialCourse> specialCourses = List.of(
@@ -439,11 +438,11 @@ public class SpecialCourseServiceTest {
         User user = new User(UUID.randomUUID(), "P", UserRole.STUDENT);
         Student student = new Student(UUID.randomUUID(), educationalProgram, "G1", user);
 
-        List<EducationalModule> modules = List.of(
-                new EducationalModule(UUID.randomUUID(), "M1"),
-                new EducationalModule(UUID.randomUUID(), "M2"),
-                new EducationalModule(UUID.randomUUID(), "M3"),
-                new EducationalModule(UUID.randomUUID(), "M4")
+        List<Module> modules = List.of(
+                new Module(UUID.randomUUID(), "M1"),
+                new Module(UUID.randomUUID(), "M2"),
+                new Module(UUID.randomUUID(), "M3"),
+                new Module(UUID.randomUUID(), "M4")
         );
 
         List<SpecialCourse> specialCourses = List.of(

@@ -6,7 +6,7 @@ import { DialogModal } from "../DialogModal/DialogModal";
 import { useEffect, useState } from "react";
 import { useApis } from "../../apis/ApiBase/ApiProvider";
 import { SpecialCourse } from "../../apis/dto/SpecialCourse";
-import { EducationalModule } from "../../apis/dto/EducationalModule";
+import { ModuleDto } from "../../apis/api/modules/ModuleDto";
 
 interface Props {}
 
@@ -26,7 +26,7 @@ export function AddEducationalProgramScreen(props: Props) {
     const [showDialog, setShowDialog] = useState(false);
     const [dialogTitle, setDialogTitle] = useState("");
     const [courses, setCourses] = useState<SpecialCourse[]>();
-    const [modules, setModules] = useState<EducationalModule[]>();
+    const [modules, setModules] = useState<ModuleDto[]>();
 
     const [educationalProgramName, setEducationalProgramName] = useState("");
     const credits = [useState(0), useState(0), useState(0), useState(0)];

@@ -1,4 +1,4 @@
-import {UserRole} from "./UserRole";
+import {UserRole} from "../../dto/UserRole";
 
 export interface AccessTokenDto {
     accessToken: string;

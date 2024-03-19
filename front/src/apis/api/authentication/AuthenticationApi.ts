@@ -1,9 +1,9 @@
-import {ApiBase} from "./ApiBase/ApiBase";
-import { RegistrationStudentDto } from "./dto/RegistrationDto";
-import { RegistrationAdministrationDto } from "./dto/RegistrationAdministrationDto";
-import {LoginDto} from "./dto/LoginDto";
-import {TokenDto} from "./dto/TokenDto";
-import {AccessTokenDto} from "./dto/AccessTokenDto";
+import {ApiBase} from "../../ApiBase/ApiBase";
+import { RegistrationStudentDto } from "./RegistrationDto";
+import { RegistrationAdministrationDto } from "./RegistrationAdministrationDto";
+import {LoginDto} from "./LoginDto";
+import {TokenDto} from "./TokenDto";
+import {AccessTokenDto} from "./AccessTokenDto";
 
 export class AuthenticationApi extends ApiBase implements IAuthenticationApi {
     public async login(loginDto: LoginDto): Promise<AccessTokenDto> {

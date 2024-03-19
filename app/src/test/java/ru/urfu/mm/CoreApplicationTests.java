@@ -6,12 +6,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import ru.urfu.mm.entity.EducationalProgram;
+import ru.urfu.mm.entity.Module;
 import ru.urfu.mm.entity.RegistrationToken;
 import ru.urfu.mm.entity.Semester;
 import ru.urfu.mm.entity.UserRole;
 import ru.urfu.mm.repository.*;
 import ru.urfu.mm.entity.*;
-import ru.urfu.mm.repository.*;
 
 import java.util.List;
 import java.util.Map;
@@ -63,10 +63,10 @@ class CoreApplicationTests {
         semesterRepository.saveAll(semesters);
 
         var modules = List.of(
-                new EducationalModule("Введение в Kaggle"),
-                new EducationalModule("Обучение с подкреплением и нейронные сети"),
-                new EducationalModule("Введение в Python"),
-                new EducationalModule("Конфигурирование и программирование в системе 1С")
+                new Module("Введение в Kaggle"),
+                new Module("Обучение с подкреплением и нейронные сети"),
+                new Module("Введение в Python"),
+                new Module("Конфигурирование и программирование в системе 1С")
         );
         educationalModuleRepository.saveAll(modules);
 

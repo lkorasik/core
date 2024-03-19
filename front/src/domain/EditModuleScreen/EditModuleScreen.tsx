@@ -6,12 +6,12 @@ import {SpecialCourse} from "../../apis/dto/SpecialCourse";
 import Select, {MultiValue} from "react-select";
 import {Link} from "react-router-dom";
 import {MODULES_SCREEN_URL} from "../App/App";
-import {EducationalModule} from "../../apis/dto/EducationalModule";
+import {ModuleDto} from "../../apis/api/modules/ModuleDto";
 
 interface State {
     specialCoursesForDisplay: SpecialCourse[];
     isLoadingCourses: boolean;
-    module?: EducationalModule;
+    module?: ModuleDto;
     moduleId: string;
     moduleName: string;
     specialCoursesIdsForNewModule: string[];
@@ -120,8 +120,8 @@ class EditModuleScreenClear extends React.Component<Props, State> {
 
     private async createEducationalModule() {
         await this.props.apis.educationalModulesApi.createModule({
-            educationalModuleName: this.state.moduleName,
-            specialCoursesIds: this.state.specialCoursesIdsForNewModule,
+            moduleName: this.state.moduleName,
+            coursesIds: this.state.specialCoursesIdsForNewModule,
         });
     }
 }

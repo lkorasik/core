@@ -6,7 +6,7 @@ import { LoginInfo } from "../../hooks/LoginInfo";
 import Select from "react-select";
 import { EducationalProgramInfoDto } from "../../apis/dto/EducationalProgramInfoDto";
 import { useApis } from "../../apis/ApiBase/ApiProvider";
-import { AccessTokenDto } from "../../apis/dto/AccessTokenDto";
+import { AccessTokenDto } from "../../apis/api/authentication/AccessTokenDto";
 import { useEffect, useState } from "react";
 
 interface Props {

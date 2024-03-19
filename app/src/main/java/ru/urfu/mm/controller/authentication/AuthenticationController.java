@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.urfu.mm.dto.*;
 import ru.urfu.mm.entity.User;
 import ru.urfu.mm.entity.UserRole;
 import ru.urfu.mm.service.AuthenticationService;
@@ -53,6 +52,6 @@ public class AuthenticationController {
 
     @PostMapping("/validateToken")
     public void validateToken(@RequestBody TokenDTO tokenDTO) {
-        authenticationService.validateToken(tokenDTO.getToken());
+        authenticationService.validateToken(tokenDTO.token());
     }
 }

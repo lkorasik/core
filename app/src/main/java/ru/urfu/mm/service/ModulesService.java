@@ -2,7 +2,7 @@ package ru.urfu.mm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.urfu.mm.entity.EducationalModule;
+import ru.urfu.mm.entity.Module;
 import ru.urfu.mm.repository.EducationalModuleRepository;
 import ru.urfu.mm.repository.SpecialCourseRepository;
 
@@ -10,28 +10,28 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class EducationalModulesService {
+public class ModulesService {
     @Autowired
     private EducationalModuleRepository educationalModuleRepository;
     @Autowired
     private SpecialCourseRepository specialCourseRepository;
 
-    public List<EducationalModule> getAllModules() {
+    public List<Module> getAllModules() {
         return educationalModuleRepository.findAll();
     }
 
-    public List<EducationalModule> getModulesByIds(List<UUID> educationalModulesIds) {
+    public List<Module> getModulesByIds(List<UUID> educationalModulesIds) {
         return educationalModuleRepository
                 .findAll()
                 .stream()
                 .filter(x -> educationalModulesIds.contains(x.getId()))
-                .map(x -> new EducationalModule(x.getId(), x.getName()))
+                .map(x -> new Module(x.getId(), x.getName()))
                 .toList();
     }
 
     public void createModuleWithCourses(String educationalModuleName, List<UUID> specialCoursesIds) {
         var educationalModuleEntity = educationalModuleRepository
-                .save(new EducationalModule(educationalModuleName));
+                .save(new Module(educationalModuleName));
         for(var specialCourseId : specialCoursesIds) {
             var specialCourseModel = specialCourseRepository
                     .findAll()
