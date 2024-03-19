@@ -7,7 +7,7 @@ import {AvailableCoursesList} from "../AvailibleCoursesList/AvailableCoursesList
 import {ChosenCoursesForm} from "../ChosenCoursesForm/ChosenCoursesForm";
 import {Flex} from "../../base_components/Flex/Flex";
 import {useApis} from "../../apis/ApiBase/ApiProvider";
-import {EducationalProgramInfoDto} from "../../apis/dto/EducationalProgramInfoDto";
+import {ProgramInfoDto} from "../../apis/api/programs/ProgramInfoDto";
 import {Semester} from "../../apis/dto/Semester";
 import {CourseForEducationalProgram} from "../../apis/dto/CourseForEducationalProgram";
 import {useDispatch} from "react-redux";
@@ -19,7 +19,7 @@ import {useNavigate} from "react-router-dom";
 
 
 export const ChooseCoursesScreen: FC = () => {
-    const [educationalProgram, setEducationalProgram] = useState<EducationalProgramInfoDto | undefined>();
+    const [educationalProgram, setEducationalProgram] = useState<ProgramInfoDto | undefined>();
     const [actualSemesters, setActualSemesters] = useState<Semester[] | undefined>();
     const [selectedSemesterId, setSelectedSemesterId] = useState<string | undefined>();
     const [educationalModules, setEducationalModules] = useState<ModuleDto[]>([]);

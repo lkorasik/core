@@ -1,19 +1,19 @@
 import * as React from "react";
 import {PropsWithChildren, useContext} from "react";
-import {EducationalProgramsApi, IEducationalProgramsApi} from "../SpecCoursesApi/EducationalProgramsApi";
+import {ProgramsApi, IProgramsApi} from "../api/programs/EducationalProgramsApi";
 import {ISemestersApi, SemestersApi} from "../SpecCoursesApi/SemestersApi";
 import {ISpecialCoursesApi, SpecialCoursesApi} from "../SpecCoursesApi/SpecialCoursesApi";
 import {AuthenticationApi, IAuthenticationApi} from "../api/authentication/AuthenticationApi";
-import {ModulesApi, IModulesApi} from "../api/modules/EducationalModulesApi";
+import {ModulesApi, IModulesApi} from "../api/modules/ModulesApi";
 import {LoginInfo} from "../../hooks/LoginInfo";
-import {DocumentsApi, IDocumentsApi} from "../SpecCoursesApi/DocumentsApi";
+import {DocumentsApi, IDocumentsApi} from "../api/document/DocumentsApi";
 import {ISkillsApi, SkillsApi} from "../SpecCoursesApi/SkillsApi";
 import {IRecommendationsApi, RecommendationsApi} from "../SpecCoursesApi/RecommendationsApi";
 
 const apiPrefix: string = "/api/";
 
 export interface IAllApis {
-    educationalProgramsApi: IEducationalProgramsApi;
+    educationalProgramsApi: IProgramsApi;
     semestersApi: ISemestersApi;
     specialCoursesApi: ISpecialCoursesApi;
     authenticationApi: IAuthenticationApi;
@@ -38,7 +38,7 @@ const getToken = () => {
 }
 
 export const RealApi: IAllApis = {
-    educationalProgramsApi: new EducationalProgramsApi(apiPrefix, getToken),
+    educationalProgramsApi: new ProgramsApi(apiPrefix, getToken),
     semestersApi: new SemestersApi(apiPrefix, getToken),
     specialCoursesApi: new SpecialCoursesApi(apiPrefix, getToken),
     authenticationApi: new AuthenticationApi(apiPrefix, getToken),

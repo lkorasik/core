@@ -5,6 +5,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.urfu.mm.controller.program.CreateProgramDTO;
+import ru.urfu.mm.controller.program.FullProgramDTO;
 import ru.urfu.mm.dto.*;
 import ru.urfu.mm.entity.EducationalProgram;
 import ru.urfu.mm.entity.EducationalProgramToCoursesWithSemesters;
@@ -19,7 +21,7 @@ import java.time.Year;
 import java.util.*;
 
 @Service
-public class EducationalProgramService {
+public class ProgramService {
     private final EducationalProgramRepository educationalProgramRepository;
     private final SemesterRepository semesterRepository;
     private final SpecialCourseRepository specialCourseRepository;
@@ -27,7 +29,7 @@ public class EducationalProgramService {
     private final ObjectMapper serializer;
 
     @Autowired
-    public EducationalProgramService(EducationalProgramRepository educationalProgramRepository, SemesterRepository semesterRepository, SpecialCourseRepository specialCourseRepository, EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository, ObjectMapper serializer) {
+    public ProgramService(EducationalProgramRepository educationalProgramRepository, SemesterRepository semesterRepository, SpecialCourseRepository specialCourseRepository, EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository, ObjectMapper serializer) {
         this.educationalProgramRepository = educationalProgramRepository;
         this.semesterRepository = semesterRepository;
         this.specialCourseRepository = specialCourseRepository;
@@ -49,7 +51,7 @@ public class EducationalProgramService {
         return educationalProgramRepository.findAll();
     }
 
-    public FullEducationalProgramDTO getEducationalProgramById(UUID id) throws JsonProcessingException {
+    public FullProgramDTO getEducationalProgramById(UUID id) throws JsonProcessingException {
         var program2 = educationalProgramRepository
                 .findById(id)
                 .get();
@@ -116,7 +118,7 @@ public class EducationalProgramService {
                     );
                 })
                 .toList();
-        return new FullEducationalProgramDTO(
+        return new FullProgramDTO(
                 program2.getId(),
                 program2.getName(),
                 credits,
@@ -124,12 +126,12 @@ public class EducationalProgramService {
         );
     }
 
-    public void createEducationalProgram(CreateEducationalProgramDTO createEducationalProgramDTO) throws JsonProcessingException {
-        createNecessarySemesters(createEducationalProgramDTO.getSemesters());
+    public void createEducationalProgram(CreateProgramDTO createProgramDTO) throws JsonProcessingException {
+        createNecessarySemesters(createProgramDTO.semesters());
         var semestersIds = getSemesters();
 
         var pairs = new ArrayList<List<UUID>>();
-        for(var semester : createEducationalProgramDTO.getSemesters()) {
+        for(var semester : createProgramDTO.semesters()) {
             var requiredCoursesIds = semester.getRequiredCourses();
 
             var modulesIds = specialCourseRepository
@@ -147,15 +149,15 @@ public class EducationalProgramService {
             // Надо выяснить какие модули мы испольщзуем
             // Составить список всех курсов, которые есть в используемых модулях
 
-            var semesterIndex = createEducationalProgramDTO
-                    .getSemesters()
+            var semesterIndex = createProgramDTO
+                    .semesters()
                     .indexOf(semester);
             requiredCoursesIds
                     .forEach(x -> pairs.add(List.of(semestersIds.get(semesterIndex), x)));
         }
 
         // Программа
-        var programId = createEducationalProgram(semestersIds, createEducationalProgramDTO);
+        var programId = createEducationalProgram(semestersIds, createProgramDTO);
         var models = pairs
                 .stream()
                 .map(pair -> {
@@ -179,17 +181,17 @@ public class EducationalProgramService {
         // Добавить (программа, курс, семестр) в бд
     }
 
-    public UUID createEducationalProgram(List<UUID> semestersIds, CreateEducationalProgramDTO educationalProgramRequest) throws JsonProcessingException {
+    public UUID createEducationalProgram(List<UUID> semestersIds, CreateProgramDTO educationalProgramRequest) throws JsonProcessingException {
         Map<UUID, Integer> credits = new HashMap<>();
-        var length = Math.min(semestersIds.size(), educationalProgramRequest.getRecomendedCredits().size());
+        var length = Math.min(semestersIds.size(), educationalProgramRequest.recommendedCredits().size());
         for (int i = 0; i < length; i++) {
-            credits.put(semestersIds.get(i), educationalProgramRequest.getRecomendedCredits().get(i));
+            credits.put(semestersIds.get(i), educationalProgramRequest.recommendedCredits().get(i));
         }
 
         var serializedCredits = serializer.writeValueAsString(credits);
         var program = new EducationalProgram(
-                educationalProgramRequest.title,
-                educationalProgramRequest.title,
+                educationalProgramRequest.title(),
+                educationalProgramRequest.title(),
                 serializedCredits
         );
 

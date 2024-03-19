@@ -79,9 +79,9 @@ export function AddEducationalProgramScreen(props: Props) {
                 setEducationalProgramName(program.title);
                 setEducationalProgramId(program.id);
 
-                for(let i = 0; i < program.recomendedCredits.length; i++) {
+                for(let i = 0; i < program.recommendedCredits.length; i++) {
                     const [state, setState] = credits[i];
-                    setState(program.recomendedCredits[i]);
+                    setState(program.recommendedCredits[i]);
                 }
 
                 for(let i = 0; i < program.semesters.length; i++) {
@@ -166,7 +166,7 @@ export function AddEducationalProgramScreen(props: Props) {
         }
         const request = {
             title: educationalProgramName,
-            recomendedCredits: credits.map(x => x[0]),
+            recommendedCredits: credits.map(x => x[0]),
             semesters: [semester1, semester2, semester3, semester4]
         }
         await apis.educationalProgramsApi.createEducationalProgramList(request)

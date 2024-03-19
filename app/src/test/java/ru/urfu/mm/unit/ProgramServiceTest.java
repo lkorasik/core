@@ -10,18 +10,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.urfu.mm.dsl.EntityDSL;
-import ru.urfu.mm.dto.CreateEducationalProgramDTO;
-import ru.urfu.mm.dto.CreateSemesterDTO;
-import ru.urfu.mm.dto.FullEducationalProgramDTO;
+import ru.urfu.mm.controller.program.FullProgramDTO;
 import ru.urfu.mm.entity.EducationalProgram;
-import ru.urfu.mm.entity.Semester;
-import ru.urfu.mm.entity.SpecialCourse;
 import ru.urfu.mm.exceptions.EducationalProgramNotFoundException;
 import ru.urfu.mm.repository.EducationalProgramRepository;
 import ru.urfu.mm.repository.EducationalProgramToCoursesWithSemestersRepository;
 import ru.urfu.mm.repository.SemesterRepository;
 import ru.urfu.mm.repository.SpecialCourseRepository;
-import ru.urfu.mm.service.EducationalProgramService;
+import ru.urfu.mm.service.ProgramService;
 
 import java.util.*;
 
@@ -30,7 +26,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class EducationalProgramServiceTest {
+public class ProgramServiceTest {
     @Mock
     private EducationalProgramRepository educationalProgramRepository;
     @Mock
@@ -48,7 +44,7 @@ public class EducationalProgramServiceTest {
 
         when(educationalProgramRepository.findById(educationalProgram.getId())).thenReturn(Optional.of(educationalProgram));
 
-        EducationalProgramService educationalProgramService = new EducationalProgramService(
+        ProgramService programService = new ProgramService(
                 educationalProgramRepository,
                 semesterRepository,
                 specialCourseRepository,
@@ -56,7 +52,7 @@ public class EducationalProgramServiceTest {
                 serializer
         );
 
-        EducationalProgram actual = educationalProgramService.getEducationalProgram(educationalProgram.getId());
+        EducationalProgram actual = programService.getEducationalProgram(educationalProgram.getId());
 
         Assertions.assertEquals(educationalProgram, actual);
     }
@@ -67,7 +63,7 @@ public class EducationalProgramServiceTest {
 
         when(educationalProgramRepository.findById(educationalProgram.getId())).thenReturn(Optional.empty());
 
-        EducationalProgramService educationalProgramService = new EducationalProgramService(
+        ProgramService programService = new ProgramService(
                 educationalProgramRepository,
                 semesterRepository,
                 specialCourseRepository,
@@ -75,7 +71,7 @@ public class EducationalProgramServiceTest {
                 serializer
         );
 
-        Assertions.assertThrows(EducationalProgramNotFoundException.class, () -> educationalProgramService.getEducationalProgram(educationalProgram.getId()));
+        Assertions.assertThrows(EducationalProgramNotFoundException.class, () -> programService.getEducationalProgram(educationalProgram.getId()));
     }
 
     /**
@@ -110,7 +106,7 @@ public class EducationalProgramServiceTest {
 
         when(serializer.readValue(anyString(), eq(new TypeReference<HashMap<UUID, Integer>>() {}))).thenReturn(map);
 
-        EducationalProgramService educationalProgramService = new EducationalProgramService(
+        ProgramService programService = new ProgramService(
                 educationalProgramRepository,
                 semesterRepository,
                 specialCourseRepository,
@@ -118,7 +114,7 @@ public class EducationalProgramServiceTest {
                 serializer
         );
 
-        Map<UUID, Integer> actual = educationalProgramService.getSemesterIdToRequiredCreditsCount(educationalProgram);
+        Map<UUID, Integer> actual = programService.getSemesterIdToRequiredCreditsCount(educationalProgram);
 
         uuids.forEach(x -> Assertions.assertTrue(actual.containsKey(x)));
         for(var i = 0; i < uuids.size(); i++) {
@@ -135,7 +131,7 @@ public class EducationalProgramServiceTest {
 
         when(educationalProgramRepository.findAll()).thenReturn(educationalPrograms);
 
-        EducationalProgramService educationalProgramService = new EducationalProgramService(
+        ProgramService programService = new ProgramService(
                 educationalProgramRepository,
                 semesterRepository,
                 specialCourseRepository,
@@ -143,7 +139,7 @@ public class EducationalProgramServiceTest {
                 serializer
         );
 
-        List<EducationalProgram> actual = educationalProgramService.getEducationalPrograms();
+        List<EducationalProgram> actual = programService.getEducationalPrograms();
 
         actual.forEach(x -> Assertions.assertTrue(educationalPrograms.contains(x)));
     }
@@ -152,7 +148,7 @@ public class EducationalProgramServiceTest {
     public void test_getEducationalPrograms_empty() {
         when(educationalProgramRepository.findAll()).thenReturn(List.of());
 
-        EducationalProgramService educationalProgramService = new EducationalProgramService(
+        ProgramService programService = new ProgramService(
                 educationalProgramRepository,
                 semesterRepository,
                 specialCourseRepository,
@@ -160,7 +156,7 @@ public class EducationalProgramServiceTest {
                 serializer
         );
 
-        List<EducationalProgram> actual = educationalProgramService.getEducationalPrograms();
+        List<EducationalProgram> actual = programService.getEducationalPrograms();
 
         Assertions.assertTrue(actual.isEmpty());
     }
@@ -175,7 +171,7 @@ public class EducationalProgramServiceTest {
 
         when(educationalProgramRepository.findById(educationalProgram.getId())).thenReturn(Optional.of(educationalProgram));
 
-        EducationalProgramService educationalProgramService = new EducationalProgramService(
+        ProgramService programService = new ProgramService(
                 educationalProgramRepository,
                 semesterRepository,
                 specialCourseRepository,
@@ -183,6 +179,6 @@ public class EducationalProgramServiceTest {
                 serializer
         );
 
-        FullEducationalProgramDTO actual = educationalProgramService.getEducationalProgramById(educationalProgram.getId());
+        FullProgramDTO actual = programService.getEducationalProgramById(educationalProgram.getId());
     }
 }

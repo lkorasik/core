@@ -4,7 +4,7 @@ import { Input } from "../../base_components/Input/Input";
 import styles from "./WelcomeBackground.module.css";
 import { LoginInfo } from "../../hooks/LoginInfo";
 import Select from "react-select";
-import { EducationalProgramInfoDto } from "../../apis/dto/EducationalProgramInfoDto";
+import { ProgramInfoDto } from "../../apis/api/programs/ProgramInfoDto";
 import { useApis } from "../../apis/ApiBase/ApiProvider";
 import { AccessTokenDto } from "../../apis/api/authentication/AccessTokenDto";
 import { useEffect, useState } from "react";
@@ -20,7 +20,7 @@ export function WelcomeScreen(props: Props) {
     const [password, setPassword] = useState("");
     const [passwordAgain, setPasswordAgain] = useState("");
     const [group, setGroup] = useState("");
-    const [educationalPrograms, setEducationalPrograms] = useState<EducationalProgramInfoDto[]>();
+    const [educationalPrograms, setEducationalPrograms] = useState<ProgramInfoDto[]>();
 
     const [isRegistration, setIsRegistration] = useState(false)
     const [registrationForm, setRegistrationForm] = useState(accountTypes[0])

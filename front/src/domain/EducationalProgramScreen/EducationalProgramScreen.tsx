@@ -5,12 +5,12 @@ import { AddButton } from "../../base_components/AddButton/AddButton";
 import { Link } from "react-router-dom";
 import { useApis } from "../../apis/ApiBase/ApiProvider";
 import { useEffect, useState } from "react";
-import { EducationalProgramInfoDto } from "../../apis/dto/EducationalProgramInfoDto";
+import { ProgramInfoDto } from "../../apis/api/programs/ProgramInfoDto";
 
 interface Props { }
 
 export function EducationalProgramScreen(props: Props) {
-    const [educationalPrograms, setEducationalPrograms] = useState<EducationalProgramInfoDto[]>([]);
+    const [educationalPrograms, setEducationalPrograms] = useState<ProgramInfoDto[]>([]);
 
     const apis = useApis();
 
@@ -22,7 +22,7 @@ export function EducationalProgramScreen(props: Props) {
         loadEducationalPrograms().catch(console.error);
     }, [apis.educationalProgramsApi])
 
-    const renderCard = (x: EducationalProgramInfoDto) => {
+    const renderCard = (x: ProgramInfoDto) => {
         return (
             <Card
                 link={"/administrator/educational_program/" + x.id}

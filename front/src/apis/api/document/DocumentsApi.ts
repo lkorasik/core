@@ -1,4 +1,4 @@
-import {ApiBase} from "../ApiBase/ApiBase";
+import {ApiBase} from "../../ApiBase/ApiBase";
 
 export class DocumentsApi extends ApiBase implements IDocumentsApi {
     public async generateDocument(): Promise<any> {
