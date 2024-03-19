@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ru.urfu.mm.controller.recommendation.SemesterDTO;
+import ru.urfu.mm.controller.semester.SemesterDTO;
 import ru.urfu.mm.entity.Semester;
 import ru.urfu.mm.repository.SemesterRepository;
 import ru.urfu.mm.service.SemesterService;

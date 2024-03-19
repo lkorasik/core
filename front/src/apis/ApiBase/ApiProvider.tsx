@@ -1,7 +1,7 @@
 import * as React from "react";
 import {PropsWithChildren, useContext} from "react";
 import {ProgramsApi, IProgramsApi} from "../api/programs/EducationalProgramsApi";
-import {ISemestersApi, SemestersApi} from "../SpecCoursesApi/SemestersApi";
+import {ISemestersApi, SemestersApi} from "../api/semester/SemestersApi";
 import {ISpecialCoursesApi, SpecialCoursesApi} from "../SpecCoursesApi/SpecialCoursesApi";
 import {AuthenticationApi, IAuthenticationApi} from "../api/authentication/AuthenticationApi";
 import {ModulesApi, IModulesApi} from "../api/modules/ModulesApi";
