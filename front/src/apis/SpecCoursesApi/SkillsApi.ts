@@ -1,6 +1,6 @@
 import {ApiBase} from "../ApiBase/ApiBase";
 import {SkillInfoDto} from "../dto/SkillInfoDto";
-import {SkillDto} from "../dto/SkillDto";
+import {SkillDto} from "../api/recommendation/SkillDto";
 import {SaveSkillsRequest} from "../dto/SaveSkillsRequest";
 
 export class SkillsApi extends ApiBase implements ISkillsApi {

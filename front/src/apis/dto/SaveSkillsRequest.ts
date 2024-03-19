@@ -1,4 +1,4 @@
-import {SkillDto} from "./SkillDto";
+import {SkillDto} from "../api/recommendation/SkillDto";
 
 export interface SaveSkillsRequest {
     skills: SkillDto[];

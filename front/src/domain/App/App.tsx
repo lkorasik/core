@@ -58,9 +58,8 @@ const App: FC = () => {
     return (
         <Routes>
             <Route path={"/"} element={<WelcomeScreen saveLoginInfo={saveLoginInfo}/>}/>
-            <Route path={"/student"} element={<ChooseCoursesScreen/>}>
-                <Route path={"/student/recommendationService"} element={<RecommendationsScreen />} />
-            </Route>
+            <Route path={"/student"} element={<ChooseCoursesScreen/>}/>
+            <Route path={"/student/recommendationService"} element={<RecommendationsScreen />} />
             <Route path={"/employee"} element={<EmployeeScreen/>}/>
             <Route path={"/administrator"} element={<AdministratorMainScreen/>}>
                 <Route path={"/administrator/educational_program"} element={<EducationalProgramScreen/>}/>

@@ -2,7 +2,7 @@ package ru.urfu.mm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.urfu.mm.dto.*;
+import ru.urfu.mm.controller.recommendation.*;
 import ru.urfu.mm.entity.Student;
 import ru.urfu.mm.entity.StudentDesiredSkills;
 import ru.urfu.mm.entity.StudentSkills;
@@ -29,7 +29,7 @@ public class RecommendationsService {
 
         var actualSemestersIds = semesterService.getActualSemesters()
                 .stream()
-                .map(SemesterDTO::getId)
+                .map(SemesterDTO::id)
                 .toList();
         var courses = specialCourseService.getCoursesByEducationalProgramAndSemesters(
                 student.getEducationalProgram().getId(),
@@ -156,8 +156,6 @@ public class RecommendationsService {
                                         y.getId(),
                                         y.getName(),
                                         y.getCreditsCount(),
-                                        y.getControl(),
-                                        y.getDescription(),
                                         y.getSemesters().stream().map(w -> new SemesterDTO(w.getId(), w.getYear(), w.getSemesterNumber())).toList(),
                                         y.getEducationalModuleId(),
                                         y.requiredSemesterId,
@@ -380,8 +378,6 @@ public class RecommendationsService {
                 courseWithSkills.courseId,
                 course.getName(),
                 course.getCreditsCount(),
-                course.getControl(),
-                course.getDescription(),
                 course.getSemesters().stream()
                         .map(x -> new SemesterDTO(x.getId(), x.getYear(), x.getSemesterNumber()))
                         .toList(),

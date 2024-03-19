@@ -8,7 +8,7 @@ import {ModulesApi, IModulesApi} from "../api/modules/ModulesApi";
 import {LoginInfo} from "../../hooks/LoginInfo";
 import {DocumentsApi, IDocumentsApi} from "../api/document/DocumentsApi";
 import {ISkillsApi, SkillsApi} from "../SpecCoursesApi/SkillsApi";
-import {IRecommendationsApi, RecommendationsApi} from "../SpecCoursesApi/RecommendationsApi";
+import {IRecommendationsApi, RecommendationsApi} from "../api/recommendation/RecommendationsApi";
 
 const apiPrefix: string = "/api/";
 

@@ -1,5 +1,7 @@
 package ru.urfu.mm.dto;
 
+import ru.urfu.mm.controller.recommendation.SkillDTO;
+
 import java.util.List;
 
 public class SaveSkillsDTO {

@@ -1,4 +1,4 @@
-import {Semester} from "./Semester";
+import {SemesterDto} from "../api/recommendation/SemesterDto";
 import {Control} from "./Control";
 
 export interface SpecialCourse {
@@ -7,7 +7,7 @@ export interface SpecialCourse {
     creditsCount: number;
     control: Control;
     description: string;
-    semesters: Semester[];
+    semesters: SemesterDto[];
     educationalModuleId: string | null;
     department?: string;
     teacherName?: string;

@@ -1,7 +1,7 @@
 import styles from "./AddModuleScreen.module.css";
 import {IAllApisProp, withApis} from "../../apis/ApiBase/ApiProvider";
 import {connect, ConnectedProps} from "react-redux";
-import {Semester} from "../../apis/dto/Semester";
+import {SemesterDto} from "../../apis/api/recommendation/SemesterDto";
 import React from "react";
 import {RootState} from "../../index";
 import {SpecialCourse} from "../../apis/dto/SpecialCourse";

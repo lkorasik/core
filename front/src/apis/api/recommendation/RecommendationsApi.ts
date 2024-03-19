@@ -1,5 +1,5 @@
-import {ApiBase} from "../ApiBase/ApiBase";
-import {RecommendationResultDto} from "../dto/RecommendationResultDto";
+import {ApiBase} from "../../ApiBase/ApiBase";
+import {RecommendationResultDto} from "./RecommendationResultDto";
 
 export class RecommendationsApi extends ApiBase implements IRecommendationsApi {
     public async calculateRecommendations(): Promise<RecommendationResultDto> {

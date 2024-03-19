@@ -8,7 +8,7 @@ import {ChosenCoursesForm} from "../ChosenCoursesForm/ChosenCoursesForm";
 import {Flex} from "../../base_components/Flex/Flex";
 import {useApis} from "../../apis/ApiBase/ApiProvider";
 import {ProgramInfoDto} from "../../apis/api/programs/ProgramInfoDto";
-import {Semester} from "../../apis/dto/Semester";
+import {SemesterDto} from "../../apis/api/recommendation/SemesterDto";
 import {CourseForEducationalProgram} from "../../apis/dto/CourseForEducationalProgram";
 import {useDispatch} from "react-redux";
 import {CoursesStoreActionCreator} from "../../storing/coursesStore/coursesStore.actionCreator";
@@ -20,7 +20,7 @@ import {useNavigate} from "react-router-dom";
 
 export const ChooseCoursesScreen: FC = () => {
     const [educationalProgram, setEducationalProgram] = useState<ProgramInfoDto | undefined>();
-    const [actualSemesters, setActualSemesters] = useState<Semester[] | undefined>();
+    const [actualSemesters, setActualSemesters] = useState<SemesterDto[] | undefined>();
     const [selectedSemesterId, setSelectedSemesterId] = useState<string | undefined>();
     const [educationalModules, setEducationalModules] = useState<ModuleDto[]>([]);
     const [
@@ -82,7 +82,6 @@ export const ChooseCoursesScreen: FC = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-
     const render = () => {
         return (
             <div className={styles.mainPageContainer}>
@@ -139,7 +138,7 @@ export const ChooseCoursesScreen: FC = () => {
             />;
         }
 
-        const semestersOptions = actualSemesters.map(x => ({value: x.id, label: `${x.year}/${x.year + 1} год, семестр ${x.semesterNumber}`}));
+        const semestersOptions = actualSemesters.map(x => ({value: x.id, label: `${x.year}/${x.year + 1} год, семестр ${x.ordinalNumber}`}));
 
         return(
             <Select className={styles.semesterSelect}
@@ -157,14 +156,14 @@ export const ChooseCoursesScreen: FC = () => {
         setSelectedSemesterId(semesterId);
     }
 
-    const compareSemesters = (lhs: Semester, rhs: Semester) => {
+    const compareSemesters = (lhs: SemesterDto, rhs: SemesterDto) => {
         if (lhs.year > rhs.year) {
             return 1;
         }
         if (lhs.year < rhs.year) {
             return -1;
         }
-        return lhs.semesterNumber - rhs.semesterNumber;
+        return lhs.ordinalNumber - rhs.ordinalNumber;
     }
 
     return render();

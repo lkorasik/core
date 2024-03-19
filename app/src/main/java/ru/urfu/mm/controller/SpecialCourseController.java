@@ -75,7 +75,7 @@ public class SpecialCourseController {
     }
 
     @GetMapping("/educationalModuleCourses")
-    public List<SpecialCourseDTO> getEducationalModuleCourses(@RequestParam("educationalModuleId") String moduleIdDTO) {
+    public List<SpecialCourseDTO> getEducationalModuleCourses(@RequestParam("moduleId") String moduleIdDTO) {
         return specialCourseService.getEducationalModuleCourses(UUID.fromString(moduleIdDTO));
     }
 

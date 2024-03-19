@@ -5,7 +5,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.dto.SaveSkillsDTO;
-import ru.urfu.mm.dto.SkillDTO;
+import ru.urfu.mm.controller.recommendation.SkillDTO;
 import ru.urfu.mm.dto.SkillInfoDTO;
 import ru.urfu.mm.entity.Skill;
 import ru.urfu.mm.entity.StudentDesiredSkills;

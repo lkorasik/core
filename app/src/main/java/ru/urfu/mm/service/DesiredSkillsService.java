@@ -2,7 +2,7 @@ package ru.urfu.mm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.urfu.mm.dto.SkillDTO;
+import ru.urfu.mm.controller.recommendation.SkillDTO;
 import ru.urfu.mm.entity.Student;
 import ru.urfu.mm.entity.StudentDesiredSkills;
 import ru.urfu.mm.repository.DesiredSkillsRepository;
@@ -43,7 +43,7 @@ public class DesiredSkillsService {
 
         var newSkills = skills
                 .stream()
-                .map(x -> Pair.of(skillRepository.findById(x.getId()).get(), x.getLevel()))
+                .map(x -> Pair.of(skillRepository.findById(x.id()).get(), x.level()))
                 .toList();
         desiredSkillsRepository
                 .saveAll(

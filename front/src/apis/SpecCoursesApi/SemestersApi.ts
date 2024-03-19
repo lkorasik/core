@@ -1,12 +1,12 @@
 import {ApiBase} from "../ApiBase/ApiBase";
-import {Semester} from "../dto/Semester";
+import {SemesterDto} from "../api/recommendation/SemesterDto";
 
 export class SemestersApi extends ApiBase implements ISemestersApi {
-    public async getActualSemesters(): Promise<Semester[]> {
+    public async getActualSemesters(): Promise<SemesterDto[]> {
         return this.get("semesters/actual");
     }
 }
 
 export interface ISemestersApi {
-    getActualSemesters(): Promise<Semester[]>
+    getActualSemesters(): Promise<SemesterDto[]>
 }
