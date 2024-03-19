@@ -1,4 +1,4 @@
-import {SpecialCourse} from "../apis/dto/SpecialCourse";
+import {SpecialCourse} from "../apis/api/course/SpecialCourse";
 
 export class SpecialCoursesHelper {
     public static doesCourseFitSemester(specialCourse: SpecialCourse, semesterId: string) {

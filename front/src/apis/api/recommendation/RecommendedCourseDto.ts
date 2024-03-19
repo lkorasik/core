@@ -1,4 +1,4 @@
-import {Control} from "../../dto/Control";
+import {Control} from "../Control";
 import {SemesterDto} from "./SemesterDto";
 import {SkillDto} from "./SkillDto";
 

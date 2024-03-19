@@ -1,6 +1,6 @@
 import {CoursesStoreAction, CoursesStoreActionType} from "./coursesStore";
-import {CourseForEducationalProgram} from "../../apis/dto/CourseForEducationalProgram";
-import {CoursesBySemesterDto} from "../../apis/dto/CoursesBySemesterDto";
+import {CourseForEducationalProgram} from "../../apis/api/course/CourseForEducationalProgram";
+import {CoursesBySemesterDto} from "../../apis/api/course/CoursesBySemesterDto";
 
 class CoursesStoreActionCreatorClass {
     public addCourse(semesterId: string, specialCourse: CourseForEducationalProgram): CoursesStoreAction {

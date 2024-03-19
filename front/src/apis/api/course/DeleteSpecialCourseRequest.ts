@@ -1,3 +1,3 @@
 export interface DeleteSpecialCourseRequest {
-    specialCourseId: string;
+    courseId: string;
 }

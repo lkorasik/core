@@ -2,7 +2,7 @@ import * as React from "react";
 import {PropsWithChildren, useContext} from "react";
 import {ProgramsApi, IProgramsApi} from "../api/programs/EducationalProgramsApi";
 import {ISemestersApi, SemestersApi} from "../api/semester/SemestersApi";
-import {ISpecialCoursesApi, SpecialCoursesApi} from "../SpecCoursesApi/SpecialCoursesApi";
+import {ICoursesApi, CoursesApi} from "../api/course/CoursesApi";
 import {AuthenticationApi, IAuthenticationApi} from "../api/authentication/AuthenticationApi";
 import {ModulesApi, IModulesApi} from "../api/modules/ModulesApi";
 import {LoginInfo} from "../../hooks/LoginInfo";
@@ -15,7 +15,7 @@ const apiPrefix: string = "/api/";
 export interface IAllApis {
     educationalProgramsApi: IProgramsApi;
     semestersApi: ISemestersApi;
-    specialCoursesApi: ISpecialCoursesApi;
+    specialCoursesApi: ICoursesApi;
     authenticationApi: IAuthenticationApi;
     educationalModulesApi: IModulesApi;
     documentsApi: IDocumentsApi;
@@ -40,7 +40,7 @@ const getToken = () => {
 export const RealApi: IAllApis = {
     educationalProgramsApi: new ProgramsApi(apiPrefix, getToken),
     semestersApi: new SemestersApi(apiPrefix, getToken),
-    specialCoursesApi: new SpecialCoursesApi(apiPrefix, getToken),
+    specialCoursesApi: new CoursesApi(apiPrefix, getToken),
     authenticationApi: new AuthenticationApi(apiPrefix, getToken),
     educationalModulesApi: new ModulesApi(apiPrefix, getToken),
     documentsApi: new DocumentsApi(apiPrefix, getToken),

@@ -2,10 +2,10 @@ package ru.urfu.mm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.urfu.mm.dto.CreateModuleSpecialCourseDTO;
-import ru.urfu.mm.dto.EditModuleSpecialCourseDTO;
-import ru.urfu.mm.dto.SpecialCourseDTO;
-import ru.urfu.mm.dto.SpecialCourseStatisticsDTO;
+import ru.urfu.mm.controller.course.CreateModuleCourseDTO;
+import ru.urfu.mm.controller.course.EditModuleCourseDTO;
+import ru.urfu.mm.controller.course.CourseDTO;
+import ru.urfu.mm.controller.course.CourseStatisticsDTO;
 import ru.urfu.mm.entity.EducationalProgramToCoursesWithSemesters;
 import ru.urfu.mm.entity.SelectedCourses;
 import ru.urfu.mm.entity.Semester;
@@ -20,14 +20,14 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class SpecialCourseService {
+public class CourseService {
     private final EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository;
     private final SelectedCoursesRepository selectedCoursesRepository;
     private final SpecialCourseRepository specialCourseRepository;
     private final EducationalModuleRepository educationalModuleRepository;
 
     @Autowired
-    public SpecialCourseService(
+    public CourseService(
             EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository,
             SelectedCoursesRepository selectedCoursesRepository,
             SpecialCourseRepository specialCourseRepository,
@@ -131,7 +131,7 @@ public class SpecialCourseService {
         return requiredCourses;
     }
 
-    public List<SpecialCourseStatisticsDTO> getActualSpecialCoursesStatistics(List<UUID> semestersId) {
+    public List<CourseStatisticsDTO> getActualSpecialCoursesStatistics(List<UUID> semestersId) {
         var courses = educationalProgramToCoursesWithSemestersRepository
                 .findAll()
                 .stream()
@@ -140,7 +140,7 @@ public class SpecialCourseService {
                 .toList();
         return courses
                 .stream()
-                .map(x -> new SpecialCourseStatisticsDTO(
+                .map(x -> new CourseStatisticsDTO(
                                 x.getSpecialCourse().getId(),
                                 x.getSpecialCourse().getName(),
                                 specialCourseStudentsCount(x.getSpecialCourse().getId())
@@ -149,7 +149,7 @@ public class SpecialCourseService {
                 .toList();
     }
 
-    public List<SpecialCourseDTO> getAllCourses() {
+    public List<CourseDTO> getAllCourses() {
         var courses = specialCourseRepository
                 .findAll()
                 .stream()
@@ -176,7 +176,7 @@ public class SpecialCourseService {
         return semestersIds == null || semestersIds.contains(model.getSemester().getId());
     }
 
-    public List<SpecialCourseDTO> getEducationalModuleCourses(UUID educationalModuleId) {
+    public List<CourseDTO> getEducationalModuleCourses(UUID educationalModuleId) {
         var courses = specialCourseRepository
                 .findAll()
                 .stream()
@@ -189,11 +189,11 @@ public class SpecialCourseService {
                 .toList();
     }
 
-    public SpecialCourseDTO getCourse(UUID specialCourseId) {
+    public CourseDTO getCourse(UUID specialCourseId) {
         var course = specialCourseRepository
                 .findById(specialCourseId)
                 .get();
-        return new SpecialCourseDTO(
+        return new CourseDTO(
                 course.getId(),
                 course.getName(),
                 course.getCreditsCount(),
@@ -205,17 +205,17 @@ public class SpecialCourseService {
         );
     }
 
-    public void createModuleSpecialCourse(CreateModuleSpecialCourseDTO createModuleSpecialCourseDTO) {
+    public void createModuleSpecialCourse(CreateModuleCourseDTO createModuleCourseDTO) {
         var educationalModule = educationalModuleRepository
-                .findById(createModuleSpecialCourseDTO.getEducationalModuleId())
+                .findById(createModuleCourseDTO.moduleId())
                 .get();
         var course = new SpecialCourse(
-                createModuleSpecialCourseDTO.getCourseName(),
-                createModuleSpecialCourseDTO.getCreditsCount(),
-                createModuleSpecialCourseDTO.getControl(),
-                createModuleSpecialCourseDTO.getCourseDescription(),
-                createModuleSpecialCourseDTO.getDepartment(),
-                createModuleSpecialCourseDTO.getTeacherName(),
+                createModuleCourseDTO.courseName(),
+                createModuleCourseDTO.creditsCount(),
+                createModuleCourseDTO.control(),
+                createModuleCourseDTO.courseDescription(),
+                createModuleCourseDTO.department(),
+                createModuleCourseDTO.teacherName(),
                 educationalModule
         );
         specialCourseRepository.save(course);
@@ -225,18 +225,18 @@ public class SpecialCourseService {
         specialCourseRepository.deleteById(courseId);
     }
 
-    public void editModuleSpecialCourse(EditModuleSpecialCourseDTO editModuleSpecialCourseDTO) {
+    public void editModuleSpecialCourse(EditModuleCourseDTO editModuleCourseDTO) {
         var oldCourseValue = specialCourseRepository
-                .findById(editModuleSpecialCourseDTO.getSpecialCourseId())
+                .findById(editModuleCourseDTO.courseId())
                 .get();
 
         if (oldCourseValue != null) {
-            oldCourseValue.setName(editModuleSpecialCourseDTO.getCourseName());
-            oldCourseValue.setDepartment(editModuleSpecialCourseDTO.getDepartment());
-            oldCourseValue.setTeacherName(editModuleSpecialCourseDTO.getTeacherName());
-            oldCourseValue.setControl(editModuleSpecialCourseDTO.getControl());
-            oldCourseValue.setCreditsCount(editModuleSpecialCourseDTO.getCreditsCount());
-            oldCourseValue.setDescription(editModuleSpecialCourseDTO.getCourseDescription());
+            oldCourseValue.setName(editModuleCourseDTO.courseName());
+            oldCourseValue.setDepartment(editModuleCourseDTO.department());
+            oldCourseValue.setTeacherName(editModuleCourseDTO.teacherName());
+            oldCourseValue.setControl(editModuleCourseDTO.control());
+            oldCourseValue.setCreditsCount(editModuleCourseDTO.creditsCount());
+            oldCourseValue.setDescription(editModuleCourseDTO.courseDescription());
 
             specialCourseRepository.save(oldCourseValue);
         }

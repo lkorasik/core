@@ -1,5 +1,5 @@
 export interface CreateModuleSpecialCourseRequest {
-    educationalModuleId: string;
+    moduleId: string;
     courseName: string;
     creditsCount: number;
     controlType: string;

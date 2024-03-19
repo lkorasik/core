@@ -7,7 +7,7 @@ import {connect, ConnectedProps} from "react-redux";
 import {ModuleDto} from "../../apis/api/modules/ModuleDto";
 import React from "react";
 import {Link} from "react-router-dom";
-import {SpecialCourse} from "../../apis/dto/SpecialCourse";
+import {SpecialCourse} from "../../apis/api/course/SpecialCourse";
 import {MODULES_SCREEN_URL} from "../App/App";
 
 interface State {
@@ -36,7 +36,7 @@ class ModuleScreenClear extends React.Component<Props, State> {
         const moduleName = localStorage.getItem("EducationalModuleName");
 
         const moduleCourses = moduleId
-            ? await this.props.apis.specialCoursesApi.getEducationalModelCourses({educationalModuleId: moduleId,})
+            ? await this.props.apis.specialCoursesApi.getEducationalModelCourses({moduleId: moduleId,})
             : [];
 
         this.setState({

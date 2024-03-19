@@ -7,7 +7,7 @@ import {ScrollContainer} from "../../base_components/ScrollContainer/ScrollConta
 import {IAllApisProp, withApis} from "../../apis/ApiBase/ApiProvider";
 import {Loader} from "../../base_components/Loader/Loader";
 import {CardButtonAction, CardType, CourseCard} from "../СourseCard/CourseCard";
-import {CourseForEducationalProgram} from "../../apis/dto/CourseForEducationalProgram";
+import {CourseForEducationalProgram} from "../../apis/api/course/CourseForEducationalProgram";
 import {connect, ConnectedProps} from "react-redux";
 import {RootState} from "../../index";
 import {ModuleDto} from "../../apis/api/modules/ModuleDto";
@@ -52,16 +52,16 @@ class AvailableCoursesListClear extends React.Component<ExtendedProps> {
 
         let visibleSpecialCourses = this.filterChosenCourses(this.props.specialCourses);
         visibleSpecialCourses = visibleSpecialCourses.filter(x =>
-            x.educationalModuleId
+            x.moduleId
             || (SpecialCoursesHelper.doesCourseFitSemester(x, this.props.chosenSemesterId) && !x.requiredSemesterId)
         );
         const moduleIdToCourses = new Map<string | "NoModule", CourseForEducationalProgram[]>();
         visibleSpecialCourses.forEach(x => {
-           const courses = moduleIdToCourses.get(x.educationalModuleId ?? "NoModule");
+           const courses = moduleIdToCourses.get(x.moduleId ?? "NoModule");
            if (courses) {
                courses.push(x)
            } else {
-               moduleIdToCourses.set(x.educationalModuleId ?? "NoModule", [x]);
+               moduleIdToCourses.set(x.moduleId ?? "NoModule", [x]);
            }
         });
         const moduleIdToCoursesObj = Object.fromEntries(moduleIdToCourses);

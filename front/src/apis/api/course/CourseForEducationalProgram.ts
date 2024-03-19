@@ -1,5 +1,5 @@
-import {Control} from "./Control";
-import {SemesterDto} from "../api/recommendation/SemesterDto";
+import {Control} from "../Control";
+import {SemesterDto} from "../recommendation/SemesterDto";
 
 export interface CourseForEducationalProgram {
     id: string;
@@ -8,6 +8,6 @@ export interface CourseForEducationalProgram {
     control: Control;
     description: string;
     semesters: SemesterDto[];
-    educationalModuleId: string | null;
+    moduleId: string | null;
     requiredSemesterId: string | null;
 }

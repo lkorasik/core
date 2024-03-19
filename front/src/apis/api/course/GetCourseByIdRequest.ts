@@ -1,3 +1,3 @@
 export interface GetCourseByIdRequest {
-    specialCourseId: string;
+    courseId: string;
 }

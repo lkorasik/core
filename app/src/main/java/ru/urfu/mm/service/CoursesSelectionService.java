@@ -2,7 +2,7 @@ package ru.urfu.mm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.urfu.mm.dto.CoursesBySemesterDTO;
+import ru.urfu.mm.controller.course.CoursesBySemesterDTO;
 import ru.urfu.mm.entity.SelectedCourses;
 import ru.urfu.mm.entity.Semester;
 import ru.urfu.mm.entity.Student;
@@ -20,7 +20,7 @@ public class CoursesSelectionService {
     @Autowired
     private StudentRepository studentRepository;
     @Autowired
-    private SpecialCourseService specialCourseService;
+    private CourseService courseService;
     @Autowired
     private SelectedCoursesRepository selectedCoursesRepository;
     @Autowired
@@ -32,12 +32,12 @@ public class CoursesSelectionService {
         var selectedCoursesIdsSet = new HashSet<>(selectedCoursesIds);
 
         var student = studentRepository.getReferenceById(studentId);
-        var coursesIdsForEducationalProgram = specialCourseService
+        var coursesIdsForEducationalProgram = courseService
                 .getCoursesByEducationalProgramAndSemesters(student.getEducationalProgram().getId(), List.of(semesterId))
                 .stream()
                 .map(CourseForEducationalProgram::getId)
                 .collect(Collectors.toSet());
-        var requiredCoursesIds = specialCourseService
+        var requiredCoursesIds = courseService
                 .getRequiredCoursesForEducationalProgram(student.getEducationalProgram().getId())
                 .stream()
                 .filter(x -> x.getValue() == semesterId)
@@ -68,7 +68,7 @@ public class CoursesSelectionService {
         var selectedCoursesIdsSet = new HashSet<>(selectedCoursesIds);
 
         var student = studentRepository.getReferenceById(studentId);
-        var courses = specialCourseService
+        var courses = courseService
                 .getCoursesByEducationalProgramAndSemesters(student.getEducationalProgram().getId(), null)
                 .stream()
                 .map(x -> Map.entry(x.getEducationalModuleId(), x.getId()))
@@ -97,10 +97,10 @@ public class CoursesSelectionService {
     public void validateCoursesSelection(UUID studentId, List<CoursesBySemesterDTO> coursesBySemesters) {
         var semesterIdToValidationStatus = new HashMap<UUID, CourseSelectionValidationStatus>();
         for(var coursesBySemester : coursesBySemesters) {
-            var validationResult = validateCoursesSelectionBySemester(studentId, coursesBySemester.getSemesterId(), coursesBySemester.getCoursesIds());
+            var validationResult = validateCoursesSelectionBySemester(studentId, coursesBySemester.semesterId(), coursesBySemester.coursesIds());
 
             if(validationResult != CourseSelectionValidationStatus.OK) {
-                semesterIdToValidationStatus.put(coursesBySemester.getSemesterId(), validationResult);
+                semesterIdToValidationStatus.put(coursesBySemester.semesterId(), validationResult);
             }
         }
         if(!semesterIdToValidationStatus.isEmpty()) {
@@ -111,7 +111,7 @@ public class CoursesSelectionService {
                 studentId,
                 coursesBySemesters
                         .stream()
-                        .map(CoursesBySemesterDTO::getCoursesIds)
+                        .map(CoursesBySemesterDTO::coursesIds)
                         .flatMap(Collection::stream)
                         .collect(Collectors.toList())
         );
@@ -121,7 +121,7 @@ public class CoursesSelectionService {
     }
 
     public void saveCoursesSelection(UUID studentId, List<CoursesBySemesterDTO> coursesBySemesters) {
-        writeSelectedCourses(studentId, coursesBySemesters.stream().map(x -> Map.entry(x.getSemesterId(), x.getCoursesIds())).toList());
+        writeSelectedCourses(studentId, coursesBySemesters.stream().map(x -> Map.entry(x.semesterId(), x.coursesIds())).toList());
     }
 
     public void writeSelectedCourses(UUID studentId, List<Map.Entry<UUID, List<UUID>>> semesterIdWithCoursesIds) {

@@ -3,11 +3,11 @@ import {Text} from "../../base_components/Text/Text";
 import styles from "./CourseCard.module.css";
 import {Flex} from "../../base_components/Flex/Flex";
 import {Icon, IconType} from "../../icons/Icon";
-import {Control} from "../../apis/dto/Control";
+import {Control} from "../../apis/api/Control";
 import {connect, ConnectedProps} from "react-redux";
 import {RootState} from "../../index";
 import {CoursesStoreActionCreator} from "../../storing/coursesStore/coursesStore.actionCreator";
-import {CourseForEducationalProgram} from "../../apis/dto/CourseForEducationalProgram";
+import {CourseForEducationalProgram} from "../../apis/api/course/CourseForEducationalProgram";
 import {ModuleDto} from "../../apis/api/modules/ModuleDto";
 
 interface CourseCardProps extends BaseProps {

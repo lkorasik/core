@@ -19,7 +19,7 @@ public class RecommendationsService {
     @Autowired
     private SemesterService semesterService;
     @Autowired
-    private SpecialCourseService specialCourseService;
+    private CourseService courseService;
     @Autowired
     private CoursesSkillsService coursesSkillsService;
 
@@ -31,7 +31,7 @@ public class RecommendationsService {
                 .stream()
                 .map(ru.urfu.mm.controller.semester.SemesterDTO::id)
                 .toList();
-        var courses = specialCourseService.getCoursesByEducationalProgramAndSemesters(
+        var courses = courseService.getCoursesByEducationalProgramAndSemesters(
                 student.getEducationalProgram().getId(),
                 actualSemestersIds
         );
@@ -179,7 +179,7 @@ public class RecommendationsService {
     {
         ModuleCourses = coursesByModule.Select(x => new ModuleCoursesDto()
             {
-                ModuleId = x.Key,
+                moduleId = x.Key,
                 Courses = x
                     .Select(y => new RecommendedCourse()
                     {

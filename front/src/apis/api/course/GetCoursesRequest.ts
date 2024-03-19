@@ -1,4 +1,4 @@
 export interface GetCoursesRequest {
-    educationalProgramId: string;
+    programId: string;
     semestersIds: string[]
 }

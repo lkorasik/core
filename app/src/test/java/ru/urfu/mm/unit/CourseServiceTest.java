@@ -6,8 +6,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.urfu.mm.dsl.EntityDSL;
-import ru.urfu.mm.dto.SpecialCourseDTO;
-import ru.urfu.mm.dto.SpecialCourseStatisticsDTO;
+import ru.urfu.mm.controller.course.CourseDTO;
+import ru.urfu.mm.controller.course.CourseStatisticsDTO;
 import ru.urfu.mm.entity.*;
 import ru.urfu.mm.entity.Module;
 import ru.urfu.mm.exceptions.CourseRequiredCriteriaException;
@@ -16,7 +16,7 @@ import ru.urfu.mm.repository.EducationalProgramToCoursesWithSemestersRepository;
 import ru.urfu.mm.repository.SelectedCoursesRepository;
 import ru.urfu.mm.repository.SpecialCourseRepository;
 import ru.urfu.mm.service.CourseForEducationalProgram;
-import ru.urfu.mm.service.SpecialCourseService;
+import ru.urfu.mm.service.CourseService;
 
 import java.util.List;
 import java.util.Map;
@@ -25,7 +25,7 @@ import java.util.UUID;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class SpecialCourseServiceTest {
+public class CourseServiceTest {
     @Mock
     private EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository;
     @Mock
@@ -85,7 +85,7 @@ public class SpecialCourseServiceTest {
 
         when(educationalProgramToCoursesWithSemestersRepository.findAll()).thenReturn(educationalProgramToCoursesWithSemesters);
 
-        SpecialCourseService specialCourseService = new SpecialCourseService(
+        CourseService courseService = new CourseService(
                 educationalProgramToCoursesWithSemestersRepository,
                 selectedCoursesRepository,
                 specialCourseRepository,
@@ -97,7 +97,7 @@ public class SpecialCourseServiceTest {
                 .map(Semester::getId)
                 .toList();
 
-        List<CourseForEducationalProgram> result = specialCourseService.getCoursesByEducationalProgramAndSemesters(educationalProgram.getId(), semestersId);
+        List<CourseForEducationalProgram> result = courseService.getCoursesByEducationalProgramAndSemesters(educationalProgram.getId(), semestersId);
 
         List<CourseForEducationalProgram> expected = List.of(
                 new CourseForEducationalProgram(
@@ -181,7 +181,7 @@ public class SpecialCourseServiceTest {
                 new Semester(UUID.randomUUID(), 2025, 4)
         );
 
-        SpecialCourseService specialCourseService = new SpecialCourseService(
+        CourseService courseService = new CourseService(
                 educationalProgramToCoursesWithSemestersRepository,
                 selectedCoursesRepository,
                 specialCourseRepository,
@@ -221,7 +221,7 @@ public class SpecialCourseServiceTest {
 
         when(selectedCoursesRepository.findAll()).thenReturn(selectedCourses);
 
-        Map<UUID, List<UUID>> map = specialCourseService.getSelectedCoursesIds(student.getLogin(), semesters.stream().map(Semester::getId).toList());
+        Map<UUID, List<UUID>> map = courseService.getSelectedCoursesIds(student.getLogin(), semesters.stream().map(Semester::getId).toList());
 
         Assertions.assertEquals(map.size(), selectedCourses.size());
         Assertions.assertTrue(selectedCourses
@@ -241,7 +241,7 @@ public class SpecialCourseServiceTest {
                 new Semester(UUID.randomUUID(), 2025, 4)
         );
 
-        SpecialCourseService specialCourseService = new SpecialCourseService(
+        CourseService courseService = new CourseService(
                 educationalProgramToCoursesWithSemestersRepository,
                 selectedCoursesRepository,
                 specialCourseRepository,
@@ -286,7 +286,7 @@ public class SpecialCourseServiceTest {
                 Map.entry(specialCourses.get(3).getId(), semesters.get(2).getId())
         );
 
-        List<Map.Entry<UUID, UUID>> list = specialCourseService.getRequiredCoursesForEducationalProgram(educationalProgram.getId());
+        List<Map.Entry<UUID, UUID>> list = courseService.getRequiredCoursesForEducationalProgram(educationalProgram.getId());
 
         Assertions.assertEquals(expected.size(), list.size());
         list.forEach(x -> Assertions.assertTrue(expected.contains(x)));
@@ -301,7 +301,7 @@ public class SpecialCourseServiceTest {
                 new Semester(UUID.randomUUID(), 2025, 4)
         );
 
-        SpecialCourseService specialCourseService = new SpecialCourseService(
+        CourseService courseService = new CourseService(
                 educationalProgramToCoursesWithSemestersRepository,
                 selectedCoursesRepository,
                 specialCourseRepository,
@@ -340,7 +340,7 @@ public class SpecialCourseServiceTest {
 
         when(educationalProgramToCoursesWithSemestersRepository.findAll()).thenReturn(selectedCourses);
 
-        Assertions.assertThrows(CourseRequiredCriteriaException.class, () -> specialCourseService.getRequiredCoursesForEducationalProgram(educationalProgram.getId()));
+        Assertions.assertThrows(CourseRequiredCriteriaException.class, () -> courseService.getRequiredCoursesForEducationalProgram(educationalProgram.getId()));
     }
 
     @Test
@@ -352,7 +352,7 @@ public class SpecialCourseServiceTest {
                 new Semester(UUID.randomUUID(), 2025, 4)
         );
 
-        SpecialCourseService specialCourseService = new SpecialCourseService(
+        CourseService courseService = new CourseService(
                 educationalProgramToCoursesWithSemestersRepository,
                 selectedCoursesRepository,
                 specialCourseRepository,
@@ -400,11 +400,11 @@ public class SpecialCourseServiceTest {
         when(educationalProgramToCoursesWithSemestersRepository.findAll()).thenReturn(educationalProgramToCoursesWithSemesters);
         when(selectedCoursesRepository.findAll()).thenReturn(selectedCourses);
 
-        List<SpecialCourseStatisticsDTO> expected = List.of(
-                new SpecialCourseStatisticsDTO(specialCourses.get(0).getId(), specialCourses.get(0).getName(), 1),
-                new SpecialCourseStatisticsDTO(specialCourses.get(1).getId(), specialCourses.get(1).getName(), 1),
-                new SpecialCourseStatisticsDTO(specialCourses.get(2).getId(), specialCourses.get(2).getName(), 1),
-                new SpecialCourseStatisticsDTO(specialCourses.get(3).getId(), specialCourses.get(3).getName(), 1)
+        List<CourseStatisticsDTO> expected = List.of(
+                new CourseStatisticsDTO(specialCourses.get(0).getId(), specialCourses.get(0).getName(), 1),
+                new CourseStatisticsDTO(specialCourses.get(1).getId(), specialCourses.get(1).getName(), 1),
+                new CourseStatisticsDTO(specialCourses.get(2).getId(), specialCourses.get(2).getName(), 1),
+                new CourseStatisticsDTO(specialCourses.get(3).getId(), specialCourses.get(3).getName(), 1)
         );
 
         List<UUID> semestersIds = semesters
@@ -412,7 +412,7 @@ public class SpecialCourseServiceTest {
                 .map(Semester::getId)
                 .toList();
 
-        List<SpecialCourseStatisticsDTO> list = specialCourseService.getActualSpecialCoursesStatistics(semestersIds);
+        List<CourseStatisticsDTO> list = courseService.getActualSpecialCoursesStatistics(semestersIds);
 
         Assertions.assertEquals(expected.size(), list.size());
         list.forEach(x -> Assertions.assertTrue(expected.contains(x)));
@@ -427,7 +427,7 @@ public class SpecialCourseServiceTest {
                 new Semester(UUID.randomUUID(), 2025, 4)
         );
 
-        SpecialCourseService specialCourseService = new SpecialCourseService(
+        CourseService courseService = new CourseService(
                 educationalProgramToCoursesWithSemestersRepository,
                 selectedCoursesRepository,
                 specialCourseRepository,
@@ -460,8 +460,8 @@ public class SpecialCourseServiceTest {
 
         when(specialCourseRepository.findAll()).thenReturn(specialCourses);
 
-        List<SpecialCourseDTO> expected = List.of(
-                new SpecialCourseDTO(
+        List<CourseDTO> expected = List.of(
+                new CourseDTO(
                         specialCourses.get(0).getId(),
                         specialCourses.get(0).getName(),
                         specialCourses.get(0).getCreditsCount(),
@@ -471,7 +471,7 @@ public class SpecialCourseServiceTest {
                         specialCourses.get(0).getTeacherName(),
                         specialCourses.get(0).getDepartment()
                 ),
-                new SpecialCourseDTO(
+                new CourseDTO(
                         specialCourses.get(1).getId(),
                         specialCourses.get(1).getName(),
                         specialCourses.get(1).getCreditsCount(),
@@ -481,7 +481,7 @@ public class SpecialCourseServiceTest {
                         specialCourses.get(1).getTeacherName(),
                         specialCourses.get(1).getDepartment()
                 ),
-                new SpecialCourseDTO(
+                new CourseDTO(
                         specialCourses.get(2).getId(),
                         specialCourses.get(2).getName(),
                         specialCourses.get(2).getCreditsCount(),
@@ -491,7 +491,7 @@ public class SpecialCourseServiceTest {
                         specialCourses.get(2).getTeacherName(),
                         specialCourses.get(2).getDepartment()
                 ),
-                new SpecialCourseDTO(
+                new CourseDTO(
                         specialCourses.get(3).getId(),
                         specialCourses.get(3).getName(),
                         specialCourses.get(3).getCreditsCount(),
@@ -501,7 +501,7 @@ public class SpecialCourseServiceTest {
                         specialCourses.get(3).getTeacherName(),
                         specialCourses.get(3).getDepartment()
                 ),
-                new SpecialCourseDTO(
+                new CourseDTO(
                         specialCourses.get(4).getId(),
                         specialCourses.get(4).getName(),
                         specialCourses.get(4).getCreditsCount(),
@@ -511,7 +511,7 @@ public class SpecialCourseServiceTest {
                         specialCourses.get(4).getTeacherName(),
                         specialCourses.get(4).getDepartment()
                 ),
-                new SpecialCourseDTO(
+                new CourseDTO(
                         specialCourses.get(5).getId(),
                         specialCourses.get(5).getName(),
                         specialCourses.get(5).getCreditsCount(),
@@ -521,7 +521,7 @@ public class SpecialCourseServiceTest {
                         specialCourses.get(5).getTeacherName(),
                         specialCourses.get(5).getDepartment()
                 ),
-                new SpecialCourseDTO(
+                new CourseDTO(
                         specialCourses.get(6).getId(),
                         specialCourses.get(6).getName(),
                         specialCourses.get(6).getCreditsCount(),
@@ -531,7 +531,7 @@ public class SpecialCourseServiceTest {
                         specialCourses.get(6).getTeacherName(),
                         specialCourses.get(6).getDepartment()
                 ),
-                new SpecialCourseDTO(
+                new CourseDTO(
                         specialCourses.get(7).getId(),
                         specialCourses.get(7).getName(),
                         specialCourses.get(7).getCreditsCount(),
@@ -541,7 +541,7 @@ public class SpecialCourseServiceTest {
                         specialCourses.get(7).getTeacherName(),
                         specialCourses.get(7).getDepartment()
                 ),
-                new SpecialCourseDTO(
+                new CourseDTO(
                         specialCourses.get(8).getId(),
                         specialCourses.get(8).getName(),
                         specialCourses.get(8).getCreditsCount(),
@@ -551,7 +551,7 @@ public class SpecialCourseServiceTest {
                         specialCourses.get(8).getTeacherName(),
                         specialCourses.get(8).getDepartment()
                 ),
-                new SpecialCourseDTO(
+                new CourseDTO(
                         specialCourses.get(9).getId(),
                         specialCourses.get(9).getName(),
                         specialCourses.get(9).getCreditsCount(),
@@ -563,7 +563,7 @@ public class SpecialCourseServiceTest {
                 )
         );
 
-        List<SpecialCourseDTO> list = specialCourseService.getAllCourses();
+        List<CourseDTO> list = courseService.getAllCourses();
 
         Assertions.assertEquals(expected.size(), list.size());
         list.forEach(x -> Assertions.assertTrue(expected.contains(x)));

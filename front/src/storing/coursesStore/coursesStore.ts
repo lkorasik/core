@@ -1,5 +1,5 @@
-import {CourseForEducationalProgram} from "../../apis/dto/CourseForEducationalProgram";
-import {CoursesBySemesterDto} from "../../apis/dto/CoursesBySemesterDto";
+import {CourseForEducationalProgram} from "../../apis/api/course/CourseForEducationalProgram";
+import {CoursesBySemesterDto} from "../../apis/api/course/CoursesBySemesterDto";
 
 
 export enum CoursesStoreActionType {
@@ -59,8 +59,8 @@ export const coursesStoreReducer = (state: CoursesStoreState | undefined, action
         case CoursesStoreActionType.AddModuleCourses:
             for (const course of action.courses) {
                 if (
-                    course.educationalModuleId == null
-                    || course.educationalModuleId !== action.courses[0].educationalModuleId
+                    course.moduleId == null
+                    || course.moduleId !== action.courses[0].moduleId
                 ) {
                     throw new Error("Some of the courses have different educationalModuleId or does not have it at all");
                 }
@@ -96,9 +96,9 @@ export const coursesStoreReducer = (state: CoursesStoreState | undefined, action
             let chosenCoursesIdsCopy = [...chosenCoursesIds];
 
             const course = state.chosenCourses.find(x => x.id === action.courseId);
-            if (course && course.educationalModuleId) {
+            if (course && course.moduleId) {
                 const allCoursesFromModule = state.chosenCourses
-                    .filter(x => x.educationalModuleId === course.educationalModuleId);
+                    .filter(x => x.moduleId === course.moduleId);
                 for (const moduleCourse of allCoursesFromModule) {
                     newState = removeCourse(newState, moduleCourse.id, chosenCoursesIdsCopy)
                     chosenCoursesIdsCopy = newState.chosenCourses.map(x => x.id);

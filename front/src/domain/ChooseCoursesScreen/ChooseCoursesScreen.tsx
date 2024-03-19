@@ -9,7 +9,7 @@ import {Flex} from "../../base_components/Flex/Flex";
 import {useApis} from "../../apis/ApiBase/ApiProvider";
 import {ProgramInfoDto} from "../../apis/api/programs/ProgramInfoDto";
 import {SemesterDto} from "../../apis/api/recommendation/SemesterDto";
-import {CourseForEducationalProgram} from "../../apis/dto/CourseForEducationalProgram";
+import {CourseForEducationalProgram} from "../../apis/api/course/CourseForEducationalProgram";
 import {useDispatch} from "react-redux";
 import {CoursesStoreActionCreator} from "../../storing/coursesStore/coursesStore.actionCreator";
 import {ModuleDto} from "../../apis/api/modules/ModuleDto";
@@ -35,14 +35,14 @@ export const ChooseCoursesScreen: FC = () => {
 
     useEffect(() => {
         const componentDidMount = async () => {
-            const educationalProgram = await apis.educationalProgramsApi.getCurrentEducationalProgram();
+            const program = await apis.educationalProgramsApi.getCurrentEducationalProgram();
 
             const actualSemesters = await apis.semestersApi.getActualSemesters();
             actualSemesters.sort(compareSemesters);
             const actualSemestersIds = actualSemesters.map(x => x.id);
 
             const specialCourses = await apis.specialCoursesApi.getCoursesByEducationalProgramAndSemesters({
-                educationalProgramId: educationalProgram.id,
+                programId: program.id,
                 semestersIds: actualSemestersIds
             });
             const requiredCourses = new Set(
@@ -53,8 +53,8 @@ export const ChooseCoursesScreen: FC = () => {
 
             const modulesIds = [...new Set(
                 specialCourses
-                    .filter(x => x.educationalModuleId)
-                    .map(x => x.educationalModuleId!)
+                    .filter(x => x.moduleId)
+                    .map(x => x.moduleId!)
             )]
             const educationalModules = await apis.educationalModulesApi.getModulesByIds({modulesIds: modulesIds});
 
@@ -71,7 +71,7 @@ export const ChooseCoursesScreen: FC = () => {
                 );
             }
 
-            setEducationalProgram(educationalProgram);
+            setEducationalProgram(program);
             setActualSemesters(actualSemesters);
             setSelectedSemesterId(actualSemesters[0].id);
             setSpecialCoursesForEducationalProgram(specialCourses);

@@ -5,9 +5,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.urfu.mm.controller.program.CreateProgramDTO;
-import ru.urfu.mm.controller.program.FullProgramDTO;
-import ru.urfu.mm.dto.*;
+import ru.urfu.mm.controller.course.CourseDTO;
+import ru.urfu.mm.controller.program.*;
 import ru.urfu.mm.entity.EducationalProgram;
 import ru.urfu.mm.entity.EducationalProgramToCoursesWithSemesters;
 import ru.urfu.mm.entity.Semester;
@@ -91,7 +90,7 @@ public class ProgramService {
                                     .stream()
                                     .filter(y -> y.getSpecialCourse().getId().equals(x))
                                     .map(y -> {
-                                        return new CourseDTO(
+                                        return new ru.urfu.mm.controller.program.CourseDTO(
                                                 y.getSemester().getId(),
                                                 specialCourseRepository
                                                         .findAllById(List.of(y.getSpecialCourse()
@@ -105,7 +104,7 @@ public class ProgramService {
                                     .stream()
                                     .filter(y -> y.getSemester().getId().equals(x))
                                     .map(y -> {
-                                        return new CourseDTO(
+                                        return new ru.urfu.mm.controller.program.CourseDTO(
                                                 y.getSemester().getId(),
                                                 specialCourseRepository
                                                         .findAllById(List.of(y.getSpecialCourse().getId()))
@@ -200,7 +199,7 @@ public class ProgramService {
         return program.getId();
     }
 
-    public List<SpecialCourseDTO> getEducationalModuleCourses(UUID educationalModuleId) {
+    public List<CourseDTO> getEducationalModuleCourses(UUID educationalModuleId) {
         var courses = specialCourseRepository
                 .findAll()
                 .stream()

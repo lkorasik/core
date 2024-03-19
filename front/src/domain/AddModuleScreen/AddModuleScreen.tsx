@@ -4,7 +4,7 @@ import {connect, ConnectedProps} from "react-redux";
 import {SemesterDto} from "../../apis/api/recommendation/SemesterDto";
 import React from "react";
 import {RootState} from "../../index";
-import {SpecialCourse} from "../../apis/dto/SpecialCourse";
+import {SpecialCourse} from "../../apis/api/course/SpecialCourse";
 import Select, {MultiValue} from "react-select";
 import {Link} from "react-router-dom";
 import {MODULE_COURSES_SCREEN_URL, MODULES_SCREEN_URL} from "../App/App";
@@ -65,7 +65,7 @@ class AddModuleScreenClear extends React.Component<Props, State> {
         const specialCourses: { value: string, label: string }[] = [];
         this.state.specialCoursesForDisplay
             .sort((a, b) => a.name > b.name ? 1 : -1)
-            .filter(course => course.educationalModuleId == null)
+            .filter(course => course.moduleId == null)
             .forEach(course => specialCourses.push({value: course.id, label: course.name}));
 
         return (

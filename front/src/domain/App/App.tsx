@@ -4,7 +4,7 @@ import {ChooseCoursesScreen} from "../ChooseCoursesScreen/ChooseCoursesScreen";
 import {useAuthentication} from "../../hooks/useAuthentication";
 import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import {EmployeeScreen} from "../EmployeeScreen/EmployeeScreen";
-import {UserRole} from "../../apis/dto/UserRole";
+import {UserRole} from "../../apis/api/UserRole";
 import {LoginInfo} from "../../hooks/LoginInfo";
 import {AdministratorMainScreen} from '../AdministratorMainScreen/AdministratorMainScreen';
 import {EducationalProgramScreen} from '../EducationalProgramScreen/EducationalProgramScreen';

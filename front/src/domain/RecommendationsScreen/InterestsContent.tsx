@@ -4,7 +4,7 @@ import {useApis} from "../../apis/ApiBase/ApiProvider";
 import {Button} from "../../base_components/Button/Button";
 import {Text} from "../../base_components/Text/Text";
 import {SkillDto} from "../../apis/api/recommendation/SkillDto";
-import {SkillLevel} from "../../apis/dto/SkillLevel";
+import {SkillLevel} from "../../apis/api/SkillLevel";
 
 
 interface Skill {

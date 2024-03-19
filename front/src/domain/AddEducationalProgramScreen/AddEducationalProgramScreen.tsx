@@ -5,7 +5,7 @@ import { Flex } from "../../base_components/Flex/Flex";
 import { DialogModal } from "../DialogModal/DialogModal";
 import { useEffect, useState } from "react";
 import { useApis } from "../../apis/ApiBase/ApiProvider";
-import { SpecialCourse } from "../../apis/dto/SpecialCourse";
+import { SpecialCourse } from "../../apis/api/course/SpecialCourse";
 import { ModuleDto } from "../../apis/api/modules/ModuleDto";
 
 interface Props {}

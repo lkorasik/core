@@ -1,4 +1,4 @@
-import { CreateSemester } from "../../dto/CreateSemester"
+import { CreateSemester } from "./CreateSemester"
 
 export interface CreateProgramDto {
     title: string

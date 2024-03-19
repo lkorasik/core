@@ -1,4 +1,4 @@
-import {SkillLevel} from "../../dto/SkillLevel";
+import {SkillLevel} from "../SkillLevel";
 
 export interface SkillDto {
     id: string;

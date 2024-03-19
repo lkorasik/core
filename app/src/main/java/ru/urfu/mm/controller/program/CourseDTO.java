@@ -1,4 +1,4 @@
-package ru.urfu.mm.dto;
+package ru.urfu.mm.controller.program;
 
 import java.util.UUID;
 

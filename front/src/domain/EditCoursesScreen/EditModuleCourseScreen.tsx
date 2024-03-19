@@ -5,7 +5,7 @@ import React from "react";
 import {RootState} from "../../index";
 import {Link} from "react-router-dom";
 import {COURSES_SCREEN_URL} from "../App/App";
-import {Control} from "../../apis/dto/Control";
+import {Control} from "../../apis/api/Control";
 
 interface State {
     specialCourseId: string;
@@ -36,7 +36,7 @@ class EditModuleCourseScreenClear extends React.Component<Props, State> {
     public async componentDidMount() {
         const specialCourseId = localStorage.getItem("SpecialCourseId")
         const specialCourse = await this.props.apis.specialCoursesApi
-            .getCourseById({specialCourseId: specialCourseId ? specialCourseId : ""});
+            .getCourseById({courseId: specialCourseId ? specialCourseId : ""});
 
         this.setState({
             ...this.state,
@@ -179,12 +179,12 @@ class EditModuleCourseScreenClear extends React.Component<Props, State> {
 
     private async editModuleCourse() {
         await this.props.apis.specialCoursesApi.editModuleSpecialCourse({
-            specialCourseId: this.state.specialCourseId,
+            courseId: this.state.specialCourseId,
             courseName: this.state.courseName,
             department: this.state.department,
             teacherName: this.state.teacherName,
             creditsCount: this.state.creditsCount,
-            controlType: this.state.controlType,
+            control: this.state.controlType,
             courseDescription: this.state.courseDescription,
         });
     }

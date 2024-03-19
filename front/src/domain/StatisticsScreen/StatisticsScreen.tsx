@@ -2,7 +2,7 @@ import styles from "./StatisticsScreen.module.css";
 import {IAllApisProp, withApis} from "../../apis/ApiBase/ApiProvider";
 import {connect, ConnectedProps} from "react-redux";
 import React from "react";
-import {CourseStatistics} from "../../apis/dto/CourseStatistics";
+import {CourseStatistics} from "../../apis/api/course/CourseStatistics";
 import {ObjectInList} from "../../base_components/ObjectList/ObjectList";
 import {ObjectListGrid} from "../../base_components/ObjectList/ObjectListGrid";
 

@@ -1,10 +1,10 @@
-import {Control} from "./Control";
+import {Control} from "../Control";
 
 export interface EditModuleSpecialCourseRequest {
-    specialCourseId: string;
+    courseId: string;
     courseName: string;
     creditsCount: number;
-    controlType: Control;
+    control: Control;
     department: string;
     teacherName: string;
     courseDescription: string;

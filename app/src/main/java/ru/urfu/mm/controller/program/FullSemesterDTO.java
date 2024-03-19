@@ -1,4 +1,6 @@
-package ru.urfu.mm.dto;
+package ru.urfu.mm.controller.program;
+
+import ru.urfu.mm.controller.program.CourseDTO;
 
 import java.util.List;
 import java.util.UUID;
