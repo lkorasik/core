@@ -29,7 +29,7 @@ public class RecommendationsService {
 
         var actualSemestersIds = semesterService.getActualSemesters()
                 .stream()
-                .map(SemesterDTO::id)
+                .map(ru.urfu.mm.controller.semester.SemesterDTO::id)
                 .toList();
         var courses = specialCourseService.getCoursesByEducationalProgramAndSemesters(
                 student.getEducationalProgram().getId(),

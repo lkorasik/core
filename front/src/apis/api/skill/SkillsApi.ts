@@ -1,7 +1,7 @@
-import {ApiBase} from "../ApiBase/ApiBase";
-import {SkillInfoDto} from "../dto/SkillInfoDto";
-import {SkillDto} from "../api/recommendation/SkillDto";
-import {SaveSkillsRequest} from "../dto/SaveSkillsRequest";
+import {ApiBase} from "../../ApiBase/ApiBase";
+import {SkillInfoDto} from "./SkillInfoDto";
+import {SaveSkillsDto} from "./SaveSkillsDto";
+import { SkillDto } from "./SkillDto";
 
 export class SkillsApi extends ApiBase implements ISkillsApi {
     public async getAllSkills(): Promise<SkillInfoDto[]> {
@@ -16,13 +16,13 @@ export class SkillsApi extends ApiBase implements ISkillsApi {
         return await this.get("skills/desired");
     }
 
-    public async saveActualSkills(skillsRequest: SaveSkillsRequest): Promise<void> {
+    public async saveActualSkills(skillsRequest: SaveSkillsDto): Promise<void> {
         return await this.post("skills/actual", {}, {
             ...skillsRequest
         });
     }
 
-    public async saveDesiredSkills(skillsRequest: SaveSkillsRequest): Promise<void> {
+    public async saveDesiredSkills(skillsRequest: SaveSkillsDto): Promise<void> {
         return await this.post("skills/desired", {}, {
             ...skillsRequest
         });
@@ -33,7 +33,7 @@ export class SkillsApi extends ApiBase implements ISkillsApi {
 export interface ISkillsApi {
     getAllSkills(): Promise<SkillInfoDto[]>
     getActualSkills(): Promise<SkillDto[]>
-    saveActualSkills(skillsRequest: SaveSkillsRequest): Promise<void>
-    getDesiredSkills(): Promise<SkillDto[]>
-    saveDesiredSkills(skillsRequest: SaveSkillsRequest): Promise<void>
+    saveActualSkills(skillsRequest: SaveSkillsDto): Promise<void>
+    getDesiredSkills(): Promise<SkillInfoDto[]>
+    saveDesiredSkills(skillsRequest: SaveSkillsDto): Promise<void>
 }

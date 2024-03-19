@@ -1,13 +1,9 @@
-package ru.urfu.mm.controller;
+package ru.urfu.mm.controller.skill;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import ru.urfu.mm.dto.SaveSkillsDTO;
-import ru.urfu.mm.controller.recommendation.SkillDTO;
-import ru.urfu.mm.dto.SkillInfoDTO;
-import ru.urfu.mm.entity.Skill;
 import ru.urfu.mm.entity.StudentDesiredSkills;
 import ru.urfu.mm.service.DesiredSkillsService;
 import ru.urfu.mm.service.SkillsService;
@@ -47,16 +43,19 @@ public class SkillsController {
     public void saveActualSkills(@RequestBody SaveSkillsDTO saveSkillsDTO) {
         UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
 
-        skillsService.saveSkillsForStudent(UUID.fromString(authentication.getName()), saveSkillsDTO.getSkills());
+        skillsService.saveSkillsForStudent(UUID.fromString(authentication.getName()), saveSkillsDTO.skills());
     }
 
     @GetMapping("/desired")
-    public List<Skill> getDesiredSkills() {
+    public List<SkillInfoDTO> getDesiredSkills() {
         UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
 
         return desiredSkillsService.getSkillsForStudent(UUID.fromString(authentication.getName()))
                 .stream()
                 .map(StudentDesiredSkills::getSkill)
+                .toList()
+                .stream()
+                .map(x -> new SkillInfoDTO(x.getId(), x.getName()))
                 .toList();
     }
 
@@ -64,6 +63,6 @@ public class SkillsController {
     public void saveDesiredSkills(@RequestBody SaveSkillsDTO saveSkillsDTO) {
         UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
 
-        desiredSkillsService.saveSkillsForStudent(UUID.fromString(authentication.getName()), saveSkillsDTO.getSkills());
+        desiredSkillsService.saveSkillsForStudent(UUID.fromString(authentication.getName()), saveSkillsDTO.skills());
     }
 }
