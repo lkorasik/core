@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.entity.StudentDesiredSkills;
 import ru.urfu.mm.service.DesiredSkillsService;
 import ru.urfu.mm.service.SkillsService;
@@ -13,7 +14,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/skills")
-public class SkillsController {
+public class SkillsController extends AbstractAuthorizedController {
     @Autowired
     private SkillsService skillsService;
     @Autowired
@@ -30,10 +31,8 @@ public class SkillsController {
 
     @GetMapping("/actual")
     public List<SkillDTO> getActualSkills() {
-        UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-
         return skillsService
-                .getSkillsForStudent(UUID.fromString(authentication.getName()))
+                .getSkillsForStudent(UUID.fromString(getUserToken()))
                 .stream()
                 .map(x -> new SkillDTO(x.getId(), x.getSkill().getName(), x.getLevel()))
                 .toList();
@@ -41,16 +40,12 @@ public class SkillsController {
 
     @PostMapping("/actual")
     public void saveActualSkills(@RequestBody SaveSkillsDTO saveSkillsDTO) {
-        UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-
-        skillsService.saveSkillsForStudent(UUID.fromString(authentication.getName()), saveSkillsDTO.skills());
+        skillsService.saveSkillsForStudent(UUID.fromString(getUserToken()), saveSkillsDTO.skills());
     }
 
     @GetMapping("/desired")
     public List<SkillInfoDTO> getDesiredSkills() {
-        UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-
-        return desiredSkillsService.getSkillsForStudent(UUID.fromString(authentication.getName()))
+        return desiredSkillsService.getSkillsForStudent(UUID.fromString(getUserToken()))
                 .stream()
                 .map(StudentDesiredSkills::getSkill)
                 .toList()
@@ -61,8 +56,6 @@ public class SkillsController {
 
     @PostMapping("/desired")
     public void saveDesiredSkills(@RequestBody SaveSkillsDTO saveSkillsDTO) {
-        UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-
-        desiredSkillsService.saveSkillsForStudent(UUID.fromString(authentication.getName()), saveSkillsDTO.skills());
+        desiredSkillsService.saveSkillsForStudent(UUID.fromString(getUserToken()), saveSkillsDTO.skills());
     }
 }

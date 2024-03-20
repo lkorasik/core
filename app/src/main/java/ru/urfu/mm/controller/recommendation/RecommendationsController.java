@@ -6,13 +6,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.entity.Student;
 import ru.urfu.mm.service.RecommendationsService;
 import ru.urfu.mm.service.StudentService;
 
 @RestController
 @RequestMapping("/api/recommendations")
-public class RecommendationsController {
+public class RecommendationsController extends AbstractAuthorizedController {
     @Autowired
     private RecommendationsService recommendationsService;
     @Autowired
@@ -20,10 +21,7 @@ public class RecommendationsController {
 
     @GetMapping
     public RecommendationResultDTO calculateRecommendations() {
-        UsernamePasswordAuthenticationToken authentication =
-                (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-
-        Student student = studentService.getStudent(authentication.getName());
+        Student student = studentService.getStudent(getUserToken());
 
         return recommendationsService.calculateRecommendations(student);
     }

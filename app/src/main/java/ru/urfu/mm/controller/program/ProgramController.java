@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.entity.EducationalProgram;
 import ru.urfu.mm.entity.Student;
 import ru.urfu.mm.service.ProgramService;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/programs")
-public class ProgramController {
+public class ProgramController extends AbstractAuthorizedController {
     @Autowired
     private StudentService studentService;
     @Autowired
@@ -23,10 +24,7 @@ public class ProgramController {
 
     @GetMapping("/current")
     public ProgramInfoDTO current() {
-        UsernamePasswordAuthenticationToken authentication =
-                (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-
-        Student student = studentService.getStudent(authentication.getName());
+        Student student = studentService.getStudent(getUserToken());
         EducationalProgram educationalProgram = programService.getEducationalProgram(student.getEducationalProgram().getId());
 
         return new ProgramInfoDTO(educationalProgram.getId(), educationalProgram.getName());

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.entity.Student;
 import ru.urfu.mm.service.CoursesSelectionService;
 import ru.urfu.mm.service.CourseService;
@@ -15,7 +16,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/courses")
-public class CourseController {
+public class CourseController extends AbstractAuthorizedController {
     @Autowired
     private CourseService courseService;
     @Autowired
@@ -25,10 +26,7 @@ public class CourseController {
 
     @PostMapping
     public List<CourseForProgramDTO> specialCourse(@RequestBody GetCoursesDTO getCoursesDTO) {
-        UsernamePasswordAuthenticationToken authentication =
-                (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-
-        Student student = studentService.getStudent(authentication.getName());
+        Student student = studentService.getStudent(getUserToken());
 
         return courseService
                 .getCoursesByEducationalProgramAndSemesters(student.getEducationalProgram().getId(), getCoursesDTO.semestersIds())
@@ -48,10 +46,7 @@ public class CourseController {
 
     @PostMapping("/selected")
     public List<CoursesBySemesterDTO> selected(@RequestBody GetSelectedCoursesDTO getSelectedCoursesDTO) {
-        UsernamePasswordAuthenticationToken authentication =
-                (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-
-        Student student = studentService.getStudent(authentication.getName());
+        Student student = studentService.getStudent(getUserToken());
 
         var selected = courseService.getSelectedCoursesIds(student.getLogin(), getSelectedCoursesDTO.semestersIds());
 
@@ -65,10 +60,7 @@ public class CourseController {
 
     @PostMapping("/select")
     public void select(@RequestBody SelectedCoursesDTO selectedCourses) {
-        UsernamePasswordAuthenticationToken authentication =
-                (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-
-        Student student = studentService.getStudent(authentication.getName());
+        Student student = studentService.getStudent(getUserToken());
 
         coursesSelectionService.validateCoursesSelection(student.getLogin(), selectedCourses.coursesBySemesters());
         coursesSelectionService.saveCoursesSelection(student.getLogin(), selectedCourses.coursesBySemesters());
