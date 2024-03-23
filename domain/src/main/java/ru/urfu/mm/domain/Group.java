@@ -1,5 +1,6 @@
 package ru.urfu.mm.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -46,5 +47,29 @@ public class Group {
         this.availableModules = availableModules;
         this.recommendedCredits = recommendedCredits;
         this.requiredModules = requiredModules;
+    }
+
+    public Group(
+            String number,
+            List<Semester> semesters,
+            Map<Semester, Integer> recommendedCredits) {
+        this.number = number;
+        this.students = new ArrayList<>();
+        this.semesters = semesters;
+        this.availableModules = new ArrayList<>();
+        this.recommendedCredits = recommendedCredits;
+        this.requiredModules = new ArrayList<>();
+    }
+
+    public void addStudent(Student student) {
+        students.add(student);
+    }
+
+    public void addAvailableModule(Module module) {
+        availableModules.add(module);
+    }
+
+    public void addRequiredModules(Module module) {
+        requiredModules.add(module);
     }
 }

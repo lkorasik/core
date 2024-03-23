@@ -15,6 +15,7 @@ public class CreateProgram {
         if (name.isBlank()) {
             throw new EmptyProgramNameException();
         }
+
         Program program = new Program(name);
         programGateway.saveProgram(program);
     }

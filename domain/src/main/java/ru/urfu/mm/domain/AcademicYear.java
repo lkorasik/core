@@ -1,5 +1,7 @@
 package ru.urfu.mm.domain;
 
+import java.util.Objects;
+
 /**
  * Академический год
  */
@@ -25,5 +27,20 @@ public class AcademicYear {
      */
     public int getSecondSemesterYear() {
         return year + 1;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if ((obj == null) || (getClass() != obj.getClass()))
+            return false;
+        AcademicYear that = (AcademicYear) obj;
+        return year == that.year;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(year);
     }
 }
