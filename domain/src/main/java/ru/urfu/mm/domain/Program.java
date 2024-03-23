@@ -1,5 +1,6 @@
 package ru.urfu.mm.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,5 +20,10 @@ public class Program {
     public Program(String name, List<Group> groups) {
         this.name = name;
         this.groups = groups;
+    }
+
+    public Program(String name) {
+        this.name = name;
+        this.groups = new ArrayList<>();
     }
 }
