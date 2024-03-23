@@ -2,4 +2,5 @@ rootProject.name = 'core'
 include 'lib'
 include 'app'
 include 'domain'
+include 'application'
 
