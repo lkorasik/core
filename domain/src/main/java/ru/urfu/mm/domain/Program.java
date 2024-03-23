@@ -1,7 +1,6 @@
 package ru.urfu.mm.domain;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Образовательное направление.
@@ -9,16 +8,16 @@ import java.util.Map;
  */
 public class Program {
     /**
-     * Список доступных модулей
+     * Название программы
      */
-    private final List<Module> availableModules;
+    private final String name;
     /**
-     * Семестру соответствуют курсы, которые проводятся в нем
+     * Список групп
      */
-    private final Map<Semester, List<Course>> coursesBySemester;
+    private final List<Group> groups;
 
-    public Program(List<Module> availableModules, Map<Semester, List<Course>> coursesBySemester) {
-        this.availableModules = availableModules;
-        this.coursesBySemester = coursesBySemester;
+    public Program(String name, List<Group> groups) {
+        this.name = name;
+        this.groups = groups;
     }
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * Студент.
- * Представляет собой студента
+ * Представляет собой студента.
  */
 public class Student extends User {
     /**
