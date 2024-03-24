@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.applicationlegacy.usecase.GetAllCourses;
 import ru.urfu.mm.applicationlegacy.usecase.GetEducationalModuleCourses;
+import ru.urfu.mm.applicationlegacy.usecase.GetSelectedCoursesIds;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.entity.Student;
 import ru.urfu.mm.service.CourseService;
@@ -28,6 +29,8 @@ public class CourseController extends AbstractAuthorizedController {
     private GetAllCourses getAllCourses;
     @Autowired
     private GetEducationalModuleCourses getEducationalModuleCourses;
+    @Autowired
+    private GetSelectedCoursesIds getSelectedCoursesIds;
 
     @PostMapping
     public List<CourseForProgramDTO> specialCourse(@RequestBody GetCoursesDTO getCoursesDTO) {
@@ -53,7 +56,7 @@ public class CourseController extends AbstractAuthorizedController {
     public List<CoursesBySemesterDTO> selected(@RequestBody GetSelectedCoursesDTO getSelectedCoursesDTO) {
         Student student = studentService.getStudent(getUserToken());
 
-        var selected = courseService.getSelectedCoursesIds(student.getLogin(), getSelectedCoursesDTO.semestersIds());
+        var selected = getSelectedCoursesIds.getSelectedCoursesIds(student.getLogin(), getSelectedCoursesDTO.semestersIds());
 
         var result = new ArrayList<CoursesBySemesterDTO>();
         for (var key : selected.keySet()) {

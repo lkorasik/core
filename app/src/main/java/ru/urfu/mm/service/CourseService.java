@@ -99,19 +99,6 @@ public class CourseService {
         return coursesForEducationalProgram;
     }
 
-    public Map<UUID, List<UUID>> getSelectedCoursesIds(UUID studentLogin, List<UUID> semestersIds) {
-        var semesterIdsSet = new HashSet<>(semestersIds);
-        var selectedCourses = selectedCoursesRepository
-                .findAll()
-                .stream()
-                .filter(x -> x.getStudent().getLogin().equals(studentLogin))
-                .toList();
-        return selectedCourses
-                .stream()
-                .filter(x -> semesterIdsSet.contains(x.getSemester().getId()))
-                .collect(Collectors.toMap(SelectedCourses::getId, x -> List.of(x.getSpecialCourse().getId())));
-    }
-
     public List<Map.Entry<UUID, UUID>> getRequiredCoursesForEducationalProgram(UUID educationalProgramId) {
         var requiredCourses = educationalProgramToCoursesWithSemestersRepository
                 .findAll()

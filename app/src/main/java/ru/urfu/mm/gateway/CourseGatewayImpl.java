@@ -3,9 +3,9 @@ package ru.urfu.mm.gateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.applicationlegacy.gateway.CourseGateway;
-import ru.urfu.mm.domainlegacy.Control;
+import ru.urfu.mm.domainlegacy.*;
 import ru.urfu.mm.domainlegacy.Module;
-import ru.urfu.mm.domainlegacy.SpecialCourse;
+import ru.urfu.mm.repository.SelectedCoursesRepository;
 import ru.urfu.mm.repository.SpecialCourseRepository;
 
 import java.util.List;
@@ -14,10 +14,14 @@ import java.util.UUID;
 @Component
 public class CourseGatewayImpl implements CourseGateway {
     private final SpecialCourseRepository courseRepository;
+    private final SelectedCoursesRepository selectedCoursesRepository;
 
     @Autowired
-    public CourseGatewayImpl(SpecialCourseRepository courseRepository) {
+    public CourseGatewayImpl(
+            SpecialCourseRepository courseRepository,
+            SelectedCoursesRepository selectedCoursesRepository) {
         this.courseRepository = courseRepository;
+        this.selectedCoursesRepository = selectedCoursesRepository;
     }
 
     @Override
@@ -58,6 +62,51 @@ public class CourseGatewayImpl implements CourseGateway {
                         new Module(
                                 x.getEducationalModule().getId(),
                                 x.getEducationalModule().getName()
+                        )
+                ))
+                .toList();
+    }
+
+    @Override
+    public List<SelectedCourses> getSelectedCourses(UUID studentId) {
+        return selectedCoursesRepository
+                .findAll()
+                .stream()
+                .filter(x -> x.getStudent().getLogin().equals(studentId))
+                .map(x -> new SelectedCourses(
+                        x.getId(),
+                        new Student(
+                                x.getStudent().getLogin(),
+                                new EducationalProgram(
+                                        x.getStudent().getEducationalProgram().getId(),
+                                        x.getStudent().getEducationalProgram().getName(),
+                                        x.getStudent().getEducationalProgram().getTrainingDirection(),
+                                        x.getStudent().getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                                ),
+                                x.getStudent().getGroup(),
+                                new User(
+                                        x.getStudent().getUser().getLogin(),
+                                        x.getStudent().getUser().getPassword(),
+                                        UserRole.values()[x.getStudent().getUser().getRole().ordinal()]
+                                )
+                        ),
+                        new Semester(
+                                x.getSemester().getId(),
+                                x.getSemester().getYear(),
+                                x.getSemester().getSemesterNumber()
+                        ),
+                        new SpecialCourse(
+                                x.getSpecialCourse().getId(),
+                                x.getSpecialCourse().getName(),
+                                x.getSpecialCourse().getCreditsCount(),
+                                Control.values()[x.getSpecialCourse().getControl().ordinal()],
+                                x.getSpecialCourse().getDescription(),
+                                x.getSpecialCourse().getDepartment(),
+                                x.getSpecialCourse().getTeacherName(),
+                                new Module(
+                                        x.getSpecialCourse().getEducationalModule().getId(),
+                                        x.getSpecialCourse().getEducationalModule().getName()
+                                )
                         )
                 ))
                 .toList();
