@@ -33,96 +33,9 @@ public class UserServiceTest {
     @Mock
     private static UserRepository userRepository;
     @Mock
-    private static StudentRepository studentRepository;
-    @Mock
-    private static RegistrationTokenRepository registrationTokenRepository;
-    @Mock
-    private static EducationalProgramRepository educationalProgramRepository;
-    @Mock
     private static PasswordEncoder passwordEncoder;
 
     private static UserService userService;
-
-    /**
-     * Регистрация студента
-     */
-    @Test
-    public void studentRegistration() {
-        RegistrationStudentDTO dto = DTO_DSL.createRegistrationStudentDTO();
-        UUID id = UUID.fromString(dto.token());
-
-        RegistrationToken registrationToken = new RegistrationToken(id, UserRole.STUDENT);
-
-        EducationalProgram educationalProgram = EntityDSL.createEducationalProgram();
-
-        when(registrationTokenRepository.findByRegistrationToken(id))
-                .thenReturn(Optional.of(registrationToken));
-        when(educationalProgramRepository.getReferenceById(dto.programId()))
-                .thenReturn(educationalProgram);
-
-        initUserService();
-
-        userService.createStudent(dto);
-
-        User user = new User(id, passwordEncoder.encode(dto.password()), UserRole.ADMIN);
-        verify(userRepository, atMostOnce()).save(user);
-
-        Student student = new Student(user.getLogin(), educationalProgram, dto.group(), user);
-        verify(studentRepository, atMostOnce()).save(student);
-
-        verify(registrationTokenRepository, atMostOnce()).deleteById(id);
-    }
-
-    /**
-     * Регистрация студента. Регистрационный токен не внесен в базу данных.
-     */
-    @Test
-    public void studentRegistration_tokenNotFound() {
-        RegistrationStudentDTO dto = DTO_DSL.createRegistrationStudentDTO();
-        UUID id = UUID.fromString(dto.token());
-
-        EducationalProgram educationalProgram = EntityDSL.createEducationalProgram();
-
-        when(registrationTokenRepository.findByRegistrationToken(id))
-                .thenReturn(Optional.empty());
-
-        initUserService();
-
-        Assertions.assertThrows(RegistrationTokenNotExistException.class, () -> userService.createStudent(dto));
-
-        User user = new User(id, passwordEncoder.encode(dto.password()), UserRole.ADMIN);
-        verify(userRepository, never()).save(user);
-
-        verify(educationalProgramRepository, never()).getReferenceById(educationalProgram.getId());
-
-        Student student = new Student(user.getLogin(), educationalProgram, dto.group(), user);
-        verify(studentRepository, never()).save(student);
-
-        verify(registrationTokenRepository, never()).deleteById(id);
-    }
-
-    /**
-     * Регистрация студента. Не верно указан тип пользователя.
-     */
-    @Test
-    public void studentRegistration_incorrectUserRole() {
-        RegistrationStudentDTO dto = DTO_DSL.createRegistrationStudentDTO();
-        UUID id = UUID.fromString(dto.token());
-
-        RegistrationToken registrationToken = new RegistrationToken(id, UserRole.ADMIN);
-
-        when(registrationTokenRepository.findByRegistrationToken(id))
-                .thenReturn(Optional.of(registrationToken));
-
-        initUserService();
-
-        Assertions.assertThrows(IncorrectUserRoleException.class, () -> userService.createStudent(dto));
-
-        User user = new User(id, passwordEncoder.encode(dto.password()), UserRole.STUDENT);
-        verify(userRepository, never()).save(user);
-
-        verify(registrationTokenRepository, never()).deleteById(id);
-    }
 
     /**
      * Проблема, метод всегда выдает ложный ответ. Потому что поле id в аргументе getRefereceById сравнивается с
@@ -181,9 +94,6 @@ public class UserServiceTest {
     private void initUserService() {
         userService = new UserService(
                 userRepository,
-                studentRepository,
-                registrationTokenRepository,
-                educationalProgramRepository,
                 passwordEncoder
         );
     }

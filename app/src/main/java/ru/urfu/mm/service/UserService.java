@@ -27,44 +27,14 @@ import java.util.UUID;
 public class UserService implements UserDetailsService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final UserRepository userRepository;
-    private final StudentRepository studentRepository;
-    private final RegistrationTokenRepository registrationTokenRepository;
-    private final EducationalProgramRepository educationalProgramRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserService(
             UserRepository userRepository,
-            StudentRepository studentRepository,
-            RegistrationTokenRepository registrationTokenRepository,
-            EducationalProgramRepository educationalProgramRepository,
             PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.studentRepository = studentRepository;
-        this.registrationTokenRepository = registrationTokenRepository;
-        this.educationalProgramRepository = educationalProgramRepository;
         this.passwordEncoder = passwordEncoder;
-    }
-
-    public void createStudent(RegistrationStudentDTO dto) {
-        UUID registrationToken = UUID.fromString(dto.token());
-
-        UserRole token = registrationTokenRepository
-                .findByRegistrationToken(registrationToken)
-                .orElseThrow(() -> new RegistrationTokenNotExistException(registrationToken))
-                .userRole;
-        ensureRole(UserRole.STUDENT, token, registrationToken.toString());
-
-        User user = new User(registrationToken, passwordEncoder.encode(dto.password()), UserRole.STUDENT);
-        userRepository.save(user);
-
-        EducationalProgram educationalProgram = educationalProgramRepository
-                .getReferenceById(dto.programId());
-
-        Student student = new Student(registrationToken, educationalProgram, dto.group(), user);
-        studentRepository.save(student);
-
-        registrationTokenRepository.deleteById(registrationToken);
     }
 
     public User login(LoginDTO loginDTO) {
@@ -83,14 +53,5 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) {
         User user = userRepository.findAllByLogin(UUID.fromString(username)).orElseThrow();
         return new org.springframework.security.core.userdetails.User(user.getLogin().toString(), user.getPassword(), Collections.emptyList());
-    }
-
-    private void ensureRole(UserRole expected, UserRole current, String token) {
-        if(current != expected) {
-            if(current != null) {
-                logger.warn("Registration token " + token + " was used for " + expected + " registration");
-            }
-            throw new IncorrectUserRoleException(token);
-        }
     }
 }
