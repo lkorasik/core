@@ -1,4 +1,4 @@
-package ru.urfu.mm.application;
+package ru.urfu.mm.application.usecase;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

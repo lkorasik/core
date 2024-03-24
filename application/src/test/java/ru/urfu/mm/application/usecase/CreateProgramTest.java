@@ -1,4 +1,4 @@
-package ru.urfu.mm.application;
+package ru.urfu.mm.application.usecase;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -9,7 +9,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ru.urfu.mm.application.dsl.EntityDSL;
 import ru.urfu.mm.application.exception.EmptyProgramNameException;
 import ru.urfu.mm.application.gateway.ProgramGateway;
-import ru.urfu.mm.application.usecase.CreateProgram;
 
 @ExtendWith(MockitoExtension.class)
 public class CreateProgramTest {
