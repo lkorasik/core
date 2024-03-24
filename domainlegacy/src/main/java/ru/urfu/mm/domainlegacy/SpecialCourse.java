@@ -1,5 +1,6 @@
 package ru.urfu.mm.domainlegacy;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class SpecialCourse {
@@ -10,12 +11,12 @@ public class SpecialCourse {
     private String description;
     private String department;
     private String teacherName;
-    private java.lang.Module module;
+    private Module module;
 
     public SpecialCourse() {
     }
 
-    public SpecialCourse(UUID id, String name, int creditsCount, Control control, String description, String department, String teacherName, java.lang.Module module) {
+    public SpecialCourse(UUID id, String name, int creditsCount, Control control, String description, String department, String teacherName, Module module) {
         this.id = id;
         this.name = name;
         this.creditsCount = creditsCount;
@@ -26,7 +27,7 @@ public class SpecialCourse {
         this.module = module;
     }
 
-    public SpecialCourse(String name, int creditsCount, Control control, String description, String department, String teacherName, java.lang.Module module) {
+    public SpecialCourse(String name, int creditsCount, Control control, String description, String department, String teacherName, Module module) {
         this.name = name;
         this.creditsCount = creditsCount;
         this.control = control;
@@ -64,11 +65,11 @@ public class SpecialCourse {
         return teacherName;
     }
 
-    public java.lang.Module getEducationalModule() {
+    public Module getEducationalModule() {
         return module;
     }
 
-    public void setEducationalModule(java.lang.Module module) {
+    public void setEducationalModule(Module module) {
         this.module = module;
     }
 
@@ -94,5 +95,23 @@ public class SpecialCourse {
 
     public void setTeacherName(String teacherName) {
         this.teacherName = teacherName;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if ((obj == null) || (getClass() != obj.getClass()))
+            return false;
+        SpecialCourse that = (SpecialCourse) obj;
+        return creditsCount == that.creditsCount && Objects.equals(id, that.id) && Objects.equals(name, that.name) &&
+               control == that.control && Objects.equals(description, that.description) &&
+               Objects.equals(department, that.department) && Objects.equals(teacherName, that.teacherName) &&
+               Objects.equals(module, that.module);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, creditsCount, control, description, department, teacherName, module);
     }
 }

@@ -2,11 +2,13 @@ package ru.urfu.mm.configuration;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.jersey.JerseyAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.urfu.mm.applicationlegacy.gateway.*;
 import ru.urfu.mm.applicationlegacy.usecase.CreateAdministrator;
 import ru.urfu.mm.applicationlegacy.usecase.CreateStudent;
+import ru.urfu.mm.applicationlegacy.usecase.GetAllCourses;
 import ru.urfu.mm.applicationlegacy.usecase.LoginUser;
 
 @Configuration
@@ -40,6 +42,11 @@ public class UseCaseConfiguration {
     @Bean
     public LoginUser loginUser(UserGateway userGateway, PasswordGateway passwordGateway) {
         return new LoginUser(userGateway, passwordGateway);
+    }
+
+    @Bean
+    public GetAllCourses getAllCourses(CourseGateway courseGateway) {
+        return new GetAllCourses(courseGateway);
     }
 
     @Bean

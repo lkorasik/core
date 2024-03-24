@@ -149,17 +149,6 @@ public class CourseService {
                 .toList();
     }
 
-    public List<CourseDTO> getAllCourses() {
-        var courses = specialCourseRepository
-                .findAll()
-                .stream()
-                .toList();
-        return courses
-                .stream()
-                .map(ModelConverterHelper::toDomain)
-                .toList();
-    }
-
     private int specialCourseStudentsCount(UUID courseId) {
         var coursesModels = selectedCoursesRepository
                 .findAll()

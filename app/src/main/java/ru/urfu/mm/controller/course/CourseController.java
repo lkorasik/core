@@ -1,13 +1,13 @@
 package ru.urfu.mm.controller.course;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import ru.urfu.mm.applicationlegacy.usecase.GetAllCourses;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.entity.Student;
-import ru.urfu.mm.service.CoursesSelectionService;
 import ru.urfu.mm.service.CourseService;
+import ru.urfu.mm.service.CoursesSelectionService;
+import ru.urfu.mm.service.ModelConverterHelper;
 import ru.urfu.mm.service.StudentService;
 
 import java.util.ArrayList;
@@ -23,6 +23,8 @@ public class CourseController extends AbstractAuthorizedController {
     private StudentService studentService;
     @Autowired
     private CoursesSelectionService coursesSelectionService;
+    @Autowired
+    private GetAllCourses getAllCourses;
 
     @PostMapping
     public List<CourseForProgramDTO> specialCourse(@RequestBody GetCoursesDTO getCoursesDTO) {
@@ -73,7 +75,11 @@ public class CourseController extends AbstractAuthorizedController {
 
     @GetMapping("/allCourses")
     public List<CourseDTO> getAllCourses() {
-        return courseService.getAllCourses();
+        return getAllCourses
+                .getAllCourses()
+                .stream()
+                .map(ModelConverterHelper::toDomain)
+                .toList();
     }
 
     @GetMapping("/moduleCourses")

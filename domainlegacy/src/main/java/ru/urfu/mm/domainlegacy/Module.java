@@ -1,5 +1,6 @@
 package ru.urfu.mm.domainlegacy;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class Module {
@@ -25,5 +26,20 @@ public class Module {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if ((obj == null) || (getClass() != obj.getClass()))
+            return false;
+        Module module = (Module) obj;
+        return Objects.equals(id, module.id) && Objects.equals(name, module.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 }
