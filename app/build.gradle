@@ -30,6 +30,9 @@ dependencies {
     implementation project(":application")
     implementation project(":domain")
 
+    implementation project(":application_legacy")
+    implementation project(":domainlegacy")
+
     testImplementation 'org.mockito:mockito-core:5.10.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
