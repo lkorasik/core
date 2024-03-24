@@ -11,11 +11,11 @@ import ru.urfu.mm.applicationlegacy.exception.IncorrectUserRoleException;
 import ru.urfu.mm.applicationlegacy.exception.RegistrationTokenNotExistException;
 import ru.urfu.mm.applicationlegacy.gateway.*;
 import ru.urfu.mm.applicationlegacy.usecase.CreateStudent;
-import ru.urfu.mm.domainlegacy.EducationalProgram;
 import ru.urfu.mm.domainlegacy.UserRole;
 
 import java.util.Optional;
 import java.util.UUID;
+
 @ExtendWith(MockitoExtension.class)
 public class CreateStudentTest {
     @Mock

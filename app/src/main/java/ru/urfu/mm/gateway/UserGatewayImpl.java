@@ -7,6 +7,8 @@ import ru.urfu.mm.domainlegacy.User;
 import ru.urfu.mm.entity.UserRole;
 import ru.urfu.mm.repository.UserRepository;
 
+import java.util.UUID;
+
 @Component
 public class UserGatewayImpl implements UserGateway {
     private final UserRepository userRepository;
@@ -24,5 +26,15 @@ public class UserGatewayImpl implements UserGateway {
                 UserRole.values()[user.getRole().ordinal()]
         );
         userRepository.save(entity);
+    }
+
+    @Override
+    public User getByToken(UUID token) {
+        ru.urfu.mm.entity.User entity = userRepository.getReferenceById(token);
+        return new User(
+                entity.getLogin(),
+                entity.getPassword(),
+                ru.urfu.mm.domainlegacy.UserRole.values()[entity.getRole().ordinal()]
+        );
     }
 }

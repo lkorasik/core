@@ -3,13 +3,15 @@ package ru.urfu.mm.controller.authentication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.urfu.mm.applicationlegacy.usecase.CreateAdministrator;
 import ru.urfu.mm.applicationlegacy.usecase.CreateStudent;
-import ru.urfu.mm.entity.User;
+import ru.urfu.mm.applicationlegacy.usecase.LoginUser;
 import ru.urfu.mm.entity.UserRole;
 import ru.urfu.mm.service.AuthenticationService;
-import ru.urfu.mm.service.UserService;
 
 import java.util.UUID;
 
@@ -17,21 +19,21 @@ import java.util.UUID;
 @RequestMapping("/api/authentication/")
 public class AuthenticationController {
     private final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
-    private final UserService userService;
     private final AuthenticationService authenticationService;
     private final CreateAdministrator createAdministrator;
     private final CreateStudent createStudent;
+    private final LoginUser loginUser;
 
     @Autowired
     public AuthenticationController(
-            UserService userService,
             AuthenticationService authenticationService,
             CreateAdministrator createAdministrator,
-            CreateStudent createStudent) {
-        this.userService = userService;
+            CreateStudent createStudent,
+            LoginUser loginUser) {
         this.authenticationService = authenticationService;
         this.createAdministrator = createAdministrator;
         this.createStudent = createStudent;
+        this.loginUser = loginUser;
     }
 
     @PostMapping("/registerAdministration")
@@ -56,10 +58,10 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public AccessTokenDTO login(@RequestBody LoginDTO loginDTO) {
-        User user = userService.login(loginDTO);
+        ru.urfu.mm.domainlegacy.User user = loginUser.login(UUID.fromString(loginDTO.token()), loginDTO.password());
         String token = authenticationService.generateToken(loginDTO);
 
-        return new AccessTokenDTO(token, loginDTO.token(), user.getRole());
+        return new AccessTokenDTO(token, loginDTO.token(), UserRole.values()[user.getRole().ordinal()]);
     }
 
     @PostMapping("/validateToken")

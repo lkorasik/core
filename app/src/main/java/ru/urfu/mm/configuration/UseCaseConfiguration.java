@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import ru.urfu.mm.applicationlegacy.gateway.*;
 import ru.urfu.mm.applicationlegacy.usecase.CreateAdministrator;
 import ru.urfu.mm.applicationlegacy.usecase.CreateStudent;
+import ru.urfu.mm.applicationlegacy.usecase.LoginUser;
 
 @Configuration
 public class UseCaseConfiguration {
@@ -34,6 +35,11 @@ public class UseCaseConfiguration {
                 userGateway,
                 programGateway,
                 studentGateway);
+    }
+
+    @Bean
+    public LoginUser loginUser(UserGateway userGateway, PasswordGateway passwordGateway) {
+        return new LoginUser(userGateway, passwordGateway);
     }
 
     @Bean
