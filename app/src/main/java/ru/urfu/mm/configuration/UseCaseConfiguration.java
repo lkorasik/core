@@ -6,10 +6,7 @@ import org.springframework.boot.autoconfigure.jersey.JerseyAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.urfu.mm.applicationlegacy.gateway.*;
-import ru.urfu.mm.applicationlegacy.usecase.CreateAdministrator;
-import ru.urfu.mm.applicationlegacy.usecase.CreateStudent;
-import ru.urfu.mm.applicationlegacy.usecase.GetAllCourses;
-import ru.urfu.mm.applicationlegacy.usecase.LoginUser;
+import ru.urfu.mm.applicationlegacy.usecase.*;
 
 @Configuration
 public class UseCaseConfiguration {
@@ -47,6 +44,11 @@ public class UseCaseConfiguration {
     @Bean
     public GetAllCourses getAllCourses(CourseGateway courseGateway) {
         return new GetAllCourses(courseGateway);
+    }
+
+    @Bean
+    public GetEducationalModuleCourses getEducationalModuleCourses(CourseGateway courseGateway) {
+        return new GetEducationalModuleCourses(courseGateway);
     }
 
     @Bean

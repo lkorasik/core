@@ -165,19 +165,6 @@ public class CourseService {
         return semestersIds == null || semestersIds.contains(model.getSemester().getId());
     }
 
-    public List<CourseDTO> getEducationalModuleCourses(UUID educationalModuleId) {
-        var courses = specialCourseRepository
-                .findAll()
-                .stream()
-                .filter(x -> educationalModuleId.equals(x.getEducationalModule().getId()))
-                .toList();
-
-        return courses
-                .stream()
-                .map(ModelConverterHelper::toDomain)
-                .toList();
-    }
-
     public CourseDTO getCourse(UUID specialCourseId) {
         var course = specialCourseRepository
                 .findById(specialCourseId)

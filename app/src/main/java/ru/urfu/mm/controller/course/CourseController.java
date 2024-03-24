@@ -3,6 +3,7 @@ package ru.urfu.mm.controller.course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.applicationlegacy.usecase.GetAllCourses;
+import ru.urfu.mm.applicationlegacy.usecase.GetEducationalModuleCourses;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.entity.Student;
 import ru.urfu.mm.service.CourseService;
@@ -25,6 +26,8 @@ public class CourseController extends AbstractAuthorizedController {
     private CoursesSelectionService coursesSelectionService;
     @Autowired
     private GetAllCourses getAllCourses;
+    @Autowired
+    private GetEducationalModuleCourses getEducationalModuleCourses;
 
     @PostMapping
     public List<CourseForProgramDTO> specialCourse(@RequestBody GetCoursesDTO getCoursesDTO) {
@@ -84,7 +87,11 @@ public class CourseController extends AbstractAuthorizedController {
 
     @GetMapping("/moduleCourses")
     public List<CourseDTO> getEducationalModuleCourses(@RequestParam("moduleId") String moduleIdDTO) {
-        return courseService.getEducationalModuleCourses(UUID.fromString(moduleIdDTO));
+        return getEducationalModuleCourses
+                .getEducationalModuleCourses(UUID.fromString(moduleIdDTO))
+                .stream()
+                .map(ModelConverterHelper::toDomain)
+                .toList();
     }
 
     @GetMapping("/course")

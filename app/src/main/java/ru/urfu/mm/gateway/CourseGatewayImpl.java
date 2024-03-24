@@ -9,6 +9,7 @@ import ru.urfu.mm.domainlegacy.SpecialCourse;
 import ru.urfu.mm.repository.SpecialCourseRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Component
 public class CourseGatewayImpl implements CourseGateway {
@@ -24,6 +25,28 @@ public class CourseGatewayImpl implements CourseGateway {
         return courseRepository
                 .findAll()
                 .stream()
+                .map(x -> new SpecialCourse(
+                        x.getId(),
+                        x.getName(),
+                        x.getCreditsCount(),
+                        Control.values()[x.getControl().ordinal()],
+                        x.getDescription(),
+                        x.getDepartment(),
+                        x.getTeacherName(),
+                        new Module(
+                                x.getEducationalModule().getId(),
+                                x.getEducationalModule().getName()
+                        )
+                ))
+                .toList();
+    }
+
+    @Override
+    public List<SpecialCourse> getEducationalModuleCourses(UUID moduleId) {
+        return courseRepository
+                .findAll()
+                .stream()
+                .filter(x -> moduleId.equals(x.getEducationalModule().getId()))
                 .map(x -> new SpecialCourse(
                         x.getId(),
                         x.getName(),
