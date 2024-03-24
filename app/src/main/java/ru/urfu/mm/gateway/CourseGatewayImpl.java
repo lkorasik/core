@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import ru.urfu.mm.applicationlegacy.gateway.CourseGateway;
 import ru.urfu.mm.domainlegacy.*;
 import ru.urfu.mm.domainlegacy.Module;
+import ru.urfu.mm.repository.EducationalProgramToCoursesWithSemestersRepository;
 import ru.urfu.mm.repository.SelectedCoursesRepository;
 import ru.urfu.mm.repository.SpecialCourseRepository;
 
@@ -15,13 +16,16 @@ import java.util.UUID;
 public class CourseGatewayImpl implements CourseGateway {
     private final SpecialCourseRepository courseRepository;
     private final SelectedCoursesRepository selectedCoursesRepository;
+    private final EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository;
 
     @Autowired
     public CourseGatewayImpl(
             SpecialCourseRepository courseRepository,
-            SelectedCoursesRepository selectedCoursesRepository) {
+            SelectedCoursesRepository selectedCoursesRepository,
+            EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository) {
         this.courseRepository = courseRepository;
         this.selectedCoursesRepository = selectedCoursesRepository;
+        this.educationalProgramToCoursesWithSemestersRepository = educationalProgramToCoursesWithSemestersRepository;
     }
 
     @Override
@@ -108,6 +112,43 @@ public class CourseGatewayImpl implements CourseGateway {
                                         x.getSpecialCourse().getEducationalModule().getName()
                                 )
                         )
+                ))
+                .toList();
+    }
+
+    @Override
+    public List<EducationalProgramToCoursesWithSemesters> getEducationalProgramToCoursesWithSemestersByEducationalProgram(UUID educationalProgramId) {
+        return educationalProgramToCoursesWithSemestersRepository
+                .findAll()
+                .stream()
+                .filter(x -> x.getEducationalProgram().getId() == educationalProgramId)
+                .map(x -> new EducationalProgramToCoursesWithSemesters(
+                        x.getId(),
+                        new EducationalProgram(
+                                x.getEducationalProgram().getId(),
+                                x.getEducationalProgram().getName(),
+                                x.getEducationalProgram().getTrainingDirection(),
+                                x.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                        ),
+                        new Semester(
+                                x.getSemester().getId(),
+                                x.getSemester().getYear(),
+                                x.getSemester().getSemesterNumber()
+                        ),
+                        new SpecialCourse(
+                                x.getSpecialCourse().getId(),
+                                x.getSpecialCourse().getName(),
+                                x.getSpecialCourse().getCreditsCount(),
+                                Control.values()[x.getSpecialCourse().getControl().ordinal()],
+                                x.getSpecialCourse().getDescription(),
+                                x.getSpecialCourse().getDepartment(),
+                                x.getSpecialCourse().getTeacherName(),
+                                new Module(
+                                        x.getSpecialCourse().getEducationalModule().getId(),
+                                        x.getSpecialCourse().getEducationalModule().getName()
+                                )
+                        ),
+                        x.isRequiredCourse()
                 ))
                 .toList();
     }

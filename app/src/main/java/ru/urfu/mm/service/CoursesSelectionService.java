@@ -2,6 +2,7 @@ package ru.urfu.mm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.urfu.mm.applicationlegacy.usecase.GetCoursesByEducationalProgramAndSemesters;
 import ru.urfu.mm.controller.course.CoursesBySemesterDTO;
 import ru.urfu.mm.entity.SelectedCourses;
 import ru.urfu.mm.entity.Semester;
@@ -27,15 +28,17 @@ public class CoursesSelectionService {
     private SemesterRepository semesterRepository;
     @Autowired
     private SpecialCourseRepository specialCourseRepository;
+    @Autowired
+    private GetCoursesByEducationalProgramAndSemesters getCoursesByEducationalProgramAndSemesters;
 
     private boolean isValidForEducationalProgram(UUID studentId, UUID semesterId, List<UUID> selectedCoursesIds) {
         var selectedCoursesIdsSet = new HashSet<>(selectedCoursesIds);
 
         var student = studentRepository.getReferenceById(studentId);
-        var coursesIdsForEducationalProgram = courseService
+        var coursesIdsForEducationalProgram = getCoursesByEducationalProgramAndSemesters
                 .getCoursesByEducationalProgramAndSemesters(student.getEducationalProgram().getId(), List.of(semesterId))
                 .stream()
-                .map(CourseForEducationalProgram::getId)
+                .map(ru.urfu.mm.applicationlegacy.usecase.CourseForEducationalProgram::getId)
                 .collect(Collectors.toSet());
         var requiredCoursesIds = courseService
                 .getRequiredCoursesForEducationalProgram(student.getEducationalProgram().getId())
@@ -68,7 +71,7 @@ public class CoursesSelectionService {
         var selectedCoursesIdsSet = new HashSet<>(selectedCoursesIds);
 
         var student = studentRepository.getReferenceById(studentId);
-        var courses = courseService
+        var courses = getCoursesByEducationalProgramAndSemesters
                 .getCoursesByEducationalProgramAndSemesters(student.getEducationalProgram().getId(), null)
                 .stream()
                 .map(x -> Map.entry(x.getEducationalModuleId(), x.getId()))

@@ -2,6 +2,8 @@ package ru.urfu.mm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.urfu.mm.applicationlegacy.usecase.CourseForEducationalProgram;
+import ru.urfu.mm.applicationlegacy.usecase.GetCoursesByEducationalProgramAndSemesters;
 import ru.urfu.mm.controller.recommendation.*;
 import ru.urfu.mm.entity.Student;
 import ru.urfu.mm.entity.StudentDesiredSkills;
@@ -22,6 +24,8 @@ public class RecommendationsService {
     private CourseService courseService;
     @Autowired
     private CoursesSkillsService coursesSkillsService;
+    @Autowired
+    private GetCoursesByEducationalProgramAndSemesters getCoursesByEducationalProgramAndSemesters;
 
     public RecommendationResultDTO calculateRecommendations(Student student) {
         var studentSkills = skillsService.getSkillsForStudent(student.getLogin());
@@ -31,10 +35,8 @@ public class RecommendationsService {
                 .stream()
                 .map(ru.urfu.mm.controller.semester.SemesterDTO::id)
                 .toList();
-        var courses = courseService.getCoursesByEducationalProgramAndSemesters(
-                student.getEducationalProgram().getId(),
-                actualSemestersIds
-        );
+        var courses = getCoursesByEducationalProgramAndSemesters
+                .getCoursesByEducationalProgramAndSemesters(student.getEducationalProgram().getId(), actualSemestersIds);
 
         var optionalCourses = courses
                 .stream()
@@ -42,7 +44,7 @@ public class RecommendationsService {
                 .toList();
         var optionalCoursesIds = optionalCourses
                 .stream()
-                .map(CourseForEducationalProgram::getId)
+                .map(ru.urfu.mm.applicationlegacy.usecase.CourseForEducationalProgram::getId)
                 .toList();
         var courseIdToRequiredSkills = coursesSkillsService.getCoursesToRequiredSkills(student, optionalCoursesIds);
         var courseIdToResultSkills = coursesSkillsService.getCoursesToResultSkills(student, optionalCoursesIds);
@@ -127,12 +129,12 @@ public class RecommendationsService {
                 .stream()
                 .collect(
                         Collectors
-                                .toMap(CourseForEducationalProgram::getId, x -> x)
+                                .toMap(ru.urfu.mm.applicationlegacy.usecase.CourseForEducationalProgram::getId, x -> x)
                 );
         var coursesByModule = courses
                 .stream()
                 .filter(x -> x.getEducationalModuleId() != null)
-                .collect(Collectors.groupingBy(CourseForEducationalProgram::getEducationalModuleId));
+                .collect(Collectors.groupingBy(ru.urfu.mm.applicationlegacy.usecase.CourseForEducationalProgram::getEducationalModuleId));
 
         return new RecommendationResultDTO(
                 perfectCourses
@@ -171,39 +173,6 @@ public class RecommendationsService {
                         .toList()
         );
     }
-    /*
-    public async Task<RecommendationResultDto> CalculateRecommendations(string studentLogin)
-{
-
-    return new RecommendationResultDto
-    {
-        ModuleCourses = coursesByModule.Select(x => new ModuleCoursesDto()
-            {
-                moduleId = x.Key,
-                Courses = x
-                    .Select(y => new RecommendedCourse()
-                    {
-                        Id = y.Id,
-                        Name = y.Name,
-                        CreditsCount = y.CreditsCount,
-                        Control = y.Control,
-                        Description = y.Description,
-                        Semesters = y.Semesters,
-                        EducationalModuleId = y.EducationalModuleId,
-                        RequiredSemesterId = y.RequiredSemesterId,
-                        RequiredSkills = courseIdToRequiredSkills.TryGetValue(y.Id, out var requiredSkills)
-                            ? requiredSkills
-                            : Array.Empty<Skill>(),
-                        ResultSkills = courseIdToResultSkills.TryGetValue(y.Id, out var resultSkills)
-                            ? resultSkills
-                            : Array.Empty<Skill>(),
-                    })
-                    .ToArray()
-            })
-            .ToArray()
-    };
-}
-     */
 
     private List<UUID> getComplementaryCoursesIds(
             Map<UUID, List<StudentSkills>> courseIdToRequiredSkills,

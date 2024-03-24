@@ -3,9 +3,12 @@ package ru.urfu.mm.controller.course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.applicationlegacy.usecase.GetAllCourses;
+import ru.urfu.mm.applicationlegacy.usecase.GetCoursesByEducationalProgramAndSemesters;
 import ru.urfu.mm.applicationlegacy.usecase.GetEducationalModuleCourses;
 import ru.urfu.mm.applicationlegacy.usecase.GetSelectedCoursesIds;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
+import ru.urfu.mm.entity.Control;
+import ru.urfu.mm.entity.Semester;
 import ru.urfu.mm.entity.Student;
 import ru.urfu.mm.service.CourseService;
 import ru.urfu.mm.service.CoursesSelectionService;
@@ -31,21 +34,30 @@ public class CourseController extends AbstractAuthorizedController {
     private GetEducationalModuleCourses getEducationalModuleCourses;
     @Autowired
     private GetSelectedCoursesIds getSelectedCoursesIds;
+    @Autowired
+    private GetCoursesByEducationalProgramAndSemesters getCoursesByEducationalProgramAndSemesters;
 
     @PostMapping
     public List<CourseForProgramDTO> specialCourse(@RequestBody GetCoursesDTO getCoursesDTO) {
         Student student = studentService.getStudent(getUserToken());
 
-        return courseService
+        return getCoursesByEducationalProgramAndSemesters
                 .getCoursesByEducationalProgramAndSemesters(student.getEducationalProgram().getId(), getCoursesDTO.semestersIds())
                 .stream()
                 .map(x -> new CourseForProgramDTO(
                         x.getId(),
                         x.getName(),
                         x.getCreditsCount(),
-                        x.getControl(),
+                        Control.values()[x.getControl().ordinal()],
                         x.getDescription(),
-                        x.getSemesters(),
+                        x.getSemesters()
+                                .stream()
+                                .map(y -> new Semester(
+                                        y.getId(),
+                                        y.getYear(),
+                                        y.getSemesterNumber()
+                                ))
+                                .toList(),
                         x.getEducationalModuleId(),
                         x.getRequiredSemesterId()
                 ))

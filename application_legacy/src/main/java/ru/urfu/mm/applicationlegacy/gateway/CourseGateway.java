@@ -1,5 +1,6 @@
 package ru.urfu.mm.applicationlegacy.gateway;
 
+import ru.urfu.mm.domainlegacy.EducationalProgramToCoursesWithSemesters;
 import ru.urfu.mm.domainlegacy.SelectedCourses;
 import ru.urfu.mm.domainlegacy.SpecialCourse;
 
@@ -10,4 +11,5 @@ public interface CourseGateway {
     List<SpecialCourse> getAllCourses();
     List<SpecialCourse> getEducationalModuleCourses(UUID moduleId);
     List<SelectedCourses> getSelectedCourses(UUID studentId);
+    List<EducationalProgramToCoursesWithSemesters> getEducationalProgramToCoursesWithSemestersByEducationalProgram(UUID educationalProgramId);
 }
