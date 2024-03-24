@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.urfu.mm.controller.authentication.LoginDTO;
-import ru.urfu.mm.controller.authentication.RegistrationAdministratorDTO;
 import ru.urfu.mm.controller.authentication.RegistrationStudentDTO;
 import ru.urfu.mm.entity.EducationalProgram;
 import ru.urfu.mm.entity.Student;
@@ -45,21 +44,6 @@ public class UserService implements UserDetailsService {
         this.registrationTokenRepository = registrationTokenRepository;
         this.educationalProgramRepository = educationalProgramRepository;
         this.passwordEncoder = passwordEncoder;
-    }
-
-    public void createAdmin(RegistrationAdministratorDTO dto) {
-        UUID registrationToken = UUID.fromString(dto.token());
-
-        UserRole token = registrationTokenRepository
-                .findByRegistrationToken(registrationToken)
-                .orElseThrow(() -> new RegistrationTokenNotExistException(registrationToken))
-                .userRole;
-        ensureRole(UserRole.ADMIN, token, registrationToken.toString());
-
-        User user = new User(registrationToken, passwordEncoder.encode(dto.password()), UserRole.ADMIN);
-        userRepository.save(user);
-
-        registrationTokenRepository.deleteById(registrationToken);
     }
 
     public void createStudent(RegistrationStudentDTO dto) {
