@@ -29,6 +29,8 @@ public class CourseController extends AbstractAuthorizedController {
     private SelectCourses selectCourses;
     @Autowired
     private GetCoursesByEducationalProgramAndSemesters getCoursesByEducationalProgramAndSemesters;
+    @Autowired
+    private EditModuleSpecialCourse editModuleSpecialCourse;
 
     @PostMapping
     public List<CourseForProgramDTO> specialCourse(@RequestBody GetCoursesDTO getCoursesDTO) {
@@ -112,6 +114,14 @@ public class CourseController extends AbstractAuthorizedController {
 
     @PostMapping("/moduleCourses/edit")
     public void editModuleCourse(@RequestBody EditModuleCourseDTO editModuleCourseDTO) {
-        courseService.editModuleSpecialCourse(editModuleCourseDTO);
+        editModuleSpecialCourse.editModuleSpecialCourse(
+                editModuleCourseDTO.courseId(),
+                editModuleCourseDTO.courseName(),
+                editModuleCourseDTO.creditsCount(),
+                ru.urfu.mm.domainlegacy.Control.values()[editModuleCourseDTO.control().ordinal()],
+                editModuleCourseDTO.courseDescription(),
+                editModuleCourseDTO.department(),
+                editModuleCourseDTO.teacherName()
+        );
     }
 }

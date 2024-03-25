@@ -1,6 +1,5 @@
 package ru.urfu.mm.applicationlegacy.gateway;
 
-import ru.urfu.mm.applicationlegacy.usecase.CourseForEducationalProgram;
 import ru.urfu.mm.domainlegacy.EducationalProgramToCoursesWithSemesters;
 import ru.urfu.mm.domainlegacy.SelectedCourses;
 import ru.urfu.mm.domainlegacy.SpecialCourse;
@@ -17,4 +16,5 @@ public interface CourseGateway {
     void deleteSelectedAllById(List<UUID> uuids);
     void saveSelectedCourses(List<SelectedCourses> courses);
     SpecialCourse getById(UUID id);
+    void save(SpecialCourse specialCourse);
 }

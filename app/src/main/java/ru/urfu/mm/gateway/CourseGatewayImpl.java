@@ -257,4 +257,23 @@ public class CourseGatewayImpl implements CourseGateway {
                 )
         );
     }
+
+    @Override
+    public void save(SpecialCourse specialCourse) {
+        courseRepository.save(
+                new ru.urfu.mm.entity.SpecialCourse(
+                        specialCourse.getId(),
+                        specialCourse.getName(),
+                        specialCourse.getCreditsCount(),
+                        ru.urfu.mm.entity.Control.values()[specialCourse.getControl().ordinal()],
+                        specialCourse.getDescription(),
+                        specialCourse.getDepartment(),
+                        specialCourse.getTeacherName(),
+                        new ru.urfu.mm.entity.Module(
+                                specialCourse.getEducationalModule().getId(),
+                                specialCourse.getEducationalModule().getName()
+                        )
+                )
+        );
+    }
 }

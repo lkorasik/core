@@ -86,11 +86,6 @@ public class CourseService {
         return coursesModels.size();
     }
 
-    private boolean containsSemester(EducationalProgramToCoursesWithSemesters model, List<UUID> semestersIds)
-    {
-        return semestersIds == null || semestersIds.contains(model.getSemester().getId());
-    }
-
     public CourseDTO getCourse(UUID specialCourseId) {
         var course = specialCourseRepository
                 .findById(specialCourseId)
@@ -125,22 +120,5 @@ public class CourseService {
 
     public void deleteCourse(UUID courseId) {
         specialCourseRepository.deleteById(courseId);
-    }
-
-    public void editModuleSpecialCourse(EditModuleCourseDTO editModuleCourseDTO) {
-        var oldCourseValue = specialCourseRepository
-                .findById(editModuleCourseDTO.courseId())
-                .get();
-
-        if (oldCourseValue != null) {
-            oldCourseValue.setName(editModuleCourseDTO.courseName());
-            oldCourseValue.setDepartment(editModuleCourseDTO.department());
-            oldCourseValue.setTeacherName(editModuleCourseDTO.teacherName());
-            oldCourseValue.setControl(editModuleCourseDTO.control());
-            oldCourseValue.setCreditsCount(editModuleCourseDTO.creditsCount());
-            oldCourseValue.setDescription(editModuleCourseDTO.courseDescription());
-
-            specialCourseRepository.save(oldCourseValue);
-        }
     }
 }
