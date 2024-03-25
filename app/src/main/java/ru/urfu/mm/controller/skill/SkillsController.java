@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import ru.urfu.mm.applicationlegacy.usecase.GetSkills;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.entity.StudentDesiredSkills;
 import ru.urfu.mm.service.DesiredSkillsService;
@@ -19,10 +20,12 @@ public class SkillsController extends AbstractAuthorizedController {
     private SkillsService skillsService;
     @Autowired
     private DesiredSkillsService desiredSkillsService;
+    @Autowired
+    private GetSkills getSkills;
 
     @GetMapping
     public List<SkillInfoDTO> getSkills() {
-        return skillsService
+        return getSkills
                 .getSkills()
                 .stream()
                 .map(x -> new SkillInfoDTO(x.getId(), x.getName()))

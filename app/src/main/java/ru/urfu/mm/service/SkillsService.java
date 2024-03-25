@@ -23,10 +23,6 @@ public class SkillsService {
     @Autowired
     private StudentRepository studentRepository;
 
-    public List<Skill> getSkills() {
-        return skillRepository.findAll();
-    }
-
     public List<StudentSkills> getSkillsForStudent(UUID studentId) {
         return studentSkillRepository
                 .findAll()

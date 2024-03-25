@@ -126,6 +126,10 @@ public class UseCaseConfiguration {
     }
 
     @Bean
+    public GetSkills getSkills(SkillGateway skillGateway){
+        return new GetSkills(skillGateway);
+    }
+    @Bean
     public Logger logger() {
         return LoggerFactory.getLogger(this.getClass());
     }
