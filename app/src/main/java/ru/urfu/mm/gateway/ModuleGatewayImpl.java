@@ -44,4 +44,10 @@ public class ModuleGatewayImpl implements ModuleGateway {
                 .map(x -> new Module(x.getId(), x.getName()))
                 .toList();
     }
+
+    @Override
+    public void save(Module module) {
+        ru.urfu.mm.entity.Module entity = new ru.urfu.mm.entity.Module(module.getId(), module.getName());
+        educationalModuleRepository.save(entity);
+    }
 }

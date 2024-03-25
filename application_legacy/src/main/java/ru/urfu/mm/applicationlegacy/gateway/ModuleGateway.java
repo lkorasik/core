@@ -9,4 +9,5 @@ public interface ModuleGateway {
     Module find(UUID moduleId);
     List<Module> getAllModules();
     List<Module> getModulesByIds(List<UUID> modulesIds);
+    void save(Module module);
 }

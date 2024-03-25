@@ -2,6 +2,7 @@ package ru.urfu.mm.controller.modules;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ru.urfu.mm.applicationlegacy.usecase.CreateModuleWithCourses;
 import ru.urfu.mm.applicationlegacy.usecase.GetAllModules;
 import ru.urfu.mm.applicationlegacy.usecase.GetModulesByIds;
 import ru.urfu.mm.service.ModulesService;
@@ -17,6 +18,8 @@ public class ModulesController {
     private GetAllModules getAllModules;
     @Autowired
     private GetModulesByIds getModulesByIds;
+    @Autowired
+    private CreateModuleWithCourses createModuleWithCourses;
 
     @GetMapping
     public List<ModuleDTO> getAllModules() {
@@ -38,9 +41,7 @@ public class ModulesController {
 
     @PostMapping("/create")
     public void createModule(@RequestBody CreateModuleDTO createModuleDTO) {
-        modulesService.createModuleWithCourses(
-                createModuleDTO.moduleName(),
-                createModuleDTO.coursesIds());
+        createModuleWithCourses.createModuleWithCourses(createModuleDTO.moduleName(), createModuleDTO.coursesIds());
     }
 
     @DeleteMapping("/delete")
