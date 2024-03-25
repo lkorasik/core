@@ -2,21 +2,16 @@ package ru.urfu.mm.controller.course;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.urfu.mm.applicationlegacy.usecase.GetAllCourses;
-import ru.urfu.mm.applicationlegacy.usecase.GetCoursesByEducationalProgramAndSemesters;
-import ru.urfu.mm.applicationlegacy.usecase.GetEducationalModuleCourses;
-import ru.urfu.mm.applicationlegacy.usecase.GetSelectedCoursesIds;
+import ru.urfu.mm.applicationlegacy.usecase.*;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.entity.Control;
 import ru.urfu.mm.entity.Semester;
-import ru.urfu.mm.entity.Student;
 import ru.urfu.mm.service.CourseService;
-import ru.urfu.mm.service.CoursesSelectionService;
 import ru.urfu.mm.service.ModelConverterHelper;
-import ru.urfu.mm.service.StudentService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -25,24 +20,20 @@ public class CourseController extends AbstractAuthorizedController {
     @Autowired
     private CourseService courseService;
     @Autowired
-    private StudentService studentService;
-    @Autowired
-    private CoursesSelectionService coursesSelectionService;
-    @Autowired
     private GetAllCourses getAllCourses;
     @Autowired
     private GetEducationalModuleCourses getEducationalModuleCourses;
     @Autowired
     private GetSelectedCoursesIds getSelectedCoursesIds;
     @Autowired
+    private SelectCourses selectCourses;
+    @Autowired
     private GetCoursesByEducationalProgramAndSemesters getCoursesByEducationalProgramAndSemesters;
 
     @PostMapping
     public List<CourseForProgramDTO> specialCourse(@RequestBody GetCoursesDTO getCoursesDTO) {
-        Student student = studentService.getStudent(getUserToken());
-
         return getCoursesByEducationalProgramAndSemesters
-                .getCoursesByEducationalProgramAndSemesters(student.getEducationalProgram().getId(), getCoursesDTO.semestersIds())
+                .getCoursesByEducationalProgramAndSemesters(UUID.fromString(getUserToken()), getCoursesDTO.semestersIds())
                 .stream()
                 .map(x -> new CourseForProgramDTO(
                         x.getId(),
@@ -66,9 +57,7 @@ public class CourseController extends AbstractAuthorizedController {
 
     @PostMapping("/selected")
     public List<CoursesBySemesterDTO> selected(@RequestBody GetSelectedCoursesDTO getSelectedCoursesDTO) {
-        Student student = studentService.getStudent(getUserToken());
-
-        var selected = getSelectedCoursesIds.getSelectedCoursesIds(student.getLogin(), getSelectedCoursesDTO.semestersIds());
+        var selected = getSelectedCoursesIds.getSelectedCoursesIds(UUID.fromString(getUserToken()), getSelectedCoursesDTO.semestersIds());
 
         var result = new ArrayList<CoursesBySemesterDTO>();
         for (var key : selected.keySet()) {
@@ -80,10 +69,7 @@ public class CourseController extends AbstractAuthorizedController {
 
     @PostMapping("/select")
     public void select(@RequestBody SelectedCoursesDTO selectedCourses) {
-        Student student = studentService.getStudent(getUserToken());
-
-        coursesSelectionService.validateCoursesSelection(student.getLogin(), selectedCourses.coursesBySemesters());
-        coursesSelectionService.saveCoursesSelection(student.getLogin(), selectedCourses.coursesBySemesters());
+        selectCourses.select(UUID.fromString(getUserToken()), selectedCourses.coursesBySemesters().stream().map(x -> Map.entry(x.semesterId(), x.coursesIds())).toList());
     }
 
     @GetMapping("/statistics")

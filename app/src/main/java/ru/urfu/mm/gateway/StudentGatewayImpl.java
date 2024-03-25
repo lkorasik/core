@@ -9,6 +9,8 @@ import ru.urfu.mm.entity.User;
 import ru.urfu.mm.entity.UserRole;
 import ru.urfu.mm.repository.StudentRepository;
 
+import java.util.UUID;
+
 @Component
 public class StudentGatewayImpl implements StudentGateway {
     private final StudentRepository studentRepository;
@@ -27,6 +29,28 @@ public class StudentGatewayImpl implements StudentGateway {
                 parse(student.getUser())
         );
         studentRepository.save(student1);
+    }
+
+    @Override
+    public Student getById(UUID studentId) {
+        return studentRepository
+                .findByLogin(studentId)
+                .map(x -> new Student(
+                        x.getLogin(),
+                        new ru.urfu.mm.domainlegacy.EducationalProgram(
+                                x.getEducationalProgram().getId(),
+                                x.getEducationalProgram().getName(),
+                                x.getEducationalProgram().getTrainingDirection(),
+                                x.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                        ),
+                        x.getGroup(),
+                        new ru.urfu.mm.domainlegacy.User(
+                                x.getUser().getLogin(),
+                                x.getUser().getPassword(),
+                                ru.urfu.mm.domainlegacy.UserRole.values()[x.getUser().getRole().ordinal()]
+                        )
+                ))
+                .get();
     }
 
     private User parse(ru.urfu.mm.domainlegacy.User user) {

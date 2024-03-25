@@ -57,8 +57,12 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public GetCoursesByEducationalProgramAndSemesters getCoursesByEducationalProgramAndSemesters(CourseGateway courseGateway) {
-        return new GetCoursesByEducationalProgramAndSemesters(courseGateway);
+    public GetCoursesByEducationalProgramAndSemesters getCoursesByEducationalProgramAndSemesters(CourseGateway courseGateway, StudentGateway studentGateway) {
+        return new GetCoursesByEducationalProgramAndSemesters(courseGateway, studentGateway);
+    }
+    @Bean
+    public SelectCourses selectCourses(CourseGateway courseGateway, SemesterGateway semesterGateway, StudentGateway studentGateway, GetCoursesByEducationalProgramAndSemesters getCoursesByEducationalProgramAndSemesters) {
+        return new SelectCourses(courseGateway, semesterGateway, studentGateway, getCoursesByEducationalProgramAndSemesters);
     }
 
     @Bean

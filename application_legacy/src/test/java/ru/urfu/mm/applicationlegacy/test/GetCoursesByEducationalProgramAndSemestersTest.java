@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.urfu.mm.applicationlegacy.dsl.DSL;
 import ru.urfu.mm.applicationlegacy.gateway.CourseGateway;
+import ru.urfu.mm.applicationlegacy.gateway.StudentGateway;
 import ru.urfu.mm.applicationlegacy.usecase.CourseForEducationalProgram;
 import ru.urfu.mm.applicationlegacy.usecase.GetCoursesByEducationalProgramAndSemesters;
 import ru.urfu.mm.domainlegacy.Module;
@@ -21,6 +22,8 @@ import java.util.UUID;
 public class GetCoursesByEducationalProgramAndSemestersTest {
     @Mock
     private CourseGateway courseGateway;
+    @Mock
+    private StudentGateway studentGateway;
 
     /**
      * Сломал тест во время переноса
@@ -91,7 +94,7 @@ public class GetCoursesByEducationalProgramAndSemestersTest {
                 .toList();
 
         GetCoursesByEducationalProgramAndSemesters getCoursesByEducationalProgramAndSemesters =
-                new GetCoursesByEducationalProgramAndSemesters(courseGateway);
+                new GetCoursesByEducationalProgramAndSemesters(courseGateway, studentGateway);
         List<CourseForEducationalProgram> result =
                 getCoursesByEducationalProgramAndSemesters
                         .getCoursesByEducationalProgramAndSemesters(educationalProgram.getId(), semestersId);

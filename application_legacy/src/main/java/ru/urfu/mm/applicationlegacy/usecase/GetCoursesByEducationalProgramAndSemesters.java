@@ -1,9 +1,11 @@
 package ru.urfu.mm.applicationlegacy.usecase;
 
 import ru.urfu.mm.applicationlegacy.gateway.CourseGateway;
+import ru.urfu.mm.applicationlegacy.gateway.StudentGateway;
 import ru.urfu.mm.domainlegacy.EducationalProgramToCoursesWithSemesters;
 import ru.urfu.mm.domainlegacy.Semester;
 import ru.urfu.mm.domainlegacy.SpecialCourse;
+import ru.urfu.mm.domainlegacy.Student;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,13 +15,16 @@ import java.util.stream.Collectors;
 
 public class GetCoursesByEducationalProgramAndSemesters {
     private final CourseGateway courseGateway;
+    private final StudentGateway studentGateway;
 
-    public GetCoursesByEducationalProgramAndSemesters(CourseGateway courseGateway) {
+    public GetCoursesByEducationalProgramAndSemesters(CourseGateway courseGateway, StudentGateway studentGateway) {
         this.courseGateway = courseGateway;
+        this.studentGateway = studentGateway;
     }
 
-    public List<CourseForEducationalProgram> getCoursesByEducationalProgramAndSemesters(UUID educationalProgramId, List<UUID> semestersIds) {
-        var coursesInfos = courseGateway.getEducationalProgramToCoursesWithSemestersByEducationalProgram(educationalProgramId);
+    public List<CourseForEducationalProgram> getCoursesByEducationalProgramAndSemesters(UUID studentId, List<UUID> semestersIds) {
+        Student student = studentGateway.getById(studentId);
+        var coursesInfos = courseGateway.getEducationalProgramToCoursesWithSemestersByEducationalProgram(student.getEducationalProgram().getId());
         var courseIdToCourseInfo =
                 coursesInfos
                         .stream()
