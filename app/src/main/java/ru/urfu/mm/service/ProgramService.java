@@ -10,7 +10,6 @@ import ru.urfu.mm.controller.program.*;
 import ru.urfu.mm.entity.EducationalProgram;
 import ru.urfu.mm.entity.EducationalProgramToCoursesWithSemesters;
 import ru.urfu.mm.entity.Semester;
-import ru.urfu.mm.exceptions.EducationalProgramNotFoundException;
 import ru.urfu.mm.repository.EducationalProgramRepository;
 import ru.urfu.mm.repository.EducationalProgramToCoursesWithSemestersRepository;
 import ru.urfu.mm.repository.SemesterRepository;
@@ -34,12 +33,6 @@ public class ProgramService {
         this.specialCourseRepository = specialCourseRepository;
         this.educationalProgramToCoursesWithSemestersRepository = educationalProgramToCoursesWithSemestersRepository;
         this.serializer = serializer;
-    }
-
-    public EducationalProgram getEducationalProgram(UUID educationalProgramId) {
-        return educationalProgramRepository
-                .findById(educationalProgramId)
-                .orElseThrow(() -> new EducationalProgramNotFoundException(educationalProgramId));
     }
 
     public Map<UUID, Integer> getSemesterIdToRequiredCreditsCount(EducationalProgram educationalProgram) throws JsonProcessingException {

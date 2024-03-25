@@ -5,14 +5,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import ru.urfu.mm.applicationlegacy.usecase.GetEducationalProgram;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
-import ru.urfu.mm.entity.EducationalProgram;
+import ru.urfu.mm.domain.Program;
+import ru.urfu.mm.domainlegacy.EducationalProgram;
 import ru.urfu.mm.entity.Student;
 import ru.urfu.mm.service.ProgramService;
 import ru.urfu.mm.service.StudentService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/programs")
@@ -21,13 +24,13 @@ public class ProgramController extends AbstractAuthorizedController {
     private StudentService studentService;
     @Autowired
     private ProgramService programService;
+    @Autowired
+    private GetEducationalProgram getEducationalProgram;
 
     @GetMapping("/current")
     public ProgramInfoDTO current() {
-        Student student = studentService.getStudent(getUserToken());
-        EducationalProgram educationalProgram = programService.getEducationalProgram(student.getEducationalProgram().getId());
-
-        return new ProgramInfoDTO(educationalProgram.getId(), educationalProgram.getName());
+        EducationalProgram program = getEducationalProgram.getEducationalProgram(UUID.fromString(getUserToken()));
+        return new ProgramInfoDTO(program.getId(), program.getName());
     }
 
     @GetMapping
