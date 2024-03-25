@@ -71,6 +71,11 @@ public class UseCaseConfiguration {
     }
 
     @Bean
+    public DeleteCourse deleteCourse(CourseGateway courseGateway) {
+        return new DeleteCourse(courseGateway);
+    }
+
+    @Bean
     public Logger logger() {
         return LoggerFactory.getLogger(this.getClass());
     }

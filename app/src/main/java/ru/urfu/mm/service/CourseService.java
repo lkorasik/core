@@ -2,13 +2,9 @@ package ru.urfu.mm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.urfu.mm.controller.course.CreateModuleCourseDTO;
-import ru.urfu.mm.controller.course.EditModuleCourseDTO;
 import ru.urfu.mm.controller.course.CourseDTO;
 import ru.urfu.mm.controller.course.CourseStatisticsDTO;
-import ru.urfu.mm.entity.EducationalProgramToCoursesWithSemesters;
-import ru.urfu.mm.entity.SelectedCourses;
-import ru.urfu.mm.entity.Semester;
+import ru.urfu.mm.controller.course.CreateModuleCourseDTO;
 import ru.urfu.mm.entity.SpecialCourse;
 import ru.urfu.mm.exceptions.CourseRequiredCriteriaException;
 import ru.urfu.mm.repository.EducationalModuleRepository;
@@ -16,7 +12,9 @@ import ru.urfu.mm.repository.EducationalProgramToCoursesWithSemestersRepository;
 import ru.urfu.mm.repository.SelectedCoursesRepository;
 import ru.urfu.mm.repository.SpecialCourseRepository;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -116,9 +114,5 @@ public class CourseService {
                 educationalModule
         );
         specialCourseRepository.save(course);
-    }
-
-    public void deleteCourse(UUID courseId) {
-        specialCourseRepository.deleteById(courseId);
     }
 }

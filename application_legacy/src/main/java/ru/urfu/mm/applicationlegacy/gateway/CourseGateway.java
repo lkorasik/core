@@ -17,4 +17,5 @@ public interface CourseGateway {
     void saveSelectedCourses(List<SelectedCourses> courses);
     SpecialCourse getById(UUID id);
     void save(SpecialCourse specialCourse);
+    void delete(UUID id);
 }

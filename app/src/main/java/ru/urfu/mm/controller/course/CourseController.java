@@ -31,6 +31,8 @@ public class CourseController extends AbstractAuthorizedController {
     private GetCoursesByEducationalProgramAndSemesters getCoursesByEducationalProgramAndSemesters;
     @Autowired
     private EditModuleSpecialCourse editModuleSpecialCourse;
+    @Autowired
+    private DeleteCourse deleteCourse;
 
     @PostMapping
     public List<CourseForProgramDTO> specialCourse(@RequestBody GetCoursesDTO getCoursesDTO) {
@@ -109,7 +111,7 @@ public class CourseController extends AbstractAuthorizedController {
 
     @DeleteMapping("/delete")
     public void deleteSpecialCourse(@RequestBody CourseIdDTO courseIdDTO) {
-        courseService.deleteCourse(courseIdDTO.courseId());
+        deleteCourse.deleteCourse(courseIdDTO.courseId());
     }
 
     @PostMapping("/moduleCourses/edit")

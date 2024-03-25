@@ -276,4 +276,9 @@ public class CourseGatewayImpl implements CourseGateway {
                 )
         );
     }
+
+    @Override
+    public void delete(UUID id) {
+        courseRepository.deleteById(id);
+    }
 }
