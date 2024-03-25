@@ -42,7 +42,7 @@ public class LoginUserTest {
                 passwordGateway
         );
 
-        loginUser.login(token, password);
+        loginUser.loginUser(token, password);
     }
 
     /**
@@ -63,6 +63,6 @@ public class LoginUserTest {
                 passwordGateway
         );
 
-        Assertions.assertThrows(BadCredentialsException.class, () -> loginUser.login(token, password));
+        Assertions.assertThrows(BadCredentialsException.class, () -> loginUser.loginUser(token, password));
     }
 }

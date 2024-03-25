@@ -16,7 +16,7 @@ public class LoginUser {
         this.passwordGateway = passwordGateway;
     }
 
-    public User login(UUID token, String password) {
+    public User loginUser(UUID token, String password) {
         User user = userGateway.getByToken(token);
 
         if (!passwordGateway.matches(password, user.getPassword())) {

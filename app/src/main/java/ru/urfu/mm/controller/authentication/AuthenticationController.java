@@ -58,7 +58,7 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public AccessTokenDTO login(@RequestBody LoginDTO loginDTO) {
-        ru.urfu.mm.domainlegacy.User user = loginUser.login(UUID.fromString(loginDTO.token()), loginDTO.password());
+        ru.urfu.mm.domainlegacy.User user = loginUser.loginUser(UUID.fromString(loginDTO.token()), loginDTO.password());
         String token = authenticationService.generateToken(loginDTO);
 
         return new AccessTokenDTO(token, loginDTO.token(), UserRole.values()[user.getRole().ordinal()]);
