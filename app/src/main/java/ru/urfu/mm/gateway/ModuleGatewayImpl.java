@@ -50,4 +50,9 @@ public class ModuleGatewayImpl implements ModuleGateway {
         ru.urfu.mm.entity.Module entity = new ru.urfu.mm.entity.Module(module.getId(), module.getName());
         educationalModuleRepository.save(entity);
     }
+
+    @Override
+    public void delete(Module module) {
+        educationalModuleRepository.deleteById(module.getId());
+    }
 }

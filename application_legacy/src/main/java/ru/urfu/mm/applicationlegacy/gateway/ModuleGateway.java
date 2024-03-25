@@ -10,4 +10,5 @@ public interface ModuleGateway {
     List<Module> getAllModules();
     List<Module> getModulesByIds(List<UUID> modulesIds);
     void save(Module module);
+    void delete(Module module);
 }

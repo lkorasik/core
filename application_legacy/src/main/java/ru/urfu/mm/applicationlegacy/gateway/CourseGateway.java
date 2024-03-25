@@ -20,5 +20,4 @@ public interface CourseGateway {
     SpecialCourse getById(UUID id);
     void save(SpecialCourse specialCourse);
     void delete(UUID id);
-
 }

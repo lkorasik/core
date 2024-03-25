@@ -111,6 +111,11 @@ public class UseCaseConfiguration {
     }
 
     @Bean
+    public DeleteModuleById deleteModuleById(ModuleGateway moduleGateway, CourseGateway courseGateway) {
+        return new DeleteModuleById(moduleGateway, courseGateway);
+    }
+
+    @Bean
     public Logger logger() {
         return LoggerFactory.getLogger(this.getClass());
     }
