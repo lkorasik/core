@@ -7,7 +7,7 @@ import java.util.UUID;
 public record CreateModuleCourseDTO(
         String courseName,
         int creditsCount,
-        Control control,
+        Control controlType,
         String courseDescription,
         UUID moduleId,
         String department,

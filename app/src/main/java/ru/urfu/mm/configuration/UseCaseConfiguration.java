@@ -76,6 +76,11 @@ public class UseCaseConfiguration {
     }
 
     @Bean
+    public CreateModuleSpecialCourse createModuleSpecialCourse(ModuleGateway moduleGateway, CourseGateway courseGateway) {
+        return new CreateModuleSpecialCourse(moduleGateway, courseGateway);
+    }
+
+    @Bean
     public Logger logger() {
         return LoggerFactory.getLogger(this.getClass());
     }

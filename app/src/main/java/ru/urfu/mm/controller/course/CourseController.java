@@ -33,6 +33,8 @@ public class CourseController extends AbstractAuthorizedController {
     private EditModuleSpecialCourse editModuleSpecialCourse;
     @Autowired
     private DeleteCourse deleteCourse;
+    @Autowired
+    private CreateModuleSpecialCourse createModuleSpecialCourse;
 
     @PostMapping
     public List<CourseForProgramDTO> specialCourse(@RequestBody GetCoursesDTO getCoursesDTO) {
@@ -106,7 +108,15 @@ public class CourseController extends AbstractAuthorizedController {
 
     @PostMapping("/moduleCourses/create")
     public void createModuleCourse(@RequestBody CreateModuleCourseDTO createModuleCourseDTO) {
-        courseService.createModuleSpecialCourse(createModuleCourseDTO);
+        createModuleSpecialCourse.createModuleSpecialCourse(
+                createModuleCourseDTO.courseName(),
+                createModuleCourseDTO.creditsCount(),
+                ru.urfu.mm.domainlegacy.Control.values()[createModuleCourseDTO.controlType().ordinal()],
+                createModuleCourseDTO.courseDescription(),
+                createModuleCourseDTO.moduleId(),
+                createModuleCourseDTO.department(),
+                createModuleCourseDTO.teacherName()
+        );
     }
 
     @DeleteMapping("/delete")

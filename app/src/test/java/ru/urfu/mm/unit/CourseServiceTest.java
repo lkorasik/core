@@ -48,8 +48,7 @@ public class CourseServiceTest {
         CourseService courseService = new CourseService(
                 educationalProgramToCoursesWithSemestersRepository,
                 selectedCoursesRepository,
-                specialCourseRepository,
-                educationalModuleRepository
+                specialCourseRepository
         );
 
         EducationalProgram educationalProgram = EntityDSL.createEducationalProgram();
@@ -108,8 +107,7 @@ public class CourseServiceTest {
         CourseService courseService = new CourseService(
                 educationalProgramToCoursesWithSemestersRepository,
                 selectedCoursesRepository,
-                specialCourseRepository,
-                educationalModuleRepository
+                specialCourseRepository
         );
 
         EducationalProgram educationalProgram = EntityDSL.createEducationalProgram();
@@ -159,8 +157,7 @@ public class CourseServiceTest {
         CourseService courseService = new CourseService(
                 educationalProgramToCoursesWithSemestersRepository,
                 selectedCoursesRepository,
-                specialCourseRepository,
-                educationalModuleRepository
+                specialCourseRepository
         );
 
         EducationalProgram educationalProgram = EntityDSL.createEducationalProgram();

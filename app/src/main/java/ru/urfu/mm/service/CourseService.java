@@ -22,18 +22,15 @@ public class CourseService {
     private final EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository;
     private final SelectedCoursesRepository selectedCoursesRepository;
     private final SpecialCourseRepository specialCourseRepository;
-    private final EducationalModuleRepository educationalModuleRepository;
 
     @Autowired
     public CourseService(
             EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository,
             SelectedCoursesRepository selectedCoursesRepository,
-            SpecialCourseRepository specialCourseRepository,
-            EducationalModuleRepository educationalModuleRepository) {
+            SpecialCourseRepository specialCourseRepository) {
         this.educationalProgramToCoursesWithSemestersRepository = educationalProgramToCoursesWithSemestersRepository;
         this.selectedCoursesRepository = selectedCoursesRepository;
         this.specialCourseRepository = specialCourseRepository;
-        this.educationalModuleRepository = educationalModuleRepository;
     }
 
     public List<Map.Entry<UUID, UUID>> getRequiredCoursesForEducationalProgram(UUID educationalProgramId) {
@@ -98,21 +95,5 @@ public class CourseService {
                 course.getTeacherName(),
                 course.getDepartment()
         );
-    }
-
-    public void createModuleSpecialCourse(CreateModuleCourseDTO createModuleCourseDTO) {
-        var educationalModule = educationalModuleRepository
-                .findById(createModuleCourseDTO.moduleId())
-                .get();
-        var course = new SpecialCourse(
-                createModuleCourseDTO.courseName(),
-                createModuleCourseDTO.creditsCount(),
-                createModuleCourseDTO.control(),
-                createModuleCourseDTO.courseDescription(),
-                createModuleCourseDTO.department(),
-                createModuleCourseDTO.teacherName(),
-                educationalModule
-        );
-        specialCourseRepository.save(course);
     }
 }
