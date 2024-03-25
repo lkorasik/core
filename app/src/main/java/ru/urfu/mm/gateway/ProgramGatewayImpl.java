@@ -6,6 +6,7 @@ import ru.urfu.mm.applicationlegacy.gateway.ProgramGateway;
 import ru.urfu.mm.domainlegacy.EducationalProgram;
 import ru.urfu.mm.repository.EducationalProgramRepository;
 
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -26,5 +27,19 @@ public class ProgramGatewayImpl implements ProgramGateway {
                 educationalProgram.getTrainingDirection(),
                 educationalProgram.getSemesterIdToRequiredCreditsCount()
         );
+    }
+
+    @Override
+    public List<EducationalProgram> getAll() {
+        return educationalProgramRepository
+                .findAll()
+                .stream()
+                .map(x -> new EducationalProgram(
+                        x.getId(),
+                        x.getName(),
+                        x.getTrainingDirection(),
+                        x.getSemesterIdToRequiredCreditsCount()
+                ))
+                .toList();
     }
 }

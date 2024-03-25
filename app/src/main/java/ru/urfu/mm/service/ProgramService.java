@@ -35,14 +35,6 @@ public class ProgramService {
         this.serializer = serializer;
     }
 
-    public Map<UUID, Integer> getSemesterIdToRequiredCreditsCount(EducationalProgram educationalProgram) throws JsonProcessingException {
-        return serializer.readValue(educationalProgram.getSemesterIdToRequiredCreditsCount(), new TypeReference<HashMap<UUID, Integer>>() {});
-    }
-
-    public List<EducationalProgram> getEducationalPrograms() {
-        return educationalProgramRepository.findAll();
-    }
-
     public FullProgramDTO getEducationalProgramById(UUID id) throws JsonProcessingException {
         var program2 = educationalProgramRepository
                 .findById(id)
@@ -76,39 +68,33 @@ public class ProgramService {
                 .toList();
         var finalSemesters = semesterIds
                 .stream()
-                .map(x -> {
-                    return new FullSemesterDTO(
-                            x,
-                            requiredCourses
-                                    .stream()
-                                    .filter(y -> y.getSpecialCourse().getId().equals(x))
-                                    .map(y -> {
-                                        return new ru.urfu.mm.controller.program.CourseDTO(
-                                                y.getSemester().getId(),
-                                                specialCourseRepository
-                                                        .findAllById(List.of(y.getSpecialCourse()
-                                                                .getId()))
-                                                        .getFirst()
-                                                        .getName()
-                                        );
-                                    })
-                                    .toList(),
-                            specialCourses
-                                    .stream()
-                                    .filter(y -> y.getSemester().getId().equals(x))
-                                    .map(y -> {
-                                        return new ru.urfu.mm.controller.program.CourseDTO(
-                                                y.getSemester().getId(),
-                                                specialCourseRepository
-                                                        .findAllById(List.of(y.getSpecialCourse().getId()))
-                                                        .getFirst()
-                                                        .getName()
-                                        );
-                                    })
-                                    .toList(),
-                            List.of()
-                    );
-                })
+                .map(x -> new FullSemesterDTO(
+                        x,
+                        requiredCourses
+                                .stream()
+                                .filter(y -> y.getSpecialCourse().getId().equals(x))
+                                .map(y -> new ru.urfu.mm.controller.program.CourseDTO(
+                                        y.getSemester().getId(),
+                                        specialCourseRepository
+                                                .findAllById(List.of(y.getSpecialCourse()
+                                                        .getId()))
+                                                .getFirst()
+                                                .getName()
+                                ))
+                                .toList(),
+                        specialCourses
+                                .stream()
+                                .filter(y -> y.getSemester().getId().equals(x))
+                                .map(y -> new ru.urfu.mm.controller.program.CourseDTO(
+                                        y.getSemester().getId(),
+                                        specialCourseRepository
+                                                .findAllById(List.of(y.getSpecialCourse().getId()))
+                                                .getFirst()
+                                                .getName()
+                                ))
+                                .toList(),
+                        List.of()
+                ))
                 .toList();
         return new FullProgramDTO(
                 program2.getId(),

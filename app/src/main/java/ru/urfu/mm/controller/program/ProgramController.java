@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import ru.urfu.mm.applicationlegacy.usecase.GetAllEducationalPrograms;
 import ru.urfu.mm.applicationlegacy.usecase.GetEducationalProgram;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.domain.Program;
@@ -26,6 +27,8 @@ public class ProgramController extends AbstractAuthorizedController {
     private ProgramService programService;
     @Autowired
     private GetEducationalProgram getEducationalProgram;
+    @Autowired
+    private GetAllEducationalPrograms getAllEducationalPrograms;
 
     @GetMapping("/current")
     public ProgramInfoDTO current() {
@@ -34,8 +37,8 @@ public class ProgramController extends AbstractAuthorizedController {
     }
 
     @GetMapping
-    public List<ProgramInfoDTO> getEducationalProgram() throws JsonProcessingException {
-        var programs = programService.getEducationalPrograms();
+    public List<ProgramInfoDTO> getEducationalProgram() {
+        var programs = getAllEducationalPrograms.getAllPrograms();
 
         var result = new ArrayList<ProgramInfoDTO>();
         for(var program: programs) {

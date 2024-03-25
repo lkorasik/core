@@ -121,6 +121,11 @@ public class UseCaseConfiguration {
     }
 
     @Bean
+    public GetAllEducationalPrograms getAllEducationalPrograms(ProgramGateway programGateway) {
+        return new GetAllEducationalPrograms(programGateway);
+    }
+
+    @Bean
     public Logger logger() {
         return LoggerFactory.getLogger(this.getClass());
     }
