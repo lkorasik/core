@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.applicationlegacy.usecase.*;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
+import ru.urfu.mm.domainlegacy.SpecialCourse;
 import ru.urfu.mm.entity.Control;
 import ru.urfu.mm.entity.Semester;
 import ru.urfu.mm.service.CourseService;
@@ -35,6 +36,8 @@ public class CourseController extends AbstractAuthorizedController {
     private DeleteCourse deleteCourse;
     @Autowired
     private CreateModuleSpecialCourse createModuleSpecialCourse;
+    @Autowired
+    private GetCourse getCourse;
 
     @PostMapping
     public List<CourseForProgramDTO> specialCourse(@RequestBody GetCoursesDTO getCoursesDTO) {
@@ -75,7 +78,7 @@ public class CourseController extends AbstractAuthorizedController {
 
     @PostMapping("/select")
     public void select(@RequestBody SelectedCoursesDTO selectedCourses) {
-        selectCourses.select(UUID.fromString(getUserToken()), selectedCourses.coursesBySemesters().stream().map(x -> Map.entry(x.semesterId(), x.coursesIds())).toList());
+        selectCourses.selectCourses(UUID.fromString(getUserToken()), selectedCourses.coursesBySemesters().stream().map(x -> Map.entry(x.semesterId(), x.coursesIds())).toList());
     }
 
     @GetMapping("/statistics")
@@ -103,7 +106,17 @@ public class CourseController extends AbstractAuthorizedController {
 
     @GetMapping("/course")
     public CourseDTO getCourseById(@RequestParam("courseId") UUID courseId) {
-        return courseService.getCourse(courseId);
+        SpecialCourse course = getCourse.getCourse(courseId);
+        return new CourseDTO(
+                course.getId(),
+                course.getName(),
+                course.getCreditsCount(),
+                Control.values()[course.getControl().ordinal()],
+                course.getDescription(),
+                course.getEducationalModule().getId(),
+                course.getTeacherName(),
+                course.getDepartment()
+        );
     }
 
     @PostMapping("/moduleCourses/create")

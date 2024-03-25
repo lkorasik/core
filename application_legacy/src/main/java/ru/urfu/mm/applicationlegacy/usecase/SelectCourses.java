@@ -29,7 +29,7 @@ public class SelectCourses {
         this.getCoursesByEducationalProgramAndSemesters = getCoursesByEducationalProgramAndSemesters;
     }
 
-    public void select(UUID studentId, List<Map.Entry<UUID, List<UUID>>> selectedCourses) {
+    public void selectCourses(UUID studentId, List<Map.Entry<UUID, List<UUID>>> selectedCourses) {
         Student student = studentGateway.getById(studentId);
 
         validateCoursesSelection(student, selectedCourses);

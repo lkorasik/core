@@ -81,6 +81,11 @@ public class UseCaseConfiguration {
     }
 
     @Bean
+    public GetCourse getCourse(CourseGateway courseGateway) {
+        return new GetCourse(courseGateway);
+    }
+
+    @Bean
     public Logger logger() {
         return LoggerFactory.getLogger(this.getClass());
     }

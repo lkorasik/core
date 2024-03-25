@@ -21,16 +21,13 @@ import java.util.stream.Collectors;
 public class CourseService {
     private final EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository;
     private final SelectedCoursesRepository selectedCoursesRepository;
-    private final SpecialCourseRepository specialCourseRepository;
 
     @Autowired
     public CourseService(
             EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository,
-            SelectedCoursesRepository selectedCoursesRepository,
-            SpecialCourseRepository specialCourseRepository) {
+            SelectedCoursesRepository selectedCoursesRepository) {
         this.educationalProgramToCoursesWithSemestersRepository = educationalProgramToCoursesWithSemestersRepository;
         this.selectedCoursesRepository = selectedCoursesRepository;
-        this.specialCourseRepository = specialCourseRepository;
     }
 
     public List<Map.Entry<UUID, UUID>> getRequiredCoursesForEducationalProgram(UUID educationalProgramId) {
@@ -79,21 +76,5 @@ public class CourseService {
                 .distinct()
                 .toList();
         return coursesModels.size();
-    }
-
-    public CourseDTO getCourse(UUID specialCourseId) {
-        var course = specialCourseRepository
-                .findById(specialCourseId)
-                .get();
-        return new CourseDTO(
-                course.getId(),
-                course.getName(),
-                course.getCreditsCount(),
-                course.getControl(),
-                course.getDescription(),
-                course.getEducationalModule().getId(),
-                course.getTeacherName(),
-                course.getDepartment()
-        );
     }
 }

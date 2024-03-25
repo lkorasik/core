@@ -31,10 +31,6 @@ public class CourseServiceTest {
     private EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository;
     @Mock
     private SelectedCoursesRepository selectedCoursesRepository;
-    @Mock
-    private SpecialCourseRepository specialCourseRepository;
-    @Mock
-    private EducationalModuleRepository educationalModuleRepository;
 
     @Test
     public void test_getRequiredCoursesForEducationalProgram() {
@@ -47,8 +43,7 @@ public class CourseServiceTest {
 
         CourseService courseService = new CourseService(
                 educationalProgramToCoursesWithSemestersRepository,
-                selectedCoursesRepository,
-                specialCourseRepository
+                selectedCoursesRepository
         );
 
         EducationalProgram educationalProgram = EntityDSL.createEducationalProgram();
@@ -106,8 +101,7 @@ public class CourseServiceTest {
 
         CourseService courseService = new CourseService(
                 educationalProgramToCoursesWithSemestersRepository,
-                selectedCoursesRepository,
-                specialCourseRepository
+                selectedCoursesRepository
         );
 
         EducationalProgram educationalProgram = EntityDSL.createEducationalProgram();
@@ -156,8 +150,7 @@ public class CourseServiceTest {
 
         CourseService courseService = new CourseService(
                 educationalProgramToCoursesWithSemestersRepository,
-                selectedCoursesRepository,
-                specialCourseRepository
+                selectedCoursesRepository
         );
 
         EducationalProgram educationalProgram = EntityDSL.createEducationalProgram();
