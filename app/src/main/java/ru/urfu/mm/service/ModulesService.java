@@ -16,10 +16,6 @@ public class ModulesService {
     @Autowired
     private SpecialCourseRepository specialCourseRepository;
 
-    public List<Module> getAllModules() {
-        return educationalModuleRepository.findAll();
-    }
-
     public List<Module> getModulesByIds(List<UUID> educationalModulesIds) {
         return educationalModuleRepository
                 .findAll()

@@ -2,6 +2,7 @@ package ru.urfu.mm.controller.modules;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ru.urfu.mm.applicationlegacy.usecase.GetAllModules;
 import ru.urfu.mm.service.ModulesService;
 
 import java.util.List;
@@ -11,10 +12,12 @@ import java.util.List;
 public class ModulesController {
     @Autowired
     private ModulesService modulesService;
+    @Autowired
+    private GetAllModules getAllModules;
 
     @GetMapping
     public List<ModuleDTO> getAllModules() {
-        return modulesService
+        return getAllModules
                 .getAllModules()
                 .stream()
                 .map(x -> new ModuleDTO(x.getId(), x.getName()))

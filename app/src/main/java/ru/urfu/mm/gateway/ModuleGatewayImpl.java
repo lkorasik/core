@@ -5,6 +5,7 @@ import ru.urfu.mm.applicationlegacy.gateway.ModuleGateway;
 import ru.urfu.mm.domainlegacy.Module;
 import ru.urfu.mm.repository.EducationalModuleRepository;
 
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -22,5 +23,14 @@ public class ModuleGatewayImpl implements ModuleGateway {
                 entity.getId(),
                 entity.getName()
         );
+    }
+
+    @Override
+    public List<Module> getAllModules() {
+        return educationalModuleRepository
+                .findAll()
+                .stream()
+                .map(x -> new Module(x.getId(), x.getName()))
+                .toList();
     }
 }

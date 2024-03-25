@@ -96,6 +96,11 @@ public class UseCaseConfiguration {
     }
 
     @Bean
+    public GetAllModules getAllModules(ModuleGateway moduleGateway) {
+        return new GetAllModules(moduleGateway);
+    }
+
+    @Bean
     public Logger logger() {
         return LoggerFactory.getLogger(this.getClass());
     }
