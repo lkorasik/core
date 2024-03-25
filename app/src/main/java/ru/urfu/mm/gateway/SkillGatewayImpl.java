@@ -3,6 +3,7 @@ package ru.urfu.mm.gateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.applicationlegacy.gateway.SkillGateway;
+import ru.urfu.mm.controller.skill.SkillInfoDTO;
 import ru.urfu.mm.domainlegacy.Skill;
 import ru.urfu.mm.repository.SkillRepository;
 

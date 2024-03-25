@@ -1,11 +1,10 @@
 package ru.urfu.mm.controller.skill;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.applicationlegacy.usecase.GetSkills;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
+import ru.urfu.mm.entity.SkillLevel;
 import ru.urfu.mm.entity.StudentDesiredSkills;
 import ru.urfu.mm.service.DesiredSkillsService;
 import ru.urfu.mm.service.SkillsService;
@@ -37,7 +36,7 @@ public class SkillsController extends AbstractAuthorizedController {
         return skillsService
                 .getSkillsForStudent(UUID.fromString(getUserToken()))
                 .stream()
-                .map(x -> new SkillDTO(x.getId(), x.getSkill().getName(), x.getLevel()))
+                .map(x -> new SkillDTO(x.getId(), x.getSkill().getName(), SkillLevel.values()[x.getLevel().ordinal()]))
                 .toList();
     }
 
