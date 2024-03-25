@@ -7,7 +7,6 @@ import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.domainlegacy.SpecialCourse;
 import ru.urfu.mm.entity.Control;
 import ru.urfu.mm.entity.Semester;
-import ru.urfu.mm.service.CourseService;
 import ru.urfu.mm.service.ModelConverterHelper;
 
 import java.util.ArrayList;
@@ -18,8 +17,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/courses")
 public class CourseController extends AbstractAuthorizedController {
-    @Autowired
-    private CourseService courseService;
     @Autowired
     private GetAllCourses getAllCourses;
     @Autowired
@@ -38,6 +35,10 @@ public class CourseController extends AbstractAuthorizedController {
     private CreateModuleSpecialCourse createModuleSpecialCourse;
     @Autowired
     private GetCourse getCourse;
+    @Autowired
+    private GetActualSpecialCoursesStatistics getActualSpecialCoursesStatistics;
+    @Autowired
+    private GetSpecialCourseStudentsCount getSpecialCourseStudentsCount;
 
     @PostMapping
     public List<CourseForProgramDTO> specialCourse(@RequestBody GetCoursesDTO getCoursesDTO) {
@@ -83,7 +84,16 @@ public class CourseController extends AbstractAuthorizedController {
 
     @GetMapping("/statistics")
     public List<CourseStatisticsDTO> getActualSpecialCoursesStatistics(@RequestParam List<UUID> semestersId) {
-        return courseService.getActualSpecialCoursesStatistics(semestersId);
+        return getActualSpecialCoursesStatistics
+                .getActualSpecialCoursesStatistics(semestersId)
+                .stream()
+                .map(x -> new CourseStatisticsDTO(
+                                x.getSpecialCourse().getId(),
+                                x.getSpecialCourse().getName(),
+                                getSpecialCourseStudentsCount.specialCourseStudentsCount(x.getSpecialCourse().getId())
+                        )
+                )
+                .toList();
     }
 
     @GetMapping("/allCourses")

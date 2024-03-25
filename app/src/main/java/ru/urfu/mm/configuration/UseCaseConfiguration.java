@@ -86,6 +86,16 @@ public class UseCaseConfiguration {
     }
 
     @Bean
+    public GetSpecialCourseStudentsCount getSpecialCourseStudentsCount(CourseGateway courseGateway) {
+        return new GetSpecialCourseStudentsCount(courseGateway);
+    }
+
+    @Bean
+    public GetActualSpecialCoursesStatistics getActualSpecialCoursesStatistics(CourseGateway courseGateway) {
+        return new GetActualSpecialCoursesStatistics(courseGateway);
+    }
+
+    @Bean
     public Logger logger() {
         return LoggerFactory.getLogger(this.getClass());
     }

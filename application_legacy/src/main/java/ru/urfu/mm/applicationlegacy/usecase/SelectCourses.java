@@ -66,7 +66,7 @@ public class SelectCourses {
         var selectedCoursesIdsSet = new HashSet<>(selectedCoursesIds);
 
         var courses = getCoursesByEducationalProgramAndSemesters
-                .getCoursesByEducationalProgramAndSemesters(student.getEducationalProgram().getId(), null)
+                .getCoursesByEducationalProgramAndSemesters(student.getLogin(), null)
                 .stream()
                 .map(x -> Map.entry(x.getEducationalModuleId(), x.getId()))
                 .toList();
@@ -102,7 +102,7 @@ public class SelectCourses {
         var selectedCoursesIdsSet = new HashSet<>(selectedCoursesIds);
 
         var coursesIdsForEducationalProgram = getCoursesByEducationalProgramAndSemesters
-                .getCoursesByEducationalProgramAndSemesters(student.getEducationalProgram().getId(), List.of(semesterId))
+                .getCoursesByEducationalProgramAndSemesters(student.getLogin(), List.of(semesterId))
                 .stream()
                 .map(ru.urfu.mm.applicationlegacy.usecase.CourseForEducationalProgram::getId)
                 .collect(Collectors.toSet());

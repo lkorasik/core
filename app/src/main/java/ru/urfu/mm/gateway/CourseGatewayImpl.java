@@ -154,6 +154,57 @@ public class CourseGatewayImpl implements CourseGateway {
     }
 
     @Override
+    public List<EducationalProgramToCoursesWithSemesters> getEducationalProgramToCoursesWithSemestersBySemesters(List<UUID> semestersIds) {
+        return educationalProgramToCoursesWithSemestersRepository
+                .findAll()
+                .stream()
+                .filter(x -> semestersIds.contains(x.getSemester().getId()))
+                .distinct()
+                .toList()
+                .stream()
+                .map(x -> new EducationalProgramToCoursesWithSemesters(
+                        x.getId(),
+                        new EducationalProgram(
+                                x.getEducationalProgram().getId(),
+                                x.getEducationalProgram().getName(),
+                                x.getEducationalProgram().getTrainingDirection(),
+                                x.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                        ),
+                        new Semester(
+                                x.getSemester().getId(),
+                                x.getSemester().getYear(),
+                                x.getSemester().getSemesterNumber()
+                        ),
+                        new SpecialCourse(
+                                x.getSpecialCourse().getId(),
+                                x.getSpecialCourse().getName(),
+                                x.getSpecialCourse().getCreditsCount(),
+                                Control.values()[x.getSpecialCourse().getControl().ordinal()],
+                                x.getSpecialCourse().getDescription(),
+                                x.getSpecialCourse().getDepartment(),
+                                x.getSpecialCourse().getTeacherName(),
+                                new Module(
+                                        x.getSpecialCourse().getEducationalModule().getId(),
+                                        x.getSpecialCourse().getEducationalModule().getName()
+                                )
+                        ),
+                        x.isRequiredCourse()
+                ))
+                .toList();
+    }
+
+    @Override
+    public List<UUID> getStudentBySelectedCourse(UUID courseId) {
+        return selectedCoursesRepository
+                .findAll()
+                .stream()
+                .filter(x -> x.getSpecialCourse().getId().equals(courseId))
+                .map(x -> x.getStudent().getLogin())
+                .distinct()
+                .toList();
+    }
+
+    @Override
     public List<EducationalProgramToCoursesWithSemesters> getRequiredCoursesForProgram(UUID programId) {
         return educationalProgramToCoursesWithSemestersRepository
                 .findAll()
