@@ -16,15 +16,6 @@ public class ModulesService {
     @Autowired
     private SpecialCourseRepository specialCourseRepository;
 
-    public List<Module> getModulesByIds(List<UUID> educationalModulesIds) {
-        return educationalModuleRepository
-                .findAll()
-                .stream()
-                .filter(x -> educationalModulesIds.contains(x.getId()))
-                .map(x -> new Module(x.getId(), x.getName()))
-                .toList();
-    }
-
     public void createModuleWithCourses(String educationalModuleName, List<UUID> specialCoursesIds) {
         var educationalModuleEntity = educationalModuleRepository
                 .save(new Module(educationalModuleName));

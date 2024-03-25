@@ -2,6 +2,7 @@ package ru.urfu.mm.gateway;
 
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.applicationlegacy.gateway.ModuleGateway;
+import ru.urfu.mm.controller.modules.ModuleDTO;
 import ru.urfu.mm.domainlegacy.Module;
 import ru.urfu.mm.repository.EducationalModuleRepository;
 
@@ -30,6 +31,16 @@ public class ModuleGatewayImpl implements ModuleGateway {
         return educationalModuleRepository
                 .findAll()
                 .stream()
+                .map(x -> new Module(x.getId(), x.getName()))
+                .toList();
+    }
+
+    @Override
+    public List<Module> getModulesByIds(List<UUID> modulesIds) {
+        return educationalModuleRepository
+                .findAll()
+                .stream()
+                .filter(x -> modulesIds.contains(x.getId()))
                 .map(x -> new Module(x.getId(), x.getName()))
                 .toList();
     }

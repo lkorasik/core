@@ -3,6 +3,7 @@ package ru.urfu.mm.controller.modules;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.applicationlegacy.usecase.GetAllModules;
+import ru.urfu.mm.applicationlegacy.usecase.GetModulesByIds;
 import ru.urfu.mm.service.ModulesService;
 
 import java.util.List;
@@ -14,6 +15,8 @@ public class ModulesController {
     private ModulesService modulesService;
     @Autowired
     private GetAllModules getAllModules;
+    @Autowired
+    private GetModulesByIds getModulesByIds;
 
     @GetMapping
     public List<ModuleDTO> getAllModules() {
@@ -26,7 +29,7 @@ public class ModulesController {
 
     @PostMapping
     public List<ModuleDTO> getModulesById(@RequestBody GetModulesDTO getModulesDTO) {
-        return modulesService
+        return getModulesByIds
                 .getModulesByIds(getModulesDTO.modulesIds())
                 .stream()
                 .map(x -> new ModuleDTO(x.getId(), x.getName()))
