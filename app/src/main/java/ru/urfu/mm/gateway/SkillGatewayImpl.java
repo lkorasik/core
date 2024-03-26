@@ -9,10 +9,11 @@ import ru.urfu.mm.repository.SkillRepository;
 import ru.urfu.mm.repository.StudentSkillRepository;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Component
-public class SkillGatewayImpl implements SkillGateway  {
+public class SkillGatewayImpl implements SkillGateway {
     private final SkillRepository skillRepository;
     private final StudentSkillRepository studentSkillRepository;
 
@@ -63,5 +64,48 @@ public class SkillGatewayImpl implements SkillGateway  {
                         SkillLevel.values()[x.getLevel().ordinal()]
                 ))
                 .toList();
+    }
+
+    @Override
+    public void deleteSkillsForStudent(UUID studentId) {
+        var currentSkills = studentSkillRepository
+                .findAll()
+                .stream()
+                .filter(x -> x.getStudent().getLogin().equals(studentId))
+                .toList();
+        studentSkillRepository.deleteAll(currentSkills);
+    }
+
+    @Override
+    public void saveSkillsForStudent(Student student, List<Map.Entry<UUID, SkillLevel>> skills) {
+        var newSkills = skills
+                .stream()
+                .map(x -> Map.entry(skillRepository.findById(x.getKey()).get(), x.getValue()))
+                .toList();
+        studentSkillRepository
+                .saveAll(
+                        newSkills
+                                .stream()
+                                .map(x -> new ru.urfu.mm.entity.StudentSkills(
+                                        new ru.urfu.mm.entity.Student(
+                                                student.getLogin(),
+                                                new ru.urfu.mm.entity.EducationalProgram(
+                                                        student.getEducationalProgram().getId(),
+                                                        student.getEducationalProgram().getName(),
+                                                        student.getEducationalProgram().getTrainingDirection(),
+                                                        student.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                                                ),
+                                                student.getGroup(),
+                                                new ru.urfu.mm.entity.User(
+                                                        student.getUser().getLogin(),
+                                                        student.getUser().getPassword(),
+                                                        ru.urfu.mm.entity.UserRole.values()[student.getUser().getRole().ordinal()]
+                                                )
+                                        ),
+                                        x.getKey(),
+                                        ru.urfu.mm.entity.SkillLevel.values()[x.getValue().ordinal()]
+                                ))
+                                .toList()
+                );
     }
 }
