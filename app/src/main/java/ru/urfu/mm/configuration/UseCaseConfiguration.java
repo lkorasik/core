@@ -144,10 +144,17 @@ public class UseCaseConfiguration {
     public SaveDesiredSkillsForStudent saveDesiredSkillsForStudent(SkillGateway skillGateway, StudentGateway studentGateway) {
         return new SaveDesiredSkillsForStudent(skillGateway, studentGateway);
     }
+
+    @Bean
+    public GetActualSemesters getActualSemesters(SemesterGateway semesterGateway) {
+        return new GetActualSemesters(semesterGateway);
+    }
+
     @Bean
     public GetSkills getSkills(SkillGateway skillGateway){
         return new GetSkills(skillGateway);
     }
+
     @Bean
     public Logger logger() {
         return LoggerFactory.getLogger(this.getClass());

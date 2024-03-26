@@ -6,6 +6,7 @@ import ru.urfu.mm.applicationlegacy.gateway.SemesterGateway;
 import ru.urfu.mm.domainlegacy.Semester;
 import ru.urfu.mm.repository.SemesterRepository;
 
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -25,5 +26,19 @@ public class SemesterGatewayImpl implements SemesterGateway {
                 entity.getYear(),
                 entity.getSemesterNumber()
         );
+    }
+
+    @Override
+    public List<Semester> GetLaterOrEqual(int year) {
+        return semesterRepository
+                .findAll()
+                .stream()
+                .filter(semester -> semester.getYear() >= year)
+                .map(x -> new Semester(
+                        x.getId(),
+                        x.getYear(),
+                        x.getSemesterNumber()
+                ))
+                .toList();
     }
 }
