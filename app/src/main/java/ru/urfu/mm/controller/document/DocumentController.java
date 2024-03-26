@@ -12,19 +12,16 @@ import ru.urfu.mm.service.DocumentService;
 import ru.urfu.mm.service.StudentService;
 
 import java.io.IOException;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/document")
 public class DocumentController extends AbstractAuthorizedController {
     @Autowired
     private DocumentService documentService;
-    @Autowired
-    private StudentService studentService;
 
     @GetMapping("/generate")
     public byte[] generateDocument() throws IOException {
-        Student student = studentService.getStudent(getUserToken());
-
-        return documentService.generateDocument(student.getLogin());
+        return documentService.generateDocument(UUID.fromString(getUserToken()));
     }
 }
