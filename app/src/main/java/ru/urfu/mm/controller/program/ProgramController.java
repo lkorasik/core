@@ -22,8 +22,6 @@ import java.util.UUID;
 @RequestMapping("/api/programs")
 public class ProgramController extends AbstractAuthorizedController {
     @Autowired
-    private StudentService studentService;
-    @Autowired
     private ProgramService programService;
     @Autowired
     private GetEducationalProgram getEducationalProgram;
