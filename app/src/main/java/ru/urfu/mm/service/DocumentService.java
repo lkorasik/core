@@ -57,7 +57,7 @@ public class DocumentService {
         var selectedCourses = selectedCoursesRepository
                 .findAll()
                 .stream()
-                .filter(x -> x.getStudent().getLogin() == studentId)
+                .filter(x -> x.getStudent().getLogin().equals(studentId))
                 .toList();
         var semesterToCourse = courses
                 .stream()
