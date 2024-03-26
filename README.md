@@ -51,6 +51,10 @@ Hibernate (?)
 проинициализировать ее, то можно использовать тест 
 `CoreApplicationTests.recreate()`. Есть еще `CoreApplicationTests.drop()`.
 
+# Docker
+
+Не забудь поменять пути в `application.properties` и в `package.json`.
+
 # Disclaimer
 
 На данный момент эта версия тупо переписана с C# на Java. Местами там 
