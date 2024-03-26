@@ -3,8 +3,8 @@ package ru.urfu.mm.gateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.applicationlegacy.gateway.SkillGateway;
-import ru.urfu.mm.controller.skill.SkillInfoDTO;
 import ru.urfu.mm.domainlegacy.*;
+import ru.urfu.mm.repository.DesiredSkillsRepository;
 import ru.urfu.mm.repository.SkillRepository;
 import ru.urfu.mm.repository.StudentSkillRepository;
 
@@ -16,11 +16,16 @@ import java.util.UUID;
 public class SkillGatewayImpl implements SkillGateway {
     private final SkillRepository skillRepository;
     private final StudentSkillRepository studentSkillRepository;
+    private final DesiredSkillsRepository desiredSkillsRepository;
 
     @Autowired
-    public SkillGatewayImpl(SkillRepository skillRepository, StudentSkillRepository studentSkillRepository) {
+    public SkillGatewayImpl(
+            SkillRepository skillRepository,
+            StudentSkillRepository studentSkillRepository,
+            DesiredSkillsRepository desiredSkillsRepository) {
         this.skillRepository = skillRepository;
         this.studentSkillRepository = studentSkillRepository;
+        this.desiredSkillsRepository = desiredSkillsRepository;
     }
 
     @Override
@@ -42,6 +47,37 @@ public class SkillGatewayImpl implements SkillGateway {
                 .stream()
                 .filter(x -> x.getStudent().getLogin().equals(studentId))
                 .map(x -> new StudentSkills(
+                        new Student(
+                                x.getStudent().getLogin(),
+                                new EducationalProgram(
+                                        x.getStudent().getEducationalProgram().getId(),
+                                        x.getStudent().getEducationalProgram().getName(),
+                                        x.getStudent().getEducationalProgram().getTrainingDirection(),
+                                        x.getStudent().getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                                ),
+                                x.getStudent().getGroup(),
+                                new User(
+                                        x.getStudent().getUser().getLogin(),
+                                        x.getStudent().getUser().getPassword(),
+                                        UserRole.values()[x.getStudent().getUser().getRole().ordinal()]
+                                )
+                        ),
+                        new Skill(
+                                x.getSkill().getId(),
+                                x.getSkill().getName()
+                        ),
+                        SkillLevel.values()[x.getLevel().ordinal()]
+                ))
+                .toList();
+    }
+
+    @Override
+    public List<StudentDesiredSkills> getDesiredSkillsForStudent(UUID studentId) {
+        return desiredSkillsRepository
+                .findAll()
+                .stream()
+                .filter(x -> x.getStudent().getLogin().equals(studentId))
+                .map(x -> new StudentDesiredSkills(
                         new Student(
                                 x.getStudent().getLogin(),
                                 new EducationalProgram(
