@@ -3,9 +3,9 @@ package ru.urfu.mm.controller.skill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.applicationlegacy.usecase.GetSkills;
+import ru.urfu.mm.applicationlegacy.usecase.GetSkillsForStudent;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
-import ru.urfu.mm.entity.SkillLevel;
-import ru.urfu.mm.entity.StudentDesiredSkills;
+import ru.urfu.mm.entity.*;
 import ru.urfu.mm.service.DesiredSkillsService;
 import ru.urfu.mm.service.SkillsService;
 
@@ -21,6 +21,8 @@ public class SkillsController extends AbstractAuthorizedController {
     private DesiredSkillsService desiredSkillsService;
     @Autowired
     private GetSkills getSkills;
+    @Autowired
+    private GetSkillsForStudent getSkillsForStudent;
 
     @GetMapping
     public List<SkillInfoDTO> getSkills() {
@@ -33,10 +35,14 @@ public class SkillsController extends AbstractAuthorizedController {
 
     @GetMapping("/actual")
     public List<SkillDTO> getActualSkills() {
-        return skillsService
+        return getSkillsForStudent
                 .getSkillsForStudent(UUID.fromString(getUserToken()))
                 .stream()
-                .map(x -> new SkillDTO(x.getId(), x.getSkill().getName(), SkillLevel.values()[x.getLevel().ordinal()]))
+                .map(x -> new SkillDTO(
+                        x.getSkill().getId(),
+                        x.getSkill().getName(),
+                        SkillLevel.values()[x.getLevel().ordinal()]
+                ))
                 .toList();
     }
 

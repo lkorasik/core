@@ -36,7 +36,7 @@ public class RecommendationsService {
                 .map(ru.urfu.mm.controller.semester.SemesterDTO::id)
                 .toList();
         var courses = getCoursesByEducationalProgramAndSemesters
-                .getCoursesByEducationalProgramAndSemesters(student.getEducationalProgram().getId(), actualSemestersIds);
+                .getCoursesByEducationalProgramAndSemesters(student.getLogin(), actualSemestersIds);
 
         var optionalCourses = courses
                 .stream()

@@ -126,6 +126,11 @@ public class UseCaseConfiguration {
     }
 
     @Bean
+    public GetSkillsForStudent getSkillsForStudent(SkillGateway skillGateway) {
+        return new GetSkillsForStudent(skillGateway);
+    }
+
+    @Bean
     public GetSkills getSkills(SkillGateway skillGateway){
         return new GetSkills(skillGateway);
     }
