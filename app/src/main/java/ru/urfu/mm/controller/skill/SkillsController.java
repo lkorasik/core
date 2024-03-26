@@ -2,10 +2,7 @@ package ru.urfu.mm.controller.skill;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.urfu.mm.applicationlegacy.usecase.GetDesiredSkillsForStudent;
-import ru.urfu.mm.applicationlegacy.usecase.GetSkills;
-import ru.urfu.mm.applicationlegacy.usecase.GetSkillsForStudent;
-import ru.urfu.mm.applicationlegacy.usecase.SaveSkillsForStudent;
+import ru.urfu.mm.applicationlegacy.usecase.*;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.entity.*;
 import ru.urfu.mm.service.DesiredSkillsService;
@@ -19,8 +16,6 @@ import java.util.UUID;
 @RequestMapping("/api/skills")
 public class SkillsController extends AbstractAuthorizedController {
     @Autowired
-    private DesiredSkillsService desiredSkillsService;
-    @Autowired
     private GetSkills getSkills;
     @Autowired
     private GetSkillsForStudent getSkillsForStudent;
@@ -28,6 +23,8 @@ public class SkillsController extends AbstractAuthorizedController {
     private SaveSkillsForStudent saveSkillsForStudent;
     @Autowired
     private GetDesiredSkillsForStudent getDesiredSkillsForStudent;
+    @Autowired
+    private SaveDesiredSkillsForStudent saveDesiredSkillsForStudent;
 
     @GetMapping
     public List<SkillInfoDTO> getSkills() {
@@ -75,6 +72,11 @@ public class SkillsController extends AbstractAuthorizedController {
 
     @PostMapping("/desired")
     public void saveDesiredSkills(@RequestBody SaveSkillsDTO saveSkillsDTO) {
-        desiredSkillsService.saveSkillsForStudent(UUID.fromString(getUserToken()), saveSkillsDTO.skills());
+        List<Map.Entry<UUID, ru.urfu.mm.domainlegacy.SkillLevel>> skills = saveSkillsDTO.skills()
+                .stream()
+                .map(x -> Map.entry(x.id(), ru.urfu.mm.domainlegacy.SkillLevel.values()[x.level().ordinal()]))
+                .toList();
+
+        saveDesiredSkillsForStudent.saveSkillsForStudent(UUID.fromString(getUserToken()), skills);
     }
 }

@@ -113,6 +113,16 @@ public class SkillGatewayImpl implements SkillGateway {
     }
 
     @Override
+    public void deleteDesiredSkillsForStudent(UUID studentId) {
+        var currentSkills = desiredSkillsRepository
+                .findAll()
+                .stream()
+                .filter(x -> x.getStudent().getLogin().equals(studentId))
+                .toList();
+        desiredSkillsRepository.deleteAll(currentSkills);
+    }
+
+    @Override
     public void saveSkillsForStudent(Student student, List<Map.Entry<UUID, SkillLevel>> skills) {
         var newSkills = skills
                 .stream()
@@ -123,6 +133,39 @@ public class SkillGatewayImpl implements SkillGateway {
                         newSkills
                                 .stream()
                                 .map(x -> new ru.urfu.mm.entity.StudentSkills(
+                                        new ru.urfu.mm.entity.Student(
+                                                student.getLogin(),
+                                                new ru.urfu.mm.entity.EducationalProgram(
+                                                        student.getEducationalProgram().getId(),
+                                                        student.getEducationalProgram().getName(),
+                                                        student.getEducationalProgram().getTrainingDirection(),
+                                                        student.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                                                ),
+                                                student.getGroup(),
+                                                new ru.urfu.mm.entity.User(
+                                                        student.getUser().getLogin(),
+                                                        student.getUser().getPassword(),
+                                                        ru.urfu.mm.entity.UserRole.values()[student.getUser().getRole().ordinal()]
+                                                )
+                                        ),
+                                        x.getKey(),
+                                        ru.urfu.mm.entity.SkillLevel.values()[x.getValue().ordinal()]
+                                ))
+                                .toList()
+                );
+    }
+
+    @Override
+    public void saveDesiredSkillsForStudent(Student student, List<Map.Entry<UUID, SkillLevel>> skills) {
+        var newSkills = skills
+                .stream()
+                .map(x -> Map.entry(skillRepository.findById(x.getKey()).get(), x.getValue()))
+                .toList();
+        desiredSkillsRepository
+                .saveAll(
+                        newSkills
+                                .stream()
+                                .map(x -> new ru.urfu.mm.entity.StudentDesiredSkills(
                                         new ru.urfu.mm.entity.Student(
                                                 student.getLogin(),
                                                 new ru.urfu.mm.entity.EducationalProgram(

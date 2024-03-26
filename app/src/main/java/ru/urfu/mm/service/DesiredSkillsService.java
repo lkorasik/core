@@ -30,27 +30,4 @@ public class DesiredSkillsService {
                 .toList();
         return studentSkills;
     }
-
-    public void saveSkillsForStudent(UUID studentId, List<SkillDTO> skills) {
-        var currentSkills = desiredSkillsRepository
-                .findAll()
-                .stream()
-                .filter(x -> x.getStudent().getLogin().equals(studentId))
-                .toList();
-        desiredSkillsRepository.deleteAll(currentSkills);
-
-        Student student = studentRepository.getReferenceById(studentId);
-
-        var newSkills = skills
-                .stream()
-                .map(x -> Pair.of(skillRepository.findById(x.id()).get(), x.level()))
-                .toList();
-        desiredSkillsRepository
-                .saveAll(
-                        newSkills
-                                .stream()
-                                .map(x -> new StudentDesiredSkills(student, x.first(), x.second()))
-                                .toList()
-                );
-    }
 }
