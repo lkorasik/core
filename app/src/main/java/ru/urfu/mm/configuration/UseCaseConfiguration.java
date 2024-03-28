@@ -57,12 +57,22 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public GetCoursesByEducationalProgramAndSemesters getCoursesByEducationalProgramAndSemesters(CourseGateway courseGateway, StudentGateway studentGateway) {
+    public GetCoursesByEducationalProgramAndSemesters getCoursesByEducationalProgramAndSemesters(
+            CourseGateway courseGateway,
+            StudentGateway studentGateway) {
         return new GetCoursesByEducationalProgramAndSemesters(courseGateway, studentGateway);
     }
     @Bean
-    public SelectCourses selectCourses(CourseGateway courseGateway, SemesterGateway semesterGateway, StudentGateway studentGateway, GetCoursesByEducationalProgramAndSemesters getCoursesByEducationalProgramAndSemesters) {
-        return new SelectCourses(courseGateway, semesterGateway, studentGateway, getCoursesByEducationalProgramAndSemesters);
+    public SelectCourses selectCourses(
+            CourseGateway courseGateway,
+            SemesterGateway semesterGateway,
+            StudentGateway studentGateway,
+            GetCoursesByEducationalProgramAndSemesters getCoursesByEducationalProgramAndSemesters) {
+        return new SelectCourses(
+                courseGateway,
+                semesterGateway,
+                studentGateway,
+                getCoursesByEducationalProgramAndSemesters);
     }
 
     @Bean
@@ -76,7 +86,9 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public CreateModuleSpecialCourse createModuleSpecialCourse(ModuleGateway moduleGateway, CourseGateway courseGateway) {
+    public CreateModuleSpecialCourse createModuleSpecialCourse(
+            ModuleGateway moduleGateway,
+            CourseGateway courseGateway) {
         return new CreateModuleSpecialCourse(moduleGateway, courseGateway);
     }
 
@@ -141,7 +153,9 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public SaveDesiredSkillsForStudent saveDesiredSkillsForStudent(SkillGateway skillGateway, StudentGateway studentGateway) {
+    public SaveDesiredSkillsForStudent saveDesiredSkillsForStudent(
+            SkillGateway skillGateway,
+            StudentGateway studentGateway) {
         return new SaveDesiredSkillsForStudent(skillGateway, studentGateway);
     }
 
