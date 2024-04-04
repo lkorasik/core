@@ -28,7 +28,7 @@ class AddModuleCourseScreenClear extends React.Component<Props, State> {
             department: "",
             teacherName: "",
             creditsCount: 0,
-            controlType: "",
+            controlType: "Test",
             courseDescription: "",
         };
     }
