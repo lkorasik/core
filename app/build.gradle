@@ -29,11 +29,8 @@ dependencies {
     implementation 'org.flywaydb:flyway-core:10.10.0'
     runtimeOnly "org.flywaydb:flyway-database-postgresql:10.10.0"
 
-    implementation project(":application")
-    implementation project(":domain")
-
     implementation project(":application_legacy")
-    implementation project(":domainlegacy")
+    implementation project(":domain")
 
     testImplementation 'org.mockito:mockito-core:5.10.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

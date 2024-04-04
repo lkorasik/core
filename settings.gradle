@@ -1,7 +1,5 @@
 rootProject.name = 'core'
 include 'app'
-include 'domain'
-include 'application'
 include 'application_legacy'
-include 'domainlegacy'
+include 'domain'
 

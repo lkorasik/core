@@ -1,6 +1,7 @@
 {
   "name": "front",
   "version": "1.0",
+  "proxy": "http://localhost:5000/",
   "private": true,
   "homepage": "./frontStatics",
   "dependencies": {

@@ -2,12 +2,12 @@ plugins {
     id 'java'
 }
 
+group = 'ru.urfu.mm.domainlegacy'
+version = '1.0'
+
 java {
     sourceCompatibility = '17'
 }
-
-group = 'ru.urfu.mm.domain'
-version = '1.0'
 
 repositories {
     mavenCentral()
