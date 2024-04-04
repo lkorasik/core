@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+}
+
+group = 'ru.urfu.mm.domainlegacy'
+version = '1.0'
+
+java {
+    sourceCompatibility = '17'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}

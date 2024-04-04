@@ -1,0 +1,71 @@
+.flexContainer {
+    margin-top: 3rem;
+}
+
+.flexElement {
+    flex-basis: 50%;
+    flex-shrink: 1;
+}
+
+.container {
+    padding-top: 39px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 1em;
+    background-color: #f6f6f6;
+}
+
+.background {
+    background-color: #f6f6f6;
+    background-size: cover;
+}
+
+.fontHeader1 {
+    font-family: Montserrat, sans-serif;
+    font-size: 52px;
+    font-weight: 600;
+    line-height: 57px;
+    letter-spacing: 0em;
+    width: 1103px;
+    min-height: 98px;
+    position: initial;
+
+    color: #1E4391;
+}
+
+.spanContainer {
+}
+
+.leftSpan {
+    font-family: Montserrat, sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 28px;
+    letter-spacing: 0em;
+    width: 267px;
+    height: 29px;
+    position: initial;
+
+    color: #1E4391;
+}
+
+.rightSpan {
+    font-family: Montserrat, sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 28px;
+    letter-spacing: 0em;
+    width: 267px;
+    height: 29px;
+    position: initial;
+    padding-left: 970px;
+    color: #1E4391;
+}
+
+.line {
+    width: 1524px;
+    height:2px;
+    border-bottom: 2px solid #1E4391;
+    padding-bottom: 0px;
+    padding-left:10px;
+}
