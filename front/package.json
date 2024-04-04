@@ -1,8 +1,7 @@
 {
   "name": "front",
-  "version": "0.1.0",
+  "version": "1.0",
   "private": true,
-  "proxy": "http://localhost:5000",
   "homepage": "./frontStatics",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.0",

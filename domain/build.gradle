@@ -7,7 +7,7 @@ java {
 }
 
 group = 'ru.urfu.mm.domain'
-version = 'unspecified'
+version = '1.0'
 
 repositories {
     mavenCentral()

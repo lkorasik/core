@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'ru.urfu.mm.applicationlegacy'
-version = 'unspecified'
+version = '1.0'
 
 java {
     sourceCompatibility = '17'
