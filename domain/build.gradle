@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group = 'ru.urfu.mm.domainlegacy'
+group = 'ru.urfu.mm.domain'
 version = '1.0'
 
 java {

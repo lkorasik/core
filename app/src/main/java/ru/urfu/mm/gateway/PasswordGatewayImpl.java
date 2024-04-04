@@ -3,7 +3,7 @@ package ru.urfu.mm.gateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import ru.urfu.mm.applicationlegacy.gateway.PasswordGateway;
+import ru.urfu.mm.application.gateway.PasswordGateway;
 
 @Component
 public class PasswordGatewayImpl implements PasswordGateway {

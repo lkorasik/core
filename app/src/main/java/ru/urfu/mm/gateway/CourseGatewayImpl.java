@@ -2,9 +2,9 @@ package ru.urfu.mm.gateway;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.urfu.mm.applicationlegacy.gateway.CourseGateway;
-import ru.urfu.mm.domainlegacy.Module;
-import ru.urfu.mm.domainlegacy.*;
+import ru.urfu.mm.application.gateway.CourseGateway;
+import ru.urfu.mm.domain.Module;
+import ru.urfu.mm.domain.*;
 import ru.urfu.mm.repository.EducationalProgramToCoursesWithSemestersRepository;
 import ru.urfu.mm.repository.SelectedCoursesRepository;
 import ru.urfu.mm.repository.SpecialCourseRepository;

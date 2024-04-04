@@ -2,8 +2,8 @@ package ru.urfu.mm.gateway;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.urfu.mm.applicationlegacy.gateway.TokenGateway;
-import ru.urfu.mm.domainlegacy.UserRole;
+import ru.urfu.mm.application.gateway.TokenGateway;
+import ru.urfu.mm.domain.UserRole;
 import ru.urfu.mm.repository.RegistrationTokenRepository;
 
 import java.util.Optional;

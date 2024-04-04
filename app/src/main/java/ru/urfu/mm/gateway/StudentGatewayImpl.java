@@ -2,8 +2,8 @@ package ru.urfu.mm.gateway;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.urfu.mm.applicationlegacy.gateway.StudentGateway;
-import ru.urfu.mm.domainlegacy.Student;
+import ru.urfu.mm.application.gateway.StudentGateway;
+import ru.urfu.mm.domain.Student;
 import ru.urfu.mm.entity.EducationalProgram;
 import ru.urfu.mm.entity.User;
 import ru.urfu.mm.entity.UserRole;
@@ -37,23 +37,23 @@ public class StudentGatewayImpl implements StudentGateway {
                 .findByLogin(studentId)
                 .map(x -> new Student(
                         x.getLogin(),
-                        new ru.urfu.mm.domainlegacy.EducationalProgram(
+                        new ru.urfu.mm.domain.EducationalProgram(
                                 x.getEducationalProgram().getId(),
                                 x.getEducationalProgram().getName(),
                                 x.getEducationalProgram().getTrainingDirection(),
                                 x.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
                         ),
                         x.getGroup(),
-                        new ru.urfu.mm.domainlegacy.User(
+                        new ru.urfu.mm.domain.User(
                                 x.getUser().getLogin(),
                                 x.getUser().getPassword(),
-                                ru.urfu.mm.domainlegacy.UserRole.values()[x.getUser().getRole().ordinal()]
+                                ru.urfu.mm.domain.UserRole.values()[x.getUser().getRole().ordinal()]
                         )
                 ))
                 .get();
     }
 
-    private User parse(ru.urfu.mm.domainlegacy.User user) {
+    private User parse(ru.urfu.mm.domain.User user) {
         return new User(
                 user.getLogin(),
                 user.getPassword(),
@@ -61,7 +61,7 @@ public class StudentGatewayImpl implements StudentGateway {
         );
     }
 
-    private EducationalProgram parse(ru.urfu.mm.domainlegacy.EducationalProgram educationalProgram) {
+    private EducationalProgram parse(ru.urfu.mm.domain.EducationalProgram educationalProgram) {
         return new EducationalProgram(
                 educationalProgram.getId(),
                 educationalProgram.getName(),

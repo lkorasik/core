@@ -3,10 +3,10 @@ package ru.urfu.mm.controller.program;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.urfu.mm.applicationlegacy.usecase.GetAllEducationalPrograms;
-import ru.urfu.mm.applicationlegacy.usecase.GetEducationalProgram;
+import ru.urfu.mm.application.usecase.GetAllEducationalPrograms;
+import ru.urfu.mm.application.usecase.GetEducationalProgram;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
-import ru.urfu.mm.domainlegacy.EducationalProgram;
+import ru.urfu.mm.domain.EducationalProgram;
 import ru.urfu.mm.service.ProgramService;
 
 import java.util.ArrayList;

@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.urfu.mm.applicationlegacy.usecase.CreateAdministrator;
-import ru.urfu.mm.applicationlegacy.usecase.CreateStudent;
-import ru.urfu.mm.applicationlegacy.usecase.LoginUser;
+import ru.urfu.mm.application.usecase.CreateAdministrator;
+import ru.urfu.mm.application.usecase.CreateStudent;
+import ru.urfu.mm.application.usecase.LoginUser;
 import ru.urfu.mm.entity.UserRole;
 import ru.urfu.mm.service.AuthenticationService;
 
@@ -58,7 +58,7 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public AccessTokenDTO login(@RequestBody LoginDTO loginDTO) {
-        ru.urfu.mm.domainlegacy.User user = loginUser.loginUser(UUID.fromString(loginDTO.token()), loginDTO.password());
+        ru.urfu.mm.domain.User user = loginUser.loginUser(UUID.fromString(loginDTO.token()), loginDTO.password());
         String token = authenticationService.generateToken(loginDTO);
 
         return new AccessTokenDTO(token, loginDTO.token(), UserRole.values()[user.getRole().ordinal()]);
