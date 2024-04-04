@@ -7,22 +7,22 @@ import {AvailableCoursesList} from "../AvailibleCoursesList/AvailableCoursesList
 import {ChosenCoursesForm} from "../ChosenCoursesForm/ChosenCoursesForm";
 import {Flex} from "../../base_components/Flex/Flex";
 import {useApis} from "../../apis/ApiBase/ApiProvider";
-import {EducationalProgramInfoDto} from "../../apis/dto/EducationalProgramInfoDto";
-import {Semester} from "../../apis/dto/Semester";
-import {CourseForEducationalProgram} from "../../apis/dto/CourseForEducationalProgram";
+import {ProgramInfoDto} from "../../apis/api/programs/ProgramInfoDto";
+import {SemesterDto} from "../../apis/api/recommendation/SemesterDto";
+import {CourseForEducationalProgram} from "../../apis/api/course/CourseForEducationalProgram";
 import {useDispatch} from "react-redux";
 import {CoursesStoreActionCreator} from "../../storing/coursesStore/coursesStore.actionCreator";
-import {EducationalModule} from "../../apis/dto/EducationalModule";
+import {ModuleDto} from "../../apis/api/modules/ModuleDto";
 import {TextLoadingPlaceholder} from "../../base_components/TextLoadingPlaceholder/TextLoadingPlaceholder";
 import {Button} from "../../base_components/Button/Button";
 import {useNavigate} from "react-router-dom";
 
 
 export const ChooseCoursesScreen: FC = () => {
-    const [educationalProgram, setEducationalProgram] = useState<EducationalProgramInfoDto | undefined>();
-    const [actualSemesters, setActualSemesters] = useState<Semester[] | undefined>();
+    const [educationalProgram, setEducationalProgram] = useState<ProgramInfoDto | undefined>();
+    const [actualSemesters, setActualSemesters] = useState<SemesterDto[] | undefined>();
     const [selectedSemesterId, setSelectedSemesterId] = useState<string | undefined>();
-    const [educationalModules, setEducationalModules] = useState<EducationalModule[]>([]);
+    const [educationalModules, setEducationalModules] = useState<ModuleDto[]>([]);
     const [
         specialCoursesForEducationalProgram,
         setSpecialCoursesForEducationalProgram
@@ -35,14 +35,14 @@ export const ChooseCoursesScreen: FC = () => {
 
     useEffect(() => {
         const componentDidMount = async () => {
-            const educationalProgram = await apis.educationalProgramsApi.getCurrentEducationalProgram();
+            const program = await apis.educationalProgramsApi.getCurrentEducationalProgram();
 
             const actualSemesters = await apis.semestersApi.getActualSemesters();
             actualSemesters.sort(compareSemesters);
             const actualSemestersIds = actualSemesters.map(x => x.id);
 
             const specialCourses = await apis.specialCoursesApi.getCoursesByEducationalProgramAndSemesters({
-                educationalProgramId: educationalProgram.id,
+                programId: program.id,
                 semestersIds: actualSemestersIds
             });
             const requiredCourses = new Set(
@@ -53,8 +53,8 @@ export const ChooseCoursesScreen: FC = () => {
 
             const modulesIds = [...new Set(
                 specialCourses
-                    .filter(x => x.educationalModuleId)
-                    .map(x => x.educationalModuleId!)
+                    .filter(x => x.moduleId)
+                    .map(x => x.moduleId!)
             )]
             const educationalModules = await apis.educationalModulesApi.getModulesByIds({modulesIds: modulesIds});
 
@@ -71,7 +71,7 @@ export const ChooseCoursesScreen: FC = () => {
                 );
             }
 
-            setEducationalProgram(educationalProgram);
+            setEducationalProgram(program);
             setActualSemesters(actualSemesters);
             setSelectedSemesterId(actualSemesters[0].id);
             setSpecialCoursesForEducationalProgram(specialCourses);
@@ -81,7 +81,6 @@ export const ChooseCoursesScreen: FC = () => {
         componentDidMount();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
 
     const render = () => {
         return (
@@ -139,7 +138,7 @@ export const ChooseCoursesScreen: FC = () => {
             />;
         }
 
-        const semestersOptions = actualSemesters.map(x => ({value: x.id, label: `${x.year}/${x.year + 1} год, семестр ${x.semesterNumber}`}));
+        const semestersOptions = actualSemesters.map(x => ({value: x.id, label: `${x.year}/${x.year + 1} год, семестр ${x.ordinalNumber}`}));
 
         return(
             <Select className={styles.semesterSelect}
@@ -157,14 +156,14 @@ export const ChooseCoursesScreen: FC = () => {
         setSelectedSemesterId(semesterId);
     }
 
-    const compareSemesters = (lhs: Semester, rhs: Semester) => {
+    const compareSemesters = (lhs: SemesterDto, rhs: SemesterDto) => {
         if (lhs.year > rhs.year) {
             return 1;
         }
         if (lhs.year < rhs.year) {
             return -1;
         }
-        return lhs.semesterNumber - rhs.semesterNumber;
+        return lhs.ordinalNumber - rhs.ordinalNumber;
     }
 
     return render();

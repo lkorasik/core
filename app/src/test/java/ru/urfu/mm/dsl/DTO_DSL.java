@@ -1,8 +1,8 @@
 package ru.urfu.mm.dsl;
 
-import ru.urfu.mm.dto.LoginDTO;
-import ru.urfu.mm.dto.RegistrationAdministratorDTO;
-import ru.urfu.mm.dto.RegistrationStudentDTO;
+import ru.urfu.mm.controller.authentication.LoginDTO;
+import ru.urfu.mm.controller.authentication.RegistrationAdministratorDTO;
+import ru.urfu.mm.controller.authentication.RegistrationStudentDTO;
 
 import java.util.UUID;
 

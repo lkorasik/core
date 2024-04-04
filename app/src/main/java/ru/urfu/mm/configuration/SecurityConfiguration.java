@@ -30,7 +30,7 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests((request) -> {
             request
                     .requestMatchers("/api/authentication/**").permitAll()
-                    .requestMatchers("/api/educationalPrograms").permitAll()
+                    .requestMatchers("/api/programs").permitAll()
                     .anyRequest().authenticated();
         });
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

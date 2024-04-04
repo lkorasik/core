@@ -2,7 +2,7 @@ import React from "react";
 import {Text} from "../../base_components/Text/Text";
 import styles from "./ChosenCoursesForm.module.css";
 import {Flex} from "../../base_components/Flex/Flex";
-import {CourseForEducationalProgram} from "../../apis/dto/CourseForEducationalProgram";
+import {CourseForEducationalProgram} from "../../apis/api/course/CourseForEducationalProgram";
 import {CardButtonAction, CardType, CourseCard} from "../СourseCard/CourseCard";
 import {ScrollContainer} from "../../base_components/ScrollContainer/ScrollContainer";
 import {connect, ConnectedProps} from "react-redux";
@@ -49,7 +49,7 @@ class ChosenCoursesFormClear extends React.Component<ExtendedProps> {
                                     cardType={CardType.Course}
                                     specialCourse={x}
                                     semesterId={this.props.selectedSemesterId}
-                                    cardColor={x.educationalModuleId ? "indigo" : "lightBlue"}
+                                    cardColor={x.moduleId ? "indigo" : "lightBlue"}
                                     cardButtonAction={CardButtonAction.Ignore}
                                     disableShowAdditionalInfo
                                 />
@@ -75,7 +75,7 @@ class ChosenCoursesFormClear extends React.Component<ExtendedProps> {
                                     cardType={CardType.Course}
                                     specialCourse={x}
                                     semesterId={this.props.selectedSemesterId}
-                                    cardColor={x.educationalModuleId ? "indigo" : "lightBlue"}
+                                    cardColor={x.moduleId ? "indigo" : "lightBlue"}
                                     cardButtonAction={CardButtonAction.RemoveCourse}
                                     disableShowAdditionalInfo
                                 />

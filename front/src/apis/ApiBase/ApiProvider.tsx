@@ -1,23 +1,23 @@
 import * as React from "react";
 import {PropsWithChildren, useContext} from "react";
-import {EducationalProgramsApi, IEducationalProgramsApi} from "../SpecCoursesApi/EducationalProgramsApi";
-import {ISemestersApi, SemestersApi} from "../SpecCoursesApi/SemestersApi";
-import {ISpecialCoursesApi, SpecialCoursesApi} from "../SpecCoursesApi/SpecialCoursesApi";
-import {AuthenticationApi, IAuthenticationApi} from "../AuthenticationApi";
-import {EducationalModulesApi, IEducationalModulesApi} from "../SpecCoursesApi/EducationalModulesApi";
+import {ProgramsApi, IProgramsApi} from "../api/programs/EducationalProgramsApi";
+import {ISemestersApi, SemestersApi} from "../api/semester/SemestersApi";
+import {ICoursesApi, CoursesApi} from "../api/course/CoursesApi";
+import {AuthenticationApi, IAuthenticationApi} from "../api/authentication/AuthenticationApi";
+import {ModulesApi, IModulesApi} from "../api/modules/ModulesApi";
 import {LoginInfo} from "../../hooks/LoginInfo";
-import {DocumentsApi, IDocumentsApi} from "../SpecCoursesApi/DocumentsApi";
-import {ISkillsApi, SkillsApi} from "../SpecCoursesApi/SkillsApi";
-import {IRecommendationsApi, RecommendationsApi} from "../SpecCoursesApi/RecommendationsApi";
+import {DocumentsApi, IDocumentsApi} from "../api/document/DocumentsApi";
+import {ISkillsApi, SkillsApi} from "../api/skill/SkillsApi";
+import {IRecommendationsApi, RecommendationsApi} from "../api/recommendation/RecommendationsApi";
 
 const apiPrefix: string = "/api/";
 
 export interface IAllApis {
-    educationalProgramsApi: IEducationalProgramsApi;
+    educationalProgramsApi: IProgramsApi;
     semestersApi: ISemestersApi;
-    specialCoursesApi: ISpecialCoursesApi;
+    specialCoursesApi: ICoursesApi;
     authenticationApi: IAuthenticationApi;
-    educationalModulesApi: IEducationalModulesApi;
+    educationalModulesApi: IModulesApi;
     documentsApi: IDocumentsApi;
     skillsApi: ISkillsApi;
     recommendationsApi: IRecommendationsApi;
@@ -38,11 +38,11 @@ const getToken = () => {
 }
 
 export const RealApi: IAllApis = {
-    educationalProgramsApi: new EducationalProgramsApi(apiPrefix, getToken),
+    educationalProgramsApi: new ProgramsApi(apiPrefix, getToken),
     semestersApi: new SemestersApi(apiPrefix, getToken),
-    specialCoursesApi: new SpecialCoursesApi(apiPrefix, getToken),
+    specialCoursesApi: new CoursesApi(apiPrefix, getToken),
     authenticationApi: new AuthenticationApi(apiPrefix, getToken),
-    educationalModulesApi: new EducationalModulesApi(apiPrefix, getToken),
+    educationalModulesApi: new ModulesApi(apiPrefix, getToken),
     documentsApi: new DocumentsApi(apiPrefix, getToken),
     skillsApi: new SkillsApi(apiPrefix, getToken),
     recommendationsApi: new RecommendationsApi(apiPrefix, getToken),

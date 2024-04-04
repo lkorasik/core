@@ -4,7 +4,7 @@ import {ChooseCoursesScreen} from "../ChooseCoursesScreen/ChooseCoursesScreen";
 import {useAuthentication} from "../../hooks/useAuthentication";
 import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import {EmployeeScreen} from "../EmployeeScreen/EmployeeScreen";
-import {UserRole} from "../../apis/dto/UserRole";
+import {UserRole} from "../../apis/api/UserRole";
 import {LoginInfo} from "../../hooks/LoginInfo";
 import {AdministratorMainScreen} from '../AdministratorMainScreen/AdministratorMainScreen';
 import {EducationalProgramScreen} from '../EducationalProgramScreen/EducationalProgramScreen';
@@ -58,9 +58,8 @@ const App: FC = () => {
     return (
         <Routes>
             <Route path={"/"} element={<WelcomeScreen saveLoginInfo={saveLoginInfo}/>}/>
-            <Route path={"/student"} element={<ChooseCoursesScreen/>}>
-                <Route path={"/student/recommendationService"} element={<RecommendationsScreen />} />
-            </Route>
+            <Route path={"/student"} element={<ChooseCoursesScreen/>}/>
+            <Route path={"/student/recommendationService"} element={<RecommendationsScreen />} />
             <Route path={"/employee"} element={<EmployeeScreen/>}/>
             <Route path={"/administrator"} element={<AdministratorMainScreen/>}>
                 <Route path={"/administrator/educational_program"} element={<EducationalProgramScreen/>}/>

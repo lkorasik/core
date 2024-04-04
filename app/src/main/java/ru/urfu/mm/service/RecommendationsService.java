@@ -2,7 +2,9 @@ package ru.urfu.mm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.urfu.mm.dto.*;
+import ru.urfu.mm.applicationlegacy.usecase.CourseForEducationalProgram;
+import ru.urfu.mm.applicationlegacy.usecase.GetCoursesByEducationalProgramAndSemesters;
+import ru.urfu.mm.controller.recommendation.*;
 import ru.urfu.mm.entity.Student;
 import ru.urfu.mm.entity.StudentDesiredSkills;
 import ru.urfu.mm.entity.StudentSkills;
@@ -19,9 +21,11 @@ public class RecommendationsService {
     @Autowired
     private SemesterService semesterService;
     @Autowired
-    private SpecialCourseService specialCourseService;
+    private CourseService courseService;
     @Autowired
     private CoursesSkillsService coursesSkillsService;
+    @Autowired
+    private GetCoursesByEducationalProgramAndSemesters getCoursesByEducationalProgramAndSemesters;
 
     public RecommendationResultDTO calculateRecommendations(Student student) {
         var studentSkills = skillsService.getSkillsForStudent(student.getLogin());
@@ -29,12 +33,10 @@ public class RecommendationsService {
 
         var actualSemestersIds = semesterService.getActualSemesters()
                 .stream()
-                .map(SemesterDTO::getId)
+                .map(ru.urfu.mm.controller.semester.SemesterDTO::id)
                 .toList();
-        var courses = specialCourseService.getCoursesByEducationalProgramAndSemesters(
-                student.getEducationalProgram().getId(),
-                actualSemestersIds
-        );
+        var courses = getCoursesByEducationalProgramAndSemesters
+                .getCoursesByEducationalProgramAndSemesters(student.getLogin(), actualSemestersIds);
 
         var optionalCourses = courses
                 .stream()
@@ -42,7 +44,7 @@ public class RecommendationsService {
                 .toList();
         var optionalCoursesIds = optionalCourses
                 .stream()
-                .map(CourseForEducationalProgram::getId)
+                .map(ru.urfu.mm.applicationlegacy.usecase.CourseForEducationalProgram::getId)
                 .toList();
         var courseIdToRequiredSkills = coursesSkillsService.getCoursesToRequiredSkills(student, optionalCoursesIds);
         var courseIdToResultSkills = coursesSkillsService.getCoursesToResultSkills(student, optionalCoursesIds);
@@ -127,12 +129,12 @@ public class RecommendationsService {
                 .stream()
                 .collect(
                         Collectors
-                                .toMap(CourseForEducationalProgram::getId, x -> x)
+                                .toMap(ru.urfu.mm.applicationlegacy.usecase.CourseForEducationalProgram::getId, x -> x)
                 );
         var coursesByModule = courses
                 .stream()
                 .filter(x -> x.getEducationalModuleId() != null)
-                .collect(Collectors.groupingBy(CourseForEducationalProgram::getEducationalModuleId));
+                .collect(Collectors.groupingBy(ru.urfu.mm.applicationlegacy.usecase.CourseForEducationalProgram::getEducationalModuleId));
 
         return new RecommendationResultDTO(
                 perfectCourses
@@ -156,8 +158,6 @@ public class RecommendationsService {
                                         y.getId(),
                                         y.getName(),
                                         y.getCreditsCount(),
-                                        y.getControl(),
-                                        y.getDescription(),
                                         y.getSemesters().stream().map(w -> new SemesterDTO(w.getId(), w.getYear(), w.getSemesterNumber())).toList(),
                                         y.getEducationalModuleId(),
                                         y.requiredSemesterId,
@@ -173,39 +173,6 @@ public class RecommendationsService {
                         .toList()
         );
     }
-    /*
-    public async Task<RecommendationResultDto> CalculateRecommendations(string studentLogin)
-{
-
-    return new RecommendationResultDto
-    {
-        ModuleCourses = coursesByModule.Select(x => new ModuleCoursesDto()
-            {
-                ModuleId = x.Key,
-                Courses = x
-                    .Select(y => new RecommendedCourse()
-                    {
-                        Id = y.Id,
-                        Name = y.Name,
-                        CreditsCount = y.CreditsCount,
-                        Control = y.Control,
-                        Description = y.Description,
-                        Semesters = y.Semesters,
-                        EducationalModuleId = y.EducationalModuleId,
-                        RequiredSemesterId = y.RequiredSemesterId,
-                        RequiredSkills = courseIdToRequiredSkills.TryGetValue(y.Id, out var requiredSkills)
-                            ? requiredSkills
-                            : Array.Empty<Skill>(),
-                        ResultSkills = courseIdToResultSkills.TryGetValue(y.Id, out var resultSkills)
-                            ? resultSkills
-                            : Array.Empty<Skill>(),
-                    })
-                    .ToArray()
-            })
-            .ToArray()
-    };
-}
-     */
 
     private List<UUID> getComplementaryCoursesIds(
             Map<UUID, List<StudentSkills>> courseIdToRequiredSkills,
@@ -380,8 +347,6 @@ public class RecommendationsService {
                 courseWithSkills.courseId,
                 course.getName(),
                 course.getCreditsCount(),
-                course.getControl(),
-                course.getDescription(),
                 course.getSemesters().stream()
                         .map(x -> new SemesterDTO(x.getId(), x.getYear(), x.getSemesterNumber()))
                         .toList(),

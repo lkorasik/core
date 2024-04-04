@@ -5,8 +5,8 @@ import React from "react";
 import {RootState} from "../../index";
 import {Link} from "react-router-dom";
 import {EDIT_MODULE_COURSES_SCREEN_URL, MODULE_COURSES_SCREEN_URL} from "../App/App";
-import {SpecialCourse} from "../../apis/dto/SpecialCourse";
-import {Control} from "../../apis/dto/Control";
+import {SpecialCourse} from "../../apis/api/course/SpecialCourse";
+import {Control} from "../../apis/api/Control";
 
 interface State {
     courseId: string;
@@ -27,7 +27,7 @@ class CourseScreenClear extends React.Component<Props, State> {
     public async componentDidMount() {
         const courseIdFromStorage = localStorage.getItem("SpecialCourseId")
         const courseModel = await this.props.apis.specialCoursesApi.getCourseById({
-            specialCourseId : courseIdFromStorage ? courseIdFromStorage : ""})
+            courseId : courseIdFromStorage ? courseIdFromStorage : ""})
         this.setState({
             ...this.state,
             courseModel: courseModel,
@@ -49,12 +49,12 @@ class CourseScreenClear extends React.Component<Props, State> {
                             <button className={styles.editButton}/>
                         </Link>
                         <Link className={styles.linkOverride}
-                              to={MODULE_COURSES_SCREEN_URL + this.state.courseModel?.educationalModuleId}>
+                              to={MODULE_COURSES_SCREEN_URL + this.state.courseModel?.moduleId}>
                             <button className={styles.deleteButton} onClick={() => {
                                 this.deleteCourse()}}/>
                         </Link>
                         <Link className={styles.linkOverride}
-                              to={MODULE_COURSES_SCREEN_URL + this.state.courseModel?.educationalModuleId}>
+                              to={MODULE_COURSES_SCREEN_URL + this.state.courseModel?.moduleId}>
                             <button className={styles.cancelButton}/>
                         </Link>
                     </div>
@@ -109,7 +109,7 @@ class CourseScreenClear extends React.Component<Props, State> {
     }
 
     private async deleteCourse() {
-        await this.props.apis.specialCoursesApi.deleteSpecialCourseById({specialCourseId: this.state.courseId});
+        await this.props.apis.specialCoursesApi.deleteSpecialCourseById({courseId: this.state.courseId});
     }
 }
 

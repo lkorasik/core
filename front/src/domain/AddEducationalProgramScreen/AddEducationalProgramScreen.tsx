@@ -5,8 +5,8 @@ import { Flex } from "../../base_components/Flex/Flex";
 import { DialogModal } from "../DialogModal/DialogModal";
 import { useEffect, useState } from "react";
 import { useApis } from "../../apis/ApiBase/ApiProvider";
-import { SpecialCourse } from "../../apis/dto/SpecialCourse";
-import { EducationalModule } from "../../apis/dto/EducationalModule";
+import { SpecialCourse } from "../../apis/api/course/SpecialCourse";
+import { ModuleDto } from "../../apis/api/modules/ModuleDto";
 
 interface Props {}
 
@@ -26,7 +26,7 @@ export function AddEducationalProgramScreen(props: Props) {
     const [showDialog, setShowDialog] = useState(false);
     const [dialogTitle, setDialogTitle] = useState("");
     const [courses, setCourses] = useState<SpecialCourse[]>();
-    const [modules, setModules] = useState<EducationalModule[]>();
+    const [modules, setModules] = useState<ModuleDto[]>();
 
     const [educationalProgramName, setEducationalProgramName] = useState("");
     const credits = [useState(0), useState(0), useState(0), useState(0)];
@@ -79,9 +79,9 @@ export function AddEducationalProgramScreen(props: Props) {
                 setEducationalProgramName(program.title);
                 setEducationalProgramId(program.id);
 
-                for(let i = 0; i < program.recomendedCredits.length; i++) {
+                for(let i = 0; i < program.recommendedCredits.length; i++) {
                     const [state, setState] = credits[i];
-                    setState(program.recomendedCredits[i]);
+                    setState(program.recommendedCredits[i]);
                 }
 
                 for(let i = 0; i < program.semesters.length; i++) {
@@ -166,7 +166,7 @@ export function AddEducationalProgramScreen(props: Props) {
         }
         const request = {
             title: educationalProgramName,
-            recomendedCredits: credits.map(x => x[0]),
+            recommendedCredits: credits.map(x => x[0]),
             semesters: [semester1, semester2, semester3, semester4]
         }
         await apis.educationalProgramsApi.createEducationalProgramList(request)

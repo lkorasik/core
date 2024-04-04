@@ -4,9 +4,9 @@ import { Input } from "../../base_components/Input/Input";
 import styles from "./WelcomeBackground.module.css";
 import { LoginInfo } from "../../hooks/LoginInfo";
 import Select from "react-select";
-import { EducationalProgramInfoDto } from "../../apis/dto/EducationalProgramInfoDto";
+import { ProgramInfoDto } from "../../apis/api/programs/ProgramInfoDto";
 import { useApis } from "../../apis/ApiBase/ApiProvider";
-import { AccessTokenDto } from "../../apis/dto/AccessTokenDto";
+import { AccessTokenDto } from "../../apis/api/authentication/AccessTokenDto";
 import { useEffect, useState } from "react";
 
 interface Props {
@@ -20,7 +20,7 @@ export function WelcomeScreen(props: Props) {
     const [password, setPassword] = useState("");
     const [passwordAgain, setPasswordAgain] = useState("");
     const [group, setGroup] = useState("");
-    const [educationalPrograms, setEducationalPrograms] = useState<EducationalProgramInfoDto[]>();
+    const [educationalPrograms, setEducationalPrograms] = useState<ProgramInfoDto[]>();
 
     const [isRegistration, setIsRegistration] = useState(false)
     const [registrationForm, setRegistrationForm] = useState(accountTypes[0])
@@ -44,8 +44,8 @@ export function WelcomeScreen(props: Props) {
 
     const registerStudent = async () => {
         const registeredToken = await apis.authenticationApi.registerStudent({
-            registrationToken: registrationToken,
-            educationalProgramId: selectedProgramId,
+            token: registrationToken,
+            programId: selectedProgramId,
             group: group,
             password: password,
             passwordAgain: passwordAgain
@@ -55,7 +55,7 @@ export function WelcomeScreen(props: Props) {
 
     const registerAdministration = async () => {
         const registeredToken = await apis.authenticationApi.registerAdmin({
-            registrationToken: registrationToken,
+            token: registrationToken,
             password: password,
             passwordAgain: passwordAgain
         });
@@ -64,7 +64,7 @@ export function WelcomeScreen(props: Props) {
 
     const login = async () => {
         const loginToken = await apis.authenticationApi.login({
-            email: registrationToken,
+            token: registrationToken,
             password: password,
         });
         saveLoginInfo(loginToken)

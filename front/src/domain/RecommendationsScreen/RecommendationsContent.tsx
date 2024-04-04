@@ -1,35 +1,35 @@
 import {FC, useEffect, useMemo, useState} from "react";
 import {useApis} from "../../apis/ApiBase/ApiProvider";
-import {RecommendationResultDto} from "../../apis/dto/RecommendationResultDto";
+import {RecommendationResultDto} from "../../apis/api/recommendation/RecommendationResultDto";
 import styles from "./recommendationsContent.module.css";
 import {Text} from "../../base_components/Text/Text";
-import {RecommendedCourse} from "../../apis/dto/RecommendedCourse";
-import {ModuleCoursesDto} from "../../apis/dto/ModuleCoursesDto";
+import {RecommendedCourseDto} from "../../apis/api/recommendation/RecommendedCourseDto";
+import {ModuleCoursesDto} from "../../apis/api/recommendation/ModuleCoursesDto";
 import {Loader} from "../../base_components/Loader/Loader";
-import { Semester } from "../../apis/dto/Semester";
+import { SemesterDto } from "../../apis/api/recommendation/SemesterDto";
 
 
 export const RecommendationsContent: FC = () => {
     const apis = useApis();
     const [recommendations, setRecommendations] = useState<RecommendationResultDto | null>(null);
-    const [actualSemesters, setActualSemesters] = useState<Semester[]>([]);
+    const [actualSemesters, setActualSemesters] = useState<SemesterDto[]>([]);
     const orderedSemesters = useMemo(
         () => [...actualSemesters].sort((lhs, rhs) => {
             if (lhs.year === rhs.year) {
-                return lhs.semesterNumber - rhs.semesterNumber;
+                return lhs.ordinalNumber - rhs.ordinalNumber;
             }
             return lhs.year - rhs.year;
         }),
         [actualSemesters]);
-    const perfectCoursesBySemesterIds = useMemo<Map<string, RecommendedCourse[]> | null>(
+    const perfectCoursesBySemesterIds = useMemo<Map<string, RecommendedCourseDto[]> | null>(
         () => getCoursesBySemesters(recommendations?.perfectCourses, recommendations?.moduleCourses),
         [recommendations]
     );
-    const partiallySuitableCoursesBySemesterIds = useMemo<Map<string, RecommendedCourse[]> | null>(
+    const partiallySuitableCoursesBySemesterIds = useMemo<Map<string, RecommendedCourseDto[]> | null>(
         () => getCoursesBySemesters(recommendations?.partiallySuitableCourses, recommendations?.moduleCourses),
         [recommendations]
     );
-    const complementaryCoursesBySemesterIds = useMemo<Map<string, RecommendedCourse[]> | null>(
+    const complementaryCoursesBySemesterIds = useMemo<Map<string, RecommendedCourseDto[]> | null>(
         () => getCoursesBySemesters(recommendations?.complementaryCourses, recommendations?.moduleCourses),
         [recommendations]
     );
@@ -90,7 +90,7 @@ const renderSemester = (semesterNumber: number) => {
     );
 }
 
-const renderCoursesForSemester = (courses: RecommendedCourse[] | undefined) => {
+const renderCoursesForSemester = (courses: RecommendedCourseDto[] | undefined) => {
     if (!courses) {
         return;
     }
@@ -101,7 +101,7 @@ const renderCoursesForSemester = (courses: RecommendedCourse[] | undefined) => {
     );
 }
 
-const renderCourseCard = (course: RecommendedCourse) => {
+const renderCourseCard = (course: RecommendedCourseDto) => {
     return (
       <div key={course.id} className={styles.courseCard}>
           <Text size={2} align={"center"}>{course.name}</Text>
@@ -114,7 +114,7 @@ const renderNotFound = () => {
 }
 
 const getCoursesBySemesters = (
-    courses: RecommendedCourse[] | undefined,
+    courses: RecommendedCourseDto[] | undefined,
     coursesByModules: ModuleCoursesDto[] | undefined
 ) => {
     if (!courses || !coursesByModules) {
@@ -122,14 +122,14 @@ const getCoursesBySemesters = (
     }
 
     const coursesIds = new Set(courses.map(x => x.id));
-    const additionalCourses: RecommendedCourse[] = [];
+    const additionalCourses: RecommendedCourseDto[] = [];
     for (const course of courses) {
-        if (!course.educationalModuleId) {
+        if (!course.moduleId) {
             continue;
         }
-        const moduleCourses = coursesByModules.find(x => x.moduleId === course.educationalModuleId);
+        const moduleCourses = coursesByModules.find(x => x.moduleId === course.moduleId);
         if (!moduleCourses) {
-            throw new Error("No module found for moduleId: " + course.educationalModuleId);
+            throw new Error("No module found for moduleId: " + course.moduleId);
         }
         moduleCourses.courses.forEach(x => {
             if (!coursesIds.has(x.id)) {
@@ -138,7 +138,7 @@ const getCoursesBySemesters = (
             }
         });
     }
-    const semesterIdToCourses = new Map<string, RecommendedCourse[]>();
+    const semesterIdToCourses = new Map<string, RecommendedCourseDto[]>();
     const allCourses = [...courses, ...additionalCourses]
     allCourses.forEach(course => {
         const semesterIds = course.semesters.map(y => y.id);

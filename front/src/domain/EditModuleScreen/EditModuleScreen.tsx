@@ -2,16 +2,16 @@ import styles from "./EditModuleScreen.module.css";
 import {IAllApisProp, withApis} from "../../apis/ApiBase/ApiProvider";
 import {connect, ConnectedProps} from "react-redux";
 import React from "react";
-import {SpecialCourse} from "../../apis/dto/SpecialCourse";
+import {SpecialCourse} from "../../apis/api/course/SpecialCourse";
 import Select, {MultiValue} from "react-select";
 import {Link} from "react-router-dom";
 import {MODULES_SCREEN_URL} from "../App/App";
-import {EducationalModule} from "../../apis/dto/EducationalModule";
+import {ModuleDto} from "../../apis/api/modules/ModuleDto";
 
 interface State {
     specialCoursesForDisplay: SpecialCourse[];
     isLoadingCourses: boolean;
-    module?: EducationalModule;
+    module?: ModuleDto;
     moduleId: string;
     moduleName: string;
     specialCoursesIdsForNewModule: string[];
@@ -43,7 +43,7 @@ class EditModuleScreenClear extends React.Component<Props, State> {
                 .getModulesByIds({modulesIds: new Array(this.state.moduleId)}))[0];
             const specialCourses = await this.props.apis.specialCoursesApi.getAllCourses();
             let alreadyModuleCourses = specialCourses
-                .map(course => course.educationalModuleId)
+                .map(course => course.moduleId)
                 .filter(courseModuleId => courseModuleId != null && moduleId === courseModuleId);
 
             this.setState({
@@ -76,7 +76,7 @@ class EditModuleScreenClear extends React.Component<Props, State> {
         const specialCourses: { value: string, label: string }[] = [];
         this.state.specialCoursesForDisplay
             .sort((a, b) => a.name > b.name ? 1 : -1)
-            .filter(course => course.educationalModuleId == null)
+            .filter(course => course.moduleId == null)
             .forEach(course => specialCourses.push({value: course.id, label: course.name}));
 
         return (
@@ -120,8 +120,8 @@ class EditModuleScreenClear extends React.Component<Props, State> {
 
     private async createEducationalModule() {
         await this.props.apis.educationalModulesApi.createModule({
-            educationalModuleName: this.state.moduleName,
-            specialCoursesIds: this.state.specialCoursesIdsForNewModule,
+            moduleName: this.state.moduleName,
+            coursesIds: this.state.specialCoursesIdsForNewModule,
         });
     }
 }

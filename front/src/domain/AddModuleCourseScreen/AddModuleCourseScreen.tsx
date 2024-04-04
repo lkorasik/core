@@ -5,7 +5,7 @@ import React from "react";
 import {RootState} from "../../index";
 import {Link} from "react-router-dom";
 import {MODULE_COURSES_SCREEN_URL} from "../App/App";
-import {Control} from "../../apis/dto/Control";
+import {Control} from "../../apis/api/Control";
 
 interface State {
     educationalModuleId: string;
@@ -28,7 +28,7 @@ class AddModuleCourseScreenClear extends React.Component<Props, State> {
             department: "",
             teacherName: "",
             creditsCount: 0,
-            controlType: "",
+            controlType: "Test",
             courseDescription: "",
         };
     }
@@ -170,7 +170,7 @@ class AddModuleCourseScreenClear extends React.Component<Props, State> {
 
     private async createModuleCourse() {
         await this.props.apis.specialCoursesApi.createModuleSpecialCourse({
-            educationalModuleId: this.state.educationalModuleId,
+            moduleId: this.state.educationalModuleId,
             courseName: this.state.courseName,
             department: this.state.department,
             teacherName: this.state.teacherName,

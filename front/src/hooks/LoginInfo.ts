@@ -1,4 +1,4 @@
-import {UserRole} from "../apis/dto/UserRole";
+import {UserRole} from "../apis/api/UserRole";
 
 export interface LoginInfo {
     token: string;

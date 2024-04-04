@@ -4,14 +4,14 @@ import styles from "./ModuleCoursesScreen.module.css";
 import {AddButton} from "../../base_components/AddButton/AddButton";
 import {IAllApisProp, withApis} from "../../apis/ApiBase/ApiProvider";
 import {connect, ConnectedProps} from "react-redux";
-import {EducationalModule} from "../../apis/dto/EducationalModule";
+import {ModuleDto} from "../../apis/api/modules/ModuleDto";
 import React from "react";
 import {Link} from "react-router-dom";
-import {SpecialCourse} from "../../apis/dto/SpecialCourse";
+import {SpecialCourse} from "../../apis/api/course/SpecialCourse";
 import {MODULES_SCREEN_URL} from "../App/App";
 
 interface State {
-    educationalModule?: EducationalModule;
+    module?: ModuleDto;
     moduleCourses: SpecialCourse[];
     isLoadingCourses: boolean;
     selectedModuleId: string;
@@ -36,7 +36,7 @@ class ModuleScreenClear extends React.Component<Props, State> {
         const moduleName = localStorage.getItem("EducationalModuleName");
 
         const moduleCourses = moduleId
-            ? await this.props.apis.specialCoursesApi.getEducationalModelCourses({educationalModuleId: moduleId,})
+            ? await this.props.apis.specialCoursesApi.getEducationalModelCourses({moduleId: moduleId,})
             : [];
 
         this.setState({
