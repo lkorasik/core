@@ -2,8 +2,8 @@ package ru.urfu.mm.gateway;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.urfu.mm.applicationlegacy.gateway.SemesterGateway;
-import ru.urfu.mm.domainlegacy.Semester;
+import ru.urfu.mm.application.gateway.SemesterGateway;
+import ru.urfu.mm.domain.Semester;
 import ru.urfu.mm.repository.SemesterRepository;
 
 import java.util.List;

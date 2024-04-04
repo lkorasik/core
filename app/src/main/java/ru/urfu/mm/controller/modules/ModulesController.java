@@ -2,10 +2,10 @@ package ru.urfu.mm.controller.modules;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.urfu.mm.applicationlegacy.usecase.CreateModuleWithCourses;
-import ru.urfu.mm.applicationlegacy.usecase.DeleteModuleById;
-import ru.urfu.mm.applicationlegacy.usecase.GetAllModules;
-import ru.urfu.mm.applicationlegacy.usecase.GetModulesByIds;
+import ru.urfu.mm.application.usecase.CreateModuleWithCourses;
+import ru.urfu.mm.application.usecase.DeleteModuleById;
+import ru.urfu.mm.application.usecase.GetAllModules;
+import ru.urfu.mm.application.usecase.GetModulesByIds;
 
 import java.util.List;
 

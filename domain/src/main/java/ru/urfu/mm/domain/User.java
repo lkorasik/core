@@ -1,21 +1,30 @@
 package ru.urfu.mm.domain;
 
-/**
- * Пользователь.
- * Представляет собой пользователя нашей системы.
- */
-public abstract class User {
-    /**
-     * Токен доступа
-     */
-    private final String token;
-    /**
-     * Пароль
-     */
-    private final String password;
+import java.util.UUID;
 
-    public User(String token, String password) {
-        this.token = token;
+public class User {
+    private UUID login;
+    private String password;
+    private UserRole role;
+
+    public User(UUID login, String password, UserRole role) {
+        this.login = login;
         this.password = password;
+        this.role = role;
+    }
+
+    public User() {
+    }
+
+    public UUID getLogin() {
+        return login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public UserRole getRole() {
+        return role;
     }
 }

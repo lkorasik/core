@@ -2,7 +2,7 @@ package ru.urfu.mm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.urfu.mm.applicationlegacy.usecase.GetSkillsForStudent;
+import ru.urfu.mm.application.usecase.GetSkillsForStudent;
 import ru.urfu.mm.entity.*;
 
 import java.util.List;

@@ -1,21 +1,29 @@
 package ru.urfu.mm.domain;
 
-/**
- * Навык.
- * Представляет собой навык
- */
-public class Skill {
-    /**
-     * Название навыка
-     */
-    private final String name;
-    /**
-     * Уровень навыка
-     */
-    private final SkillLevel level;
+import java.util.UUID;
 
-    public Skill(String name, SkillLevel level) {
+public class Skill {
+    private UUID id;
+    private String name;
+
+    public Skill() {
+
+    }
+
+    public Skill(String name) {
         this.name = name;
-        this.level = level;
+    }
+
+    public Skill(UUID id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
     }
 }

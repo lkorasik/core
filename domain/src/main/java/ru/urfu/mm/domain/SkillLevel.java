@@ -1,19 +1,17 @@
 package ru.urfu.mm.domain;
 
-/**
- * Уровни навыка
- */
 public enum SkillLevel {
-    /**
-     * Начальный уровень
-     */
-    BEGINNER,
-    /**
-     * Средний уровень
-     */
-    INTERMEDIATE,
-    /**
-     * Продвинутый уровень
-     */
-    ADVANCED
+    BEGINNER("Beginner"),
+    INTERMEDIATE("Intermediate"),
+    ADVANCED("Advanced");
+
+    private String value;
+
+    SkillLevel(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }

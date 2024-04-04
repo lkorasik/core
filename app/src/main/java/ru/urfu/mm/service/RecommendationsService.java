@@ -2,8 +2,8 @@ package ru.urfu.mm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.urfu.mm.applicationlegacy.usecase.CourseForEducationalProgram;
-import ru.urfu.mm.applicationlegacy.usecase.GetCoursesByEducationalProgramAndSemesters;
+import ru.urfu.mm.application.usecase.CourseForEducationalProgram;
+import ru.urfu.mm.application.usecase.GetCoursesByEducationalProgramAndSemesters;
 import ru.urfu.mm.controller.recommendation.*;
 import ru.urfu.mm.entity.Student;
 import ru.urfu.mm.entity.StudentDesiredSkills;
@@ -44,7 +44,7 @@ public class RecommendationsService {
                 .toList();
         var optionalCoursesIds = optionalCourses
                 .stream()
-                .map(ru.urfu.mm.applicationlegacy.usecase.CourseForEducationalProgram::getId)
+                .map(ru.urfu.mm.application.usecase.CourseForEducationalProgram::getId)
                 .toList();
         var courseIdToRequiredSkills = coursesSkillsService.getCoursesToRequiredSkills(student, optionalCoursesIds);
         var courseIdToResultSkills = coursesSkillsService.getCoursesToResultSkills(student, optionalCoursesIds);
@@ -129,12 +129,12 @@ public class RecommendationsService {
                 .stream()
                 .collect(
                         Collectors
-                                .toMap(ru.urfu.mm.applicationlegacy.usecase.CourseForEducationalProgram::getId, x -> x)
+                                .toMap(ru.urfu.mm.application.usecase.CourseForEducationalProgram::getId, x -> x)
                 );
         var coursesByModule = courses
                 .stream()
                 .filter(x -> x.getEducationalModuleId() != null)
-                .collect(Collectors.groupingBy(ru.urfu.mm.applicationlegacy.usecase.CourseForEducationalProgram::getEducationalModuleId));
+                .collect(Collectors.groupingBy(ru.urfu.mm.application.usecase.CourseForEducationalProgram::getEducationalModuleId));
 
         return new RecommendationResultDTO(
                 perfectCourses

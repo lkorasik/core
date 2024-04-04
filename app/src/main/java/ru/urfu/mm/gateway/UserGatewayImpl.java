@@ -2,8 +2,8 @@ package ru.urfu.mm.gateway;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.urfu.mm.applicationlegacy.gateway.UserGateway;
-import ru.urfu.mm.domainlegacy.User;
+import ru.urfu.mm.application.gateway.UserGateway;
+import ru.urfu.mm.domain.User;
 import ru.urfu.mm.entity.UserRole;
 import ru.urfu.mm.repository.UserRepository;
 
@@ -34,7 +34,7 @@ public class UserGatewayImpl implements UserGateway {
         return new User(
                 entity.getLogin(),
                 entity.getPassword(),
-                ru.urfu.mm.domainlegacy.UserRole.values()[entity.getRole().ordinal()]
+                ru.urfu.mm.domain.UserRole.values()[entity.getRole().ordinal()]
         );
     }
 }

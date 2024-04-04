@@ -1,9 +1,8 @@
 package ru.urfu.mm.gateway;
 
 import org.springframework.stereotype.Component;
-import ru.urfu.mm.applicationlegacy.gateway.ModuleGateway;
-import ru.urfu.mm.controller.modules.ModuleDTO;
-import ru.urfu.mm.domainlegacy.Module;
+import ru.urfu.mm.application.gateway.ModuleGateway;
+import ru.urfu.mm.domain.Module;
 import ru.urfu.mm.repository.EducationalModuleRepository;
 
 import java.util.List;

@@ -2,17 +2,12 @@ package ru.urfu.mm.controller.program;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import ru.urfu.mm.applicationlegacy.usecase.GetAllEducationalPrograms;
-import ru.urfu.mm.applicationlegacy.usecase.GetEducationalProgram;
+import ru.urfu.mm.application.usecase.GetAllEducationalPrograms;
+import ru.urfu.mm.application.usecase.GetEducationalProgram;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
-import ru.urfu.mm.domain.Program;
-import ru.urfu.mm.domainlegacy.EducationalProgram;
-import ru.urfu.mm.entity.Student;
+import ru.urfu.mm.domain.EducationalProgram;
 import ru.urfu.mm.service.ProgramService;
-import ru.urfu.mm.service.StudentService;
 
 import java.util.ArrayList;
 import java.util.List;

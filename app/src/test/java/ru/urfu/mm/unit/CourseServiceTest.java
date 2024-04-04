@@ -5,17 +5,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ru.urfu.mm.applicationlegacy.usecase.GetSelectedCoursesIds;
 import ru.urfu.mm.dsl.EntityDSL;
-import ru.urfu.mm.controller.course.CourseDTO;
 import ru.urfu.mm.controller.course.CourseStatisticsDTO;
 import ru.urfu.mm.entity.*;
 import ru.urfu.mm.entity.Module;
 import ru.urfu.mm.exceptions.CourseRequiredCriteriaException;
-import ru.urfu.mm.repository.EducationalModuleRepository;
 import ru.urfu.mm.repository.EducationalProgramToCoursesWithSemestersRepository;
 import ru.urfu.mm.repository.SelectedCoursesRepository;
-import ru.urfu.mm.repository.SpecialCourseRepository;
 import ru.urfu.mm.service.CourseForEducationalProgram;
 import ru.urfu.mm.service.CourseService;
 

@@ -18,7 +18,7 @@ public class ModelConverterHelper {
         );
     }
 
-    public static CourseDTO toDomain(ru.urfu.mm.domainlegacy.SpecialCourse specialCourse) {
+    public static CourseDTO toDomain(ru.urfu.mm.domain.SpecialCourse specialCourse) {
         return new CourseDTO(
                 specialCourse.getId(),
                 specialCourse.getName(),

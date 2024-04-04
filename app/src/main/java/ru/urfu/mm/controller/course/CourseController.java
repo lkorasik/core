@@ -2,9 +2,9 @@ package ru.urfu.mm.controller.course;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.urfu.mm.applicationlegacy.usecase.*;
+import ru.urfu.mm.application.usecase.*;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
-import ru.urfu.mm.domainlegacy.SpecialCourse;
+import ru.urfu.mm.domain.SpecialCourse;
 import ru.urfu.mm.entity.Control;
 import ru.urfu.mm.entity.Semester;
 import ru.urfu.mm.service.ModelConverterHelper;
@@ -134,7 +134,7 @@ public class CourseController extends AbstractAuthorizedController {
         createModuleSpecialCourse.createModuleSpecialCourse(
                 createModuleCourseDTO.courseName(),
                 createModuleCourseDTO.creditsCount(),
-                ru.urfu.mm.domainlegacy.Control.values()[createModuleCourseDTO.controlType().ordinal()],
+                ru.urfu.mm.domain.Control.values()[createModuleCourseDTO.controlType().ordinal()],
                 createModuleCourseDTO.courseDescription(),
                 createModuleCourseDTO.moduleId(),
                 createModuleCourseDTO.department(),
@@ -153,7 +153,7 @@ public class CourseController extends AbstractAuthorizedController {
                 editModuleCourseDTO.courseId(),
                 editModuleCourseDTO.courseName(),
                 editModuleCourseDTO.creditsCount(),
-                ru.urfu.mm.domainlegacy.Control.values()[editModuleCourseDTO.control().ordinal()],
+                ru.urfu.mm.domain.Control.values()[editModuleCourseDTO.control().ordinal()],
                 editModuleCourseDTO.courseDescription(),
                 editModuleCourseDTO.department(),
                 editModuleCourseDTO.teacherName()

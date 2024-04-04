@@ -1,29 +1,40 @@
 package ru.urfu.mm.domain;
 
-import java.util.List;
+import java.util.UUID;
 
-/**
- * Студент.
- * Представляет собой студента.
- */
-public class Student extends User {
-    /**
-     * Группа, в которой состоит студент
-     */
-    private final Group group;
-    /**
-     * Список навыков студента
-     */
-    private final List<Skill> skills;
-    /**
-     * Список выбранных модулей
-     */
-    private final List<Module> selectedModules;
+public class Student {
+    private UUID login;
+    private EducationalProgram educationalProgram;
+    private String group;
+    private User user;
 
-    public Student(String token, String password, Group group, List<Skill> skills, List<Module> selectedModules) {
-        super(token, password);
+    public EducationalProgram getEducationalProgram() {
+        return educationalProgram;
+    }
+
+    public void setEducationalProgram(EducationalProgram educationalProgram) {
+        this.educationalProgram = educationalProgram;
+    }
+
+    public Student() {
+    }
+
+    public Student(UUID login, EducationalProgram educationalProgram, String group, User user) {
+        this.login = login;
+        this.educationalProgram = educationalProgram;
         this.group = group;
-        this.skills = skills;
-        this.selectedModules = selectedModules;
+        this.user = user;
+    }
+
+    public UUID getLogin() {
+        return login;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public User getUser() {
+        return user;
     }
 }
