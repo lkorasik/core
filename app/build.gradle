@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'ru.urfu.mm'
-version = '1.1-SNAPSHOT'
+version = rootProject.file("version").text.trim()
 
 repositories {
     mavenCentral()
