@@ -20,6 +20,8 @@ import {RecommendationsScreen} from "../RecommendationsScreen/RecommendationsScr
 import { AddEducationalProgramScreen } from '../AddEducationalProgramScreen/AddEducationalProgramScreen';
 import {StatisticsScreen} from "../StatisticsScreen/StatisticsScreen";
 import { StudentScreen } from '../StudentScreen/StudentScreen';
+import { StudyPlan } from '../StudyPlan/StudyPlan';
+import { StudentModuleCourses } from '../StudentModuleCourses/StudentModuleCourses';
 
 export const EDUCATIONAL_PROGRAM_SCREEN_URL: string = "/administrator/educational_program/";
 export const MODULES_SCREEN_URL: string = "/administrator/courses_and_modules";
@@ -37,7 +39,7 @@ const App: FC = () => {
         if (loginInfo) {
             switch (loginInfo.userRole) {
                 case UserRole.Student:
-                    navigate("/student");
+                    navigate("/student/student_plan");
                     break;
                 case UserRole.UniversityEmployee:
                     navigate("/employee")
@@ -60,7 +62,8 @@ const App: FC = () => {
         <Routes>
             <Route path={"/"} element={<WelcomeScreen saveLoginInfo={saveLoginInfo}/>}/>
             <Route path={"/student"} element={<StudentScreen/>}>
-                {/* stub... */}
+                <Route path={"/student/student_plan"} element={<StudyPlan/>}/>
+                <Route path={"/student/courses_and_modules"} element={<StudentModuleCourses/>}/>
             </Route>
             <Route path={"/student/recommendationService"} element={<RecommendationsScreen />} />
             <Route path={"/employee"} element={<EmployeeScreen/>}/>
