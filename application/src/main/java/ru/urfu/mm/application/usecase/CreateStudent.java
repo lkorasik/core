@@ -10,6 +10,9 @@ import ru.urfu.mm.domain.UserRole;
 
 import java.util.UUID;
 
+/**
+ * Зарегистрировать аккаунт студента
+ */
 public class CreateStudent {
     private final TokenGateway tokenGateway;
     private final LoggerGateway loggerGateway;

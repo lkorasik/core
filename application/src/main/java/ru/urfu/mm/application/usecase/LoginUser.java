@@ -7,6 +7,9 @@ import ru.urfu.mm.domain.User;
 
 import java.util.UUID;
 
+/**
+ * Вход в систему
+ */
 public class LoginUser {
     private final UserGateway userGateway;
     private final PasswordGateway passwordGateway;
