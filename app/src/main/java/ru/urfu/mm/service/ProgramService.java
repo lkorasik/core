@@ -72,7 +72,7 @@ public class ProgramService {
                         x,
                         requiredCourses
                                 .stream()
-                                .filter(y -> y.getSpecialCourse().getId().equals(x))
+                                .filter(y -> y.getSemester().getId().equals(x))
                                 .map(y -> new ru.urfu.mm.controller.program.CourseDTO(
                                         y.getSemester().getId(),
                                         specialCourseRepository
