@@ -496,29 +496,13 @@ export function StudyPlan(props: Props) {
         }
     }
 
-    const renderSection = (label: string, dialogTitle: string, semesterNumber: number) => {
+    const renderSection = (label: string, semesterNumber: number) => {
         return (
             <>
                 <label>
                     {label}:
                 </label>
                 {renderCourse(label, semesterNumber)}
-                <div className={styles.button_container}>
-                    <button className={styles.add_button} onClick={() => {
-                        setDialogTitle(dialogTitle)
-                        setSelectedSemester(semesterNumber)
-                        setSelectedBlock(label)
-
-                        console.log("Courses:")
-                        console.log(courses)
-                        console.log("Modules")
-                        console.log(modules)
-
-                        setShowDialog(true)
-                    }} disabled={disabled}>
-                        + Добавить
-                    </button>
-                </div>
             </>
         )
     }
@@ -531,11 +515,11 @@ export function StudyPlan(props: Props) {
                         {semesterNumber} семестр
                     </label>
                     <hr className={styles.rule} />
-                    {renderSection(REQUIRED_COURSES, "обязательных курсов", semesterNumber)}
+                    {renderSection(REQUIRED_COURSES, semesterNumber)}
                     <hr className={styles.secondary_rule} />
-                    {renderSection(SPECIAL_COURSES, "спецкурсов", semesterNumber)}
+                    {renderSection(SPECIAL_COURSES, semesterNumber)}
                     <hr className={styles.secondary_rule} />
-                    {renderSection(SCIENCE_WORK, "НИР", semesterNumber)}
+                    {renderSection(SCIENCE_WORK, semesterNumber)}
                 </Flex>
             </>
         )
@@ -558,37 +542,25 @@ export function StudyPlan(props: Props) {
                     <label className={styles.label}>
                         1 семестр:
                     </label>
-                    <input className={styles.input_points} type={"text"} required onChange={(e) => {
-                        const [creditsState, setCreditsState] = credits[0];
-                        setCreditsState(parseInt(e.target.value));
-                    }} value={credits[0][0]} />
+                    <input className={styles.input_points} type={"text"} required disabled value={credits[0][0]} />
                 </Flex>
                 <Flex direction={"row"}>
                     <label className={styles.label}>
                         2 семестр:
                     </label>
-                    <input className={styles.input_points} type={"text"} required onChange={(e) => {
-                        const [creditsState, setCreditsState] = credits[1];
-                        setCreditsState(parseInt(e.target.value));
-                    }} value={credits[1][0]}/>
+                    <input className={styles.input_points} type={"text"} required disabled value={credits[1][0]}/>
                 </Flex>
                 <Flex direction={"row"}>
                     <label className={styles.label}>
                         3 семестр:
                     </label>
-                    <input className={styles.input_points} type={"text"} required onChange={(e) => {
-                        const [creditsState, setCreditsState] = credits[2];
-                        setCreditsState(parseInt(e.target.value));
-                    }} value={credits[2][0]} />
+                    <input className={styles.input_points} type={"text"} required disabled value={credits[2][0]} />
                 </Flex>
                 <Flex direction={"row"}>
                     <label className={styles.label}>
                         4 семестр:
                     </label>
-                    <input className={styles.input_points} type={"text"} required onChange={(e) => {
-                        const [creditsState, setCreditsState] = credits[3];
-                        setCreditsState(parseInt(e.target.value));
-                    }} value={credits[3][0]}/>
+                    <input className={styles.input_points} type={"text"} required disabled value={credits[3][0]}/>
                 </Flex>
             </>
         )
@@ -600,21 +572,6 @@ export function StudyPlan(props: Props) {
             <div id={styles.container}>
                 <div className={styles.fontHeader1}>
                     {educationalProgramName}
-                </div>
-                <div id={styles.helperButtons}>
-                    <Link className={styles.linkOverride} to={EDUCATIONAL_PROGRAM_SCREEN_URL}>
-                        <button className={styles.saveButton} onClick={(e) => {
-                            console.log(educationalProgramName);
-                            console.log(credits.map(x => x[0]));
-
-                            save()
-                        }} disabled={disabled}>
-                            Сохранить
-                        </button>
-                    </Link>
-                    <Link className={styles.linkOverride} to={EDUCATIONAL_PROGRAM_SCREEN_URL}>
-                        <button className={styles.cancelButton} />
-                    </Link>
                 </div>
                 <div>
                     <label className={styles.label}>
