@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.application.usecase.*;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
+import ru.urfu.mm.domain.SelectedCourses;
 import ru.urfu.mm.domain.SpecialCourse;
 import ru.urfu.mm.entity.Control;
 import ru.urfu.mm.entity.Semester;
@@ -39,6 +40,8 @@ public class CourseController extends AbstractAuthorizedController {
     private GetActualSpecialCoursesStatistics getActualSpecialCoursesStatistics;
     @Autowired
     private GetSpecialCourseStudentsCount getSpecialCourseStudentsCount;
+    @Autowired
+    private GetSelectedCoursesByStudentAndSemester getSelectedCoursesByStudentAndSemester;
 
     @PostMapping
     public List<CourseForProgramDTO> specialCourse(@RequestBody GetCoursesDTO getCoursesDTO) {
@@ -158,5 +161,19 @@ public class CourseController extends AbstractAuthorizedController {
                 editModuleCourseDTO.department(),
                 editModuleCourseDTO.teacherName()
         );
+    }
+
+    @GetMapping("/selectedCourseName")
+    public List<SelectedCourseNameDTO> getSelectedCourseNamesBySemester(@RequestBody GetSelectedCoursesBySemesterDTO dto) {
+        UUID studentId = UUID.fromString(getUserToken());
+        return getSelectedCoursesByStudentAndSemester
+                .getSelectedCoursesByStudentAndSemester(studentId, UUID.fromString(dto.semesterId()))
+                .stream()
+                .map(x -> new SelectedCourseNameDTO(
+                        x.getSpecialCourse().getName(),
+                        x.isRequiredCourse(),
+                        x.getSpecialCourse().getId())
+                )
+                .toList();
     }
 }

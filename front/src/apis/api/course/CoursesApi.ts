@@ -12,8 +12,14 @@ import {DeleteSpecialCourseRequest} from "./DeleteSpecialCourseRequest";
 import {EditModuleSpecialCourseRequest} from "./EditModuleSpecialCourseRequest";
 import {CourseStatistics} from "./CourseStatistics";
 import {GetActualSpecialCoursesStatisticsRequest} from "./GetActualSpecialCoursesStatisticsRequest";
+import { GetSelectedCourseNamesBySemesterRequest } from "./GetSelectedCourseNamesBySemesterRequest";
+import { GetSelectedCourseNamesBySemesterResponse } from "./GetSelectedCourseNamesBySemesterResponse";
 
 export class CoursesApi extends ApiBase implements ICoursesApi {
+    public async getSelectedCourseNamesBySemester(getSelectedCourseNamesBySemester: GetSelectedCourseNamesBySemesterRequest): Promise<GetSelectedCourseNamesBySemesterResponse[]> {
+        return await this.get("courses/selectedCourseName", {}, getSelectedCourseNamesBySemester);
+    }
+
     public async getCoursesByEducationalProgramAndSemesters(getCoursesRequest: GetCoursesRequest): Promise<CourseForEducationalProgram[]> {
         return await this.post("courses", {}, {
             ...getCoursesRequest
@@ -81,7 +87,8 @@ export interface ICoursesApi {
     getEducationalModelCourses(getEducationalModuleCoursesRequest: GetEducationalModuleCoursesRequest): Promise<SpecialCourse[]>;
     createModuleSpecialCourse(createModuleCourseRequest: CreateModuleSpecialCourseRequest): Promise<void>;
     getCourseById(getCourseByIdRequest: GetCourseByIdRequest): Promise<SpecialCourse>;
-    deleteSpecialCourseById(deleteSpecialCourseRequest: DeleteSpecialCourseRequest): Promise<void>
-    editModuleSpecialCourse(editModuleSpecialCourseRequest: EditModuleSpecialCourseRequest): Promise<void>
+    deleteSpecialCourseById(deleteSpecialCourseRequest: DeleteSpecialCourseRequest): Promise<void>;
+    editModuleSpecialCourse(editModuleSpecialCourseRequest: EditModuleSpecialCourseRequest): Promise<void>;
     getActualSpecialCoursesStatistics(getActualSpecialCoursesStatisticsRequest: GetActualSpecialCoursesStatisticsRequest): Promise<CourseStatistics[]>;
+    getSelectedCourseNamesBySemester(getSelectedCourseNamesBySemester: GetSelectedCourseNamesBySemesterRequest): Promise<GetSelectedCourseNamesBySemesterResponse[]>;
 }

@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @ExtendWith(MockitoExtension.class)
-public class GetSelectedCoursesIdsTest {
+public class GetSelectedCoursesByStudentAndSemesterIdsTest {
     @Mock
     private CourseGateway courseGateway;
 

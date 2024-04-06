@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useApis } from "../../apis/ApiBase/ApiProvider";
 import { SpecialCourse } from "../../apis/api/course/SpecialCourse";
 import { ModuleDto } from "../../apis/api/modules/ModuleDto";
+import { GetSelectedCourseNamesBySemesterRequest } from "../../apis/api/course/GetSelectedCourseNamesBySemesterRequest";
 
 interface Props {}
 
@@ -58,7 +59,7 @@ export function StudyPlan(props: Props) {
             setEducationalProgramId(current.id);
             setEducationalProgramName(current.name);
         }
-        const result = loadProgram().catch(console.error);
+        loadProgram().catch(console.error);
 
         const loadProgramCredits = async () => {
             const current = await apis.educationalProgramsApi.getCurrentEducationalProgram();
@@ -156,6 +157,23 @@ export function StudyPlan(props: Props) {
             }
             loadEducationalProgram().catch(console.error);
         }
+
+        const load = async () => {
+            const current = await apis.educationalProgramsApi.getCurrentEducationalProgram();
+            const program = await apis.educationalProgramsApi.getEducationalProgramById({
+                id: current.id
+            });
+
+            for (let i = 0; i < program.semesters.length; i++) {
+                const request: GetSelectedCourseNamesBySemesterRequest = {
+                    semesterId: program.semesters[i].id
+                };
+                const result = await apis.specialCoursesApi.getSelectedCourseNamesBySemester(request);
+
+                setSelectedRequiredCourses1(result.filter(x => x.isRequired).map(x => ({ id: x.courseId, name: x.selectedCourseName })));
+            }
+        };
+        load().catch(console.error);
     }, [apis.educationalProgramsApi])
 
     const save = async () => {

@@ -61,6 +61,7 @@ public class UseCaseConfiguration {
             StudentGateway studentGateway) {
         return new GetCoursesByEducationalProgramAndSemesters(courseGateway, studentGateway);
     }
+
     @Bean
     public SelectCourses selectCourses(
             CourseGateway courseGateway,
@@ -127,7 +128,7 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public GetEducationalProgram getEducationalProgram(ProgramGateway programGateway, StudentGateway studentGateway){
+    public GetEducationalProgram getEducationalProgram(ProgramGateway programGateway, StudentGateway studentGateway) {
         return new GetEducationalProgram(programGateway, studentGateway);
     }
 
@@ -164,8 +165,15 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public GetSkills getSkills(SkillGateway skillGateway){
+    public GetSkills getSkills(SkillGateway skillGateway) {
         return new GetSkills(skillGateway);
+    }
+
+    @Bean
+    public GetSelectedCoursesByStudentAndSemester getSelectedCoursesByStudentAndSemester(
+            CourseGateway courseGateway,
+            StudentGateway studentGateway) {
+        return new GetSelectedCoursesByStudentAndSemester(courseGateway, studentGateway);
     }
 
     @Bean
