@@ -45,61 +45,6 @@ public class GetProgramForStudent {
             list.add(recommendedCredit);
         }
 
-        var semesters = new ArrayList<>(semesterRepository
-                .findAll()
-                .stream()
-                .filter(x -> program.containsKey(x.getId()))
-                .toList());
-        semesters.sort(Comparator.comparing(Semester::getSemesterNumber));
-        var semesterIds = semesters
-                .stream()
-                .map(Semester::getId)
-                .toList();
-
-        var educationalProgramsWithSemestersAndCourses = courseGateway
-                .getEducationalProgramToCoursesWithSemestersByEducationalProgram(student.getEducationalProgram().getId());
-
-        var requiredCourses = educationalProgramsWithSemestersAndCourses
-                .stream()
-                .filter(EducationalProgramToCoursesWithSemesters::isRequiredCourse)
-                .toList();
-        var specialCourses = educationalProgramsWithSemestersAndCourses
-                .stream()
-                .filter(x -> !x.isRequiredCourse())
-                .toList();
-        var finalSemesters = semesterIds
-                .stream()
-                .map(x -> new FullSemesterDTO(
-                        x,
-                        requiredCourses
-                                .stream()
-                                .filter(y -> y.getSemester().getId().equals(x))
-                                .map(y -> new ru.urfu.mm.controller.program.CourseDTO(
-                                        y.getSemester().getId(),
-                                        specialCourseRepository
-                                                .findAllById(List.of(y.getSpecialCourse()
-                                                        .getId()))
-                                                .getFirst()
-                                                .getName()
-                                ))
-                                .toList(),
-                        specialCourses
-                                .stream()
-                                .filter(y -> y.getSemester().getId().equals(x))
-                                .map(y -> new ru.urfu.mm.controller.program.CourseDTO(
-                                        y.getSemester().getId(),
-                                        specialCourseRepository
-                                                .findAllById(List.of(y.getSpecialCourse().getId()))
-                                                .getFirst()
-                                                .getName()
-                                ))
-                                .toList(),
-                        List.of()
-                ))
-                .toList();
-
-        // todo: [semester -> [available course]]
-
         return new ProgramForStudentResponse(
                 student.getEducationalProgram().getId(),
                 student.getEducationalProgram().getName(),
