@@ -18,6 +18,7 @@ import {Button} from "../../base_components/Button/Button";
 import {useNavigate} from "react-router-dom";
 
 
+// Old implementation
 export const ChooseCoursesScreen: FC = () => {
     const [educationalProgram, setEducationalProgram] = useState<ProgramInfoDto | undefined>();
     const [actualSemesters, setActualSemesters] = useState<SemesterDto[] | undefined>();

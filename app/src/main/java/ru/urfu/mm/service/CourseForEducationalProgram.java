@@ -16,7 +16,7 @@ public class CourseForEducationalProgram {
     private UUID educationalModuleId;
 
     /// <summary>
-    ///     Если курс является обязательным, то поле заполняется id семестра,
+    ///     Если курс является обязательным, то поле заполняется programId семестра,
     ///     в котором этот курс будет обязательным, иначе - null.
     /// </summary>
     public UUID requiredSemesterId;

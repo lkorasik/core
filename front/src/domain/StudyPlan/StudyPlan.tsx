@@ -58,122 +58,12 @@ export function StudyPlan(props: Props) {
             const current = await apis.educationalProgramsApi.getCurrentEducationalProgram();
             setEducationalProgramId(current.id);
             setEducationalProgramName(current.name);
-        }
-        loadProgram().catch(console.error);
 
-        const loadProgramCredits = async () => {
-            const current = await apis.educationalProgramsApi.getCurrentEducationalProgram();
-            const program = await apis.educationalProgramsApi.getEducationalProgramById({
-                id: current.id
-            });
-
-            for (let [index, value] of program.recommendedCredits.entries()) {
+            for (let [index, value] of current.recommendedCredits.entries()) {
                 credits[index][1](value);
             }
         }
-        loadProgramCredits().catch(console.error);
-
-        const loadCourses = async () => {
-            const programs = await apis.specialCoursesApi.getAllCourses();
-            setCourses(programs);
-        }
-        loadCourses().catch(console.error);
-
-        const loadModules = async () => {
-            const programs = await apis.educationalModulesApi.getAllModules();
-            setModules(programs);
-        }
-        loadModules().catch(console.error);
-
-        if (educationalProgramId != null) {
-            const loadEducationalProgram = async () => {
-                const program = await apis.educationalProgramsApi.getEducationalProgramById({id: educationalProgramId});
-
-                console.log("Program id: " + program.id);
-                console.log("Program name: " + program.title);
-
-                setEducationalProgramName(program.title);
-                setEducationalProgramId(program.id);
-
-                for(let i = 0; i < program.recommendedCredits.length; i++) {
-                    const [state, setState] = credits[i];
-                    setState(program.recommendedCredits[i]);
-                }
-
-                for(let i = 0; i < program.semesters.length; i++) {
-                    const semester = program.semesters[i];
-                    // const courses = semester.requiredCourses.map(x => x)
-                    const courses: Course[] = [];
-                    for(let j = 0; j < semester.requiredCourses.length; j++) {
-                        const course: Course = { id: semester.requiredCourses[j].id, name: semester.requiredCourses[j].name } // todo: fix it!
-                        courses.push(course);
-                    }
-
-                    switch(i) {
-                        case 0:
-                            setSelectedRequiredCourses1(courses);
-                            break;
-                        case 1:
-                            setSelectedRequiredCourses2(courses);
-                            break;
-                        case 2:
-                            setSelectedRequiredCourses3(courses);
-                            break;
-                        case 3:
-                            setSelectedRequiredCourses4(courses);
-                            break;
-                    }
-                }
-
-                for (let i = 0; i < program.semesters.length; i++) {
-                    const semester = program.semesters[i];
-                    // const courses = semester.requiredCourses.map(x => x)
-                    const courses: Course[] = [];
-                    for (let j = 0; j < semester.specialCourses.length; j++) {
-                        const course: Course = { id: semester.specialCourses[j].id, name: semester.specialCourses[j].name } // todo: fix it!
-                        courses.push(course);
-                    }
-
-                    switch (i) {
-                        case 0:
-                            setSelectedSpecialCourses1(courses);
-                            break;
-                        case 1:
-                            setSelectedSpecialCourses2(courses);
-                            break;
-                        case 2:
-                            setSelectedSpecialCourses3(courses);
-                            break;
-                        case 3:
-                            setSelectedSpecialCourses4(courses);
-                            break;
-                    }
-                }
-
-                console.log(program.semesters)
-
-                setDisabled(true)
-                // Отрабатывает, если мы редактируем направление
-            }
-            loadEducationalProgram().catch(console.error);
-        }
-
-        const load = async () => {
-            const current = await apis.educationalProgramsApi.getCurrentEducationalProgram();
-            const program = await apis.educationalProgramsApi.getEducationalProgramById({
-                id: current.id
-            });
-
-            for (let i = 0; i < program.semesters.length; i++) {
-                const request: GetSelectedCourseNamesBySemesterRequest = {
-                    semesterId: program.semesters[i].id
-                };
-                const result = await apis.specialCoursesApi.getSelectedCourseNamesBySemester(request);
-
-                setSelectedRequiredCourses1(result.filter(x => x.isRequired).map(x => ({ id: x.courseId, name: x.selectedCourseName })));
-            }
-        };
-        load().catch(console.error);
+        loadProgram().catch(console.error);
     }, [apis.educationalProgramsApi])
 
     const save = async () => {

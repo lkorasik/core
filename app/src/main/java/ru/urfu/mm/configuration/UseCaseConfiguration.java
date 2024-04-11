@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.urfu.mm.application.gateway.*;
 import ru.urfu.mm.application.usecase.*;
+import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
 
 @Configuration
 public class UseCaseConfiguration {
@@ -174,6 +175,14 @@ public class UseCaseConfiguration {
             CourseGateway courseGateway,
             StudentGateway studentGateway) {
         return new GetSelectedCoursesByStudentAndSemester(courseGateway, studentGateway);
+    }
+
+    @Bean
+    public GetProgramForStudent getProgramForStudent(
+            StudentGateway studentGateway,
+            ProgramGateway programGateway,
+            SemesterGateway semesterGateway) {
+        return new GetProgramForStudent(studentGateway, programGateway, semesterGateway);
     }
 
     @Bean

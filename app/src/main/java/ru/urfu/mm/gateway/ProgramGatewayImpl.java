@@ -1,5 +1,8 @@
 package ru.urfu.mm.gateway;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.ProgramGateway;
@@ -7,15 +10,18 @@ import ru.urfu.mm.domain.EducationalProgram;
 import ru.urfu.mm.repository.EducationalProgramRepository;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Component
 public class ProgramGatewayImpl implements ProgramGateway {
     private final EducationalProgramRepository educationalProgramRepository;
+    private final ObjectMapper mapper;
 
     @Autowired
-    public ProgramGatewayImpl(EducationalProgramRepository educationalProgramRepository) {
+    public ProgramGatewayImpl(EducationalProgramRepository educationalProgramRepository, ObjectMapper mapper) {
         this.educationalProgramRepository = educationalProgramRepository;
+        this.mapper = mapper;
     }
 
     @Override
@@ -41,5 +47,15 @@ public class ProgramGatewayImpl implements ProgramGateway {
                         x.getSemesterIdToRequiredCreditsCount()
                 ))
                 .toList();
+    }
+
+    @Override
+    public Map<UUID, Integer> deserializeRecommendedCredits(EducationalProgram program) {
+        try {
+            return mapper.readValue(program.getSemesterIdToRequiredCreditsCount(), new TypeReference<Map<UUID, Integer>>() {});
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+            // todo: Set normal exception
+        }
     }
 }
