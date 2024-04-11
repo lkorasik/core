@@ -55,10 +55,10 @@ class CoreApplicationTests {
         // Инициализация
 
         var semesters = List.of(
-                new Semester(2023, 1),
-                new Semester(2024, 2),
-                new Semester(2024, 3),
-                new Semester(2025, 4)
+                new Semester(2023, 1, SemesterType.FALL),
+                new Semester(2024, 2, SemesterType.SPRING),
+                new Semester(2024, 3, SemesterType.FALL),
+                new Semester(2025, 4, SemesterType.SPRING)
         );
         semesterRepository.saveAll(semesters);
 

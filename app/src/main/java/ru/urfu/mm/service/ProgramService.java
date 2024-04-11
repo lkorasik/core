@@ -10,6 +10,7 @@ import ru.urfu.mm.controller.program.*;
 import ru.urfu.mm.entity.EducationalProgram;
 import ru.urfu.mm.entity.EducationalProgramToCoursesWithSemesters;
 import ru.urfu.mm.entity.Semester;
+import ru.urfu.mm.entity.SemesterType;
 import ru.urfu.mm.repository.EducationalProgramRepository;
 import ru.urfu.mm.repository.EducationalProgramToCoursesWithSemestersRepository;
 import ru.urfu.mm.repository.SemesterRepository;
@@ -232,8 +233,13 @@ public class ProgramService {
         // Выичсляем какие семестры необходимо добавить в систему
         var toAdd = new ArrayList<Semester>();
         for(int i = 0; i < semesters.size(); i++) {
-            var item = new Semester(years.get(i), i + 1);
-            toAdd.add(item);
+            Semester semester;
+            if (i % 2 == 0) {
+                semester = new Semester(years.get(i), i + 1, SemesterType.FALL);
+            } else {
+                semester = new Semester(years.get(i), i + 1, SemesterType.SPRING);
+            }
+            toAdd.add(semester);
         }
         var toAdd2 = toAdd
                 .stream()

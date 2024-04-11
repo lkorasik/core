@@ -1,6 +1,7 @@
 package ru.urfu.mm.service.mapper;
 
 import org.springframework.stereotype.Component;
+import ru.urfu.mm.entity.SemesterType;
 import ru.urfu.mm.entity.UserRole;
 
 @Component

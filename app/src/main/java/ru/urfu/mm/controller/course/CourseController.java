@@ -5,10 +5,12 @@ import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.application.usecase.*;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.domain.SelectedCourses;
+import ru.urfu.mm.domain.SemesterType;
 import ru.urfu.mm.domain.SpecialCourse;
 import ru.urfu.mm.entity.Control;
 import ru.urfu.mm.entity.Semester;
 import ru.urfu.mm.service.ModelConverterHelper;
+import ru.urfu.mm.service.mapper.Mapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +44,8 @@ public class CourseController extends AbstractAuthorizedController {
     private GetSpecialCourseStudentsCount getSpecialCourseStudentsCount;
     @Autowired
     private GetSelectedCoursesByStudentAndSemester getSelectedCoursesByStudentAndSemester;
+    @Autowired
+    private Mapper<SemesterType, ru.urfu.mm.entity.SemesterType> semesterTypeToEntityMapper;
 
     @PostMapping
     public List<CourseForProgramDTO> specialCourse(@RequestBody GetCoursesDTO getCoursesDTO) {
@@ -59,7 +63,8 @@ public class CourseController extends AbstractAuthorizedController {
                                 .map(y -> new Semester(
                                         y.getId(),
                                         y.getYear(),
-                                        y.getSemesterNumber()
+                                        y.getSemesterNumber(),
+                                        semesterTypeToEntityMapper.map(y.getType())
                                 ))
                                 .toList(),
                         x.getEducationalModuleId(),
