@@ -42,6 +42,7 @@ public class ProgramController extends AbstractAuthorizedController {
             var dto = new ProgramInfoDTO(
                     program.getId(),
                     program.getName(),
+                    List.of(),
                     List.of()
             );
 

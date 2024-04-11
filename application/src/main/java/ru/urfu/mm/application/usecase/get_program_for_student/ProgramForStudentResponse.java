@@ -6,6 +6,7 @@ import java.util.UUID;
 public record ProgramForStudentResponse(
         UUID programId,
         String name,
-        List<Integer> recommendedCredits
+        List<Integer> recommendedCredits,
+        List<SelectedCourseResponse> selectedCourses
 ) {
 }

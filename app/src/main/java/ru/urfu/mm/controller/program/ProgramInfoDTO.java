@@ -8,13 +8,18 @@ import java.util.UUID;
 public record ProgramInfoDTO(
         UUID id,
         String name,
-        List<Integer> recommendedCredits
+        List<Integer> recommendedCredits,
+        List<SelectedCourseDTO> selectedCourses
 ) {
     public static ProgramInfoDTO from(ProgramForStudentResponse response) {
         return new ProgramInfoDTO(
                 response.programId(),
                 response.name(),
-                response.recommendedCredits()
+                response.recommendedCredits(),
+                response.selectedCourses()
+                        .stream()
+                        .map(x -> new SelectedCourseDTO(x.name(), x.isRequired()))
+                        .toList()
         );
     }
 }
