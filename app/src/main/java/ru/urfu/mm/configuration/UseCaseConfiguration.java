@@ -187,6 +187,11 @@ public class UseCaseConfiguration {
     }
 
     @Bean
+    public LoadAvailableCourses loadAvailableCourses(StudentGateway studentGateway, CourseGateway courseGateway) {
+        return new LoadAvailableCourses(studentGateway, courseGateway);
+    }
+
+    @Bean
     public Logger logger() {
         return LoggerFactory.getLogger(this.getClass());
     }

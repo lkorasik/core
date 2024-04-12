@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/courses")
@@ -44,6 +45,8 @@ public class CourseController extends AbstractAuthorizedController {
     private GetSpecialCourseStudentsCount getSpecialCourseStudentsCount;
     @Autowired
     private GetSelectedCoursesByStudentAndSemester getSelectedCoursesByStudentAndSemester;
+    @Autowired
+    private LoadAvailableCourses loadAvailableCourses;
     @Autowired
     private Mapper<SemesterType, ru.urfu.mm.entity.SemesterType> semesterTypeToEntityMapper;
 
@@ -123,7 +126,7 @@ public class CourseController extends AbstractAuthorizedController {
     }
 
     @GetMapping("/course")
-    public CourseDTO getCourseById(@RequestParam("courseId") UUID courseId) {
+    public CourseDTO getCourseById(@RequestParam("id") UUID courseId) {
         SpecialCourse course = getCourse.getCourse(courseId);
         return new CourseDTO(
                 course.getId(),
@@ -179,6 +182,14 @@ public class CourseController extends AbstractAuthorizedController {
                         x.isRequiredCourse(),
                         x.getSpecialCourse().getId())
                 )
+                .toList();
+    }
+
+    @GetMapping("/available")
+    public List<AvailableCourseDTO> loadAvailableCourses() {
+        return loadAvailableCourses.loadAvailableCourses(UUID.fromString(getUserToken()))
+                .stream()
+                .map(x -> new AvailableCourseDTO(x.getId(), x.getName()))
                 .toList();
     }
 }
