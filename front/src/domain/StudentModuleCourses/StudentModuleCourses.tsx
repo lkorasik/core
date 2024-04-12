@@ -4,11 +4,13 @@ import { Grid } from "../../base_components/Grid/Grid";
 import { Card } from "../../base_components/Card/Card";
 import { useApis } from "../../apis/ApiBase/ApiProvider";
 import { AvailableCourseDTO } from "../../apis/api/course/AvailableCourseDTO";
+import { AvailableModuleDTO } from "../../apis/api/course/AvailableModuleDTO";
+import { addAbortSignal } from "stream";
 
 interface Props {}
 
 export function StudentModuleCourses(props: Props) {
-    const [availableCourses, setAvailableCourses] = useState<AvailableCourseDTO[]>([]);
+    const [availableCourses, setAvailableCourses] = useState<AvailableModuleDTO[]>();
 
     const apis = useApis();
     
@@ -18,33 +20,49 @@ export function StudentModuleCourses(props: Props) {
             
             const availableCourses = await apis.specialCoursesApi.loadAvailableCourses();
             setAvailableCourses(availableCourses);            
+
+            console.log(availableCourses);
         }
         loadAvailableCourses().catch(console.error);
-    }, [apis.specialCoursesApi])
+    }, [apis.specialCoursesApi]);
 
-    const renderCourses = () => {
-        return availableCourses.map(x => <Card
-            link={"/" + x.id}
-            text={x.name}
-            paramNames={["Id", "Name"]}
-            paramsValues={[x.id, x.name]} />
+    const renderCourse = (course: AvailableCourseDTO) => {
+        return (
+            <Card
+                link={"/" + course.id}
+                text={course.name}
+                type={"EducationalProgram"}
+                paramNames={["Id", "Name"]}
+                paramsValues={[course.id, course.name]} />
         )
     }
 
-    const renderModule = () => {
+    const renderCourses = (module: AvailableModuleDTO) => {
+        return module.courses.map(x => renderCourse(x))
+    }
+
+    const renderModule = (module: AvailableModuleDTO) => {
+        return (
+            <>
+                <div className={styles.fontHeader1}>
+                    {module.name}
+                </div>
+                <Grid cards={renderCourses(module)}/>
+            </>
+        )
+    }
+
+    const renderModules = () => {
         return (
             <div>
-                <div className={styles.fontHeader1}>
-                    Добавить образовательную программу
-                </div>
-                <Grid cards={renderCourses()} />
+                {availableCourses?.map(x => renderModule(x))}
             </div>
         )
     }
 
     return (
         <div id={styles.container}>
-            {renderModule()}
+            {renderModules()}
         </div>
     )
 }

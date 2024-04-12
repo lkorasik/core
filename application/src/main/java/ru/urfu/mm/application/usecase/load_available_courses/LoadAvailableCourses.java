@@ -1,13 +1,14 @@
-package ru.urfu.mm.application.usecase;
+package ru.urfu.mm.application.usecase.load_available_courses;
 
 import ru.urfu.mm.application.gateway.CourseGateway;
 import ru.urfu.mm.application.gateway.StudentGateway;
 import ru.urfu.mm.domain.EducationalProgramToCoursesWithSemesters;
+import ru.urfu.mm.domain.Module;
 import ru.urfu.mm.domain.SpecialCourse;
 import ru.urfu.mm.domain.Student;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class LoadAvailableCourses {
     private final StudentGateway studentGateway;
@@ -18,7 +19,7 @@ public class LoadAvailableCourses {
         this.courseGateway = courseGateway;
     }
 
-    public List<SpecialCourse> loadAvailableCourses(UUID studentId) {
+    public List<AvailableModuleResponse> loadAvailableCourses(UUID studentId) {
         /*
         1. Берем студента
         2. Достаем все модули, которые доступны для данного учебного плана
@@ -31,7 +32,22 @@ public class LoadAvailableCourses {
                 .stream()
                 .map(EducationalProgramToCoursesWithSemesters::getSpecialCourse)
                 .toList();
+        Map<Module, List<SpecialCourse>> moduleToCourses = courses
+                .stream()
+                .collect(Collectors.groupingBy(SpecialCourse::getEducationalModule));
 
-        return courses;
+        List<AvailableModuleResponse> modules = new ArrayList<>();
+        moduleToCourses.forEach((module, courses1) -> {
+            AvailableModuleResponse moduleResponse = new AvailableModuleResponse(
+                    module.getId(),
+                    module.getName(),
+                    courses1.stream()
+                            .map(y -> new AvailableCourseResponse(y.getId(), y.getName()))
+                            .toList()
+            );
+            modules.add(moduleResponse);
+        });
+
+        return modules;
     }
 }

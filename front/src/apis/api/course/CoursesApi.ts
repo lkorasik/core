@@ -15,6 +15,7 @@ import {GetActualSpecialCoursesStatisticsRequest} from "./GetActualSpecialCourse
 import { GetSelectedCourseNamesBySemesterRequest } from "./GetSelectedCourseNamesBySemesterRequest";
 import { GetSelectedCourseNamesBySemesterResponse } from "./GetSelectedCourseNamesBySemesterResponse";
 import { AvailableCourseDTO } from "./AvailableCourseDTO";
+import { AvailableModuleDTO } from "./AvailableModuleDTO";
 
 export class CoursesApi extends ApiBase implements ICoursesApi {
     public async getSelectedCourseNamesBySemester(getSelectedCourseNamesBySemester: GetSelectedCourseNamesBySemesterRequest): Promise<GetSelectedCourseNamesBySemesterResponse[]> {
@@ -79,7 +80,7 @@ export class CoursesApi extends ApiBase implements ICoursesApi {
         }, {});
     }
 
-    public async loadAvailableCourses(): Promise<AvailableCourseDTO[]> {
+    public async loadAvailableCourses(): Promise<AvailableModuleDTO[]> {
         return await this.get("courses/available");
     }
 }
@@ -96,5 +97,5 @@ export interface ICoursesApi {
     editModuleSpecialCourse(editModuleSpecialCourseRequest: EditModuleSpecialCourseRequest): Promise<void>;
     getActualSpecialCoursesStatistics(getActualSpecialCoursesStatisticsRequest: GetActualSpecialCoursesStatisticsRequest): Promise<CourseStatistics[]>;
     getSelectedCourseNamesBySemester(getSelectedCourseNamesBySemester: GetSelectedCourseNamesBySemesterRequest): Promise<GetSelectedCourseNamesBySemesterResponse[]>;
-    loadAvailableCourses(): Promise<AvailableCourseDTO[]>;
+    loadAvailableCourses(): Promise<AvailableModuleDTO[]>;
 }

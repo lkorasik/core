@@ -3,8 +3,9 @@ package ru.urfu.mm.controller.course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.application.usecase.*;
+import ru.urfu.mm.application.usecase.load_available_courses.AvailableModuleResponse;
+import ru.urfu.mm.application.usecase.load_available_courses.LoadAvailableCourses;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
-import ru.urfu.mm.domain.SelectedCourses;
 import ru.urfu.mm.domain.SemesterType;
 import ru.urfu.mm.domain.SpecialCourse;
 import ru.urfu.mm.entity.Control;
@@ -16,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/courses")
@@ -186,10 +186,7 @@ public class CourseController extends AbstractAuthorizedController {
     }
 
     @GetMapping("/available")
-    public List<AvailableCourseDTO> loadAvailableCourses() {
-        return loadAvailableCourses.loadAvailableCourses(UUID.fromString(getUserToken()))
-                .stream()
-                .map(x -> new AvailableCourseDTO(x.getId(), x.getName()))
-                .toList();
+    public List<AvailableModuleResponse> loadAvailableCourses() {
+        return loadAvailableCourses.loadAvailableCourses(UUID.fromString(getUserToken()));
     }
 }

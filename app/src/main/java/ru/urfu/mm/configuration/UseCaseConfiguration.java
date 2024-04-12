@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import ru.urfu.mm.application.gateway.*;
 import ru.urfu.mm.application.usecase.*;
 import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
+import ru.urfu.mm.application.usecase.load_available_courses.LoadAvailableCourses;
 
 @Configuration
 public class UseCaseConfiguration {
