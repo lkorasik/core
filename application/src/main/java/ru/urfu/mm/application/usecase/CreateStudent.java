@@ -12,6 +12,9 @@ import java.util.UUID;
 
 /**
  * Зарегистрировать аккаунт студента
+ * 1. Проверяем, что токен не занят.
+ * 2. Проверяем, что токен связан с соответствующей ролью
+ * 3. Проверяем, что пароль верный
  */
 public class CreateStudent {
     private final TokenGateway tokenGateway;
