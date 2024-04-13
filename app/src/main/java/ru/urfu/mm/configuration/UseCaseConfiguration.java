@@ -9,6 +9,7 @@ import ru.urfu.mm.application.usecase.*;
 import ru.urfu.mm.application.usecase.create.administrator.CreateAdministrator;
 import ru.urfu.mm.application.usecase.create.student.CreateStudent;
 import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
+import ru.urfu.mm.application.usecase.getallprograms.GetAllPrograms;
 import ru.urfu.mm.application.usecase.load_available_courses.LoadAvailableCourses;
 import ru.urfu.mm.application.usecase.loginuser.LoginUser;
 
@@ -138,8 +139,8 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public GetAllEducationalPrograms getAllEducationalPrograms(ProgramGateway programGateway) {
-        return new GetAllEducationalPrograms(programGateway);
+    public GetAllPrograms getAllEducationalPrograms(ProgramGateway programGateway) {
+        return new GetAllPrograms(programGateway);
     }
 
     @Bean

@@ -30,7 +30,7 @@ export function WelcomeScreen(props: Props) {
 
     useEffect(() => {
         const loadEducationalPrograms = async () => {
-            const programs = await apis.educationalProgramsApi.getAvailablePrograms();
+            const programs = await apis.educationalProgramsApi.getAllPrograms();
             setEducationalPrograms(programs);
         }
         loadEducationalPrograms().catch(console.error);

@@ -5,24 +5,24 @@ import { AddButton } from "../../base_components/AddButton/AddButton";
 import { Link } from "react-router-dom";
 import { useApis } from "../../apis/ApiBase/ApiProvider";
 import { useEffect, useState } from "react";
-import { ProgramInfoDto } from "../../apis/api/programs/ProgramInfoDto";
+import { ShortProgramDTO } from "../../apis/api/programs/ShortProgramDTO";
 
 interface Props { }
 
 export function EducationalProgramScreen(props: Props) {
-    const [educationalPrograms, setEducationalPrograms] = useState<ProgramInfoDto[]>([]);
+    const [educationalPrograms, setEducationalPrograms] = useState<ShortProgramDTO[]>([]);
 
     const apis = useApis();
 
     useEffect(() => {
         const loadEducationalPrograms = async () => {
-            const educationalPrograms = await apis.educationalProgramsApi.getEducationalProgramsList();
+            const educationalPrograms = await apis.educationalProgramsApi.getAllPrograms();
             setEducationalPrograms(educationalPrograms);
         }
         loadEducationalPrograms().catch(console.error);
     }, [apis.educationalProgramsApi])
 
-    const renderCard = (x: ProgramInfoDto) => {
+    const renderCard = (x: ShortProgramDTO) => {
         return (
             <Card
                 link={"/administrator/educational_program/" + x.id}

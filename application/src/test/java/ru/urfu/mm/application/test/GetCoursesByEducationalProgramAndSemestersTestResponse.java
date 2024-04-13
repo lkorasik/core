@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.UUID;
 
 @ExtendWith(MockitoExtension.class)
-public class GetCoursesByEducationalProgramAndSemestersTest {
+public class GetCoursesByEducationalProgramAndSemestersTestResponse {
     @Mock
     private CourseGateway courseGateway;
     @Mock

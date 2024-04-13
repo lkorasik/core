@@ -6,10 +6,6 @@ import { FullProgramDto } from "./FullProgramDto";
 import { ShortProgramDTO } from "./ShortProgramDTO";
 
 export class ProgramsApi extends ApiBase implements IProgramsApi {
-    public async getEducationalProgramsList(): Promise<ProgramInfoDto[]> {
-        return this.get("programs");
-    }
-
     public async getCurrentEducationalProgram(): Promise<ProgramInfoDto> {
         return this.get("programs/current");
     }
@@ -22,15 +18,14 @@ export class ProgramsApi extends ApiBase implements IProgramsApi {
         return this.post("programs/program", {}, id);
     }
 
-    public async getAvailablePrograms(): Promise<ShortProgramDTO[]> {
-        return this.get("programs/available");
+    public async getAllPrograms(): Promise<ShortProgramDTO[]> {
+        return this.get("programs/all");
     }
 }
 
 export interface IProgramsApi {
-    getEducationalProgramsList(): Promise<ProgramInfoDto[]>
     getCurrentEducationalProgram(): Promise<ProgramInfoDto>
     createEducationalProgramList(createEducationalProgram: CreateProgramDto): Promise<any>
     getEducationalProgramById(id: ProgramIdDto): Promise<FullProgramDto>
-    getAvailablePrograms(): Promise<ShortProgramDTO[]>
+    getAllPrograms(): Promise<ShortProgramDTO[]>
 }
