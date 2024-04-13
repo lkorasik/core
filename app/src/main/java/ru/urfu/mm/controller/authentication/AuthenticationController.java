@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.urfu.mm.application.usecase.CreateAdministrator;
 import ru.urfu.mm.application.usecase.CreateStudent;
-import ru.urfu.mm.application.usecase.LoginUser;
+import ru.urfu.mm.application.usecase.loginuser.LoginRequest;
+import ru.urfu.mm.application.usecase.loginuser.LoginUser;
 import ru.urfu.mm.domain.User;
 import ru.urfu.mm.entity.UserRole;
 import ru.urfu.mm.service.AuthenticationService;
@@ -63,7 +64,8 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public AccessTokenDTO login(@RequestBody LoginDTO loginDTO) {
-        User user = loginUser.loginUser(UUID.fromString(loginDTO.token()), loginDTO.password());
+        LoginRequest login = new LoginRequest(UUID.fromString(loginDTO.token()), loginDTO.password());
+        User user = loginUser.loginUser(login);
         String token = authenticationService.generateToken(loginDTO);
 
         return new AccessTokenDTO(token, loginDTO.token(), userRoleMapper.map(user.getRole()));

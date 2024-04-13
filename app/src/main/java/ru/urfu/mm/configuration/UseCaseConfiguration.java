@@ -8,6 +8,7 @@ import ru.urfu.mm.application.gateway.*;
 import ru.urfu.mm.application.usecase.*;
 import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
 import ru.urfu.mm.application.usecase.load_available_courses.LoadAvailableCourses;
+import ru.urfu.mm.application.usecase.loginuser.LoginUser;
 
 @Configuration
 public class UseCaseConfiguration {
