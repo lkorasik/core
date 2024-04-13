@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useApis } from "../../apis/ApiBase/ApiProvider";
 import { SpecialCourse } from "../../apis/api/course/SpecialCourse";
 import { ModuleDto } from "../../apis/api/modules/ModuleDto";
+import { CloseButton } from "../../base_components/CrudButtons/CloseButton/CloseButton";
 
 interface Props {}
 
@@ -597,9 +598,7 @@ export function AddEducationalProgramScreen(props: Props) {
                             Сохранить
                         </button>
                     </Link>
-                    <Link className={styles.linkOverride} to={EDUCATIONAL_PROGRAM_SCREEN_URL}>
-                        <button className={styles.cancelButton} />
-                    </Link>
+                    <CloseButton to={EDUCATIONAL_PROGRAM_SCREEN_URL}/>
                 </div>
                 <div>
                     <label className={styles.label}>

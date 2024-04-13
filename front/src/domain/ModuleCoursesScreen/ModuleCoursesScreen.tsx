@@ -9,6 +9,9 @@ import React from "react";
 import {Link} from "react-router-dom";
 import {SpecialCourse} from "../../apis/api/course/SpecialCourse";
 import {MODULES_SCREEN_URL} from "../App/App";
+import { CloseButton } from "../../base_components/CrudButtons/CloseButton/CloseButton";
+import { EditButton } from "../../base_components/CrudButtons/EditButton/EditButton";
+import { DeleteButton } from "../../base_components/CrudButtons/DeleteButton/DeleteButton";
 
 interface State {
     module?: ModuleDto;
@@ -62,17 +65,11 @@ class ModuleScreenClear extends React.Component<Props, State> {
                         Модуль: {this.state.selectedModuleName}
                     </div>
                     <div className={styles.helperButtons}>
-                        <Link to={MODULES_SCREEN_URL}>
-                            <button className={styles.editButton}/>
-                        </Link>
-                        <Link to={MODULES_SCREEN_URL}>
-                            <button className={styles.deleteButton} onClick={() => {
-                                this.deleteModule()
-                            }}/>
-                        </Link>
-                        <Link to={MODULES_SCREEN_URL}>
-                            <button className={styles.cancelButton}/>
-                        </Link>
+                        <EditButton to={MODULES_SCREEN_URL} />
+                        <DeleteButton 
+                            to={MODULES_SCREEN_URL} 
+                            onClick={() => this.deleteModule()}/>
+                        <CloseButton to={MODULES_SCREEN_URL} />
                     </div>
                     <Grid cards={cards}/>
                 </div>

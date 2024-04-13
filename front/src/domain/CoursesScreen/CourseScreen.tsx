@@ -7,6 +7,9 @@ import {Link} from "react-router-dom";
 import {EDIT_MODULE_COURSES_SCREEN_URL, MODULE_COURSES_SCREEN_URL} from "../App/App";
 import {SpecialCourse} from "../../apis/api/course/SpecialCourse";
 import {Control} from "../../apis/api/Control";
+import { CloseButton } from "../../base_components/CrudButtons/CloseButton/CloseButton";
+import { EditButton } from "../../base_components/CrudButtons/EditButton/EditButton";
+import { DeleteButton } from "../../base_components/CrudButtons/DeleteButton/DeleteButton";
 
 interface State {
     courseId: string;
@@ -44,19 +47,11 @@ class CourseScreenClear extends React.Component<Props, State> {
                         Курс: {this.state.courseModel?.name}
                     </div>
                     <div id={styles.helperButtons}>
-                        <Link className={styles.linkOverride}
-                              to={EDIT_MODULE_COURSES_SCREEN_URL + this.state.courseId}>
-                            <button className={styles.editButton}/>
-                        </Link>
-                        <Link className={styles.linkOverride}
-                              to={MODULE_COURSES_SCREEN_URL + this.state.courseModel?.moduleId}>
-                            <button className={styles.deleteButton} onClick={() => {
-                                this.deleteCourse()}}/>
-                        </Link>
-                        <Link className={styles.linkOverride}
-                              to={MODULE_COURSES_SCREEN_URL + this.state.courseModel?.moduleId}>
-                            <button className={styles.cancelButton}/>
-                        </Link>
+                        <EditButton to={EDIT_MODULE_COURSES_SCREEN_URL + this.state.courseId} />
+                        <DeleteButton 
+                            to={MODULE_COURSES_SCREEN_URL + this.state.courseModel?.moduleId} 
+                            onClick={() => this.deleteCourse()}/>
+                        <CloseButton to={MODULE_COURSES_SCREEN_URL + this.state.courseModel?.moduleId} />
                     </div>
                     <div>
                         <label className={styles.label}>

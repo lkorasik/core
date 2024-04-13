@@ -6,6 +6,7 @@ import {RootState} from "../../index";
 import {Link} from "react-router-dom";
 import {MODULE_COURSES_SCREEN_URL} from "../App/App";
 import {Control} from "../../apis/api/Control";
+import { CloseButton } from "../../base_components/CrudButtons/CloseButton/CloseButton";
 
 interface State {
     educationalModuleId: string;
@@ -97,10 +98,7 @@ class AddModuleCourseScreenClear extends React.Component<Props, State> {
                                 Сохранить
                             </button>
                         </Link>
-                        <Link className={styles.linkOverride}
-                              to={MODULE_COURSES_SCREEN_URL + this.state.educationalModuleId}>
-                            <button className={styles.cancelButton}/>
-                        </Link>
+                        <CloseButton to={MODULE_COURSES_SCREEN_URL + this.state.educationalModuleId} />
                     </div>
                     <div>
                         <label className={styles.label}>

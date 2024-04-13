@@ -195,27 +195,7 @@
     align-items: center;
 }
 
-
 .saveButton:hover:enabled {
-    cursor: pointer;
-    scale: 1.08;
-    transition: scale 0.5s ease;
-}
-
-.cancelButton {
-    margin-left: 18px;
-    background-image: url("../../../public/cancelButton.svg");
-    width: 52px;
-    height: 52px;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    scale: 1;
-    transition: scale 0.5s ease;
-}
-
-.cancelButton:hover {
     cursor: pointer;
     scale: 1.08;
     transition: scale 0.5s ease;
