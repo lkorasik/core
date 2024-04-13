@@ -7,10 +7,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.urfu.mm.application.dsl.DSL;
-import ru.urfu.mm.application.exception.IncorrectUserRoleException;
-import ru.urfu.mm.application.exception.RegistrationTokenNotExistException;
+import ru.urfu.mm.application.usecase.createstudent.*;
 import ru.urfu.mm.application.gateway.*;
-import ru.urfu.mm.application.usecase.CreateStudent;
+import ru.urfu.mm.domain.EducationalProgram;
 import ru.urfu.mm.domain.UserRole;
 
 import java.util.Optional;
@@ -32,7 +31,7 @@ public class CreateStudentTest {
     private StudentGateway studentGateway;
 
     /**
-     * Создание администратора.
+     * Создание аккаунта студента.
      */
     @Test
     public void createStudent() {
@@ -41,7 +40,10 @@ public class CreateStudentTest {
         UUID programId = UUID.randomUUID();
         String group = DSL.generateString();
 
+        EducationalProgram program = new EducationalProgram();
+
         Mockito.when(tokenGateway.getRoleByToken(token)).thenReturn(Optional.of(UserRole.STUDENT));
+        Mockito.when(programGateway.findById(programId)).thenReturn(Optional.of(program));
 
         CreateStudent createStudent = new CreateStudent(
                 tokenGateway,
@@ -52,11 +54,12 @@ public class CreateStudentTest {
                 studentGateway
         );
 
-        createStudent.createStudent(token, password, programId, group);
+        CreateStudentRequest request = new CreateStudentRequest(token, programId, group, password, password);
+        createStudent.createStudent(request);
     }
 
     /**
-     * Создание администратора. Регистрационный токен не внесен в базу данных.
+     * Создание аккаунта студента. Регистрационный токен не внесен в базу данных.
      */
     @Test
     public void createStudent_noRegistrationToken() {
@@ -76,14 +79,15 @@ public class CreateStudentTest {
                 studentGateway
         );
 
-        Assertions.assertThrows(RegistrationTokenNotExistException.class, () -> createStudent.createStudent(token, password, programId, group));
+        CreateStudentRequest request = new CreateStudentRequest(token, programId, group, password, password);
+        Assertions.assertThrows(RegistrationTokenNotExistException.class, () -> createStudent.createStudent(request));
     }
 
     /**
-     * Создание администратора. Регистрационный токен не внесен в базу данных.
+     * Создание аккаунта студента. Регистрационный токен имеет не соотвествующий тип аккаунта.
      */
     @Test
-    public void createStudent_incorrectAccountType() {
+    public void createStudent_anotherAccountType() {
         UUID token = UUID.randomUUID();
         String password = DSL.generateString();
         UUID programId = UUID.randomUUID();
@@ -100,6 +104,84 @@ public class CreateStudentTest {
                 studentGateway
         );
 
-        Assertions.assertThrows(IncorrectUserRoleException.class, () -> createStudent.createStudent(token, password, programId, group));
+        CreateStudentRequest request = new CreateStudentRequest(token, programId, group, password, password);
+        Assertions.assertThrows(IncorrectUserRoleException.class, () -> createStudent.createStudent(request));
+    }
+
+    /**
+     * Создание аккаунта студента. Разные пароли.
+     */
+    @Test
+    public void createStudent_differentPasswords() {
+        UUID token = UUID.randomUUID();
+        String password = DSL.generateString();
+        String passwordAgain = DSL.generateString();
+        UUID programId = UUID.randomUUID();
+        String group = DSL.generateString();
+
+        Mockito.when(tokenGateway.getRoleByToken(token)).thenReturn(Optional.of(UserRole.STUDENT));
+
+        CreateStudent createStudent = new CreateStudent(
+                tokenGateway,
+                loggerGateway,
+                passwordGateway,
+                userGateway,
+                programGateway,
+                studentGateway
+        );
+
+        CreateStudentRequest request = new CreateStudentRequest(token, programId, group, password, passwordAgain);
+        Assertions.assertThrows(DifferentPasswordException.class, () -> createStudent.createStudent(request));
+    }
+
+    /**
+     * Создание аккаунта студента. Пароль слишком короткий.
+     */
+    @Test
+    public void createStudent_tooShortPassword() {
+        UUID token = UUID.randomUUID();
+        String password = DSL.generateString().substring(0, 5);
+        UUID programId = UUID.randomUUID();
+        String group = DSL.generateString();
+
+        Mockito.when(tokenGateway.getRoleByToken(token)).thenReturn(Optional.of(UserRole.STUDENT));
+
+        CreateStudent createStudent = new CreateStudent(
+                tokenGateway,
+                loggerGateway,
+                passwordGateway,
+                userGateway,
+                programGateway,
+                studentGateway
+        );
+
+        CreateStudentRequest request = new CreateStudentRequest(token, programId, group, password, password);
+        Assertions.assertThrows(TooShortPasswordException.class, () -> createStudent.createStudent(request));
+    }
+
+    /**
+     * Создание аккаунта студента. Образовательная программа не найдена.
+     */
+    @Test
+    public void createStudent_programNotFound() {
+        UUID token = UUID.randomUUID();
+        String password = DSL.generateString();
+        UUID programId = UUID.randomUUID();
+        String group = DSL.generateString();
+
+        Mockito.when(tokenGateway.getRoleByToken(token)).thenReturn(Optional.of(UserRole.STUDENT));
+        Mockito.when(programGateway.findById(programId)).thenReturn(Optional.empty());
+
+        CreateStudent createStudent = new CreateStudent(
+                tokenGateway,
+                loggerGateway,
+                passwordGateway,
+                userGateway,
+                programGateway,
+                studentGateway
+        );
+
+        CreateStudentRequest request = new CreateStudentRequest(token, programId, group, password, password);
+        Assertions.assertThrows(EducationalProgramNotExistsException.class, () -> createStudent.createStudent(request));
     }
 }

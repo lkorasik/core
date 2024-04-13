@@ -1,4 +1,4 @@
-package ru.urfu.mm.application.exception;
+package ru.urfu.mm.application.usecase.createstudent;
 
 import java.util.UUID;
 

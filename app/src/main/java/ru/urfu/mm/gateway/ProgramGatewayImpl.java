@@ -11,6 +11,7 @@ import ru.urfu.mm.repository.EducationalProgramRepository;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -36,6 +37,18 @@ public class ProgramGatewayImpl implements ProgramGateway {
     }
 
     @Override
+    public Optional<EducationalProgram> findById(UUID id) {
+        return educationalProgramRepository
+                .findById(id)
+                .map(x -> new EducationalProgram(
+                        x.getId(),
+                        x.getName(),
+                        x.getTrainingDirection(),
+                        x.getSemesterIdToRequiredCreditsCount()
+                ));
+    }
+
+    @Override
     public List<EducationalProgram> getAll() {
         return educationalProgramRepository
                 .findAll()
@@ -52,7 +65,8 @@ public class ProgramGatewayImpl implements ProgramGateway {
     @Override
     public Map<UUID, Integer> deserializeRecommendedCredits(EducationalProgram program) {
         try {
-            return mapper.readValue(program.getSemesterIdToRequiredCreditsCount(), new TypeReference<Map<UUID, Integer>>() {});
+            return mapper.readValue(program.getSemesterIdToRequiredCreditsCount(), new TypeReference<Map<UUID, Integer>>() {
+            });
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
             // todo: Set normal exception

@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.urfu.mm.application.usecase.CreateAdministrator;
-import ru.urfu.mm.application.usecase.CreateStudent;
+import ru.urfu.mm.application.usecase.createstudent.CreateStudent;
+import ru.urfu.mm.application.usecase.createstudent.CreateStudentRequest;
 import ru.urfu.mm.application.usecase.loginuser.LoginRequest;
 import ru.urfu.mm.application.usecase.loginuser.LoginUser;
 import ru.urfu.mm.domain.User;
@@ -56,7 +57,14 @@ public class AuthenticationController {
     public AccessTokenDTO registerStudent(@RequestBody RegistrationStudentDTO user) {
         logger.debug("Request for student registration: " + user);
 
-        createStudent.createStudent(UUID.fromString(user.token()), user.password(), user.programId(), user.group());
+        CreateStudentRequest request = new CreateStudentRequest(
+                UUID.fromString(user.token()),
+                user.programId(),
+                user.group(),
+                user.password(),
+                user.passwordAgain()
+        );
+        createStudent.createStudent(request);
         String token = authenticationService.generateToken(user);
 
         return new AccessTokenDTO(token, user.token(), UserRole.STUDENT);
