@@ -1,15 +1,15 @@
 package ru.urfu.mm.application.usecase.loginuser;
 
-import ru.urfu.mm.application.exception.BadCredentialsException;
 import ru.urfu.mm.application.gateway.PasswordGateway;
 import ru.urfu.mm.application.gateway.UserGateway;
 import ru.urfu.mm.domain.User;
 
 /**
  * Вход в систему
- * 1. Проверяем, что такой пользователь вообще существует. Если такого пользователя нет, то кидаем ошибку с информаицей
- * о том, что такого аккаунта не существует.
- * 2. Проверяем пароль. Если пароль не совпадает с указанным в базе данных, то кидаем ошибку о некорректном пароле.
+ * 1. Проверяем существование пользователя. Если такого пользователя нет, то кидаем ошибку о том, что предоставлены
+ * неверные данные.
+ * 2. Проверяем пароль. Если пароль не совпадает с указанным в базе данных, то кидаем ошибку о том, что предоставлены
+ * неверные данные.
  * 3. Возвращаем аккаунт пользователя.
  */
 public class LoginUser {
@@ -22,10 +22,12 @@ public class LoginUser {
     }
 
     public User loginUser(LoginRequest loginRequest) {
-        User user = userGateway.getByToken(loginRequest.token());
+        User user = userGateway
+                .findByToken(loginRequest.token())
+                .orElseThrow(InvalidCredentialsException::new);
 
         if (!passwordGateway.matches(loginRequest.password(), user.getPassword())) {
-            throw new BadCredentialsException();
+            throw new InvalidCredentialsException();
         }
 
         return user;
