@@ -8,10 +8,8 @@ import ru.urfu.mm.application.usecase.GetEducationalProgram;
 import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
 import ru.urfu.mm.application.usecase.get_program_for_student.ProgramForStudentResponse;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
-import ru.urfu.mm.domain.EducationalProgram;
 import ru.urfu.mm.service.ProgramService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,21 +33,15 @@ public class ProgramController extends AbstractAuthorizedController {
 
     @GetMapping
     public List<ProgramInfoDTO> getEducationalProgram() {
-        var programs = getAllEducationalPrograms.getAllPrograms();
-
-        var result = new ArrayList<ProgramInfoDTO>();
-        for(var program: programs) {
-            var dto = new ProgramInfoDTO(
-                    program.getId(),
-                    program.getName(),
-                    List.of(),
-                    List.of()
-            );
-
-            result.add(dto);
-        }
-
-        return result;
+        return getAllEducationalPrograms.getAllPrograms()
+                .stream()
+                .map(x -> new ProgramInfoDTO(
+                        x.getId(),
+                        x.getName(),
+                        List.of(),
+                        List.of()
+                ))
+                .toList();
     }
 
     @PostMapping("/program")
