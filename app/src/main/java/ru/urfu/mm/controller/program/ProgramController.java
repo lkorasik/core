@@ -53,4 +53,12 @@ public class ProgramController extends AbstractAuthorizedController {
     public void createEducationalProgram(@RequestBody CreateProgramDTO educationalProgramDTO) throws JsonProcessingException {
         programService.createEducationalProgram(educationalProgramDTO);
     }
+
+    @GetMapping("/available")
+    public List<ShortProgramDTO> getAvailablePrograms() {
+        return getAllEducationalPrograms.getAllPrograms()
+                .stream()
+                .map(x -> new ShortProgramDTO(x.getId(), x.getName()))
+                .toList();
+    }
 }

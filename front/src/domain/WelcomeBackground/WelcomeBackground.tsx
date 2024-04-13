@@ -8,6 +8,7 @@ import { ProgramInfoDto } from "../../apis/api/programs/ProgramInfoDto";
 import { useApis } from "../../apis/ApiBase/ApiProvider";
 import { AccessTokenDto } from "../../apis/api/authentication/AccessTokenDto";
 import { useEffect, useState } from "react";
+import { ShortProgramDTO } from "../../apis/api/programs/ShortProgramDTO";
 
 interface Props {
     saveLoginInfo: (loginInfo: LoginInfo) => void;
@@ -20,7 +21,7 @@ export function WelcomeScreen(props: Props) {
     const [password, setPassword] = useState("");
     const [passwordAgain, setPasswordAgain] = useState("");
     const [group, setGroup] = useState("");
-    const [educationalPrograms, setEducationalPrograms] = useState<ProgramInfoDto[]>();
+    const [educationalPrograms, setEducationalPrograms] = useState<ShortProgramDTO[]>();
 
     const [isRegistration, setIsRegistration] = useState(false)
     const [registrationForm, setRegistrationForm] = useState(accountTypes[0])
@@ -29,7 +30,7 @@ export function WelcomeScreen(props: Props) {
 
     useEffect(() => {
         const loadEducationalPrograms = async () => {
-            const programs = await apis.educationalProgramsApi.getEducationalProgramsList();
+            const programs = await apis.educationalProgramsApi.getAvailablePrograms();
             setEducationalPrograms(programs);
         }
         loadEducationalPrograms().catch(console.error);
