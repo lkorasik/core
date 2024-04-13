@@ -34,7 +34,8 @@ export function ModuleList(props: Props) {
                 text={course.name}
                 type={"EducationalProgram"}
                 paramNames={["Id", "Name"]}
-                paramsValues={[course.id, course.name]} />
+                paramsValues={[course.id, course.name]}
+                badge={"Выбрано"} />
         )
     }
 
