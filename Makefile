@@ -8,3 +8,8 @@ recreate_db:
 	@docker container rm db
 	@docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=180401 -e POSTGRES_USER=postgres -e POSTGRES_DB=Groopster --name db postgres:alpine3.19
 	@echo "End database recreating"
+
+# Войти на сервер
+# 1. Подключение по SSH к серверу
+server:
+	ssh -p 49207 root@771c825ef24d.vps.myjino.ru
