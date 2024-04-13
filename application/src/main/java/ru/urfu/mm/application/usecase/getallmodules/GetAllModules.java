@@ -1,10 +1,13 @@
-package ru.urfu.mm.application.usecase;
+package ru.urfu.mm.application.usecase.getallmodules;
 
 import ru.urfu.mm.application.gateway.ModuleGateway;
 import ru.urfu.mm.domain.Module;
 
 import java.util.List;
 
+/**
+ * Получить список всех модулей
+ */
 public class GetAllModules {
     private final ModuleGateway moduleGateway;
 

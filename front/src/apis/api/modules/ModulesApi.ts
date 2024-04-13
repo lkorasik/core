@@ -11,7 +11,7 @@ export class ModulesApi extends ApiBase implements IModulesApi {
         });
     }
     public async getAllModules(): Promise<ModuleDto[]> {
-        return await this.get("modules", {}, {});
+        return await this.get("modules/all", {}, {});
     }
 
     public async deleteModuleById(deleteEducationalModuleRequest: DeleteModuleDto): Promise<void> {

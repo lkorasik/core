@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.application.usecase.CreateModuleWithCourses;
 import ru.urfu.mm.application.usecase.DeleteModuleById;
-import ru.urfu.mm.application.usecase.GetAllModules;
+import ru.urfu.mm.application.usecase.getallmodules.GetAllModules;
 import ru.urfu.mm.application.usecase.GetModulesByIds;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class ModulesController {
     @Autowired
     private DeleteModuleById deleteModuleById;
 
-    @GetMapping
+    @GetMapping("/all")
     public List<ModuleDTO> getAllModules() {
         return getAllModules
                 .getAllModules()

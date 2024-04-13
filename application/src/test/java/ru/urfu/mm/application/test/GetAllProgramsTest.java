@@ -37,6 +37,7 @@ public class GetAllProgramsTest {
                 .map(x -> new ProgramResponse(x.getId(), x.getName()))
                 .toList();
 
+        Assertions.assertEquals(availablePrograms.size(), expectedProgram.size());
         availablePrograms.forEach(program -> Assertions.assertTrue(expectedProgram.contains(program)));
     }
 
