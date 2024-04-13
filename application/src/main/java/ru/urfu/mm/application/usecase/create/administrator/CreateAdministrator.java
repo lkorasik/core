@@ -1,11 +1,13 @@
-package ru.urfu.mm.application.usecase;
+package ru.urfu.mm.application.usecase.create.administrator;
 
-import ru.urfu.mm.application.usecase.createstudent.IncorrectUserRoleException;
-import ru.urfu.mm.application.usecase.createstudent.RegistrationTokenNotExistException;
 import ru.urfu.mm.application.gateway.LoggerGateway;
 import ru.urfu.mm.application.gateway.PasswordGateway;
 import ru.urfu.mm.application.gateway.TokenGateway;
 import ru.urfu.mm.application.gateway.UserGateway;
+import ru.urfu.mm.application.usecase.create.RegistrationTokenNotExistException;
+import ru.urfu.mm.application.usecase.create.DifferentPasswordException;
+import ru.urfu.mm.application.usecase.create.IncorrectUserRoleException;
+import ru.urfu.mm.application.usecase.create.TooShortPasswordException;
 import ru.urfu.mm.domain.User;
 import ru.urfu.mm.domain.UserRole;
 
@@ -38,16 +40,19 @@ public class CreateAdministrator {
         this.userGateway = userGateway;
     }
 
-    public void createAdministrator(UUID token, String password) {
+    public void createAdministrator(CreateAdministratorRequest request) {
         UserRole role = tokenGateway
-                .getRoleByToken(token)
-                .orElseThrow(() -> new RegistrationTokenNotExistException(token));
-        ensureRole(role, token);
+                .getRoleByToken(request.token())
+                .orElseThrow(() -> new RegistrationTokenNotExistException(request.token()));
+        ensureRole(role, request.token());
 
-        User user = new User(token, passwordGateway.encode(password), role);
+        ensurePasswordsSame(request.password(), request.passwordAgain());
+        ensurePasswordStrongEnough(request.password());
+
+        User user = new User(request.token(), passwordGateway.encode(request.password()), role);
         userGateway.save(user);
 
-        tokenGateway.deleteToken(token);
+        tokenGateway.deleteToken(request.token());
     }
 
     private void ensureRole(UserRole current, UUID token) {
@@ -56,6 +61,18 @@ public class CreateAdministrator {
                 loggerGateway.warn("Registration token " + token + " was used for " + UserRole.ADMIN + " registration");
             }
             throw new IncorrectUserRoleException(token);
+        }
+    }
+
+    private void ensurePasswordsSame(String password, String passwordAgain) {
+        if (!password.equals(passwordAgain)) {
+            throw new DifferentPasswordException();
+        }
+    }
+
+    private void ensurePasswordStrongEnough(String password) {
+        if (password.length() < 8) {
+            throw new TooShortPasswordException();
         }
     }
 }

@@ -7,10 +7,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.urfu.mm.application.dsl.DSL;
-import ru.urfu.mm.application.usecase.createstudent.*;
+import ru.urfu.mm.application.usecase.create.DifferentPasswordException;
+import ru.urfu.mm.application.usecase.create.RegistrationTokenNotExistException;
+import ru.urfu.mm.application.usecase.create.TooShortPasswordException;
+import ru.urfu.mm.application.usecase.create.student.*;
 import ru.urfu.mm.application.gateway.*;
 import ru.urfu.mm.domain.EducationalProgram;
 import ru.urfu.mm.domain.UserRole;
+import ru.urfu.mm.application.usecase.create.IncorrectUserRoleException;
 
 import java.util.Optional;
 import java.util.UUID;

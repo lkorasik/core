@@ -7,9 +7,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.urfu.mm.application.usecase.CreateAdministrator;
-import ru.urfu.mm.application.usecase.createstudent.CreateStudent;
-import ru.urfu.mm.application.usecase.createstudent.CreateStudentRequest;
+import ru.urfu.mm.application.usecase.create.administrator.CreateAdministrator;
+import ru.urfu.mm.application.usecase.create.administrator.CreateAdministratorRequest;
+import ru.urfu.mm.application.usecase.create.student.CreateStudent;
+import ru.urfu.mm.application.usecase.create.student.CreateStudentRequest;
 import ru.urfu.mm.application.usecase.loginuser.LoginRequest;
 import ru.urfu.mm.application.usecase.loginuser.LoginUser;
 import ru.urfu.mm.domain.User;
@@ -47,7 +48,12 @@ public class AuthenticationController {
     public AccessTokenDTO registerAdministration(@RequestBody RegistrationAdministratorDTO user) {
         logger.debug("Request for admin registration: " + user);
 
-        createAdministrator.createAdministrator(UUID.fromString(user.token()), user.password());
+        CreateAdministratorRequest request = new CreateAdministratorRequest(
+                UUID.fromString(user.token()),
+                user.password(),
+                user.passwordAgain()
+        );
+        createAdministrator.createAdministrator(request);
         String token = authenticationService.generateToken(user);
 
         return new AccessTokenDTO(token, user.token(), UserRole.ADMIN);

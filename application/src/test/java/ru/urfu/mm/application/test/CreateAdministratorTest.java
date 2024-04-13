@@ -7,13 +7,15 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.urfu.mm.application.dsl.DSL;
-import ru.urfu.mm.application.usecase.createstudent.IncorrectUserRoleException;
-import ru.urfu.mm.application.usecase.createstudent.RegistrationTokenNotExistException;
+import ru.urfu.mm.application.usecase.create.IncorrectUserRoleException;
+import ru.urfu.mm.application.usecase.create.RegistrationTokenNotExistException;
 import ru.urfu.mm.application.gateway.LoggerGateway;
 import ru.urfu.mm.application.gateway.PasswordGateway;
 import ru.urfu.mm.application.gateway.TokenGateway;
 import ru.urfu.mm.application.gateway.UserGateway;
-import ru.urfu.mm.application.usecase.CreateAdministrator;
+import ru.urfu.mm.application.usecase.create.TooShortPasswordException;
+import ru.urfu.mm.application.usecase.create.administrator.CreateAdministrator;
+import ru.urfu.mm.application.usecase.create.administrator.CreateAdministratorRequest;
 import ru.urfu.mm.domain.UserRole;
 
 import java.util.Optional;
@@ -47,7 +49,8 @@ public class CreateAdministratorTest {
                 userGateway
         );
 
-        createAdministrator.createAdministrator(token, password);
+        CreateAdministratorRequest request = new CreateAdministratorRequest(token, password, password);
+        createAdministrator.createAdministrator(request);
     }
 
     /**
@@ -67,7 +70,9 @@ public class CreateAdministratorTest {
                 userGateway
         );
 
-        Assertions.assertThrows(RegistrationTokenNotExistException.class, () -> createAdministrator.createAdministrator(token, password));
+        CreateAdministratorRequest request = new CreateAdministratorRequest(token, password, password);
+        Assertions.assertThrows(RegistrationTokenNotExistException.class,
+                () -> createAdministrator.createAdministrator(request));
     }
 
     /**
@@ -87,6 +92,53 @@ public class CreateAdministratorTest {
                 userGateway
         );
 
-        Assertions.assertThrows(IncorrectUserRoleException.class, () -> createAdministrator.createAdministrator(token, password));
+        CreateAdministratorRequest request = new CreateAdministratorRequest(token, password, password);
+        Assertions.assertThrows(IncorrectUserRoleException.class,
+                () -> createAdministrator.createAdministrator(request));
+    }
+
+    /**
+     * Создание администратора. Разные пароли
+     */
+    @Test
+    public void createAdministrator_differentPasswords() {
+        UUID token = UUID.randomUUID();
+        String password = DSL.generateString();
+        String passwordAgain = DSL.generateString();
+
+        Mockito.when(tokenGateway.getRoleByToken(token)).thenReturn(Optional.of(UserRole.STUDENT));
+
+        CreateAdministrator createAdministrator = new CreateAdministrator(
+                tokenGateway,
+                loggerGateway,
+                passwordGateway,
+                userGateway
+        );
+
+        CreateAdministratorRequest request = new CreateAdministratorRequest(token, password, passwordAgain);
+        Assertions.assertThrows(IncorrectUserRoleException.class,
+                () -> createAdministrator.createAdministrator(request));
+    }
+
+    /**
+     * Создание администратора. Слабый пароль
+     */
+    @Test
+    public void createAdministrator_weakPassword() {
+        UUID token = UUID.randomUUID();
+        String password = DSL.generateString().substring(0, 5);
+
+        Mockito.when(tokenGateway.getRoleByToken(token)).thenReturn(Optional.of(UserRole.ADMIN));
+
+        CreateAdministrator createAdministrator = new CreateAdministrator(
+                tokenGateway,
+                loggerGateway,
+                passwordGateway,
+                userGateway
+        );
+
+        CreateAdministratorRequest request = new CreateAdministratorRequest(token, password, password);
+        Assertions.assertThrows(TooShortPasswordException.class,
+                () -> createAdministrator.createAdministrator(request));
     }
 }
