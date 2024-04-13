@@ -9,7 +9,6 @@ type Props = {
 
 export function AddButton({ isEnabled = true , children, onClick }: Props) {
     return (
-        <button disabled={!isEnabled} className={styles.button} onClick={onClick} type="button">
-        </button>
+        <button disabled={!isEnabled} className={styles.button} onClick={onClick} type="button" />
     )
 }

@@ -10,6 +10,7 @@ export class ModulesApi extends ApiBase implements IModulesApi {
             ...getModulesRequest
         });
     }
+    
     public async getAllModules(): Promise<ModuleDto[]> {
         return await this.get("modules/all", {}, {});
     }
