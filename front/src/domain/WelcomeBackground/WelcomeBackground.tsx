@@ -73,39 +73,46 @@ export function WelcomeScreen(props: Props) {
     const renderLoginForm = () => {
         return (
             <>
-                <span>Логин<span className={styles.red}>*</span></span>
-                <Input type={"email"} placeholder={""} isRequired={true} onChange={event => setRegistrationToken(event.target.value)} />
-                <span>Пароль<span className={styles.red}>*</span></span>
+                <span className={styles.field_title}>Логин</span>
+                <Input type={"email"} placeholder={"15bf0ff0-61ca-4658-8a28-9b649adee5f3"} isRequired={true} onChange={event => setRegistrationToken(event.target.value)} />
+                <span className={styles.field_title}>Пароль</span>
                 <Input type={"password"} placeholder={""} isRequired={true} onChange={event => setPassword(event.target.value)} />
-                <Button id={styles.enterButton} onClick={login}>Войти</Button>
+                <Button className={styles.enterButton} onClick={login}>Войти</Button>
             </>
         )
     }
 
     const renderAccountTypeSelector = () => {
         return (
-            <Select
-                className={styles.select}
-                placeholder={"Тип аккаунта"}
-                isDisabled={false}
-                defaultValue={accountTypes.map(x => ({ value: x, label: x }))[0]}
-                options={accountTypes.map(x => ({ value: x, label: x }))}
-                onChange={newValue => {
-                    if (newValue) {
-                        setSelectedProgramId(newValue.value)
-                        setRegistrationForm(newValue.value)
-                    }
-                }}
-            />)
+            <>
+                <span className={styles.field_title}>Роль</span>
+                <Select
+                    className={styles.select}
+                    placeholder={"Тип аккаунта"}
+                    isDisabled={false}
+                    defaultValue={accountTypes.map(x => ({ value: x, label: x }))[0]}
+                    options={accountTypes.map(x => ({ value: x, label: x }))}
+                    onChange={newValue => {
+                        if (newValue) {
+                            setSelectedProgramId(newValue.value)
+                            setRegistrationForm(newValue.value)
+                        }
+                    }}
+                />
+            </>
+        )
     }
 
     const renderAdministratorRegisterForm = () => {
         return (
             <>
-                <Input type={"text"} placeholder={"Токен регистрации"} isRequired={true} onChange={event => setRegistrationToken(event.target.value)} />
-                <Input type={"password"} placeholder={"Пароль"} isRequired={true} onChange={event => setPassword(event.target.value)} />
-                <Input type={"password"} placeholder={"Повторите пароль"} isRequired={true} onChange={event => setPasswordAgain(event.target.value)} />
-                <Button onClick={registerAdministration}>Зарегистрироваться</Button>
+                <span className={styles.field_title}>Токен</span>
+                <Input type={"text"} placeholder={"bf8aba1e-b209-4179-b1a1-a90d97519094"} isRequired={true} onChange={event => setRegistrationToken(event.target.value)} />
+                <span className={styles.field_title}>Пароль</span>
+                <Input type={"password"} placeholder={""} isRequired={true} onChange={event => setPassword(event.target.value)} />
+                <span className={styles.field_title}>Повторите пароль</span>
+                <Input type={"password"} placeholder={""} isRequired={true} onChange={event => setPasswordAgain(event.target.value)} />
+                <Button className={styles.enterButton} onClick={registerAdministration}>Зарегистрироваться</Button>
             </>
         );
     }
@@ -113,10 +120,12 @@ export function WelcomeScreen(props: Props) {
     const renderStudentRegisterForm = () => {
         return (
             <>
-                <Input type={"text"} placeholder={"Токен регистрации"} isRequired={true} onChange={event => setRegistrationToken(event.target.value)} />
+                <span className={styles.field_title}>Токен</span>
+                <Input type={"text"} placeholder={"2f744d2f-3309-4c9c-896e-fba14a4e5a15"} isRequired={true} onChange={event => setRegistrationToken(event.target.value)} />
+                <span className={styles.field_title}>Программа</span>
                 <Select
                     className={styles.select}
-                    placeholder={"Образовательная программа"}
+                    placeholder={"Название программы"}
                     isDisabled={!educationalPrograms}
                     options={educationalPrograms!.map(x => ({ value: x.id, label: x.name }))}
                     onChange={newValue => {
@@ -125,10 +134,13 @@ export function WelcomeScreen(props: Props) {
                         }
                     }}
                 />
-                <Input type={"text"} placeholder={"Группа"} isRequired={true} onChange={event => setGroup(event.target.value)} />
-                <Input type={"password"} placeholder={"Пароль"} isRequired={true} onChange={event => setPassword(event.target.value)} />
-                <Input type={"password"} placeholder={"Повторите пароль"} isRequired={true} onChange={event => setPasswordAgain(event.target.value)} />
-                <Button onClick={registerStudent}>Зарегистрироваться</Button>
+                <span className={styles.field_title}>Группа</span>
+                <Input type={"text"} placeholder={"МЕНМ-190210"} isRequired={true} onChange={event => setGroup(event.target.value)} />
+                <span className={styles.field_title}>Пароль</span>
+                <Input type={"password"} placeholder={""} isRequired={true} onChange={event => setPassword(event.target.value)} />
+                <span className={styles.field_title}>Повторите пароль</span>
+                <Input type={"password"} placeholder={""} isRequired={true} onChange={event => setPasswordAgain(event.target.value)} />
+                <Button className={styles.enterButton} onClick={registerStudent}>Зарегистрироваться</Button>
             </>
         );
     }
