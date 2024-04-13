@@ -1,14 +1,12 @@
 import React, {FC, useEffect} from 'react';
 import './App.css';
-import {ChooseCoursesScreen} from "../ChooseCoursesScreen/ChooseCoursesScreen";
 import {useAuthentication} from "../../hooks/useAuthentication";
 import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import {EmployeeScreen} from "../EmployeeScreen/EmployeeScreen";
 import {UserRole} from "../../apis/api/UserRole";
 import {LoginInfo} from "../../hooks/LoginInfo";
 import {AdministratorMainScreen} from '../AdministratorMainScreen/AdministratorMainScreen';
-import {EducationalProgramScreen} from '../EducationalProgramScreen/EducationalProgramScreen';
-import {ModulesScreen} from "../ModulesScreen/ModulesScreen";
+import {EducationalProgramScreen} from '../EducationalProgramScreen';
 import {AddModuleScreen} from "../AddModuleScreen/AddModuleScreen";
 import {ModuleCoursesScreen} from "../ModuleCoursesScreen/ModuleCoursesScreen";
 import {AddModuleCourseScreen} from "../AddModuleCourseScreen/AddModuleCourseScreen";
@@ -22,6 +20,7 @@ import {StatisticsScreen} from "../StatisticsScreen/StatisticsScreen";
 import { StudentScreen } from '../StudentScreen/StudentScreen';
 import { StudyPlan } from '../StudyPlan/StudyPlan';
 import { ModuleList } from '../ModuleList/ModuleList';
+import { ModulesScreen } from '../ModulesScreen';
 
 export const EDUCATIONAL_PROGRAM_SCREEN_URL: string = "/administrator/educational_program/";
 export const MODULES_SCREEN_URL: string = "/administrator/courses_and_modules";
@@ -71,7 +70,7 @@ const App: FC = () => {
                 <Route path={"/administrator/educational_program"} element={<EducationalProgramScreen/>}/>
                     <Route path={EDUCATIONAL_PROGRAM_SCREEN_URL + "*"} element={<AddEducationalProgramScreen />}/>
                 <Route path={"/administrator/educational_program/add"} element={<AddEducationalProgramScreen />}/>
-                <Route path={MODULES_SCREEN_URL} element={<ModulesScreen/>}/>
+                <Route path={MODULES_SCREEN_URL} element={<ModulesScreen />}/>
                     <Route path={"/administrator/module/add"} element={<AddModuleScreen/>}/>
                     <Route path={EDIT_MODULE_SCREEN_URL + "*"} element={<EditModuleScreen/>}/>
                 <Route path={MODULE_COURSES_SCREEN_URL + "*"} element={<ModuleCoursesScreen/>}/>
