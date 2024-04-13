@@ -9,7 +9,7 @@ type Props = {
     onClick?: (() => void)
 }
 
-export function Button({ id, className, isEnabled = true , children, onClick }: Props) {
+export function Button({ id, className, isEnabled = true , children, onClick = () => {} }: Props) {
     return (
         <button id={id} disabled={!isEnabled} className={`${className} ${styles.button}`} onClick={onClick} type="button">
             <span className={styles.innerText}>
