@@ -21,7 +21,7 @@ import { AddEducationalProgramScreen } from '../AddEducationalProgramScreen/AddE
 import {StatisticsScreen} from "../StatisticsScreen/StatisticsScreen";
 import { StudentScreen } from '../StudentScreen/StudentScreen';
 import { StudyPlan } from '../StudyPlan/StudyPlan';
-import { StudentModuleCourses } from '../StudentModuleCourses/StudentModuleCourses';
+import { ModuleList } from '../ModuleList/ModuleList';
 
 export const EDUCATIONAL_PROGRAM_SCREEN_URL: string = "/administrator/educational_program/";
 export const MODULES_SCREEN_URL: string = "/administrator/courses_and_modules";
@@ -63,7 +63,7 @@ const App: FC = () => {
             <Route path={"/"} element={<WelcomeScreen saveLoginInfo={saveLoginInfo}/>}/>
             <Route path={"/student"} element={<StudentScreen/>}>
                 <Route path={"/student/student_plan"} element={<StudyPlan/>}/>
-                <Route path={"/student/courses_and_modules"} element={<StudentModuleCourses/>}/>
+                <Route path={"/student/courses_and_modules"} element={<ModuleList />}/>
             </Route>
             <Route path={"/student/recommendationService"} element={<RecommendationsScreen />} />
             <Route path={"/employee"} element={<EmployeeScreen/>}/>

@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
-import styles from "./StudentModuleCourses.module.css";
+import styles from "./ModuleList.module.css";
 import { Grid } from "../../base_components/Grid/Grid";
 import { Card } from "../../base_components/Card/Card";
 import { useApis } from "../../apis/ApiBase/ApiProvider";
 import { AvailableCourseDTO } from "../../apis/api/course/AvailableCourseDTO";
 import { AvailableModuleDTO } from "../../apis/api/course/AvailableModuleDTO";
 import { addAbortSignal } from "stream";
+import { Button } from "../../base_components/Button/Button";
 
 interface Props {}
 
-export function StudentModuleCourses(props: Props) {
+export function ModuleList(props: Props) {
     const [availableCourses, setAvailableCourses] = useState<AvailableModuleDTO[]>();
 
     const apis = useApis();
@@ -44,8 +45,13 @@ export function StudentModuleCourses(props: Props) {
     const renderModule = (module: AvailableModuleDTO) => {
         return (
             <>
-                <div className={styles.fontHeader1}>
-                    {module.name}
+                <div className={styles.headerContainer}>
+                    <div className={styles.fontHeader1}>
+                        Модуль: {module.name}
+                    </div>
+                    <Button className={styles.button}>
+                        Выбрать
+                    </Button>
                 </div>
                 <Grid cards={renderCourses(module)}/>
             </>
