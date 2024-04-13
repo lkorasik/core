@@ -11,7 +11,8 @@ import ru.urfu.mm.application.dsl.DSL;
 import ru.urfu.mm.application.exception.BadCredentialsException;
 import ru.urfu.mm.application.gateway.PasswordGateway;
 import ru.urfu.mm.application.gateway.UserGateway;
-import ru.urfu.mm.application.usecase.LoginUser;
+import ru.urfu.mm.application.usecase.loginuser.LoginRequest;
+import ru.urfu.mm.application.usecase.loginuser.LoginUser;
 import ru.urfu.mm.domain.User;
 import ru.urfu.mm.domain.UserRole;
 
@@ -42,7 +43,8 @@ public class LoginUserTest {
                 passwordGateway
         );
 
-        loginUser.loginUser(token, password);
+        LoginRequest loginRequest = new LoginRequest(token, password);
+        loginUser.loginUser(loginRequest);
     }
 
     /**
@@ -63,6 +65,7 @@ public class LoginUserTest {
                 passwordGateway
         );
 
-        Assertions.assertThrows(BadCredentialsException.class, () -> loginUser.loginUser(token, password));
+        LoginRequest loginRequest = new LoginRequest(token, password);
+        Assertions.assertThrows(BadCredentialsException.class, () -> loginUser.loginUser(loginRequest));
     }
 }

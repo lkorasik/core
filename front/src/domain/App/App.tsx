@@ -19,6 +19,9 @@ import {WelcomeScreen} from '../WelcomeBackground/WelcomeBackground';
 import {RecommendationsScreen} from "../RecommendationsScreen/RecommendationsScreen";
 import { AddEducationalProgramScreen } from '../AddEducationalProgramScreen/AddEducationalProgramScreen';
 import {StatisticsScreen} from "../StatisticsScreen/StatisticsScreen";
+import { StudentScreen } from '../StudentScreen/StudentScreen';
+import { StudyPlan } from '../StudyPlan/StudyPlan';
+import { ModuleList } from '../ModuleList/ModuleList';
 
 export const EDUCATIONAL_PROGRAM_SCREEN_URL: string = "/administrator/educational_program/";
 export const MODULES_SCREEN_URL: string = "/administrator/courses_and_modules";
@@ -36,7 +39,7 @@ const App: FC = () => {
         if (loginInfo) {
             switch (loginInfo.userRole) {
                 case UserRole.Student:
-                    navigate("/student");
+                    navigate("/student/student_plan");
                     break;
                 case UserRole.UniversityEmployee:
                     navigate("/employee")
@@ -58,7 +61,10 @@ const App: FC = () => {
     return (
         <Routes>
             <Route path={"/"} element={<WelcomeScreen saveLoginInfo={saveLoginInfo}/>}/>
-            <Route path={"/student"} element={<ChooseCoursesScreen/>}/>
+            <Route path={"/student"} element={<StudentScreen/>}>
+                <Route path={"/student/student_plan"} element={<StudyPlan/>}/>
+                <Route path={"/student/courses_and_modules"} element={<ModuleList />}/>
+            </Route>
             <Route path={"/student/recommendationService"} element={<RecommendationsScreen />} />
             <Route path={"/employee"} element={<EmployeeScreen/>}/>
             <Route path={"/administrator"} element={<AdministratorMainScreen/>}>

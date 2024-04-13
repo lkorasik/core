@@ -1,0 +1,28 @@
+.fontHeader1 {
+    font-family: Montserrat, sans-serif;
+    font-size: 52px;
+    font-weight: 600;
+    line-height: 57.2px;
+    width: 1182px;
+    height: 69px;
+
+    color: #1E4391;
+}
+
+.headerContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.button {
+    background-color: #1E4391;
+}
+
+#container {
+    padding-top: 39px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 1em;
+    background-color: #f6f6f6;
+}

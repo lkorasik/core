@@ -1,9 +1,20 @@
 import { Link, Outlet } from "react-router-dom";
 import styles from "./ActionBar.module.css"
 
-interface Props {}
+interface Props {
+    item: LinkItem[]
+}
+
+interface LinkItem {
+    label: string
+    link: string
+}
 
 export function ActionBar(props: Props) {
+    const renderItems = () => {
+        return props.item.map(x => <Link className={styles.link} to={x.link}>{x.label}</Link>)
+    }
+
     return (
         <>
             <header className={styles.header}>
@@ -13,9 +24,7 @@ export function ActionBar(props: Props) {
                             <img id={styles.image_link_container} src={process.env.PUBLIC_URL + "/logo_urfu.svg"} alt="Ufru logo" />
                         </a>
                         <nav>
-                            <Link className={styles.link} to="/administrator/educational_program">Образовательные программы</Link>
-                            <Link className={styles.link} to="/administrator/courses_and_modules">Курсы и модули</Link>
-                            <Link className={styles.link} to="/administrator/statistics">Статистика</Link>
+                            {renderItems()}
                         </nav>
                     </div>
                     <div className={styles.header_right}>

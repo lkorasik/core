@@ -26,7 +26,7 @@ public class UserServiceTest {
     private static PasswordEncoder passwordEncoder;
 
     /**
-     * Проблема, метод всегда выдает ложный ответ. Потому что поле id в аргументе findAllByLogin сравнивается с
+     * Проблема, метод всегда выдает ложный ответ. Потому что поле programId в аргументе findAllByLogin сравнивается с
      * аналогичным объектом из метода UserService по ссылке, а не через equals.
      *
      * Вырезка из лога:

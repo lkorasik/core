@@ -11,6 +11,9 @@ import ru.urfu.mm.domain.UserRole;
 
 import java.util.UUID;
 
+/**
+ * Зарегистрировать аккаунт администратора
+ */
 public class CreateAdministrator {
     private final TokenGateway tokenGateway;
     private final LoggerGateway loggerGateway;

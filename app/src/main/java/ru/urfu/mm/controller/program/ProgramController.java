@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.application.usecase.GetAllEducationalPrograms;
 import ru.urfu.mm.application.usecase.GetEducationalProgram;
+import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
+import ru.urfu.mm.application.usecase.get_program_for_student.ProgramForStudentResponse;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.domain.EducationalProgram;
 import ru.urfu.mm.service.ProgramService;
@@ -22,11 +24,13 @@ public class ProgramController extends AbstractAuthorizedController {
     private GetEducationalProgram getEducationalProgram;
     @Autowired
     private GetAllEducationalPrograms getAllEducationalPrograms;
+    @Autowired
+    private GetProgramForStudent getProgramForStudent;
 
     @GetMapping("/current")
     public ProgramInfoDTO current() {
-        EducationalProgram program = getEducationalProgram.getEducationalProgram(UUID.fromString(getUserToken()));
-        return new ProgramInfoDTO(program.getId(), program.getName());
+        ProgramForStudentResponse response = getProgramForStudent.getProgramForStudent(UUID.fromString(getUserToken()));
+        return ProgramInfoDTO.from(response);
     }
 
     @GetMapping
@@ -37,7 +41,9 @@ public class ProgramController extends AbstractAuthorizedController {
         for(var program: programs) {
             var dto = new ProgramInfoDTO(
                     program.getId(),
-                    program.getName()
+                    program.getName(),
+                    List.of(),
+                    List.of()
             );
 
             result.add(dto);

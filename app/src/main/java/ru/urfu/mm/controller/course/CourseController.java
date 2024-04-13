@@ -3,11 +3,15 @@ package ru.urfu.mm.controller.course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.application.usecase.*;
+import ru.urfu.mm.application.usecase.load_available_courses.AvailableModuleResponse;
+import ru.urfu.mm.application.usecase.load_available_courses.LoadAvailableCourses;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
+import ru.urfu.mm.domain.SemesterType;
 import ru.urfu.mm.domain.SpecialCourse;
 import ru.urfu.mm.entity.Control;
 import ru.urfu.mm.entity.Semester;
 import ru.urfu.mm.service.ModelConverterHelper;
+import ru.urfu.mm.service.mapper.Mapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +43,12 @@ public class CourseController extends AbstractAuthorizedController {
     private GetActualSpecialCoursesStatistics getActualSpecialCoursesStatistics;
     @Autowired
     private GetSpecialCourseStudentsCount getSpecialCourseStudentsCount;
+    @Autowired
+    private GetSelectedCoursesByStudentAndSemester getSelectedCoursesByStudentAndSemester;
+    @Autowired
+    private LoadAvailableCourses loadAvailableCourses;
+    @Autowired
+    private Mapper<SemesterType, ru.urfu.mm.entity.SemesterType> semesterTypeToEntityMapper;
 
     @PostMapping
     public List<CourseForProgramDTO> specialCourse(@RequestBody GetCoursesDTO getCoursesDTO) {
@@ -56,7 +66,8 @@ public class CourseController extends AbstractAuthorizedController {
                                 .map(y -> new Semester(
                                         y.getId(),
                                         y.getYear(),
-                                        y.getSemesterNumber()
+                                        y.getSemesterNumber(),
+                                        semesterTypeToEntityMapper.map(y.getType())
                                 ))
                                 .toList(),
                         x.getEducationalModuleId(),
@@ -115,7 +126,7 @@ public class CourseController extends AbstractAuthorizedController {
     }
 
     @GetMapping("/course")
-    public CourseDTO getCourseById(@RequestParam("courseId") UUID courseId) {
+    public CourseDTO getCourseById(@RequestParam("id") UUID courseId) {
         SpecialCourse course = getCourse.getCourse(courseId);
         return new CourseDTO(
                 course.getId(),
@@ -158,5 +169,24 @@ public class CourseController extends AbstractAuthorizedController {
                 editModuleCourseDTO.department(),
                 editModuleCourseDTO.teacherName()
         );
+    }
+
+    @GetMapping("/selectedCourseName")
+    public List<SelectedCourseNameDTO> getSelectedCourseNamesBySemester(@RequestBody GetSelectedCoursesBySemesterDTO dto) {
+        UUID studentId = UUID.fromString(getUserToken());
+        return getSelectedCoursesByStudentAndSemester
+                .getSelectedCoursesByStudentAndSemester(studentId, UUID.fromString(dto.semesterId()))
+                .stream()
+                .map(x -> new SelectedCourseNameDTO(
+                        x.getSpecialCourse().getName(),
+                        x.isRequiredCourse(),
+                        x.getSpecialCourse().getId())
+                )
+                .toList();
+    }
+
+    @GetMapping("/available")
+    public List<AvailableModuleResponse> loadAvailableCourses() {
+        return loadAvailableCourses.loadAvailableCourses(UUID.fromString(getUserToken()));
     }
 }

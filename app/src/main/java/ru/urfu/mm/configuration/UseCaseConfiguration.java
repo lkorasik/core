@@ -6,6 +6,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.urfu.mm.application.gateway.*;
 import ru.urfu.mm.application.usecase.*;
+import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
+import ru.urfu.mm.application.usecase.load_available_courses.LoadAvailableCourses;
+import ru.urfu.mm.application.usecase.loginuser.LoginUser;
 
 @Configuration
 public class UseCaseConfiguration {
@@ -61,6 +64,7 @@ public class UseCaseConfiguration {
             StudentGateway studentGateway) {
         return new GetCoursesByEducationalProgramAndSemesters(courseGateway, studentGateway);
     }
+
     @Bean
     public SelectCourses selectCourses(
             CourseGateway courseGateway,
@@ -127,7 +131,7 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public GetEducationalProgram getEducationalProgram(ProgramGateway programGateway, StudentGateway studentGateway){
+    public GetEducationalProgram getEducationalProgram(ProgramGateway programGateway, StudentGateway studentGateway) {
         return new GetEducationalProgram(programGateway, studentGateway);
     }
 
@@ -164,8 +168,29 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public GetSkills getSkills(SkillGateway skillGateway){
+    public GetSkills getSkills(SkillGateway skillGateway) {
         return new GetSkills(skillGateway);
+    }
+
+    @Bean
+    public GetSelectedCoursesByStudentAndSemester getSelectedCoursesByStudentAndSemester(
+            CourseGateway courseGateway,
+            StudentGateway studentGateway) {
+        return new GetSelectedCoursesByStudentAndSemester(courseGateway, studentGateway);
+    }
+
+    @Bean
+    public GetProgramForStudent getProgramForStudent(
+            StudentGateway studentGateway,
+            ProgramGateway programGateway,
+            SemesterGateway semesterGateway,
+            CourseGateway courseGateway) {
+        return new GetProgramForStudent(studentGateway, programGateway, semesterGateway, courseGateway);
+    }
+
+    @Bean
+    public LoadAvailableCourses loadAvailableCourses(StudentGateway studentGateway, CourseGateway courseGateway) {
+        return new LoadAvailableCourses(studentGateway, courseGateway);
     }
 
     @Bean
