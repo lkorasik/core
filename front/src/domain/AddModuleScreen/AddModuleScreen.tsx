@@ -9,6 +9,7 @@ import Select, {MultiValue} from "react-select";
 import {Link} from "react-router-dom";
 import {MODULE_COURSES_SCREEN_URL, MODULES_SCREEN_URL} from "../App/App";
 import { CloseButton } from "../../base_components/CrudButtons/CloseButton/CloseButton";
+import { Title } from "../../base_components/Title/Title";
 
 interface State {
     specialCoursesForDisplay: SpecialCourse[];
@@ -72,9 +73,7 @@ class AddModuleScreenClear extends React.Component<Props, State> {
         return (
             <>
                 <div id={styles.container}>
-                    <div className={styles.fontHeader1}>
-                        Добавить модуль
-                    </div>
+                    <Title>Добавить модуль</Title>
                     <div id={styles.helperButtons}>
                         <Link className={styles.linkOverride} to={MODULES_SCREEN_URL}>
                             <button className={styles.saveButton} onClick={() => this.createEducationalModule()}>

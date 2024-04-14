@@ -7,6 +7,7 @@ import {Link} from "react-router-dom";
 import {MODULE_COURSES_SCREEN_URL} from "../App/App";
 import {Control} from "../../apis/api/Control";
 import { CloseButton } from "../../base_components/CrudButtons/CloseButton/CloseButton";
+import { Title } from "../../base_components/Title/Title";
 
 interface State {
     educationalModuleId: string;
@@ -88,9 +89,7 @@ class AddModuleCourseScreenClear extends React.Component<Props, State> {
         return (
             <>
                 <div id={styles.container}>
-                    <div className={styles.fontHeader1}>
-                        Добавить курс
-                    </div>
+                    <Title>Добавить курс</Title>
                     <div id={styles.helperButtons}>
                         <Link className={styles.linkOverride}
                               to={MODULE_COURSES_SCREEN_URL + this.state.educationalModuleId}>

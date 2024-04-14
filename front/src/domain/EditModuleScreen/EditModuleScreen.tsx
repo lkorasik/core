@@ -7,6 +7,7 @@ import Select, {MultiValue} from "react-select";
 import {Link} from "react-router-dom";
 import {MODULES_SCREEN_URL} from "../App/App";
 import {ModuleDto} from "../../apis/api/modules/ModuleDto";
+import { Title } from "../../base_components/Title/Title";
 
 interface State {
     specialCoursesForDisplay: SpecialCourse[];
@@ -82,9 +83,7 @@ class EditModuleScreenClear extends React.Component<Props, State> {
         return (
             <>
                 <div className={styles.container}>
-                    <div className={styles.fontHeader1}>
-                        Добавить модуль
-                    </div>
+                    <Title>Добавить модуль</Title>
                     <div>
                         <label className={styles.label}>
                             Название Модуля <span className={styles.required}>*</span>

@@ -12,6 +12,7 @@ import {MODULES_SCREEN_URL} from "../App/App";
 import { CloseButton } from "../../base_components/CrudButtons/CloseButton/CloseButton";
 import { EditButton } from "../../base_components/CrudButtons/EditButton/EditButton";
 import { DeleteButton } from "../../base_components/CrudButtons/DeleteButton/DeleteButton";
+import { Title } from "../../base_components/Title/Title";
 
 interface State {
     module?: ModuleDto;
@@ -61,9 +62,7 @@ class ModuleScreenClear extends React.Component<Props, State> {
         return (
             <>
                 <div className={styles.container}>
-                    <div className={styles.fontHeader1}>
-                        Модуль: {this.state.selectedModuleName}
-                    </div>
+                    <Title>{"Модуль: " + this.state.selectedModuleName}</Title>
                     <div className={styles.helperButtons}>
                         <EditButton to={MODULES_SCREEN_URL} />
                         <DeleteButton 

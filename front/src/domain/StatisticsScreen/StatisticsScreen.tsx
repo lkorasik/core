@@ -5,6 +5,7 @@ import React from "react";
 import {CourseStatistics} from "../../apis/api/course/CourseStatistics";
 import {ObjectInList} from "../../base_components/ObjectList/ObjectList";
 import {ObjectListGrid} from "../../base_components/ObjectList/ObjectListGrid";
+import { Title } from "../../base_components/Title/Title";
 
 interface State {
     coursesStatistics: CourseStatistics[];
@@ -50,9 +51,7 @@ class CoursesStatisticsScreenClear extends React.Component<Props, State> {
         return (
             <>
                 <div className={styles.container}>
-                    <div className={styles.fontHeader1}>
-                        Количество студентов на спецкурсах
-                    </div>
+                    <Title>Количество студентов на спецкурсах</Title>
                     <div className={styles.spanContainer}>
                         <span className={styles.leftSpan}>Название спецкурса</span>
                         <span className={styles.rightSpan}>Количество студентов</span>

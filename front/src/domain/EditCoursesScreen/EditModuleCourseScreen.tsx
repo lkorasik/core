@@ -6,6 +6,7 @@ import {RootState} from "../../index";
 import {Link} from "react-router-dom";
 import {COURSES_SCREEN_URL} from "../App/App";
 import {Control} from "../../apis/api/Control";
+import { Title } from "../../base_components/Title/Title";
 
 interface State {
     specialCourseId: string;
@@ -96,9 +97,7 @@ class EditModuleCourseScreenClear extends React.Component<Props, State> {
         return (
             <>
                 <div className={styles.container}>
-                    <div className={styles.fontHeader1}>
-                        Редактировать курс
-                    </div>
+                    <Title>Редактировать курс</Title>
                     <div className={styles.helperButtons}>
                         <Link className={styles.linkOverride}
                               to={COURSES_SCREEN_URL + this.state.specialCourseId}>

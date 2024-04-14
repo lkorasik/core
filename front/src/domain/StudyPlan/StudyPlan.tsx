@@ -8,6 +8,7 @@ import { useApis } from "../../apis/ApiBase/ApiProvider";
 import { SpecialCourse } from "../../apis/api/course/SpecialCourse";
 import { ModuleDto } from "../../apis/api/modules/ModuleDto";
 import { GetSelectedCourseNamesBySemesterRequest } from "../../apis/api/course/GetSelectedCourseNamesBySemesterRequest";
+import { Title } from "../../base_components/Title/Title";
 
 interface Props {}
 
@@ -478,9 +479,7 @@ export function StudyPlan(props: Props) {
         <>
             {showDialog && renderDialog()}
             <div id={styles.container}>
-                <div className={styles.fontHeader1}>
-                    {educationalProgramName}
-                </div>
+                <Title>{educationalProgramName}</Title>
                 <div>
                     <label className={styles.label}>
                         Количество з.е. за спецкурсы:

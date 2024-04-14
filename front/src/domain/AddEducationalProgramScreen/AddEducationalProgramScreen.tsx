@@ -8,6 +8,7 @@ import { useApis } from "../../apis/ApiBase/ApiProvider";
 import { SpecialCourse } from "../../apis/api/course/SpecialCourse";
 import { ModuleDto } from "../../apis/api/modules/ModuleDto";
 import { CloseButton } from "../../base_components/CrudButtons/CloseButton/CloseButton";
+import { Title } from "../../base_components/Title/Title";
 
 interface Props {}
 
@@ -584,9 +585,7 @@ export function AddEducationalProgramScreen(props: Props) {
         <>
             {showDialog && renderDialog()}
             <div id={styles.container}>
-                <div className={styles.fontHeader1}>
-                    Добавить образовательную программу
-                </div>
+                <Title>Добавить образовательную программу</Title>
                 <div id={styles.helperButtons}>
                     <Link className={styles.linkOverride} to={EDUCATIONAL_PROGRAM_SCREEN_URL}>
                         <button className={styles.saveButton} onClick={(e) => {

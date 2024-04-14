@@ -10,6 +10,7 @@ import {Control} from "../../apis/api/Control";
 import { CloseButton } from "../../base_components/CrudButtons/CloseButton/CloseButton";
 import { EditButton } from "../../base_components/CrudButtons/EditButton/EditButton";
 import { DeleteButton } from "../../base_components/CrudButtons/DeleteButton/DeleteButton";
+import { Title } from "../../base_components/Title/Title";
 
 interface State {
     courseId: string;
@@ -40,12 +41,19 @@ class CourseScreenClear extends React.Component<Props, State> {
 
     public render() {
         this.componentDidMount()
+
+        const renderTitle = () => {
+            if (this.state.courseModel?.name) {
+                return this.state.courseModel?.name!;
+            } else {
+                return "";
+            }
+        }
+
         return (
             <>
                 <div id={styles.container}>
-                    <div className={styles.fontHeader1}>
-                        Курс: {this.state.courseModel?.name}
-                    </div>
+                    <Title>{"Курс: " + renderTitle()}</Title>
                     <div id={styles.helperButtons}>
                         <EditButton to={EDIT_MODULE_COURSES_SCREEN_URL + this.state.courseId} />
                         <DeleteButton 

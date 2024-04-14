@@ -7,6 +7,7 @@ import { AvailableCourseDTO } from "../../apis/api/course/AvailableCourseDTO";
 import { AvailableModuleDTO } from "../../apis/api/course/AvailableModuleDTO";
 import { addAbortSignal } from "stream";
 import { Button } from "../../base_components/Button/Button";
+import { Title } from "../../base_components/Title/Title";
 
 interface Props {}
 
@@ -47,9 +48,7 @@ export function ModuleList(props: Props) {
         return (
             <>
                 <div className={styles.headerContainer}>
-                    <div className={styles.fontHeader1}>
-                        Модуль: {module.name}
-                    </div>
+                    <Title>{"Модуль: " + module.name}</Title>
                     <Button className={styles.button}>
                         Выбрать
                     </Button>
