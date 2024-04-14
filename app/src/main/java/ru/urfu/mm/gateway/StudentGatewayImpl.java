@@ -26,7 +26,6 @@ public class StudentGatewayImpl implements StudentGateway {
         ru.urfu.mm.entity.Student student1 = new ru.urfu.mm.entity.Student(
                 student.getLogin(),
                 parse(student.getEducationalProgram()),
-                student.getGroup(),
                 parse(student.getUser())
         );
         studentRepository.save(student1);
@@ -44,7 +43,7 @@ public class StudentGatewayImpl implements StudentGateway {
                                 x.getEducationalProgram().getTrainingDirection(),
                                 x.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
                         ),
-                        x.getGroup(),
+                        x.getGroup().getNumber(),
                         new ru.urfu.mm.domain.User(
                                 x.getUser().getLogin(),
                                 x.getUser().getPassword(),

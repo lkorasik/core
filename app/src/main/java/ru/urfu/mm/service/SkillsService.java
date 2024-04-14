@@ -26,7 +26,6 @@ public class SkillsService {
                                         x.getStudent().getEducationalProgram().getTrainingDirection(),
                                         x.getStudent().getEducationalProgram().getSemesterIdToRequiredCreditsCount()
                                 ),
-                                x.getStudent().getGroup(),
                                 new User(
                                         x.getStudent().getUser().getLogin(),
                                         x.getStudent().getUser().getPassword(),

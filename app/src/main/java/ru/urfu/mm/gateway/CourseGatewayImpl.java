@@ -94,7 +94,7 @@ public class CourseGatewayImpl implements CourseGateway {
                                         x.getStudent().getEducationalProgram().getTrainingDirection(),
                                         x.getStudent().getEducationalProgram().getSemesterIdToRequiredCreditsCount()
                                 ),
-                                x.getStudent().getGroup(),
+                                x.getStudent().getGroup().getNumber(),
                                 new User(
                                         x.getStudent().getUser().getLogin(),
                                         x.getStudent().getUser().getPassword(),
@@ -311,7 +311,6 @@ public class CourseGatewayImpl implements CourseGateway {
                                                         x.getStudent().getEducationalProgram().getTrainingDirection(),
                                                         x.getStudent().getEducationalProgram().getSemesterIdToRequiredCreditsCount()
                                                 ),
-                                                x.getStudent().getGroup(),
                                                 new ru.urfu.mm.entity.User(
                                                         x.getStudent().getUser().getLogin(),
                                                         x.getStudent().getUser().getPassword(),

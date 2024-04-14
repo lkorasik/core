@@ -55,7 +55,7 @@ public class SkillGatewayImpl implements SkillGateway {
                                         x.getStudent().getEducationalProgram().getTrainingDirection(),
                                         x.getStudent().getEducationalProgram().getSemesterIdToRequiredCreditsCount()
                                 ),
-                                x.getStudent().getGroup(),
+                                x.getStudent().getGroup().getNumber(),
                                 new User(
                                         x.getStudent().getUser().getLogin(),
                                         x.getStudent().getUser().getPassword(),
@@ -86,7 +86,7 @@ public class SkillGatewayImpl implements SkillGateway {
                                         x.getStudent().getEducationalProgram().getTrainingDirection(),
                                         x.getStudent().getEducationalProgram().getSemesterIdToRequiredCreditsCount()
                                 ),
-                                x.getStudent().getGroup(),
+                                x.getStudent().getGroup().getNumber(),
                                 new User(
                                         x.getStudent().getUser().getLogin(),
                                         x.getStudent().getUser().getPassword(),
@@ -141,7 +141,6 @@ public class SkillGatewayImpl implements SkillGateway {
                                                         student.getEducationalProgram().getTrainingDirection(),
                                                         student.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
                                                 ),
-                                                student.getGroup(),
                                                 new ru.urfu.mm.entity.User(
                                                         student.getUser().getLogin(),
                                                         student.getUser().getPassword(),
@@ -174,7 +173,6 @@ public class SkillGatewayImpl implements SkillGateway {
                                                         student.getEducationalProgram().getTrainingDirection(),
                                                         student.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
                                                 ),
-                                                student.getGroup(),
                                                 new ru.urfu.mm.entity.User(
                                                         student.getUser().getLogin(),
                                                         student.getUser().getPassword(),

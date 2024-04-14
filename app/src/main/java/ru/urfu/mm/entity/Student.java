@@ -12,11 +12,20 @@ public class Student {
     @ManyToOne
     @JoinColumn(name = "educational_program_id")
     private EducationalProgram educationalProgram;
-    @Column(name = "`group`")
-    private String group;
     @OneToOne
     @JoinColumn(name = "users_login")
     private User user;
+    @ManyToOne
+    @JoinColumn(name = "groups_id")
+    private Group group;
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
 
     public EducationalProgram getEducationalProgram() {
         return educationalProgram;
@@ -29,19 +38,14 @@ public class Student {
     public Student() {
     }
 
-    public Student(UUID login, EducationalProgram educationalProgram, String group, User user) {
+    public Student(UUID login, EducationalProgram educationalProgram, User user) {
         this.login = login;
         this.educationalProgram = educationalProgram;
-        this.group = group;
         this.user = user;
     }
 
     public UUID getLogin() {
         return login;
-    }
-
-    public String getGroup() {
-        return group;
     }
 
     public User getUser() {
