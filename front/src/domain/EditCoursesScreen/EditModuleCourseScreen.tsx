@@ -46,7 +46,7 @@ class EditModuleCourseScreenClear extends React.Component<Props, State> {
             department: specialCourse.department ? specialCourse.department : "",
             teacherName: specialCourse.teacherName ? specialCourse.teacherName : "",
             creditsCount: specialCourse.creditsCount,
-            controlType: specialCourse.control,
+            controlType: specialCourse.controlTypes,
             courseDescription: specialCourse.description
         });
     }
@@ -183,7 +183,7 @@ class EditModuleCourseScreenClear extends React.Component<Props, State> {
             department: this.state.department,
             teacherName: this.state.teacherName,
             creditsCount: this.state.creditsCount,
-            control: this.state.controlType,
+            controlTypes: this.state.controlType,
             courseDescription: this.state.courseDescription,
         });
     }

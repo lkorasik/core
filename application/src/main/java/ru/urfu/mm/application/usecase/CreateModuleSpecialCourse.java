@@ -2,7 +2,7 @@ package ru.urfu.mm.application.usecase;
 
 import ru.urfu.mm.application.gateway.CourseGateway;
 import ru.urfu.mm.application.gateway.ModuleGateway;
-import ru.urfu.mm.domain.Control;
+import ru.urfu.mm.domain.ControlTypes;
 import ru.urfu.mm.domain.SpecialCourse;
 
 import java.util.UUID;
@@ -19,7 +19,7 @@ public class CreateModuleSpecialCourse {
     public void createModuleSpecialCourse(
             String courseName,
             int creditsCount,
-            Control control,
+            ControlTypes controlTypes,
             String courseDescription,
             UUID moduleId,
             String department,
@@ -28,7 +28,7 @@ public class CreateModuleSpecialCourse {
         var course = new SpecialCourse(
                 courseName,
                 creditsCount,
-                control,
+                controlTypes,
                 courseDescription,
                 department,
                 teacherName,

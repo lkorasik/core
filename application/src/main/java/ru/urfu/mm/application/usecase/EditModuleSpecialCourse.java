@@ -1,7 +1,7 @@
 package ru.urfu.mm.application.usecase;
 
 import ru.urfu.mm.application.gateway.CourseGateway;
-import ru.urfu.mm.domain.Control;
+import ru.urfu.mm.domain.ControlTypes;
 
 import java.util.UUID;
 
@@ -16,7 +16,7 @@ public class EditModuleSpecialCourse {
             UUID courseId,
             String courseName,
             int creditsCount,
-            Control control,
+            ControlTypes controlTypes,
             String courseDescription,
             String department,
             String teacherName) {
@@ -26,7 +26,7 @@ public class EditModuleSpecialCourse {
             oldCourseValue.setName(courseName);
             oldCourseValue.setDepartment(department);
             oldCourseValue.setTeacherName(teacherName);
-            oldCourseValue.setControl(control);
+            oldCourseValue.setControl(controlTypes);
             oldCourseValue.setCreditsCount(creditsCount);
             oldCourseValue.setDescription(courseDescription);
 

@@ -8,7 +8,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.urfu.mm.application.gateway.CourseGateway;
 import ru.urfu.mm.application.usecase.GetAllCourses;
-import ru.urfu.mm.domain.Control;
+import ru.urfu.mm.domain.ControlTypes;
 import ru.urfu.mm.domain.Module;
 import ru.urfu.mm.domain.SpecialCourse;
 
@@ -30,16 +30,16 @@ public class GetAllCoursesTest {
         );
 
         List<SpecialCourse> specialCourses = List.of(
-                new SpecialCourse(UUID.randomUUID(), "C1", 3, Control.TEST, "C1", "D1", "T1", modules.get(0)),
-                new SpecialCourse(UUID.randomUUID(), "C2", 3, Control.TEST, "C2", "D2", "T2", modules.get(0)),
-                new SpecialCourse(UUID.randomUUID(), "C3", 3, Control.TEST, "C3", "D3", "T3", modules.get(1)),
-                new SpecialCourse(UUID.randomUUID(), "C4", 3, Control.TEST, "C4", "D4", "T4", modules.get(1)),
-                new SpecialCourse(UUID.randomUUID(), "C5", 3, Control.TEST, "C5", "D5", "T5", modules.get(2)),
-                new SpecialCourse(UUID.randomUUID(), "C6", 3, Control.TEST, "C6", "D6", "T6", modules.get(2)),
-                new SpecialCourse(UUID.randomUUID(), "C7", 3, Control.TEST, "C7", "D7", "T7", modules.get(3)),
-                new SpecialCourse(UUID.randomUUID(), "C8", 3, Control.TEST, "C8", "D8", "T8", modules.get(3)),
-                new SpecialCourse(UUID.randomUUID(), "C9", 3, Control.TEST, "C9", "D9", "T9", modules.get(3)),
-                new SpecialCourse(UUID.randomUUID(), "C10", 3, Control.TEST, "C10", "D10", "T10", modules.get(3))
+                new SpecialCourse(UUID.randomUUID(), "C1", 3, ControlTypes.TEST, "C1", "D1", "T1", modules.get(0)),
+                new SpecialCourse(UUID.randomUUID(), "C2", 3, ControlTypes.TEST, "C2", "D2", "T2", modules.get(0)),
+                new SpecialCourse(UUID.randomUUID(), "C3", 3, ControlTypes.TEST, "C3", "D3", "T3", modules.get(1)),
+                new SpecialCourse(UUID.randomUUID(), "C4", 3, ControlTypes.TEST, "C4", "D4", "T4", modules.get(1)),
+                new SpecialCourse(UUID.randomUUID(), "C5", 3, ControlTypes.TEST, "C5", "D5", "T5", modules.get(2)),
+                new SpecialCourse(UUID.randomUUID(), "C6", 3, ControlTypes.TEST, "C6", "D6", "T6", modules.get(2)),
+                new SpecialCourse(UUID.randomUUID(), "C7", 3, ControlTypes.TEST, "C7", "D7", "T7", modules.get(3)),
+                new SpecialCourse(UUID.randomUUID(), "C8", 3, ControlTypes.TEST, "C8", "D8", "T8", modules.get(3)),
+                new SpecialCourse(UUID.randomUUID(), "C9", 3, ControlTypes.TEST, "C9", "D9", "T9", modules.get(3)),
+                new SpecialCourse(UUID.randomUUID(), "C10", 3, ControlTypes.TEST, "C10", "D10", "T10", modules.get(3))
         );
 
         Mockito.when(courseGateway.getAllCourses()).thenReturn(specialCourses);

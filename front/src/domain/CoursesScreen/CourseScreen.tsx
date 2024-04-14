@@ -94,7 +94,7 @@ class CourseScreenClear extends React.Component<Props, State> {
                         </label>
                         <br/>
                         <span className={styles.input}>
-                            {this.state.courseModel?.control == Control.Test ? "Зачет" : "Экзамен"}
+                            {this.state.courseModel?.controlTypes == Control.Test ? "Зачет" : "Экзамен"}
                         </span>
                     </div>
                     <div>

@@ -2,6 +2,9 @@ package ru.urfu.mm.domain;
 
 import java.util.UUID;
 
+/**
+ * Курс и преобритаемый скиллы
+ */
 public class CourseToResultSkills {
     private UUID id;
     private SpecialCourse specialCourse;

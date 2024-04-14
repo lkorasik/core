@@ -202,13 +202,13 @@ class CourseCardClear extends React.Component<ExtendedProps, State> {
             throw new Error("Should never happen");
         }
 
-        switch (this.props.specialCourse.control) {
+        switch (this.props.specialCourse.controlTypes) {
             case Control.Test:
                 return "ЗАЧЕТ";
             case Control.Exam:
                 return "ЭКЗАМЕН";
             default:
-                throw new Error(`Unknown control type: ${this.props.specialCourse.control}`)
+                throw new Error(`Unknown controlTypes type: ${this.props.specialCourse.controlTypes}`)
         }
     }
 

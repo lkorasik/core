@@ -2,6 +2,9 @@ package ru.urfu.mm.domain;
 
 import java.util.UUID;
 
+/**
+ * Курс и соотвествующий набор скиллов
+ */
 public class CourseToRequiredSkills {
     private UUID id;
     private SkillLevel skillLevel;

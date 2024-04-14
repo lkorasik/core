@@ -7,7 +7,7 @@ public class SpecialCourse {
     private UUID id;
     private String name;
     private int creditsCount;
-    private Control control;
+    private ControlTypes controlTypes;
     private String description;
     private String department;
     private String teacherName;
@@ -16,21 +16,21 @@ public class SpecialCourse {
     public SpecialCourse() {
     }
 
-    public SpecialCourse(UUID id, String name, int creditsCount, Control control, String description, String department, String teacherName, Module module) {
+    public SpecialCourse(UUID id, String name, int creditsCount, ControlTypes controlTypes, String description, String department, String teacherName, Module module) {
         this.id = id;
         this.name = name;
         this.creditsCount = creditsCount;
-        this.control = control;
+        this.controlTypes = controlTypes;
         this.description = description;
         this.department = department;
         this.teacherName = teacherName;
         this.module = module;
     }
 
-    public SpecialCourse(String name, int creditsCount, Control control, String description, String department, String teacherName, Module module) {
+    public SpecialCourse(String name, int creditsCount, ControlTypes controlTypes, String description, String department, String teacherName, Module module) {
         this.name = name;
         this.creditsCount = creditsCount;
-        this.control = control;
+        this.controlTypes = controlTypes;
         this.description = description;
         this.department = department;
         this.teacherName = teacherName;
@@ -49,8 +49,8 @@ public class SpecialCourse {
         return creditsCount;
     }
 
-    public Control getControl() {
-        return control;
+    public ControlTypes getControl() {
+        return controlTypes;
     }
 
     public String getDescription() {
@@ -81,8 +81,8 @@ public class SpecialCourse {
         this.creditsCount = creditsCount;
     }
 
-    public void setControl(Control control) {
-        this.control = control;
+    public void setControl(ControlTypes controlTypes) {
+        this.controlTypes = controlTypes;
     }
 
     public void setDescription(String description) {
@@ -105,13 +105,13 @@ public class SpecialCourse {
             return false;
         SpecialCourse that = (SpecialCourse) obj;
         return creditsCount == that.creditsCount && Objects.equals(id, that.id) && Objects.equals(name, that.name) &&
-               control == that.control && Objects.equals(description, that.description) &&
+               controlTypes == that.controlTypes && Objects.equals(description, that.description) &&
                Objects.equals(department, that.department) && Objects.equals(teacherName, that.teacherName) &&
                Objects.equals(module, that.module);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, creditsCount, control, description, department, teacherName, module);
+        return Objects.hash(id, name, creditsCount, controlTypes, description, department, teacherName, module);
     }
 }

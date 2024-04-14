@@ -6,6 +6,7 @@ import ru.urfu.mm.application.usecase.*;
 import ru.urfu.mm.application.usecase.load_available_courses.AvailableModuleResponse;
 import ru.urfu.mm.application.usecase.load_available_courses.LoadAvailableCourses;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
+import ru.urfu.mm.domain.ControlTypes;
 import ru.urfu.mm.domain.SemesterType;
 import ru.urfu.mm.domain.SpecialCourse;
 import ru.urfu.mm.entity.Control;
@@ -145,7 +146,7 @@ public class CourseController extends AbstractAuthorizedController {
         createModuleSpecialCourse.createModuleSpecialCourse(
                 createModuleCourseDTO.courseName(),
                 createModuleCourseDTO.creditsCount(),
-                ru.urfu.mm.domain.Control.values()[createModuleCourseDTO.controlType().ordinal()],
+                ControlTypes.values()[createModuleCourseDTO.controlType().ordinal()],
                 createModuleCourseDTO.courseDescription(),
                 createModuleCourseDTO.moduleId(),
                 createModuleCourseDTO.department(),
@@ -164,7 +165,7 @@ public class CourseController extends AbstractAuthorizedController {
                 editModuleCourseDTO.courseId(),
                 editModuleCourseDTO.courseName(),
                 editModuleCourseDTO.creditsCount(),
-                ru.urfu.mm.domain.Control.values()[editModuleCourseDTO.control().ordinal()],
+                ControlTypes.values()[editModuleCourseDTO.control().ordinal()],
                 editModuleCourseDTO.courseDescription(),
                 editModuleCourseDTO.department(),
                 editModuleCourseDTO.teacherName()

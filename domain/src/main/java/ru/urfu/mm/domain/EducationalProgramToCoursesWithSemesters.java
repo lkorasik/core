@@ -2,6 +2,9 @@ package ru.urfu.mm.domain;
 
 import java.util.UUID;
 
+/**
+ * Образовательная программа с курсами и семестрами.
+ */
 public class EducationalProgramToCoursesWithSemesters {
     private UUID id;
     private Program program;

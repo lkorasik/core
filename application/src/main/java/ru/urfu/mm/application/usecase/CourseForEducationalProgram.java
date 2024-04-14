@@ -1,6 +1,6 @@
 package ru.urfu.mm.application.usecase;
 
-import ru.urfu.mm.domain.Control;
+import ru.urfu.mm.domain.ControlTypes;
 import ru.urfu.mm.domain.Semester;
 
 import java.util.List;
@@ -10,7 +10,7 @@ public class CourseForEducationalProgram {
     private UUID id;
     private String name;
     private int creditsCount;
-    private Control control;
+    private ControlTypes controlTypes;
     private String description;
     private List<Semester> semesters;
     private UUID educationalModuleId;
@@ -21,11 +21,11 @@ public class CourseForEducationalProgram {
     /// </summary>
     public UUID requiredSemesterId;
 
-    public CourseForEducationalProgram(UUID id, String name, int creditsCount, Control control, String description, List<Semester> semesters, UUID educationalModuleId, UUID requiredSemesterId) {
+    public CourseForEducationalProgram(UUID id, String name, int creditsCount, ControlTypes controlTypes, String description, List<Semester> semesters, UUID educationalModuleId, UUID requiredSemesterId) {
         this.id = id;
         this.name = name;
         this.creditsCount = creditsCount;
-        this.control = control;
+        this.controlTypes = controlTypes;
         this.description = description;
         this.semesters = semesters;
         this.educationalModuleId = educationalModuleId;
@@ -44,8 +44,8 @@ public class CourseForEducationalProgram {
         return creditsCount;
     }
 
-    public Control getControl() {
-        return control;
+    public ControlTypes getControl() {
+        return controlTypes;
     }
 
     public String getDescription() {

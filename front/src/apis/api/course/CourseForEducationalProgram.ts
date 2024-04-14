@@ -5,7 +5,7 @@ export interface CourseForEducationalProgram {
     id: string;
     name: string;
     creditsCount: number;
-    control: Control;
+    controlTypes: Control;
     description: string;
     semesters: SemesterDto[];
     moduleId: string | null;

@@ -1,13 +1,16 @@
 package ru.urfu.mm.domain;
 
-public enum Control {
+/**
+ * Тип итоговой проверки знаний.
+ */
+public enum ControlTypes {
     TEST("Test", "Зачет"),
     EXAM("Exam", "Экзамен");
 
     private String value;
     private String documentaryValue;
 
-    Control(String value, String documentaryValue) {
+    ControlTypes(String value, String documentaryValue) {
         this.value = value;
         this.documentaryValue = documentaryValue;
     }
