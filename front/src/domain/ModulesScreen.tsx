@@ -18,7 +18,7 @@ export function ModulesScreen() {
             setModules(modules);
         }
         loadModules().catch(console.error);
-    })
+    }, [])
 
     const renderCard = (x: ModuleDto) => {
         return (

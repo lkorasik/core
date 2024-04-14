@@ -20,7 +20,7 @@ export function EducationalProgramScreen(props: Props) {
             setEducationalPrograms(educationalPrograms);
         }
         loadEducationalPrograms().catch(console.error);
-    })
+    }, []);
 
     const renderCard = (x: ShortProgramDTO) => {
         return (
