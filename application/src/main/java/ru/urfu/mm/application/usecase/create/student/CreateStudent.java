@@ -5,7 +5,7 @@ import ru.urfu.mm.application.usecase.create.DifferentPasswordException;
 import ru.urfu.mm.application.usecase.create.RegistrationTokenNotExistException;
 import ru.urfu.mm.application.usecase.create.TooShortPasswordException;
 import ru.urfu.mm.application.usecase.create.IncorrectUserRoleException;
-import ru.urfu.mm.domain.EducationalProgram;
+import ru.urfu.mm.domain.Program;
 import ru.urfu.mm.domain.Student;
 import ru.urfu.mm.domain.User;
 import ru.urfu.mm.domain.UserRole;
@@ -57,14 +57,14 @@ public class CreateStudent {
         ensurePasswordsSame(request.password(), request.passwordAgain());
         ensurePasswordStrongEnough(request.password());
 
-        EducationalProgram educationalProgram = programGateway
+        Program program = programGateway
                 .findById(request.programId())
                 .orElseThrow(() -> new EducationalProgramNotExistsException(request.programId()));
 
         User user = new User(request.token(), passwordGateway.encode(request.password()), role);
         userGateway.save(user);
 
-        Student student = new Student(request.token(), educationalProgram, request.group(), user);
+        Student student = new Student(request.token(), program, request.group(), user);
         studentGateway.save(student);
 
         tokenGateway.deleteToken(request.token());

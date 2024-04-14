@@ -10,7 +10,7 @@ import ru.urfu.mm.application.dsl.ProgramDSL;
 import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.application.usecase.getallprograms.GetAllPrograms;
 import ru.urfu.mm.application.usecase.getallprograms.ProgramResponse;
-import ru.urfu.mm.domain.EducationalProgram;
+import ru.urfu.mm.domain.Program;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public class GetAllProgramsTest {
      */
     @Test
     public void loadAvailablePrograms() {
-        List<EducationalProgram> programs = List.of(ProgramDSL.create(), ProgramDSL.create());
+        List<Program> programs = List.of(ProgramDSL.create(), ProgramDSL.create());
 
         Mockito.when(programGateway.getAll()).thenReturn(programs);
 
@@ -46,7 +46,7 @@ public class GetAllProgramsTest {
      */
     @Test
     public void loadAvailablePrograms_empty() {
-        List<EducationalProgram> programs = List.of();
+        List<Program> programs = List.of();
 
         Mockito.when(programGateway.getAll()).thenReturn(programs);
 

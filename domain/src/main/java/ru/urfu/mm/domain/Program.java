@@ -1,24 +1,38 @@
 package ru.urfu.mm.domain;
 
+import java.util.List;
 import java.util.UUID;
 
-public class EducationalProgram {
+/**
+ * Направление. Образовательная программа.
+ */
+public class Program {
+    /**
+     * Идентификатор направления
+     */
     private UUID id;
+    /**
+     * Название направления
+     */
     private String name;
     private String trainingDirection;
     private String semesterIdToRequiredCreditsCount;
+    /**
+     * Список студентов, которые учатся на данном направлении.
+     */
+    private List<Group> groups;
 
-    public EducationalProgram() {
+    public Program() {
     }
 
-    public EducationalProgram(UUID id, String name, String trainingDirection, String semesterIdToRequiredCreditsCount) {
+    public Program(UUID id, String name, String trainingDirection, String semesterIdToRequiredCreditsCount) {
         this.id = id;
         this.name = name;
         this.trainingDirection = trainingDirection;
         this.semesterIdToRequiredCreditsCount = semesterIdToRequiredCreditsCount;
     }
 
-    public EducationalProgram(String name, String trainingDirection, String semesterIdToRequiredCreditsCount) {
+    public Program(String name, String trainingDirection, String semesterIdToRequiredCreditsCount) {
         this.name = name;
         this.trainingDirection = trainingDirection;
         this.semesterIdToRequiredCreditsCount = semesterIdToRequiredCreditsCount;

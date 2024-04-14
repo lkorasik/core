@@ -4,24 +4,24 @@ import java.util.UUID;
 
 public class Student {
     private UUID login;
-    private EducationalProgram educationalProgram;
+    private Program program;
     private String group;
     private User user;
 
-    public EducationalProgram getEducationalProgram() {
-        return educationalProgram;
+    public Program getEducationalProgram() {
+        return program;
     }
 
-    public void setEducationalProgram(EducationalProgram educationalProgram) {
-        this.educationalProgram = educationalProgram;
+    public void setEducationalProgram(Program program) {
+        this.program = program;
     }
 
     public Student() {
     }
 
-    public Student(UUID login, EducationalProgram educationalProgram, String group, User user) {
+    public Student(UUID login, Program program, String group, User user) {
         this.login = login;
-        this.educationalProgram = educationalProgram;
+        this.program = program;
         this.group = group;
         this.user = user;
     }

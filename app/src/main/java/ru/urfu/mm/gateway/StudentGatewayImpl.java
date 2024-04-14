@@ -3,6 +3,7 @@ package ru.urfu.mm.gateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.StudentGateway;
+import ru.urfu.mm.domain.Program;
 import ru.urfu.mm.domain.Student;
 import ru.urfu.mm.entity.EducationalProgram;
 import ru.urfu.mm.entity.User;
@@ -37,7 +38,7 @@ public class StudentGatewayImpl implements StudentGateway {
                 .findByLogin(studentId)
                 .map(x -> new Student(
                         x.getLogin(),
-                        new ru.urfu.mm.domain.EducationalProgram(
+                        new Program(
                                 x.getEducationalProgram().getId(),
                                 x.getEducationalProgram().getName(),
                                 x.getEducationalProgram().getTrainingDirection(),
@@ -61,12 +62,12 @@ public class StudentGatewayImpl implements StudentGateway {
         );
     }
 
-    private EducationalProgram parse(ru.urfu.mm.domain.EducationalProgram educationalProgram) {
+    private EducationalProgram parse(Program program) {
         return new EducationalProgram(
-                educationalProgram.getId(),
-                educationalProgram.getName(),
-                educationalProgram.getTrainingDirection(),
-                educationalProgram.getSemesterIdToRequiredCreditsCount()
+                program.getId(),
+                program.getName(),
+                program.getTrainingDirection(),
+                program.getSemesterIdToRequiredCreditsCount()
         );
     }
 }

@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class EducationalProgramToCoursesWithSemesters {
     private UUID id;
-    private EducationalProgram educationalProgram;
+    private Program program;
     private Semester semester;
     private SpecialCourse specialCourse;
     private boolean isRequiredCourse;
@@ -12,16 +12,16 @@ public class EducationalProgramToCoursesWithSemesters {
     public EducationalProgramToCoursesWithSemesters() {
     }
 
-    public EducationalProgramToCoursesWithSemesters(UUID id, EducationalProgram educationalProgram, Semester semester, SpecialCourse specialCourse, boolean isRequiredCourse) {
+    public EducationalProgramToCoursesWithSemesters(UUID id, Program program, Semester semester, SpecialCourse specialCourse, boolean isRequiredCourse) {
         this.id = id;
-        this.educationalProgram = educationalProgram;
+        this.program = program;
         this.semester = semester;
         this.specialCourse = specialCourse;
         this.isRequiredCourse = isRequiredCourse;
     }
 
-    public EducationalProgramToCoursesWithSemesters(EducationalProgram educationalProgram, Semester semester, SpecialCourse specialCourse, boolean isRequiredCourse) {
-        this.educationalProgram = educationalProgram;
+    public EducationalProgramToCoursesWithSemesters(Program program, Semester semester, SpecialCourse specialCourse, boolean isRequiredCourse) {
+        this.program = program;
         this.semester = semester;
         this.specialCourse = specialCourse;
         this.isRequiredCourse = isRequiredCourse;
@@ -51,12 +51,12 @@ public class EducationalProgramToCoursesWithSemesters {
         this.semester = semester;
     }
 
-    public EducationalProgram getEducationalProgram() {
-        return educationalProgram;
+    public Program getEducationalProgram() {
+        return program;
     }
 
-    public void setEducationalProgram(EducationalProgram educationalProgram) {
-        this.educationalProgram = educationalProgram;
+    public void setEducationalProgram(Program program) {
+        this.program = program;
     }
 
 }

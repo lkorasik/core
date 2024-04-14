@@ -20,7 +20,7 @@ import {useNavigate} from "react-router-dom";
 
 // Old implementation
 export const ChooseCoursesScreen: FC = () => {
-    const [educationalProgram, setEducationalProgram] = useState<ProgramInfoDto | undefined>();
+    const [program, setEducationalProgram] = useState<ProgramInfoDto | undefined>();
     const [actualSemesters, setActualSemesters] = useState<SemesterDto[] | undefined>();
     const [selectedSemesterId, setSelectedSemesterId] = useState<string | undefined>();
     const [educationalModules, setEducationalModules] = useState<ModuleDto[]>([]);
@@ -89,10 +89,10 @@ export const ChooseCoursesScreen: FC = () => {
                 {renderHeader()}
                 <div className={styles.wrapper}>
                     <Flex className={styles.educationalProgramAndSemesterWrapper} direction={"row"}>
-                        {educationalProgram
+                        {program
                             ? (
                                 <Text className={styles.educationalProgramText} size={2} fontWeight={"bold"} align={"left"}>
-                                    {educationalProgram.name}
+                                    {program.name}
                                 </Text>
                             )
                             : <TextLoadingPlaceholder className={styles.educationalProgramText} />}

@@ -4,13 +4,13 @@ import ru.urfu.mm.application.gateway.CourseGateway;
 import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.application.gateway.SemesterGateway;
 import ru.urfu.mm.application.gateway.StudentGateway;
-import ru.urfu.mm.application.usecase.GetActualSemesters;
-import ru.urfu.mm.domain.EducationalProgramToCoursesWithSemesters;
-import ru.urfu.mm.domain.SelectedCourses;
 import ru.urfu.mm.domain.Semester;
 import ru.urfu.mm.domain.Student;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class GetProgramForStudent {
     private final StudentGateway studentGateway;

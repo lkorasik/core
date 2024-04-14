@@ -12,7 +12,7 @@ import ru.urfu.mm.application.usecase.create.RegistrationTokenNotExistException;
 import ru.urfu.mm.application.usecase.create.TooShortPasswordException;
 import ru.urfu.mm.application.usecase.create.student.*;
 import ru.urfu.mm.application.gateway.*;
-import ru.urfu.mm.domain.EducationalProgram;
+import ru.urfu.mm.domain.Program;
 import ru.urfu.mm.domain.UserRole;
 import ru.urfu.mm.application.usecase.create.IncorrectUserRoleException;
 
@@ -44,7 +44,7 @@ public class CreateStudentTest {
         UUID programId = UUID.randomUUID();
         String group = DSL.generateString();
 
-        EducationalProgram program = new EducationalProgram();
+        Program program = new Program();
 
         Mockito.when(tokenGateway.getRoleByToken(token)).thenReturn(Optional.of(UserRole.STUDENT));
         Mockito.when(programGateway.findById(programId)).thenReturn(Optional.of(program));
