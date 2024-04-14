@@ -1,5 +1,6 @@
 package ru.urfu.mm.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,4 +24,10 @@ public class Group {
      * Список студентов
      */
     private List<Student> students;
+
+    public Group(String number) {
+        this.number = number;
+        year = Years.FIRST;
+        students = new ArrayList<>();
+    }
 }
