@@ -6,6 +6,7 @@ import { Grid } from "../base_components/Grid/Grid";
 import { Link } from "react-router-dom";
 import { AddButton } from "../base_components/AddButton/AddButton";
 import { Title } from "../base_components/Title/Title";
+import { Container } from "../base_components/Container/Container";
 
 export function ModulesScreen() {
     const [modules, setModules] = useState<ModuleDto[]>([]);
@@ -33,11 +34,13 @@ export function ModulesScreen() {
 
     return (
         <>
-            <Title>Курсы и модули</Title>
-            <Grid cards={modules.map(x => renderCard(x))}/>
-            <Link to={"/administrator/module/add"}>
-                <AddButton />
-            </Link>
+            <Container>
+                <Title>Курсы и модули</Title>
+                <Grid cards={modules.map(x => renderCard(x))}/>
+                <Link to={"/administrator/module/add"}>
+                    <AddButton />
+                </Link>
+            </Container>
         </>
     )
 }

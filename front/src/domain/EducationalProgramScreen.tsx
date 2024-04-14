@@ -6,6 +6,7 @@ import { useApis } from "../apis/ApiBase/ApiProvider";
 import { useEffect, useState } from "react";
 import { ShortProgramDTO } from "../apis/api/programs/ShortProgramDTO";
 import { Title } from "../base_components/Title/Title";
+import { Container } from "../base_components/Container/Container";
 
 interface Props { }
 
@@ -35,11 +36,13 @@ export function EducationalProgramScreen(props: Props) {
 
     return (
         <>
-            <Title>Образовательные программы</Title>
-            <Grid cards={educationalPrograms.map(x => renderCard(x))}/>
-            <Link to={"/administrator/educational_program/add"}>
-                <AddButton />
-            </Link>
+            <Container>
+                <Title>Образовательные программы</Title>
+                <Grid cards={educationalPrograms.map(x => renderCard(x))}/>
+                <Link to={"/administrator/educational_program/add"}>
+                    <AddButton />
+                </Link>
+            </Container>
         </>
     )
 }
