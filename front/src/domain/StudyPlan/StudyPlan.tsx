@@ -1,14 +1,11 @@
-import { Link } from "react-router-dom";
 import styles from "./StudyPlan.module.css";
-import { EDUCATIONAL_PROGRAM_SCREEN_URL } from "../App/App";
 import { Flex } from "../../base_components/Flex/Flex";
 import { DialogModal } from "../DialogModal/DialogModal";
 import { useEffect, useState } from "react";
 import { useApis } from "../../apis/ApiBase/ApiProvider";
 import { SpecialCourse } from "../../apis/api/course/SpecialCourse";
-import { ModuleDto } from "../../apis/api/modules/ModuleDto";
-import { GetSelectedCourseNamesBySemesterRequest } from "../../apis/api/course/GetSelectedCourseNamesBySemesterRequest";
 import { Title } from "../../base_components/Title/Title";
+import { ProgramInfoDto } from "../../apis/api/programs/ProgramInfoDto";
 
 interface Props {}
 
@@ -18,6 +15,8 @@ interface Course {
 }
 
 export function StudyPlan(props: Props) {
+    const [program, setProgram] = useState<ProgramInfoDto>();
+
     const [selectedSemester, setSelectedSemester] = useState<number>();
     const [selectedBlock, setSelectedBlock] = useState<string>();
 
@@ -28,10 +27,6 @@ export function StudyPlan(props: Props) {
     const [showDialog, setShowDialog] = useState(false);
     const [dialogTitle, setDialogTitle] = useState("");
     const [courses, setCourses] = useState<SpecialCourse[]>();
-    const [modules, setModules] = useState<ModuleDto[]>();
-
-    const [educationalProgramName, setEducationalProgramName] = useState("");
-    const credits = [useState(0), useState(0), useState(0), useState(0)];
 
     const [selectedRequiredCourses1, setSelectedRequiredCourses1] = useState<Course[]>([]);
     const [selectedRequiredCourses2, setSelectedRequiredCourses2] = useState<Course[]>([]);
@@ -48,53 +43,19 @@ export function StudyPlan(props: Props) {
     const [selectedScienceWork3, setSelectedScienceWork3] = useState<Course[]>([]);
     const [selectedScienceWork4, setSelectedScienceWork4] = useState<Course[]>([]);
 
-    const [educationalProgramId, setEducationalProgramId] = useState<string>("");
-
-    const [disabled, setDisabled] = useState(false);
-
     const apis = useApis();
 
     useEffect(() => {
         const loadProgram = async () => {
             const current = await apis.educationalProgramsApi.getCurrentEducationalProgram();
-            setEducationalProgramId(current.id);
-            setEducationalProgramName(current.name);
+            setProgram(current)
 
-            for (let [index, value] of current.recommendedCredits.entries()) {
-                credits[index][1](value);
-            }
+            // for (let [index, value] of current.recommendedCredits.entries()) {
+            //     credits[index][1](value);
+            // }
         }
         loadProgram().catch(console.error);
     }, [apis.educationalProgramsApi])
-
-    const save = async () => {
-        const semester1 = {
-            requiredCourses: selectedRequiredCourses1.map(x => x.id),
-            specialCourses: selectedSpecialCourses1.map(x => x.id),
-            scienceWorks: selectedScienceWork1.map(x => x.id)
-        }
-        const semester2 = {
-            requiredCourses: selectedRequiredCourses2.map(x => x.id),
-            specialCourses: selectedSpecialCourses2.map(x => x.id),
-            scienceWorks: selectedScienceWork2.map(x => x.id)
-        }
-        const semester3 = {
-            requiredCourses: selectedRequiredCourses3.map(x => x.id),
-            specialCourses: selectedSpecialCourses3.map(x => x.id),
-            scienceWorks: selectedScienceWork3.map(x => x.id)
-        }
-        const semester4 = {
-            requiredCourses: selectedRequiredCourses4.map(x => x.id),
-            specialCourses: selectedSpecialCourses4.map(x => x.id),
-            scienceWorks: selectedScienceWork4.map(x => x.id)
-        }
-        const request = {
-            title: educationalProgramName,
-            recommendedCredits: credits.map(x => x[0]),
-            semesters: [semester1, semester2, semester3, semester4]
-        }
-        await apis.educationalProgramsApi.createEducationalProgramList(request)
-    }
 
     const check = (id: string, name: string, semesterNumber: number, selected: Course[], setSelected: React.Dispatch<React.SetStateAction<Course[]>>) => {
         console.log("Check: " + name);
@@ -451,25 +412,25 @@ export function StudyPlan(props: Props) {
                     <label className={styles.label}>
                         1 семестр:
                     </label>
-                    <input className={styles.input_points} type={"text"} required disabled value={credits[0][0]} />
+                    <input className={styles.input_points} type={"text"} required disabled value={program?.recommendedCredits[0]} />
                 </Flex>
                 <Flex direction={"row"}>
                     <label className={styles.label}>
                         2 семестр:
                     </label>
-                    <input className={styles.input_points} type={"text"} required disabled value={credits[1][0]}/>
+                    <input className={styles.input_points} type={"text"} required disabled value={program?.recommendedCredits[1]}/>
                 </Flex>
                 <Flex direction={"row"}>
                     <label className={styles.label}>
                         3 семестр:
                     </label>
-                    <input className={styles.input_points} type={"text"} required disabled value={credits[2][0]} />
+                    <input className={styles.input_points} type={"text"} required disabled value={program?.recommendedCredits[2]} />
                 </Flex>
                 <Flex direction={"row"}>
                     <label className={styles.label}>
                         4 семестр:
                     </label>
-                    <input className={styles.input_points} type={"text"} required disabled value={credits[3][0]}/>
+                    <input className={styles.input_points} type={"text"} required disabled value={program?.recommendedCredits[3]}/>
                 </Flex>
             </>
         )
@@ -479,7 +440,7 @@ export function StudyPlan(props: Props) {
         <>
             {showDialog && renderDialog()}
             <div id={styles.container}>
-                <Title>{educationalProgramName}</Title>
+                <Title>{program?.name!}</Title>
                 <div>
                     <label className={styles.label}>
                         Количество з.е. за спецкурсы:

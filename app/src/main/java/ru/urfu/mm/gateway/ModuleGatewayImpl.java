@@ -6,6 +6,7 @@ import ru.urfu.mm.domain.Module;
 import ru.urfu.mm.repository.EducationalModuleRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -23,6 +24,12 @@ public class ModuleGatewayImpl implements ModuleGateway {
                 entity.getId(),
                 entity.getName()
         );
+    }
+
+    @Override
+    public Optional<Module> getById(UUID moduleId) {
+        return educationalModuleRepository.findById(moduleId)
+                .map(x -> new ru.urfu.mm.domain.Module(x.getId(), x.getName()));
     }
 
     @Override

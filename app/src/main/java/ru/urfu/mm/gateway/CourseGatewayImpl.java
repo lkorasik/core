@@ -12,6 +12,7 @@ import ru.urfu.mm.service.mapper.Mapper;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 public class CourseGatewayImpl implements CourseGateway {
@@ -171,6 +172,44 @@ public class CourseGatewayImpl implements CourseGateway {
                 .distinct()
                 .toList()
                 .stream()
+                .map(x -> new EducationalProgramToCoursesWithSemesters(
+                        x.getId(),
+                        new EducationalProgram(
+                                x.getEducationalProgram().getId(),
+                                x.getEducationalProgram().getName(),
+                                x.getEducationalProgram().getTrainingDirection(),
+                                x.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                        ),
+                        new Semester(
+                                x.getSemester().getId(),
+                                x.getSemester().getYear(),
+                                x.getSemester().getSemesterNumber(),
+                                semesterTypeToDomainMapper.map(x.getSemester().getType())
+                        ),
+                        new SpecialCourse(
+                                x.getSpecialCourse().getId(),
+                                x.getSpecialCourse().getName(),
+                                x.getSpecialCourse().getCreditsCount(),
+                                Control.values()[x.getSpecialCourse().getControl().ordinal()],
+                                x.getSpecialCourse().getDescription(),
+                                x.getSpecialCourse().getDepartment(),
+                                x.getSpecialCourse().getTeacherName(),
+                                new Module(
+                                        x.getSpecialCourse().getEducationalModule().getId(),
+                                        x.getSpecialCourse().getEducationalModule().getName()
+                                )
+                        ),
+                        x.isRequiredCourse()
+                ))
+                .toList();
+    }
+
+    @Override
+    public List<EducationalProgramToCoursesWithSemesters> getEducationalProgramToCoursesWithSemesterByModule(UUID moduleId) {
+        return educationalProgramToCoursesWithSemestersRepository
+                .findAll()
+                .stream()
+                .filter(x -> x.getSpecialCourse().getEducationalModule().getId().equals(moduleId))
                 .map(x -> new EducationalProgramToCoursesWithSemesters(
                         x.getId(),
                         new EducationalProgram(

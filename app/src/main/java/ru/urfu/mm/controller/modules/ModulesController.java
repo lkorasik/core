@@ -6,8 +6,11 @@ import ru.urfu.mm.application.usecase.CreateModuleWithCourses;
 import ru.urfu.mm.application.usecase.DeleteModuleById;
 import ru.urfu.mm.application.usecase.getallmodules.GetAllModules;
 import ru.urfu.mm.application.usecase.GetModulesByIds;
+import ru.urfu.mm.application.usecase.getmodule.GetModuleWithCourses;
+import ru.urfu.mm.application.usecase.getmodule.ModuleWithCoursesResponse;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/modules")
@@ -20,6 +23,8 @@ public class ModulesController {
     private CreateModuleWithCourses createModuleWithCourses;
     @Autowired
     private DeleteModuleById deleteModuleById;
+    @Autowired
+    private GetModuleWithCourses getModuleWithCourses;
 
     @GetMapping("/all")
     public List<ModuleDTO> getAllModules() {
@@ -39,6 +44,16 @@ public class ModulesController {
                 .toList();
     }
 
+    @GetMapping("/module")
+    public ModuleWithCoursesDTO getModuleById(@RequestParam("id") String moduleId) {
+        ModuleWithCoursesResponse module = getModuleWithCourses.getModule(UUID.fromString(moduleId));
+        List<CourseDTO> courses = module.courses()
+                .stream()
+                .map(x -> new CourseDTO(x.id(), x.name()))
+                .toList();
+        return new ModuleWithCoursesDTO(module.id(), module.name(), courses);
+    }
+
     @PostMapping("/create")
     public void createModule(@RequestBody CreateModuleDTO createModuleDTO) {
         createModuleWithCourses.createModuleWithCourses(createModuleDTO.moduleName(), createModuleDTO.coursesIds());
@@ -46,6 +61,6 @@ public class ModulesController {
 
     @DeleteMapping("/delete")
     public void deleteModule(@RequestBody ModuleIdDTO moduleIdDTO) {
-        deleteModuleById.deleteModuleById(moduleIdDTO.educationalModuleId());
+        deleteModuleById.deleteModuleById(moduleIdDTO.id());
     }
 }

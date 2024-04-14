@@ -1,10 +1,7 @@
-import React from "react";
 import styles from "./AdministratorMainScreen.module.css";
 import {ActionBar} from "../../base_components/ActionBar/ActionBar";
 
-interface Props { }
-
-export const AdministratorMainScreen: React.FC<Props> = (props: Props) => {
+export function AdministratorMainScreen() {
     return (
         <div id="root" className={styles.mainPageContainer}>
             <ActionBar item={

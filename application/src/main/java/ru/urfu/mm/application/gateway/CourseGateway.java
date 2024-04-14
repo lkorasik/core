@@ -13,6 +13,7 @@ public interface CourseGateway {
     List<SelectedCourses> getSelectedCourses(UUID studentId);
     List<EducationalProgramToCoursesWithSemesters> getEducationalProgramToCoursesWithSemestersByEducationalProgram(UUID educationalProgramId);
     List<EducationalProgramToCoursesWithSemesters> getEducationalProgramToCoursesWithSemestersBySemesters(List<UUID> semestersIds);
+    List<EducationalProgramToCoursesWithSemesters> getEducationalProgramToCoursesWithSemesterByModule(UUID moduleId);
     List<UUID> getStudentBySelectedCourse(UUID courseId);
     List<EducationalProgramToCoursesWithSemesters> getRequiredCoursesForProgram(UUID programId);
     void deleteSelectedAllById(List<UUID> uuids);

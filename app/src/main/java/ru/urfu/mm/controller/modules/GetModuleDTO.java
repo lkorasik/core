@@ -2,6 +2,7 @@ package ru.urfu.mm.controller.modules;
 
 import java.util.UUID;
 
-public record ModuleIdDTO(
+public record GetModuleDTO(
         UUID id
-) { }
+) {
+}

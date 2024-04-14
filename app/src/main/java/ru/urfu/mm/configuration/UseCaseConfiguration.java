@@ -11,6 +11,7 @@ import ru.urfu.mm.application.usecase.create.student.CreateStudent;
 import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
 import ru.urfu.mm.application.usecase.getallmodules.GetAllModules;
 import ru.urfu.mm.application.usecase.getallprograms.GetAllPrograms;
+import ru.urfu.mm.application.usecase.getmodule.GetModuleWithCourses;
 import ru.urfu.mm.application.usecase.load_available_courses.LoadAvailableCourses;
 import ru.urfu.mm.application.usecase.loginuser.LoginUser;
 
@@ -195,6 +196,11 @@ public class UseCaseConfiguration {
     @Bean
     public LoadAvailableCourses loadAvailableCourses(StudentGateway studentGateway, CourseGateway courseGateway) {
         return new LoadAvailableCourses(studentGateway, courseGateway);
+    }
+
+    @Bean
+    public GetModuleWithCourses getModule(ModuleGateway moduleGateway, CourseGateway courseGateway) {
+        return new GetModuleWithCourses(moduleGateway, courseGateway);
     }
 
     @Bean

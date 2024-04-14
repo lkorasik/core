@@ -20,7 +20,7 @@ public class DeleteModuleById {
 
         for(var course: courses) {
             course.setEducationalModule(null);
-//            courseGateway.save(course);
+            courseGateway.save(course);
         }
         moduleGateway.delete(module);
     }

@@ -1,4 +1,4 @@
-package ru.urfu.mm.controller.authentication;
+package ru.urfu.mm.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -8,6 +8,7 @@ import ru.urfu.mm.application.usecase.create.IncorrectUserRoleException;
 import ru.urfu.mm.application.usecase.create.RegistrationTokenNotExistException;
 import ru.urfu.mm.application.usecase.create.TooShortPasswordException;
 import ru.urfu.mm.application.usecase.create.student.EducationalProgramNotExistsException;
+import ru.urfu.mm.application.usecase.getmodule.ModuleNotFoundException;
 import ru.urfu.mm.application.usecase.loginuser.InvalidCredentialsException;
 import ru.urfu.mm.controller.ExceptionDTO;
 
@@ -15,7 +16,8 @@ import ru.urfu.mm.controller.ExceptionDTO;
 public class ExceptionAdvice {
     @ExceptionHandler(value = {InvalidCredentialsException.class, TooShortPasswordException.class,
             RegistrationTokenNotExistException.class, IncorrectUserRoleException.class,
-            DifferentPasswordException.class, EducationalProgramNotExistsException.class})
+            DifferentPasswordException.class, EducationalProgramNotExistsException.class,
+            ModuleNotFoundException.class})
     public ResponseEntity<ExceptionDTO> invalidCredentialsException(RuntimeException exception) {
         return ResponseEntity.badRequest().body(new ExceptionDTO(exception.getMessage()));
     }
