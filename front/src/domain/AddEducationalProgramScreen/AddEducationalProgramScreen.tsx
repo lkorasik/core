@@ -9,6 +9,7 @@ import { SpecialCourse } from "../../apis/api/course/SpecialCourse";
 import { ModuleDto } from "../../apis/api/modules/ModuleDto";
 import { CloseButton } from "../../base_components/CrudButtons/CloseButton/CloseButton";
 import { Title } from "../../base_components/Title/Title";
+import { SaveButton } from "../../base_components/CrudButtons/SaveButton/SaveButton";
 
 interface Props {}
 

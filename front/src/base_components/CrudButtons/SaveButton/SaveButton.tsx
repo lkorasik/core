@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import styles from "./EditButton.module.css";
+import styles from "./SaveButton.module.css";
 
 interface Props {
     to: string;

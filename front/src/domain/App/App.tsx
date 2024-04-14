@@ -28,6 +28,9 @@ export const COURSES_SCREEN_URL: string = "/administrator/courses/";
 export const EDIT_MODULE_SCREEN_URL: string = MODULE_COURSES_SCREEN_URL + "edit/";
 export const EDIT_MODULE_COURSES_SCREEN_URL: string = COURSES_SCREEN_URL + "edit/";
 
+export const STUDENT: string = "/student";
+export const ADMINISTRATOR: string = "/administrator";
+
 const App: FC = () => {
     const {loginInfo, saveLoginInfo} = useAuthentication();
     const location = useLocation();
@@ -56,23 +59,23 @@ const App: FC = () => {
     return (
         <Routes>
             <Route path={"/"} element={<WelcomeScreen saveLoginInfo={saveLoginInfo}/>}/>
-            <Route path={"/student"} element={<StudentScreen/>}>
-                <Route path={"/student/student_plan"} element={<StudyPlan/>}/>
-                <Route path={"/student/courses_and_modules"} element={<ModuleList />}/>
+            <Route path={STUDENT} element={<StudentScreen/>}>
+                <Route path={STUDENT + "/student_plan"} element={<StudyPlan/>}/>
+                <Route path={STUDENT + "/courses_and_modules"} element={<ModuleList />}/>
             </Route>
-            <Route path={"/student/recommendationService"} element={<RecommendationsScreen />} />
-            <Route path={"/administrator"} element={<AdministratorMainScreen/>}>
-                <Route path={"/administrator/educational_program"} element={<EducationalProgramScreen/>}/>
+            <Route path={STUDENT + "/recommendationService"} element={<RecommendationsScreen />} />
+            <Route path={ADMINISTRATOR} element={<AdministratorMainScreen/>}>
+                <Route path={ADMINISTRATOR + "/educational_program"} element={<EducationalProgramScreen/>}/>
                     <Route path={EDUCATIONAL_PROGRAM_SCREEN_URL + "*"} element={<AddEducationalProgramScreen />}/>
-                <Route path={"/administrator/educational_program/add"} element={<AddEducationalProgramScreen />}/>
+                <Route path={ADMINISTRATOR + "/educational_program/add"} element={<AddEducationalProgramScreen />}/>
                 <Route path={MODULES_SCREEN_URL} element={<ModulesScreen />}/>
-                    <Route path={"/administrator/module/add"} element={<AddModuleScreen/>}/>
+                    <Route path={ADMINISTRATOR + "/module/add"} element={<AddModuleScreen/>}/>
                     <Route path={EDIT_MODULE_SCREEN_URL + "*"} element={<EditModuleScreen/>}/>
-                <Route path={"/administrator/module/:moduleId"} element={<ModuleCourses />}/>
-                    <Route path={"/administrator/courses/add"} element={<AddModuleCourseScreen/>}/>
+                <Route path={ADMINISTRATOR + "/module/:moduleId"} element={<ModuleCourses />}/>
+                    <Route path={ADMINISTRATOR + "/courses/add"} element={<AddModuleCourseScreen/>}/>
                     <Route path={COURSES_SCREEN_URL + "*"} element={<CourseScreen/>}/>
                     <Route path={EDIT_MODULE_COURSES_SCREEN_URL + "*"} element={<EditModuleCourseScreen/>}/>
-                <Route path={"/administrator/statistics"} element={<StatisticsScreen/>}/>
+                <Route path={ADMINISTRATOR + "/statistics"} element={<StatisticsScreen/>}/>
             </Route>
         </Routes>
     );
