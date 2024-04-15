@@ -5,7 +5,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "students")
-public class Student {
+public class StudentEntity {
     @Id
     @Column
     private UUID login;
@@ -35,10 +35,10 @@ public class Student {
         this.educationalProgram = educationalProgram;
     }
 
-    public Student() {
+    public StudentEntity() {
     }
 
-    public Student(UUID login, EducationalProgram educationalProgram, UserEntity userEntity) {
+    public StudentEntity(UUID login, EducationalProgram educationalProgram, UserEntity userEntity) {
         this.login = login;
         this.educationalProgram = educationalProgram;
         this.userEntity = userEntity;

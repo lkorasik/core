@@ -21,7 +21,7 @@ public class SkillsService {
                 .getSkillsForStudent(studentId)
                 .stream()
                 .map(x -> new StudentSkills(
-                        new Student(
+                        new StudentEntity(
                                 x.getStudent().getLogin(),
                                 new EducationalProgram(
                                         x.getStudent().getEducationalProgram().getId(),

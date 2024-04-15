@@ -2,7 +2,7 @@ package ru.urfu.mm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.urfu.mm.entity.Student;
+import ru.urfu.mm.entity.StudentEntity;
 import ru.urfu.mm.entity.StudentSkills;
 import ru.urfu.mm.repository.CourseToRequiredSkillsRepository;
 import ru.urfu.mm.repository.CourseToResultSkillsRepository;
@@ -19,7 +19,7 @@ public class CoursesSkillsService {
     @Autowired
     private CourseToResultSkillsRepository courseToResultSkillsRepository;
 
-    public Map<UUID, List<StudentSkills>> getCoursesToRequiredSkills(Student student, List<UUID> availableCoursesIds) {
+    public Map<UUID, List<StudentSkills>> getCoursesToRequiredSkills(StudentEntity studentEntity, List<UUID> availableCoursesIds) {
         return courseToRequiredSkillsRepository
                 .findAll()
                 .stream()
@@ -29,7 +29,7 @@ public class CoursesSkillsService {
                                 x -> x.getSpecialCourse().getId(),
                                 Collectors.mapping(
                                         x -> new StudentSkills(
-                                                student,
+                                                studentEntity,
                                                 x.getRequiredSkills(),
                                                 x.getSkillLevel()
                                         ),
@@ -47,7 +47,7 @@ public class CoursesSkillsService {
                 );
     }
 
-    public Map<UUID, List<StudentSkills>> getCoursesToResultSkills(Student student, List<UUID> availableCoursesIds) {
+    public Map<UUID, List<StudentSkills>> getCoursesToResultSkills(StudentEntity studentEntity, List<UUID> availableCoursesIds) {
         return courseToResultSkillsRepository
                 .findAll()
                 .stream()
@@ -57,7 +57,7 @@ public class CoursesSkillsService {
                                 x -> x.getSpecialCourse().getId(),
                                 Collectors.mapping(
                                         x -> new StudentSkills(
-                                                student,
+                                                studentEntity,
                                                 x.getSkill(),
                                                 x.getSkillLevel()
                                         ),

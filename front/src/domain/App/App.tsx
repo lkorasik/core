@@ -29,7 +29,7 @@ export const COURSES_SCREEN_URL: string = "/administrator/courses/";
 export const EDIT_MODULE_SCREEN_URL: string = MODULE_COURSES_SCREEN_URL + "edit/";
 export const EDIT_MODULE_COURSES_SCREEN_URL: string = COURSES_SCREEN_URL + "edit/";
 
-export const STUDENT: string = "/student";
+export const STUDENT: string = "/studentEntity";
 export const STUDENT_PLAN: string = "/student_plan";
 export const ADMINISTRATOR: string = "/administrator";
 export const EDUCATIONAL_PROGRAM: string = "/educational_program";

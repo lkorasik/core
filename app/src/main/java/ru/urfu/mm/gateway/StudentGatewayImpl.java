@@ -6,6 +6,7 @@ import ru.urfu.mm.application.gateway.StudentGateway;
 import ru.urfu.mm.domain.Program;
 import ru.urfu.mm.domain.Student;
 import ru.urfu.mm.entity.EducationalProgram;
+import ru.urfu.mm.entity.StudentEntity;
 import ru.urfu.mm.entity.UserEntity;
 import ru.urfu.mm.repository.StudentRepository;
 import ru.urfu.mm.service.mapper.Mapper;
@@ -25,12 +26,12 @@ public class StudentGatewayImpl implements StudentGateway {
 
     @Override
     public void save(Student student) {
-        ru.urfu.mm.entity.Student student1 = new ru.urfu.mm.entity.Student(
+        StudentEntity studentEntity1 = new StudentEntity(
                 student.getLogin(),
                 parse(student.getEducationalProgram()),
                 userMapper.map(student.getUser())
         );
-        studentRepository.save(student1);
+        studentRepository.save(studentEntity1);
     }
 
     @Override

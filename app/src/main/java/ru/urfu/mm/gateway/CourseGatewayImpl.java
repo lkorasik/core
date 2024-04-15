@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.CourseGateway;
 import ru.urfu.mm.domain.Module;
 import ru.urfu.mm.domain.*;
+import ru.urfu.mm.entity.StudentEntity;
 import ru.urfu.mm.entity.UserEntity;
 import ru.urfu.mm.repository.EducationalProgramToCoursesWithSemestersRepository;
 import ru.urfu.mm.repository.SelectedCoursesRepository;
@@ -307,7 +308,7 @@ public class CourseGatewayImpl implements CourseGateway {
                                 .stream()
                                 .map(x -> new ru.urfu.mm.entity.SelectedCourses(
                                         x.getId(),
-                                        new ru.urfu.mm.entity.Student(
+                                        new StudentEntity(
                                                 x.getStudent().getLogin(),
                                                 new ru.urfu.mm.entity.EducationalProgram(
                                                         x.getStudent().getEducationalProgram().getId(),

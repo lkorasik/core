@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.urfu.mm.application.usecase.CourseForEducationalProgram;
 import ru.urfu.mm.application.usecase.GetCoursesByEducationalProgramAndSemesters;
 import ru.urfu.mm.controller.recommendation.*;
-import ru.urfu.mm.entity.Student;
+import ru.urfu.mm.entity.StudentEntity;
 import ru.urfu.mm.entity.StudentDesiredSkills;
 import ru.urfu.mm.entity.StudentSkills;
 
@@ -27,16 +27,16 @@ public class RecommendationsService {
     @Autowired
     private GetCoursesByEducationalProgramAndSemesters getCoursesByEducationalProgramAndSemesters;
 
-    public RecommendationResultDTO calculateRecommendations(Student student) {
-        var studentSkills = skillsService.getSkillsForStudent(student.getLogin());
-        var studentDesiredSkills = desiredSkillsService.getSkillsForStudent(student.getLogin());
+    public RecommendationResultDTO calculateRecommendations(StudentEntity studentEntity) {
+        var studentSkills = skillsService.getSkillsForStudent(studentEntity.getLogin());
+        var studentDesiredSkills = desiredSkillsService.getSkillsForStudent(studentEntity.getLogin());
 
         var actualSemestersIds = semesterService.getActualSemesters()
                 .stream()
                 .map(ru.urfu.mm.controller.semester.SemesterDTO::id)
                 .toList();
         var courses = getCoursesByEducationalProgramAndSemesters
-                .getCoursesByEducationalProgramAndSemesters(student.getLogin(), actualSemestersIds);
+                .getCoursesByEducationalProgramAndSemesters(studentEntity.getLogin(), actualSemestersIds);
 
         var optionalCourses = courses
                 .stream()
@@ -46,8 +46,8 @@ public class RecommendationsService {
                 .stream()
                 .map(ru.urfu.mm.application.usecase.CourseForEducationalProgram::getId)
                 .toList();
-        var courseIdToRequiredSkills = coursesSkillsService.getCoursesToRequiredSkills(student, optionalCoursesIds);
-        var courseIdToResultSkills = coursesSkillsService.getCoursesToResultSkills(student, optionalCoursesIds);
+        var courseIdToRequiredSkills = coursesSkillsService.getCoursesToRequiredSkills(studentEntity, optionalCoursesIds);
+        var courseIdToResultSkills = coursesSkillsService.getCoursesToResultSkills(studentEntity, optionalCoursesIds);
 
         var perfectCoursesIds = getPerfectCoursesIds(
                 courseIdToRequiredSkills,

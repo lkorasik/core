@@ -11,11 +11,11 @@ export const StudentScreen: React.FC<Props> = (props: Props) => {
                 [ 
                     {
                         label: "Учебный план",    
-                        link: "/student/student_plan"
+                        link: "/studentEntity/student_plan"
                     },
                     {
                         label: "Курсы и модули",    
-                        link: "/student/courses_and_modules"
+                        link: "/studentEntity/courses_and_modules"
                     }
                 ]
             } />

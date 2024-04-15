@@ -11,7 +11,7 @@ public class StudentSkills {
     private UUID id;
     @ManyToOne
     @JoinColumn(name = "student_login")
-    private Student student;
+    private StudentEntity studentEntity;
     @ManyToOne
     @JoinColumn(name = "skill_id")
     private Skill skill;
@@ -22,8 +22,8 @@ public class StudentSkills {
 
     }
 
-    public StudentSkills(Student student, Skill skill, SkillLevel level) {
-        this.student = student;
+    public StudentSkills(StudentEntity studentEntity, Skill skill, SkillLevel level) {
+        this.studentEntity = studentEntity;
         this.skill = skill;
         this.level = level;
     }
@@ -36,12 +36,12 @@ public class StudentSkills {
         this.skill = skill;
     }
 
-    public Student getStudent() {
-        return student;
+    public StudentEntity getStudent() {
+        return studentEntity;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setStudent(StudentEntity studentEntity) {
+        this.studentEntity = studentEntity;
     }
 
     public UUID getId() {

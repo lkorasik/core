@@ -106,7 +106,7 @@ export const ChooseCoursesScreen: FC = () => {
                                 chosenSemesterId={selectedSemesterId!}
                                 modules={educationalModules}
                             />
-                            <Button onClick={() => navigate("/student/recommendationService")}>
+                            <Button onClick={() => navigate("/studentEntity/recommendationService")}>
                                 Перейти в сервис рекомендаций спецкурсов
                             </Button>
                         </div>

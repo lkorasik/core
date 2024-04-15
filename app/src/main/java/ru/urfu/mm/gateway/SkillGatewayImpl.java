@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.SkillGateway;
 import ru.urfu.mm.domain.*;
+import ru.urfu.mm.entity.StudentEntity;
 import ru.urfu.mm.entity.UserEntity;
 import ru.urfu.mm.repository.DesiredSkillsRepository;
 import ru.urfu.mm.repository.SkillRepository;
@@ -138,7 +139,7 @@ public class SkillGatewayImpl implements SkillGateway {
                         newSkills
                                 .stream()
                                 .map(x -> new ru.urfu.mm.entity.StudentSkills(
-                                        new ru.urfu.mm.entity.Student(
+                                        new StudentEntity(
                                                 student.getLogin(),
                                                 new ru.urfu.mm.entity.EducationalProgram(
                                                         student.getEducationalProgram().getId(),
@@ -166,7 +167,7 @@ public class SkillGatewayImpl implements SkillGateway {
                         newSkills
                                 .stream()
                                 .map(x -> new ru.urfu.mm.entity.StudentDesiredSkills(
-                                        new ru.urfu.mm.entity.Student(
+                                        new StudentEntity(
                                                 student.getLogin(),
                                                 new ru.urfu.mm.entity.EducationalProgram(
                                                         student.getEducationalProgram().getId(),

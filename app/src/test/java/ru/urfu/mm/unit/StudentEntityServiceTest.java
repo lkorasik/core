@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ru.urfu.mm.entity.Student;
+import ru.urfu.mm.entity.StudentEntity;
 import ru.urfu.mm.repository.StudentRepository;
 import ru.urfu.mm.service.StudentService;
 
@@ -16,7 +16,7 @@ import java.util.UUID;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class StudentServiceTest {
+public class StudentEntityServiceTest {
     @Mock
     private StudentRepository studentRepository;
 
@@ -29,13 +29,13 @@ public class StudentServiceTest {
 
         StudentService studentService = new StudentService(studentRepository);
 
-        Student expected = new Student();
+        StudentEntity expected = new StudentEntity();
 
         when(studentRepository.findByLogin(UUID.fromString(login))).thenReturn(Optional.of(expected));
 
-        Student student = studentService.getStudent(login);
+        StudentEntity studentEntity = studentService.getStudent(login);
 
-        Assertions.assertEquals(expected, student);
+        Assertions.assertEquals(expected, studentEntity);
     }
 
     /**

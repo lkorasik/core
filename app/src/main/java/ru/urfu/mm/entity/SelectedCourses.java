@@ -12,7 +12,7 @@ public class SelectedCourses {
     private UUID id;
     @ManyToOne
     @JoinColumn(name = "student_login")
-    private Student student;
+    private StudentEntity studentEntity;
     @ManyToOne
     @JoinColumn(name = "semester_id")
     private Semester semester;
@@ -23,25 +23,25 @@ public class SelectedCourses {
     public SelectedCourses() {
     }
 
-    public SelectedCourses(UUID id, Student student, Semester semester, SpecialCourse specialCourse) {
+    public SelectedCourses(UUID id, StudentEntity studentEntity, Semester semester, SpecialCourse specialCourse) {
         this.id = id;
-        this.student = student;
+        this.studentEntity = studentEntity;
         this.semester = semester;
         this.specialCourse = specialCourse;
     }
 
-    public SelectedCourses(Student student, Semester semester, SpecialCourse specialCourse) {
-        this.student = student;
+    public SelectedCourses(StudentEntity studentEntity, Semester semester, SpecialCourse specialCourse) {
+        this.studentEntity = studentEntity;
         this.semester = semester;
         this.specialCourse = specialCourse;
     }
 
-    public Student getStudent() {
-        return student;
+    public StudentEntity getStudent() {
+        return studentEntity;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setStudent(StudentEntity studentEntity) {
+        this.studentEntity = studentEntity;
     }
 
     public SpecialCourse getSpecialCourse() {

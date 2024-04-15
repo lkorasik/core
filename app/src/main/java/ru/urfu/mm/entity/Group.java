@@ -18,7 +18,7 @@ public class Group {
     @Enumerated
     private Years year;
     @OneToMany(mappedBy = "group")
-    private List<Student> students;
+    private List<StudentEntity> studentEntities;
 
     public String getNumber() {
         return number;
