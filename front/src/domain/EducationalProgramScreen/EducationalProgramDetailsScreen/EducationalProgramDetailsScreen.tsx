@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Card } from "../../../base_components/Card/Card";
 import { Container } from "../../../base_components/Container/Container";
 import { Grid } from "../../../base_components/Grid/Grid";
@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useApis } from "../../../apis/ApiBase/ApiProvider";
 import { ProgramIdDto } from "../../../apis/api/programs/ProgramIdDto";
 import { GetGroupDto } from "../../../apis/api/groups/GetGroupDto";
+import { AddButton } from "../../../base_components/AddButton/AddButton";
 
 export function EducationalProgramDetailsScreen() {
     const [educationalProgramName, setEducationalProgramName] = useState<string>();
@@ -48,6 +49,9 @@ export function EducationalProgramDetailsScreen() {
             <Container>
                 <Toolbar>{educationalProgramName}</Toolbar>
                 <Grid cards={[renderCard()]} />
+                <Link to={"/administrator/group/add"}>
+                    <AddButton />
+                </Link>
             </Container>
         </>
     )
