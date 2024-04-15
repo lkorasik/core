@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
-import ru.urfu.mm.entity.User;
+import ru.urfu.mm.entity.UserEntity;
 import ru.urfu.mm.repository.UserRepository;
 
 import java.util.Collections;
@@ -21,7 +21,7 @@ public class UserService implements UserDetailsService {
 
 //    @Transactional
     public UserDetails loadUserByUsername(String username) {
-        User user = userRepository.findAllByLogin(UUID.fromString(username)).orElseThrow();
-        return new org.springframework.security.core.userdetails.User(user.getLogin().toString(), user.getPassword(), Collections.emptyList());
+        UserEntity userEntity = userRepository.findAllByLogin(UUID.fromString(username)).orElseThrow();
+        return new org.springframework.security.core.userdetails.User(userEntity.getLogin().toString(), userEntity.getPassword(), Collections.emptyList());
     }
 }

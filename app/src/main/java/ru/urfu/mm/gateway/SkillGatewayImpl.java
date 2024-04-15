@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.SkillGateway;
 import ru.urfu.mm.domain.*;
+import ru.urfu.mm.entity.UserEntity;
 import ru.urfu.mm.repository.DesiredSkillsRepository;
 import ru.urfu.mm.repository.SkillRepository;
 import ru.urfu.mm.repository.StudentSkillRepository;
+import ru.urfu.mm.service.mapper.Mapper;
 
 import java.util.List;
 import java.util.Map;
@@ -17,15 +19,18 @@ public class SkillGatewayImpl implements SkillGateway {
     private final SkillRepository skillRepository;
     private final StudentSkillRepository studentSkillRepository;
     private final DesiredSkillsRepository desiredSkillsRepository;
+    private final Mapper<User, UserEntity> userMapper;
 
     @Autowired
     public SkillGatewayImpl(
             SkillRepository skillRepository,
             StudentSkillRepository studentSkillRepository,
-            DesiredSkillsRepository desiredSkillsRepository) {
+            DesiredSkillsRepository desiredSkillsRepository,
+            Mapper<User, UserEntity> userMapper) {
         this.skillRepository = skillRepository;
         this.studentSkillRepository = studentSkillRepository;
         this.desiredSkillsRepository = desiredSkillsRepository;
+        this.userMapper = userMapper;
     }
 
     @Override
@@ -141,11 +146,7 @@ public class SkillGatewayImpl implements SkillGateway {
                                                         student.getEducationalProgram().getTrainingDirection(),
                                                         student.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
                                                 ),
-                                                new ru.urfu.mm.entity.User(
-                                                        student.getUser().getLogin(),
-                                                        student.getUser().getPassword(),
-                                                        ru.urfu.mm.entity.UserRole.values()[student.getUser().getRole().ordinal()]
-                                                )
+                                                userMapper.map(student.getUser())
                                         ),
                                         x.getKey(),
                                         ru.urfu.mm.entity.SkillLevel.values()[x.getValue().ordinal()]
@@ -173,11 +174,7 @@ public class SkillGatewayImpl implements SkillGateway {
                                                         student.getEducationalProgram().getTrainingDirection(),
                                                         student.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
                                                 ),
-                                                new ru.urfu.mm.entity.User(
-                                                        student.getUser().getLogin(),
-                                                        student.getUser().getPassword(),
-                                                        ru.urfu.mm.entity.UserRole.values()[student.getUser().getRole().ordinal()]
-                                                )
+                                                userMapper.map(student.getUser())
                                         ),
                                         x.getKey(),
                                         ru.urfu.mm.entity.SkillLevel.values()[x.getValue().ordinal()]

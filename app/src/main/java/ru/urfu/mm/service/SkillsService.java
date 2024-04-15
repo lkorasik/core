@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.urfu.mm.application.usecase.GetSkillsForStudent;
 import ru.urfu.mm.entity.*;
+import ru.urfu.mm.service.mapper.Mapper;
 
 import java.util.List;
 import java.util.UUID;
@@ -12,6 +13,8 @@ import java.util.UUID;
 public class SkillsService {
     @Autowired
     private GetSkillsForStudent getSkillsForStudent;
+    @Autowired
+    private Mapper<ru.urfu.mm.domain.User, UserEntity> userMapper;
 
     public List<StudentSkills> getSkillsForStudent(UUID studentId) {
         return getSkillsForStudent
@@ -26,11 +29,7 @@ public class SkillsService {
                                         x.getStudent().getEducationalProgram().getTrainingDirection(),
                                         x.getStudent().getEducationalProgram().getSemesterIdToRequiredCreditsCount()
                                 ),
-                                new User(
-                                        x.getStudent().getUser().getLogin(),
-                                        x.getStudent().getUser().getPassword(),
-                                        ru.urfu.mm.entity.UserRole.values()[x.getStudent().getUser().getRole().ordinal()]
-                                )
+                                userMapper.map(x.getStudent().getUser())
                         ),
                         new Skill(
                                 x.getSkill().getId(),

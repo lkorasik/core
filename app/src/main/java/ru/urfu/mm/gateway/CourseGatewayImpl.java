@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.CourseGateway;
 import ru.urfu.mm.domain.Module;
 import ru.urfu.mm.domain.*;
+import ru.urfu.mm.entity.UserEntity;
 import ru.urfu.mm.repository.EducationalProgramToCoursesWithSemestersRepository;
 import ru.urfu.mm.repository.SelectedCoursesRepository;
 import ru.urfu.mm.repository.SpecialCourseRepository;
@@ -20,6 +21,7 @@ public class CourseGatewayImpl implements CourseGateway {
     private final EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository;
     private final Mapper<ru.urfu.mm.entity.SemesterType, ru.urfu.mm.domain.SemesterType> semesterTypeToDomainMapper;
     private final Mapper<ru.urfu.mm.domain.SemesterType, ru.urfu.mm.entity.SemesterType> semesterTypeToEntityMapper;
+    private final Mapper<ru.urfu.mm.domain.User, UserEntity> userMapper;
 
     @Autowired
     public CourseGatewayImpl(
@@ -27,12 +29,14 @@ public class CourseGatewayImpl implements CourseGateway {
             SelectedCoursesRepository selectedCoursesRepository,
             EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository,
             Mapper<ru.urfu.mm.entity.SemesterType, SemesterType> semesterTypeToDomainMapper,
-            Mapper<SemesterType, ru.urfu.mm.entity.SemesterType> semesterTypeToEntityMapper) {
+            Mapper<SemesterType, ru.urfu.mm.entity.SemesterType> semesterTypeToEntityMapper,
+            Mapper<User, UserEntity> userMapper) {
         this.courseRepository = courseRepository;
         this.selectedCoursesRepository = selectedCoursesRepository;
         this.educationalProgramToCoursesWithSemestersRepository = educationalProgramToCoursesWithSemestersRepository;
         this.semesterTypeToDomainMapper = semesterTypeToDomainMapper;
         this.semesterTypeToEntityMapper = semesterTypeToEntityMapper;
+        this.userMapper = userMapper;
     }
 
     @Override
@@ -311,11 +315,7 @@ public class CourseGatewayImpl implements CourseGateway {
                                                         x.getStudent().getEducationalProgram().getTrainingDirection(),
                                                         x.getStudent().getEducationalProgram().getSemesterIdToRequiredCreditsCount()
                                                 ),
-                                                new ru.urfu.mm.entity.User(
-                                                        x.getStudent().getUser().getLogin(),
-                                                        x.getStudent().getUser().getPassword(),
-                                                        ru.urfu.mm.entity.UserRole.values()[x.getStudent().getUser().getRole().ordinal()]
-                                                )
+                                                userMapper.map(x.getStudent().getUser())
                                         ),
                                         new ru.urfu.mm.entity.Semester(
                                                 x.getSemester().getId(),

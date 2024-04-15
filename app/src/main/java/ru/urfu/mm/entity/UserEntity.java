@@ -5,7 +5,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class UserEntity {
     @Id
     @Column
     private UUID login;
@@ -14,13 +14,13 @@ public class User {
     @Column
     private UserRole role;
 
-    public User(UUID login, String password, UserRole role) {
+    public UserEntity(UUID login, String password, UserRole role) {
         this.login = login;
         this.password = password;
         this.role = role;
     }
 
-    public User() {
+    public UserEntity() {
     }
 
     public UUID getLogin() {

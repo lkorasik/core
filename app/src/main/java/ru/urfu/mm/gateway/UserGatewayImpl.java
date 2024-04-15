@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.UserGateway;
 import ru.urfu.mm.domain.User;
+import ru.urfu.mm.entity.UserEntity;
 import ru.urfu.mm.entity.UserRole;
 import ru.urfu.mm.repository.UserRepository;
 import ru.urfu.mm.service.mapper.Mapper;
@@ -15,26 +16,26 @@ import java.util.UUID;
 public class UserGatewayImpl implements UserGateway {
     private final UserRepository userRepository;
     private final Mapper<UserRole, ru.urfu.mm.domain.UserRole> userRoleMapper;
+    private final Mapper<ru.urfu.mm.domain.User, UserEntity> userMapper;
 
     @Autowired
-    public UserGatewayImpl(UserRepository userRepository, Mapper<UserRole, ru.urfu.mm.domain.UserRole> userRoleMapper) {
+    public UserGatewayImpl(
+            UserRepository userRepository,
+            Mapper<UserRole, ru.urfu.mm.domain.UserRole> userRoleMapper,
+            Mapper<User, UserEntity> userMapper) {
         this.userRepository = userRepository;
         this.userRoleMapper = userRoleMapper;
+        this.userMapper = userMapper;
     }
 
     @Override
     public void save(User user) {
-        ru.urfu.mm.entity.User entity = new ru.urfu.mm.entity.User(
-                user.getLogin(),
-                user.getPassword(),
-                UserRole.values()[user.getRole().ordinal()]
-        );
-        userRepository.save(entity);
+        userRepository.save(userMapper.map(user));
     }
 
     @Override
     public User getByToken(UUID token) {
-        ru.urfu.mm.entity.User entity = userRepository.getReferenceById(token);
+        UserEntity entity = userRepository.getReferenceById(token);
         return new User(
                 entity.getLogin(),
                 entity.getPassword(),
@@ -44,7 +45,7 @@ public class UserGatewayImpl implements UserGateway {
 
     @Override
     public Optional<User> findByToken(UUID token) {
-        Optional<ru.urfu.mm.entity.User> entity = userRepository.findById(token);
+        Optional<UserEntity> entity = userRepository.findById(token);
         return entity.map(x -> new User(
                 x.getLogin(),
                 x.getPassword(),

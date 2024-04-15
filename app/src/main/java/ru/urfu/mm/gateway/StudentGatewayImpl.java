@@ -6,19 +6,21 @@ import ru.urfu.mm.application.gateway.StudentGateway;
 import ru.urfu.mm.domain.Program;
 import ru.urfu.mm.domain.Student;
 import ru.urfu.mm.entity.EducationalProgram;
-import ru.urfu.mm.entity.User;
-import ru.urfu.mm.entity.UserRole;
+import ru.urfu.mm.entity.UserEntity;
 import ru.urfu.mm.repository.StudentRepository;
+import ru.urfu.mm.service.mapper.Mapper;
 
 import java.util.UUID;
 
 @Component
 public class StudentGatewayImpl implements StudentGateway {
     private final StudentRepository studentRepository;
+    private final Mapper<ru.urfu.mm.domain.User, UserEntity> userMapper;
 
     @Autowired
-    public StudentGatewayImpl(StudentRepository studentRepository) {
+    public StudentGatewayImpl(StudentRepository studentRepository, Mapper<ru.urfu.mm.domain.User, UserEntity> userMapper) {
         this.studentRepository = studentRepository;
+        this.userMapper = userMapper;
     }
 
     @Override
@@ -26,7 +28,7 @@ public class StudentGatewayImpl implements StudentGateway {
         ru.urfu.mm.entity.Student student1 = new ru.urfu.mm.entity.Student(
                 student.getLogin(),
                 parse(student.getEducationalProgram()),
-                parse(student.getUser())
+                userMapper.map(student.getUser())
         );
         studentRepository.save(student1);
     }
@@ -51,14 +53,6 @@ public class StudentGatewayImpl implements StudentGateway {
                         )
                 ))
                 .get();
-    }
-
-    private User parse(ru.urfu.mm.domain.User user) {
-        return new User(
-                user.getLogin(),
-                user.getPassword(),
-                UserRole.values()[user.getRole().ordinal()]
-        );
     }
 
     private EducationalProgram parse(Program program) {

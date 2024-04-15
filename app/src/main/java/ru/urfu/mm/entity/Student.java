@@ -14,7 +14,7 @@ public class Student {
     private EducationalProgram educationalProgram;
     @OneToOne
     @JoinColumn(name = "users_login")
-    private User user;
+    private UserEntity userEntity;
     @ManyToOne
     @JoinColumn(name = "groups_id")
     private Group group;
@@ -38,17 +38,17 @@ public class Student {
     public Student() {
     }
 
-    public Student(UUID login, EducationalProgram educationalProgram, User user) {
+    public Student(UUID login, EducationalProgram educationalProgram, UserEntity userEntity) {
         this.login = login;
         this.educationalProgram = educationalProgram;
-        this.user = user;
+        this.userEntity = userEntity;
     }
 
     public UUID getLogin() {
         return login;
     }
 
-    public User getUser() {
-        return user;
+    public UserEntity getUser() {
+        return userEntity;
     }
 }
