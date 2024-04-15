@@ -1,12 +1,13 @@
 package ru.urfu.mm.service.mapper;
 
 import org.springframework.stereotype.Component;
-import ru.urfu.mm.entity.UserRole;
+import ru.urfu.mm.domain.UserRole;
+import ru.urfu.mm.entity.UserEntityRole;
 
 @Component
-public class UserRoleToEntityMapper implements Mapper<ru.urfu.mm.domain.UserRole, ru.urfu.mm.entity.UserRole> {
+public class UserRoleToEntityMapper implements Mapper<UserRole, UserEntityRole> {
     @Override
-    public UserRole map(ru.urfu.mm.domain.UserRole object) {
-        return ru.urfu.mm.entity.UserRole.values()[object.ordinal()];
+    public UserEntityRole map(UserRole object) {
+        return UserEntityRole.values()[object.ordinal()];
     }
 }

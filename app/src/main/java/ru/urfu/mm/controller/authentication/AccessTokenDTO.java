@@ -1,9 +1,9 @@
 package ru.urfu.mm.controller.authentication;
 
-import ru.urfu.mm.entity.UserRole;
+import ru.urfu.mm.entity.UserEntityRole;
 
 public record AccessTokenDTO(
         String accessToken,
         String userToken,
-        UserRole userRole
+        UserEntityRole userEntityRole
 ) { }

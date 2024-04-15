@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.UserGateway;
 import ru.urfu.mm.domain.User;
 import ru.urfu.mm.entity.UserEntity;
-import ru.urfu.mm.entity.UserRole;
+import ru.urfu.mm.entity.UserEntityRole;
 import ru.urfu.mm.repository.UserRepository;
 import ru.urfu.mm.service.mapper.Mapper;
 
@@ -15,13 +15,13 @@ import java.util.UUID;
 @Component
 public class UserGatewayImpl implements UserGateway {
     private final UserRepository userRepository;
-    private final Mapper<UserRole, ru.urfu.mm.domain.UserRole> userRoleMapper;
+    private final Mapper<UserEntityRole, ru.urfu.mm.domain.UserRole> userRoleMapper;
     private final Mapper<ru.urfu.mm.domain.User, UserEntity> userMapper;
 
     @Autowired
     public UserGatewayImpl(
             UserRepository userRepository,
-            Mapper<UserRole, ru.urfu.mm.domain.UserRole> userRoleMapper,
+            Mapper<UserEntityRole, ru.urfu.mm.domain.UserRole> userRoleMapper,
             Mapper<User, UserEntity> userMapper) {
         this.userRepository = userRepository;
         this.userRoleMapper = userRoleMapper;

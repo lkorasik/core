@@ -14,7 +14,7 @@ import ru.urfu.mm.application.usecase.create.student.CreateStudentRequest;
 import ru.urfu.mm.application.usecase.loginuser.LoginRequest;
 import ru.urfu.mm.application.usecase.loginuser.LoginUser;
 import ru.urfu.mm.domain.User;
-import ru.urfu.mm.entity.UserRole;
+import ru.urfu.mm.entity.UserEntityRole;
 import ru.urfu.mm.service.AuthenticationService;
 import ru.urfu.mm.service.mapper.Mapper;
 
@@ -28,7 +28,7 @@ public class AuthenticationController {
     private final CreateAdministrator createAdministrator;
     private final CreateStudent createStudent;
     private final LoginUser loginUser;
-    private final Mapper<ru.urfu.mm.domain.UserRole, ru.urfu.mm.entity.UserRole> userRoleMapper;
+    private final Mapper<ru.urfu.mm.domain.UserRole, UserEntityRole> userRoleMapper;
 
     @Autowired
     public AuthenticationController(
@@ -36,7 +36,7 @@ public class AuthenticationController {
             CreateAdministrator createAdministrator,
             CreateStudent createStudent,
             LoginUser loginUser,
-            Mapper<ru.urfu.mm.domain.UserRole, ru.urfu.mm.entity.UserRole> userRoleMapper) {
+            Mapper<ru.urfu.mm.domain.UserRole, UserEntityRole> userRoleMapper) {
         this.authenticationService = authenticationService;
         this.createAdministrator = createAdministrator;
         this.createStudent = createStudent;
@@ -56,7 +56,7 @@ public class AuthenticationController {
         createAdministrator.createAdministrator(request);
         String token = authenticationService.generateToken(user);
 
-        return new AccessTokenDTO(token, user.token(), UserRole.ADMIN);
+        return new AccessTokenDTO(token, user.token(), UserEntityRole.ADMIN);
     }
 
     @PostMapping("/registerStudent")
@@ -73,7 +73,7 @@ public class AuthenticationController {
         createStudent.createStudent(request);
         String token = authenticationService.generateToken(user);
 
-        return new AccessTokenDTO(token, user.token(), UserRole.STUDENT);
+        return new AccessTokenDTO(token, user.token(), UserEntityRole.STUDENT);
     }
 
     @PostMapping("/login")

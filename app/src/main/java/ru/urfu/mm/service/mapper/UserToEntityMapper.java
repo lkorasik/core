@@ -4,14 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.domain.User;
 import ru.urfu.mm.entity.UserEntity;
-import ru.urfu.mm.entity.UserRole;
+import ru.urfu.mm.entity.UserEntityRole;
 
 @Component
 public class UserToEntityMapper implements Mapper<User, UserEntity> {
-    private final Mapper<ru.urfu.mm.domain.UserRole, ru.urfu.mm.entity.UserRole> roleMapper;
+    private final Mapper<ru.urfu.mm.domain.UserRole, UserEntityRole> roleMapper;
 
     @Autowired
-    public UserToEntityMapper(Mapper<ru.urfu.mm.domain.UserRole, UserRole> roleMapper) {
+    public UserToEntityMapper(Mapper<ru.urfu.mm.domain.UserRole, UserEntityRole> roleMapper) {
         this.roleMapper = roleMapper;
     }
 

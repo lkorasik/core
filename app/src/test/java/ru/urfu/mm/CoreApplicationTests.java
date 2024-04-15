@@ -9,7 +9,7 @@ import ru.urfu.mm.entity.EducationalProgram;
 import ru.urfu.mm.entity.Module;
 import ru.urfu.mm.entity.RegistrationToken;
 import ru.urfu.mm.entity.Semester;
-import ru.urfu.mm.entity.UserRole;
+import ru.urfu.mm.entity.UserEntityRole;
 import ru.urfu.mm.repository.*;
 import ru.urfu.mm.entity.*;
 
@@ -213,14 +213,14 @@ class CoreApplicationTests {
         educationalProgramToCoursesWithSemestersRepository.saveAll(coursesBySemesters);
 
         Iterable<RegistrationToken> tokens = List.of(
-                new RegistrationToken(UUID.randomUUID(), UserRole.STUDENT),
-                new RegistrationToken(UUID.randomUUID(), UserRole.UNIVERSITY_EMPLOYEE),
-                new RegistrationToken(UUID.randomUUID(), UserRole.ADMIN)
+                new RegistrationToken(UUID.randomUUID(), UserEntityRole.STUDENT),
+                new RegistrationToken(UUID.randomUUID(), UserEntityRole.UNIVERSITY_EMPLOYEE),
+                new RegistrationToken(UUID.randomUUID(), UserEntityRole.ADMIN)
         );
         registrationTokenRepository.saveAll(tokens);
 
         System.out.println("Tokens: ");
-        tokens.forEach(item -> System.out.println(item.registrationToken + " " + item.userRole.getValue()));
+        tokens.forEach(item -> System.out.println(item.registrationToken + " " + item.userEntityRole.getValue()));
 
         // Навыки для сервиса рекомендаций
         var skills = List.of(

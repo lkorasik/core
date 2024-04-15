@@ -39,7 +39,7 @@ export function WelcomeScreen(props: Props) {
     const saveLoginInfo = (registeredToken: AccessTokenDto) => {
         props.saveLoginInfo({
             token: registeredToken.accessToken,
-            userRole: registeredToken.userRole
+            userEntityRole: registeredToken.userEntityRole
         });
     }
 

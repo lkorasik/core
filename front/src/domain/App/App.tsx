@@ -41,7 +41,7 @@ const App: FC = () => {
 
     const navigateIfNeeded = (loginInfo: LoginInfo | null) => {
         if (loginInfo) {
-            switch (loginInfo.userRole) {
+            switch (loginInfo.userEntityRole) {
                 case UserRole.Student:
                     navigate(STUDENT + STUDENT_PLAN);
                     break;

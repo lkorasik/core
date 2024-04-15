@@ -11,13 +11,13 @@ public class RegistrationToken {
     public UUID registrationToken;
     @Column(name = "user_role")
     @Enumerated(EnumType.STRING)
-    public UserRole userRole;
+    public UserEntityRole userEntityRole;
 
     public RegistrationToken() {
     }
 
-    public RegistrationToken(UUID registrationToken, UserRole userRole) {
+    public RegistrationToken(UUID registrationToken, UserEntityRole userEntityRole) {
         this.registrationToken = registrationToken;
-        this.userRole = userRole;
+        this.userEntityRole = userEntityRole;
     }
 }

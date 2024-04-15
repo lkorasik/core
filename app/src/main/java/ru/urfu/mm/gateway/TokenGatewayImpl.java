@@ -22,7 +22,7 @@ public class TokenGatewayImpl implements TokenGateway {
     public Optional<UserRole> getRoleByToken(UUID token) {
         return registrationTokenRepository
                 .findByRegistrationToken(token)
-                .map(x -> x.userRole)
+                .map(x -> x.userEntityRole)
                 .map(x -> UserRole.values()[x.ordinal()]);
     }
 

@@ -1,16 +1,15 @@
 package ru.urfu.mm.entity;
 
-import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum UserRole {
+public enum UserEntityRole {
     STUDENT("Student"),
     UNIVERSITY_EMPLOYEE("UniversityEmployee"),
     ADMIN("Admin");
 
     private final String value;
 
-    UserRole(String value) {
+    UserEntityRole(String value) {
         this.value = value;
     }
 

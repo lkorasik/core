@@ -12,9 +12,9 @@ public class UserEntity {
     @Column
     private String password;
     @Column
-    private UserRole role;
+    private UserEntityRole role;
 
-    public UserEntity(UUID login, String password, UserRole role) {
+    public UserEntity(UUID login, String password, UserEntityRole role) {
         this.login = login;
         this.password = password;
         this.role = role;
@@ -31,7 +31,7 @@ public class UserEntity {
         return password;
     }
 
-    public UserRole getRole() {
+    public UserEntityRole getRole() {
         return role;
     }
 }
