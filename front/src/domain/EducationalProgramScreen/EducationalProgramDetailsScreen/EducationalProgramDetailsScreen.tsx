@@ -6,6 +6,7 @@ import { Toolbar } from "../../../base_components/Toolbar/Toolbar";
 import { useEffect, useState } from "react";
 import { useApis } from "../../../apis/ApiBase/ApiProvider";
 import { ProgramIdDto } from "../../../apis/api/programs/ProgramIdDto";
+import { GetGroupDto } from "../../../apis/api/groups/GetGroupDto";
 
 export function EducationalProgramDetailsScreen() {
     const [educationalProgramName, setEducationalProgramName] = useState<string>();
@@ -21,6 +22,14 @@ export function EducationalProgramDetailsScreen() {
             setEducationalProgramName(response.title);
         };
         loadModule().catch(console.error);
+
+        const loadGroups = async () => {
+            const request = { programId: educationalProgramId } as GetGroupDto
+            const response = await api.groupsApi.getCurrentEducationalProgram(request);
+
+            console.log(response);
+        }
+        loadGroups().catch(console.error);
     }, [])
 
     const renderCard = () => {

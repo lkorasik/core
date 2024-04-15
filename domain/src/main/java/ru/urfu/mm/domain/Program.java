@@ -1,5 +1,6 @@
 package ru.urfu.mm.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,7 +21,7 @@ public class Program {
     /**
      * Список студентов, которые учатся на данном направлении.
      */
-    private List<Group> groups;
+    private List<Group> groups = new ArrayList<>();
 
     public Program() {
     }
@@ -44,6 +45,10 @@ public class Program {
 
     public String getName() {
         return name;
+    }
+
+    public List<Group> getGroups() {
+        return groups;
     }
 
     public String getTrainingDirection() {

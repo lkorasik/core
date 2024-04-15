@@ -30,4 +30,20 @@ public class Group {
         year = Years.FIRST;
         students = new ArrayList<>();
     }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public Years getYear() {
+        return year;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
 }
