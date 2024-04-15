@@ -5,7 +5,7 @@ import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import {UserRole} from "../../apis/api/UserRole";
 import {LoginInfo} from "../../hooks/LoginInfo";
 import {AdministratorMainScreen} from '../AdministratorMainScreen/AdministratorMainScreen';
-import {EducationalProgramScreen} from '../EducationalProgramScreen';
+import {EducationalProgramScreen} from '../EducationalProgramScreen/EducationalProgramScreen';
 import {AddModuleScreen} from "../AddModuleScreen/AddModuleScreen";
 import {AddModuleCourseScreen} from "../AddModuleCourseScreen/AddModuleCourseScreen";
 import {EditModuleScreen} from "../EditModuleScreen/EditModuleScreen";
@@ -20,6 +20,7 @@ import { StudyPlan } from '../StudyPlan/StudyPlan';
 import { ModuleList } from '../ModuleList/ModuleList';
 import { ModulesScreen } from '../ModulesScreen';
 import { ModuleCourses } from '../ModuleCourses/ModuleCourses';
+import { EducationalProgramDetailsScreen } from '../EducationalProgramScreen/EducationalProgramDetailsScreen/EducationalProgramDetailsScreen';
 
 export const EDUCATIONAL_PROGRAM_SCREEN_URL: string = "/administrator/educational_program/";
 export const MODULES_SCREEN_URL: string = "/administrator/courses_and_modules";
@@ -29,7 +30,9 @@ export const EDIT_MODULE_SCREEN_URL: string = MODULE_COURSES_SCREEN_URL + "edit/
 export const EDIT_MODULE_COURSES_SCREEN_URL: string = COURSES_SCREEN_URL + "edit/";
 
 export const STUDENT: string = "/student";
+export const STUDENT_PLAN: string = "/student_plan";
 export const ADMINISTRATOR: string = "/administrator";
+export const EDUCATIONAL_PROGRAM: string = "/educational_program";
 
 const App: FC = () => {
     const {loginInfo, saveLoginInfo} = useAuthentication();
@@ -40,10 +43,10 @@ const App: FC = () => {
         if (loginInfo) {
             switch (loginInfo.userRole) {
                 case UserRole.Student:
-                    navigate("/student/student_plan");
+                    navigate(STUDENT + STUDENT_PLAN);
                     break;
                 case UserRole.Admin:
-                    navigate("/administrator/educational_program")
+                    navigate(ADMINISTRATOR + EDUCATIONAL_PROGRAM)
                     break;
             }
         } else if (location.pathname !== "/") {
@@ -60,13 +63,13 @@ const App: FC = () => {
         <Routes>
             <Route path={"/"} element={<WelcomeScreen saveLoginInfo={saveLoginInfo}/>}/>
             <Route path={STUDENT} element={<StudentScreen/>}>
-                <Route path={STUDENT + "/student_plan"} element={<StudyPlan/>}/>
+                <Route path={STUDENT + STUDENT_PLAN} element={<StudyPlan/>}/>
                 <Route path={STUDENT + "/courses_and_modules"} element={<ModuleList />}/>
             </Route>
             <Route path={STUDENT + "/recommendationService"} element={<RecommendationsScreen />} />
             <Route path={ADMINISTRATOR} element={<AdministratorMainScreen/>}>
-                <Route path={ADMINISTRATOR + "/educational_program"} element={<EducationalProgramScreen/>}/>
-                    <Route path={EDUCATIONAL_PROGRAM_SCREEN_URL + "*"} element={<AddEducationalProgramScreen />}/>
+                <Route path={ADMINISTRATOR + EDUCATIONAL_PROGRAM} element={<EducationalProgramScreen/>}/>
+                    <Route path={ADMINISTRATOR + EDUCATIONAL_PROGRAM + "/:educationalProgramId"} element={<EducationalProgramDetailsScreen />}/>
                 <Route path={ADMINISTRATOR + "/educational_program/add"} element={<AddEducationalProgramScreen />}/>
                 <Route path={MODULES_SCREEN_URL} element={<ModulesScreen />}/>
                     <Route path={ADMINISTRATOR + "/module/add"} element={<AddModuleScreen/>}/>
