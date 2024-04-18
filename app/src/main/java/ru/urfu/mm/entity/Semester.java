@@ -14,23 +14,19 @@ public class Semester {
     @Column
     private int year;
     @Column
-    private int semesterNumber;
-    @Column
     private SemesterType type;
 
     public Semester() {
     }
 
-    public Semester(UUID id, int year, int semesterNumber, SemesterType type) {
+    public Semester(UUID id, int year, SemesterType type) {
         this.id = id;
         this.year = year;
-        this.semesterNumber = semesterNumber;
         this.type = type;
     }
 
-    public Semester(int year, int semesterNumber, SemesterType type) {
+    public Semester(int year, SemesterType type) {
         this.year = year;
-        this.semesterNumber = semesterNumber;
         this.type = type;
     }
 
@@ -44,9 +40,5 @@ public class Semester {
 
     public SemesterType getType() {
         return type;
-    }
-
-    public int getSemesterNumber() {
-        return semesterNumber;
     }
 }

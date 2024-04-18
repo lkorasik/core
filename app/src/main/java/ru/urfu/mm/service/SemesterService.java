@@ -24,7 +24,8 @@ public class SemesterService {
         ZonedDateTime now = Instant.now().atZone(ZoneId.systemDefault());
         return GetLaterOrEqual(GetAcademicYear(now))
                 .stream()
-                .map(semester -> new SemesterDTO(semester.getId(), semester.getYear(), semester.getSemesterNumber()))
+                // todo: fix it
+                .map(semester -> new SemesterDTO(semester.getId(), semester.getYear(), 0))
                 .toList();
     }
 

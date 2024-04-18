@@ -46,7 +46,8 @@ public class ProgramService {
                 .stream()
                 .filter(x -> program.containsKey(x.getId()))
                 .toList());
-        semesters.sort(Comparator.comparing(Semester::getSemesterNumber));
+        // todo: Fix it
+//        semesters.sort(Comparator.comparing(Semester::getSemesterNumber));
         var credits = semesters
                 .stream()
                 .map(x -> program.get(x.getId()))
@@ -227,7 +228,9 @@ public class ProgramService {
         var existingSemesters = semesterRepository
                 .findAll()
                 .stream()
-                .filter(x -> years.contains(x.getYear()) && semestersNumbers.contains(x.getSemesterNumber()))
+                // todo: Fix it
+//                .filter(x -> years.contains(x.getYear()) && semestersNumbers.contains(x.getSemesterNumber()))
+                .filter(x -> years.contains(x.getYear()))
                 .toList();
 
         // Выичсляем какие семестры необходимо добавить в систему
@@ -235,9 +238,9 @@ public class ProgramService {
         for(int i = 0; i < semesters.size(); i++) {
             Semester semester;
             if (i % 2 == 0) {
-                semester = new Semester(years.get(i), i + 1, SemesterType.FALL);
+                semester = new Semester(i + 1, SemesterType.FALL);
             } else {
-                semester = new Semester(years.get(i), i + 1, SemesterType.SPRING);
+                semester = new Semester(i + 1, SemesterType.SPRING);
             }
             toAdd.add(semester);
         }
@@ -245,13 +248,13 @@ public class ProgramService {
                 .stream()
                 .filter(x -> !existingSemesters
                         .stream()
-                        .map(y -> List.of(y.getYear(), y.getSemesterNumber()))
+                        .map(Semester::getYear)
                         .toList()
-                        .contains(List.of(x.getYear(), x.getSemesterNumber()))
+                        .contains(x.getYear())
                 )
                 .toList();
 
         // Добавляем недостающие семестры
-        toAdd2.forEach(x -> semesterRepository.save(x));
+        toAdd2.forEach(semesterRepository::save);
     }
 }

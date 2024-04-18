@@ -63,7 +63,8 @@ public class DocumentService {
                 .stream()
                 .collect(
                         Collectors.groupingBy(
-                                x -> x.getSemester().getSemesterNumber(),
+                                x -> 0,
+                                // todo: fix it
                                 Collectors.mapping(
                                         x -> x,
                                         Collectors.toList()

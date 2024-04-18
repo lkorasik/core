@@ -316,7 +316,6 @@ public class CourseGatewayImpl implements CourseGateway {
                                         new ru.urfu.mm.entity.Semester(
                                                 x.getSemester().getId(),
                                                 x.getSemester().getYear(),
-                                                0, // todo: Fix this
                                                 semesterTypeToEntityMapper.map(x.getSemester().getType())
                                         ),
                                         new ru.urfu.mm.entity.SpecialCourse(
