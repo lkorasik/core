@@ -1,24 +1,19 @@
-import { CloseButton } from "../CrudButtons/CloseButton/CloseButton";
-import { DeleteButton } from "../CrudButtons/DeleteButton/DeleteButton";
-import { EditButton } from "../CrudButtons/EditButton/EditButton";
-import { SaveButton } from "../CrudButtons/SaveButton/SaveButton";
+import { ReactNode } from "react";
 import { Title } from "../Title/Title";
 import styles from "./Toolbar.module.css";
 
 interface Props {
-    children?: string
+    title: string
+    children?: ReactNode | ReactNode[]
 }
 
 export function Toolbar(props: Props) {
     return (
         <>
             <div className={styles.toolbar}>
-                <Title>{props.children}</Title>
+                <Title>{props.title}</Title>
                 <div className={styles.actions}>
-                    <SaveButton to="a" />
-                    <EditButton to="a" />
-                    <DeleteButton to="s" />
-                    <CloseButton to="sd" />
+                    {props.children}
                 </div>
             </div>
         </>

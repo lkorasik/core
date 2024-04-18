@@ -8,9 +8,13 @@ import { useApis } from "../../../apis/ApiBase/ApiProvider";
 import { ProgramIdDto } from "../../../apis/api/programs/ProgramIdDto";
 import { GetGroupDto } from "../../../apis/api/groups/GetGroupDto";
 import { AddButton } from "../../../base_components/AddButton/AddButton";
+import { GroupDto } from "../../../apis/api/groups/GroupDto";
+
+export const PROGRAM_ID_KEY = "ProgramId";
 
 export function EducationalProgramDetailsScreen() {
     const [educationalProgramName, setEducationalProgramName] = useState<string>();
+    const [groups, setGroups] = useState<GroupDto[]>([]);
 
     const { educationalProgramId } = useParams();
     const api = useApis();
@@ -26,30 +30,30 @@ export function EducationalProgramDetailsScreen() {
 
         const loadGroups = async () => {
             const request = { programId: educationalProgramId } as GetGroupDto
-            const response = await api.groupsApi.getCurrentEducationalProgram(request);
+            const response = await api.groupsApi.getGroupsForProgram(request);
 
-            console.log(response);
+            setGroups(response)
         }
         loadGroups().catch(console.error);
     }, [])
 
-    const renderCard = () => {
-        return (
-            <Card
-                link={"/administrator/educational_program/"}
-                text={"МЕНМ-123123"}
-                type={"EducationalProgram"}
-                paramNames={["Id", "Name"]}
-                paramsValues={["a", "a"]} />
-        )
+    const renderCards = () => {
+        return groups.map(x => <Card
+            link={"/administrator/educational_program/"}
+            text={x.number}
+            type={"Group"}
+            paramNames={["Id", "Name"]}
+            paramsValues={[x.id, x.number]} />)
     }
 
     return (
         <>
             <Container>
-                <Toolbar>{educationalProgramName}</Toolbar>
-                <Grid cards={[renderCard()]} />
-                <Link to={"/administrator/group/add"}>
+                <Toolbar title={educationalProgramName!}>{educationalProgramName}</Toolbar>
+                <Grid cards={renderCards()} />
+                <Link to={"/administrator/group/add"} onClick={() => {
+                    localStorage.setItem(PROGRAM_ID_KEY, educationalProgramId!);
+                }}>
                     <AddButton />
                 </Link>
             </Container>

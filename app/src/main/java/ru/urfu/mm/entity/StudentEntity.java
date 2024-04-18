@@ -17,13 +17,13 @@ public class StudentEntity {
     private UserEntity userEntity;
     @ManyToOne
     @JoinColumn(name = "groups_id")
-    private Group group;
+    private GroupEntity group;
 
-    public Group getGroup() {
+    public GroupEntity getGroup() {
         return group;
     }
 
-    public void setGroup(Group group) {
+    public void setGroup(GroupEntity group) {
         this.group = group;
     }
 

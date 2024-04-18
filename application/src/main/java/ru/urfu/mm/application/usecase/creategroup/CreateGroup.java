@@ -1,13 +1,18 @@
 package ru.urfu.mm.application.usecase.creategroup;
 
 import ru.urfu.mm.application.gateway.GroupGateway;
+import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.domain.Group;
+import ru.urfu.mm.domain.Program;
 
+import java.util.ArrayList;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 /**
  * Создать академическую группу
  * 1. Проверяем, что указан валидный номер группы. Номер группы должен соответствовать формату МЕНМ-ХХХХХХ.
+ * 2. Достаем программу и добавляем в нее группу.
  */
 public class CreateGroup {
     /**
@@ -17,12 +22,14 @@ public class CreateGroup {
     private final int firstDigitMask = 100000;
 
     private final GroupGateway groupGateway;
+    private final ProgramGateway programGateway;
 
-    public CreateGroup(GroupGateway groupGateway) {
+    public CreateGroup(GroupGateway groupGateway, ProgramGateway programGateway) {
         this.groupGateway = groupGateway;
+        this.programGateway = programGateway;
     }
 
-    public void createGroup(String number) {
+    public void createGroup(String number, UUID programId) {
         Pattern regex = Pattern.compile(REGEX);
 
         if (!regex.asPredicate().test(number)) {
@@ -36,8 +43,15 @@ public class CreateGroup {
         ensureDepartmentCode(departmentCode);
         ensureCorrectCourseNumber(digitalPart);
 
-        Group group = new Group(number);
+        Group group = new Group(UUID.randomUUID(), number);
         groupGateway.save(group);
+
+        Program program = programGateway.getById(programId);
+        var list = new ArrayList<Group>();
+        list.addAll(program.getGroups());
+        list.add(group);
+        program.setGroups(list.stream().toList());
+        programGateway.save(program);
     }
 
     private void ensureDepartmentCode(String department) {

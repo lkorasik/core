@@ -8,22 +8,28 @@ import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.domain.Group;
 import ru.urfu.mm.domain.Program;
+import ru.urfu.mm.entity.EducationalProgram;
+import ru.urfu.mm.entity.GroupEntity;
+import ru.urfu.mm.entity.Years;
 import ru.urfu.mm.repository.EducationalProgramRepository;
+import ru.urfu.mm.repository.GroupRepository;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Component
 public class ProgramGatewayImpl implements ProgramGateway {
     private final EducationalProgramRepository educationalProgramRepository;
     private final ObjectMapper mapper;
+    private final GroupRepository groupRepository;
 
     @Autowired
-    public ProgramGatewayImpl(EducationalProgramRepository educationalProgramRepository, ObjectMapper mapper) {
+    public ProgramGatewayImpl(
+            EducationalProgramRepository educationalProgramRepository,
+            ObjectMapper mapper,
+            GroupRepository groupRepository) {
         this.educationalProgramRepository = educationalProgramRepository;
         this.mapper = mapper;
+        this.groupRepository = groupRepository;
     }
 
     @Override
@@ -33,7 +39,8 @@ public class ProgramGatewayImpl implements ProgramGateway {
                 educationalProgram.getId(),
                 educationalProgram.getName(),
                 educationalProgram.getTrainingDirection(),
-                educationalProgram.getSemesterIdToRequiredCreditsCount()
+                educationalProgram.getSemesterIdToRequiredCreditsCount(),
+                groupRepository.findAllByEducationalProgram(educationalProgram).stream().map(x -> new Group(x.getId(), x.getNumber())).toList()
         );
     }
 
@@ -61,6 +68,21 @@ public class ProgramGatewayImpl implements ProgramGateway {
                         x.getSemesterIdToRequiredCreditsCount()
                 ))
                 .toList();
+    }
+
+    @Override
+    public void save(Program program) {
+        EducationalProgram entity = new EducationalProgram(
+                program.getId(),
+                program.getName(),
+                program.getTrainingDirection(),
+                program.getSemesterIdToRequiredCreditsCount()
+        );
+        Iterable<GroupEntity> groups = groupRepository
+                .findAllById(program.getGroups().stream().map(Group::getId).toList());
+        groups.forEach(group -> group.setEducationalProgram(entity));
+        groupRepository.saveAll(groups);
+        educationalProgramRepository.save(entity);
     }
 
     @Override

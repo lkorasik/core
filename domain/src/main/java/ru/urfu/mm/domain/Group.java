@@ -25,7 +25,8 @@ public class Group {
      */
     private List<Student> students;
 
-    public Group(String number) {
+    public Group(UUID id, String number) {
+        this.id = id;
         this.number = number;
         year = Years.FIRST;
         students = new ArrayList<>();

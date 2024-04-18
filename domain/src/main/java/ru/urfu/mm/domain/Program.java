@@ -39,6 +39,14 @@ public class Program {
         this.semesterIdToRequiredCreditsCount = semesterIdToRequiredCreditsCount;
     }
 
+    public Program(UUID id, String name, String trainingDirection, String semesterIdToRequiredCreditsCount, List<Group> groups) {
+        this.id = id;
+        this.name = name;
+        this.trainingDirection = trainingDirection;
+        this.semesterIdToRequiredCreditsCount = semesterIdToRequiredCreditsCount;
+        this.groups = groups;
+    }
+
     public UUID getId() {
         return id;
     }
@@ -53,6 +61,10 @@ public class Program {
 
     public String getTrainingDirection() {
         return trainingDirection;
+    }
+
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
     }
 
     public String getSemesterIdToRequiredCreditsCount() {

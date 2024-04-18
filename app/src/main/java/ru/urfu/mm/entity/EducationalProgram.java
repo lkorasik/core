@@ -1,7 +1,8 @@
 package ru.urfu.mm.entity;
 
 import jakarta.persistence.*;
-import java.util.UUID;
+
+import java.util.*;
 
 @Entity
 @Table(name = "educational_programs")
@@ -16,6 +17,17 @@ public class EducationalProgram {
     private String trainingDirection;
     @Column
     private String semesterIdToRequiredCreditsCount;
+
+//    @OneToMany(mappedBy = "id")
+//    private List<GroupEntity> groups = new ArrayList<>();
+
+//    public List<GroupEntity> getGroups() {
+//        return groups;
+//    }
+
+//    public void setGroups(List<GroupEntity> groups) {
+//        this.groups = groups;
+//    }
 
     public EducationalProgram() {
     }
