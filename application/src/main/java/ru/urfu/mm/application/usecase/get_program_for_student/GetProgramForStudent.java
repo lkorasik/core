@@ -30,26 +30,27 @@ public class GetProgramForStudent {
     }
 
     public ProgramForStudentResponse getProgramForStudent(UUID studentId) {
-        Student student = studentGateway.getById(studentId);
-
-        Map<UUID, Integer> semesterIdToCredits = programGateway
-                .deserializeRecommendedCredits(student.getEducationalProgram());
-
-        int[] recommendedCredits = new int[4];
-        for (UUID semesterId : semesterIdToCredits.keySet()) {
-            Semester semester = semesterGateway.getById(semesterId);
-            recommendedCredits[semester.getSemesterNumber() - 1] = semesterIdToCredits.get(semesterId);
-        }
-        List<Integer> list = new ArrayList<>();
-        for (int recommendedCredit : recommendedCredits) {
-            list.add(recommendedCredit);
-        }
-
-        return new ProgramForStudentResponse(
-                student.getEducationalProgram().getId(),
-                student.getEducationalProgram().getName(),
-                list,
-                List.of()
-        );
+//        Student student = studentGateway.getById(studentId);
+//
+//        Map<UUID, Integer> semesterIdToCredits = programGateway
+//                .deserializeRecommendedCredits(student.getEducationalProgram());
+//
+//        int[] recommendedCredits = new int[4];
+//        for (UUID semesterId : semesterIdToCredits.keySet()) {
+//            Semester semester = semesterGateway.getById(semesterId);
+//            recommendedCredits[semester.getSemesterNumber() - 1] = semesterIdToCredits.get(semesterId);
+//        }
+//        List<Integer> list = new ArrayList<>();
+//        for (int recommendedCredit : recommendedCredits) {
+//            list.add(recommendedCredit);
+//        }
+//
+//        return new ProgramForStudentResponse(
+//                student.getEducationalProgram().getId(),
+//                student.getEducationalProgram().getName(),
+//                list,
+//                List.of()
+//        );
+        throw new RuntimeException("Not imeplimplemented! Temporal");
     }
 }

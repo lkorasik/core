@@ -158,7 +158,8 @@ public class RecommendationsService {
                                         y.getId(),
                                         y.getName(),
                                         y.getCreditsCount(),
-                                        y.getSemesters().stream().map(w -> new SemesterDTO(w.getId(), w.getYear(), w.getSemesterNumber())).toList(),
+                                        // todo: Fix this
+                                        y.getSemesters().stream().map(w -> new SemesterDTO(w.getId(), w.getYear(), 0)).toList(),
                                         y.getEducationalModuleId(),
                                         y.requiredSemesterId,
                                         courseIdToRequiredSkills.containsKey(y.getId())
@@ -348,7 +349,8 @@ public class RecommendationsService {
                 course.getName(),
                 course.getCreditsCount(),
                 course.getSemesters().stream()
-                        .map(x -> new SemesterDTO(x.getId(), x.getYear(), x.getSemesterNumber()))
+                        // todo: fix this
+                        .map(x -> new SemesterDTO(x.getId(), x.getYear(), 0))
                         .toList(),
                 course.getEducationalModuleId(),
                 course.requiredSemesterId,

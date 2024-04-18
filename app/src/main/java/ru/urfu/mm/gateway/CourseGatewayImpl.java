@@ -109,7 +109,6 @@ public class CourseGatewayImpl implements CourseGateway {
                         new Semester(
                                 x.getSemester().getId(),
                                 x.getSemester().getYear(),
-                                x.getSemester().getSemesterNumber(),
                                 semesterTypeToDomainMapper.map(x.getSemester().getType())
                         ),
                         new SpecialCourse(
@@ -146,7 +145,6 @@ public class CourseGatewayImpl implements CourseGateway {
                         new Semester(
                                 x.getSemester().getId(),
                                 x.getSemester().getYear(),
-                                x.getSemester().getSemesterNumber(),
                                 semesterTypeToDomainMapper.map(x.getSemester().getType())
                         ),
                         new SpecialCourse(
@@ -187,7 +185,6 @@ public class CourseGatewayImpl implements CourseGateway {
                         new Semester(
                                 x.getSemester().getId(),
                                 x.getSemester().getYear(),
-                                x.getSemester().getSemesterNumber(),
                                 semesterTypeToDomainMapper.map(x.getSemester().getType())
                         ),
                         new SpecialCourse(
@@ -225,7 +222,6 @@ public class CourseGatewayImpl implements CourseGateway {
                         new Semester(
                                 x.getSemester().getId(),
                                 x.getSemester().getYear(),
-                                x.getSemester().getSemesterNumber(),
                                 semesterTypeToDomainMapper.map(x.getSemester().getType())
                         ),
                         new SpecialCourse(
@@ -274,7 +270,6 @@ public class CourseGatewayImpl implements CourseGateway {
                         new Semester(
                                 x.getSemester().getId(),
                                 x.getSemester().getYear(),
-                                x.getSemester().getSemesterNumber(),
                                 semesterTypeToDomainMapper.map(x.getSemester().getType())
                         ),
                         new SpecialCourse(
@@ -321,7 +316,7 @@ public class CourseGatewayImpl implements CourseGateway {
                                         new ru.urfu.mm.entity.Semester(
                                                 x.getSemester().getId(),
                                                 x.getSemester().getYear(),
-                                                x.getSemester().getSemesterNumber(),
+                                                0, // todo: Fix this
                                                 semesterTypeToEntityMapper.map(x.getSemester().getType())
                                         ),
                                         new ru.urfu.mm.entity.SpecialCourse(

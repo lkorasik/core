@@ -69,7 +69,6 @@ public class GetCoursesByEducationalProgramAndSemesters {
                     info.stream().map(x -> new Semester(
                             x.getSemester().getId(),
                             x.getSemester().getYear(),
-                            x.getSemester().getYear(), // todo: фикси ошибку
                             x.getSemester().getType()
                     )).toList(),
                     firstCourseInfo.getEducationalModule().getId(),

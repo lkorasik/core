@@ -5,22 +5,19 @@ import java.util.UUID;
 public class Semester {
     private UUID id;
     private int year;
-    private int semesterNumber;
     private SemesterType type;
 
     public Semester() {
     }
 
-    public Semester(UUID id, int year, int semesterNumber, SemesterType type) {
+    public Semester(UUID id, int year, SemesterType type) {
         this.id = id;
         this.year = year;
-        this.semesterNumber = semesterNumber;
         this.type = type;
     }
 
-    public Semester(int year, int semesterNumber, SemesterType type) {
+    public Semester(int year, SemesterType type) {
         this.year = year;
-        this.semesterNumber = semesterNumber;
         this.type = type;
     }
 
@@ -34,9 +31,5 @@ public class Semester {
 
     public SemesterType getType() {
         return type;
-    }
-
-    public int getSemesterNumber() {
-        return semesterNumber;
     }
 }

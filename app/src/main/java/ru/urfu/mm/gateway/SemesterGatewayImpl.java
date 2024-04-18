@@ -29,7 +29,6 @@ public class SemesterGatewayImpl implements SemesterGateway {
         return new Semester(
                 entity.getId(),
                 entity.getYear(),
-                entity.getSemesterNumber(),
                 semesterTypeMapper.map(entity.getType())
         );
     }
@@ -43,7 +42,6 @@ public class SemesterGatewayImpl implements SemesterGateway {
                 .map(x -> new Semester(
                         x.getId(),
                         x.getYear(),
-                        x.getSemesterNumber(),
                         semesterTypeMapper.map(x.getType())
                 ))
                 .toList();

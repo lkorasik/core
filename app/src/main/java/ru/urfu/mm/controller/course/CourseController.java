@@ -67,7 +67,7 @@ public class CourseController extends AbstractAuthorizedController {
                                 .map(y -> new Semester(
                                         y.getId(),
                                         y.getYear(),
-                                        y.getSemesterNumber(),
+                                        0, // todo: fix this
                                         semesterTypeToEntityMapper.map(y.getType())
                                 ))
                                 .toList(),

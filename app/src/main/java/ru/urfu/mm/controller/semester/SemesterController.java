@@ -17,7 +17,8 @@ public class SemesterController {
     @GetMapping("/actual")
     public List<SemesterDTO> actual() {
         return getActualSemesters.getActualSemesters().stream()
-                .map(semester -> new SemesterDTO(semester.getId(), semester.getYear(), semester.getSemesterNumber()))
+                // todo: fix this
+                .map(semester -> new SemesterDTO(semester.getId(), semester.getYear(), 0))
                 .toList();
     }
 }
