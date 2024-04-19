@@ -21,7 +21,7 @@ import { ModuleList } from '../ModuleList/ModuleList';
 import { ModulesScreen } from '../ModulesScreen';
 import { ModuleCourses } from '../ModuleCourses/ModuleCourses';
 import { EducationalProgramDetailsScreen } from '../EducationalProgramScreen/EducationalProgramDetailsScreen/EducationalProgramDetailsScreen';
-import { AddGroupScreen } from '../AddGroupScreen/AddGroupScreen';
+import { AddGroupScreen } from '../EducationalProgramScreen/AddGroupScreen/AddGroupScreen';
 
 export const EDUCATIONAL_PROGRAM_SCREEN_URL: string = "/administrator/educational_program/";
 export const MODULES_SCREEN_URL: string = "/administrator/courses_and_modules";
