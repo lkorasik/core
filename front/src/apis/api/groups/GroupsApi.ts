@@ -2,6 +2,7 @@ import { ApiBase } from "../../ApiBase/ApiBase";
 import { GroupDto } from "./GroupDto";
 import { GetGroupDto } from "./GetGroupDto";
 import { CreateGroupDto } from "./CreateGroupDto";
+import { GetGroupIdDto } from "./GetGroupIdDto";
 
 export class GroupsApi extends ApiBase implements IGroupsApi {
     public async getGroupsForProgram(programId: GetGroupDto): Promise<GroupDto[]> {
@@ -11,9 +12,14 @@ export class GroupsApi extends ApiBase implements IGroupsApi {
     public async createGroup(createGroup: CreateGroupDto): Promise<any> {
         return this.post("groups/group" , {}, {...createGroup});
     }
+
+    public async getGroup(getGroup: GetGroupIdDto): Promise<GroupDto> {
+        return this.get("groups/groupById", {...getGroup})
+    }
 }
 
 export interface IGroupsApi {
     getGroupsForProgram(programId: GetGroupDto): Promise<GroupDto[]>
     createGroup(createGroup: CreateGroupDto): Promise<any>
+    getGroup(getGroup: GetGroupIdDto): Promise<GroupDto>
 }

@@ -9,6 +9,7 @@ import { ProgramIdDto } from "../../../apis/api/programs/ProgramIdDto";
 import { GetGroupDto } from "../../../apis/api/groups/GetGroupDto";
 import { AddButton } from "../../../base_components/AddButton/AddButton";
 import { GroupDto } from "../../../apis/api/groups/GroupDto";
+import { ADMINISTRATOR, GROUP } from "../../App/App";
 
 export const PROGRAM_ID_KEY = "ProgramId";
 
@@ -39,7 +40,7 @@ export function EducationalProgramDetailsScreen() {
 
     const renderCards = () => {
         return groups.map(x => <Card
-            link={"/administrator/educational_program/"}
+            link={ADMINISTRATOR + GROUP + "/" + x.id}
             text={x.number}
             type={"Group"}
             paramNames={["Id", "Name"]}

@@ -22,6 +22,7 @@ import { ModulesScreen } from '../ModulesScreen';
 import { ModuleCourses } from '../ModuleCourses/ModuleCourses';
 import { EducationalProgramDetailsScreen } from '../EducationalProgramScreen/EducationalProgramDetailsScreen/EducationalProgramDetailsScreen';
 import { AddGroupScreen } from '../EducationalProgramScreen/AddGroupScreen/AddGroupScreen';
+import { GroupScreen } from '../EducationalProgramScreen/GroupScreen/GroupScreen';
 
 export const EDUCATIONAL_PROGRAM_SCREEN_URL: string = "/administrator/educational_program/";
 export const MODULES_SCREEN_URL: string = "/administrator/courses_and_modules";
@@ -34,6 +35,7 @@ export const STUDENT: string = "/studentEntity";
 export const STUDENT_PLAN: string = "/student_plan";
 export const ADMINISTRATOR: string = "/administrator";
 export const EDUCATIONAL_PROGRAM: string = "/educational_program";
+export const GROUP: string = "/group";
 
 const App: FC = () => {
     const {loginInfo, saveLoginInfo} = useAuthentication();
@@ -72,7 +74,8 @@ const App: FC = () => {
                 <Route path={ADMINISTRATOR + EDUCATIONAL_PROGRAM} element={<EducationalProgramScreen/>}/>
                     <Route path={ADMINISTRATOR + EDUCATIONAL_PROGRAM + "/:educationalProgramId"} element={<EducationalProgramDetailsScreen />}/>
                 <Route path={ADMINISTRATOR + "/educational_program/add"} element={<AddEducationalProgramScreen />}/>
-                <Route path={ADMINISTRATOR + "/group/add"} element={<AddGroupScreen />} />
+                <Route path={ADMINISTRATOR + GROUP + "/add"} element={<AddGroupScreen />} />
+                <Route path={ADMINISTRATOR + GROUP + "/:groupId"} element={<GroupScreen />} />
                 <Route path={MODULES_SCREEN_URL} element={<ModulesScreen />}/>
                     <Route path={ADMINISTRATOR + "/module/add"} element={<AddModuleScreen/>}/>
                     <Route path={EDIT_MODULE_SCREEN_URL + "*"} element={<EditModuleScreen/>}/>

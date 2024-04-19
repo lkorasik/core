@@ -9,7 +9,6 @@ import { ADMINISTRATOR, EDUCATIONAL_PROGRAM } from "../../App/App";
 import { useApis } from "../../../apis/ApiBase/ApiProvider";
 import { CreateGroupDto } from "../../../apis/api/groups/CreateGroupDto";
 import { PROGRAM_ID_KEY } from "../EducationalProgramDetailsScreen/EducationalProgramDetailsScreen";
-import { useNavigate } from "react-router-dom";
 
 export function AddGroupScreen() {
     const [groupNumber, setGroupNumber] = useState("");
@@ -17,7 +16,6 @@ export function AddGroupScreen() {
     const programId = localStorage.getItem(PROGRAM_ID_KEY);
 
     const api = useApis()
-    const navigate = useNavigate()
 
     const save = async () => {
         const group = {
