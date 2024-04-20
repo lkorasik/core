@@ -52,7 +52,7 @@ public class GenerateStudentRegistrationTokens {
         List<UUID> registrationTokens = Stream.generate(UUID::randomUUID).limit(request.tokenCount()).toList();
 
         List<Student> students = registrationTokens.stream()
-                .map(x -> new Student(x, program, group.getNumber()))
+                .map(x -> new Student(x, program, group))
                 .toList();
         students.forEach(studentGateway::saveNewStudent);
 

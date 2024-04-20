@@ -29,6 +29,11 @@ public class SkillsService {
                                         x.getStudent().getEducationalProgram().getTrainingDirection(),
                                         x.getStudent().getEducationalProgram().getSemesterIdToRequiredCreditsCount()
                                 ),
+                                new GroupEntity(
+                                        x.getStudent().getGroup().getId(),
+                                        x.getStudent().getGroup().getNumber(),
+                                        ru.urfu.mm.entity.Years.values()[x.getStudent().getGroup().getYear().ordinal()]
+                                ),
                                 userMapper.map(x.getStudent().getUser())
                         ),
                         new Skill(

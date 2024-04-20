@@ -38,15 +38,17 @@ public class StudentEntity {
     public StudentEntity() {
     }
 
-    public StudentEntity(UUID login, EducationalProgram educationalProgram, UserEntity userEntity) {
+    public StudentEntity(UUID login, EducationalProgram educationalProgram, GroupEntity group, UserEntity userEntity) {
         this.login = login;
         this.educationalProgram = educationalProgram;
+        this.group = group;
         this.userEntity = userEntity;
     }
 
-    public StudentEntity(UUID login, EducationalProgram educationalProgram) {
+    public StudentEntity(UUID login, EducationalProgram educationalProgram, GroupEntity group) {
         this.login = login;
         this.educationalProgram = educationalProgram;
+        this.group = group;
     }
 
     public UUID getLogin() {

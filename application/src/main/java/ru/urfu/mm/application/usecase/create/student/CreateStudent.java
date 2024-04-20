@@ -48,7 +48,7 @@ public class CreateStudent {
         User user = new User(request.token(), passwordGateway.encode(request.password()), UserRole.STUDENT);
         userGateway.save(user);
 
-        Student completedStudent = new Student(request.token(), program, request.group(), user);
+        Student completedStudent = new Student(request.token(), program, student.getGroup(), user);
         studentGateway.update(completedStudent);
 
         // todo: возможно, стоит отмечать токен как использованный, а не удалять его.
@@ -56,7 +56,7 @@ public class CreateStudent {
     }
 
     private void ensureStudentNotRegisteredBefore(Student student) {
-        if ((student.getUser() != null) || (student.getGroup() != null)) {
+        if (student.getUser() != null) {
             throw new StudentAlreadyRegisteredException(student.getLogin());
         }
     }

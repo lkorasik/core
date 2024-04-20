@@ -3,11 +3,10 @@ package ru.urfu.mm.gateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.StudentGateway;
+import ru.urfu.mm.domain.Group;
 import ru.urfu.mm.domain.Program;
 import ru.urfu.mm.domain.Student;
-import ru.urfu.mm.entity.EducationalProgram;
-import ru.urfu.mm.entity.StudentEntity;
-import ru.urfu.mm.entity.UserEntity;
+import ru.urfu.mm.entity.*;
 import ru.urfu.mm.repository.StudentRepository;
 import ru.urfu.mm.service.mapper.Mapper;
 
@@ -30,6 +29,11 @@ public class StudentGatewayImpl implements StudentGateway {
         StudentEntity studentEntity1 = new StudentEntity(
                 student.getLogin(),
                 parse(student.getEducationalProgram()),
+                new GroupEntity(
+                        student.getGroup().getId(),
+                        student.getGroup().getNumber(),
+                        Years.values()[student.getGroup().getYear().ordinal()]
+                ),
                 userMapper.map(student.getUser())
         );
         studentRepository.save(studentEntity1);
@@ -39,7 +43,12 @@ public class StudentGatewayImpl implements StudentGateway {
     public void saveNewStudent(Student student) {
         StudentEntity entity = new StudentEntity(
                 student.getLogin(),
-                parse(student.getEducationalProgram())
+                parse(student.getEducationalProgram()),
+                new GroupEntity(
+                        student.getGroup().getId(),
+                        student.getGroup().getNumber(),
+                        Years.values()[student.getGroup().getYear().ordinal()]
+                )
         );
         studentRepository.save(entity);
     }
@@ -56,7 +65,10 @@ public class StudentGatewayImpl implements StudentGateway {
                                 x.getEducationalProgram().getTrainingDirection(),
                                 x.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
                         ),
-                        x.getGroup().getNumber(),
+                        new Group(
+                                x.getGroup().getId(),
+                                x.getGroup().getNumber()
+                        ),
                         new ru.urfu.mm.domain.User(
                                 x.getUser().getLogin(),
                                 x.getUser().getPassword(),
@@ -78,16 +90,10 @@ public class StudentGatewayImpl implements StudentGateway {
                                 x.getEducationalProgram().getTrainingDirection(),
                                 x.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
                         ),
-                        null,
-// todo: Fix it
-//                        x.getGroup().getNumber(),
-//                        new ru.urfu.mm.domain.User(
-//                                x.getUser().getLogin(),
-//                                x.getUser().getPassword(),
-//                                ru.urfu.mm.domain.UserRole.values()[x.getUser().getRole().ordinal()]
-//                        )
-                        null
-                        // todo: Fix it
+                        new Group(
+                                x.getGroup().getId(),
+                                x.getGroup().getNumber()
+                        )
                 ));
     }
 

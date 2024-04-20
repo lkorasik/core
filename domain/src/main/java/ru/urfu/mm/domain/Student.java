@@ -5,7 +5,7 @@ import java.util.UUID;
 public class Student {
     private UUID login;
     private Program program;
-    private String group;
+    private Group group;
     private User user;
 
     public Program getEducationalProgram() {
@@ -19,14 +19,14 @@ public class Student {
     public Student() {
     }
 
-    public Student(UUID login, Program program, String group, User user) {
+    public Student(UUID login, Program program, Group group, User user) {
         this.login = login;
         this.program = program;
         this.group = group;
         this.user = user;
     }
 
-    public Student(UUID login, Program program, String group) {
+    public Student(UUID login, Program program, Group group) {
         this.login = login;
         this.program = program;
         this.group = group;
@@ -36,7 +36,7 @@ public class Student {
         return login;
     }
 
-    public String getGroup() {
+    public Group getGroup() {
         return group;
     }
 
