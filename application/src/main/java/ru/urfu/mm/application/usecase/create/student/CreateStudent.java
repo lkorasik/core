@@ -31,7 +31,7 @@ public class CreateStudent {
     private final PasswordGateway passwordGateway;
     private final UserGateway userGateway;
     private final ProgramGateway programGateway;
-        private final StudentGateway studentGateway;
+    private final StudentGateway studentGateway;
 
     public CreateStudent(
             TokenGateway tokenGateway,
