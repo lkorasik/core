@@ -3,11 +3,12 @@ package ru.urfu.mm.controller.group;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.application.usecase.creategroup.CreateGroup;
+import ru.urfu.mm.application.usecase.generatetoken.GenerateStudentRegistrationTokens;
+import ru.urfu.mm.application.usecase.generatetoken.GenerateStudentRegistrationTokensRequest;
 import ru.urfu.mm.application.usecase.getgroup.GetGroup;
 import ru.urfu.mm.application.usecase.getgroups.GetGroupForEducationalProgram;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.domain.Group;
-import ru.urfu.mm.entity.Years;
 
 import java.util.List;
 import java.util.UUID;
@@ -21,6 +22,8 @@ public class GroupController extends AbstractAuthorizedController {
     private CreateGroup createGroup;
     @Autowired
     private GetGroup getGroup;
+    @Autowired
+    private GenerateStudentRegistrationTokens generateStudentRegistrationTokens;
 
     @GetMapping("/group")
     public List<GroupDTO> getGroupsByEducationalProgram(@RequestParam("programId") UUID programId) {
@@ -39,5 +42,12 @@ public class GroupController extends AbstractAuthorizedController {
     public GroupDTO getGroup(@RequestParam("groupId") UUID groupId) {
         Group group = getGroup.getGroup(groupId);
         return new GroupDTO(group.getId(), group.getNumber());
+    }
+
+    @PostMapping("/token")
+    public List<UUID> generateTokens(@RequestBody GenerateTokenDTO generateTokenDTO) {
+        GenerateStudentRegistrationTokensRequest request =
+                new GenerateStudentRegistrationTokensRequest(generateTokenDTO.count(), generateTokenDTO.groupId());
+        return generateStudentRegistrationTokens.generateTokens(request);
     }
 }

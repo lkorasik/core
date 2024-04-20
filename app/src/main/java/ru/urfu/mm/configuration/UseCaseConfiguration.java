@@ -9,6 +9,7 @@ import ru.urfu.mm.application.usecase.*;
 import ru.urfu.mm.application.usecase.create.administrator.CreateAdministrator;
 import ru.urfu.mm.application.usecase.create.student.CreateStudent;
 import ru.urfu.mm.application.usecase.creategroup.CreateGroup;
+import ru.urfu.mm.application.usecase.generatetoken.GenerateStudentRegistrationTokens;
 import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
 import ru.urfu.mm.application.usecase.getallmodules.GetAllModules;
 import ru.urfu.mm.application.usecase.getallprograms.GetAllPrograms;
@@ -219,6 +220,13 @@ public class UseCaseConfiguration {
     @Bean
     public GetGroup getGroup(GroupGateway groupGateway) {
         return new GetGroup(groupGateway);
+    }
+
+    @Bean
+    public GenerateStudentRegistrationTokens generateStudentRegistrationTokens(
+            TokenGateway tokenGateway,
+            GetGroup getGroup) {
+        return new GenerateStudentRegistrationTokens(tokenGateway, getGroup);
     }
 
     @Bean
