@@ -6,6 +6,7 @@
 .table thead th {
     border-bottom: 3px solid var(--primary_color);
     color: var(--primary_color);
+    width: 50%;
 }
 
 .table tbody tr:nth-child(n) td {
