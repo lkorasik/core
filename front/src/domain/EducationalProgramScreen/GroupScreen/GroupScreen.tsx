@@ -29,6 +29,10 @@ export function GroupScreen() {
             setGroupNumber(response.number);
         }
         loadGroup().catch(console.error);
+
+        const loadTokens = async () => {
+            console.log("Load tokens")
+        }
     }, [])
 
     const generateTokens = async (count: number) => {

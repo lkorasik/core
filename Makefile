@@ -10,6 +10,9 @@ recreate_db:
 	@echo "End database recreating"
 
 # Войти на сервер
-# 1. Подключение по SSH к серверу
 server:
 	ssh -p 49207 root@771c825ef24d.vps.myjino.ru
+
+# Посчитать количество строк в кода
+count:
+	@find . -name '*.java' | xargs wc -l | tail -n 1 | grep -o '[0-9]*'
