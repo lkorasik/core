@@ -29,7 +29,7 @@
     width: 267px;
     height: 29px;
     position: initial;
-    color: var(--main_blue);
+    color: var(--primary_color);
 }
 
 .rightSpan {
@@ -42,13 +42,13 @@
     height: 29px;
     position: initial;
     padding-left: 970px;
-    color: var(--main_blue);
+    color: var(--primary_color);
 }
 
 .line {
     width: 1524px;
     height:2px;
-    border-bottom: 2px solid var(--main_blue);
+    border-bottom: 2px solid var(--primary_color);
     padding-bottom: 0px;
     padding-left:10px;
 }

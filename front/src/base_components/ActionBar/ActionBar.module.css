@@ -54,7 +54,7 @@
     width: 52px;
     height: 52px;
     border: none;
-    background: var(--main_blue);
+    background: var(--primary_color);
     display: flex;
     justify-content: center;
     align-items: center;

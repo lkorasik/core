@@ -1,3 +1,19 @@
 .table {
     width: 100%;
+    border-collapse: collapse;
+}
+
+.table thead th {
+    border-bottom: 3px solid var(--primary_color);
+    color: var(--primary_color);
+}
+
+.table tbody tr:nth-child(n) td {
+    text-align: center;
+    border-bottom: 1px solid var(--separator_color);
+}
+
+.table tbody tr:last-child td {
+    text-align: center;
+    border: none;
 }

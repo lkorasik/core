@@ -16,7 +16,7 @@
     border: none;
     background: none;
     text-decoration: underline;
-    color: var(--main_blue);
+    color: var(--primary_color);
     font-weight: 600;
 }
 
@@ -63,7 +63,7 @@
     font-family: Montserrat, sans-serif;
     font-size: 24px;
     font-weight: 600;
-    color: var(--main_blue);
+    color: var(--primary_color);
     width: 100%;
 }
 
@@ -162,7 +162,7 @@
     height: 64px;
     border: none;
     border-radius: 16px;
-    background-color: var(--main_blue);
+    background-color: var(--primary_color);
     color: white;
     font-size: 16px;
     font-weight: 600;
@@ -205,7 +205,7 @@
 .rule {
     height: 0.1em;
     width: 100%;
-    background-color: var(--main_blue);
+    background-color: var(--primary_color);
     border: 0;
 }
 

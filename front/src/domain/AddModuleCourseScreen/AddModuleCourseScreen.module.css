@@ -133,7 +133,7 @@ select::-ms-expand {
     height: 64px;
     border: none;
     border-radius: 16px;
-    background-color: var(--main_blue);
+    background-color: var(--primary_color);
     color: white;
     font-size: 16px;
     font-weight: 600;
