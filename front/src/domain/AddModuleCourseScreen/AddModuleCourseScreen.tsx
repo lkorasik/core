@@ -97,7 +97,7 @@ class AddModuleCourseScreenClear extends React.Component<Props, State> {
                                 Сохранить
                             </button>
                         </Link>
-                        <CloseButton to={MODULE_COURSES_SCREEN_URL + this.state.educationalModuleId} />
+                        <CloseButton />
                     </div>
                     <div>
                         <label className={styles.label}>

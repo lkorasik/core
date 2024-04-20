@@ -59,7 +59,7 @@ export function ModuleCourses() {
                     <div className={styles.helperButtons}>
                         <EditButton to={MODULES_SCREEN_URL} />
                         <DeleteButton to={MODULES_SCREEN_URL} onClick={deleteModule}/>
-                        <CloseButton to={MODULES_SCREEN_URL} />
+                        <CloseButton />
                     </div>
                 </div>
                 <Grid cards={renderCourses()} />

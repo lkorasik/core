@@ -35,7 +35,7 @@ export function AddGroupScreen() {
                     save()
                 }
                 } />
-                <CloseButton to={ADMINISTRATOR + EDUCATIONAL_PROGRAM + "/" + programId} />
+                <CloseButton />
             </Toolbar>
             <Flex direction="column">
                 <span>Номер группы</span>

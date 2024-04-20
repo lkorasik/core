@@ -11,6 +11,7 @@
     bottom: 10px;
     border: none;
     opacity: 0.8;
+    margin: 1rem;
     transition: scale 0.25s ease-in, opacity 0.3s ease-out;
 }
 

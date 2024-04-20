@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Container } from "../../../base_components/Container/Container";
 import { useApis } from "../../../apis/ApiBase/ApiProvider";
 import { useEffect, useState } from "react";
@@ -11,8 +11,7 @@ import { Input } from "../../../base_components/Input/Input";
 import { GenerateTokenDto } from "../../../apis/api/groups/GenerateTokenDto";
 import { GetTokensDto } from "../../../apis/api/groups/GetTokensDto";
 import { DownloadButton } from "../../../base_components/DownloadButton/DownloadButton";
-import { ADDRCONFIG } from "dns";
-import { ADMINISTRATOR, GROUP } from "../../App/App";
+import { CloseButton } from "../../../base_components/CrudButtons/CloseButton/CloseButton";
 
 export function GroupScreen() {
     const [groupNumber, setGroupNumber] = useState<string>("");
@@ -80,6 +79,7 @@ export function GroupScreen() {
             {showDialog && renderDialog()}
             <Toolbar title={groupNumber}>
                 <DownloadButton title="Скачать список токенов" onClick={downloadTokenList} />
+                <CloseButton />
             </Toolbar>
             <Table columnTitles={["Токен"]} rows={renderTokens()}/>
             <AddButton onClick={() => setShowDialog(true)} />

@@ -59,7 +59,7 @@ class CourseScreenClear extends React.Component<Props, State> {
                         <DeleteButton 
                             to={MODULE_COURSES_SCREEN_URL + this.state.courseModel?.moduleId} 
                             onClick={() => this.deleteCourse()}/>
-                        <CloseButton to={MODULE_COURSES_SCREEN_URL + this.state.courseModel?.moduleId} />
+                        <CloseButton />
                     </div>
                     <div>
                         <label className={styles.label}>

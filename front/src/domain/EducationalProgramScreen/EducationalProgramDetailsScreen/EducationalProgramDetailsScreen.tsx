@@ -10,6 +10,7 @@ import { GetGroupDto } from "../../../apis/api/groups/GetGroupDto";
 import { AddButton } from "../../../base_components/AddButton/AddButton";
 import { GroupDto } from "../../../apis/api/groups/GroupDto";
 import { ADMINISTRATOR, GROUP } from "../../App/App";
+import { CloseButton } from "../../../base_components/CrudButtons/CloseButton/CloseButton";
 
 export const PROGRAM_ID_KEY = "ProgramId";
 
@@ -50,7 +51,9 @@ export function EducationalProgramDetailsScreen() {
     return (
         <>
             <Container>
-                <Toolbar title={educationalProgramName!}>{educationalProgramName}</Toolbar>
+                <Toolbar title={educationalProgramName!}>
+                    <CloseButton />
+                </Toolbar>
                 <Grid cards={renderCards()} />
                 <Link to={"/administrator/group/add"} onClick={() => {
                     localStorage.setItem(PROGRAM_ID_KEY, educationalProgramId!);

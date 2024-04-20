@@ -597,7 +597,7 @@ export function AddEducationalProgramScreen(props: Props) {
                             Сохранить
                         </button>
                     </Link>
-                    <CloseButton to={EDUCATIONAL_PROGRAM_SCREEN_URL}/>
+                    <CloseButton />
                 </div>
                 <div>
                     <label className={styles.label}>

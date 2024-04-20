@@ -80,7 +80,7 @@ class AddModuleScreenClear extends React.Component<Props, State> {
                                 Сохранить
                             </button>
                         </Link>
-                        <CloseButton to={MODULES_SCREEN_URL}/>
+                        <CloseButton />
                     </div>
                     <div>
                         <label className={styles.label}>
