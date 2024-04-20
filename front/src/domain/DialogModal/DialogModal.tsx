@@ -6,11 +6,30 @@ import { ReactNode, useEffect, useRef, useState } from "react"
 interface Props {
     children?: ReactNode | ReactNode[] | Array<JSX.Element>;
     close: () => void;
-    title: string
+    onRightClick?: () => void;
+    title: string;
+    leftButtonTitle?: string;
+    rightButtonTitle?: string;
 }
 
 export function DialogModal(props: Props) {
     const [show, setShow] = useState(true)
+
+    const getLeftButtonTitle = () => {
+        if (props.leftButtonTitle){
+            return props.leftButtonTitle;
+        } else {
+            return "Отмена";
+        }
+    }
+
+    const getRightButtonTitle = () => {
+        if (props.rightButtonTitle){
+            return props.rightButtonTitle;
+        } else {
+            return "Сохранить";
+        }
+    }
 
     const render = () => {
         if(show) {
@@ -21,10 +40,15 @@ export function DialogModal(props: Props) {
                         {props.children}
                         <Flex direction={"row"} justifyContent={"center"}>
                             <Button className={styles.button} onClick={() => props.close()}>
-                                Отмена
+                                {getLeftButtonTitle()}
                             </Button>
-                            <Button className={styles.button} onClick={() => props.close()}>
-                                Сохранить
+                            <Button className={styles.button} onClick={() => {
+                                if (props.onRightClick) {
+                                    props.onRightClick();
+                                }
+                                props.close();
+                            }}>
+                                {getRightButtonTitle()}
                             </Button>
                         </Flex>
                     </div>
