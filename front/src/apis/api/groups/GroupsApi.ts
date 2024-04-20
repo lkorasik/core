@@ -26,6 +26,10 @@ export class GroupsApi extends ApiBase implements IGroupsApi {
     public async getTokens(groupId: GetTokensDto): Promise<string[]> {
         return this.get("groups/token", {...groupId}, {});
     }
+    
+    public async downloadTokensFile(groupNumber: string, groupId: GetTokensDto): Promise<any> {
+        return await this.downloadFile("groups/token_file", groupNumber + ".txt", {...groupId});
+    }
 }
 
 export interface IGroupsApi {
@@ -34,4 +38,5 @@ export interface IGroupsApi {
     getGroup(getGroup: GetGroupIdDto): Promise<GroupDto>
     generateTokens(generateTokens: GenerateTokenDto): Promise<string[]>
     getTokens(groupId: GetTokensDto): Promise<string[]>
+    downloadTokensFile(groupNumber: string, groupId: GetTokensDto): Promise<any>
 }

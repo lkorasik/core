@@ -1,8 +1,13 @@
 package ru.urfu.mm.controller.group;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.application.usecase.creategroup.CreateGroup;
+import ru.urfu.mm.application.usecase.downloadtokens.DownloadTokens;
+import ru.urfu.mm.application.usecase.downloadtokens.DownloadTokensRequest;
 import ru.urfu.mm.application.usecase.generatetoken.GenerateStudentRegistrationTokens;
 import ru.urfu.mm.application.usecase.generatetoken.GenerateStudentRegistrationTokensRequest;
 import ru.urfu.mm.application.usecase.getgroup.GetGroup;
@@ -12,6 +17,7 @@ import ru.urfu.mm.application.usecase.gettoken.GetTokensForGroupRequest;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.domain.Group;
 
+import java.io.*;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,6 +34,8 @@ public class GroupController extends AbstractAuthorizedController {
     private GenerateStudentRegistrationTokens generateStudentRegistrationTokens;
     @Autowired
     private GetTokensForGroup getTokensForGroup;
+    @Autowired
+    private DownloadTokens downloadTokens;
 
     @GetMapping("/group")
     public List<GroupDTO> getGroupsByEducationalProgram(@RequestParam("programId") UUID programId) {
@@ -59,5 +67,17 @@ public class GroupController extends AbstractAuthorizedController {
     public List<UUID> getTokens(@RequestParam("groupId") UUID groupId) {
         GetTokensForGroupRequest request = new GetTokensForGroupRequest(groupId);
         return getTokensForGroup.getTokensForGroup(request);
+    }
+
+    @GetMapping("/token_file")
+    public ResponseEntity<InputStreamResource> getFile(@RequestParam("groupId") UUID groupId) throws FileNotFoundException {
+        DownloadTokensRequest request = new DownloadTokensRequest(groupId);
+
+        File file = downloadTokens.downloadTokens(request);
+        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+        return ResponseEntity.ok()
+                .contentLength(file.length())
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(resource);
     }
 }

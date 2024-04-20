@@ -10,6 +10,9 @@ import { DialogModal } from "../../DialogModal/DialogModal";
 import { Input } from "../../../base_components/Input/Input";
 import { GenerateTokenDto } from "../../../apis/api/groups/GenerateTokenDto";
 import { GetTokensDto } from "../../../apis/api/groups/GetTokensDto";
+import { DownloadButton } from "../../../base_components/DownloadButton/DownloadButton";
+import { ADDRCONFIG } from "dns";
+import { ADMINISTRATOR, GROUP } from "../../App/App";
 
 export function GroupScreen() {
     const [groupNumber, setGroupNumber] = useState<string>("");
@@ -66,11 +69,20 @@ export function GroupScreen() {
     const renderTokens = () => {
         return tokens.map(x => [x]);
     }
+
+    const downloadTokenList = () => {
+
+    }
     
     return (
         <Container>
             {showDialog && renderDialog()}
-            <Toolbar title={groupNumber}></Toolbar>
+            <Toolbar title={groupNumber}>
+                <DownloadButton title="Скачать список токенов" onClick={() => {
+                    const request = { groupId: groupId } as GetTokensDto;
+                    api.groupsApi.downloadTokensFile(groupNumber, request);
+                }} />
+            </Toolbar>
             <Table columnTitles={["Токен"]} rows={renderTokens()}/>
             <AddButton onClick={() => setShowDialog(true)} />
         </Container>
