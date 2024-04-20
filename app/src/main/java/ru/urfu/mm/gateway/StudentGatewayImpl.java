@@ -26,14 +26,22 @@ public class StudentGatewayImpl implements StudentGateway {
     }
 
     @Override
-    public void save(Student student) {
+    public void update(Student student) {
         StudentEntity studentEntity1 = new StudentEntity(
                 student.getLogin(),
                 parse(student.getEducationalProgram()),
-//                userMapper.map(student.getUser())
-                null // todo: fix it
+                userMapper.map(student.getUser())
         );
         studentRepository.save(studentEntity1);
+    }
+
+    @Override
+    public void saveNewStudent(Student student) {
+        StudentEntity entity = new StudentEntity(
+                student.getLogin(),
+                parse(student.getEducationalProgram())
+        );
+        studentRepository.save(entity);
     }
 
     @Override

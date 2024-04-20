@@ -49,7 +49,7 @@ public class CreateStudent {
         userGateway.save(user);
 
         Student completedStudent = new Student(request.token(), program, request.group(), user);
-        studentGateway.save(completedStudent);
+        studentGateway.update(completedStudent);
 
         // todo: возможно, стоит отмечать токен как использованный, а не удалять его.
         tokenGateway.deleteStudentRegistrationToken(request.token());

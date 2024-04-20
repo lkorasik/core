@@ -44,6 +44,11 @@ public class StudentEntity {
         this.userEntity = userEntity;
     }
 
+    public StudentEntity(UUID login, EducationalProgram educationalProgram) {
+        this.login = login;
+        this.educationalProgram = educationalProgram;
+    }
+
     public UUID getLogin() {
         return login;
     }

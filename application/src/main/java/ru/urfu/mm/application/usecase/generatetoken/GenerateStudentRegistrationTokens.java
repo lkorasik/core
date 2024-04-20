@@ -54,7 +54,7 @@ public class GenerateStudentRegistrationTokens {
         List<Student> students = registrationTokens.stream()
                 .map(x -> new Student(x, program, group.getNumber()))
                 .toList();
-        students.forEach(studentGateway::save);
+        students.forEach(studentGateway::saveNewStudent);
 
         return registrationTokens;
     }
