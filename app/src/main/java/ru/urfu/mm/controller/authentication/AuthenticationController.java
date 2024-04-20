@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.urfu.mm.application.usecase.create.administrator.CreateAdministrator;
 import ru.urfu.mm.application.usecase.create.administrator.CreateAdministratorRequest;
 import ru.urfu.mm.application.usecase.create.student.CreateStudent;
-import ru.urfu.mm.application.usecase.create.student.CreateStudentImpl;
 import ru.urfu.mm.application.usecase.create.student.CreateStudentRequest;
 import ru.urfu.mm.application.usecase.loginuser.LoginRequest;
 import ru.urfu.mm.application.usecase.loginuser.LoginUser;

@@ -8,8 +8,6 @@ import ru.urfu.mm.application.gateway.*;
 import ru.urfu.mm.application.usecase.*;
 import ru.urfu.mm.application.usecase.create.administrator.CreateAdministrator;
 import ru.urfu.mm.application.usecase.create.student.CreateStudent;
-import ru.urfu.mm.application.usecase.create.student.CreateStudentImpl;
-import ru.urfu.mm.application.usecase.create.student.NewCreateStudent;
 import ru.urfu.mm.application.usecase.creategroup.CreateGroup;
 import ru.urfu.mm.application.usecase.downloadtokens.DownloadTokens;
 import ru.urfu.mm.application.usecase.generatetoken.GenerateStudentRegistrationTokens;
@@ -34,23 +32,6 @@ public class UseCaseConfiguration {
         return new CreateAdministrator(tokenGateway, loggerGateway, passwordGateway, userGateway);
     }
 
-//    @Bean
-//    public CreateStudent createStudent(
-//            TokenGateway tokenGateway,
-//            LoggerGateway loggerGateway,
-//            PasswordGateway passwordGateway,
-//            UserGateway userGateway,
-//            ProgramGateway programGateway,
-//            StudentGateway studentGateway) {
-//        return new CreateStudentImpl(
-//                tokenGateway,
-//                loggerGateway,
-//                passwordGateway,
-//                userGateway,
-//                programGateway,
-//                studentGateway);
-//    }
-
     @Bean
     public CreateStudent createStudent(
             TokenGateway tokenGateway,
@@ -58,7 +39,7 @@ public class UseCaseConfiguration {
             UserGateway userGateway,
             ProgramGateway programGateway,
             StudentGateway studentGateway) {
-        return new NewCreateStudent(
+        return new CreateStudent(
                 tokenGateway,
                 passwordGateway,
                 userGateway,

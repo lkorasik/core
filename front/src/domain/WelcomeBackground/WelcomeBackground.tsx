@@ -15,26 +15,26 @@ interface Props {
 }
 
 export function WelcomeScreen(props: Props) {
-    const [selectedProgramId, setSelectedProgramId] = useState("");
+    // const [selectedProgramId, setSelectedProgramId] = useState("");
     const accountTypes = ["Студент", "Администратор"]
     const [registrationToken, setRegistrationToken] = useState("");
     const [password, setPassword] = useState("");
     const [passwordAgain, setPasswordAgain] = useState("");
-    const [group, setGroup] = useState("");
-    const [educationalPrograms, setEducationalPrograms] = useState<ShortProgramDTO[]>();
+    // const [group, setGroup] = useState("");
+    // const [educationalPrograms, setEducationalPrograms] = useState<ShortProgramDTO[]>();
 
     const [isRegistration, setIsRegistration] = useState(false)
     const [registrationForm, setRegistrationForm] = useState(accountTypes[0])
 
     const apis = useApis();
 
-    useEffect(() => {
-        const loadEducationalPrograms = async () => {
-            const programs = await apis.educationalProgramsApi.getAllPrograms();
-            setEducationalPrograms(programs);
-        }
-        loadEducationalPrograms().catch(console.error);
-    }, [apis.educationalProgramsApi])
+    // useEffect(() => {
+    //     const loadEducationalPrograms = async () => {
+    //         const programs = await apis.educationalProgramsApi.getAllPrograms();
+    //         setEducationalPrograms(programs);
+    //     }
+    //     loadEducationalPrograms().catch(console.error);
+    // }, [apis.educationalProgramsApi])
 
     const saveLoginInfo = (registeredToken: AccessTokenDto) => {
         props.saveLoginInfo({
@@ -46,8 +46,6 @@ export function WelcomeScreen(props: Props) {
     const registerStudent = async () => {
         const registeredToken = await apis.authenticationApi.registerStudent({
             token: registrationToken,
-            programId: selectedProgramId,
-            group: group,
             password: password,
             passwordAgain: passwordAgain
         });
@@ -95,7 +93,7 @@ export function WelcomeScreen(props: Props) {
                     options={accountTypes.map(x => ({ value: x, label: x }))}
                     onChange={newValue => {
                         if (newValue) {
-                            setSelectedProgramId(newValue.value)
+                            // setSelectedProgramId(newValue.value)
                             setRegistrationForm(newValue.value)
                         }
                     }}
@@ -123,20 +121,6 @@ export function WelcomeScreen(props: Props) {
             <>
                 <span className={styles.field_title}>Токен</span>
                 <Input type={"text"} placeholder={"2f744d2f-3309-4c9c-896e-fba14a4e5a15"} isRequired={true} onChange={event => setRegistrationToken(event.target.value)} />
-                <span className={styles.field_title}>Программа</span>
-                <Select
-                    className={styles.select}
-                    placeholder={"Название программы"}
-                    isDisabled={!educationalPrograms}
-                    options={educationalPrograms!.map(x => ({ value: x.id, label: x.name }))}
-                    onChange={newValue => {
-                        if (newValue) {
-                            setSelectedProgramId(newValue.value)
-                        }
-                    }}
-                />
-                <span className={styles.field_title}>Группа</span>
-                <Input type={"text"} placeholder={"МЕНМ-190210"} isRequired={true} onChange={event => setGroup(event.target.value)} />
                 <span className={styles.field_title}>Пароль</span>
                 <Input type={"password"} placeholder={""} isRequired={true} onChange={event => setPassword(event.target.value)} />
                 <span className={styles.field_title}>Повторите пароль</span>
@@ -182,7 +166,8 @@ export function WelcomeScreen(props: Props) {
 
                     {!isRegistration && renderLoginForm()}
                     {isRegistration && renderAccountTypeSelector()}
-                    {isRegistration && educationalPrograms && renderRegistrationFrom()}
+                    {/* {isRegistration && educationalPrograms && renderRegistrationFrom()} */}
+                    {isRegistration && renderRegistrationFrom()}
                </div>
             </div>
         </div>
