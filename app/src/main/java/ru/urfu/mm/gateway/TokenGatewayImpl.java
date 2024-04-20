@@ -67,4 +67,16 @@ public class TokenGatewayImpl implements TokenGateway {
                 .map(StudentRegistrationToken::getToken)
                 .toList();
     }
+
+    @Override
+    public Optional<Group> getStudentRegistrationToken(UUID token) {
+        return studentRegistrationTokenRepository.findById(token)
+                .map(StudentRegistrationToken::getGroup)
+                .map(x -> new Group(x.getId(), x.getNumber()));
+    }
+
+    @Override
+    public void deleteStudentRegistrationToken(UUID token) {
+        studentRegistrationTokenRepository.deleteById(token);
+    }
 }

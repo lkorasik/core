@@ -20,7 +20,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @ExtendWith(MockitoExtension.class)
-public class CreateStudentTest {
+public class CreateStudentImplTest {
     @Mock
     private TokenGateway tokenGateway;
     @Mock
@@ -49,7 +49,7 @@ public class CreateStudentTest {
         Mockito.when(tokenGateway.getRoleByToken(token)).thenReturn(Optional.of(UserRole.STUDENT));
         Mockito.when(programGateway.findById(programId)).thenReturn(Optional.of(program));
 
-        CreateStudent createStudent = new CreateStudent(
+        CreateStudentImpl createStudentImpl = new CreateStudentImpl(
                 tokenGateway,
                 loggerGateway,
                 passwordGateway,
@@ -59,7 +59,7 @@ public class CreateStudentTest {
         );
 
         CreateStudentRequest request = new CreateStudentRequest(token, programId, group, password, password);
-        createStudent.createStudent(request);
+        createStudentImpl.createStudent(request);
     }
 
     /**
@@ -74,7 +74,7 @@ public class CreateStudentTest {
 
         Mockito.when(tokenGateway.getRoleByToken(token)).thenReturn(Optional.empty());
 
-        CreateStudent createStudent = new CreateStudent(
+        CreateStudentImpl createStudentImpl = new CreateStudentImpl(
                 tokenGateway,
                 loggerGateway,
                 passwordGateway,
@@ -84,7 +84,7 @@ public class CreateStudentTest {
         );
 
         CreateStudentRequest request = new CreateStudentRequest(token, programId, group, password, password);
-        Assertions.assertThrows(RegistrationTokenNotExistException.class, () -> createStudent.createStudent(request));
+        Assertions.assertThrows(RegistrationTokenNotExistException.class, () -> createStudentImpl.createStudent(request));
     }
 
     /**
@@ -99,7 +99,7 @@ public class CreateStudentTest {
 
         Mockito.when(tokenGateway.getRoleByToken(token)).thenReturn(Optional.of(UserRole.ADMIN));
 
-        CreateStudent createStudent = new CreateStudent(
+        CreateStudentImpl createStudentImpl = new CreateStudentImpl(
                 tokenGateway,
                 loggerGateway,
                 passwordGateway,
@@ -109,7 +109,7 @@ public class CreateStudentTest {
         );
 
         CreateStudentRequest request = new CreateStudentRequest(token, programId, group, password, password);
-        Assertions.assertThrows(IncorrectUserRoleException.class, () -> createStudent.createStudent(request));
+        Assertions.assertThrows(IncorrectUserRoleException.class, () -> createStudentImpl.createStudent(request));
     }
 
     /**
@@ -125,7 +125,7 @@ public class CreateStudentTest {
 
         Mockito.when(tokenGateway.getRoleByToken(token)).thenReturn(Optional.of(UserRole.STUDENT));
 
-        CreateStudent createStudent = new CreateStudent(
+        CreateStudentImpl createStudentImpl = new CreateStudentImpl(
                 tokenGateway,
                 loggerGateway,
                 passwordGateway,
@@ -135,7 +135,7 @@ public class CreateStudentTest {
         );
 
         CreateStudentRequest request = new CreateStudentRequest(token, programId, group, password, passwordAgain);
-        Assertions.assertThrows(DifferentPasswordException.class, () -> createStudent.createStudent(request));
+        Assertions.assertThrows(DifferentPasswordException.class, () -> createStudentImpl.createStudent(request));
     }
 
     /**
@@ -150,7 +150,7 @@ public class CreateStudentTest {
 
         Mockito.when(tokenGateway.getRoleByToken(token)).thenReturn(Optional.of(UserRole.STUDENT));
 
-        CreateStudent createStudent = new CreateStudent(
+        CreateStudentImpl createStudentImpl = new CreateStudentImpl(
                 tokenGateway,
                 loggerGateway,
                 passwordGateway,
@@ -160,7 +160,7 @@ public class CreateStudentTest {
         );
 
         CreateStudentRequest request = new CreateStudentRequest(token, programId, group, password, password);
-        Assertions.assertThrows(TooShortPasswordException.class, () -> createStudent.createStudent(request));
+        Assertions.assertThrows(TooShortPasswordException.class, () -> createStudentImpl.createStudent(request));
     }
 
     /**
@@ -176,7 +176,7 @@ public class CreateStudentTest {
         Mockito.when(tokenGateway.getRoleByToken(token)).thenReturn(Optional.of(UserRole.STUDENT));
         Mockito.when(programGateway.findById(programId)).thenReturn(Optional.empty());
 
-        CreateStudent createStudent = new CreateStudent(
+        CreateStudentImpl createStudentImpl = new CreateStudentImpl(
                 tokenGateway,
                 loggerGateway,
                 passwordGateway,
@@ -186,6 +186,6 @@ public class CreateStudentTest {
         );
 
         CreateStudentRequest request = new CreateStudentRequest(token, programId, group, password, password);
-        Assertions.assertThrows(EducationalProgramNotExistsException.class, () -> createStudent.createStudent(request));
+        Assertions.assertThrows(EducationalProgramNotExistsException.class, () -> createStudentImpl.createStudent(request));
     }
 }

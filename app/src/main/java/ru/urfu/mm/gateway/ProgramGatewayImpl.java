@@ -95,4 +95,16 @@ public class ProgramGatewayImpl implements ProgramGateway {
             // todo: Set normal exception
         }
     }
+
+    @Override
+    public Optional<Program> findByGroup(Group group) {
+        return groupRepository.findById(group.getId())
+                .map(GroupEntity::getEducationalProgram)
+                .map(x -> new Program(
+                        x.getId(),
+                        x.getName(),
+                        x.getTrainingDirection(),
+                        x.getSemesterIdToRequiredCreditsCount()
+                ));
+    }
 }

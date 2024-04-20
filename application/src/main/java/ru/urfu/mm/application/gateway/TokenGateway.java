@@ -12,4 +12,6 @@ public interface TokenGateway {
     void deleteToken(UUID token);
     List<UUID> generateStudentRegistrationTokens(int count, Group group);
     List<UUID> getTokensByGroup(Group group);
+    Optional<Group> getStudentRegistrationToken(UUID token);
+    void deleteStudentRegistrationToken(UUID token);
 }

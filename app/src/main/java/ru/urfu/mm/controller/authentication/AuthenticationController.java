@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.urfu.mm.application.usecase.create.administrator.CreateAdministrator;
 import ru.urfu.mm.application.usecase.create.administrator.CreateAdministratorRequest;
 import ru.urfu.mm.application.usecase.create.student.CreateStudent;
+import ru.urfu.mm.application.usecase.create.student.CreateStudentImpl;
 import ru.urfu.mm.application.usecase.create.student.CreateStudentRequest;
 import ru.urfu.mm.application.usecase.loginuser.LoginRequest;
 import ru.urfu.mm.application.usecase.loginuser.LoginUser;
@@ -26,7 +27,7 @@ public class AuthenticationController {
     private final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
     private final AuthenticationService authenticationService;
     private final CreateAdministrator createAdministrator;
-    private final CreateStudent createStudent;
+    private final CreateStudent createStudentImpl;
     private final LoginUser loginUser;
     private final Mapper<ru.urfu.mm.domain.UserRole, UserEntityRole> userRoleMapper;
 
@@ -34,12 +35,12 @@ public class AuthenticationController {
     public AuthenticationController(
             AuthenticationService authenticationService,
             CreateAdministrator createAdministrator,
-            CreateStudent createStudent,
+            CreateStudent createStudentImpl,
             LoginUser loginUser,
             Mapper<ru.urfu.mm.domain.UserRole, UserEntityRole> userRoleMapper) {
         this.authenticationService = authenticationService;
         this.createAdministrator = createAdministrator;
-        this.createStudent = createStudent;
+        this.createStudentImpl = createStudentImpl;
         this.loginUser = loginUser;
         this.userRoleMapper = userRoleMapper;
     }
@@ -70,7 +71,7 @@ public class AuthenticationController {
                 user.password(),
                 user.passwordAgain()
         );
-        createStudent.createStudent(request);
+        createStudentImpl.createStudent(request);
         String token = authenticationService.generateToken(user);
 
         return new AccessTokenDTO(token, user.token(), UserEntityRole.STUDENT);
