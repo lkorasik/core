@@ -46,20 +46,6 @@ public class TokenGatewayImpl implements TokenGateway {
     }
 
     @Override
-    public List<UUID> generateStudentRegistrationTokens(int count, Group group) {
-        GroupEntity groupEntity = groupRepository.findById(group.getId()).get();
-        List<UUID> tokens = Stream.generate(UUID::randomUUID)
-                .limit(count)
-                .toList();
-        List<StudentRegistrationToken> tokenEntities = tokens
-                .stream()
-                .map(token -> new StudentRegistrationToken(token, groupEntity))
-                .toList();
-        studentRegistrationTokenRepository.saveAll(tokenEntities);
-        return tokens;
-    }
-
-    @Override
     public List<UUID> getTokensByGroup(Group group) {
         GroupEntity groupEntity = groupRepository.findById(group.getId()).get();
         return studentRegistrationTokenRepository.findAllByGroup(groupEntity)

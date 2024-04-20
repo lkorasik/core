@@ -11,6 +11,7 @@ import ru.urfu.mm.entity.UserEntity;
 import ru.urfu.mm.repository.StudentRepository;
 import ru.urfu.mm.service.mapper.Mapper;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -55,6 +56,31 @@ public class StudentGatewayImpl implements StudentGateway {
                         )
                 ))
                 .get();
+    }
+
+    @Override
+    public Optional<Student> findById(UUID studentId) {
+        return studentRepository
+                .findByLogin(studentId)
+                .map(x -> new Student(
+                        x.getLogin(),
+                        new Program(
+                                x.getEducationalProgram().getId(),
+                                x.getEducationalProgram().getName(),
+                                x.getEducationalProgram().getTrainingDirection(),
+                                x.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                        ),
+                        null,
+// todo: Fix it
+//                        x.getGroup().getNumber(),
+//                        new ru.urfu.mm.domain.User(
+//                                x.getUser().getLogin(),
+//                                x.getUser().getPassword(),
+//                                ru.urfu.mm.domain.UserRole.values()[x.getUser().getRole().ordinal()]
+//                        )
+                        null
+                        // todo: Fix it
+                ));
     }
 
     private EducationalProgram parse(Program program) {

@@ -37,14 +37,13 @@ public class UseCaseConfiguration {
             TokenGateway tokenGateway,
             PasswordGateway passwordGateway,
             UserGateway userGateway,
-            ProgramGateway programGateway,
             StudentGateway studentGateway) {
         return new CreateStudent(
                 tokenGateway,
                 passwordGateway,
                 userGateway,
-                programGateway,
-                studentGateway);
+                studentGateway
+        );
     }
 
     @Bean

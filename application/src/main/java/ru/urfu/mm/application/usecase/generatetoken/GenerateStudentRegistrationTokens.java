@@ -11,6 +11,7 @@ import ru.urfu.mm.domain.Student;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 /**
  * Сгенерировать токены для студентов.
@@ -48,7 +49,7 @@ public class GenerateStudentRegistrationTokens {
                 .findByGroup(group)
                 .orElseThrow(() -> new EducationalProgramNotExistsException(group));
 
-        List<UUID> registrationTokens = tokenGateway.generateStudentRegistrationTokens(request.tokenCount(), group);
+        List<UUID> registrationTokens = Stream.generate(UUID::randomUUID).limit(request.tokenCount()).toList();
 
         List<Student> students = registrationTokens.stream()
                 .map(x -> new Student(x, program, group.getNumber()))
