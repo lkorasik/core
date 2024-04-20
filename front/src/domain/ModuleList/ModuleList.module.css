@@ -5,7 +5,7 @@
 }
 
 .button {
-    background-color: #1E4391;
+    background-color: var(--main_blue);
 }
 
 #container {

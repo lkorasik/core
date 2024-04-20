@@ -14,7 +14,7 @@
     min-height: 30px;
     padding-left: 24px;
     padding-top: 13px;
-    text-underline: #1E4391;
+    text-underline: var(--main_blue);
 }
 
 .grid_card_text_left_point {
@@ -46,9 +46,9 @@
 }
 
 .grid_card_text_left:hover {
-    color: #1E4391;
+    color: var(--main_blue);
 }
 
 .grid_card_text_left:visited {
-    color: #1E4391;
+    color: var(--main_blue);
 }

@@ -4,9 +4,14 @@ import { Title } from "../../../base_components/Title/Title";
 import { useApis } from "../../../apis/ApiBase/ApiProvider";
 import { useEffect, useState } from "react";
 import { GetGroupIdDto } from "../../../apis/api/groups/GetGroupIdDto";
+import { Toolbar } from "../../../base_components/Toolbar/Toolbar";
+import { CloseButton } from "../../../base_components/CrudButtons/CloseButton/CloseButton";
+import { EditButton } from "../../../base_components/CrudButtons/EditButton/EditButton";
+import { ADMINISTRATOR, EDUCATIONAL_PROGRAM, GROUP } from "../../App/App";
+import { Table } from "../../../base_components/Table/Table";
 
 export function GroupScreen() {
-    const [groupNumber, setGroupNumber] = useState<string>();
+    const [groupNumber, setGroupNumber] = useState<string>("");
 
     const api = useApis();
     const { groupId } = useParams();
@@ -23,7 +28,11 @@ export function GroupScreen() {
     
     return (
         <Container>
-            <Title>{groupNumber}</Title>
+            <Toolbar title={groupNumber}>
+                <EditButton to="" />
+                <CloseButton to="" />
+            </Toolbar>
+            <Table columnTitles={["Токен", "Статус"]}/>
         </Container>
     )
 }

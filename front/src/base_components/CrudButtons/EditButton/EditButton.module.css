@@ -8,7 +8,7 @@
     border-radius: 50%;
     border: none;
     background-size: 100% 100%;
-    background-color: #1E4391;
+    background-color: var(--main_blue);
     transition: scale 0.5s ease;
 }
 

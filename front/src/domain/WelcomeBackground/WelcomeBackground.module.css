@@ -2,7 +2,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: #1E4391;
+    background-color: var(--main_blue);
 }
 
 .img_container {
