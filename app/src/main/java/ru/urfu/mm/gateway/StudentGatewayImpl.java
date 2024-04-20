@@ -29,7 +29,8 @@ public class StudentGatewayImpl implements StudentGateway {
         StudentEntity studentEntity1 = new StudentEntity(
                 student.getLogin(),
                 parse(student.getEducationalProgram()),
-                userMapper.map(student.getUser())
+//                userMapper.map(student.getUser())
+                null // todo: fix it
         );
         studentRepository.save(studentEntity1);
     }

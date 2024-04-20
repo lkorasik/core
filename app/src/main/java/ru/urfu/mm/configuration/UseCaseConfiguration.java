@@ -244,8 +244,10 @@ public class UseCaseConfiguration {
     @Bean
     public GenerateStudentRegistrationTokens generateStudentRegistrationTokens(
             TokenGateway tokenGateway,
-            GetGroup getGroup) {
-        return new GenerateStudentRegistrationTokens(tokenGateway, getGroup);
+            GetGroup getGroup,
+            ProgramGateway programGateway,
+            StudentGateway studentGateway) {
+        return new GenerateStudentRegistrationTokens(tokenGateway, getGroup, programGateway, studentGateway);
     }
 
     @Bean

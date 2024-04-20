@@ -26,6 +26,12 @@ public class Student {
         this.user = user;
     }
 
+    public Student(UUID login, Program program, String group) {
+        this.login = login;
+        this.program = program;
+        this.group = group;
+    }
+
     public UUID getLogin() {
         return login;
     }
