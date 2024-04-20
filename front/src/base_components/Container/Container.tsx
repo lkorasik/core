@@ -8,8 +8,10 @@ interface Props {
 export function Container(props: Props) {
     return (
         <>
-            <div className={styles.container}>
-                {props.children}
+            <div className={styles.outer_container}>
+                <div className={styles.inner_container}>
+                    {props.children}
+                </div>
             </div>
         </>
     )

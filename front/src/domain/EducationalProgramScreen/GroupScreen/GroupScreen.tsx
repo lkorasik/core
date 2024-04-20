@@ -71,17 +71,15 @@ export function GroupScreen() {
     }
 
     const downloadTokenList = () => {
-
+        const request = { groupId: groupId } as GetTokensDto;
+        api.groupsApi.downloadTokensFile(groupNumber, request);
     }
     
     return (
         <Container>
             {showDialog && renderDialog()}
             <Toolbar title={groupNumber}>
-                <DownloadButton title="Скачать список токенов" onClick={() => {
-                    const request = { groupId: groupId } as GetTokensDto;
-                    api.groupsApi.downloadTokensFile(groupNumber, request);
-                }} />
+                <DownloadButton title="Скачать список токенов" onClick={downloadTokenList} />
             </Toolbar>
             <Table columnTitles={["Токен"]} rows={renderTokens()}/>
             <AddButton onClick={() => setShowDialog(true)} />
