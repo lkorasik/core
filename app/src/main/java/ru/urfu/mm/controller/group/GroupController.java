@@ -7,6 +7,8 @@ import ru.urfu.mm.application.usecase.generatetoken.GenerateStudentRegistrationT
 import ru.urfu.mm.application.usecase.generatetoken.GenerateStudentRegistrationTokensRequest;
 import ru.urfu.mm.application.usecase.getgroup.GetGroup;
 import ru.urfu.mm.application.usecase.getgroups.GetGroupForEducationalProgram;
+import ru.urfu.mm.application.usecase.gettoken.GetTokensForGroup;
+import ru.urfu.mm.application.usecase.gettoken.GetTokensForGroupRequest;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.domain.Group;
 
@@ -24,6 +26,8 @@ public class GroupController extends AbstractAuthorizedController {
     private GetGroup getGroup;
     @Autowired
     private GenerateStudentRegistrationTokens generateStudentRegistrationTokens;
+    @Autowired
+    private GetTokensForGroup getTokensForGroup;
 
     @GetMapping("/group")
     public List<GroupDTO> getGroupsByEducationalProgram(@RequestParam("programId") UUID programId) {
@@ -49,5 +53,11 @@ public class GroupController extends AbstractAuthorizedController {
         GenerateStudentRegistrationTokensRequest request =
                 new GenerateStudentRegistrationTokensRequest(generateTokenDTO.count(), generateTokenDTO.groupId());
         return generateStudentRegistrationTokens.generateTokens(request);
+    }
+
+    @GetMapping("/token")
+    public List<UUID> getTokens(@RequestParam("groupId") UUID groupId) {
+        GetTokensForGroupRequest request = new GetTokensForGroupRequest(groupId);
+        return getTokensForGroup.getTokensForGroup(request);
     }
 }

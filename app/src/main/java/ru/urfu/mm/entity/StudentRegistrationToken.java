@@ -11,10 +11,10 @@ import java.util.UUID;
 @Table
 public class StudentRegistrationToken {
     @Id
-    public UUID token;
+    private UUID token;
     @ManyToOne
     @JoinColumn(name = "groups_id")
-    public GroupEntity group;
+    private GroupEntity group;
 
     public StudentRegistrationToken() {
     }
@@ -22,5 +22,13 @@ public class StudentRegistrationToken {
     public StudentRegistrationToken(UUID token, GroupEntity group) {
         this.token = token;
         this.group = group;
+    }
+
+    public UUID getToken() {
+        return token;
+    }
+
+    public GroupEntity getGroup() {
+        return group;
     }
 }

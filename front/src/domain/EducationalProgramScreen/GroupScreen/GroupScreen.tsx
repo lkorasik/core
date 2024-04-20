@@ -4,13 +4,12 @@ import { useApis } from "../../../apis/ApiBase/ApiProvider";
 import { useEffect, useState } from "react";
 import { GetGroupIdDto } from "../../../apis/api/groups/GetGroupIdDto";
 import { Toolbar } from "../../../base_components/Toolbar/Toolbar";
-import { CloseButton } from "../../../base_components/CrudButtons/CloseButton/CloseButton";
-import { EditButton } from "../../../base_components/CrudButtons/EditButton/EditButton";
 import { Table } from "../../../base_components/Table/Table";
 import { AddButton } from "../../../base_components/AddButton/AddButton";
 import { DialogModal } from "../../DialogModal/DialogModal";
 import { Input } from "../../../base_components/Input/Input";
 import { GenerateTokenDto } from "../../../apis/api/groups/GenerateTokenDto";
+import { GetTokensDto } from "../../../apis/api/groups/GetTokensDto";
 
 export function GroupScreen() {
     const [groupNumber, setGroupNumber] = useState<string>("");
@@ -20,7 +19,7 @@ export function GroupScreen() {
 
     const api = useApis();
     const { groupId } = useParams();
-    
+
     useEffect(() => {
         const loadGroup = async () => {
             const request = { groupId: groupId } as GetGroupIdDto;
@@ -31,8 +30,12 @@ export function GroupScreen() {
         loadGroup().catch(console.error);
 
         const loadTokens = async () => {
-            console.log("Load tokens")
+            const request = { groupId: groupId } as GetTokensDto;
+            const response = await api.groupsApi.getTokens(request);
+
+            setTokens(response);
         }
+        loadTokens().catch(console.error);
     }, [])
 
     const generateTokens = async (count: number) => {
@@ -40,9 +43,11 @@ export function GroupScreen() {
             count: count,
             groupId: groupId
         } as GenerateTokenDto;
-        const tokens = await api.groupsApi.generateTokens(request);
-        setTokens(tokens);
-        console.log(tokens);
+        await api.groupsApi.generateTokens(request);
+        
+        const request0 = { groupId: groupId } as GetTokensDto;
+        const response = await api.groupsApi.getTokens(request0);
+        setTokens(response);
     }
 
     const renderDialog = () => {
@@ -59,17 +64,14 @@ export function GroupScreen() {
     }
 
     const renderTokens = () => {
-        return tokens.map(x => [x, "Не активирован"])
+        return tokens.map(x => [x]);
     }
     
     return (
         <Container>
             {showDialog && renderDialog()}
-            <Toolbar title={groupNumber}>
-                <EditButton to="" />
-                <CloseButton to="" />
-            </Toolbar>
-            <Table columnTitles={["Токен", "Статус"]} rows={renderTokens()}/>
+            <Toolbar title={groupNumber}></Toolbar>
+            <Table columnTitles={["Токен"]} rows={renderTokens()}/>
             <AddButton onClick={() => setShowDialog(true)} />
         </Container>
     )

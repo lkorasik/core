@@ -16,6 +16,7 @@ import ru.urfu.mm.application.usecase.getallprograms.GetAllPrograms;
 import ru.urfu.mm.application.usecase.getgroup.GetGroup;
 import ru.urfu.mm.application.usecase.getgroups.GetGroupForEducationalProgram;
 import ru.urfu.mm.application.usecase.getmodule.GetModuleWithCourses;
+import ru.urfu.mm.application.usecase.gettoken.GetTokensForGroup;
 import ru.urfu.mm.application.usecase.load_available_courses.LoadAvailableCourses;
 import ru.urfu.mm.application.usecase.loginuser.LoginUser;
 
@@ -227,6 +228,11 @@ public class UseCaseConfiguration {
             TokenGateway tokenGateway,
             GetGroup getGroup) {
         return new GenerateStudentRegistrationTokens(tokenGateway, getGroup);
+    }
+
+    @Bean
+    public GetTokensForGroup getTokensForGroup(TokenGateway tokenGateway, GetGroup getGroup) {
+        return new GetTokensForGroup(tokenGateway, getGroup);
     }
 
     @Bean

@@ -4,6 +4,7 @@ import { GetGroupDto } from "./GetGroupDto";
 import { CreateGroupDto } from "./CreateGroupDto";
 import { GetGroupIdDto } from "./GetGroupIdDto";
 import { GenerateTokenDto } from "./GenerateTokenDto";
+import { GetTokensDto } from "./GetTokensDto";
 
 export class GroupsApi extends ApiBase implements IGroupsApi {
     public async getGroupsForProgram(programId: GetGroupDto): Promise<GroupDto[]> {
@@ -21,6 +22,10 @@ export class GroupsApi extends ApiBase implements IGroupsApi {
     public async generateTokens(generateTokens: GenerateTokenDto): Promise<string[]> {
         return this.post("groups/token", {}, {...generateTokens});
     }
+
+    public async getTokens(groupId: GetTokensDto): Promise<string[]> {
+        return this.get("groups/token", {...groupId}, {});
+    }
 }
 
 export interface IGroupsApi {
@@ -28,4 +33,5 @@ export interface IGroupsApi {
     createGroup(createGroup: CreateGroupDto): Promise<any>
     getGroup(getGroup: GetGroupIdDto): Promise<GroupDto>
     generateTokens(generateTokens: GenerateTokenDto): Promise<string[]>
+    getTokens(groupId: GetTokensDto): Promise<string[]>
 }

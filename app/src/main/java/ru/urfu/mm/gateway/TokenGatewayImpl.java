@@ -58,4 +58,13 @@ public class TokenGatewayImpl implements TokenGateway {
         studentRegistrationTokenRepository.saveAll(tokenEntities);
         return tokens;
     }
+
+    @Override
+    public List<UUID> getTokensByGroup(Group group) {
+        GroupEntity groupEntity = groupRepository.findById(group.getId()).get();
+        return studentRegistrationTokenRepository.findAllByGroup(groupEntity)
+                .stream()
+                .map(StudentRegistrationToken::getToken)
+                .toList();
+    }
 }
