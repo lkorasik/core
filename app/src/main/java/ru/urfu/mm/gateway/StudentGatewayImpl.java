@@ -120,8 +120,7 @@ public class StudentGatewayImpl implements StudentGateway {
                         new Group(
                                 x.getGroup().getId(),
                                 x.getGroup().getNumber()
-                        ),
-                        null
+                        )
                 ))
                 .toList();
     }
