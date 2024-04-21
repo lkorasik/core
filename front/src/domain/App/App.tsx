@@ -13,7 +13,7 @@ import {CourseScreen} from "../CoursesScreen/CourseScreen";
 import {EditModuleCourseScreen} from "../EditCoursesScreen/EditModuleCourseScreen";
 import {WelcomeScreen} from '../WelcomeBackground/WelcomeBackground';
 import {RecommendationsScreen} from "../RecommendationsScreen/RecommendationsScreen";
-import { AddEducationalProgramScreen } from '../AddEducationalProgramScreen/AddEducationalProgramScreen';
+import { AddEducationalProgramScreen } from '../EducationalProgramScreen/AddEducationalProgramScreen/AddEducationalProgramScreen';
 import {StatisticsScreen} from "../StatisticsScreen/StatisticsScreen";
 import { StudentScreen } from '../StudentScreen/StudentScreen';
 import { StudyPlan } from '../StudyPlan/StudyPlan';

@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 import styles from "./AddEducationalProgramScreen.module.css";
-import { EDUCATIONAL_PROGRAM_SCREEN_URL } from "../App/App";
-import { Flex } from "../../base_components/Flex/Flex";
-import { DialogModal } from "../DialogModal/DialogModal";
+import { EDUCATIONAL_PROGRAM_SCREEN_URL } from "../../App/App";
+import { Flex } from "../../../base_components/Flex/Flex";
+import { DialogModal } from "../../DialogModal/DialogModal";
 import { useEffect, useState } from "react";
-import { useApis } from "../../apis/ApiBase/ApiProvider";
-import { SpecialCourse } from "../../apis/api/course/SpecialCourse";
-import { ModuleDto } from "../../apis/api/modules/ModuleDto";
-import { CloseButton } from "../../base_components/CrudButtons/CloseButton/CloseButton";
-import { Title } from "../../base_components/Title/Title";
+import { useApis } from "../../../apis/ApiBase/ApiProvider";
+import { SpecialCourse } from "../../../apis/api/course/SpecialCourse";
+import { ModuleDto } from "../../../apis/api/modules/ModuleDto";
+import { CloseButton } from "../../../base_components/CrudButtons/CloseButton/CloseButton";
+import { Title } from "../../../base_components/Title/Title";
 
 interface Props {}
 

@@ -10,6 +10,9 @@ import { Container } from "../../base_components/Container/Container";
 
 interface Props { }
 
+/**
+ * Экран со списком образовательных программ
+ */
 export function EducationalProgramScreen(props: Props) {
     const [educationalPrograms, setEducationalPrograms] = useState<ShortProgramDTO[]>([]);
 
