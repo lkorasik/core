@@ -12,6 +12,7 @@ import { Title } from "../../../base_components/Title/Title";
 import { Container } from "../../../base_components/Container/Container";
 import { Toolbar } from "../../../base_components/Toolbar/Toolbar";
 import { SaveButton } from "../../../base_components/CrudButtons/SaveButton/SaveButton";
+import { InputField } from "../../../base_components/InputField/InputField";
 
 interface Props {}
 
@@ -597,13 +598,12 @@ export function AddEducationalProgramScreen(props: Props) {
                     }} />
                     <CloseButton />
                 </Toolbar>
-                <div>
-                    <label className={styles.label}>
-                        Название образовательной программы <span className={styles.required}>*</span>
-                    </label>
-                    <br />
-                    <input className={styles.input} type={"text"} required onChange={(e) => setEducationalProgramName(e.target.value)} value={educationalProgramName}/>
-                </div>
+                <InputField 
+                    isRequired 
+                    onChange={(e) => setEducationalProgramName(e.target.value)} 
+                    value={educationalProgramName}>
+                        Название образовательной программы
+                </InputField>
                 <div>
                     <label className={styles.label}>
                         Количество з.е. за спецкурсы:
