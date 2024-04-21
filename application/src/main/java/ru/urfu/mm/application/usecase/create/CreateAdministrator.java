@@ -3,18 +3,17 @@ package ru.urfu.mm.application.usecase.create;
 import ru.urfu.mm.application.gateway.PasswordGateway;
 import ru.urfu.mm.application.gateway.TokenGateway;
 import ru.urfu.mm.application.gateway.UserGateway;
-import ru.urfu.mm.application.usecase.create.DifferentPasswordException;
-import ru.urfu.mm.application.usecase.create.TooShortPasswordException;
 import ru.urfu.mm.application.usecase.create.user.CreateUserRequest;
 import ru.urfu.mm.domain.User;
 import ru.urfu.mm.domain.UserRole;
 
 /**
- * Зарегистрировать аккаунт студента1
- * 1. Проверяем, что пароль и его повтор совпадают. Если они отличатся, то кидаем ошибку.
+ * Зарегистрировать аккаунт администратора
+ * 1. Проверяем, что пароль и его повтор совпадают. Если они отличатся, то кидаем ошибку о том, что пароль и его повтор
+ * не совпадают.
  * 2. Проверяем, что пароль надежный. Если не надежный, то кидаем ошибку о том, что пароль не надежен.
- * 4. Создаем аккаунт пользователя.
- * 7. Отмечаем токен как использованный.
+ * 3. Создаем аккаунт пользователя.
+ * 4. Удаляем токен из доступных токенов для регистрации.
  */
 public class CreateAdministrator {
     private final TokenGateway tokenGateway;
