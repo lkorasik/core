@@ -2,7 +2,7 @@ package ru.urfu.mm.application.usecase.create.user;
 
 import ru.urfu.mm.application.gateway.TokenGateway;
 import ru.urfu.mm.application.usecase.create.RegistrationTokenNotExistException;
-import ru.urfu.mm.application.usecase.create.administrator.CreateAdministrator;
+import ru.urfu.mm.application.usecase.create.CreateAdministrator;
 import ru.urfu.mm.application.usecase.create.student.CreateStudent;
 import ru.urfu.mm.domain.UserRole;
 
@@ -11,7 +11,7 @@ import ru.urfu.mm.domain.UserRole;
  * 1. Находим токен. Если токен не найден или он уже занят, то кидаем ошибку.
  * 2. В зависимости от типа токена делегируем задачу создания аккаунта либо
  * {@link ru.urfu.mm.application.usecase.create.student.CreateStudent}, либо
- * {@link ru.urfu.mm.application.usecase.create.administrator.CreateAdministrator}
+ * {@link CreateAdministrator}
  */
 public class CreateUser {
     private final CreateStudent createStudent;

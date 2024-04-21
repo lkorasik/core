@@ -19,6 +19,9 @@ import ru.urfu.mm.domain.UserRole;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Тестирование use case {@link LoginUser}
+ */
 @ExtendWith(MockitoExtension.class)
 public class LoginUserTest {
     @Mock
@@ -39,20 +42,35 @@ public class LoginUserTest {
         Mockito.when(userGateway.findByToken(token)).thenReturn(Optional.of(user));
         Mockito.when(passwordGateway.matches(password, user.getPassword())).thenReturn(true);
 
-        LoginUser loginUser = new LoginUser(
-                userGateway,
-                passwordGateway
-        );
+        LoginUser loginUser = new LoginUser(userGateway, passwordGateway);
 
         LoginRequest loginRequest = new LoginRequest(token, password);
-        loginUser.loginUser(loginRequest);
+        User gotUser = loginUser.loginUser(loginRequest);
+
+        Assertions.assertEquals(user, gotUser);
+    }
+
+    /**
+     * Вход в систему с некорректным токеном
+     */
+    @Test
+    public void incorrectToken() {
+        UUID token = UUID.randomUUID();
+        String password = DSL.generateString();
+
+        Mockito.when(userGateway.findByToken(token)).thenReturn(Optional.empty());
+
+        LoginUser loginUser = new LoginUser(userGateway, passwordGateway);
+
+        LoginRequest loginRequest = new LoginRequest(token, password);
+        Assertions.assertThrows(InvalidCredentialsException.class, () -> loginUser.loginUser(loginRequest));
     }
 
     /**
      * Вход в систему с некорректным паролем
      */
     @Test
-    public void login_incorrectPassword() {
+    public void incorrectPassword() {
         UUID token = UUID.randomUUID();
         String password = DSL.generateString();
 
@@ -61,29 +79,7 @@ public class LoginUserTest {
         Mockito.when(userGateway.findByToken(token)).thenReturn(Optional.of(user));
         Mockito.when(passwordGateway.matches(password, user.getPassword())).thenReturn(false);
 
-        LoginUser loginUser = new LoginUser(
-                userGateway,
-                passwordGateway
-        );
-
-        LoginRequest loginRequest = new LoginRequest(token, password);
-        Assertions.assertThrows(InvalidCredentialsException.class, () -> loginUser.loginUser(loginRequest));
-    }
-
-    /**
-     * Вход в систему с некорректным токеном
-     */
-    @Test
-    public void login_incorrectToken() {
-        UUID token = UUID.randomUUID();
-        String password = DSL.generateString();
-
-        Mockito.when(userGateway.findByToken(token)).thenReturn(Optional.empty());
-
-        LoginUser loginUser = new LoginUser(
-                userGateway,
-                passwordGateway
-        );
+        LoginUser loginUser = new LoginUser(userGateway, passwordGateway);
 
         LoginRequest loginRequest = new LoginRequest(token, password);
         Assertions.assertThrows(InvalidCredentialsException.class, () -> loginUser.loginUser(loginRequest));

@@ -14,7 +14,7 @@
 //import ru.urfu.mm.application.gateway.TokenGateway;
 //import ru.urfu.mm.application.gateway.UserGateway;
 //import ru.urfu.mm.application.usecase.create.TooShortPasswordException;
-//import ru.urfu.mm.application.usecase.create.administrator.CreateAdministrator;
+//import ru.urfu.mm.application.usecase.create.CreateAdministrator;
 //import ru.urfu.mm.application.usecase.create.user.CreateUserRequest;
 //import ru.urfu.mm.domain.UserRole;
 //

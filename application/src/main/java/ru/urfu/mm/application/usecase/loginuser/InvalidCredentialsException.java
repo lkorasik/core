@@ -5,6 +5,6 @@ package ru.urfu.mm.application.usecase.loginuser;
  */
 public class InvalidCredentialsException extends RuntimeException {
     public InvalidCredentialsException() {
-        super("Invalid credentials. Please check your login and password.");
+        super("Invalid credentials. Please check your token and password.");
     }
 }

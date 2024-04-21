@@ -1,4 +1,4 @@
-package ru.urfu.mm.application.usecase.create.administrator;
+package ru.urfu.mm.application.usecase.create;
 
 import ru.urfu.mm.application.gateway.PasswordGateway;
 import ru.urfu.mm.application.gateway.TokenGateway;
