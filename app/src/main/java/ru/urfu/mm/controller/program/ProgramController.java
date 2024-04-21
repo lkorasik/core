@@ -9,7 +9,9 @@ import ru.urfu.mm.application.usecase.getallprograms.GetAllPrograms;
 import ru.urfu.mm.application.usecase.GetEducationalProgram;
 import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
 import ru.urfu.mm.application.usecase.get_program_for_student.ProgramForStudentResponse;
+import ru.urfu.mm.application.usecase.getprogrambyid.GetProgramById;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
+import ru.urfu.mm.domain.Program;
 import ru.urfu.mm.service.ProgramService;
 
 import java.util.List;
@@ -28,6 +30,8 @@ public class ProgramController extends AbstractAuthorizedController {
     private GetProgramForStudent getProgramForStudent;
     @Autowired
     private CreateProgram createProgram;
+    @Autowired
+    private GetProgramById getProgramById;
 
     @GetMapping("/current")
     public ProgramInfoDTO current() {
@@ -37,7 +41,14 @@ public class ProgramController extends AbstractAuthorizedController {
 
     @PostMapping("/program")
     public FullProgramDTO getEducationalProgram(@RequestBody ProgramIdDTO programIdDto) throws JsonProcessingException {
-        return programService.getEducationalProgramById(programIdDto.id());
+        Program program = getProgramById.getProgramById(programIdDto.id());
+        List<Integer> recommendedCredits = List.of(
+                program.getFirstRecommendedCredits(),
+                program.getSecondRecommendedCredits(),
+                program.getThirdRecommendedCredits(),
+                program.getFourthRecommendedCredits()
+        );
+        return new FullProgramDTO(program.getId(), program.getName(), recommendedCredits, null);
     }
 
     @PostMapping("/create")
