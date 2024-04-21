@@ -2,29 +2,101 @@ package ru.urfu.mm.application.usecase.creategroup;
 
 import ru.urfu.mm.application.gateway.GroupGateway;
 import ru.urfu.mm.application.gateway.ProgramGateway;
+import ru.urfu.mm.application.gateway.SemesterGateway;
 import ru.urfu.mm.domain.Group;
 import ru.urfu.mm.domain.Program;
+import ru.urfu.mm.domain.Semester;
+import ru.urfu.mm.domain.SemesterType;
 
-import java.util.ArrayList;
-import java.util.UUID;
+import java.util.*;
 import java.util.regex.Pattern;
 
 /**
  * Создать академическую группу
- * 1. Проверяем, что указан валидный номер группы. Номер группы должен соответствовать формату МЕНМ-ХХХХХХ.
+ * 1. Проверяем, что указан валидный номер группы. Номер группы должен соответствовать формату МЕНМ-ХХХХХХ. Если номер
+ * группы не совпадает с указанным шаблоном, то кидаем ошибку.
  * 2. Проверяем, есть ли в системе нужные семестры. Если их нет, то создаем недостающие.
  * 2. Достаем программу и добавляем в нее группу.
  */
 public class CreateGroup {
     private final GroupGateway groupGateway;
     private final ProgramGateway programGateway;
+    private final SemesterGateway semesterGateway;
 
-    public CreateGroup(GroupGateway groupGateway, ProgramGateway programGateway) {
+    public CreateGroup(GroupGateway groupGateway, ProgramGateway programGateway, SemesterGateway semesterGateway) {
         this.groupGateway = groupGateway;
         this.programGateway = programGateway;
+        this.semesterGateway = semesterGateway;
     }
 
-    public void createGroup(String number, UUID programId) {
+    public void createGroup(CreateGroupRequest request) {
+        ensureValidGroupNumber(request.number());
+
+        List<Semester> semesters = ensureActualSemestersExists(request.startYear());
+        semesters.forEach(semesterGateway::save);
+
+        Group group = new Group(UUID.randomUUID(), request.number());
+        groupGateway.save(group);
+
+        Program program = programGateway.getById(request.programId());
+        var list = new ArrayList<Group>();
+        list.addAll(program.getGroups());
+        list.add(group);
+        program.setGroups(list.stream().toList());
+        programGateway.save(program);
+    }
+
+    private List<Semester> ensureActualSemestersExists(int startYear) {
+        List<Semester> semesters = semesterGateway.getSemestersForEntireStudyPeriod(startYear);
+        Optional<Semester> first = semesters
+                .stream()
+                .filter(x -> (x.getYear() == startYear) && (x.getType() == SemesterType.FALL))
+                .findFirst();
+        Optional<Semester> second = semesters
+                .stream()
+                .filter(x -> (x.getYear() == startYear + 1) && (x.getType() == SemesterType.SPRING))
+                .findFirst();
+        Optional<Semester> third = semesters
+                .stream()
+                .filter(x -> (x.getYear() == startYear + 1) && (x.getType() == SemesterType.FALL))
+                .findFirst();
+        Optional<Semester> fourth = semesters
+                .stream()
+                .filter(x -> (x.getYear() == startYear + 2) && (x.getType() == SemesterType.SPRING))
+                .findFirst();
+        List<Semester> actualSemesters = new ArrayList<>();
+        if (first.isPresent()) {
+            actualSemesters.add(first.get());
+        } else {
+            actualSemesters.add(new Semester(UUID.randomUUID(), startYear, SemesterType.FALL));
+        }
+        if (second.isPresent()) {
+            actualSemesters.add(second.get());
+        } else {
+            actualSemesters.add(new Semester(UUID.randomUUID(), startYear + 1, SemesterType.SPRING));
+        }
+        if (third.isPresent()) {
+            actualSemesters.add(third.get());
+        } else {
+            actualSemesters.add(new Semester(UUID.randomUUID(), startYear + 1, SemesterType.FALL));
+        }
+        if (fourth.isPresent()) {
+            actualSemesters.add(fourth.get());
+        } else {
+            actualSemesters.add(new Semester(UUID.randomUUID(), startYear + 2, SemesterType.SPRING));
+        }
+        return actualSemesters;
+    }
+
+    private String extractDepartmentName(String number) {
+        return number.split("-")[0];
+    }
+
+    private int extractDigit(String number) {
+        return Integer.parseInt(number.split("-")[1]);
+    }
+
+    private void ensureValidGroupNumber(String number) {
         String REGEX = "^\\S\\S\\S\\S-\\d\\d\\d\\d\\d\\d$"; // Провеяем формат МЕНМ-123456
         Pattern regex = Pattern.compile(REGEX);
 
@@ -32,22 +104,8 @@ public class CreateGroup {
             throw new InvalidGroupNameException(number);
         }
 
-        String[] parts = number.split("-");
-        String departmentCode = parts[0];
-        int digitalPart = Integer.parseInt(parts[1]);
-
-        ensureDepartmentCode(departmentCode);
-        ensureCorrectCourseNumber(digitalPart);
-
-        Group group = new Group(UUID.randomUUID(), number);
-        groupGateway.save(group);
-
-        Program program = programGateway.getById(programId);
-        var list = new ArrayList<Group>();
-        list.addAll(program.getGroups());
-        list.add(group);
-        program.setGroups(list.stream().toList());
-        programGateway.save(program);
+        ensureDepartmentCode(extractDepartmentName(number));
+        ensureCorrectCourseNumber(extractDigit(number));
     }
 
     private void ensureDepartmentCode(String department) {

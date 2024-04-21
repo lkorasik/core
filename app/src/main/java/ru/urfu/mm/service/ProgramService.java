@@ -255,6 +255,6 @@ public class ProgramService {
                 .toList();
 
         // Добавляем недостающие семестры
-        toAdd2.forEach(semesterRepository::save);
+//        toAdd2.forEach(semesterRepository::save);
     }
 }
