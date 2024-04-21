@@ -37,14 +37,6 @@
     cursor: pointer;
 }
 
-#container {
-    padding-top: 39px;
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-bottom: 1em;
-    background-color: #f6f6f6;
-}
-
 .background {
     background-color: #f6f6f6;
     background-size: cover;
@@ -154,52 +146,6 @@
     font-size: 24px;
     font-weight: 600;
     color: rgba(34, 34, 34, 1);
-}
-
-.saveButton {
-    margin-left: 18px;
-    width: 170px;
-    height: 64px;
-    border: none;
-    border-radius: 16px;
-    background-color: var(--primary_color);
-    color: white;
-    font-size: 16px;
-    font-weight: 600;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    scale: 1;
-    transition: scale 0.5s ease;
-}
-
-.saveButton:disabled {
-    background-color: #c0c0c0;
-}
-
-.linkOverride {
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-}
-
-.saveButton:hover:enabled {
-    cursor: pointer;
-    scale: 1.08;
-    transition: scale 0.5s ease;
-}
-
-#helperButtons {
-    display: flex;
-    background-position: center;
-    background-size: contain;
-    backgrount-repeat: none;
-    position: absolute;
-    right: 40px;
-    top: 147px;
-    vertical-align: bottom;
-    border: none;
 }
 
 .rule {

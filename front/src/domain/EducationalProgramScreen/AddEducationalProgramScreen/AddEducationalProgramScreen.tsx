@@ -9,6 +9,9 @@ import { SpecialCourse } from "../../../apis/api/course/SpecialCourse";
 import { ModuleDto } from "../../../apis/api/modules/ModuleDto";
 import { CloseButton } from "../../../base_components/CrudButtons/CloseButton/CloseButton";
 import { Title } from "../../../base_components/Title/Title";
+import { Container } from "../../../base_components/Container/Container";
+import { Toolbar } from "../../../base_components/Toolbar/Toolbar";
+import { SaveButton } from "../../../base_components/CrudButtons/SaveButton/SaveButton";
 
 interface Props {}
 
@@ -584,21 +587,16 @@ export function AddEducationalProgramScreen(props: Props) {
     return (
         <>
             {showDialog && renderDialog()}
-            <div id={styles.container}>
-                <Title>Добавить образовательную программу</Title>
-                <div id={styles.helperButtons}>
-                    <Link className={styles.linkOverride} to={EDUCATIONAL_PROGRAM_SCREEN_URL}>
-                        <button className={styles.saveButton} onClick={(e) => {
-                            console.log(educationalProgramName);
-                            console.log(credits.map(x => x[0]));
+            <Container>
+                <Toolbar title="Добавить образовательную программу">
+                    <SaveButton to={EDUCATIONAL_PROGRAM_SCREEN_URL} onClick={() => {
+                        console.log(educationalProgramName);
+                        console.log(credits.map(x => x[0]));
 
-                            save()
-                        }} disabled={disabled}>
-                            Сохранить
-                        </button>
-                    </Link>
+                        save()
+                    }} />
                     <CloseButton />
-                </div>
+                </Toolbar>
                 <div>
                     <label className={styles.label}>
                         Название образовательной программы <span className={styles.required}>*</span>
@@ -620,7 +618,7 @@ export function AddEducationalProgramScreen(props: Props) {
                     {renderColumn(3)}
                     {renderColumn(4)}
                 </Flex>
-            </div>
+            </Container>
         </>
     )
 }
