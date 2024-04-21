@@ -9,6 +9,12 @@ recreate_db:
 	@docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=180401 -e POSTGRES_USER=postgres -e POSTGRES_DB=Groopster --name db postgres:alpine3.19
 	@echo "End database recreating"
 
+# Создать базу данных для тестирования
+test_create:
+	@echo "Start test database"
+	@docker run -d -p 5433:5432 -e POSTGRES_PASSWORD=180401 -e POSTGRES_USER=postgres -e POSTGRES_DB=Groopster_test --name test_db postgres:alpine3.19
+	@echo "End test database"
+
 # Войти на сервер
 server:
 	ssh -p 49207 root@771c825ef24d.vps.myjino.ru

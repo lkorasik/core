@@ -1,37 +1,56 @@
 package ru.urfu.mm.integration;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import ru.urfu.mm.controller.authentication.LoginDTO;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import ru.urfu.mm.controller.authentication.AccessTokenDTO;
+import ru.urfu.mm.controller.authentication.RegistrationDTO;
+import ru.urfu.mm.domain.UserRole;
+import ru.urfu.mm.entity.RegistrationToken;
+import ru.urfu.mm.repository.RegistrationTokenRepository;
 
 import java.util.UUID;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AuthenticationControllerTest {
-    @Mock
-    private MockMvc mockMvc;
+    @LocalServerPort
+    private int port;
 
+    @Autowired
+    RegistrationTokenRepository repository;
+
+    /**
+     * Тестирование регистрации администратора.
+     */
     @Test
-    public void test() throws Exception {
-        LoginDTO loginDTO = new LoginDTO(UUID.randomUUID().toString(), "123123123");
-        ObjectMapper mapper = new ObjectMapper();
-        var json = mapper.writeValueAsString(loginDTO);
+    void registerAdministrator() {
+        UUID token = UUID.randomUUID();
+        String password = UUID.randomUUID().toString();
 
-        mockMvc
-                .perform(post("/api/authentication/login").contentType(MediaType.APPLICATION_JSON).content(json))
-                .andExpect(status().isOk());
+        RegistrationToken registrationToken = new RegistrationToken(token);
+        repository.save(registrationToken);
+
+        AccessTokenDTO expected = new AccessTokenDTO("", token.toString(), UserRole.ADMIN.getValue());
+
+        RegistrationDTO registrationDTO = new RegistrationDTO(String.valueOf(token), password, password);
+
+        AccessTokenDTO actual = RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(registrationDTO)
+                .when()
+                .baseUri("http://localhost:" + port)
+                .post("/api/authentication/register")
+                .then()
+                .statusCode(200)
+                .extract()
+                .as(AccessTokenDTO.class);
+
+        Assertions.assertNotNull(actual.accessToken());
+        Assertions.assertEquals(actual.userEntityRole(), expected.userEntityRole());
+        Assertions.assertEquals(actual.userToken(), expected.userToken());
     }
 }

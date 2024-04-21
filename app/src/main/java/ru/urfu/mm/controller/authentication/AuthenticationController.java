@@ -3,10 +3,7 @@ package ru.urfu.mm.controller.authentication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.application.usecase.create.user.CreateUser;
 import ru.urfu.mm.application.usecase.create.user.CreateUserRequest;
 import ru.urfu.mm.application.usecase.loginuser.LoginRequest;
@@ -36,16 +33,20 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public AccessTokenDTO register(@RequestBody RegistrationDTO user) {
+    public AccessTokenDTO register(@RequestBody RegistrationDTO dto) {
+        logger.info("User registration with params: " + dto);
+
         CreateUserRequest request = new CreateUserRequest(
-                UUID.fromString(user.token()),
-                user.password(),
-                user.passwordAgain()
+                UUID.fromString(dto.token()),
+                dto.password(),
+                dto.passwordAgain()
         );
         UserRole role = createUser.createUser(request);
-        String token = authenticationService.generateToken(user);
+        String token = authenticationService.generateToken(dto);
 
-        return new AccessTokenDTO(token, user.token(), role.getValue());
+        logger.info("User successfully registered");
+
+        return new AccessTokenDTO(token, dto.token(), role.getValue());
     }
 
     @PostMapping("/login")
@@ -60,5 +61,10 @@ public class AuthenticationController {
     @PostMapping("/validateToken")
     public void validateToken(@RequestBody TokenDTO tokenDTO) {
         authenticationService.validateToken(tokenDTO.token());
+    }
+
+    @GetMapping("/no")
+    public String no() {
+        return "no";
     }
 }
