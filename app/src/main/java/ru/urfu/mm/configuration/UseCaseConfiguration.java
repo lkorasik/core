@@ -27,20 +27,17 @@ public class UseCaseConfiguration {
     @Bean
     public CreateAdministrator createAdministrator(
             TokenGateway tokenGateway,
-            LoggerGateway loggerGateway,
             PasswordGateway passwordGateway,
             UserGateway userGateway) {
-        return new CreateAdministrator(tokenGateway, loggerGateway, passwordGateway, userGateway);
+        return new CreateAdministrator(tokenGateway, passwordGateway, userGateway);
     }
 
     @Bean
     public CreateStudent createStudent(
-            TokenGateway tokenGateway,
             PasswordGateway passwordGateway,
             UserGateway userGateway,
             StudentGateway studentGateway) {
         return new CreateStudent(
-                tokenGateway,
                 passwordGateway,
                 userGateway,
                 studentGateway

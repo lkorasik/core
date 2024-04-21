@@ -1,12 +1,9 @@
 package ru.urfu.mm.gateway;
 
-import org.apache.poi.sl.draw.geom.GuideIf;
-import org.apache.tomcat.util.buf.UEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.TokenGateway;
 import ru.urfu.mm.domain.Group;
-import ru.urfu.mm.domain.UserRole;
 import ru.urfu.mm.entity.GroupEntity;
 import ru.urfu.mm.entity.StudentEntity;
 import ru.urfu.mm.entity.StudentRegistrationToken;
@@ -19,7 +16,6 @@ import ru.urfu.mm.repository.StudentRepository;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Stream;
 
 @Component
 public class TokenGatewayImpl implements TokenGateway {
@@ -41,14 +37,6 @@ public class TokenGatewayImpl implements TokenGateway {
     }
 
     @Override
-    public Optional<UserRole> getRoleByToken(UUID token) {
-        return registrationTokenRepository
-                .findByRegistrationToken(token)
-                .map(x -> x.userEntityRole)
-                .map(x -> UserRole.values()[x.ordinal()]);
-    }
-
-    @Override
     public void deleteToken(UUID token) {
         registrationTokenRepository.deleteById(token);
     }
@@ -60,18 +48,6 @@ public class TokenGatewayImpl implements TokenGateway {
                 .stream()
                 .map(StudentRegistrationToken::getToken)
                 .toList();
-    }
-
-    @Override
-    public Optional<Group> getStudentRegistrationToken(UUID token) {
-        return studentRegistrationTokenRepository.findById(token)
-                .map(StudentRegistrationToken::getGroup)
-                .map(x -> new Group(x.getId(), x.getNumber()));
-    }
-
-    @Override
-    public void deleteStudentRegistrationToken(UUID token) {
-        studentRegistrationTokenRepository.deleteById(token);
     }
 
     @Override

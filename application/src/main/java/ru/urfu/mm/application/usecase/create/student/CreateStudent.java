@@ -9,25 +9,22 @@ import ru.urfu.mm.domain.*;
 
 /**
  * Создаем аккаунт студента
- * 1. Проверяем, что есть такой студент. Если такого студента нет, то кидаем ошбику.
- * 2. Проверяем, что студент частично проинициализиован. Т.е. есть поля группы и направления, но нет полей с паролем.
- * Если это не так, то значит такой студент уже зарегистрирован в системе и его трогать нельзя.
- * 3. Проверяем, что пароль надежный. Если не надежный, то кидаем ошибку о том, что пароль не надежен.
+ * 1. Находим студента.
+ * 2. Проверяем, что пароль надежный. Если не надежный, то кидаем ошибку о том, что пароль не надежен.
+ * 3. Находим программу.
  * 4. Создаем аккаунт пользователя.
  * 5. Заполняем студента.
+ * 6. Сохраняем изменения в студенте.
  */
 public class CreateStudent {
-    private final TokenGateway tokenGateway;
     private final PasswordGateway passwordGateway;
     private final UserGateway userGateway;
     private final StudentGateway studentGateway;
 
     public CreateStudent(
-            TokenGateway tokenGateway,
             PasswordGateway passwordGateway,
             UserGateway userGateway,
             StudentGateway studentGateway) {
-        this.tokenGateway = tokenGateway;
         this.passwordGateway = passwordGateway;
         this.userGateway = userGateway;
         this.studentGateway = studentGateway;
@@ -36,10 +33,6 @@ public class CreateStudent {
     public void createStudent(CreateUserRequest request) {
         Student student = studentGateway.findById(request.token())
                 .orElseThrow(() -> new RegistrationTokenNotExistException(request.token()));
-
-        ensureStudentNotRegisteredBefore(student);
-
-        tokenGateway.deleteToken(request.token());
 
         ensurePasswordsSame(request.password(), request.passwordAgain());
         ensurePasswordStrongEnough(request.password());
@@ -51,15 +44,6 @@ public class CreateStudent {
 
         Student completedStudent = new Student(request.token(), program, student.getGroup(), user);
         studentGateway.update(completedStudent);
-
-        // todo: возможно, стоит отмечать токен как использованный, а не удалять его.
-        tokenGateway.deleteStudentRegistrationToken(request.token());
-    }
-
-    private void ensureStudentNotRegisteredBefore(Student student) {
-        if (student.getUser() != null) {
-            throw new StudentAlreadyRegisteredException(student.getLogin());
-        }
     }
 
     private void ensurePasswordsSame(String password, String passwordAgain) {

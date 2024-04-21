@@ -8,7 +8,7 @@ import ru.urfu.mm.domain.UserRole;
 
 /**
  * Создать аккаунт
- * 1. Находим токен. Если токен не найден либо он занят, то кидаем ошибку.
+ * 1. Находим токен. Если токен не найден или он уже занят, то кидаем ошибку.
  * 2. В зависимости от типа токена делегируем задачу создания аккаунта либо
  * {@link ru.urfu.mm.application.usecase.create.student.CreateStudent}, либо
  * {@link ru.urfu.mm.application.usecase.create.administrator.CreateAdministrator}
