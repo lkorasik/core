@@ -7,16 +7,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.urfu.mm.application.usecase.create.administrator.CreateAdministrator;
-import ru.urfu.mm.application.usecase.create.administrator.CreateAdministratorRequest;
-import ru.urfu.mm.application.usecase.create.student.CreateStudent;
-import ru.urfu.mm.application.usecase.create.student.CreateStudentRequest;
+import ru.urfu.mm.application.usecase.create.user.CreateUser;
+import ru.urfu.mm.application.usecase.create.user.CreateUserRequest;
 import ru.urfu.mm.application.usecase.loginuser.LoginRequest;
 import ru.urfu.mm.application.usecase.loginuser.LoginUser;
 import ru.urfu.mm.domain.User;
-import ru.urfu.mm.entity.UserEntityRole;
+import ru.urfu.mm.domain.UserRole;
 import ru.urfu.mm.service.AuthenticationService;
-import ru.urfu.mm.service.mapper.Mapper;
 
 import java.util.UUID;
 
@@ -25,55 +22,30 @@ import java.util.UUID;
 public class AuthenticationController {
     private final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
     private final AuthenticationService authenticationService;
-    private final CreateAdministrator createAdministrator;
-    private final CreateStudent createStudent;
+    private final CreateUser createUser;
     private final LoginUser loginUser;
-    private final Mapper<ru.urfu.mm.domain.UserRole, UserEntityRole> userRoleMapper;
 
     @Autowired
     public AuthenticationController(
             AuthenticationService authenticationService,
-            CreateAdministrator createAdministrator,
-            CreateStudent createStudent,
-            LoginUser loginUser,
-            Mapper<ru.urfu.mm.domain.UserRole, UserEntityRole> userRoleMapper) {
+            CreateUser createUser,
+            LoginUser loginUser) {
         this.authenticationService = authenticationService;
-        this.createAdministrator = createAdministrator;
-        this.createStudent = createStudent;
+        this.createUser = createUser;
         this.loginUser = loginUser;
-        this.userRoleMapper = userRoleMapper;
     }
 
-    @PostMapping("/registerAdministration")
-    public AccessTokenDTO registerAdministration(@RequestBody RegistrationAdministratorDTO user) {
-        logger.debug("Request for admin registration: " + user);
-
-        CreateAdministratorRequest request = new CreateAdministratorRequest(
+    @PostMapping("/register")
+    public AccessTokenDTO register(@RequestBody RegistrationDTO user) {
+        CreateUserRequest request = new CreateUserRequest(
                 UUID.fromString(user.token()),
                 user.password(),
                 user.passwordAgain()
         );
-        createAdministrator.createAdministrator(request);
+        UserRole role = createUser.createUser(request);
         String token = authenticationService.generateToken(user);
 
-        return new AccessTokenDTO(token, user.token(), UserEntityRole.ADMIN);
-    }
-
-    @PostMapping("/registerStudent")
-    public AccessTokenDTO registerStudent(@RequestBody RegistrationStudentDTO user) {
-        logger.debug("Request for student registration: " + user);
-
-        CreateStudentRequest request = new CreateStudentRequest(
-                UUID.fromString(user.token()),
-                user.programId(),
-                user.group(),
-                user.password(),
-                user.passwordAgain()
-        );
-        createStudent.createStudent(request);
-        String token = authenticationService.generateToken(user);
-
-        return new AccessTokenDTO(token, user.token(), UserEntityRole.STUDENT);
+        return new AccessTokenDTO(token, user.token(), role.getValue());
     }
 
     @PostMapping("/login")
@@ -82,7 +54,7 @@ public class AuthenticationController {
         User user = loginUser.loginUser(login);
         String token = authenticationService.generateToken(loginDTO);
 
-        return new AccessTokenDTO(token, loginDTO.token(), userRoleMapper.map(user.getRole()));
+        return new AccessTokenDTO(token, loginDTO.token(), user.getRole().getValue());
     }
 
     @PostMapping("/validateToken")

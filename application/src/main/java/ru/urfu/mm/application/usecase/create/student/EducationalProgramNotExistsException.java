@@ -1,9 +1,9 @@
 package ru.urfu.mm.application.usecase.create.student;
 
-import java.util.UUID;
+import ru.urfu.mm.domain.Group;
 
 public class EducationalProgramNotExistsException extends RuntimeException {
-    public EducationalProgramNotExistsException(UUID prorgamId) {
-        super("Program with id " + prorgamId + " not exists.");
+    public EducationalProgramNotExistsException(Group group) {
+        super("No program found for group with id " + group.getId());
     }
 }

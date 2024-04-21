@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.urfu.mm.dsl.DTO_DSL;
 import ru.urfu.mm.controller.authentication.LoginDTO;
-import ru.urfu.mm.controller.authentication.RegistrationAdministratorDTO;
+import ru.urfu.mm.controller.authentication.RegistrationDTO;
 import ru.urfu.mm.controller.authentication.RegistrationStudentDTO;
 import ru.urfu.mm.service.AuthenticationService;
 import ru.urfu.mm.service.JWTService;
@@ -81,27 +81,27 @@ public class AuthenticationServiceTest {
     }
 
     /**
-     * Авторизовываемся в системе через {@link RegistrationAdministratorDTO}
+     * Авторизовываемся в системе через {@link RegistrationDTO}
      */
     @Test
     public void generateJWT_registrationAdministrator() {
-        RegistrationAdministratorDTO registrationAdministratorDTO = DTO_DSL.createRegistrationAdministratorDTO();
+        RegistrationDTO registrationDTO = DTO_DSL.createRegistrationAdministratorDTO();
 
         UserDetails userDetails = new User(
-                registrationAdministratorDTO.token(),
-                registrationAdministratorDTO.password(),
+                registrationDTO.token(),
+                registrationDTO.password(),
                 Collections.emptyList()
         );
 
         String expectedJWT = "ghfdlsj";
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                registrationAdministratorDTO.token(),
-                registrationAdministratorDTO.password()
+                registrationDTO.token(),
+                registrationDTO.password()
         );
 
         when(authenticationManager.authenticate(token)).thenReturn(null);
-        when(userService.loadUserByUsername(registrationAdministratorDTO.token()))
+        when(userService.loadUserByUsername(registrationDTO.token()))
                 .thenReturn(userDetails);
         when(jwtService.generateToken(userDetails)).thenReturn(expectedJWT);
 
@@ -111,21 +111,21 @@ public class AuthenticationServiceTest {
                 jwtService
         );
 
-        String actualJWT = authenticationService.generateToken(registrationAdministratorDTO);
+        String actualJWT = authenticationService.generateToken(registrationDTO);
 
         Assertions.assertEquals(expectedJWT, actualJWT);
     }
 
     /**
-     * Авторизовываемся в системе через {@link RegistrationAdministratorDTO}. Ошибка во время авторизации.
+     * Авторизовываемся в системе через {@link RegistrationDTO}. Ошибка во время авторизации.
      */
     @Test
     public void generateJWT_registrationAdministrator_authorizationException() {
-        RegistrationAdministratorDTO registrationAdministratorDTO = DTO_DSL.createRegistrationAdministratorDTO();
+        RegistrationDTO registrationDTO = DTO_DSL.createRegistrationAdministratorDTO();
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                registrationAdministratorDTO.token(),
-                registrationAdministratorDTO.password()
+                registrationDTO.token(),
+                registrationDTO.password()
         );
 
         when(authenticationManager.authenticate(token)).thenThrow(BadCredentialsException.class);
@@ -138,69 +138,69 @@ public class AuthenticationServiceTest {
 
         Assertions.assertThrows(
                 BadCredentialsException.class,
-                () -> authenticationService.generateToken(registrationAdministratorDTO)
+                () -> authenticationService.generateToken(registrationDTO)
         );
     }
+//
+//    /**
+//     * Авторизовываемся в системе через {@link RegistrationStudentDTO}
+//     */
+//    @Test
+//    public void generateJWT_registrationStudent() {
+//        RegistrationStudentDTO registrationStudentDTO = DTO_DSL.createRegistrationStudentDTO();
+//
+//        UserDetails userDetails = new User(
+//                registrationStudentDTO.token(),
+//                registrationStudentDTO.password(),
+//                Collections.emptyList()
+//        );
+//
+//        String expectedJWT = "ghfdlsj";
+//
+//        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+//                registrationStudentDTO.token(),
+//                registrationStudentDTO.password()
+//        );
+//
+//        when(authenticationManager.authenticate(token)).thenReturn(null);
+//        when(userService.loadUserByUsername(registrationStudentDTO.token()))
+//                .thenReturn(userDetails);
+//        when(jwtService.generateToken(userDetails)).thenReturn(expectedJWT);
+//
+//        AuthenticationService authenticationService = new AuthenticationService(
+//                userService,
+//                authenticationManager,
+//                jwtService
+//        );
+//
+//        String actualJWT = authenticationService.generateToken(registrationStudentDTO);
+//
+//        Assertions.assertEquals(expectedJWT, actualJWT);
+//    }
 
-    /**
-     * Авторизовываемся в системе через {@link RegistrationStudentDTO}
-     */
-    @Test
-    public void generateJWT_registrationStudent() {
-        RegistrationStudentDTO registrationStudentDTO = DTO_DSL.createRegistrationStudentDTO();
-
-        UserDetails userDetails = new User(
-                registrationStudentDTO.token(),
-                registrationStudentDTO.password(),
-                Collections.emptyList()
-        );
-
-        String expectedJWT = "ghfdlsj";
-
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                registrationStudentDTO.token(),
-                registrationStudentDTO.password()
-        );
-
-        when(authenticationManager.authenticate(token)).thenReturn(null);
-        when(userService.loadUserByUsername(registrationStudentDTO.token()))
-                .thenReturn(userDetails);
-        when(jwtService.generateToken(userDetails)).thenReturn(expectedJWT);
-
-        AuthenticationService authenticationService = new AuthenticationService(
-                userService,
-                authenticationManager,
-                jwtService
-        );
-
-        String actualJWT = authenticationService.generateToken(registrationStudentDTO);
-
-        Assertions.assertEquals(expectedJWT, actualJWT);
-    }
-
-    /**
-     * Авторизовываемся в системе через {@link RegistrationStudentDTO}. Ошибка во время авторизации.
-     */
-    @Test
-    public void generateJWT_registrationStudent_authorizationException() {
-        RegistrationStudentDTO registrationStudentDTO = DTO_DSL.createRegistrationStudentDTO();
-
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                registrationStudentDTO.token(),
-                registrationStudentDTO.password()
-        );
-
-        when(authenticationManager.authenticate(token)).thenThrow(BadCredentialsException.class);
-
-        AuthenticationService authenticationService = new AuthenticationService(
-                userService,
-                authenticationManager,
-                jwtService
-        );
-
-        Assertions.assertThrows(
-                BadCredentialsException.class,
-                () -> authenticationService.generateToken(registrationStudentDTO)
-        );
-    }
+//    /**
+//     * Авторизовываемся в системе через {@link RegistrationStudentDTO}. Ошибка во время авторизации.
+//     */
+//    @Test
+//    public void generateJWT_registrationStudent_authorizationException() {
+//        RegistrationStudentDTO registrationStudentDTO = DTO_DSL.createRegistrationStudentDTO();
+//
+//        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+//                registrationStudentDTO.token(),
+//                registrationStudentDTO.password()
+//        );
+//
+//        when(authenticationManager.authenticate(token)).thenThrow(BadCredentialsException.class);
+//
+//        AuthenticationService authenticationService = new AuthenticationService(
+//                userService,
+//                authenticationManager,
+//                jwtService
+//        );
+//
+//        Assertions.assertThrows(
+//                BadCredentialsException.class,
+//                () -> authenticationService.generateToken(registrationStudentDTO)
+//        );
+//    }
 }

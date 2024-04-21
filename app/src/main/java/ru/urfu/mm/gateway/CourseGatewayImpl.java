@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.CourseGateway;
 import ru.urfu.mm.domain.Module;
 import ru.urfu.mm.domain.*;
+import ru.urfu.mm.entity.GroupEntity;
 import ru.urfu.mm.entity.StudentEntity;
 import ru.urfu.mm.entity.UserEntity;
 import ru.urfu.mm.repository.EducationalProgramToCoursesWithSemestersRepository;
@@ -99,7 +100,10 @@ public class CourseGatewayImpl implements CourseGateway {
                                         x.getStudent().getEducationalProgram().getTrainingDirection(),
                                         x.getStudent().getEducationalProgram().getSemesterIdToRequiredCreditsCount()
                                 ),
-                                x.getStudent().getGroup().getNumber(),
+                                new Group(
+                                        x.getStudent().getGroup().getId(),
+                                        x.getStudent().getGroup().getNumber()
+                                ),
                                 new User(
                                         x.getStudent().getUser().getLogin(),
                                         x.getStudent().getUser().getPassword(),
@@ -310,6 +314,11 @@ public class CourseGatewayImpl implements CourseGateway {
                                                         x.getStudent().getEducationalProgram().getName(),
                                                         x.getStudent().getEducationalProgram().getTrainingDirection(),
                                                         x.getStudent().getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                                                ),
+                                                new GroupEntity(
+                                                        x.getStudent().getGroup().getId(),
+                                                        x.getStudent().getGroup().getNumber(),
+                                                        ru.urfu.mm.entity.Years.values()[x.getStudent().getGroup().getYear().ordinal()]
                                                 ),
                                                 userMapper.map(x.getStudent().getUser())
                                         ),

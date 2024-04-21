@@ -1,5 +1,6 @@
 package ru.urfu.mm.application.gateway;
 
+import ru.urfu.mm.domain.Group;
 import ru.urfu.mm.domain.Program;
 
 import java.util.List;
@@ -13,4 +14,5 @@ public interface ProgramGateway {
     List<Program> getAll();
     void save(Program program);
     Map<UUID, Integer> deserializeRecommendedCredits(Program program);
+    Optional<Program> findByGroup(Group group);
 }

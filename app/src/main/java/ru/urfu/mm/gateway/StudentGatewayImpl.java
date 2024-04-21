@@ -3,35 +3,61 @@ package ru.urfu.mm.gateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.StudentGateway;
+import ru.urfu.mm.domain.Group;
 import ru.urfu.mm.domain.Program;
 import ru.urfu.mm.domain.Student;
-import ru.urfu.mm.entity.EducationalProgram;
-import ru.urfu.mm.entity.StudentEntity;
-import ru.urfu.mm.entity.UserEntity;
+import ru.urfu.mm.entity.*;
+import ru.urfu.mm.repository.GroupRepository;
 import ru.urfu.mm.repository.StudentRepository;
 import ru.urfu.mm.service.mapper.Mapper;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
 public class StudentGatewayImpl implements StudentGateway {
     private final StudentRepository studentRepository;
+    private final GroupRepository groupRepository;
     private final Mapper<ru.urfu.mm.domain.User, UserEntity> userMapper;
 
     @Autowired
-    public StudentGatewayImpl(StudentRepository studentRepository, Mapper<ru.urfu.mm.domain.User, UserEntity> userMapper) {
+    public StudentGatewayImpl(
+            StudentRepository studentRepository,
+            GroupRepository groupRepository,
+            Mapper<ru.urfu.mm.domain.User, UserEntity> userMapper) {
         this.studentRepository = studentRepository;
+        this.groupRepository = groupRepository;
         this.userMapper = userMapper;
     }
 
     @Override
-    public void save(Student student) {
+    public void update(Student student) {
         StudentEntity studentEntity1 = new StudentEntity(
                 student.getLogin(),
                 parse(student.getEducationalProgram()),
+                new GroupEntity(
+                        student.getGroup().getId(),
+                        student.getGroup().getNumber(),
+                        Years.values()[student.getGroup().getYear().ordinal()]
+                ),
                 userMapper.map(student.getUser())
         );
         studentRepository.save(studentEntity1);
+    }
+
+    @Override
+    public void saveNewStudent(Student student) {
+        StudentEntity entity = new StudentEntity(
+                student.getLogin(),
+                parse(student.getEducationalProgram()),
+                new GroupEntity(
+                        student.getGroup().getId(),
+                        student.getGroup().getNumber(),
+                        Years.values()[student.getGroup().getYear().ordinal()]
+                )
+        );
+        studentRepository.save(entity);
     }
 
     @Override
@@ -46,7 +72,10 @@ public class StudentGatewayImpl implements StudentGateway {
                                 x.getEducationalProgram().getTrainingDirection(),
                                 x.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
                         ),
-                        x.getGroup().getNumber(),
+                        new Group(
+                                x.getGroup().getId(),
+                                x.getGroup().getNumber()
+                        ),
                         new ru.urfu.mm.domain.User(
                                 x.getUser().getLogin(),
                                 x.getUser().getPassword(),
@@ -54,6 +83,46 @@ public class StudentGatewayImpl implements StudentGateway {
                         )
                 ))
                 .get();
+    }
+
+    @Override
+    public Optional<Student> findById(UUID studentId) {
+        return studentRepository
+                .findByLogin(studentId)
+                .map(x -> new Student(
+                        x.getLogin(),
+                        new Program(
+                                x.getEducationalProgram().getId(),
+                                x.getEducationalProgram().getName(),
+                                x.getEducationalProgram().getTrainingDirection(),
+                                x.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                        ),
+                        new Group(
+                                x.getGroup().getId(),
+                                x.getGroup().getNumber()
+                        )
+                ));
+    }
+
+    @Override
+    public List<Student> findAllStudentsByGroup(Group group) {
+        GroupEntity groupEntity = groupRepository.findById(group.getId()).get();
+        return studentRepository.findAllByGroup(groupEntity)
+                .stream()
+                .map(x -> new Student(
+                        x.getLogin(),
+                        new Program(
+                                x.getEducationalProgram().getId(),
+                                x.getEducationalProgram().getName(),
+                                x.getEducationalProgram().getTrainingDirection(),
+                                x.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                        ),
+                        new Group(
+                                x.getGroup().getId(),
+                                x.getGroup().getNumber()
+                        )
+                ))
+                .toList();
     }
 
     private EducationalProgram parse(Program program) {

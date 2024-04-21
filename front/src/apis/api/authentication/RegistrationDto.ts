@@ -1,7 +1,5 @@
-export interface RegistrationStudentDto {
+export interface RegistrationDto {
     token: string;
-    programId: string;
-    group: string;
     password: string;
     passwordAgain: string;
 }

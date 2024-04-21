@@ -1,6 +1,6 @@
 package ru.urfu.mm.controller.authentication;
 
-public record RegistrationAdministratorDTO(
+public record RegistrationDTO(
         String token,
         String password,
         String passwordAgain

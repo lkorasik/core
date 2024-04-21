@@ -8,6 +8,7 @@ import ru.urfu.mm.application.gateway.*;
 import ru.urfu.mm.application.usecase.*;
 import ru.urfu.mm.application.usecase.create.administrator.CreateAdministrator;
 import ru.urfu.mm.application.usecase.create.student.CreateStudent;
+import ru.urfu.mm.application.usecase.create.user.CreateUser;
 import ru.urfu.mm.application.usecase.creategroup.CreateGroup;
 import ru.urfu.mm.application.usecase.downloadtokens.DownloadTokens;
 import ru.urfu.mm.application.usecase.generatetoken.GenerateStudentRegistrationTokens;
@@ -26,27 +27,21 @@ public class UseCaseConfiguration {
     @Bean
     public CreateAdministrator createAdministrator(
             TokenGateway tokenGateway,
-            LoggerGateway loggerGateway,
             PasswordGateway passwordGateway,
             UserGateway userGateway) {
-        return new CreateAdministrator(tokenGateway, loggerGateway, passwordGateway, userGateway);
+        return new CreateAdministrator(tokenGateway, passwordGateway, userGateway);
     }
 
     @Bean
     public CreateStudent createStudent(
-            TokenGateway tokenGateway,
-            LoggerGateway loggerGateway,
             PasswordGateway passwordGateway,
             UserGateway userGateway,
-            ProgramGateway programGateway,
             StudentGateway studentGateway) {
         return new CreateStudent(
-                tokenGateway,
-                loggerGateway,
                 passwordGateway,
                 userGateway,
-                programGateway,
-                studentGateway);
+                studentGateway
+        );
     }
 
     @Bean
@@ -227,18 +222,31 @@ public class UseCaseConfiguration {
     @Bean
     public GenerateStudentRegistrationTokens generateStudentRegistrationTokens(
             TokenGateway tokenGateway,
-            GetGroup getGroup) {
-        return new GenerateStudentRegistrationTokens(tokenGateway, getGroup);
+            GetGroup getGroup,
+            ProgramGateway programGateway,
+            StudentGateway studentGateway) {
+        return new GenerateStudentRegistrationTokens(tokenGateway, getGroup, programGateway, studentGateway);
     }
 
     @Bean
-    public GetTokensForGroup getTokensForGroup(TokenGateway tokenGateway, GetGroup getGroup) {
-        return new GetTokensForGroup(tokenGateway, getGroup);
+    public GetTokensForGroup getTokensForGroup(
+            TokenGateway tokenGateway,
+            GetGroup getGroup,
+            StudentGateway studentGateway) {
+        return new GetTokensForGroup(tokenGateway, getGroup, studentGateway);
     }
 
     @Bean
     public DownloadTokens downloadTokens(TokenGateway tokenGateway, GetGroup getGroup) {
         return new DownloadTokens(tokenGateway, getGroup);
+    }
+
+    @Bean
+    public CreateUser createUser(
+            CreateStudent createStudent,
+            CreateAdministrator createAdministrator,
+            TokenGateway tokenGateway) {
+        return new CreateUser(createStudent, createAdministrator, tokenGateway);
     }
 
     @Bean
