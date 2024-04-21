@@ -10,7 +10,6 @@ import ru.urfu.mm.controller.program.*;
 import ru.urfu.mm.entity.EducationalProgram;
 import ru.urfu.mm.entity.EducationalProgramToCoursesWithSemesters;
 import ru.urfu.mm.entity.Semester;
-import ru.urfu.mm.entity.SemesterType;
 import ru.urfu.mm.repository.EducationalProgramRepository;
 import ru.urfu.mm.repository.EducationalProgramToCoursesWithSemestersRepository;
 import ru.urfu.mm.repository.SemesterRepository;
@@ -107,7 +106,6 @@ public class ProgramService {
     }
 
     public void createEducationalProgram(CreateProgramDTO createProgramDTO) throws JsonProcessingException {
-        createNecessarySemesters(createProgramDTO.semesters());
         var semestersIds = getSemesters();
 
         var pairs = new ArrayList<List<UUID>>();
@@ -156,7 +154,7 @@ public class ProgramService {
                     );
                 })
                 .toList();
-        models.forEach(x -> educationalProgramToCoursesWithSemestersRepository.save(x));
+        models.forEach(educationalProgramToCoursesWithSemestersRepository::save);
 
         // Добавить (программа, курс, семестр) в бд
     }
@@ -203,58 +201,11 @@ public class ProgramService {
                 Year.now().getValue() + 1,
                 Year.now().getValue() + 2
         );
-        var semestersNumbers = List.of(1, 2, 3, 4);
         return semesterRepository
                 .findAll()
                 .stream()
                 .filter(x -> years.contains(x.getYear()))
                 .map(Semester::getId)
                 .toList();
-    }
-
-    /**
-     * Добавить недостающие семестры
-     */
-    private void createNecessarySemesters(List<CreateSemesterDTO> semesters) {
-        var years = List.of(
-                Year.now().getValue(),
-                Year.now().getValue() + 1,
-                Year.now().getValue() + 1,
-                Year.now().getValue() + 2
-        );
-        var semestersNumbers = List.of(1, 2, 3, 4);
-
-        // Получаем список семестров, которые уже занесены в систему
-        var existingSemesters = semesterRepository
-                .findAll()
-                .stream()
-                // todo: Fix it
-//                .filter(x -> years.contains(x.getYear()) && semestersNumbers.contains(x.getSemesterNumber()))
-                .filter(x -> years.contains(x.getYear()))
-                .toList();
-
-        // Выичсляем какие семестры необходимо добавить в систему
-        var toAdd = new ArrayList<Semester>();
-        for(int i = 0; i < semesters.size(); i++) {
-            Semester semester;
-            if (i % 2 == 0) {
-                semester = new Semester(i + 1, SemesterType.FALL);
-            } else {
-                semester = new Semester(i + 1, SemesterType.SPRING);
-            }
-            toAdd.add(semester);
-        }
-        var toAdd2 = toAdd
-                .stream()
-                .filter(x -> !existingSemesters
-                        .stream()
-                        .map(Semester::getYear)
-                        .toList()
-                        .contains(x.getYear())
-                )
-                .toList();
-
-        // Добавляем недостающие семестры
-//        toAdd2.forEach(semesterRepository::save);
     }
 }

@@ -32,8 +32,7 @@ public class CreateGroup {
     public void createGroup(CreateGroupRequest request) {
         ensureValidGroupNumber(request.number());
 
-        List<Semester> semesters = ensureActualSemestersExists(request.startYear());
-        semesters.forEach(semesterGateway::save);
+        ensureActualSemestersExists(request.startYear());
 
         Group group = new Group(UUID.randomUUID(), request.number());
         groupGateway.save(group);
@@ -46,46 +45,23 @@ public class CreateGroup {
         programGateway.save(program);
     }
 
-    private List<Semester> ensureActualSemestersExists(int startYear) {
+    private void ensureActualSemestersExists(int startYear) {
         List<Semester> semesters = semesterGateway.getSemestersForEntireStudyPeriod(startYear);
-        Optional<Semester> first = semesters
+        List<Semester> actualSemesters = List.of(
+                ensureSemester(semesters, startYear, SemesterType.FALL),
+                ensureSemester(semesters, startYear + 1, SemesterType.SPRING),
+                ensureSemester(semesters, startYear + 1, SemesterType.FALL),
+                ensureSemester(semesters, startYear + 2, SemesterType.SPRING)
+        );
+        actualSemesters.forEach(semesterGateway::save);
+    }
+
+    private Semester ensureSemester(List<Semester> semesters, int startYear, SemesterType semesterType) {
+        return semesters
                 .stream()
-                .filter(x -> (x.getYear() == startYear) && (x.getType() == SemesterType.FALL))
-                .findFirst();
-        Optional<Semester> second = semesters
-                .stream()
-                .filter(x -> (x.getYear() == startYear + 1) && (x.getType() == SemesterType.SPRING))
-                .findFirst();
-        Optional<Semester> third = semesters
-                .stream()
-                .filter(x -> (x.getYear() == startYear + 1) && (x.getType() == SemesterType.FALL))
-                .findFirst();
-        Optional<Semester> fourth = semesters
-                .stream()
-                .filter(x -> (x.getYear() == startYear + 2) && (x.getType() == SemesterType.SPRING))
-                .findFirst();
-        List<Semester> actualSemesters = new ArrayList<>();
-        if (first.isPresent()) {
-            actualSemesters.add(first.get());
-        } else {
-            actualSemesters.add(new Semester(UUID.randomUUID(), startYear, SemesterType.FALL));
-        }
-        if (second.isPresent()) {
-            actualSemesters.add(second.get());
-        } else {
-            actualSemesters.add(new Semester(UUID.randomUUID(), startYear + 1, SemesterType.SPRING));
-        }
-        if (third.isPresent()) {
-            actualSemesters.add(third.get());
-        } else {
-            actualSemesters.add(new Semester(UUID.randomUUID(), startYear + 1, SemesterType.FALL));
-        }
-        if (fourth.isPresent()) {
-            actualSemesters.add(fourth.get());
-        } else {
-            actualSemesters.add(new Semester(UUID.randomUUID(), startYear + 2, SemesterType.SPRING));
-        }
-        return actualSemesters;
+                .filter(x -> (x.getYear() == startYear) && (x.getType() == semesterType))
+                .findFirst()
+                .orElseGet(() -> new Semester(UUID.randomUUID(), startYear, SemesterType.FALL));
     }
 
     private String extractDepartmentName(String number) {
