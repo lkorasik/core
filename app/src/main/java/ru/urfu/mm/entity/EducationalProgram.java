@@ -60,4 +60,20 @@ public class EducationalProgram {
     public String getTrainingDirection() {
         return trainingDirection;
     }
+
+    public int getFirstRecommendedCredits() {
+        return firstRecommendedCredits;
+    }
+
+    public int getSecondRecommendedCredits() {
+        return secondRecommendedCredits;
+    }
+
+    public int getThirdRecommendedCredits() {
+        return thirdRecommendedCredits;
+    }
+
+    public int getFourthRecommendedCredits() {
+        return fourthRecommendedCredits;
+    }
 }

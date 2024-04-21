@@ -188,12 +188,8 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public GetProgramForStudent getProgramForStudent(
-            StudentGateway studentGateway,
-            ProgramGateway programGateway,
-            SemesterGateway semesterGateway,
-            CourseGateway courseGateway) {
-        return new GetProgramForStudent(studentGateway, programGateway, semesterGateway, courseGateway);
+    public GetProgramForStudent getProgramForStudent(StudentGateway studentGateway) {
+        return new GetProgramForStudent(studentGateway);
     }
 
     @Bean

@@ -70,7 +70,12 @@ public class StudentGatewayImpl implements StudentGateway {
                         new Program(
                                 x.getEducationalProgram().getId(),
                                 x.getEducationalProgram().getName(),
-                                x.getEducationalProgram().getTrainingDirection()
+                                x.getEducationalProgram().getTrainingDirection(),
+                                List.of(),
+                                x.getEducationalProgram().getFirstRecommendedCredits(),
+                                x.getEducationalProgram().getSecondRecommendedCredits(),
+                                x.getEducationalProgram().getThirdRecommendedCredits(),
+                                x.getEducationalProgram().getFourthRecommendedCredits()
                         ),
                         new Group(
                                 x.getGroup().getId(),
