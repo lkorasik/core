@@ -7,20 +7,27 @@ import ru.urfu.mm.domain.Group;
 import ru.urfu.mm.domain.Program;
 import ru.urfu.mm.domain.Student;
 import ru.urfu.mm.entity.*;
+import ru.urfu.mm.repository.GroupRepository;
 import ru.urfu.mm.repository.StudentRepository;
 import ru.urfu.mm.service.mapper.Mapper;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @Component
 public class StudentGatewayImpl implements StudentGateway {
     private final StudentRepository studentRepository;
+    private final GroupRepository groupRepository;
     private final Mapper<ru.urfu.mm.domain.User, UserEntity> userMapper;
 
     @Autowired
-    public StudentGatewayImpl(StudentRepository studentRepository, Mapper<ru.urfu.mm.domain.User, UserEntity> userMapper) {
+    public StudentGatewayImpl(
+            StudentRepository studentRepository,
+            GroupRepository groupRepository,
+            Mapper<ru.urfu.mm.domain.User, UserEntity> userMapper) {
         this.studentRepository = studentRepository;
+        this.groupRepository = groupRepository;
         this.userMapper = userMapper;
     }
 
@@ -95,6 +102,28 @@ public class StudentGatewayImpl implements StudentGateway {
                                 x.getGroup().getNumber()
                         )
                 ));
+    }
+
+    @Override
+    public List<Student> findAllStudentsByGroup(Group group) {
+        GroupEntity groupEntity = groupRepository.findById(group.getId()).get();
+        return studentRepository.findAllByGroup(groupEntity)
+                .stream()
+                .map(x -> new Student(
+                        x.getLogin(),
+                        new Program(
+                                x.getEducationalProgram().getId(),
+                                x.getEducationalProgram().getName(),
+                                x.getEducationalProgram().getTrainingDirection(),
+                                x.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                        ),
+                        new Group(
+                                x.getGroup().getId(),
+                                x.getGroup().getNumber()
+                        ),
+                        null
+                ))
+                .toList();
     }
 
     private EducationalProgram parse(Program program) {

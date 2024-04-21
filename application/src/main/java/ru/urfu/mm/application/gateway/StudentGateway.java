@@ -1,7 +1,9 @@
 package ru.urfu.mm.application.gateway;
 
+import ru.urfu.mm.domain.Group;
 import ru.urfu.mm.domain.Student;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -17,4 +19,5 @@ public interface StudentGateway {
     void saveNewStudent(Student student);
     Student getById(UUID studentId);
     Optional<Student> findById(UUID studentId);
+    List<Student> findAllStudentsByGroup(Group group);
 }
