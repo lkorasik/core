@@ -10,6 +10,7 @@ import ru.urfu.mm.application.usecase.create.CreateAdministrator;
 import ru.urfu.mm.application.usecase.create.CreateStudent;
 import ru.urfu.mm.application.usecase.create.user.CreateUser;
 import ru.urfu.mm.application.usecase.creategroup.CreateGroup;
+import ru.urfu.mm.application.usecase.createprogram.CreateProgram;
 import ru.urfu.mm.application.usecase.downloadtokens.DownloadTokens;
 import ru.urfu.mm.application.usecase.generatetoken.GenerateStudentRegistrationTokens;
 import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
@@ -247,6 +248,11 @@ public class UseCaseConfiguration {
             CreateAdministrator createAdministrator,
             TokenGateway tokenGateway) {
         return new CreateUser(createStudent, createAdministrator, tokenGateway);
+    }
+
+    @Bean
+    public CreateProgram createProgram(ProgramGateway programGateway) {
+        return new CreateProgram(programGateway);
     }
 
     @Bean

@@ -3,6 +3,8 @@ package ru.urfu.mm.controller.program;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ru.urfu.mm.application.usecase.createprogram.CreateProgram;
+import ru.urfu.mm.application.usecase.createprogram.CreateProgramRequest;
 import ru.urfu.mm.application.usecase.getallprograms.GetAllPrograms;
 import ru.urfu.mm.application.usecase.GetEducationalProgram;
 import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
@@ -24,6 +26,8 @@ public class ProgramController extends AbstractAuthorizedController {
     private GetAllPrograms getAvailablePrograms;
     @Autowired
     private GetProgramForStudent getProgramForStudent;
+    @Autowired
+    private CreateProgram createProgram;
 
     @GetMapping("/current")
     public ProgramInfoDTO current() {
@@ -37,8 +41,9 @@ public class ProgramController extends AbstractAuthorizedController {
     }
 
     @PostMapping("/create")
-    public void createEducationalProgram(@RequestBody CreateProgramDTO educationalProgramDTO) throws JsonProcessingException {
-        programService.createEducationalProgram(educationalProgramDTO);
+    public void createEducationalProgram(@RequestBody CreateProgramDTO educationalProgramDTO) {
+        CreateProgramRequest request = new CreateProgramRequest(educationalProgramDTO.title());
+        createProgram.createProgram(request);
     }
 
     @GetMapping("/all")
