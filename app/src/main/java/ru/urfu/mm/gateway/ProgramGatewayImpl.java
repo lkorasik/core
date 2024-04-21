@@ -39,7 +39,6 @@ public class ProgramGatewayImpl implements ProgramGateway {
                 educationalProgram.getId(),
                 educationalProgram.getName(),
                 educationalProgram.getTrainingDirection(),
-                educationalProgram.getSemesterIdToRequiredCreditsCount(),
                 groupRepository.findAllByEducationalProgram(educationalProgram).stream().map(x -> new Group(x.getId(), x.getNumber())).toList()
         );
     }
@@ -51,8 +50,7 @@ public class ProgramGatewayImpl implements ProgramGateway {
                 .map(x -> new Program(
                         x.getId(),
                         x.getName(),
-                        x.getTrainingDirection(),
-                        x.getSemesterIdToRequiredCreditsCount()
+                        x.getTrainingDirection()
                 ));
     }
 
@@ -70,8 +68,7 @@ public class ProgramGatewayImpl implements ProgramGateway {
         EducationalProgram entity = new EducationalProgram(
                 program.getId(),
                 program.getName(),
-                program.getTrainingDirection(),
-                program.getSemesterIdToRequiredCreditsCount()
+                program.getTrainingDirection()
         );
         Iterable<GroupEntity> groups = groupRepository
                 .findAllById(program.getGroups().stream().map(Group::getId).toList());
@@ -87,8 +84,7 @@ public class ProgramGatewayImpl implements ProgramGateway {
                 .map(x -> new Program(
                         x.getId(),
                         x.getName(),
-                        x.getTrainingDirection(),
-                        x.getSemesterIdToRequiredCreditsCount()
+                        x.getTrainingDirection()
                 ));
     }
 }

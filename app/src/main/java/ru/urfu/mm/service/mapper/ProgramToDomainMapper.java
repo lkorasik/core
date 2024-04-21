@@ -11,8 +11,7 @@ public class ProgramToDomainMapper implements Mapper<EducationalProgram, Program
         return new Program(
                 entity.getId(),
                 entity.getName(),
-                entity.getTrainingDirection(),
-                entity.getSemesterIdToRequiredCreditsCount()
+                entity.getTrainingDirection()
         );
     }
 }

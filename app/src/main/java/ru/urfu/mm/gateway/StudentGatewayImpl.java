@@ -70,8 +70,7 @@ public class StudentGatewayImpl implements StudentGateway {
                         new Program(
                                 x.getEducationalProgram().getId(),
                                 x.getEducationalProgram().getName(),
-                                x.getEducationalProgram().getTrainingDirection(),
-                                x.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                                x.getEducationalProgram().getTrainingDirection()
                         ),
                         new Group(
                                 x.getGroup().getId(),
@@ -95,8 +94,7 @@ public class StudentGatewayImpl implements StudentGateway {
                         new Program(
                                 x.getEducationalProgram().getId(),
                                 x.getEducationalProgram().getName(),
-                                x.getEducationalProgram().getTrainingDirection(),
-                                x.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                                x.getEducationalProgram().getTrainingDirection()
                         ),
                         new Group(
                                 x.getGroup().getId(),
@@ -115,8 +113,7 @@ public class StudentGatewayImpl implements StudentGateway {
                         new Program(
                                 x.getEducationalProgram().getId(),
                                 x.getEducationalProgram().getName(),
-                                x.getEducationalProgram().getTrainingDirection(),
-                                x.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                                x.getEducationalProgram().getTrainingDirection()
                         ),
                         new Group(
                                 x.getGroup().getId(),
@@ -142,8 +139,7 @@ public class StudentGatewayImpl implements StudentGateway {
         return new EducationalProgram(
                 program.getId(),
                 program.getName(),
-                program.getTrainingDirection(),
-                program.getSemesterIdToRequiredCreditsCount()
+                program.getTrainingDirection()
         );
     }
 }

@@ -17,33 +17,33 @@ public class Program {
      */
     private String name;
     private String trainingDirection;
-    private String semesterIdToRequiredCreditsCount;
     /**
      * Список студентов, которые учатся на данном направлении.
      */
     private List<Group> groups = new ArrayList<>();
+    private int firstRecommendedCredits;
+    private int secondRecommendedCredits;
+    private int thirdRecommendedCredits;
+    private int fourthRecommendedCredits;
 
     public Program() {
     }
 
-    public Program(UUID id, String name, String trainingDirection, String semesterIdToRequiredCreditsCount) {
+    public Program(UUID id, String name, String trainingDirection) {
         this.id = id;
         this.name = name;
         this.trainingDirection = trainingDirection;
-        this.semesterIdToRequiredCreditsCount = semesterIdToRequiredCreditsCount;
     }
 
-    public Program(String name, String trainingDirection, String semesterIdToRequiredCreditsCount) {
+    public Program(String name, String trainingDirection) {
         this.name = name;
         this.trainingDirection = trainingDirection;
-        this.semesterIdToRequiredCreditsCount = semesterIdToRequiredCreditsCount;
     }
 
-    public Program(UUID id, String name, String trainingDirection, String semesterIdToRequiredCreditsCount, List<Group> groups) {
+    public Program(UUID id, String name, String trainingDirection, List<Group> groups) {
         this.id = id;
         this.name = name;
         this.trainingDirection = trainingDirection;
-        this.semesterIdToRequiredCreditsCount = semesterIdToRequiredCreditsCount;
         this.groups = groups;
     }
 
@@ -65,9 +65,5 @@ public class Program {
 
     public void setGroups(List<Group> groups) {
         this.groups = groups;
-    }
-
-    public String getSemesterIdToRequiredCreditsCount() {
-        return semesterIdToRequiredCreditsCount;
     }
 }

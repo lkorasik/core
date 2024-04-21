@@ -97,8 +97,7 @@ public class CourseGatewayImpl implements CourseGateway {
                                 new Program(
                                         x.getStudent().getEducationalProgram().getId(),
                                         x.getStudent().getEducationalProgram().getName(),
-                                        x.getStudent().getEducationalProgram().getTrainingDirection(),
-                                        x.getStudent().getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                                        x.getStudent().getEducationalProgram().getTrainingDirection()
                                 ),
                                 new Group(
                                         x.getStudent().getGroup().getId(),
@@ -143,8 +142,7 @@ public class CourseGatewayImpl implements CourseGateway {
                         new Program(
                                 x.getEducationalProgram().getId(),
                                 x.getEducationalProgram().getName(),
-                                x.getEducationalProgram().getTrainingDirection(),
-                                x.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                                x.getEducationalProgram().getTrainingDirection()
                         ),
                         new Semester(
                                 x.getSemester().getId(),
@@ -183,8 +181,7 @@ public class CourseGatewayImpl implements CourseGateway {
                         new Program(
                                 x.getEducationalProgram().getId(),
                                 x.getEducationalProgram().getName(),
-                                x.getEducationalProgram().getTrainingDirection(),
-                                x.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                                x.getEducationalProgram().getTrainingDirection()
                         ),
                         new Semester(
                                 x.getSemester().getId(),
@@ -220,8 +217,7 @@ public class CourseGatewayImpl implements CourseGateway {
                         new Program(
                                 x.getEducationalProgram().getId(),
                                 x.getEducationalProgram().getName(),
-                                x.getEducationalProgram().getTrainingDirection(),
-                                x.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                                x.getEducationalProgram().getTrainingDirection()
                         ),
                         new Semester(
                                 x.getSemester().getId(),
@@ -268,8 +264,7 @@ public class CourseGatewayImpl implements CourseGateway {
                         new Program(
                                 x.getEducationalProgram().getId(),
                                 x.getEducationalProgram().getName(),
-                                x.getEducationalProgram().getTrainingDirection(),
-                                x.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                                x.getEducationalProgram().getTrainingDirection()
                         ),
                         new Semester(
                                 x.getSemester().getId(),
@@ -312,8 +307,7 @@ public class CourseGatewayImpl implements CourseGateway {
                                                 new ru.urfu.mm.entity.EducationalProgram(
                                                         x.getStudent().getEducationalProgram().getId(),
                                                         x.getStudent().getEducationalProgram().getName(),
-                                                        x.getStudent().getEducationalProgram().getTrainingDirection(),
-                                                        x.getStudent().getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                                                        x.getStudent().getEducationalProgram().getTrainingDirection()
                                                 ),
                                                 new GroupEntity(
                                                         x.getStudent().getGroup().getId(),
