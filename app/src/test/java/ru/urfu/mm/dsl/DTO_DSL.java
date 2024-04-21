@@ -20,18 +20,18 @@ public class DTO_DSL {
         );
     }
 
-    public static RegistrationStudentDTO createRegistrationStudentDTO() {
-        UUID id = UUID.randomUUID();
-        UUID password = UUID.randomUUID();
-        UUID educationalProgram = UUID.randomUUID();
-        return new RegistrationStudentDTO(
-                String.valueOf(id),
-                educationalProgram,
-                "GROUP-1",
-                String.valueOf(password),
-                String.valueOf(password)
-        );
-    }
+//    public static RegistrationStudentDTO createRegistrationStudentDTO() {
+//        UUID id = UUID.randomUUID();
+//        UUID password = UUID.randomUUID();
+//        UUID educationalProgram = UUID.randomUUID();
+//        return new RegistrationStudentDTO(
+//                String.valueOf(id),
+//                educationalProgram,
+//                "GROUP-1",
+//                String.valueOf(password),
+//                String.valueOf(password)
+//        );
+//    }
 
     public static LoginDTO createLoginDTO() {
         UUID id = UUID.randomUUID();
