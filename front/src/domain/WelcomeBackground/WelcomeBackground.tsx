@@ -42,14 +42,26 @@ export function WelcomeScreen(props: Props) {
         });
         saveLoginInfo(loginToken)
     }
+    
+    const renderBaseForm = () => {
+        return (
+            <>
+                <span className={styles.field_title}>Логин</span>
+                <Input 
+                    type={"text"} 
+                    placeholder={"15bf0ff0-61ca-4658-8a28-9b649adee5f3"} 
+                    isRequired={true} 
+                    onChange={event => setRegistrationToken(event.target.value)} />
+                <span className={styles.field_title}>Пароль</span>
+                <Input type={"password"} placeholder={""} isRequired={true} onChange={event => setPassword(event.target.value)} />
+            </>
+        )
+    }
 
     const renderLoginForm = () => {
         return (
             <>
-                <span className={styles.field_title}>Логин</span>
-                <Input type={"email"} placeholder={"15bf0ff0-61ca-4658-8a28-9b649adee5f3"} isRequired={true} onChange={event => setRegistrationToken(event.target.value)} />
-                <span className={styles.field_title}>Пароль</span>
-                <Input type={"password"} placeholder={""} isRequired={true} onChange={event => setPassword(event.target.value)} />
+                {renderBaseForm()}
                 <Button className={styles.enterButton} onClick={login}>Войти</Button>
             </>
         )
@@ -58,10 +70,7 @@ export function WelcomeScreen(props: Props) {
     const renderRegistrationForm = () => {
         return (
             <>
-                <span className={styles.field_title}>Токен</span>
-                <Input type={"text"} placeholder={"2f744d2f-3309-4c9c-896e-fba14a4e5a15"} isRequired={true} onChange={event => setRegistrationToken(event.target.value)} />
-                <span className={styles.field_title}>Пароль</span>
-                <Input type={"password"} placeholder={""} isRequired={true} onChange={event => setPassword(event.target.value)} />
+                {renderBaseForm()}
                 <span className={styles.field_title}>Повторите пароль</span>
                 <Input type={"password"} placeholder={""} isRequired={true} onChange={event => setPasswordAgain(event.target.value)} />
                 <Button className={styles.enterButton} onClick={register}>Зарегистрироваться</Button>
