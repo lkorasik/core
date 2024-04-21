@@ -42,7 +42,7 @@ public class GetAllProgramsTest {
     }
 
     /**
-     * Загрузка доступных образовательных программ. Ни одной программы не добавлено.
+     * Загрузка доступных образовательных программ. Программ нет.
      */
     @Test
     public void loadAvailablePrograms_empty() {

@@ -13,6 +13,5 @@ public interface ProgramGateway {
     Optional<Program> findById(UUID id);
     List<Program> getAll();
     void save(Program program);
-    Map<UUID, Integer> deserializeRecommendedCredits(Program program);
     Optional<Program> findByGroup(Group group);
 }

@@ -1,7 +1,5 @@
 package ru.urfu.mm.gateway;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,26 +8,28 @@ import ru.urfu.mm.domain.Group;
 import ru.urfu.mm.domain.Program;
 import ru.urfu.mm.entity.EducationalProgram;
 import ru.urfu.mm.entity.GroupEntity;
-import ru.urfu.mm.entity.Years;
 import ru.urfu.mm.repository.EducationalProgramRepository;
 import ru.urfu.mm.repository.GroupRepository;
+import ru.urfu.mm.service.mapper.Mapper;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Component
 public class ProgramGatewayImpl implements ProgramGateway {
     private final EducationalProgramRepository educationalProgramRepository;
-    private final ObjectMapper mapper;
     private final GroupRepository groupRepository;
+    private final Mapper<EducationalProgram, Program> programMapper;
 
     @Autowired
     public ProgramGatewayImpl(
             EducationalProgramRepository educationalProgramRepository,
-            ObjectMapper mapper,
-            GroupRepository groupRepository) {
+            GroupRepository groupRepository,
+            Mapper<EducationalProgram, Program> programMapper) {
         this.educationalProgramRepository = educationalProgramRepository;
-        this.mapper = mapper;
         this.groupRepository = groupRepository;
+        this.programMapper = programMapper;
     }
 
     @Override
@@ -61,12 +61,7 @@ public class ProgramGatewayImpl implements ProgramGateway {
         return educationalProgramRepository
                 .findAll()
                 .stream()
-                .map(x -> new Program(
-                        x.getId(),
-                        x.getName(),
-                        x.getTrainingDirection(),
-                        x.getSemesterIdToRequiredCreditsCount()
-                ))
+                .map(programMapper::map)
                 .toList();
     }
 
@@ -83,17 +78,6 @@ public class ProgramGatewayImpl implements ProgramGateway {
         groups.forEach(group -> group.setEducationalProgram(entity));
         groupRepository.saveAll(groups);
         educationalProgramRepository.save(entity);
-    }
-
-    @Override
-    public Map<UUID, Integer> deserializeRecommendedCredits(Program program) {
-        try {
-            return mapper.readValue(program.getSemesterIdToRequiredCreditsCount(), new TypeReference<Map<UUID, Integer>>() {
-            });
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-            // todo: Set normal exception
-        }
     }
 
     @Override
