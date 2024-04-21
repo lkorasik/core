@@ -12,12 +12,13 @@ import { GenerateTokenDto } from "../../../apis/api/groups/GenerateTokenDto";
 import { GetTokensDto } from "../../../apis/api/groups/GetTokensDto";
 import { DownloadButton } from "../../../base_components/DownloadButton/DownloadButton";
 import { CloseButton } from "../../../base_components/CrudButtons/CloseButton/CloseButton";
+import { TokenStatusDto } from "../../../apis/api/groups/TokenStatusDto";
 
 export function GroupScreen() {
     const [groupNumber, setGroupNumber] = useState<string>("");
     const [showDialog, setShowDialog] = useState<boolean>(false);
     const [count, setCount] = useState<number>(0);
-    const [tokens, setTokens] = useState<string[]>([]);
+    const [tokens, setTokens] = useState<TokenStatusDto[]>([]);
 
     const api = useApis();
     const { groupId } = useParams();
@@ -65,8 +66,16 @@ export function GroupScreen() {
         )
     }
 
+    const getStatus = (x: boolean): string => {
+        if (x) {
+            return "Аккаунт зарегистрирован";
+        } else {
+            return "Аккаунт не зарегистрирован";
+        }
+    }
+
     const renderTokens = () => {
-        return tokens.map(x => [x]);
+        return tokens.map(x => [x.token, getStatus(x.isActivated)]);
     }
 
     const downloadTokenList = () => {
@@ -81,7 +90,7 @@ export function GroupScreen() {
                 <DownloadButton title="Скачать список токенов" onClick={downloadTokenList} />
                 <CloseButton />
             </Toolbar>
-            <Table columnTitles={["Токен"]} rows={renderTokens()}/>
+            <Table columnTitles={["Токен", "Статус"]} rows={renderTokens()}/>
             <AddButton onClick={() => setShowDialog(true)} />
         </Container>
     )

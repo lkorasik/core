@@ -15,21 +15,22 @@ import java.util.UUID;
  * 2. Получаем все токены по группе.
  */
 public class GetTokensForGroup {
-    private final TokenGateway tokenGateway;
     private final GetGroup getGroup;
     private final StudentGateway studentGateway;
 
-    public GetTokensForGroup(TokenGateway tokenGateway, GetGroup getGroup, StudentGateway studentGateway) {
-        this.tokenGateway = tokenGateway;
+    public GetTokensForGroup(GetGroup getGroup, StudentGateway studentGateway) {
         this.getGroup = getGroup;
         this.studentGateway = studentGateway;
     }
 
-    public List<UUID> getTokensForGroup(GetTokensForGroupRequest request) {
+    public List<GetTokensForGroupResponse> getTokensForGroup(GetTokensForGroupRequest request) {
         Group group = getGroup.getGroup(request.groupId());
         return studentGateway.findAllStudentsByGroup(group)
                 .stream()
-                .map(Student::getLogin)
+                .map(x -> new GetTokensForGroupResponse(
+                        x.getLogin(),
+                        x.getUser() != null
+                ))
                 .toList();
     }
 }

@@ -229,11 +229,8 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public GetTokensForGroup getTokensForGroup(
-            TokenGateway tokenGateway,
-            GetGroup getGroup,
-            StudentGateway studentGateway) {
-        return new GetTokensForGroup(tokenGateway, getGroup, studentGateway);
+    public GetTokensForGroup getTokensForGroup(GetGroup getGroup, StudentGateway studentGateway) {
+        return new GetTokensForGroup(getGroup, studentGateway);
     }
 
     @Bean

@@ -3,7 +3,6 @@ import { ButtonSelector } from "../../base_components/ButtonSelector/ButtonSelec
 import { Input } from "../../base_components/Input/Input";
 import styles from "./WelcomeBackground.module.css";
 import { LoginInfo } from "../../hooks/LoginInfo";
-import Select from "react-select";
 import { useApis } from "../../apis/ApiBase/ApiProvider";
 import { AccessTokenDto } from "../../apis/api/authentication/AccessTokenDto";
 import { useState } from "react";
@@ -13,7 +12,6 @@ interface Props {
 }
 
 export function WelcomeScreen(props: Props) {
-    const accountTypes = ["Студент", "Администратор"]
     const [registrationToken, setRegistrationToken] = useState("");
     const [password, setPassword] = useState("");
     const [passwordAgain, setPasswordAgain] = useState("");
