@@ -9,13 +9,10 @@ import ru.urfu.mm.domain.UserRole;
 
 /**
  * Зарегистрировать аккаунт администратора
- * 1. Проверяем, что пароль и его повтор совпадают. Если они отличатся, то кидаем ошибку о том, что пароль и его повтор
- * не совпадают.
- * 2. Проверяем, что пароль надежный. Если не надежный, то кидаем ошибку о том, что пароль не надежен.
  * 3. Создаем аккаунт пользователя.
  * 4. Удаляем токен из доступных токенов для регистрации.
  */
-public class CreateAdministrator {
+public class CreateAdministrator implements CreateUseCase {
     private final TokenGateway tokenGateway;
     private final PasswordGateway passwordGateway;
     private final UserGateway userGateway;
@@ -29,25 +26,11 @@ public class CreateAdministrator {
         this.userGateway = userGateway;
     }
 
-    public void createAdministrator(CreateUserRequest request) {
-        ensurePasswordsSame(request.password(), request.passwordAgain());
-        ensurePasswordStrongEnough(request.password());
-
+    @Override
+    public void create(CreateUserRequest request) {
         User user = new User(request.token(), passwordGateway.encode(request.password()), UserRole.ADMIN);
         userGateway.save(user);
 
         tokenGateway.deleteToken(request.token());
-    }
-
-    private void ensurePasswordsSame(String password, String passwordAgain) {
-        if (!password.equals(passwordAgain)) {
-            throw new DifferentPasswordException();
-        }
-    }
-
-    private void ensurePasswordStrongEnough(String password) {
-        if (password.length() < 8) {
-            throw new TooShortPasswordException();
-        }
     }
 }

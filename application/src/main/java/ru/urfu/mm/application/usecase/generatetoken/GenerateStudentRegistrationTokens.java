@@ -3,7 +3,6 @@ package ru.urfu.mm.application.usecase.generatetoken;
 import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.application.gateway.StudentGateway;
 import ru.urfu.mm.application.gateway.TokenGateway;
-import ru.urfu.mm.application.usecase.create.student.EducationalProgramNotExistsException;
 import ru.urfu.mm.application.usecase.getgroup.GetGroup;
 import ru.urfu.mm.domain.Group;
 import ru.urfu.mm.domain.Program;

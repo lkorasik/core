@@ -1,22 +1,23 @@
-package ru.urfu.mm.application.usecase.create.student;
+package ru.urfu.mm.application.usecase.create;
 
-import ru.urfu.mm.application.gateway.*;
-import ru.urfu.mm.application.usecase.create.DifferentPasswordException;
-import ru.urfu.mm.application.usecase.create.RegistrationTokenNotExistException;
-import ru.urfu.mm.application.usecase.create.TooShortPasswordException;
+import ru.urfu.mm.application.gateway.PasswordGateway;
+import ru.urfu.mm.application.gateway.StudentGateway;
+import ru.urfu.mm.application.gateway.UserGateway;
 import ru.urfu.mm.application.usecase.create.user.CreateUserRequest;
-import ru.urfu.mm.domain.*;
+import ru.urfu.mm.domain.Program;
+import ru.urfu.mm.domain.Student;
+import ru.urfu.mm.domain.User;
+import ru.urfu.mm.domain.UserRole;
 
 /**
  * Создаем аккаунт студента
  * 1. Находим студента.
- * 2. Проверяем, что пароль надежный. Если не надежный, то кидаем ошибку о том, что пароль не надежен.
  * 3. Находим программу.
  * 4. Создаем аккаунт пользователя.
  * 5. Заполняем студента.
  * 6. Сохраняем изменения в студенте.
  */
-public class CreateStudent {
+public class CreateStudent implements CreateUseCase {
     private final PasswordGateway passwordGateway;
     private final UserGateway userGateway;
     private final StudentGateway studentGateway;
@@ -30,12 +31,10 @@ public class CreateStudent {
         this.studentGateway = studentGateway;
     }
 
-    public void createStudent(CreateUserRequest request) {
+    @Override
+    public void create(CreateUserRequest request) {
         Student student = studentGateway.findById(request.token())
                 .orElseThrow(() -> new RegistrationTokenNotExistException(request.token()));
-
-        ensurePasswordsSame(request.password(), request.passwordAgain());
-        ensurePasswordStrongEnough(request.password());
 
         Program program = student.getEducationalProgram();
 
@@ -44,17 +43,5 @@ public class CreateStudent {
 
         Student completedStudent = new Student(request.token(), program, student.getGroup(), user);
         studentGateway.update(completedStudent);
-    }
-
-    private void ensurePasswordsSame(String password, String passwordAgain) {
-        if (!password.equals(passwordAgain)) {
-            throw new DifferentPasswordException();
-        }
-    }
-
-    private void ensurePasswordStrongEnough(String password) {
-        if (password.length() < 8) {
-            throw new TooShortPasswordException();
-        }
     }
 }
