@@ -26,7 +26,11 @@ public class SkillsService {
                                 new EducationalProgram(
                                         x.getStudent().getEducationalProgram().getId(),
                                         x.getStudent().getEducationalProgram().getName(),
-                                        x.getStudent().getEducationalProgram().getTrainingDirection()
+                                        x.getStudent().getEducationalProgram().getTrainingDirection(),
+                                        x.getStudent().getEducationalProgram().getFirstRecommendedCredits(),
+                                        x.getStudent().getEducationalProgram().getSecondRecommendedCredits(),
+                                        x.getStudent().getEducationalProgram().getThirdRecommendedCredits(),
+                                        x.getStudent().getEducationalProgram().getFourthRecommendedCredits()
                                 ),
                                 new GroupEntity(
                                         x.getStudent().getGroup().getId(),

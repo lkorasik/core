@@ -41,8 +41,8 @@ public class ProgramController extends AbstractAuthorizedController {
     }
 
     @PostMapping("/create")
-    public void createEducationalProgram(@RequestBody CreateProgramDTO educationalProgramDTO) {
-        CreateProgramRequest request = new CreateProgramRequest(educationalProgramDTO.title());
+    public void createEducationalProgram(@RequestBody CreateProgramDTO dto) {
+        CreateProgramRequest request = new CreateProgramRequest(dto.title(), dto.recommendedCredits());
         createProgram.createProgram(request);
     }
 

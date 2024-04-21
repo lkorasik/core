@@ -139,7 +139,11 @@ public class StudentGatewayImpl implements StudentGateway {
         return new EducationalProgram(
                 program.getId(),
                 program.getName(),
-                program.getTrainingDirection()
+                program.getTrainingDirection(),
+                program.getFirstRecommendedCredits(),
+                program.getSecondRecommendedCredits(),
+                program.getThirdRecommendedCredits(),
+                program.getFourthRecommendedCredits()
         );
     }
 }

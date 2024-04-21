@@ -27,10 +27,21 @@ public class EducationalProgram {
     public EducationalProgram() {
     }
 
-    public EducationalProgram(UUID id, String name, String trainingDirection) {
+    public EducationalProgram(
+            UUID id,
+            String name,
+            String trainingDirection,
+            int firstRecommendedCredits,
+            int secondRecommendedCredits,
+            int thirdRecommendedCredits,
+            int fourthRecommendedCredits) {
         this.id = id;
         this.name = name;
         this.trainingDirection = trainingDirection;
+        this.firstRecommendedCredits = firstRecommendedCredits;
+        this.secondRecommendedCredits = secondRecommendedCredits;
+        this.thirdRecommendedCredits = thirdRecommendedCredits;
+        this.fourthRecommendedCredits = fourthRecommendedCredits;
     }
 
     public EducationalProgram(String name, String trainingDirection) {
