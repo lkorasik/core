@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public record CreateGroupDTO(
         String number,
-        int startYear,
+        int year,
         UUID programId
 ) {
 }

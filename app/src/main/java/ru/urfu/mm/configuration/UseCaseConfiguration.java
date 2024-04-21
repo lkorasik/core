@@ -210,8 +210,11 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public CreateGroup createGroup(GroupGateway groupGateway, ProgramGateway programGateway) {
-        return new CreateGroup(groupGateway, programGateway);
+    public CreateGroup createGroup(
+            GroupGateway groupGateway,
+            ProgramGateway programGateway,
+            SemesterGateway semesterGateway) {
+        return new CreateGroup(groupGateway, programGateway, semesterGateway);
     }
 
     @Bean

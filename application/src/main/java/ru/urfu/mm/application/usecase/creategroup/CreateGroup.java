@@ -2,56 +2,86 @@ package ru.urfu.mm.application.usecase.creategroup;
 
 import ru.urfu.mm.application.gateway.GroupGateway;
 import ru.urfu.mm.application.gateway.ProgramGateway;
+import ru.urfu.mm.application.gateway.SemesterGateway;
 import ru.urfu.mm.domain.Group;
 import ru.urfu.mm.domain.Program;
+import ru.urfu.mm.domain.Semester;
+import ru.urfu.mm.domain.SemesterType;
 
-import java.util.ArrayList;
-import java.util.UUID;
+import java.util.*;
 import java.util.regex.Pattern;
 
 /**
  * Создать академическую группу
- * 1. Проверяем, что указан валидный номер группы. Номер группы должен соответствовать формату МЕНМ-ХХХХХХ.
+ * 1. Проверяем, что указан валидный номер группы. Номер группы должен соответствовать формату МЕНМ-ХХХХХХ. Если номер
+ * группы не совпадает с указанным шаблоном, то кидаем ошибку.
+ * 2. Проверяем, есть ли в системе нужные семестры. Если их нет, то создаем недостающие.
  * 2. Достаем программу и добавляем в нее группу.
  */
 public class CreateGroup {
-    /**
-     * МЕНМ-123456
-     */
-    private final String REGEX = "^\\S\\S\\S\\S-\\d\\d\\d\\d\\d\\d$";
-    private final int firstDigitMask = 100000;
-
     private final GroupGateway groupGateway;
     private final ProgramGateway programGateway;
+    private final SemesterGateway semesterGateway;
 
-    public CreateGroup(GroupGateway groupGateway, ProgramGateway programGateway) {
+    public CreateGroup(GroupGateway groupGateway, ProgramGateway programGateway, SemesterGateway semesterGateway) {
         this.groupGateway = groupGateway;
         this.programGateway = programGateway;
+        this.semesterGateway = semesterGateway;
     }
 
-    public void createGroup(String number, UUID programId) {
+    public void createGroup(CreateGroupRequest request) {
+        ensureValidGroupNumber(request.number());
+
+        ensureActualSemestersExists(request.startYear());
+
+        Group group = new Group(UUID.randomUUID(), request.number());
+        groupGateway.save(group);
+
+        Program program = programGateway.getById(request.programId());
+        var list = new ArrayList<Group>();
+        list.addAll(program.getGroups());
+        list.add(group);
+        program.setGroups(list.stream().toList());
+        programGateway.save(program);
+    }
+
+    private void ensureActualSemestersExists(int startYear) {
+        List<Semester> semesters = semesterGateway.getSemestersForEntireStudyPeriod(startYear);
+        List<Semester> actualSemesters = List.of(
+                ensureSemester(semesters, startYear, SemesterType.FALL),
+                ensureSemester(semesters, startYear + 1, SemesterType.SPRING),
+                ensureSemester(semesters, startYear + 1, SemesterType.FALL),
+                ensureSemester(semesters, startYear + 2, SemesterType.SPRING)
+        );
+        actualSemesters.forEach(semesterGateway::save);
+    }
+
+    private Semester ensureSemester(List<Semester> semesters, int startYear, SemesterType semesterType) {
+        return semesters
+                .stream()
+                .filter(x -> (x.getYear() == startYear) && (x.getType() == semesterType))
+                .findFirst()
+                .orElseGet(() -> new Semester(UUID.randomUUID(), startYear, SemesterType.FALL));
+    }
+
+    private String extractDepartmentName(String number) {
+        return number.split("-")[0];
+    }
+
+    private int extractDigit(String number) {
+        return Integer.parseInt(number.split("-")[1]);
+    }
+
+    private void ensureValidGroupNumber(String number) {
+        String REGEX = "^\\S\\S\\S\\S-\\d\\d\\d\\d\\d\\d$"; // Провеяем формат МЕНМ-123456
         Pattern regex = Pattern.compile(REGEX);
 
         if (!regex.asPredicate().test(number)) {
             throw new InvalidGroupNameException(number);
         }
 
-        String[] parts = number.split("-");
-        String departmentCode = parts[0];
-        int digitalPart = Integer.parseInt(parts[1]);
-
-        ensureDepartmentCode(departmentCode);
-        ensureCorrectCourseNumber(digitalPart);
-
-        Group group = new Group(UUID.randomUUID(), number);
-        groupGateway.save(group);
-
-        Program program = programGateway.getById(programId);
-        var list = new ArrayList<Group>();
-        list.addAll(program.getGroups());
-        list.add(group);
-        program.setGroups(list.stream().toList());
-        programGateway.save(program);
+        ensureDepartmentCode(extractDepartmentName(number));
+        ensureCorrectCourseNumber(extractDigit(number));
     }
 
     private void ensureDepartmentCode(String department) {
@@ -61,6 +91,7 @@ public class CreateGroup {
     }
 
     private void ensureCorrectCourseNumber(int number) {
+        int firstDigitMask = 100000;
         int digit = number / firstDigitMask;
         if ((digit != 1) && (digit != 2)) {
             throw new InvalidCourseNumberException(digit);

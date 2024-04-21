@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.application.usecase.creategroup.CreateGroup;
+import ru.urfu.mm.application.usecase.creategroup.CreateGroupRequest;
 import ru.urfu.mm.application.usecase.downloadtokens.DownloadTokens;
 import ru.urfu.mm.application.usecase.downloadtokens.DownloadTokensRequest;
 import ru.urfu.mm.application.usecase.generatetoken.GenerateStudentRegistrationTokens;
@@ -46,8 +47,9 @@ public class GroupController extends AbstractAuthorizedController {
     }
 
     @PostMapping("/group")
-    public void createGroup(@RequestBody CreateGroupDTO createGroupDTO) {
-        createGroup.createGroup(createGroupDTO.number(), createGroupDTO.programId());
+    public void createGroup(@RequestBody CreateGroupDTO dto) {
+        CreateGroupRequest request = new CreateGroupRequest(dto.number(), dto.year(), dto.programId());
+        createGroup.createGroup(request);
     }
 
     @GetMapping("/groupById")
