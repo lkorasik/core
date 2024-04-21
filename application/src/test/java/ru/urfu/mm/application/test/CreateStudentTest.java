@@ -38,7 +38,7 @@ public class CreateStudentTest {
     @Test
     public void createStudent() {
         UUID token = UUID.randomUUID();
-        String password = DSL.generateString();
+        String password = DSL.generateStrongPassword();
 
         Program program = new Program();
         Group group = new Group(UUID.randomUUID(), "МЕНМ-100000");
@@ -58,7 +58,7 @@ public class CreateStudentTest {
     @Test
     public void createStudent_noRegistrationToken() {
         UUID token = UUID.randomUUID();
-        String password = DSL.generateString();
+        String password = DSL.generateStrongPassword();
 
         Mockito.when(studentGateway.findById(token)).thenReturn(Optional.empty());
 

@@ -35,7 +35,7 @@ public class LoginUserTest {
     @Test
     public void login() {
         UUID token = UUID.randomUUID();
-        String password = DSL.generateString();
+        String password = DSL.generateStrongPassword();
 
         User user = new User(token, password, UserRole.STUDENT);
 
@@ -56,7 +56,7 @@ public class LoginUserTest {
     @Test
     public void incorrectToken() {
         UUID token = UUID.randomUUID();
-        String password = DSL.generateString();
+        String password = DSL.generateStrongPassword();
 
         Mockito.when(userGateway.findByToken(token)).thenReturn(Optional.empty());
 
@@ -72,7 +72,7 @@ public class LoginUserTest {
     @Test
     public void incorrectPassword() {
         UUID token = UUID.randomUUID();
-        String password = DSL.generateString();
+        String password = DSL.generateStrongPassword();
 
         User user = new User(token, password, UserRole.STUDENT);
 

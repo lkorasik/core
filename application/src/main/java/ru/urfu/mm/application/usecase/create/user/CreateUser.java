@@ -12,7 +12,7 @@ import ru.urfu.mm.domain.UserRole;
  * не совпадают.
  * 3. Проверяем, что пароль надежный. Если не надежный, то кидаем ошибку о том, что пароль не надежен.
  * 4. В зависимости от типа токена делегируем задачу создания аккаунта либо {@link CreateStudent}, либо
- * {@link CreateAdministrator}
+ * {@link CreateAdministrator}.
  */
 public class CreateUser {
     private final CreateStudent createStudent;
