@@ -141,66 +141,66 @@ public class AuthenticationServiceTest {
                 () -> authenticationService.generateToken(registrationDTO)
         );
     }
+//
+//    /**
+//     * Авторизовываемся в системе через {@link RegistrationStudentDTO}
+//     */
+//    @Test
+//    public void generateJWT_registrationStudent() {
+//        RegistrationStudentDTO registrationStudentDTO = DTO_DSL.createRegistrationStudentDTO();
+//
+//        UserDetails userDetails = new User(
+//                registrationStudentDTO.token(),
+//                registrationStudentDTO.password(),
+//                Collections.emptyList()
+//        );
+//
+//        String expectedJWT = "ghfdlsj";
+//
+//        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+//                registrationStudentDTO.token(),
+//                registrationStudentDTO.password()
+//        );
+//
+//        when(authenticationManager.authenticate(token)).thenReturn(null);
+//        when(userService.loadUserByUsername(registrationStudentDTO.token()))
+//                .thenReturn(userDetails);
+//        when(jwtService.generateToken(userDetails)).thenReturn(expectedJWT);
+//
+//        AuthenticationService authenticationService = new AuthenticationService(
+//                userService,
+//                authenticationManager,
+//                jwtService
+//        );
+//
+//        String actualJWT = authenticationService.generateToken(registrationStudentDTO);
+//
+//        Assertions.assertEquals(expectedJWT, actualJWT);
+//    }
 
-    /**
-     * Авторизовываемся в системе через {@link RegistrationStudentDTO}
-     */
-    @Test
-    public void generateJWT_registrationStudent() {
-        RegistrationStudentDTO registrationStudentDTO = DTO_DSL.createRegistrationStudentDTO();
-
-        UserDetails userDetails = new User(
-                registrationStudentDTO.token(),
-                registrationStudentDTO.password(),
-                Collections.emptyList()
-        );
-
-        String expectedJWT = "ghfdlsj";
-
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                registrationStudentDTO.token(),
-                registrationStudentDTO.password()
-        );
-
-        when(authenticationManager.authenticate(token)).thenReturn(null);
-        when(userService.loadUserByUsername(registrationStudentDTO.token()))
-                .thenReturn(userDetails);
-        when(jwtService.generateToken(userDetails)).thenReturn(expectedJWT);
-
-        AuthenticationService authenticationService = new AuthenticationService(
-                userService,
-                authenticationManager,
-                jwtService
-        );
-
-        String actualJWT = authenticationService.generateToken(registrationStudentDTO);
-
-        Assertions.assertEquals(expectedJWT, actualJWT);
-    }
-
-    /**
-     * Авторизовываемся в системе через {@link RegistrationStudentDTO}. Ошибка во время авторизации.
-     */
-    @Test
-    public void generateJWT_registrationStudent_authorizationException() {
-        RegistrationStudentDTO registrationStudentDTO = DTO_DSL.createRegistrationStudentDTO();
-
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                registrationStudentDTO.token(),
-                registrationStudentDTO.password()
-        );
-
-        when(authenticationManager.authenticate(token)).thenThrow(BadCredentialsException.class);
-
-        AuthenticationService authenticationService = new AuthenticationService(
-                userService,
-                authenticationManager,
-                jwtService
-        );
-
-        Assertions.assertThrows(
-                BadCredentialsException.class,
-                () -> authenticationService.generateToken(registrationStudentDTO)
-        );
-    }
+//    /**
+//     * Авторизовываемся в системе через {@link RegistrationStudentDTO}. Ошибка во время авторизации.
+//     */
+//    @Test
+//    public void generateJWT_registrationStudent_authorizationException() {
+//        RegistrationStudentDTO registrationStudentDTO = DTO_DSL.createRegistrationStudentDTO();
+//
+//        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+//                registrationStudentDTO.token(),
+//                registrationStudentDTO.password()
+//        );
+//
+//        when(authenticationManager.authenticate(token)).thenThrow(BadCredentialsException.class);
+//
+//        AuthenticationService authenticationService = new AuthenticationService(
+//                userService,
+//                authenticationManager,
+//                jwtService
+//        );
+//
+//        Assertions.assertThrows(
+//                BadCredentialsException.class,
+//                () -> authenticationService.generateToken(registrationStudentDTO)
+//        );
+//    }
 }

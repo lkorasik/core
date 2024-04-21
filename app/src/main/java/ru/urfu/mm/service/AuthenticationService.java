@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import ru.urfu.mm.controller.authentication.LoginDTO;
 import ru.urfu.mm.controller.authentication.RegistrationDTO;
-import ru.urfu.mm.controller.authentication.RegistrationStudentDTO;
 
 @Service
 public class AuthenticationService {
@@ -30,10 +29,6 @@ public class AuthenticationService {
     }
 
     public String generateToken(RegistrationDTO dto) {
-        return generateToken(dto.token(), dto.password());
-    }
-
-    public String generateToken(RegistrationStudentDTO dto) {
         return generateToken(dto.token(), dto.password());
     }
 
