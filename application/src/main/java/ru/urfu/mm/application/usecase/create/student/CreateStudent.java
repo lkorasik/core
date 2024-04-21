@@ -4,6 +4,7 @@ import ru.urfu.mm.application.gateway.*;
 import ru.urfu.mm.application.usecase.create.DifferentPasswordException;
 import ru.urfu.mm.application.usecase.create.RegistrationTokenNotExistException;
 import ru.urfu.mm.application.usecase.create.TooShortPasswordException;
+import ru.urfu.mm.application.usecase.create.user.CreateUserRequest;
 import ru.urfu.mm.domain.*;
 
 /**
@@ -32,7 +33,7 @@ public class CreateStudent {
         this.studentGateway = studentGateway;
     }
 
-    public void createStudent(CreateStudentRequest request) {
+    public void createStudent(CreateUserRequest request) {
         Student student = studentGateway.findById(request.token())
                 .orElseThrow(() -> new RegistrationTokenNotExistException(request.token()));
 

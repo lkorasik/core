@@ -15,7 +15,6 @@ import ru.urfu.mm.application.gateway.TokenGateway;
 import ru.urfu.mm.application.gateway.UserGateway;
 import ru.urfu.mm.application.usecase.create.TooShortPasswordException;
 import ru.urfu.mm.application.usecase.create.administrator.CreateAdministrator;
-import ru.urfu.mm.application.usecase.create.administrator.CreateAdministratorRequest;
 import ru.urfu.mm.domain.UserRole;
 
 import java.util.Optional;

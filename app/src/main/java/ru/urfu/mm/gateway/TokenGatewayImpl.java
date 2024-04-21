@@ -1,15 +1,20 @@
 package ru.urfu.mm.gateway;
 
+import org.apache.poi.sl.draw.geom.GuideIf;
+import org.apache.tomcat.util.buf.UEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.TokenGateway;
 import ru.urfu.mm.domain.Group;
 import ru.urfu.mm.domain.UserRole;
 import ru.urfu.mm.entity.GroupEntity;
+import ru.urfu.mm.entity.StudentEntity;
 import ru.urfu.mm.entity.StudentRegistrationToken;
+import ru.urfu.mm.entity.UserEntity;
 import ru.urfu.mm.repository.GroupRepository;
 import ru.urfu.mm.repository.RegistrationTokenRepository;
 import ru.urfu.mm.repository.StudentRegistrationTokenRepository;
+import ru.urfu.mm.repository.StudentRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,15 +26,18 @@ public class TokenGatewayImpl implements TokenGateway {
     private final RegistrationTokenRepository registrationTokenRepository;
     private final StudentRegistrationTokenRepository studentRegistrationTokenRepository;
     private final GroupRepository groupRepository;
+    private final StudentRepository studentRepository;
 
     @Autowired
     public TokenGatewayImpl(
             RegistrationTokenRepository registrationTokenRepository,
             StudentRegistrationTokenRepository studentRegistrationTokenRepository,
-            GroupRepository groupRepository) {
+            GroupRepository groupRepository,
+            StudentRepository studentRepository) {
         this.registrationTokenRepository = registrationTokenRepository;
         this.studentRegistrationTokenRepository = studentRegistrationTokenRepository;
         this.groupRepository = groupRepository;
+        this.studentRepository = studentRepository;
     }
 
     @Override
@@ -64,5 +72,17 @@ public class TokenGatewayImpl implements TokenGateway {
     @Override
     public void deleteStudentRegistrationToken(UUID token) {
         studentRegistrationTokenRepository.deleteById(token);
+    }
+
+    @Override
+    public boolean isAdministratorToken(UUID token) {
+        return registrationTokenRepository.findById(token).isPresent();
+    }
+
+    @Override
+    public boolean isStudentToken(UUID token) {
+        Optional<StudentEntity> maybeStudent = studentRepository.findByLogin(token);
+        Optional<UserEntity> maybeUser = maybeStudent.map(StudentEntity::getUser);
+        return maybeStudent.isPresent() && maybeUser.isEmpty();
     }
 }

@@ -13,4 +13,6 @@ public interface TokenGateway {
     List<UUID> getTokensByGroup(Group group);
     Optional<Group> getStudentRegistrationToken(UUID token);
     void deleteStudentRegistrationToken(UUID token);
+    boolean isAdministratorToken(UUID token);
+    boolean isStudentToken(UUID token);
 }

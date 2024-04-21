@@ -1,8 +1,8 @@
-package ru.urfu.mm.application.usecase.create.administrator;
+package ru.urfu.mm.application.usecase.create.user;
 
 import java.util.UUID;
 
-public record CreateAdministratorRequest(
+public record CreateUserRequest(
         UUID token,
         String password,
         String passwordAgain
