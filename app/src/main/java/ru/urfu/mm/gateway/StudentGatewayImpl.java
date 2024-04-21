@@ -6,6 +6,7 @@ import ru.urfu.mm.application.gateway.StudentGateway;
 import ru.urfu.mm.domain.Group;
 import ru.urfu.mm.domain.Program;
 import ru.urfu.mm.domain.Student;
+import ru.urfu.mm.domain.User;
 import ru.urfu.mm.entity.*;
 import ru.urfu.mm.repository.GroupRepository;
 import ru.urfu.mm.repository.StudentRepository;
@@ -120,9 +121,21 @@ public class StudentGatewayImpl implements StudentGateway {
                         new Group(
                                 x.getGroup().getId(),
                                 x.getGroup().getNumber()
-                        )
+                        ),
+                        mapUser(x)
                 ))
                 .toList();
+    }
+
+    private User mapUser(StudentEntity student) {
+        if (student.getUser() != null) {
+            return new ru.urfu.mm.domain.User(
+                    student.getUser().getLogin(),
+                    student.getUser().getPassword(),
+                    ru.urfu.mm.domain.UserRole.values()[student.getUser().getRole().ordinal()]
+            );
+        }
+        return null;
     }
 
     private EducationalProgram parse(Program program) {

@@ -64,9 +64,12 @@ public class GroupController extends AbstractAuthorizedController {
     }
 
     @GetMapping("/token")
-    public List<UUID> getTokens(@RequestParam("groupId") UUID groupId) {
+    public List<TokenStatusDTO> getTokens(@RequestParam("groupId") UUID groupId) {
         GetTokensForGroupRequest request = new GetTokensForGroupRequest(groupId);
-        return getTokensForGroup.getTokensForGroup(request);
+        return getTokensForGroup.getTokensForGroup(request)
+                .stream()
+                .map(x -> new TokenStatusDTO(x.token(), x.isActivated()))
+                .toList();
     }
 
     @GetMapping("/token_file")
