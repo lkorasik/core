@@ -1,4 +1,4 @@
-package ru.urfu.mm.application.usecase.create.student;
+package ru.urfu.mm.application.usecase.generatetoken;
 
 import ru.urfu.mm.domain.Group;
 
