@@ -12,15 +12,10 @@ import java.util.regex.Pattern;
 /**
  * Создать академическую группу
  * 1. Проверяем, что указан валидный номер группы. Номер группы должен соответствовать формату МЕНМ-ХХХХХХ.
+ * 2. Проверяем, есть ли в системе нужные семестры. Если их нет, то создаем недостающие.
  * 2. Достаем программу и добавляем в нее группу.
  */
 public class CreateGroup {
-    /**
-     * МЕНМ-123456
-     */
-    private final String REGEX = "^\\S\\S\\S\\S-\\d\\d\\d\\d\\d\\d$";
-    private final int firstDigitMask = 100000;
-
     private final GroupGateway groupGateway;
     private final ProgramGateway programGateway;
 
@@ -30,6 +25,7 @@ public class CreateGroup {
     }
 
     public void createGroup(String number, UUID programId) {
+        String REGEX = "^\\S\\S\\S\\S-\\d\\d\\d\\d\\d\\d$"; // Провеяем формат МЕНМ-123456
         Pattern regex = Pattern.compile(REGEX);
 
         if (!regex.asPredicate().test(number)) {
@@ -61,6 +57,7 @@ public class CreateGroup {
     }
 
     private void ensureCorrectCourseNumber(int number) {
+        int firstDigitMask = 100000;
         int digit = number / firstDigitMask;
         if ((digit != 1) && (digit != 2)) {
             throw new InvalidCourseNumberException(digit);
