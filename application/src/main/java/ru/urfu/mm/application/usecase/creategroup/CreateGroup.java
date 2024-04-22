@@ -3,6 +3,7 @@ package ru.urfu.mm.application.usecase.creategroup;
 import ru.urfu.mm.application.gateway.GroupGateway;
 import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.application.gateway.SemesterGateway;
+import ru.urfu.mm.application.usecase.createstudyplan.CreateStudyPlan;
 import ru.urfu.mm.domain.Group;
 import ru.urfu.mm.domain.Program;
 import ru.urfu.mm.domain.Semester;
@@ -16,17 +17,24 @@ import java.util.regex.Pattern;
  * 1. Проверяем, что указан валидный номер группы. Номер группы должен соответствовать формату МЕНМ-ХХХХХХ. Если номер
  * группы не совпадает с указанным шаблоном, то кидаем ошибку.
  * 2. Проверяем, есть ли в системе нужные семестры. Если их нет, то создаем недостающие.
- * 2. Достаем программу и добавляем в нее группу.
+ * 3. Если учебного плана еще нет, то создаем его.
+ * 4. Достаем программу и добавляем в нее группу.
  */
 public class CreateGroup {
     private final GroupGateway groupGateway;
     private final ProgramGateway programGateway;
     private final SemesterGateway semesterGateway;
+    private final CreateStudyPlan createStudyPlan;
 
-    public CreateGroup(GroupGateway groupGateway, ProgramGateway programGateway, SemesterGateway semesterGateway) {
+    public CreateGroup(
+            GroupGateway groupGateway,
+            ProgramGateway programGateway,
+            SemesterGateway semesterGateway,
+            CreateStudyPlan createStudyPlan) {
         this.groupGateway = groupGateway;
         this.programGateway = programGateway;
         this.semesterGateway = semesterGateway;
+        this.createStudyPlan = createStudyPlan;
     }
 
     public void createGroup(CreateGroupRequest request) {
@@ -36,6 +44,8 @@ public class CreateGroup {
 
         Group group = new Group(UUID.randomUUID(), request.number());
         groupGateway.save(group);
+
+        createStudyPlan.createStudyPlan(request.startYear(), List.of(3, 3, 3, 3));
 
         Program program = programGateway.getById(request.programId());
         var list = new ArrayList<Group>();
@@ -61,7 +71,7 @@ public class CreateGroup {
                 .stream()
                 .filter(x -> (x.getYear() == startYear) && (x.getType() == semesterType))
                 .findFirst()
-                .orElseGet(() -> new Semester(UUID.randomUUID(), startYear, SemesterType.FALL));
+                .orElseGet(() -> new Semester(UUID.randomUUID(), startYear, semesterType));
     }
 
     private String extractDepartmentName(String number) {

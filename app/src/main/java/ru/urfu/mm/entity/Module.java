@@ -1,6 +1,8 @@
 package ru.urfu.mm.entity;
 
 import jakarta.persistence.*;
+
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -12,6 +14,8 @@ public class Module {
     private UUID id;
     @Column
     private String name;
+    @ManyToMany
+    private List<SemesterPlanEntity> semesterPlans;
 
     public Module(String name) {
         this.name = name;
