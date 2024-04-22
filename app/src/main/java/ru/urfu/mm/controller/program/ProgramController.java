@@ -12,7 +12,6 @@ import ru.urfu.mm.application.usecase.get_program_for_student.ProgramForStudentR
 import ru.urfu.mm.application.usecase.getprogrambyid.GetProgramById;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.domain.Program;
-import ru.urfu.mm.service.ProgramService;
 
 import java.util.List;
 import java.util.UUID;
@@ -20,8 +19,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/programs")
 public class ProgramController extends AbstractAuthorizedController {
-    @Autowired
-    private ProgramService programService;
     @Autowired
     private GetEducationalProgram getEducationalProgram;
     @Autowired
@@ -53,7 +50,7 @@ public class ProgramController extends AbstractAuthorizedController {
 
     @PostMapping("/create")
     public void createEducationalProgram(@RequestBody CreateProgramDTO dto) {
-        CreateProgramRequest request = new CreateProgramRequest(dto.title(), dto.recommendedCredits());
+        CreateProgramRequest request = new CreateProgramRequest(dto.name(), dto.trainingDirection());
         createProgram.createProgram(request);
     }
 

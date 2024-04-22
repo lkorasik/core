@@ -15,14 +15,6 @@ public class EducationalProgram {
     private String name;
     @Column
     private String trainingDirection;
-    @Column
-    private int firstRecommendedCredits;
-    @Column
-    private int secondRecommendedCredits;
-    @Column
-    private int thirdRecommendedCredits;
-    @Column
-    private int fourthRecommendedCredits;
 
     public EducationalProgram() {
     }
@@ -30,18 +22,10 @@ public class EducationalProgram {
     public EducationalProgram(
             UUID id,
             String name,
-            String trainingDirection,
-            int firstRecommendedCredits,
-            int secondRecommendedCredits,
-            int thirdRecommendedCredits,
-            int fourthRecommendedCredits) {
+            String trainingDirection) {
         this.id = id;
         this.name = name;
         this.trainingDirection = trainingDirection;
-        this.firstRecommendedCredits = firstRecommendedCredits;
-        this.secondRecommendedCredits = secondRecommendedCredits;
-        this.thirdRecommendedCredits = thirdRecommendedCredits;
-        this.fourthRecommendedCredits = fourthRecommendedCredits;
     }
 
     public EducationalProgram(String name, String trainingDirection) {
@@ -59,21 +43,5 @@ public class EducationalProgram {
 
     public String getTrainingDirection() {
         return trainingDirection;
-    }
-
-    public int getFirstRecommendedCredits() {
-        return firstRecommendedCredits;
-    }
-
-    public int getSecondRecommendedCredits() {
-        return secondRecommendedCredits;
-    }
-
-    public int getThirdRecommendedCredits() {
-        return thirdRecommendedCredits;
-    }
-
-    public int getFourthRecommendedCredits() {
-        return fourthRecommendedCredits;
     }
 }

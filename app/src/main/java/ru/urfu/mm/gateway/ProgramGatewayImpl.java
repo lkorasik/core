@@ -68,11 +68,7 @@ public class ProgramGatewayImpl implements ProgramGateway {
         EducationalProgram entity = new EducationalProgram(
                 program.getId(),
                 program.getName(),
-                program.getTrainingDirection(),
-                program.getFirstRecommendedCredits(),
-                program.getSecondRecommendedCredits(),
-                program.getThirdRecommendedCredits(),
-                program.getFourthRecommendedCredits()
+                program.getTrainingDirection()
         );
         Iterable<GroupEntity> groups = groupRepository
                 .findAllById(program.getGroups().stream().map(Group::getId).toList());

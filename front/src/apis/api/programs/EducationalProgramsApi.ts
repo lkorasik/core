@@ -10,7 +10,7 @@ export class ProgramsApi extends ApiBase implements IProgramsApi {
         return this.get("programs/current");
     }
 
-    public async createEducationalProgramList(createEducationalProgram: CreateProgramDto): Promise<any> {
+    public async createEducationalProgram(createEducationalProgram: CreateProgramDto): Promise<any> {
         return this.post("programs/create", {}, createEducationalProgram);
     }
 
@@ -25,7 +25,7 @@ export class ProgramsApi extends ApiBase implements IProgramsApi {
 
 export interface IProgramsApi {
     getCurrentEducationalProgram(): Promise<ProgramInfoDto>
-    createEducationalProgramList(createEducationalProgram: CreateProgramDto): Promise<any>
+    createEducationalProgram(createEducationalProgram: CreateProgramDto): Promise<any>
     getEducationalProgramById(id: ProgramIdDto): Promise<FullProgramDto>
     getAllPrograms(): Promise<ShortProgramDTO[]>
 }

@@ -149,11 +149,7 @@ public class SkillGatewayImpl implements SkillGateway {
                                                 new ru.urfu.mm.entity.EducationalProgram(
                                                         student.getEducationalProgram().getId(),
                                                         student.getEducationalProgram().getName(),
-                                                        student.getEducationalProgram().getTrainingDirection(),
-                                                        student.getEducationalProgram().getFirstRecommendedCredits(),
-                                                        student.getEducationalProgram().getSecondRecommendedCredits(),
-                                                        student.getEducationalProgram().getThirdRecommendedCredits(),
-                                                        student.getEducationalProgram().getFourthRecommendedCredits()
+                                                        student.getEducationalProgram().getTrainingDirection()
                                                 ),
                                                 new GroupEntity(
                                                         student.getGroup().getId(),
@@ -185,11 +181,7 @@ public class SkillGatewayImpl implements SkillGateway {
                                                 new ru.urfu.mm.entity.EducationalProgram(
                                                         student.getEducationalProgram().getId(),
                                                         student.getEducationalProgram().getName(),
-                                                        student.getEducationalProgram().getTrainingDirection(),
-                                                        student.getEducationalProgram().getFirstRecommendedCredits(),
-                                                        student.getEducationalProgram().getSecondRecommendedCredits(),
-                                                        student.getEducationalProgram().getThirdRecommendedCredits(),
-                                                        student.getEducationalProgram().getFourthRecommendedCredits()
+                                                        student.getEducationalProgram().getTrainingDirection()
                                                 ),
                                                 new GroupEntity(
                                                         student.getGroup().getId(),

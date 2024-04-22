@@ -307,11 +307,7 @@ public class CourseGatewayImpl implements CourseGateway {
                                                 new ru.urfu.mm.entity.EducationalProgram(
                                                         x.getStudent().getEducationalProgram().getId(),
                                                         x.getStudent().getEducationalProgram().getName(),
-                                                        x.getStudent().getEducationalProgram().getTrainingDirection(),
-                                                        x.getStudent().getEducationalProgram().getFirstRecommendedCredits(),
-                                                        x.getStudent().getEducationalProgram().getSecondRecommendedCredits(),
-                                                        x.getStudent().getEducationalProgram().getThirdRecommendedCredits(),
-                                                        x.getStudent().getEducationalProgram().getFourthRecommendedCredits()
+                                                        x.getStudent().getEducationalProgram().getTrainingDirection()
                                                 ),
                                                 new GroupEntity(
                                                         x.getStudent().getGroup().getId(),
