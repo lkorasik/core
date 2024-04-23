@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Container } from "../../../base_components/Container/Container";
-import { CloseButton } from "../../../base_components/CrudButtons/CloseButton/CloseButton";
-import { SaveButton } from "../../../base_components/CrudButtons/SaveButton/SaveButton";
+import { CloseButton } from "../../../base_components/Buttons/CrudButtons/CloseButton/CloseButton";
+import { SaveButton } from "../../../base_components/Buttons/CrudButtons/SaveButton/SaveButton";
 import { Flex } from "../../../base_components/Flex/Flex";
 import { Input } from "../../../base_components/Input/Input";
 import { Toolbar } from "../../../base_components/Toolbar/Toolbar";

@@ -5,13 +5,13 @@ import { useEffect, useState } from "react";
 import { GetGroupIdDto } from "../../../apis/api/groups/GetGroupIdDto";
 import { Toolbar } from "../../../base_components/Toolbar/Toolbar";
 import { Table } from "../../../base_components/Table/Table";
-import { AddButton } from "../../../base_components/AddButton/AddButton";
+import { AddButton } from "../../../base_components/Buttons/AddButton/AddButton";
 import { DialogModal } from "../../DialogModal/DialogModal";
 import { Input } from "../../../base_components/Input/Input";
 import { GenerateTokenDto } from "../../../apis/api/groups/GenerateTokenDto";
 import { GetTokensDto } from "../../../apis/api/groups/GetTokensDto";
 import { DownloadButton } from "../../../base_components/DownloadButton/DownloadButton";
-import { CloseButton } from "../../../base_components/CrudButtons/CloseButton/CloseButton";
+import { CloseButton } from "../../../base_components/Buttons/CrudButtons/CloseButton/CloseButton";
 import { TokenStatusDto } from "../../../apis/api/groups/TokenStatusDto";
 
 export function GroupScreen() {

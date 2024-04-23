@@ -6,7 +6,7 @@ import {RootState} from "../../index";
 import {Link} from "react-router-dom";
 import {MODULE_COURSES_SCREEN_URL} from "../App/App";
 import {Control} from "../../apis/api/Control";
-import { CloseButton } from "../../base_components/CrudButtons/CloseButton/CloseButton";
+import { CloseButton } from "../../base_components/Buttons/CrudButtons/CloseButton/CloseButton";
 import { Title } from "../../base_components/Title/Title";
 
 interface State {

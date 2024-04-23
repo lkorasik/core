@@ -1,6 +1,6 @@
 import { Card } from "../../base_components/Card/Card";
 import { Grid } from "../../base_components/Grid/Grid";
-import { AddButton } from "../../base_components/AddButton/AddButton";
+import { AddButton } from "../../base_components/Buttons/AddButton/AddButton";
 import { Link } from "react-router-dom";
 import { useApis } from "../../apis/ApiBase/ApiProvider";
 import { useEffect, useState } from "react";

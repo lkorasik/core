@@ -7,9 +7,9 @@ import {Link} from "react-router-dom";
 import {EDIT_MODULE_COURSES_SCREEN_URL, MODULE_COURSES_SCREEN_URL} from "../App/App";
 import {SpecialCourse} from "../../apis/api/course/SpecialCourse";
 import {Control} from "../../apis/api/Control";
-import { CloseButton } from "../../base_components/CrudButtons/CloseButton/CloseButton";
-import { EditButton } from "../../base_components/CrudButtons/EditButton/EditButton";
-import { DeleteButton } from "../../base_components/CrudButtons/DeleteButton/DeleteButton";
+import { CloseButton } from "../../base_components/Buttons/CrudButtons/CloseButton/CloseButton";
+import { EditButton } from "../../base_components/Buttons/CrudButtons/EditButton/EditButton";
+import { DeleteButton } from "../../base_components/Buttons/CrudButtons/DeleteButton/DeleteButton";
 import { Title } from "../../base_components/Title/Title";
 
 interface State {

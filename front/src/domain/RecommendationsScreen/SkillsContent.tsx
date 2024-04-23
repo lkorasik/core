@@ -3,7 +3,7 @@ import {useApis} from "../../apis/ApiBase/ApiProvider";
 import {SkillLevel} from "../../apis/api/SkillLevel";
 import Select from "react-select";
 import styles from "./skillsContent.module.css";
-import {Button} from "../../base_components/Button/Button";
+import {Button} from "../../base_components/Buttons/Button/Button";
 import {Text} from "../../base_components/Text/Text";
 
 

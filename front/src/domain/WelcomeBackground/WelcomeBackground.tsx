@@ -1,4 +1,4 @@
-import { Button } from "../../base_components/Button/Button";
+import { Button } from "../../base_components/Buttons/Button/Button";
 import { ButtonSelector } from "../../base_components/ButtonSelector/ButtonSelector";
 import { Input } from "../../base_components/Input/Input";
 import styles from "./WelcomeBackground.module.css";

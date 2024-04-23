@@ -1,4 +1,4 @@
-import { Button } from "../../base_components/Button/Button";
+import { Button } from "../../base_components/Buttons/Button/Button";
 import { Flex } from "../../base_components/Flex/Flex";
 import styles from "./DialogModal.module.css";
 import { ReactNode, useEffect, useRef, useState } from "react"

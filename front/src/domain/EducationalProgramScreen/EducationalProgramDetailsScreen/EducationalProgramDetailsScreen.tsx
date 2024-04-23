@@ -7,10 +7,10 @@ import { useEffect, useState } from "react";
 import { useApis } from "../../../apis/ApiBase/ApiProvider";
 import { ProgramIdDto } from "../../../apis/api/programs/ProgramIdDto";
 import { GetGroupDto } from "../../../apis/api/groups/GetGroupDto";
-import { AddButton } from "../../../base_components/AddButton/AddButton";
+import { AddButton } from "../../../base_components/Buttons/AddButton/AddButton";
 import { GroupDto } from "../../../apis/api/groups/GroupDto";
 import { ADMINISTRATOR, GROUP } from "../../App/App";
-import { CloseButton } from "../../../base_components/CrudButtons/CloseButton/CloseButton";
+import { CloseButton } from "../../../base_components/Buttons/CrudButtons/CloseButton/CloseButton";
 
 export const PROGRAM_ID_KEY = "ProgramId";
 
