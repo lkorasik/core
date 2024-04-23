@@ -11,6 +11,7 @@ import { GroupDto } from "../../../apis/api/groups/GroupDto";
 import { ADMINISTRATOR, GROUP } from "../../App/App";
 import { CloseButton } from "../../../base_components/Buttons/CrudButtons/CloseButton/CloseButton";
 import { AddButton } from "../../../base_components/Buttons/AddButton/AddButton";
+import { EditButton } from "../../../base_components/Buttons/CrudButtons/EditButton/EditButton";
 
 export const PROGRAM_ID_KEY = "ProgramId";
 
@@ -52,6 +53,7 @@ export function EducationalProgramDetailsScreen() {
         <>
             <Container>
                 <Toolbar title={educationalProgramName!}>
+                    <EditButton to={""} />
                     <CloseButton />
                 </Toolbar>
                 <Grid cards={renderCards()} />
