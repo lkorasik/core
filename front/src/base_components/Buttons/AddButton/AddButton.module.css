@@ -1,0 +1,32 @@
+.button {
+    display: flex;
+    width: 100px;
+    height: 100px;
+    background-image: url("../../../../public/addButton.svg");
+    background-color: transparent;
+    background-position: center;
+    background-size: contain;
+    position: sticky;
+    left: 50%;
+    transform: translate(-50%, 0);
+    bottom: 10px;
+    border: none;
+    opacity: 0.8;
+    margin: 1rem;
+    transition: scale 0.25s ease-in, opacity 0.3s ease-out;
+}
+
+.button:enabled {
+    cursor: pointer;
+}
+
+.button:hover:enabled {
+    scale: 1.08;
+    opacity: 1;
+    transition: scale 0.2s ease-in, opacity 0.25s ease-in;
+}
+
+#image_container {
+    display: flex;
+    align-items: center;
+}

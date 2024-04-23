@@ -4,15 +4,15 @@ import { Title } from "../../base_components/Title/Title";
 import { useApis } from "../../apis/ApiBase/ApiProvider";
 import { Link, useParams } from "react-router-dom";
 import { GetModuleDto } from "../../apis/api/modules/GetModuleDto";
-import { EditButton } from "../../base_components/Buttons/CrudButtons/EditButton/EditButton";
-import { DeleteButton } from "../../base_components/Buttons/CrudButtons/DeleteButton/DeleteButton";
-import { CloseButton } from "../../base_components/Buttons/CrudButtons/CloseButton/CloseButton";
 import { MODULES_SCREEN_URL } from "../App/App";
 import { CourseDto } from "../../apis/api/modules/CourseDto";
 import { Card } from "../../base_components/Card/Card";
-import { AddButton } from "../../base_components/Buttons/AddButton/AddButton";
 import { Grid } from "../../base_components/Grid/Grid";
 import { DeleteModuleDto } from "../../apis/api/modules/DeleteModuleDto";
+import { EditButton } from "../../base_components/Buttons/CrudButtons/EditButton/EditButton";
+import { DeleteButton } from "../../base_components/Buttons/CrudButtons/DeleteButton/DeleteButton";
+import { CloseButton } from "../../base_components/Buttons/CrudButtons/CloseButton/CloseButton";
+import { AddButton } from "../../base_components/Buttons/AddButton/AddButton";
 
 export function ModuleCourses() {
     const [moduleName, setModuleName] = useState("")

@@ -1,16 +1,12 @@
-import styles from "./AddEducationalProgramScreen.module.css";
 import { EDUCATIONAL_PROGRAM_SCREEN_URL } from "../../App/App";
-import { DialogModal } from "../../DialogModal/DialogModal";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useApis } from "../../../apis/ApiBase/ApiProvider";
-import { SpecialCourse } from "../../../apis/api/course/SpecialCourse";
-import { ModuleDto } from "../../../apis/api/modules/ModuleDto";
-import { CloseButton } from "../../../base_components/Buttons/CrudButtons/CloseButton/CloseButton";
 import { Container } from "../../../base_components/Container/Container";
 import { Toolbar } from "../../../base_components/Toolbar/Toolbar";
-import { SaveButton } from "../../../base_components/Buttons/CrudButtons/SaveButton/SaveButton";
 import { InputField } from "../../../base_components/InputField/InputField";
 import { CreateProgramDto } from "../../../apis/api/programs/CreateProgramDto";
+import { SaveButton } from "../../../base_components/Buttons/CrudButtons/SaveButton/SaveButton";
+import { CloseButton } from "../../../base_components/Buttons/CrudButtons/CloseButton/CloseButton";
 
 interface Props {}
 
