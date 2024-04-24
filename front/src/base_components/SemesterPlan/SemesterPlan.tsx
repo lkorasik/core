@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Container } from "../Container/Container";
 import { PrimarySeparator } from "../Separator/PrimarySeparator/PrimarySeparator";
 import { SecondarySeparator } from "../Separator/SecondarySeparator/SecondarySeparator";
@@ -8,6 +9,10 @@ export interface Props {
 }
 
 export function SemesterPlan(props: Props) {
+    const [requiredCourses, setRequiredCourses] = useState<string>();
+    const [specialCourses, setSpecialCourses] = useState<string>();
+    const [scienceWork, setScienceWork] = useState<string>();
+
     const renderListItem = () => {
         return (
             <li>
@@ -21,41 +26,31 @@ export function SemesterPlan(props: Props) {
         )
     }
 
+    const renderSection = (sectionHeader: string) => {
+        return (
+            <div className={styles.section_header}>
+                {sectionHeader}
+                <ul>
+                    {renderListItem()}
+                </ul>
+                <div className={styles.add_button}>
+                    + Добавить
+                </div>
+            </div>
+        )
+    }
+
     return (
         <Container>
             <div className={styles.column_header}>
                 {props.semesterNumber} семестр
             </div>
             <PrimarySeparator />
-            <div className={styles.section_header}>
-                Обязательные курсы
-                <ul>
-                    {renderListItem()}
-                </ul>
-                <div className={styles.add_button}>
-                    + Добавить
-                </div>
-            </div>
+            {renderSection("Обязательные курсы")}
             <SecondarySeparator />
-            <div className={styles.section_header}>
-                Спецкурсы
-                <ul>
-                    {renderListItem()}
-                </ul>
-                <div className={styles.add_button}>
-                    + Добавить
-                </div>
-            </div>
+            {renderSection("Спецкурсы")}
             <SecondarySeparator />
-            <div className={styles.section_header}>
-                НИР
-                <ul>
-                    {renderListItem()}
-                </ul>
-                <div className={styles.add_button}>
-                    + Добавить
-                </div>
-            </div>
+            {renderSection("НИР")}
         </Container>
     )
 }
