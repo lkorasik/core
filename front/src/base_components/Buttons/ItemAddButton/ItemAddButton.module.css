@@ -1,0 +1,6 @@
+.text_button {
+    display: flex;
+    justify-content: center;
+    color: var(--primary_color);
+    text-decoration: underline;
+}

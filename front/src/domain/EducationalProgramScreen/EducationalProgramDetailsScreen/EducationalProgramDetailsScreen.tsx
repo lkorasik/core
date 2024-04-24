@@ -8,7 +8,7 @@ import { useApis } from "../../../apis/ApiBase/ApiProvider";
 import { ProgramIdDto } from "../../../apis/api/programs/ProgramIdDto";
 import { GetGroupDto } from "../../../apis/api/groups/GetGroupDto";
 import { GroupDto } from "../../../apis/api/groups/GroupDto";
-import { ADMINISTRATOR, GROUP } from "../../App/App";
+import { ADMINISTRATOR, EDIT, EDUCATIONAL_PROGRAM, GROUP } from "../../App/App";
 import { CloseButton } from "../../../base_components/Buttons/CrudButtons/CloseButton/CloseButton";
 import { AddButton } from "../../../base_components/Buttons/AddButton/AddButton";
 import { EditButton } from "../../../base_components/Buttons/CrudButtons/EditButton/EditButton";
@@ -53,7 +53,7 @@ export function EducationalProgramDetailsScreen() {
         <>
             <Container>
                 <Toolbar title={educationalProgramName!}>
-                    <EditButton to={""} />
+                    <EditButton to={ADMINISTRATOR + EDUCATIONAL_PROGRAM + EDIT + "/" + educationalProgramId} />
                     <CloseButton />
                 </Toolbar>
                 <Grid cards={renderCards()} />

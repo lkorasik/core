@@ -23,6 +23,7 @@ import { ModuleCourses } from '../ModuleCourses/ModuleCourses';
 import { EducationalProgramDetailsScreen } from '../EducationalProgramScreen/EducationalProgramDetailsScreen/EducationalProgramDetailsScreen';
 import { AddGroupScreen } from '../EducationalProgramScreen/AddGroupScreen/AddGroupScreen';
 import { GroupScreen } from '../EducationalProgramScreen/GroupScreen/GroupScreen';
+import { EditEducationalProgramScreen } from '../EducationalProgramScreen/EditEducationalProgramScreen/EditEducationalProgramScreen';
 
 export const EDUCATIONAL_PROGRAM_SCREEN_URL: string = "/administrator/educational_program/";
 export const MODULES_SCREEN_URL: string = "/administrator/courses_and_modules";
@@ -38,6 +39,7 @@ export const EDUCATIONAL_PROGRAM: string = "/educational_program";
 export const GROUP: string = "/group";
 export const COURESE_AND_MODULES = "/courses_and_modules";
 export const STATISTICS = "/statistics";
+export const EDIT = "/edit";
 
 const App: FC = () => {
     const {loginInfo, saveLoginInfo} = useAuthentication();
@@ -69,6 +71,7 @@ const App: FC = () => {
             <Route path={"/"} element={<WelcomeScreen saveLoginInfo={saveLoginInfo}/>}/>
             <Route path={ADMINISTRATOR} element={<AdministratorMainScreen/>}>
                 <Route path={ADMINISTRATOR + EDUCATIONAL_PROGRAM} element={<EducationalProgramScreen/>}/>
+                    <Route path={ADMINISTRATOR + EDUCATIONAL_PROGRAM + EDIT + "/:educationalProgramId"} element={<EditEducationalProgramScreen/>}/>
                 <Route path={ADMINISTRATOR + COURESE_AND_MODULES} element={<ModulesScreen />}/>
                 <Route path={ADMINISTRATOR + STATISTICS} element={<StatisticsScreen/>}/>
 

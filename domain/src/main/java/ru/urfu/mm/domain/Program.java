@@ -16,6 +16,9 @@ public class Program {
      * Название направления
      */
     private String name;
+    /**
+     * Направление подготовки
+     */
     private String trainingDirection;
     /**
      * Список студентов, которые учатся на данном направлении.
