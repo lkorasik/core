@@ -25,11 +25,7 @@ public class UpdateProgram {
                 program.getId(),
                 request.name(),
                 request.trainingDirection(),
-                program.getGroups(),
-                program.getFirstRecommendedCredits(),
-                program.getSecondRecommendedCredits(),
-                program.getThirdRecommendedCredits(),
-                program.getFourthRecommendedCredits()
+                program.getGroups()
         );
 
         programGateway.save(newProgram);

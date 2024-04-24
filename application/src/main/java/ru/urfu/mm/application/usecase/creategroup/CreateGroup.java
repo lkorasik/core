@@ -45,7 +45,7 @@ public class CreateGroup {
         Group group = new Group(UUID.randomUUID(), request.number());
         groupGateway.save(group);
 
-        createStudyPlan.createStudyPlan(request.startYear(), List.of(3, 3, 3, 3));
+        createStudyPlan.createStudyPlan(request.startYear());
 
         Program program = programGateway.getById(request.programId());
         var list = new ArrayList<Group>();

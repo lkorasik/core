@@ -8,6 +8,7 @@ import ru.urfu.mm.domain.StudyPlan;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Создаем учебный план.
@@ -23,16 +24,13 @@ public class CreateStudyPlan {
         this.studyPlanGateway = studyPlanGateway;
     }
 
-    public void createStudyPlan(int startYear, List<Integer> credits) {
-        List<Semester> semesters = semesterGateway.getSemestersForEntireStudyPeriod(startYear);
+    public void createStudyPlan(int startYear) {
+        List<SemesterPlan> semesters = semesterGateway.getSemestersForEntireStudyPeriod(startYear)
+                .stream()
+                .map(x -> new SemesterPlan(x, 0))
+                .toList();
 
-        List<SemesterPlan> plans = new ArrayList<>(4);
-        for(var i = 0; i < 4; i++) {
-            SemesterPlan plan = new SemesterPlan(semesters.get(i), credits.get(i));
-            plans.add(plan);
-        }
-
-        StudyPlan studyPlan = new StudyPlan(plans.get(0), plans.get(1), plans.get(2), plans.get(3));
+        StudyPlan studyPlan = new StudyPlan(semesters.get(0), semesters.get(1), semesters.get(2), semesters.get(3));
 
         studyPlanGateway.save(studyPlan);
     }
