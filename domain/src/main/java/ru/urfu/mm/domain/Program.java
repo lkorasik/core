@@ -29,24 +29,10 @@ public class Program {
      */
     private List<StudyPlan> studyPlans = new ArrayList<>();
 
-    public Program() {
-    }
-
     public Program(UUID id, String name, String trainingDirection) {
         this.id = id;
         this.name = name;
         this.trainingDirection = trainingDirection;
-    }
-
-    public Program(
-            UUID id,
-            String name,
-            String trainingDirection,
-            List<Group> groups) {
-        this.id = id;
-        this.name = name;
-        this.trainingDirection = trainingDirection;
-        this.groups = groups;
     }
 
     public Program(String name, String trainingDirection) {

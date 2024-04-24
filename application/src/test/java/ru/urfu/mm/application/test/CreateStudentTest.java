@@ -40,7 +40,7 @@ public class CreateStudentTest {
         UUID token = UUID.randomUUID();
         String password = DSL.generateStrongPassword();
 
-        Program program = new Program();
+        Program program = new Program(UUID.randomUUID(), DSL.generateString(), DSL.generateString());
         Group group = new Group(UUID.randomUUID(), "МЕНМ-100000");
         Student student = new Student(token, program, group);
 

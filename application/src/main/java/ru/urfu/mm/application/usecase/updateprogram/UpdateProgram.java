@@ -24,9 +24,9 @@ public class UpdateProgram {
         Program newProgram = new Program(
                 program.getId(),
                 request.name(),
-                request.trainingDirection(),
-                program.getGroups()
+                request.trainingDirection()
         );
+        newProgram.setGroups(program.getGroups());
 
         programGateway.save(newProgram);
     }

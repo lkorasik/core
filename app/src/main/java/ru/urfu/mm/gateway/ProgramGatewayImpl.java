@@ -34,12 +34,17 @@ public class ProgramGatewayImpl implements ProgramGateway {
     @Override
     public Program getById(UUID id) {
         ru.urfu.mm.entity.EducationalProgram educationalProgram = educationalProgramRepository.getReferenceById(id);
-        return new Program(
+        Program program = new Program(
                 educationalProgram.getId(),
                 educationalProgram.getName(),
-                educationalProgram.getTrainingDirection(),
-                groupRepository.findAllByEducationalProgram(educationalProgram).stream().map(x -> new Group(x.getId(), x.getNumber())).toList()
+                educationalProgram.getTrainingDirection()
         );
+        List<Group> groups = groupRepository.findAllByEducationalProgram(educationalProgram)
+                .stream()
+                .map(x -> new Group(x.getId(), x.getNumber()))
+                .toList();
+        program.setGroups(groups);
+        return program;
     }
 
     @Override
