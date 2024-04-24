@@ -15,8 +15,6 @@ public class EducationalProgram {
     private String name;
     @Column
     private String trainingDirection;
-    @OneToMany(mappedBy = "program")
-    private List<StudyPlanEntity> studyPlans;
 
     public EducationalProgram() {
     }

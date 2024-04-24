@@ -4,11 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.ProgramGateway;
+import ru.urfu.mm.application.gateway.StudyPlanGateway;
 import ru.urfu.mm.domain.Group;
 import ru.urfu.mm.domain.Program;
 import ru.urfu.mm.entity.*;
 import ru.urfu.mm.repository.EducationalProgramRepository;
 import ru.urfu.mm.repository.GroupRepository;
+import ru.urfu.mm.repository.StudyPlanRepository;
 import ru.urfu.mm.service.mapper.Mapper;
 
 import java.util.List;
@@ -20,15 +22,18 @@ public class ProgramGatewayImpl implements ProgramGateway {
     private final EducationalProgramRepository educationalProgramRepository;
     private final GroupRepository groupRepository;
     private final Mapper<EducationalProgram, Program> programMapper;
+    private final StudyPlanRepository studyPlanRepository;
 
     @Autowired
     public ProgramGatewayImpl(
             EducationalProgramRepository educationalProgramRepository,
             GroupRepository groupRepository,
-            Mapper<EducationalProgram, Program> programMapper) {
+            Mapper<EducationalProgram, Program> programMapper,
+            StudyPlanRepository studyPlanRepository) {
         this.educationalProgramRepository = educationalProgramRepository;
         this.groupRepository = groupRepository;
         this.programMapper = programMapper;
+        this.studyPlanRepository = studyPlanRepository;
     }
 
     @Override
@@ -92,7 +97,7 @@ public class ProgramGatewayImpl implements ProgramGateway {
                                         new Semester(
                                                 x.getSecondSemesterPlan().getSemester().getId(),
                                                 x.getSecondSemesterPlan().getSemester().getYear(),
-                                                SemesterType.values()[x.getSecondSemesterPlan().getRecommendedCredits()]
+                                                SemesterType.values()[x.getSecondSemesterPlan().getSemester().getType().ordinal()]
                                         ),
                                         x.getSecondSemesterPlan().getRecommendedCredits()
                                 ),
@@ -101,7 +106,7 @@ public class ProgramGatewayImpl implements ProgramGateway {
                                         new Semester(
                                                 x.getThirdSemesterPlan().getSemester().getId(),
                                                 x.getThirdSemesterPlan().getSemester().getYear(),
-                                                SemesterType.values()[x.getThirdSemesterPlan().getRecommendedCredits()]
+                                                SemesterType.values()[x.getThirdSemesterPlan().getSemester().getType().ordinal()]
                                         ),
                                         x.getThirdSemesterPlan().getRecommendedCredits()
                                 ),
@@ -110,7 +115,7 @@ public class ProgramGatewayImpl implements ProgramGateway {
                                         new Semester(
                                                 x.getFourthSemesterPlan().getId(),
                                                 x.getFourthSemesterPlan().getSemester().getYear(),
-                                                SemesterType.values()[x.getFourthSemesterPlan().getRecommendedCredits()]
+                                                SemesterType.values()[x.getFourthSemesterPlan().getSemester().getType().ordinal()]
                                         ),
                                         x.getFourthSemesterPlan().getRecommendedCredits()
                                 ),
@@ -122,6 +127,8 @@ public class ProgramGatewayImpl implements ProgramGateway {
                 .findAllById(program.getGroups().stream().map(Group::getId).toList());
         groups.forEach(group -> group.setEducationalProgram(entity));
         groupRepository.saveAll(groups);
+        studyPlanEntities.forEach(plan -> plan.setProgram(entity));
+        studyPlanEntities.forEach(studyPlanRepository::save);
         educationalProgramRepository.save(entity);
     }
 

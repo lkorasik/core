@@ -45,22 +45,22 @@ public class StudyPlanGatewayImpl implements StudyPlanGateway {
                 .get();
 
         SemesterPlanEntity firstSemesterPlanEntity = new SemesterPlanEntity(
-                UUID.randomUUID(),
+                studyPlan.getFirstSemesterPlan().getId(),
                 firstSemesterEntity,
                 studyPlan.getFirstSemesterPlan().getRecommendedCredits()
         );
         SemesterPlanEntity secondSemesterPlanEntity = new SemesterPlanEntity(
-                UUID.randomUUID(),
+                studyPlan.getSecondSemesterPlan().getId(),
                 secondSemesterEntity,
                 studyPlan.getSecondSemesterPlan().getRecommendedCredits()
         );
         SemesterPlanEntity thirdSemesterPlanEntity = new SemesterPlanEntity(
-                UUID.randomUUID(),
+                studyPlan.getThirdSemesterPlan().getId(),
                 thirdSemesterEntity,
                 studyPlan.getThirdSemesterPlan().getRecommendedCredits()
         );
         SemesterPlanEntity fourthSemesterPlanEntity = new SemesterPlanEntity(
-                UUID.randomUUID(),
+                studyPlan.getFourthSemesterPlan().getId(),
                 fourthSemesterEntity,
                 studyPlan.getFourthSemesterPlan().getRecommendedCredits()
         );

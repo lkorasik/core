@@ -6,11 +6,12 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table
+@Table(name = "semester_plans")
 public class SemesterPlanEntity {
     @Id
     private UUID id;
     @ManyToOne
+    @JoinColumn(name = "semesters_id")
     private Semester semester;
     @Column
     private int recommendedCredits;

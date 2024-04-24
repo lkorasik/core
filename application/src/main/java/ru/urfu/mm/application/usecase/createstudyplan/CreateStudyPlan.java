@@ -3,6 +3,7 @@ package ru.urfu.mm.application.usecase.createstudyplan;
 import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.application.gateway.SemesterGateway;
 import ru.urfu.mm.application.gateway.StudyPlanGateway;
+import ru.urfu.mm.application.usecase.createsemesterplan.CreateSemesterPlan;
 import ru.urfu.mm.domain.Program;
 import ru.urfu.mm.domain.SemesterPlan;
 import ru.urfu.mm.domain.StudyPlan;
@@ -22,33 +23,37 @@ public class CreateStudyPlan {
     private final SemesterGateway semesterGateway;
     private final StudyPlanGateway studyPlanGateway;
     private final ProgramGateway programGateway;
+    private final CreateSemesterPlan createSemesterPlan;
 
     public CreateStudyPlan(
             SemesterGateway semesterGateway,
             StudyPlanGateway studyPlanGateway,
-            ProgramGateway programGateway) {
+            ProgramGateway programGateway,
+            CreateSemesterPlan createSemesterPlan) {
         this.semesterGateway = semesterGateway;
         this.studyPlanGateway = studyPlanGateway;
         this.programGateway = programGateway;
+        this.createSemesterPlan = createSemesterPlan;
     }
 
     public void createStudyPlan(int startYear, UUID programId) {
-        List<SemesterPlan> semesters = semesterGateway.getSemestersForEntireStudyPeriod(startYear)
+        List<SemesterPlan> semesterPlans = semesterGateway.getSemestersForEntireStudyPeriod(startYear)
                 .stream()
-                .map(x -> new SemesterPlan(UUID.randomUUID(), x, 0))
+                .map(x -> createSemesterPlan.createSemesterPlan(x, startYear))
                 .toList();
 
         Program program = programGateway.getById(programId);
 
         StudyPlan studyPlan = new StudyPlan(
                 UUID.randomUUID(),
-                semesters.get(0),
-                semesters.get(1),
-                semesters.get(2),
-                semesters.get(3));
+                semesterPlans.get(0),
+                semesterPlans.get(1),
+                semesterPlans.get(2),
+                semesterPlans.get(3)
+        );
         program.getStudyPlans().add(studyPlan);
 
-        programGateway.save(program);
         studyPlanGateway.save(studyPlan);
+        programGateway.save(program);
     }
 }

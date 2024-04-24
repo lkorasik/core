@@ -11,31 +11,14 @@ public class SemesterPlan {
     private final UUID id;
     private final Semester semester;
     private final int recommendedCredits;
-    private final List<Module> requiredModules;
-    private final List<Module> specialModules;
-    private final List<Module> scienceWork;
-
-    public SemesterPlan(
-            UUID id, Semester semester,
-            int recommendedCredits,
-            List<Module> requiredModules,
-            List<Module> specialModules,
-            List<Module> scienceWork) {
-        this.id = id;
-        this.semester = semester;
-        this.recommendedCredits = recommendedCredits;
-        this.requiredModules = requiredModules;
-        this.specialModules = specialModules;
-        this.scienceWork = scienceWork;
-    }
+    private final List<Module> requiredModules = new ArrayList<>();
+    private final List<Module> specialModules = new ArrayList<>();
+    private final List<Module> scienceWork = new ArrayList<>();
 
     public SemesterPlan(UUID id, Semester semester, int recommendedCredits) {
         this.id = id;
         this.semester = semester;
         this.recommendedCredits = recommendedCredits;
-        requiredModules = new ArrayList<>();
-        specialModules = new ArrayList<>();
-        scienceWork = new ArrayList<>();
     }
 
     public UUID getId() {

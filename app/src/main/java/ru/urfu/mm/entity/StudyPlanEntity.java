@@ -9,16 +9,16 @@ import java.util.UUID;
 public class StudyPlanEntity {
     @Id
     private UUID id;
-    @OneToOne
+    @ManyToOne
     private SemesterPlanEntity firstSemester;
-    @OneToOne
+    @ManyToOne
     private SemesterPlanEntity secondSemester;
-    @OneToOne
+    @ManyToOne
     private SemesterPlanEntity thirdSemester;
-    @OneToOne
+    @ManyToOne
     private SemesterPlanEntity fourthSemester;
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name="educational_programs_id")
     private EducationalProgram program;
 
     public StudyPlanEntity() {
@@ -37,5 +37,9 @@ public class StudyPlanEntity {
         this.secondSemester = secondSemester;
         this.thirdSemester = thirdSemester;
         this.fourthSemester = fourthSemester;
+    }
+
+    public void setProgram(EducationalProgram program) {
+        this.program = program;
     }
 }
