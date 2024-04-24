@@ -36,16 +36,10 @@ public class ProgramController extends AbstractAuthorizedController {
         return ProgramInfoDTO.from(response);
     }
 
-    @PostMapping("/program")
-    public FullProgramDTO getEducationalProgram(@RequestBody ProgramIdDTO programIdDto) throws JsonProcessingException {
-        Program program = getProgramById.getProgramById(programIdDto.id());
-        List<Integer> recommendedCredits = List.of(
-                program.getFirstRecommendedCredits(),
-                program.getSecondRecommendedCredits(),
-                program.getThirdRecommendedCredits(),
-                program.getFourthRecommendedCredits()
-        );
-        return new FullProgramDTO(program.getId(), program.getName(), recommendedCredits, null);
+    @GetMapping("/program")
+    public FullProgramDTO getEducationalProgram(@RequestParam("id") UUID programId) throws JsonProcessingException {
+        Program program = getProgramById.getProgramById(programId);
+        return new FullProgramDTO(program.getId(), program.getName(), program.getTrainingDirection());
     }
 
     @PostMapping("/create")

@@ -25,6 +25,7 @@ export function EditEducationalProgramScreen() {
             const response = await api.educationalProgramsApi.getEducationalProgramById(request);
 
             setEducationalProgramName(response.title);
+            setTrainingDirection(response.trainingDirection);
 
             localStorage.setItem("EducationalModuleId", response.id)
         };

@@ -15,7 +15,7 @@ export class ProgramsApi extends ApiBase implements IProgramsApi {
     }
 
     public async getEducationalProgramById(id: ProgramIdDto): Promise<FullProgramDto> {
-        return this.post("programs/program", {}, id);
+        return this.get("programs/program", {...id});
     }
 
     public async getAllPrograms(): Promise<ShortProgramDTO[]> {
