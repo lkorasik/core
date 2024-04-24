@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Toolbar } from "../../../base_components/Toolbar/Toolbar";
 import { CloseButton } from "../../../base_components/Buttons/CrudButtons/CloseButton/CloseButton";
 import { Container } from "../../../base_components/Container/Container";
@@ -10,6 +10,8 @@ import { NText } from "../../../base_components/NText/NText";
 import { StudyPlan } from "../../../base_components/StudyPlan/StudyPlan";
 import { useApis } from "../../../apis/ApiBase/ApiProvider";
 import { ProgramIdDto } from "../../../apis/api/programs/ProgramIdDto";
+import { SaveButton } from "../../../base_components/Buttons/CrudButtons/SaveButton/SaveButton";
+import { UpdateEducationalProgramDto } from "../../../apis/api/programs/UpdateEducationalProgramDto";
 
 
 export function EditEducationalProgramScreen() {
@@ -18,6 +20,7 @@ export function EditEducationalProgramScreen() {
 
     const { educationalProgramId } = useParams();
     const api = useApis();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const loadModule = async () => { 
@@ -32,18 +35,27 @@ export function EditEducationalProgramScreen() {
         loadModule().catch(console.error);
     }, [])
 
+    const save = () => {
+        const request = { id: educationalProgramId, name: educationalProgramName, trainingDirection: trainingDirection } as UpdateEducationalProgramDto;
+        api.educationalProgramsApi.updateEducationalProgram(request);
+        navigate(-1);
+    }
+
     return (
         <Container>
             <Toolbar title="Редактирование образовательной программы">
+                <SaveButton to={""} onClick={() => save()}/>
                 <CloseButton />
             </Toolbar>
             <InputField 
-                isRequired 
+                isRequired
+                onChange={(e) => setEducationalProgramName(e.target.value)} 
                 value={educationalProgramName}>
                     Название образовательной программы
             </InputField>
             <InputField 
                 isRequired 
+                onChange={(e) => setTrainingDirection(e.target.value)}
                 value={trainingDirection}>
                     Направление подготовки
             </InputField>

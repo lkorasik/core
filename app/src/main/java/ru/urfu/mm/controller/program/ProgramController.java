@@ -10,6 +10,8 @@ import ru.urfu.mm.application.usecase.GetEducationalProgram;
 import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
 import ru.urfu.mm.application.usecase.get_program_for_student.ProgramForStudentResponse;
 import ru.urfu.mm.application.usecase.getprogrambyid.GetProgramById;
+import ru.urfu.mm.application.usecase.updateprogram.UpdateProgram;
+import ru.urfu.mm.application.usecase.updateprogram.UpdateProgramRequest;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.domain.Program;
 
@@ -29,6 +31,8 @@ public class ProgramController extends AbstractAuthorizedController {
     private CreateProgram createProgram;
     @Autowired
     private GetProgramById getProgramById;
+    @Autowired
+    private UpdateProgram updateProgram;
 
     @GetMapping("/current")
     public ProgramInfoDTO current() {
@@ -40,6 +44,12 @@ public class ProgramController extends AbstractAuthorizedController {
     public FullProgramDTO getEducationalProgram(@RequestParam("id") UUID programId) throws JsonProcessingException {
         Program program = getProgramById.getProgramById(programId);
         return new FullProgramDTO(program.getId(), program.getName(), program.getTrainingDirection());
+    }
+
+    @PutMapping("/program")
+    public void updateEducationalProgram(@RequestBody UpdateProgramDTO dto) {
+        UpdateProgramRequest request = new UpdateProgramRequest(dto.id(), dto.name(), dto.trainingDirection());
+        updateProgram.updateProgram(request);
     }
 
     @PostMapping("/create")
