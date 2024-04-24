@@ -70,7 +70,8 @@ public class StudyPlanGatewayImpl implements StudyPlanGateway {
                 firstSemesterPlanEntity,
                 secondSemesterPlanEntity,
                 thirdSemesterPlanEntity,
-                fourthSemesterPlanEntity
+                fourthSemesterPlanEntity,
+                null
         );
 
         semesterPlanRepository.save(firstSemesterPlanEntity);

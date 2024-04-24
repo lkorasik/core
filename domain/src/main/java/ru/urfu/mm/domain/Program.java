@@ -24,6 +24,10 @@ public class Program {
      * Список студентов, которые учатся на данном направлении.
      */
     private List<Group> groups = new ArrayList<>();
+    /**
+     * Список учбеных планов
+     */
+    private List<StudyPlan> studyPlans = new ArrayList<>();
 
     public Program() {
     }
@@ -64,6 +68,10 @@ public class Program {
 
     public String getTrainingDirection() {
         return trainingDirection;
+    }
+
+    public List<StudyPlan> getStudyPlans() {
+        return studyPlans;
     }
 
     public void setGroups(List<Group> groups) {

@@ -6,8 +6,7 @@ import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.domain.Group;
 import ru.urfu.mm.domain.Program;
-import ru.urfu.mm.entity.EducationalProgram;
-import ru.urfu.mm.entity.GroupEntity;
+import ru.urfu.mm.entity.*;
 import ru.urfu.mm.repository.EducationalProgramRepository;
 import ru.urfu.mm.repository.GroupRepository;
 import ru.urfu.mm.service.mapper.Mapper;
@@ -70,6 +69,50 @@ public class ProgramGatewayImpl implements ProgramGateway {
                 program.getName(),
                 program.getTrainingDirection()
         );
+        List<StudyPlanEntity> studyPlanEntities = program.getStudyPlans()
+                .stream()
+                .map(x -> new StudyPlanEntity(
+                                x.getId(),
+                                new SemesterPlanEntity(
+                                        x.getFirstSemesterPlan().getId(),
+                                        new Semester(
+                                                x.getFirstSemesterPlan().getSemester().getId(),
+                                                x.getFirstSemesterPlan().getSemester().getYear(),
+                                                SemesterType.values()[x.getFirstSemesterPlan().getSemester().getType().ordinal()]
+                                        ),
+                                        x.getFirstSemesterPlan().getRecommendedCredits()
+                                ),
+                                new SemesterPlanEntity(
+                                        x.getSecondSemesterPlan().getId(),
+                                        new Semester(
+                                                x.getSecondSemesterPlan().getSemester().getId(),
+                                                x.getSecondSemesterPlan().getSemester().getYear(),
+                                                SemesterType.values()[x.getSecondSemesterPlan().getRecommendedCredits()]
+                                        ),
+                                        x.getSecondSemesterPlan().getRecommendedCredits()
+                                ),
+                                new SemesterPlanEntity(
+                                        x.getThirdSemesterPlan().getId(),
+                                        new Semester(
+                                                x.getThirdSemesterPlan().getSemester().getId(),
+                                                x.getThirdSemesterPlan().getSemester().getYear(),
+                                                SemesterType.values()[x.getThirdSemesterPlan().getRecommendedCredits()]
+                                        ),
+                                        x.getThirdSemesterPlan().getRecommendedCredits()
+                                ),
+                                new SemesterPlanEntity(
+                                        x.getFourthSemesterPlan().getId(),
+                                        new Semester(
+                                                x.getFourthSemesterPlan().getId(),
+                                                x.getFourthSemesterPlan().getSemester().getYear(),
+                                                SemesterType.values()[x.getFourthSemesterPlan().getRecommendedCredits()]
+                                        ),
+                                        x.getFourthSemesterPlan().getRecommendedCredits()
+                                ),
+                                entity
+                        )
+                )
+                .toList();
         Iterable<GroupEntity> groups = groupRepository
                 .findAllById(program.getGroups().stream().map(Group::getId).toList());
         groups.forEach(group -> group.setEducationalProgram(entity));

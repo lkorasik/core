@@ -1,9 +1,6 @@
 package ru.urfu.mm.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.UUID;
 
@@ -20,6 +17,9 @@ public class StudyPlanEntity {
     private SemesterPlanEntity thirdSemester;
     @OneToOne
     private SemesterPlanEntity fourthSemester;
+    @ManyToOne
+    @JoinColumn
+    private EducationalProgram program;
 
     public StudyPlanEntity() {
     }
@@ -29,8 +29,10 @@ public class StudyPlanEntity {
             SemesterPlanEntity firstSemester,
             SemesterPlanEntity secondSemester,
             SemesterPlanEntity thirdSemester,
-            SemesterPlanEntity fourthSemester) {
+            SemesterPlanEntity fourthSemester,
+            EducationalProgram program) {
         this.id = id;
+        this.program = program;
         this.firstSemester = firstSemester;
         this.secondSemester = secondSemester;
         this.thirdSemester = thirdSemester;

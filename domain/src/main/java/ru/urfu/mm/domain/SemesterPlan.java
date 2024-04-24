@@ -2,11 +2,13 @@ package ru.urfu.mm.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Семестровый учебный план
  */
 public class SemesterPlan {
+    private final UUID id;
     private final Semester semester;
     private final int recommendedCredits;
     private final List<Module> requiredModules;
@@ -14,11 +16,12 @@ public class SemesterPlan {
     private final List<Module> scienceWork;
 
     public SemesterPlan(
-            Semester semester,
+            UUID id, Semester semester,
             int recommendedCredits,
             List<Module> requiredModules,
             List<Module> specialModules,
             List<Module> scienceWork) {
+        this.id = id;
         this.semester = semester;
         this.recommendedCredits = recommendedCredits;
         this.requiredModules = requiredModules;
@@ -26,12 +29,17 @@ public class SemesterPlan {
         this.scienceWork = scienceWork;
     }
 
-    public SemesterPlan(Semester semester, int recommendedCredits) {
+    public SemesterPlan(UUID id, Semester semester, int recommendedCredits) {
+        this.id = id;
         this.semester = semester;
         this.recommendedCredits = recommendedCredits;
         requiredModules = new ArrayList<>();
         specialModules = new ArrayList<>();
         scienceWork = new ArrayList<>();
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public Semester getSemester() {

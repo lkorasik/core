@@ -261,8 +261,11 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public CreateStudyPlan createStudyPlan(SemesterGateway semesterGateway, StudyPlanGateway studyPlanGateway) {
-        return new CreateStudyPlan(semesterGateway, studyPlanGateway);
+    public CreateStudyPlan createStudyPlan(
+            SemesterGateway semesterGateway,
+            StudyPlanGateway studyPlanGateway,
+            ProgramGateway programGateway) {
+        return new CreateStudyPlan(semesterGateway, studyPlanGateway, programGateway);
     }
 
     @Bean
