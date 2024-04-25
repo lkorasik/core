@@ -2,7 +2,7 @@ package ru.urfu.mm.application.usecase.loginuser;
 
 import ru.urfu.mm.application.gateway.PasswordGateway;
 import ru.urfu.mm.application.gateway.UserGateway;
-import ru.urfu.mm.domain.User;
+import ru.urfu.mm.domain.Account;
 
 /**
  * Вход в систему
@@ -21,15 +21,15 @@ public class LoginUser {
         this.passwordGateway = passwordGateway;
     }
 
-    public User loginUser(LoginRequest loginRequest) {
-        User user = userGateway
+    public Account loginUser(LoginRequest loginRequest) {
+        Account account = userGateway
                 .findByToken(loginRequest.token())
                 .orElseThrow(InvalidCredentialsException::new);
 
-        if (!passwordGateway.matches(loginRequest.password(), user.getPassword())) {
+        if (!passwordGateway.matches(loginRequest.password(), account.password())) {
             throw new InvalidCredentialsException();
         }
 
-        return user;
+        return account;
     }
 }

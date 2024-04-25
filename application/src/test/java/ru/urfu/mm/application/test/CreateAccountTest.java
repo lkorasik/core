@@ -9,13 +9,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ru.urfu.mm.application.dsl.DSL;
 import ru.urfu.mm.application.gateway.TokenGateway;
 import ru.urfu.mm.application.usecase.create.*;
-import ru.urfu.mm.application.usecase.create.user.CreateUser;
-import ru.urfu.mm.application.usecase.create.user.CreateUserRequest;
+import ru.urfu.mm.application.usecase.create.account.CreateAccount;
+import ru.urfu.mm.application.usecase.create.account.CreateUserRequest;
 
 import java.util.UUID;
 
 @ExtendWith(MockitoExtension.class)
-public class CreateUserTest {
+public class CreateAccountTest {
     @Mock
     private CreateStudent createStudent;
     @Mock
@@ -33,10 +33,10 @@ public class CreateUserTest {
 
         Mockito.when(tokenGateway.isAdministratorToken(token)).thenReturn(true);
 
-        CreateUser createUser = new CreateUser(createStudent, createAdministrator, tokenGateway);
+        CreateAccount createAccount = new CreateAccount(createStudent, createAdministrator, tokenGateway);
 
         CreateUserRequest request = new CreateUserRequest(token, password, password);
-        createUser.createUser(request);
+        createAccount.createUser(request);
     }
 
     /**
@@ -50,10 +50,10 @@ public class CreateUserTest {
         Mockito.when(tokenGateway.isAdministratorToken(token)).thenReturn(false);
         Mockito.when(tokenGateway.isStudentToken(token)).thenReturn(true);
 
-        CreateUser createUser = new CreateUser(createStudent, createAdministrator, tokenGateway);
+        CreateAccount createAccount = new CreateAccount(createStudent, createAdministrator, tokenGateway);
 
         CreateUserRequest request = new CreateUserRequest(token, password, password);
-        createUser.createUser(request);
+        createAccount.createUser(request);
     }
 
     /**
@@ -67,10 +67,10 @@ public class CreateUserTest {
         Mockito.when(tokenGateway.isAdministratorToken(token)).thenReturn(false);
         Mockito.when(tokenGateway.isStudentToken(token)).thenReturn(false);
 
-        CreateUser createUser = new CreateUser(createStudent, createAdministrator, tokenGateway);
+        CreateAccount createAccount = new CreateAccount(createStudent, createAdministrator, tokenGateway);
 
         CreateUserRequest request = new CreateUserRequest(token, password, password);
-        Assertions.assertThrows(RegistrationTokenNotExistException.class, () -> createUser.createUser(request));
+        Assertions.assertThrows(RegistrationTokenNotExistException.class, () -> createAccount.createUser(request));
     }
 
     /**
@@ -85,10 +85,10 @@ public class CreateUserTest {
         Mockito.when(tokenGateway.isAdministratorToken(token)).thenReturn(false);
         Mockito.when(tokenGateway.isStudentToken(token)).thenReturn(true);
 
-        CreateUser createUser = new CreateUser(createStudent, createAdministrator, tokenGateway);
+        CreateAccount createAccount = new CreateAccount(createStudent, createAdministrator, tokenGateway);
 
         CreateUserRequest request = new CreateUserRequest(token, password, passwordAgain);
-        Assertions.assertThrows(DifferentPasswordException.class, () -> createUser.createUser(request));
+        Assertions.assertThrows(DifferentPasswordException.class, () -> createAccount.createUser(request));
     }
 
     /**
@@ -102,9 +102,9 @@ public class CreateUserTest {
         Mockito.when(tokenGateway.isAdministratorToken(token)).thenReturn(false);
         Mockito.when(tokenGateway.isStudentToken(token)).thenReturn(true);
 
-        CreateUser createUser = new CreateUser(createStudent, createAdministrator, tokenGateway);
+        CreateAccount createAccount = new CreateAccount(createStudent, createAdministrator, tokenGateway);
 
         CreateUserRequest request = new CreateUserRequest(token, password, password);
-        Assertions.assertThrows(TooShortPasswordException.class, () -> createUser.createUser(request));
+        Assertions.assertThrows(TooShortPasswordException.class, () -> createAccount.createUser(request));
     }
 }

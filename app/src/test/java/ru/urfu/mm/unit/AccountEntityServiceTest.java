@@ -19,7 +19,7 @@ import java.util.UUID;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class UserEntityServiceTest {
+public class AccountEntityServiceTest {
     @Mock
     private static UserRepository userRepository;
     @Mock

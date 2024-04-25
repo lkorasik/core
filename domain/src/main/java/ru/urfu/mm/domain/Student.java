@@ -6,7 +6,7 @@ public class Student {
     private UUID login;
     private Program program;
     private Group group;
-    private User user;
+    private Account account;
 
     public Program getEducationalProgram() {
         return program;
@@ -19,11 +19,11 @@ public class Student {
     public Student() {
     }
 
-    public Student(UUID login, Program program, Group group, User user) {
+    public Student(UUID login, Program program, Group group, Account account) {
         this.login = login;
         this.program = program;
         this.group = group;
-        this.user = user;
+        this.account = account;
     }
 
     public Student(UUID login, Program program, Group group) {
@@ -40,7 +40,7 @@ public class Student {
         return group;
     }
 
-    public User getUser() {
-        return user;
+    public Account getUser() {
+        return account;
     }
 }

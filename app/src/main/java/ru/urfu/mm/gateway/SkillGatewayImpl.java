@@ -21,14 +21,14 @@ public class SkillGatewayImpl implements SkillGateway {
     private final SkillRepository skillRepository;
     private final StudentSkillRepository studentSkillRepository;
     private final DesiredSkillsRepository desiredSkillsRepository;
-    private final Mapper<User, UserEntity> userMapper;
+    private final Mapper<Account, UserEntity> userMapper;
 
     @Autowired
     public SkillGatewayImpl(
             SkillRepository skillRepository,
             StudentSkillRepository studentSkillRepository,
             DesiredSkillsRepository desiredSkillsRepository,
-            Mapper<User, UserEntity> userMapper) {
+            Mapper<Account, UserEntity> userMapper) {
         this.skillRepository = skillRepository;
         this.studentSkillRepository = studentSkillRepository;
         this.desiredSkillsRepository = desiredSkillsRepository;
@@ -65,7 +65,7 @@ public class SkillGatewayImpl implements SkillGateway {
                                         x.getStudent().getGroup().getId(),
                                         x.getStudent().getGroup().getNumber()
                                 ),
-                                new User(
+                                new Account(
                                         x.getStudent().getUser().getLogin(),
                                         x.getStudent().getUser().getPassword(),
                                         UserRole.values()[x.getStudent().getUser().getRole().ordinal()]
@@ -98,7 +98,7 @@ public class SkillGatewayImpl implements SkillGateway {
                                         x.getStudent().getGroup().getId(),
                                         x.getStudent().getGroup().getNumber()
                                 ),
-                                new User(
+                                new Account(
                                         x.getStudent().getUser().getLogin(),
                                         x.getStudent().getUser().getPassword(),
                                         UserRole.values()[x.getStudent().getUser().getRole().ordinal()]

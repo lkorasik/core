@@ -13,7 +13,7 @@ import ru.urfu.mm.application.gateway.StudentGateway;
 import ru.urfu.mm.application.gateway.UserGateway;
 import ru.urfu.mm.application.usecase.create.CreateStudent;
 import ru.urfu.mm.application.usecase.create.RegistrationTokenNotExistException;
-import ru.urfu.mm.application.usecase.create.user.CreateUserRequest;
+import ru.urfu.mm.application.usecase.create.account.CreateUserRequest;
 import ru.urfu.mm.domain.Group;
 import ru.urfu.mm.domain.Program;
 import ru.urfu.mm.domain.Student;

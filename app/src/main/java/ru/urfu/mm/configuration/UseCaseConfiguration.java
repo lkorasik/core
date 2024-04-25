@@ -8,7 +8,7 @@ import ru.urfu.mm.application.gateway.*;
 import ru.urfu.mm.application.usecase.*;
 import ru.urfu.mm.application.usecase.create.CreateAdministrator;
 import ru.urfu.mm.application.usecase.create.CreateStudent;
-import ru.urfu.mm.application.usecase.create.user.CreateUser;
+import ru.urfu.mm.application.usecase.create.account.CreateAccount;
 import ru.urfu.mm.application.usecase.creategroup.CreateGroup;
 import ru.urfu.mm.application.usecase.createprogram.CreateProgram;
 import ru.urfu.mm.application.usecase.createsemesterplan.CreateSemesterPlan;
@@ -244,11 +244,11 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public CreateUser createUser(
+    public CreateAccount createUser(
             CreateStudent createStudent,
             CreateAdministrator createAdministrator,
             TokenGateway tokenGateway) {
-        return new CreateUser(createStudent, createAdministrator, tokenGateway);
+        return new CreateAccount(createStudent, createAdministrator, tokenGateway);
     }
 
     @Bean

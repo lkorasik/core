@@ -3,10 +3,10 @@ package ru.urfu.mm.gateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.StudentGateway;
+import ru.urfu.mm.domain.Account;
 import ru.urfu.mm.domain.Group;
 import ru.urfu.mm.domain.Program;
 import ru.urfu.mm.domain.Student;
-import ru.urfu.mm.domain.User;
 import ru.urfu.mm.entity.*;
 import ru.urfu.mm.repository.GroupRepository;
 import ru.urfu.mm.repository.StudentRepository;
@@ -20,13 +20,13 @@ import java.util.UUID;
 public class StudentGatewayImpl implements StudentGateway {
     private final StudentRepository studentRepository;
     private final GroupRepository groupRepository;
-    private final Mapper<ru.urfu.mm.domain.User, UserEntity> userMapper;
+    private final Mapper<Account, UserEntity> userMapper;
 
     @Autowired
     public StudentGatewayImpl(
             StudentRepository studentRepository,
             GroupRepository groupRepository,
-            Mapper<ru.urfu.mm.domain.User, UserEntity> userMapper) {
+            Mapper<Account, UserEntity> userMapper) {
         this.studentRepository = studentRepository;
         this.groupRepository = groupRepository;
         this.userMapper = userMapper;
@@ -76,7 +76,7 @@ public class StudentGatewayImpl implements StudentGateway {
                                 x.getGroup().getId(),
                                 x.getGroup().getNumber()
                         ),
-                        new ru.urfu.mm.domain.User(
+                        new Account(
                                 x.getUser().getLogin(),
                                 x.getUser().getPassword(),
                                 ru.urfu.mm.domain.UserRole.values()[x.getUser().getRole().ordinal()]
@@ -124,9 +124,9 @@ public class StudentGatewayImpl implements StudentGateway {
                 .toList();
     }
 
-    private User mapUser(StudentEntity student) {
+    private Account mapUser(StudentEntity student) {
         if (student.getUser() != null) {
-            return new ru.urfu.mm.domain.User(
+            return new Account(
                     student.getUser().getLogin(),
                     student.getUser().getPassword(),
                     ru.urfu.mm.domain.UserRole.values()[student.getUser().getRole().ordinal()]

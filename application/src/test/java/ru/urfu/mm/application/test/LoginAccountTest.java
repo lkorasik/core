@@ -13,7 +13,7 @@ import ru.urfu.mm.application.gateway.PasswordGateway;
 import ru.urfu.mm.application.gateway.UserGateway;
 import ru.urfu.mm.application.usecase.loginuser.LoginRequest;
 import ru.urfu.mm.application.usecase.loginuser.LoginUser;
-import ru.urfu.mm.domain.User;
+import ru.urfu.mm.domain.Account;
 import ru.urfu.mm.domain.UserRole;
 
 import java.util.Optional;
@@ -23,7 +23,7 @@ import java.util.UUID;
  * Тестирование use case {@link LoginUser}
  */
 @ExtendWith(MockitoExtension.class)
-public class LoginUserTest {
+public class LoginAccountTest {
     @Mock
     private PasswordGateway passwordGateway;
     @Mock
@@ -37,17 +37,17 @@ public class LoginUserTest {
         UUID token = UUID.randomUUID();
         String password = DSL.generateStrongPassword();
 
-        User user = new User(token, password, UserRole.STUDENT);
+        Account account = new Account(token, password, UserRole.STUDENT);
 
-        Mockito.when(userGateway.findByToken(token)).thenReturn(Optional.of(user));
-        Mockito.when(passwordGateway.matches(password, user.getPassword())).thenReturn(true);
+        Mockito.when(userGateway.findByToken(token)).thenReturn(Optional.of(account));
+        Mockito.when(passwordGateway.matches(password, account.password())).thenReturn(true);
 
         LoginUser loginUser = new LoginUser(userGateway, passwordGateway);
 
         LoginRequest loginRequest = new LoginRequest(token, password);
-        User gotUser = loginUser.loginUser(loginRequest);
+        Account gotAccount = loginUser.loginUser(loginRequest);
 
-        Assertions.assertEquals(user, gotUser);
+        Assertions.assertEquals(account, gotAccount);
     }
 
     /**
@@ -74,10 +74,10 @@ public class LoginUserTest {
         UUID token = UUID.randomUUID();
         String password = DSL.generateStrongPassword();
 
-        User user = new User(token, password, UserRole.STUDENT);
+        Account account = new Account(token, password, UserRole.STUDENT);
 
-        Mockito.when(userGateway.findByToken(token)).thenReturn(Optional.of(user));
-        Mockito.when(passwordGateway.matches(password, user.getPassword())).thenReturn(false);
+        Mockito.when(userGateway.findByToken(token)).thenReturn(Optional.of(account));
+        Mockito.when(passwordGateway.matches(password, account.password())).thenReturn(false);
 
         LoginUser loginUser = new LoginUser(userGateway, passwordGateway);
 

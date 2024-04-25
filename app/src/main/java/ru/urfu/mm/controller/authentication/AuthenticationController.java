@@ -4,11 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.urfu.mm.application.usecase.create.user.CreateUser;
-import ru.urfu.mm.application.usecase.create.user.CreateUserRequest;
+import ru.urfu.mm.application.usecase.create.account.CreateAccount;
+import ru.urfu.mm.application.usecase.create.account.CreateUserRequest;
 import ru.urfu.mm.application.usecase.loginuser.LoginRequest;
 import ru.urfu.mm.application.usecase.loginuser.LoginUser;
-import ru.urfu.mm.domain.User;
+import ru.urfu.mm.domain.Account;
 import ru.urfu.mm.domain.UserRole;
 import ru.urfu.mm.service.AuthenticationService;
 
@@ -19,16 +19,16 @@ import java.util.UUID;
 public class AuthenticationController {
     private final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
     private final AuthenticationService authenticationService;
-    private final CreateUser createUser;
+    private final CreateAccount createAccount;
     private final LoginUser loginUser;
 
     @Autowired
     public AuthenticationController(
             AuthenticationService authenticationService,
-            CreateUser createUser,
+            CreateAccount createAccount,
             LoginUser loginUser) {
         this.authenticationService = authenticationService;
-        this.createUser = createUser;
+        this.createAccount = createAccount;
         this.loginUser = loginUser;
     }
 
@@ -41,7 +41,7 @@ public class AuthenticationController {
                 dto.password(),
                 dto.passwordAgain()
         );
-        UserRole role = createUser.createUser(request);
+        UserRole role = createAccount.createUser(request);
         String token = authenticationService.generateToken(dto);
 
         logger.info("User successfully registered");
@@ -52,10 +52,10 @@ public class AuthenticationController {
     @PostMapping("/login")
     public AccessTokenDTO login(@RequestBody LoginDTO loginDTO) {
         LoginRequest login = new LoginRequest(UUID.fromString(loginDTO.token()), loginDTO.password());
-        User user = loginUser.loginUser(login);
+        Account account = loginUser.loginUser(login);
         String token = authenticationService.generateToken(loginDTO);
 
-        return new AccessTokenDTO(token, loginDTO.token(), user.getRole().getValue());
+        return new AccessTokenDTO(token, loginDTO.token(), account.role().getValue());
     }
 
     @PostMapping("/validateToken")

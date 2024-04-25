@@ -9,8 +9,7 @@ public class ProgramDSL {
         return new Program(
                 UUID.randomUUID(),
                 DSL.generateString(),
-                DSL.generateString(),
-                "{}"
+                DSL.generateString()
         );
     }
 }

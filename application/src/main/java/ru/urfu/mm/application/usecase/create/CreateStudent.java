@@ -3,10 +3,10 @@ package ru.urfu.mm.application.usecase.create;
 import ru.urfu.mm.application.gateway.PasswordGateway;
 import ru.urfu.mm.application.gateway.StudentGateway;
 import ru.urfu.mm.application.gateway.UserGateway;
-import ru.urfu.mm.application.usecase.create.user.CreateUserRequest;
+import ru.urfu.mm.application.usecase.create.account.CreateUserRequest;
+import ru.urfu.mm.domain.Account;
 import ru.urfu.mm.domain.Program;
 import ru.urfu.mm.domain.Student;
-import ru.urfu.mm.domain.User;
 import ru.urfu.mm.domain.UserRole;
 
 /**
@@ -38,10 +38,10 @@ public class CreateStudent implements CreateUseCase {
 
         Program program = student.getEducationalProgram();
 
-        User user = new User(request.token(), passwordGateway.encode(request.password()), UserRole.STUDENT);
-        userGateway.save(user);
+        Account account = new Account(request.token(), passwordGateway.encode(request.password()), UserRole.STUDENT);
+        userGateway.save(account);
 
-        Student completedStudent = new Student(request.token(), program, student.getGroup(), user);
+        Student completedStudent = new Student(request.token(), program, student.getGroup(), account);
         studentGateway.update(completedStudent);
     }
 }

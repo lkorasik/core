@@ -1,4 +1,4 @@
-package ru.urfu.mm.application.usecase.create.user;
+package ru.urfu.mm.application.usecase.create.account;
 
 import ru.urfu.mm.application.gateway.TokenGateway;
 import ru.urfu.mm.application.usecase.create.*;
@@ -14,12 +14,12 @@ import ru.urfu.mm.domain.UserRole;
  * 4. В зависимости от типа токена делегируем задачу создания аккаунта либо {@link CreateStudent}, либо
  * {@link CreateAdministrator}.
  */
-public class CreateUser {
+public class CreateAccount {
     private final CreateStudent createStudent;
     private final CreateAdministrator createAdministrator;
     private final TokenGateway tokenGateway;
 
-    public CreateUser(CreateStudent createStudent, CreateAdministrator createAdministrator, TokenGateway tokenGateway) {
+    public CreateAccount(CreateStudent createStudent, CreateAdministrator createAdministrator, TokenGateway tokenGateway) {
         this.createStudent = createStudent;
         this.createAdministrator = createAdministrator;
         this.tokenGateway = tokenGateway;

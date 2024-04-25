@@ -1,6 +1,6 @@
 package ru.urfu.mm.application.usecase.create;
 
-import ru.urfu.mm.application.usecase.create.user.CreateUserRequest;
+import ru.urfu.mm.application.usecase.create.account.CreateUserRequest;
 
 /**
  * Интерфейс создания пользователя
