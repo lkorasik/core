@@ -17,6 +17,9 @@ import { UpdateEducationalProgramDto } from "../../../apis/api/programs/UpdateEd
 export function EditEducationalProgramScreen() {
     const [educationalProgramName, setEducationalProgramName] = useState<string>("");
     const [trainingDirection, setTrainingDirection] = useState<string>("");
+    const [years, setYears] = useState<number[]>([]);
+
+    const [shouldRenderStudyPlan, setShouldRenderStudyPlan] = useState(false);
 
     const { educationalProgramId } = useParams();
     const api = useApis();
@@ -33,12 +36,32 @@ export function EditEducationalProgramScreen() {
             localStorage.setItem("EducationalModuleId", response.id)
         };
         loadModule().catch(console.error);
+
+        const getAvailableYears = async () => { 
+            const request = { id: educationalProgramId } as ProgramIdDto
+            const response = await api.educationalProgramsApi.getAvailableYears(request);
+            
+            setYears(response.map(x => x.startYear))
+        };
+        getAvailableYears().catch(console.error);
     }, [])
 
     const save = () => {
         const request = { id: educationalProgramId, name: educationalProgramName, trainingDirection: trainingDirection } as UpdateEducationalProgramDto;
         api.educationalProgramsApi.updateEducationalProgram(request);
         navigate(-1);
+    }
+
+    const render = () => {
+        const options: { value: string, label: string }[] = [];
+        years.forEach(year => options.push({ value: year + "", label: year + "" }))
+        return options;
+    }
+
+    const renderStudyPlan = () => {
+        if (shouldRenderStudyPlan) {
+            return <StudyPlan />
+        }
     }
 
     return (
@@ -60,8 +83,8 @@ export function EditEducationalProgramScreen() {
                     Направление подготовки
             </InputField>
             <NText>Год начала обучения:</NText>
-            <Select options={[]}/>
-            <StudyPlan />
+            <Select options={render()} onChange={(e) => setShouldRenderStudyPlan(true)}/>
+            {renderStudyPlan()}
         </Container>
     )
 }

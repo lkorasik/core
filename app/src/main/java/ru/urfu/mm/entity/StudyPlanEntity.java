@@ -42,4 +42,28 @@ public class StudyPlanEntity {
     public void setProgram(EducationalProgram program) {
         this.program = program;
     }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public SemesterPlanEntity getFirstSemester() {
+        return firstSemester;
+    }
+
+    public SemesterPlanEntity getSecondSemester() {
+        return secondSemester;
+    }
+
+    public SemesterPlanEntity getThirdSemester() {
+        return thirdSemester;
+    }
+
+    public SemesterPlanEntity getFourthSemester() {
+        return fourthSemester;
+    }
+
+    public EducationalProgram getProgram() {
+        return program;
+    }
 }

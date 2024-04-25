@@ -5,6 +5,7 @@ import { ProgramIdDto } from "./ProgramIdDto";
 import { FullProgramDto } from "./FullProgramDto";
 import { ShortProgramDTO } from "./ShortProgramDTO";
 import { UpdateEducationalProgramDto } from "./UpdateEducationalProgramDto";
+import { AvailableYearDto } from "./AvailableYearDto";
 
 export class ProgramsApi extends ApiBase implements IProgramsApi {
     public async getCurrentEducationalProgram(): Promise<ProgramInfoDto> {
@@ -26,7 +27,10 @@ export class ProgramsApi extends ApiBase implements IProgramsApi {
     public async updateEducationalProgram(updateProgram: UpdateEducationalProgramDto): Promise<void> {
         return this.put("programs/program", {}, updateProgram);
     }
-    // todo: Надо сделать api для обновления программы
+
+    public async getAvailableYears(programId: ProgramIdDto): Promise<AvailableYearDto[]> {
+        return this.get("programs/availableYears", {...programId});
+    }
 }
 
 export interface IProgramsApi {
@@ -35,4 +39,5 @@ export interface IProgramsApi {
     getEducationalProgramById(id: ProgramIdDto): Promise<FullProgramDto>
     getAllPrograms(): Promise<ShortProgramDTO[]>
     updateEducationalProgram(updateProgram: UpdateEducationalProgramDto): Promise<void>
+    getAvailableYears(programId: ProgramIdDto): Promise<AvailableYearDto[]>
 }

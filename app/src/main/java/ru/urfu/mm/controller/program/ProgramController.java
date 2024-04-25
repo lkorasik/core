@@ -10,6 +10,8 @@ import ru.urfu.mm.application.usecase.GetEducationalProgram;
 import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
 import ru.urfu.mm.application.usecase.get_program_for_student.ProgramForStudentResponse;
 import ru.urfu.mm.application.usecase.getprogrambyid.GetProgramById;
+import ru.urfu.mm.application.usecase.getavailableyears.GetAvailableYears;
+import ru.urfu.mm.application.usecase.getavailableyears.GetStudyPlanResponse;
 import ru.urfu.mm.application.usecase.updateprogram.UpdateProgram;
 import ru.urfu.mm.application.usecase.updateprogram.UpdateProgramRequest;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
@@ -33,6 +35,8 @@ public class ProgramController extends AbstractAuthorizedController {
     private GetProgramById getProgramById;
     @Autowired
     private UpdateProgram updateProgram;
+    @Autowired
+    private GetAvailableYears getAvailableYears;
 
     @GetMapping("/current")
     public ProgramInfoDTO current() {
@@ -64,5 +68,10 @@ public class ProgramController extends AbstractAuthorizedController {
                 .stream()
                 .map(x -> new ShortProgramDTO(x.id(), x.name()))
                 .toList();
+    }
+
+    @GetMapping("/availableYears")
+    public List<GetStudyPlanResponse> laod(@RequestParam("id") UUID id) {
+        return getAvailableYears.getStudyPlan(id);
     }
 }

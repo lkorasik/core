@@ -30,4 +30,28 @@ public class SemesterPlanEntity {
         this.semester = semester;
         this.recommendedCredits = recommendedCredits;
     }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public Semester getSemester() {
+        return semester;
+    }
+
+    public int getRecommendedCredits() {
+        return recommendedCredits;
+    }
+
+    public List<Module> getRequiredModules() {
+        return requiredModules;
+    }
+
+    public List<Module> getSpecialModules() {
+        return specialModules;
+    }
+
+    public List<Module> getScienceWork() {
+        return scienceWork;
+    }
 }
