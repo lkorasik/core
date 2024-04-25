@@ -39,7 +39,7 @@ public class CreateStudyPlan {
     public void createStudyPlan(int startYear, UUID programId) {
         List<SemesterPlan> semesterPlans = semesterGateway.getSemestersForEntireStudyPeriod(startYear)
                 .stream()
-                .map(x -> createSemesterPlan.createSemesterPlan(x, startYear))
+                .map(createSemesterPlan::createSemesterPlan)
                 .toList();
 
         Program program = programGateway.getById(programId);

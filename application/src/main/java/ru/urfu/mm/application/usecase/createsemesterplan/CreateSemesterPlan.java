@@ -16,8 +16,8 @@ public class CreateSemesterPlan {
         this.semesterPlanGateway = semesterPlanGateway;
     }
 
-    public SemesterPlan createSemesterPlan(Semester semester, int recommendedCredits) {
-        SemesterPlan semesterPlan = new SemesterPlan(UUID.randomUUID(), semester, recommendedCredits);
+    public SemesterPlan createSemesterPlan(Semester semester) {
+        SemesterPlan semesterPlan = new SemesterPlan(UUID.randomUUID(), semester, 0);
         semesterPlanGateway.save(semesterPlan);
         return semesterPlan;
     }
