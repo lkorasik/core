@@ -79,56 +79,10 @@ public class ProgramGatewayImpl implements ProgramGateway {
                 program.getName(),
                 program.getTrainingDirection()
         );
-        List<StudyPlanEntity> studyPlanEntities = program.getStudyPlans()
-                .stream()
-                .map(x -> new StudyPlanEntity(
-                                x.getId(),
-                                new SemesterPlanEntity(
-                                        x.getFirstSemesterPlan().getId(),
-                                        new Semester(
-                                                x.getFirstSemesterPlan().getSemester().getId(),
-                                                x.getFirstSemesterPlan().getSemester().getYear(),
-                                                SemesterType.values()[x.getFirstSemesterPlan().getSemester().getType().ordinal()]
-                                        ),
-                                        x.getFirstSemesterPlan().getRecommendedCredits()
-                                ),
-                                new SemesterPlanEntity(
-                                        x.getSecondSemesterPlan().getId(),
-                                        new Semester(
-                                                x.getSecondSemesterPlan().getSemester().getId(),
-                                                x.getSecondSemesterPlan().getSemester().getYear(),
-                                                SemesterType.values()[x.getSecondSemesterPlan().getSemester().getType().ordinal()]
-                                        ),
-                                        x.getSecondSemesterPlan().getRecommendedCredits()
-                                ),
-                                new SemesterPlanEntity(
-                                        x.getThirdSemesterPlan().getId(),
-                                        new Semester(
-                                                x.getThirdSemesterPlan().getSemester().getId(),
-                                                x.getThirdSemesterPlan().getSemester().getYear(),
-                                                SemesterType.values()[x.getThirdSemesterPlan().getSemester().getType().ordinal()]
-                                        ),
-                                        x.getThirdSemesterPlan().getRecommendedCredits()
-                                ),
-                                new SemesterPlanEntity(
-                                        x.getFourthSemesterPlan().getId(),
-                                        new Semester(
-                                                x.getFourthSemesterPlan().getId(),
-                                                x.getFourthSemesterPlan().getSemester().getYear(),
-                                                SemesterType.values()[x.getFourthSemesterPlan().getSemester().getType().ordinal()]
-                                        ),
-                                        x.getFourthSemesterPlan().getRecommendedCredits()
-                                ),
-                                entity
-                        )
-                )
-                .toList();
         Iterable<GroupEntity> groups = groupRepository
                 .findAllById(program.getGroups().stream().map(Group::getId).toList());
         groups.forEach(group -> group.setEducationalProgram(entity));
         groupRepository.saveAll(groups);
-        studyPlanEntities.forEach(plan -> plan.setProgram(entity));
-        studyPlanEntities.forEach(studyPlanRepository::save);
         educationalProgramRepository.save(entity);
     }
 

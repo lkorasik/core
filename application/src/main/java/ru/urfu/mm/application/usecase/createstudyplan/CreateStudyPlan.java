@@ -53,7 +53,7 @@ public class CreateStudyPlan {
         );
         program.getStudyPlans().add(studyPlan);
 
-        studyPlanGateway.save(studyPlan);
+        studyPlanGateway.save(studyPlan, program);
         programGateway.save(program);
     }
 }

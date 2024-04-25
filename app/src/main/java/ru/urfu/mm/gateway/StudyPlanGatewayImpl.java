@@ -2,11 +2,14 @@ package ru.urfu.mm.gateway;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.application.gateway.StudyPlanGateway;
+import ru.urfu.mm.domain.Program;
 import ru.urfu.mm.domain.StudyPlan;
 import ru.urfu.mm.entity.Semester;
 import ru.urfu.mm.entity.SemesterPlanEntity;
 import ru.urfu.mm.entity.StudyPlanEntity;
+import ru.urfu.mm.repository.EducationalProgramRepository;
 import ru.urfu.mm.repository.SemesterPlanRepository;
 import ru.urfu.mm.repository.SemesterRepository;
 import ru.urfu.mm.repository.StudyPlanRepository;
@@ -18,19 +21,22 @@ public class StudyPlanGatewayImpl implements StudyPlanGateway {
     private final SemesterPlanRepository semesterPlanRepository;
     private final StudyPlanRepository studyPlanRepository;
     private final SemesterRepository semesterRepository;
+    private final EducationalProgramRepository programRepository;
 
     @Autowired
     public StudyPlanGatewayImpl(
             SemesterPlanRepository semesterPlanRepository,
             StudyPlanRepository studyPlanRepository,
-            SemesterRepository semesterRepository) {
+            SemesterRepository semesterRepository,
+            EducationalProgramRepository programRepository) {
         this.semesterPlanRepository = semesterPlanRepository;
         this.studyPlanRepository = studyPlanRepository;
         this.semesterRepository = semesterRepository;
+        this.programRepository = programRepository;
     }
 
     @Override
-    public void save(StudyPlan studyPlan) {
+    public void save(StudyPlan studyPlan, Program program) {
         Semester firstSemesterEntity = semesterRepository
                 .findById(studyPlan.getFirstSemesterPlan().getSemester().getId())
                 .get();
@@ -71,7 +77,7 @@ public class StudyPlanGatewayImpl implements StudyPlanGateway {
                 secondSemesterPlanEntity,
                 thirdSemesterPlanEntity,
                 fourthSemesterPlanEntity,
-                null
+                programRepository.findById(program.getId()).get()
         );
 
         semesterPlanRepository.save(firstSemesterPlanEntity);
