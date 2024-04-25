@@ -7,6 +7,7 @@ import { ShortProgramDTO } from "../../apis/api/programs/ShortProgramDTO";
 import { Title } from "../../base_components/Title/Title";
 import { Container } from "../../base_components/Container/Container";
 import { AddButton } from "../../base_components/Buttons/AddButton/AddButton";
+import { ADMINISTRATOR } from "../App/App";
 
 interface Props { }
 
@@ -29,7 +30,7 @@ export function EducationalProgramScreen(props: Props) {
     const renderCard = (x: ShortProgramDTO) => {
         return (
             <Card
-                link={"/administrator/educational_program/" + x.id}
+                link={ADMINISTRATOR + "/educational_program/" + x.id}
                 text={x.name}
                 type={"EducationalProgram"}
                 paramNames={["Id", "Name"]}
@@ -42,7 +43,7 @@ export function EducationalProgramScreen(props: Props) {
             <Container>
                 <Title>Образовательные программы</Title>
                 <Grid cards={educationalPrograms.map(x => renderCard(x))}/>
-                <Link to={"/administrator/educational_program/add"}>
+                <Link to={ADMINISTRATOR + "/educational_program/add"}>
                     <AddButton />
                 </Link>
             </Container>
