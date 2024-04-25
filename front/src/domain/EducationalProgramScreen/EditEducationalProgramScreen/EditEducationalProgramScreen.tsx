@@ -60,7 +60,7 @@ export function EditEducationalProgramScreen() {
 
     const renderStudyPlan = () => {
         if (shouldRenderStudyPlan) {
-            return <StudyPlan />
+            return <StudyPlan programId={educationalProgramId!} />
         }
     }
 
