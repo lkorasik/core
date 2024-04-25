@@ -42,11 +42,11 @@ public class CourseGatewayImpl implements CourseGateway {
     }
 
     @Override
-    public List<SpecialCourse> getAllCourses() {
+    public List<Course> getAllCourses() {
         return courseRepository
                 .findAll()
                 .stream()
-                .map(x -> new SpecialCourse(
+                .map(x -> new Course(
                         x.getId(),
                         x.getName(),
                         x.getCreditsCount(),
@@ -63,12 +63,12 @@ public class CourseGatewayImpl implements CourseGateway {
     }
 
     @Override
-    public List<SpecialCourse> getEducationalModuleCourses(UUID moduleId) {
+    public List<Course> getEducationalModuleCourses(UUID moduleId) {
         return courseRepository
                 .findAll()
                 .stream()
                 .filter(x -> moduleId.equals(x.getEducationalModule().getId()))
-                .map(x -> new SpecialCourse(
+                .map(x -> new Course(
                         x.getId(),
                         x.getName(),
                         x.getCreditsCount(),
@@ -114,7 +114,7 @@ public class CourseGatewayImpl implements CourseGateway {
                                 x.getSemester().getYear(),
                                 semesterTypeToDomainMapper.map(x.getSemester().getType())
                         ),
-                        new SpecialCourse(
+                        new Course(
                                 x.getSpecialCourse().getId(),
                                 x.getSpecialCourse().getName(),
                                 x.getSpecialCourse().getCreditsCount(),
@@ -149,7 +149,7 @@ public class CourseGatewayImpl implements CourseGateway {
                                 x.getSemester().getYear(),
                                 semesterTypeToDomainMapper.map(x.getSemester().getType())
                         ),
-                        new SpecialCourse(
+                        new Course(
                                 x.getSpecialCourse().getId(),
                                 x.getSpecialCourse().getName(),
                                 x.getSpecialCourse().getCreditsCount(),
@@ -188,7 +188,7 @@ public class CourseGatewayImpl implements CourseGateway {
                                 x.getSemester().getYear(),
                                 semesterTypeToDomainMapper.map(x.getSemester().getType())
                         ),
-                        new SpecialCourse(
+                        new Course(
                                 x.getSpecialCourse().getId(),
                                 x.getSpecialCourse().getName(),
                                 x.getSpecialCourse().getCreditsCount(),
@@ -224,7 +224,7 @@ public class CourseGatewayImpl implements CourseGateway {
                                 x.getSemester().getYear(),
                                 semesterTypeToDomainMapper.map(x.getSemester().getType())
                         ),
-                        new SpecialCourse(
+                        new Course(
                                 x.getSpecialCourse().getId(),
                                 x.getSpecialCourse().getName(),
                                 x.getSpecialCourse().getCreditsCount(),
@@ -271,7 +271,7 @@ public class CourseGatewayImpl implements CourseGateway {
                                 x.getSemester().getYear(),
                                 semesterTypeToDomainMapper.map(x.getSemester().getType())
                         ),
-                        new SpecialCourse(
+                        new Course(
                                 x.getSpecialCourse().getId(),
                                 x.getSpecialCourse().getName(),
                                 x.getSpecialCourse().getCreditsCount(),
@@ -339,9 +339,9 @@ public class CourseGatewayImpl implements CourseGateway {
     }
 
     @Override
-    public SpecialCourse getById(UUID id) {
+    public Course getById(UUID id) {
         var x = courseRepository.getReferenceById(id);
-        return new SpecialCourse(
+        return new Course(
                 x.getId(),
                 x.getName(),
                 x.getCreditsCount(),
@@ -357,7 +357,7 @@ public class CourseGatewayImpl implements CourseGateway {
     }
 
     @Override
-    public void save(SpecialCourse specialCourse) {
+    public void save(Course specialCourse) {
         courseRepository.save(
                 new ru.urfu.mm.entity.SpecialCourse(
                         specialCourse.getId(),

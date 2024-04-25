@@ -9,13 +9,13 @@ public class EducationalProgramToCoursesWithSemesters {
     private UUID id;
     private Program program;
     private Semester semester;
-    private SpecialCourse specialCourse;
+    private Course specialCourse;
     private boolean isRequiredCourse;
 
     public EducationalProgramToCoursesWithSemesters() {
     }
 
-    public EducationalProgramToCoursesWithSemesters(UUID id, Program program, Semester semester, SpecialCourse specialCourse, boolean isRequiredCourse) {
+    public EducationalProgramToCoursesWithSemesters(UUID id, Program program, Semester semester, Course specialCourse, boolean isRequiredCourse) {
         this.id = id;
         this.program = program;
         this.semester = semester;
@@ -23,7 +23,7 @@ public class EducationalProgramToCoursesWithSemesters {
         this.isRequiredCourse = isRequiredCourse;
     }
 
-    public EducationalProgramToCoursesWithSemesters(Program program, Semester semester, SpecialCourse specialCourse, boolean isRequiredCourse) {
+    public EducationalProgramToCoursesWithSemesters(Program program, Semester semester, Course specialCourse, boolean isRequiredCourse) {
         this.program = program;
         this.semester = semester;
         this.specialCourse = specialCourse;
@@ -38,11 +38,11 @@ public class EducationalProgramToCoursesWithSemesters {
         return isRequiredCourse;
     }
 
-    public SpecialCourse getSpecialCourse() {
+    public Course getSpecialCourse() {
         return specialCourse;
     }
 
-    public void setSpecialCourse(SpecialCourse specialCourse) {
+    public void setSpecialCourse(Course specialCourse) {
         this.specialCourse = specialCourse;
     }
 

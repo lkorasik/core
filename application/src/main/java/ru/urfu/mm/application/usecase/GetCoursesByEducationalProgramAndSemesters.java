@@ -4,7 +4,7 @@ import ru.urfu.mm.application.gateway.CourseGateway;
 import ru.urfu.mm.application.gateway.StudentGateway;
 import ru.urfu.mm.domain.EducationalProgramToCoursesWithSemesters;
 import ru.urfu.mm.domain.Semester;
-import ru.urfu.mm.domain.SpecialCourse;
+import ru.urfu.mm.domain.Course;
 import ru.urfu.mm.domain.Student;
 
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ public class GetCoursesByEducationalProgramAndSemesters {
                 continue;
             }
             var first = info.getFirst();
-            SpecialCourse firstCourseInfo = null;
+            Course firstCourseInfo = null;
             if(first != null) {
                 firstCourseInfo = first.getSpecialCourse();
             }

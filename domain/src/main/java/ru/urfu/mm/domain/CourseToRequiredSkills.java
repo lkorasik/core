@@ -8,21 +8,21 @@ import java.util.UUID;
 public class CourseToRequiredSkills {
     private UUID id;
     private SkillLevel skillLevel;
-    private SpecialCourse specialCourse;
+    private Course specialCourse;
     private Skill requiredSkills;
 
 
     public CourseToRequiredSkills() {
     }
 
-    public CourseToRequiredSkills(UUID id, SkillLevel skillLevel, SpecialCourse specialCourse, Skill requiredSkills) {
+    public CourseToRequiredSkills(UUID id, SkillLevel skillLevel, Course specialCourse, Skill requiredSkills) {
         this.id = id;
         this.skillLevel = skillLevel;
         this.specialCourse = specialCourse;
         this.requiredSkills = requiredSkills;
     }
 
-    public CourseToRequiredSkills(SpecialCourse specialCourse, Skill requiredSkills, SkillLevel skillLevel) {
+    public CourseToRequiredSkills(Course specialCourse, Skill requiredSkills, SkillLevel skillLevel) {
         this.skillLevel = skillLevel;
         this.specialCourse = specialCourse;
         this.requiredSkills = requiredSkills;
@@ -36,11 +36,11 @@ public class CourseToRequiredSkills {
         this.requiredSkills = requiredSkills;
     }
 
-    public SpecialCourse getSpecialCourse() {
+    public Course getSpecialCourse() {
         return specialCourse;
     }
 
-    public void setSpecialCourse(SpecialCourse specialCourse) {
+    public void setSpecialCourse(Course specialCourse) {
         this.specialCourse = specialCourse;
     }
 

@@ -10,7 +10,7 @@ import ru.urfu.mm.application.gateway.CourseGateway;
 import ru.urfu.mm.application.usecase.GetAllCourses;
 import ru.urfu.mm.domain.ControlTypes;
 import ru.urfu.mm.domain.Module;
-import ru.urfu.mm.domain.SpecialCourse;
+import ru.urfu.mm.domain.Course;
 
 import java.util.List;
 import java.util.UUID;
@@ -29,23 +29,23 @@ public class GetAllCoursesTest {
                 new Module(UUID.randomUUID(), "M4")
         );
 
-        List<SpecialCourse> specialCourses = List.of(
-                new SpecialCourse(UUID.randomUUID(), "C1", 3, ControlTypes.TEST, "C1", "D1", "T1", modules.get(0)),
-                new SpecialCourse(UUID.randomUUID(), "C2", 3, ControlTypes.TEST, "C2", "D2", "T2", modules.get(0)),
-                new SpecialCourse(UUID.randomUUID(), "C3", 3, ControlTypes.TEST, "C3", "D3", "T3", modules.get(1)),
-                new SpecialCourse(UUID.randomUUID(), "C4", 3, ControlTypes.TEST, "C4", "D4", "T4", modules.get(1)),
-                new SpecialCourse(UUID.randomUUID(), "C5", 3, ControlTypes.TEST, "C5", "D5", "T5", modules.get(2)),
-                new SpecialCourse(UUID.randomUUID(), "C6", 3, ControlTypes.TEST, "C6", "D6", "T6", modules.get(2)),
-                new SpecialCourse(UUID.randomUUID(), "C7", 3, ControlTypes.TEST, "C7", "D7", "T7", modules.get(3)),
-                new SpecialCourse(UUID.randomUUID(), "C8", 3, ControlTypes.TEST, "C8", "D8", "T8", modules.get(3)),
-                new SpecialCourse(UUID.randomUUID(), "C9", 3, ControlTypes.TEST, "C9", "D9", "T9", modules.get(3)),
-                new SpecialCourse(UUID.randomUUID(), "C10", 3, ControlTypes.TEST, "C10", "D10", "T10", modules.get(3))
+        List<Course> specialCourses = List.of(
+                new Course(UUID.randomUUID(), "C1", 3, ControlTypes.TEST, "C1", "D1", "T1", modules.get(0)),
+                new Course(UUID.randomUUID(), "C2", 3, ControlTypes.TEST, "C2", "D2", "T2", modules.get(0)),
+                new Course(UUID.randomUUID(), "C3", 3, ControlTypes.TEST, "C3", "D3", "T3", modules.get(1)),
+                new Course(UUID.randomUUID(), "C4", 3, ControlTypes.TEST, "C4", "D4", "T4", modules.get(1)),
+                new Course(UUID.randomUUID(), "C5", 3, ControlTypes.TEST, "C5", "D5", "T5", modules.get(2)),
+                new Course(UUID.randomUUID(), "C6", 3, ControlTypes.TEST, "C6", "D6", "T6", modules.get(2)),
+                new Course(UUID.randomUUID(), "C7", 3, ControlTypes.TEST, "C7", "D7", "T7", modules.get(3)),
+                new Course(UUID.randomUUID(), "C8", 3, ControlTypes.TEST, "C8", "D8", "T8", modules.get(3)),
+                new Course(UUID.randomUUID(), "C9", 3, ControlTypes.TEST, "C9", "D9", "T9", modules.get(3)),
+                new Course(UUID.randomUUID(), "C10", 3, ControlTypes.TEST, "C10", "D10", "T10", modules.get(3))
         );
 
         Mockito.when(courseGateway.getAllCourses()).thenReturn(specialCourses);
 
-        List<SpecialCourse> expected = List.of(
-                new SpecialCourse(
+        List<Course> expected = List.of(
+                new Course(
                         specialCourses.get(0).getId(),
                         specialCourses.get(0).getName(),
                         specialCourses.get(0).getCreditsCount(),
@@ -55,7 +55,7 @@ public class GetAllCoursesTest {
                         specialCourses.get(0).getTeacherName(),
                         specialCourses.get(0).getEducationalModule()
                 ),
-                new SpecialCourse(
+                new Course(
                         specialCourses.get(1).getId(),
                         specialCourses.get(1).getName(),
                         specialCourses.get(1).getCreditsCount(),
@@ -65,7 +65,7 @@ public class GetAllCoursesTest {
                         specialCourses.get(1).getTeacherName(),
                         specialCourses.get(1).getEducationalModule()
                 ),
-                new SpecialCourse(
+                new Course(
                         specialCourses.get(2).getId(),
                         specialCourses.get(2).getName(),
                         specialCourses.get(2).getCreditsCount(),
@@ -75,7 +75,7 @@ public class GetAllCoursesTest {
                         specialCourses.get(2).getTeacherName(),
                         specialCourses.get(2).getEducationalModule()
                 ),
-                new SpecialCourse(
+                new Course(
                         specialCourses.get(3).getId(),
                         specialCourses.get(3).getName(),
                         specialCourses.get(3).getCreditsCount(),
@@ -85,7 +85,7 @@ public class GetAllCoursesTest {
                         specialCourses.get(3).getTeacherName(),
                         specialCourses.get(3).getEducationalModule()
                 ),
-                new SpecialCourse(
+                new Course(
                         specialCourses.get(4).getId(),
                         specialCourses.get(4).getName(),
                         specialCourses.get(4).getCreditsCount(),
@@ -95,7 +95,7 @@ public class GetAllCoursesTest {
                         specialCourses.get(4).getTeacherName(),
                         specialCourses.get(4).getEducationalModule()
                 ),
-                new SpecialCourse(
+                new Course(
                         specialCourses.get(5).getId(),
                         specialCourses.get(5).getName(),
                         specialCourses.get(5).getCreditsCount(),
@@ -105,7 +105,7 @@ public class GetAllCoursesTest {
                         specialCourses.get(5).getTeacherName(),
                         specialCourses.get(5).getEducationalModule()
                 ),
-                new SpecialCourse(
+                new Course(
                         specialCourses.get(6).getId(),
                         specialCourses.get(6).getName(),
                         specialCourses.get(6).getCreditsCount(),
@@ -115,7 +115,7 @@ public class GetAllCoursesTest {
                         specialCourses.get(6).getTeacherName(),
                         specialCourses.get(6).getEducationalModule()
                 ),
-                new SpecialCourse(
+                new Course(
                         specialCourses.get(7).getId(),
                         specialCourses.get(7).getName(),
                         specialCourses.get(7).getCreditsCount(),
@@ -125,7 +125,7 @@ public class GetAllCoursesTest {
                         specialCourses.get(7).getTeacherName(),
                         specialCourses.get(7).getEducationalModule()
                 ),
-                new SpecialCourse(
+                new Course(
                         specialCourses.get(8).getId(),
                         specialCourses.get(8).getName(),
                         specialCourses.get(8).getCreditsCount(),
@@ -135,7 +135,7 @@ public class GetAllCoursesTest {
                         specialCourses.get(8).getTeacherName(),
                         specialCourses.get(8).getEducationalModule()
                 ),
-                new SpecialCourse(
+                new Course(
                         specialCourses.get(9).getId(),
                         specialCourses.get(9).getName(),
                         specialCourses.get(9).getCreditsCount(),
@@ -149,7 +149,7 @@ public class GetAllCoursesTest {
 
         GetAllCourses getAllCourses = new GetAllCourses(courseGateway);
 
-        List<SpecialCourse> allCourses = getAllCourses.getAllCourses();
+        List<Course> allCourses = getAllCourses.getAllCourses();
 
         Assertions.assertEquals(expected.size(), allCourses.size());
         allCourses.forEach(x -> Assertions.assertTrue(expected.contains(x)));

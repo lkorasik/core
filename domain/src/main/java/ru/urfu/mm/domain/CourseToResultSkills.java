@@ -7,27 +7,27 @@ import java.util.UUID;
  */
 public class CourseToResultSkills {
     private UUID id;
-    private SpecialCourse specialCourse;
+    private Course specialCourse;
     private Skill skill;
     private SkillLevel skillLevel;
 
     public CourseToResultSkills() {
     }
 
-    public CourseToResultSkills(UUID id, SpecialCourse specialCourse, Skill skill, SkillLevel skillLevel) {
+    public CourseToResultSkills(UUID id, Course specialCourse, Skill skill, SkillLevel skillLevel) {
         this.id = id;
         this.specialCourse = specialCourse;
         this.skill = skill;
         this.skillLevel = skillLevel;
     }
 
-    public CourseToResultSkills(SpecialCourse specialCourse, Skill skill, SkillLevel skillLevel) {
+    public CourseToResultSkills(Course specialCourse, Skill skill, SkillLevel skillLevel) {
         this.specialCourse = specialCourse;
         this.skill = skill;
         this.skillLevel = skillLevel;
     }
 
-    public SpecialCourse getSpecialCourse() {
+    public Course getSpecialCourse() {
         return specialCourse;
     }
 

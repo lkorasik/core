@@ -3,7 +3,10 @@ package ru.urfu.mm.domain;
 import java.util.Objects;
 import java.util.UUID;
 
-public class SpecialCourse {
+/**
+ * Учебныц курс.
+ */
+public class Course {
     private UUID id;
     private String name;
     private int creditsCount;
@@ -13,10 +16,15 @@ public class SpecialCourse {
     private String teacherName;
     private Module module;
 
-    public SpecialCourse() {
-    }
-
-    public SpecialCourse(UUID id, String name, int creditsCount, ControlTypes controlTypes, String description, String department, String teacherName, Module module) {
+    public Course(
+            UUID id,
+            String name,
+            int creditsCount,
+            ControlTypes controlTypes,
+            String description,
+            String department,
+            String teacherName,
+            Module module) {
         this.id = id;
         this.name = name;
         this.creditsCount = creditsCount;
@@ -27,7 +35,14 @@ public class SpecialCourse {
         this.module = module;
     }
 
-    public SpecialCourse(String name, int creditsCount, ControlTypes controlTypes, String description, String department, String teacherName, Module module) {
+    public Course(
+            String name,
+            int creditsCount,
+            ControlTypes controlTypes,
+            String description,
+            String department,
+            String teacherName,
+            Module module) {
         this.name = name;
         this.creditsCount = creditsCount;
         this.controlTypes = controlTypes;
@@ -103,7 +118,7 @@ public class SpecialCourse {
             return true;
         if ((obj == null) || (getClass() != obj.getClass()))
             return false;
-        SpecialCourse that = (SpecialCourse) obj;
+        Course that = (Course) obj;
         return creditsCount == that.creditsCount && Objects.equals(id, that.id) && Objects.equals(name, that.name) &&
                controlTypes == that.controlTypes && Objects.equals(description, that.description) &&
                Objects.equals(department, that.department) && Objects.equals(teacherName, that.teacherName) &&
