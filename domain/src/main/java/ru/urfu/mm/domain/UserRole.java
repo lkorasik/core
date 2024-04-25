@@ -3,7 +3,6 @@ package ru.urfu.mm.domain;
 
 public enum UserRole {
     STUDENT("Student"),
-    UNIVERSITY_EMPLOYEE("UniversityEmployee"),
     ADMIN("Admin");
 
     private final String value;
