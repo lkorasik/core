@@ -6,19 +6,19 @@ public class SelectedCourses {
     private UUID id;
     private Student student;
     private Semester semester;
-    private SpecialCourse specialCourse;
+    private Course specialCourse;
 
     public SelectedCourses() {
     }
 
-    public SelectedCourses(UUID id, Student student, Semester semester, SpecialCourse specialCourse) {
+    public SelectedCourses(UUID id, Student student, Semester semester, Course specialCourse) {
         this.id = id;
         this.student = student;
         this.semester = semester;
         this.specialCourse = specialCourse;
     }
 
-    public SelectedCourses(Student student, Semester semester, SpecialCourse specialCourse) {
+    public SelectedCourses(Student student, Semester semester, Course specialCourse) {
         this.student = student;
         this.semester = semester;
         this.specialCourse = specialCourse;
@@ -32,11 +32,11 @@ public class SelectedCourses {
         this.student = student;
     }
 
-    public SpecialCourse getSpecialCourse() {
+    public Course getSpecialCourse() {
         return specialCourse;
     }
 
-    public void setSpecialCourse(SpecialCourse specialCourse) {
+    public void setSpecialCourse(Course specialCourse) {
         this.specialCourse = specialCourse;
     }
 

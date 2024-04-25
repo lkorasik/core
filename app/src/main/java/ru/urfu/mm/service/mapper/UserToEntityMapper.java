@@ -2,12 +2,12 @@ package ru.urfu.mm.service.mapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.urfu.mm.domain.User;
+import ru.urfu.mm.domain.Account;
 import ru.urfu.mm.entity.UserEntity;
 import ru.urfu.mm.entity.UserEntityRole;
 
 @Component
-public class UserToEntityMapper implements Mapper<User, UserEntity> {
+public class UserToEntityMapper implements Mapper<Account, UserEntity> {
     private final Mapper<ru.urfu.mm.domain.UserRole, UserEntityRole> roleMapper;
 
     @Autowired
@@ -16,11 +16,11 @@ public class UserToEntityMapper implements Mapper<User, UserEntity> {
     }
 
     @Override
-    public UserEntity map(ru.urfu.mm.domain.User user) {
+    public UserEntity map(Account account) {
         return new UserEntity(
-                user.getLogin(),
-                user.getPassword(),
-                roleMapper.map(user.getRole())
+                account.login(),
+                account.password(),
+                roleMapper.map(account.role())
         );
     }
 }

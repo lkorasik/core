@@ -3,6 +3,7 @@ package ru.urfu.mm.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.urfu.mm.application.usecase.GetSkillsForStudent;
+import ru.urfu.mm.domain.Account;
 import ru.urfu.mm.entity.*;
 import ru.urfu.mm.service.mapper.Mapper;
 
@@ -14,7 +15,7 @@ public class SkillsService {
     @Autowired
     private GetSkillsForStudent getSkillsForStudent;
     @Autowired
-    private Mapper<ru.urfu.mm.domain.User, UserEntity> userMapper;
+    private Mapper<Account, UserEntity> userMapper;
 
     public List<StudentSkills> getSkillsForStudent(UUID studentId) {
         return getSkillsForStudent
@@ -26,8 +27,7 @@ public class SkillsService {
                                 new EducationalProgram(
                                         x.getStudent().getEducationalProgram().getId(),
                                         x.getStudent().getEducationalProgram().getName(),
-                                        x.getStudent().getEducationalProgram().getTrainingDirection(),
-                                        x.getStudent().getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                                        x.getStudent().getEducationalProgram().getTrainingDirection()
                                 ),
                                 new GroupEntity(
                                         x.getStudent().getGroup().getId(),

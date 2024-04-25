@@ -9,7 +9,7 @@ import ru.urfu.mm.application.gateway.PasswordGateway;
 import ru.urfu.mm.application.gateway.TokenGateway;
 import ru.urfu.mm.application.gateway.UserGateway;
 import ru.urfu.mm.application.usecase.create.CreateAdministrator;
-import ru.urfu.mm.application.usecase.create.user.CreateUserRequest;
+import ru.urfu.mm.application.usecase.create.account.CreateUserRequest;
 
 import java.util.UUID;
 

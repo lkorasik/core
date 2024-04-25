@@ -1,6 +1,7 @@
 package ru.urfu.mm.service;
 
 import ru.urfu.mm.controller.course.CourseDTO;
+import ru.urfu.mm.domain.Course;
 import ru.urfu.mm.entity.Control;
 import ru.urfu.mm.entity.SpecialCourse;
 
@@ -18,7 +19,7 @@ public class ModelConverterHelper {
         );
     }
 
-    public static CourseDTO toDomain(ru.urfu.mm.domain.SpecialCourse specialCourse) {
+    public static CourseDTO toDomain(Course specialCourse) {
         return new CourseDTO(
                 specialCourse.getId(),
                 specialCourse.getName(),

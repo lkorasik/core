@@ -21,14 +21,14 @@ public class SkillGatewayImpl implements SkillGateway {
     private final SkillRepository skillRepository;
     private final StudentSkillRepository studentSkillRepository;
     private final DesiredSkillsRepository desiredSkillsRepository;
-    private final Mapper<User, UserEntity> userMapper;
+    private final Mapper<Account, UserEntity> userMapper;
 
     @Autowired
     public SkillGatewayImpl(
             SkillRepository skillRepository,
             StudentSkillRepository studentSkillRepository,
             DesiredSkillsRepository desiredSkillsRepository,
-            Mapper<User, UserEntity> userMapper) {
+            Mapper<Account, UserEntity> userMapper) {
         this.skillRepository = skillRepository;
         this.studentSkillRepository = studentSkillRepository;
         this.desiredSkillsRepository = desiredSkillsRepository;
@@ -59,14 +59,13 @@ public class SkillGatewayImpl implements SkillGateway {
                                 new Program(
                                         x.getStudent().getEducationalProgram().getId(),
                                         x.getStudent().getEducationalProgram().getName(),
-                                        x.getStudent().getEducationalProgram().getTrainingDirection(),
-                                        x.getStudent().getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                                        x.getStudent().getEducationalProgram().getTrainingDirection()
                                 ),
                                 new Group(
                                         x.getStudent().getGroup().getId(),
                                         x.getStudent().getGroup().getNumber()
                                 ),
-                                new User(
+                                new Account(
                                         x.getStudent().getUser().getLogin(),
                                         x.getStudent().getUser().getPassword(),
                                         UserRole.values()[x.getStudent().getUser().getRole().ordinal()]
@@ -93,14 +92,13 @@ public class SkillGatewayImpl implements SkillGateway {
                                 new Program(
                                         x.getStudent().getEducationalProgram().getId(),
                                         x.getStudent().getEducationalProgram().getName(),
-                                        x.getStudent().getEducationalProgram().getTrainingDirection(),
-                                        x.getStudent().getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                                        x.getStudent().getEducationalProgram().getTrainingDirection()
                                 ),
                                 new Group(
                                         x.getStudent().getGroup().getId(),
                                         x.getStudent().getGroup().getNumber()
                                 ),
-                                new User(
+                                new Account(
                                         x.getStudent().getUser().getLogin(),
                                         x.getStudent().getUser().getPassword(),
                                         UserRole.values()[x.getStudent().getUser().getRole().ordinal()]
@@ -151,8 +149,7 @@ public class SkillGatewayImpl implements SkillGateway {
                                                 new ru.urfu.mm.entity.EducationalProgram(
                                                         student.getEducationalProgram().getId(),
                                                         student.getEducationalProgram().getName(),
-                                                        student.getEducationalProgram().getTrainingDirection(),
-                                                        student.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                                                        student.getEducationalProgram().getTrainingDirection()
                                                 ),
                                                 new GroupEntity(
                                                         student.getGroup().getId(),
@@ -184,8 +181,7 @@ public class SkillGatewayImpl implements SkillGateway {
                                                 new ru.urfu.mm.entity.EducationalProgram(
                                                         student.getEducationalProgram().getId(),
                                                         student.getEducationalProgram().getName(),
-                                                        student.getEducationalProgram().getTrainingDirection(),
-                                                        student.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                                                        student.getEducationalProgram().getTrainingDirection()
                                                 ),
                                                 new GroupEntity(
                                                         student.getGroup().getId(),

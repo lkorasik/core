@@ -8,8 +8,11 @@ import ru.urfu.mm.application.gateway.*;
 import ru.urfu.mm.application.usecase.*;
 import ru.urfu.mm.application.usecase.create.CreateAdministrator;
 import ru.urfu.mm.application.usecase.create.CreateStudent;
-import ru.urfu.mm.application.usecase.create.user.CreateUser;
+import ru.urfu.mm.application.usecase.create.account.CreateAccount;
 import ru.urfu.mm.application.usecase.creategroup.CreateGroup;
+import ru.urfu.mm.application.usecase.createprogram.CreateProgram;
+import ru.urfu.mm.application.usecase.createsemesterplan.CreateSemesterPlan;
+import ru.urfu.mm.application.usecase.createstudyplan.CreateStudyPlan;
 import ru.urfu.mm.application.usecase.downloadtokens.DownloadTokens;
 import ru.urfu.mm.application.usecase.generatetoken.GenerateStudentRegistrationTokens;
 import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
@@ -18,9 +21,13 @@ import ru.urfu.mm.application.usecase.getallprograms.GetAllPrograms;
 import ru.urfu.mm.application.usecase.getgroup.GetGroup;
 import ru.urfu.mm.application.usecase.getgroups.GetGroupForEducationalProgram;
 import ru.urfu.mm.application.usecase.getmodule.GetModuleWithCourses;
+import ru.urfu.mm.application.usecase.getprogrambyid.GetProgramById;
+import ru.urfu.mm.application.usecase.getavailableyears.GetAvailableYears;
+import ru.urfu.mm.application.usecase.getstudyplan.GetStudyPlan;
 import ru.urfu.mm.application.usecase.gettoken.GetTokensForGroup;
 import ru.urfu.mm.application.usecase.load_available_courses.LoadAvailableCourses;
 import ru.urfu.mm.application.usecase.loginuser.LoginUser;
+import ru.urfu.mm.application.usecase.updateprogram.UpdateProgram;
 
 @Configuration
 public class UseCaseConfiguration {
@@ -186,12 +193,8 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public GetProgramForStudent getProgramForStudent(
-            StudentGateway studentGateway,
-            ProgramGateway programGateway,
-            SemesterGateway semesterGateway,
-            CourseGateway courseGateway) {
-        return new GetProgramForStudent(studentGateway, programGateway, semesterGateway, courseGateway);
+    public GetProgramForStudent getProgramForStudent(StudentGateway studentGateway) {
+        return new GetProgramForStudent(studentGateway);
     }
 
     @Bean
@@ -213,8 +216,9 @@ public class UseCaseConfiguration {
     public CreateGroup createGroup(
             GroupGateway groupGateway,
             ProgramGateway programGateway,
-            SemesterGateway semesterGateway) {
-        return new CreateGroup(groupGateway, programGateway, semesterGateway);
+            SemesterGateway semesterGateway,
+            CreateStudyPlan createStudyPlan) {
+        return new CreateGroup(groupGateway, programGateway, semesterGateway, createStudyPlan);
     }
 
     @Bean
@@ -242,11 +246,50 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public CreateUser createUser(
+    public CreateAccount createUser(
             CreateStudent createStudent,
             CreateAdministrator createAdministrator,
             TokenGateway tokenGateway) {
-        return new CreateUser(createStudent, createAdministrator, tokenGateway);
+        return new CreateAccount(createStudent, createAdministrator, tokenGateway);
+    }
+
+    @Bean
+    public CreateProgram createProgram(ProgramGateway programGateway) {
+        return new CreateProgram(programGateway);
+    }
+
+    @Bean
+    public GetProgramById getProgramById(ProgramGateway programGateway) {
+        return new GetProgramById(programGateway);
+    }
+
+    @Bean
+    public CreateStudyPlan createStudyPlan(
+            SemesterGateway semesterGateway,
+            StudyPlanGateway studyPlanGateway,
+            ProgramGateway programGateway,
+            CreateSemesterPlan createSemesterPlan) {
+        return new CreateStudyPlan(semesterGateway, studyPlanGateway, programGateway, createSemesterPlan);
+    }
+
+    @Bean
+    public UpdateProgram updateProgram(ProgramGateway programGateway) {
+        return new UpdateProgram(programGateway);
+    }
+
+    @Bean
+    public CreateSemesterPlan createSemesterPlan(SemesterPlanGateway semesterPlanGateway) {
+        return new CreateSemesterPlan(semesterPlanGateway);
+    }
+
+    @Bean
+    public GetAvailableYears getAvailableYears(StudyPlanGateway studyPlanGateway, ProgramGateway programGateway) {
+        return new GetAvailableYears(studyPlanGateway, programGateway);
+    }
+
+    @Bean
+    public GetStudyPlan getStudyPlan(StudyPlanGateway studyPlanGateway, ProgramGateway programGateway) {
+        return new GetStudyPlan(studyPlanGateway, programGateway);
     }
 
     @Bean

@@ -6,7 +6,7 @@ import { useApis } from "../../apis/ApiBase/ApiProvider";
 import { AvailableCourseDTO } from "../../apis/api/course/AvailableCourseDTO";
 import { AvailableModuleDTO } from "../../apis/api/course/AvailableModuleDTO";
 import { addAbortSignal } from "stream";
-import { Button } from "../../base_components/Button/Button";
+import { Button } from "../../base_components/Buttons/Button/Button";
 import { Title } from "../../base_components/Title/Title";
 
 interface Props {}

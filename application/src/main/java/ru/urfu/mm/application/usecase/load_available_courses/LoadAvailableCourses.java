@@ -4,7 +4,7 @@ import ru.urfu.mm.application.gateway.CourseGateway;
 import ru.urfu.mm.application.gateway.StudentGateway;
 import ru.urfu.mm.domain.EducationalProgramToCoursesWithSemesters;
 import ru.urfu.mm.domain.Module;
-import ru.urfu.mm.domain.SpecialCourse;
+import ru.urfu.mm.domain.Course;
 import ru.urfu.mm.domain.Student;
 
 import java.util.*;
@@ -28,13 +28,13 @@ public class LoadAvailableCourses {
         Student student = studentGateway.getById(studentId);
         List<EducationalProgramToCoursesWithSemesters> educationalProgramToCoursesWithSemestersByEducationalProgram =
                 courseGateway.getEducationalProgramToCoursesWithSemestersByEducationalProgram(student.getEducationalProgram().getId());
-        List<SpecialCourse> courses = educationalProgramToCoursesWithSemestersByEducationalProgram
+        List<Course> courses = educationalProgramToCoursesWithSemestersByEducationalProgram
                 .stream()
                 .map(EducationalProgramToCoursesWithSemesters::getSpecialCourse)
                 .toList();
-        Map<Module, List<SpecialCourse>> moduleToCourses = courses
+        Map<Module, List<Course>> moduleToCourses = courses
                 .stream()
-                .collect(Collectors.groupingBy(SpecialCourse::getEducationalModule));
+                .collect(Collectors.groupingBy(Course::getEducationalModule));
 
         List<AvailableModuleResponse> modules = new ArrayList<>();
         moduleToCourses.forEach((module, courses1) -> {

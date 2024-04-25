@@ -3,8 +3,8 @@ package ru.urfu.mm.application.usecase.create;
 import ru.urfu.mm.application.gateway.PasswordGateway;
 import ru.urfu.mm.application.gateway.TokenGateway;
 import ru.urfu.mm.application.gateway.UserGateway;
-import ru.urfu.mm.application.usecase.create.user.CreateUserRequest;
-import ru.urfu.mm.domain.User;
+import ru.urfu.mm.application.usecase.create.account.CreateUserRequest;
+import ru.urfu.mm.domain.Account;
 import ru.urfu.mm.domain.UserRole;
 
 /**
@@ -28,8 +28,8 @@ public class CreateAdministrator implements CreateUseCase {
 
     @Override
     public void create(CreateUserRequest request) {
-        User user = new User(request.token(), passwordGateway.encode(request.password()), UserRole.ADMIN);
-        userGateway.save(user);
+        Account account = new Account(request.token(), passwordGateway.encode(request.password()), UserRole.ADMIN);
+        userGateway.save(account);
 
         tokenGateway.deleteToken(request.token());
     }

@@ -8,7 +8,7 @@ import ru.urfu.mm.application.usecase.load_available_courses.LoadAvailableCourse
 import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.domain.ControlTypes;
 import ru.urfu.mm.domain.SemesterType;
-import ru.urfu.mm.domain.SpecialCourse;
+import ru.urfu.mm.domain.Course;
 import ru.urfu.mm.entity.Control;
 import ru.urfu.mm.entity.Semester;
 import ru.urfu.mm.service.ModelConverterHelper;
@@ -127,7 +127,7 @@ public class CourseController extends AbstractAuthorizedController {
 
     @GetMapping("/course")
     public CourseDTO getCourseById(@RequestParam("id") UUID courseId) {
-        SpecialCourse course = getCourse.getCourse(courseId);
+        Course course = getCourse.getCourse(courseId);
         return new CourseDTO(
                 course.getId(),
                 course.getName(),

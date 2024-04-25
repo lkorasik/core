@@ -14,7 +14,7 @@ import {useDispatch} from "react-redux";
 import {CoursesStoreActionCreator} from "../../storing/coursesStore/coursesStore.actionCreator";
 import {ModuleDto} from "../../apis/api/modules/ModuleDto";
 import {TextLoadingPlaceholder} from "../../base_components/TextLoadingPlaceholder/TextLoadingPlaceholder";
-import {Button} from "../../base_components/Button/Button";
+import {Button} from "../../base_components/Buttons/Button/Button";
 import {useNavigate} from "react-router-dom";
 
 

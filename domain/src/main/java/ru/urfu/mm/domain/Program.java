@@ -16,35 +16,28 @@ public class Program {
      * Название направления
      */
     private String name;
+    /**
+     * Направление подготовки
+     */
     private String trainingDirection;
-    private String semesterIdToRequiredCreditsCount;
     /**
      * Список студентов, которые учатся на данном направлении.
      */
     private List<Group> groups = new ArrayList<>();
+    /**
+     * Список учбеных планов
+     */
+    private List<StudyPlan> studyPlans = new ArrayList<>();
 
-    public Program() {
-    }
-
-    public Program(UUID id, String name, String trainingDirection, String semesterIdToRequiredCreditsCount) {
+    public Program(UUID id, String name, String trainingDirection) {
         this.id = id;
         this.name = name;
         this.trainingDirection = trainingDirection;
-        this.semesterIdToRequiredCreditsCount = semesterIdToRequiredCreditsCount;
     }
 
-    public Program(String name, String trainingDirection, String semesterIdToRequiredCreditsCount) {
+    public Program(String name, String trainingDirection) {
         this.name = name;
         this.trainingDirection = trainingDirection;
-        this.semesterIdToRequiredCreditsCount = semesterIdToRequiredCreditsCount;
-    }
-
-    public Program(UUID id, String name, String trainingDirection, String semesterIdToRequiredCreditsCount, List<Group> groups) {
-        this.id = id;
-        this.name = name;
-        this.trainingDirection = trainingDirection;
-        this.semesterIdToRequiredCreditsCount = semesterIdToRequiredCreditsCount;
-        this.groups = groups;
     }
 
     public UUID getId() {
@@ -63,11 +56,11 @@ public class Program {
         return trainingDirection;
     }
 
-    public void setGroups(List<Group> groups) {
-        this.groups = groups;
+    public List<StudyPlan> getStudyPlans() {
+        return studyPlans;
     }
 
-    public String getSemesterIdToRequiredCreditsCount() {
-        return semesterIdToRequiredCreditsCount;
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
     }
 }

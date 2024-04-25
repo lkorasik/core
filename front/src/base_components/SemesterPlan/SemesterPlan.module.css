@@ -1,0 +1,27 @@
+.column_header {
+    display: flex;
+    justify-content: center;
+    color: var(--primary_color);
+    font-weight: 600;
+}
+
+.section_header {
+    color: var(--text_color);
+    font-size: 1rem;
+}
+
+.add_button {
+    color: var(--primary_color);
+    text-decoration: underline;
+}
+
+.list_item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.dialog_item {
+    display: flex;
+    flex-direction: row;
+}

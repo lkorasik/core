@@ -23,7 +23,7 @@ public class CourseGatewayImpl implements CourseGateway {
     private final EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository;
     private final Mapper<ru.urfu.mm.entity.SemesterType, ru.urfu.mm.domain.SemesterType> semesterTypeToDomainMapper;
     private final Mapper<ru.urfu.mm.domain.SemesterType, ru.urfu.mm.entity.SemesterType> semesterTypeToEntityMapper;
-    private final Mapper<ru.urfu.mm.domain.User, UserEntity> userMapper;
+    private final Mapper<Account, UserEntity> userMapper;
 
     @Autowired
     public CourseGatewayImpl(
@@ -32,7 +32,7 @@ public class CourseGatewayImpl implements CourseGateway {
             EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository,
             Mapper<ru.urfu.mm.entity.SemesterType, SemesterType> semesterTypeToDomainMapper,
             Mapper<SemesterType, ru.urfu.mm.entity.SemesterType> semesterTypeToEntityMapper,
-            Mapper<User, UserEntity> userMapper) {
+            Mapper<Account, UserEntity> userMapper) {
         this.courseRepository = courseRepository;
         this.selectedCoursesRepository = selectedCoursesRepository;
         this.educationalProgramToCoursesWithSemestersRepository = educationalProgramToCoursesWithSemestersRepository;
@@ -42,11 +42,11 @@ public class CourseGatewayImpl implements CourseGateway {
     }
 
     @Override
-    public List<SpecialCourse> getAllCourses() {
+    public List<Course> getAllCourses() {
         return courseRepository
                 .findAll()
                 .stream()
-                .map(x -> new SpecialCourse(
+                .map(x -> new Course(
                         x.getId(),
                         x.getName(),
                         x.getCreditsCount(),
@@ -63,12 +63,12 @@ public class CourseGatewayImpl implements CourseGateway {
     }
 
     @Override
-    public List<SpecialCourse> getEducationalModuleCourses(UUID moduleId) {
+    public List<Course> getEducationalModuleCourses(UUID moduleId) {
         return courseRepository
                 .findAll()
                 .stream()
                 .filter(x -> moduleId.equals(x.getEducationalModule().getId()))
-                .map(x -> new SpecialCourse(
+                .map(x -> new Course(
                         x.getId(),
                         x.getName(),
                         x.getCreditsCount(),
@@ -97,14 +97,13 @@ public class CourseGatewayImpl implements CourseGateway {
                                 new Program(
                                         x.getStudent().getEducationalProgram().getId(),
                                         x.getStudent().getEducationalProgram().getName(),
-                                        x.getStudent().getEducationalProgram().getTrainingDirection(),
-                                        x.getStudent().getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                                        x.getStudent().getEducationalProgram().getTrainingDirection()
                                 ),
                                 new Group(
                                         x.getStudent().getGroup().getId(),
                                         x.getStudent().getGroup().getNumber()
                                 ),
-                                new User(
+                                new Account(
                                         x.getStudent().getUser().getLogin(),
                                         x.getStudent().getUser().getPassword(),
                                         UserRole.values()[x.getStudent().getUser().getRole().ordinal()]
@@ -115,7 +114,7 @@ public class CourseGatewayImpl implements CourseGateway {
                                 x.getSemester().getYear(),
                                 semesterTypeToDomainMapper.map(x.getSemester().getType())
                         ),
-                        new SpecialCourse(
+                        new Course(
                                 x.getSpecialCourse().getId(),
                                 x.getSpecialCourse().getName(),
                                 x.getSpecialCourse().getCreditsCount(),
@@ -143,15 +142,14 @@ public class CourseGatewayImpl implements CourseGateway {
                         new Program(
                                 x.getEducationalProgram().getId(),
                                 x.getEducationalProgram().getName(),
-                                x.getEducationalProgram().getTrainingDirection(),
-                                x.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                                x.getEducationalProgram().getTrainingDirection()
                         ),
                         new Semester(
                                 x.getSemester().getId(),
                                 x.getSemester().getYear(),
                                 semesterTypeToDomainMapper.map(x.getSemester().getType())
                         ),
-                        new SpecialCourse(
+                        new Course(
                                 x.getSpecialCourse().getId(),
                                 x.getSpecialCourse().getName(),
                                 x.getSpecialCourse().getCreditsCount(),
@@ -183,15 +181,14 @@ public class CourseGatewayImpl implements CourseGateway {
                         new Program(
                                 x.getEducationalProgram().getId(),
                                 x.getEducationalProgram().getName(),
-                                x.getEducationalProgram().getTrainingDirection(),
-                                x.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                                x.getEducationalProgram().getTrainingDirection()
                         ),
                         new Semester(
                                 x.getSemester().getId(),
                                 x.getSemester().getYear(),
                                 semesterTypeToDomainMapper.map(x.getSemester().getType())
                         ),
-                        new SpecialCourse(
+                        new Course(
                                 x.getSpecialCourse().getId(),
                                 x.getSpecialCourse().getName(),
                                 x.getSpecialCourse().getCreditsCount(),
@@ -220,15 +217,14 @@ public class CourseGatewayImpl implements CourseGateway {
                         new Program(
                                 x.getEducationalProgram().getId(),
                                 x.getEducationalProgram().getName(),
-                                x.getEducationalProgram().getTrainingDirection(),
-                                x.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                                x.getEducationalProgram().getTrainingDirection()
                         ),
                         new Semester(
                                 x.getSemester().getId(),
                                 x.getSemester().getYear(),
                                 semesterTypeToDomainMapper.map(x.getSemester().getType())
                         ),
-                        new SpecialCourse(
+                        new Course(
                                 x.getSpecialCourse().getId(),
                                 x.getSpecialCourse().getName(),
                                 x.getSpecialCourse().getCreditsCount(),
@@ -268,15 +264,14 @@ public class CourseGatewayImpl implements CourseGateway {
                         new Program(
                                 x.getEducationalProgram().getId(),
                                 x.getEducationalProgram().getName(),
-                                x.getEducationalProgram().getTrainingDirection(),
-                                x.getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                                x.getEducationalProgram().getTrainingDirection()
                         ),
                         new Semester(
                                 x.getSemester().getId(),
                                 x.getSemester().getYear(),
                                 semesterTypeToDomainMapper.map(x.getSemester().getType())
                         ),
-                        new SpecialCourse(
+                        new Course(
                                 x.getSpecialCourse().getId(),
                                 x.getSpecialCourse().getName(),
                                 x.getSpecialCourse().getCreditsCount(),
@@ -312,8 +307,7 @@ public class CourseGatewayImpl implements CourseGateway {
                                                 new ru.urfu.mm.entity.EducationalProgram(
                                                         x.getStudent().getEducationalProgram().getId(),
                                                         x.getStudent().getEducationalProgram().getName(),
-                                                        x.getStudent().getEducationalProgram().getTrainingDirection(),
-                                                        x.getStudent().getEducationalProgram().getSemesterIdToRequiredCreditsCount()
+                                                        x.getStudent().getEducationalProgram().getTrainingDirection()
                                                 ),
                                                 new GroupEntity(
                                                         x.getStudent().getGroup().getId(),
@@ -345,9 +339,9 @@ public class CourseGatewayImpl implements CourseGateway {
     }
 
     @Override
-    public SpecialCourse getById(UUID id) {
+    public Course getById(UUID id) {
         var x = courseRepository.getReferenceById(id);
-        return new SpecialCourse(
+        return new Course(
                 x.getId(),
                 x.getName(),
                 x.getCreditsCount(),
@@ -363,7 +357,7 @@ public class CourseGatewayImpl implements CourseGateway {
     }
 
     @Override
-    public void save(SpecialCourse specialCourse) {
+    public void save(Course specialCourse) {
         courseRepository.save(
                 new ru.urfu.mm.entity.SpecialCourse(
                         specialCourse.getId(),

@@ -104,7 +104,6 @@ select:not([multiple]) {
     background-repeat: no-repeat;
     background-position: calc(100% - 15px) center;
     background-size: 0.85em auto;
-    background-image: url("../../../public/arrow.svg");
 }
 
 select::-ms-expand {

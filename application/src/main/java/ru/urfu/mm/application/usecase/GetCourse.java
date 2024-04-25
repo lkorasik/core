@@ -1,7 +1,7 @@
 package ru.urfu.mm.application.usecase;
 
 import ru.urfu.mm.application.gateway.CourseGateway;
-import ru.urfu.mm.domain.SpecialCourse;
+import ru.urfu.mm.domain.Course;
 
 import java.util.UUID;
 
@@ -12,7 +12,7 @@ public class GetCourse {
         this.courseGateway = courseGateway;
     }
 
-    public SpecialCourse getCourse(UUID specialCourseId) {
+    public Course getCourse(UUID specialCourseId) {
         return courseGateway.getById(specialCourseId);
     }
 }

@@ -1,15 +1,14 @@
 import styles from "./AddModuleScreen.module.css";
 import {IAllApisProp, withApis} from "../../apis/ApiBase/ApiProvider";
 import {connect, ConnectedProps} from "react-redux";
-import {SemesterDto} from "../../apis/api/recommendation/SemesterDto";
 import React from "react";
 import {RootState} from "../../index";
 import {SpecialCourse} from "../../apis/api/course/SpecialCourse";
 import Select, {MultiValue} from "react-select";
 import {Link} from "react-router-dom";
-import {MODULE_COURSES_SCREEN_URL, MODULES_SCREEN_URL} from "../App/App";
-import { CloseButton } from "../../base_components/CrudButtons/CloseButton/CloseButton";
+import { MODULES_SCREEN_URL } from "../App/App";
 import { Title } from "../../base_components/Title/Title";
+import { CloseButton } from "../../base_components/Buttons/CrudButtons/CloseButton/CloseButton";
 
 interface State {
     specialCoursesForDisplay: SpecialCourse[];

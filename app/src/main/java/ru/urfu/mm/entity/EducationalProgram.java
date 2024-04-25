@@ -15,34 +15,22 @@ public class EducationalProgram {
     private String name;
     @Column
     private String trainingDirection;
-    @Column
-    private String semesterIdToRequiredCreditsCount;
-
-//    @OneToMany(mappedBy = "id")
-//    private List<GroupEntity> groups = new ArrayList<>();
-
-//    public List<GroupEntity> getGroups() {
-//        return groups;
-//    }
-
-//    public void setGroups(List<GroupEntity> groups) {
-//        this.groups = groups;
-//    }
 
     public EducationalProgram() {
     }
 
-    public EducationalProgram(UUID id, String name, String trainingDirection, String semesterIdToRequiredCreditsCount) {
+    public EducationalProgram(
+            UUID id,
+            String name,
+            String trainingDirection) {
         this.id = id;
         this.name = name;
         this.trainingDirection = trainingDirection;
-        this.semesterIdToRequiredCreditsCount = semesterIdToRequiredCreditsCount;
     }
 
-    public EducationalProgram(String name, String trainingDirection, String semesterIdToRequiredCreditsCount) {
+    public EducationalProgram(String name, String trainingDirection) {
         this.name = name;
         this.trainingDirection = trainingDirection;
-        this.semesterIdToRequiredCreditsCount = semesterIdToRequiredCreditsCount;
     }
 
     public UUID getId() {
@@ -55,9 +43,5 @@ public class EducationalProgram {
 
     public String getTrainingDirection() {
         return trainingDirection;
-    }
-
-    public String getSemesterIdToRequiredCreditsCount() {
-        return semesterIdToRequiredCreditsCount;
     }
 }
