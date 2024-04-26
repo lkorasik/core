@@ -12,6 +12,7 @@ import { useApis } from "../../../apis/ApiBase/ApiProvider";
 import { ProgramIdDto } from "../../../apis/api/programs/ProgramIdDto";
 import { SaveButton } from "../../../base_components/Buttons/CrudButtons/SaveButton/SaveButton";
 import { UpdateEducationalProgramDto } from "../../../apis/api/programs/UpdateEducationalProgramDto";
+import { NewStudyPlan } from "../../../base_components/NewStudyPlan/NewStudyPlan";
 
 
 export function EditEducationalProgramScreen() {
@@ -85,6 +86,7 @@ export function EditEducationalProgramScreen() {
             <NText>Год начала обучения:</NText>
             <Select options={render()} onChange={(e) => setShouldRenderStudyPlan(true)}/>
             {renderStudyPlan()}
+            <NewStudyPlan />
         </Container>
     )
 }
