@@ -5,7 +5,7 @@ import { ModuleDto } from "../../apis/api/modules/ModuleDto";
 
 interface CheckBox {
     isSelected: boolean,
-    isChangeable: boolean
+    isChangeable: number
 }
 
 export function NewStudyPlan() {
@@ -20,10 +20,10 @@ export function NewStudyPlan() {
 
             const newMatrix = []
             for (let i = 0; i < modules.length; i++) {
-                const checkBox0: CheckBox = { isSelected: false, isChangeable: false }
-                const checkBox1: CheckBox = { isSelected: false, isChangeable: false }
-                const checkBox2: CheckBox = { isSelected: false, isChangeable: false }
-                const checkBox3: CheckBox = { isSelected: false, isChangeable: false }
+                const checkBox0: CheckBox = { isSelected: false, isChangeable: 0 }
+                const checkBox1: CheckBox = { isSelected: false, isChangeable: 0 }
+                const checkBox2: CheckBox = { isSelected: false, isChangeable: 0 }
+                const checkBox3: CheckBox = { isSelected: false, isChangeable: 0 }
                 newMatrix.push([checkBox0, checkBox1, checkBox2, checkBox3])
             }
             setMatrix(newMatrix)
@@ -35,6 +35,10 @@ export function NewStudyPlan() {
     }, [])
 
     const onClick = (x: number, y: number) => {
+        if (matrix[y][x].isChangeable != 0) {
+            return
+        }
+
         const newMatrix = []
         for (let i = 0; i < matrix.length; i++) {
             const newRow = []
@@ -48,22 +52,51 @@ export function NewStudyPlan() {
             }
             newMatrix.push(newRow);
         }
+
+        for (let i = 0; i < matrix.length; i++) {
+            if (i != y) {
+                if (newMatrix[y][x].isSelected) {
+                    newMatrix[i][x].isChangeable++
+                } else {
+                    newMatrix[i][x].isChangeable--
+                }
+            }
+        }
+
+        for (let i = 0; i < matrix[y].length; i++) {
+            if (i != x) {
+                if (newMatrix[y][x].isSelected) {
+                    newMatrix[y][i].isChangeable++
+                } else {
+                    newMatrix[y][i].isChangeable--
+                }
+            }
+        }
+
         setMatrix(newMatrix)
         console.log(newMatrix)
     }
 
     const renderText = (x: number, y: number) => {
-        return matrix[y][x].isSelected ? "T" : "F"
+        return matrix[y][x].isSelected ? "X" : ""
+    }
+
+    const getCSSClasses = (x: number, y: number) => {
+        if (matrix[y][x].isChangeable == 0) {
+            return `${styles.td} ${styles.enabled}`
+        } else {
+            return `${styles.td} ${styles.disabled}`
+        }
     }
 
     const renderRows = () => {
         return matrix.map((row, index) => 
             <tr className={styles.tr}>
                 <td className={styles.td}>{modules[index].name}</td>
-                <td className={styles.td} onClick={(e) => onClick(0, index)}>{renderText(0, index)}</td>
-                <td className={styles.td} onClick={(e) => onClick(1, index)}>{renderText(1, index)}</td>
-                <td className={styles.td} onClick={(e) => onClick(2, index)}>{renderText(2, index)}</td>
-                <td className={styles.td} onClick={(e) => onClick(3, index)}>{renderText(3, index)}</td>
+                <td className={getCSSClasses(0, index)} onClick={(e) => onClick(0, index)}>{renderText(0, index)}</td>
+                <td className={getCSSClasses(1, index)} onClick={(e) => onClick(1, index)}>{renderText(1, index)}</td>
+                <td className={getCSSClasses(2, index)} onClick={(e) => onClick(2, index)}>{renderText(2, index)}</td>
+                <td className={getCSSClasses(3, index)} onClick={(e) => onClick(3, index)}>{renderText(3, index)}</td>
             </tr>
         )
     }
