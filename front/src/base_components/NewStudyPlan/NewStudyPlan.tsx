@@ -1,62 +1,53 @@
 import { useEffect, useState } from "react";
-import { Cell } from "./Cell/Cell";
 import styles from "./NewStudyPlan.module.css";
-
-interface Point {
-    x: number,
-    y: number
-}
+import { useApis } from "../../apis/ApiBase/ApiProvider";
+import { ModuleDto } from "../../apis/api/modules/ModuleDto";
 
 export function NewStudyPlan() {
-    const [width, setWidth] = useState(0);
-    const [height, setHeight] = useState(0);
-    const [activeCells, setActiveCells] = useState<number[][]>([])
+    const [modules, setModules] = useState<ModuleDto[]>([])
+
+    const api = useApis()
 
     useEffect(() => {
-        const rows: number[][] = []
-        for (let i = 0; i < width; i++) {
-            const cells = []
-            for (let j = 0; j < height; j++) {
-                cells.push(0)
-            }
-            rows.push(cells)
+        const loadModules = async () => {
+            const modules = await api.educationalModulesApi.getAllModules();
+            setModules(modules)
         }
-        setActiveCells(rows)
-    }, [width, height])
+        loadModules().catch(console.error)
+    })
 
-    const onActivate = (x: number, y: number) => {
-        // Увеличиваем счетчики на ячейках, которые лежат определенной горизонтали и на определенной вертикали.
-        for (let i = 0; i < width; i++) {
-            activeCells[i][y]++;
-        }
-        for (let i = 0; i < height; i++) {
-            if (i != y) {
-                activeCells[x][i]++;
-            } 
-        }
-        setActiveCells(activeCells)
+    const renderModule = (module: ModuleDto) => {
+        return (
+            <tr className={styles.tr}>
+                <td className={styles.td}>{module.name}</td>
+                <td className={styles.td}>O</td>
+                <td className={styles.td}>O</td>
+                <td className={styles.td}>O</td>
+                <td className={styles.td}>O</td>
+            </tr>
+        )
     }
 
-    const renderRow = (y: number) => {
-        return Array.from(Array(width).keys()).map(index => 
-            <Cell 
-                x={index} 
-                y={y}
-                onActivate={(x, y) => onActivate(x, y)} />
-            );
-    }
+    const renderModules = () => {
+        return modules.map(module => renderModule(module))
+    } 
 
-    const renderColumns = () => {
-        return Array.from(Array(height).keys()).map(index => <tr>{renderRow(index)}</tr>)
+    const renderHeader = () => {
+        return (
+            <tr className={styles.tr}>
+                <td className={styles.td}>Название</td>
+                <td className={styles.td}>1</td>
+                <td className={styles.td}>2</td>
+                <td className={styles.td}>3</td>
+                <td className={styles.td}>4</td>
+            </tr>
+        )
     }
 
     return (
-        <>
-            <input onChange={(e) => setWidth(parseInt(e.target.value))} />
-            <input onChange={(e) => setHeight(parseInt(e.target.value))} />
-            <table className={styles.table}>
-                {renderColumns()}
-            </table>
-        </>
+        <table className={styles.table}>
+            {renderHeader()}
+            {renderModules()}
+        </table>
     )
 }

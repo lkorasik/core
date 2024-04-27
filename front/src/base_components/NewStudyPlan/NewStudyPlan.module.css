@@ -3,6 +3,7 @@
     border-collapse: collapse;
 }
 
-.td {
+.tr .td {
+    padding: 0.25rem;
     border: 1px solid black;
 }
