@@ -3,8 +3,13 @@ import styles from "./NewStudyPlan.module.css";
 import { useApis } from "../../apis/ApiBase/ApiProvider";
 import { ModuleDto } from "../../apis/api/modules/ModuleDto";
 
+interface CheckBox {
+    isSelected: boolean,
+    isChangeable: boolean
+}
+
 export function NewStudyPlan() {
-    const [matrix, setMatrix] = useState<boolean[][]>([])
+    const [matrix, setMatrix] = useState<CheckBox[][]>([])
     const [modules, setModules] = useState<ModuleDto[]>([])
 
     const api = useApis()
@@ -15,7 +20,11 @@ export function NewStudyPlan() {
 
             const newMatrix = []
             for (let i = 0; i < modules.length; i++) {
-                newMatrix.push([false, false, false, false])
+                const checkBox0: CheckBox = { isSelected: false, isChangeable: false }
+                const checkBox1: CheckBox = { isSelected: false, isChangeable: false }
+                const checkBox2: CheckBox = { isSelected: false, isChangeable: false }
+                const checkBox3: CheckBox = { isSelected: false, isChangeable: false }
+                newMatrix.push([checkBox0, checkBox1, checkBox2, checkBox3])
             }
             setMatrix(newMatrix)
             setModules(modules)
@@ -31,7 +40,8 @@ export function NewStudyPlan() {
             const newRow = []
             for (let j = 0; j < matrix[i].length; j++) {
                 if ((i == y) && (j == x)) {
-                    newRow.push(!matrix[i][j])
+                    const checkbox: CheckBox = { isSelected: !matrix[i][j].isSelected, isChangeable: matrix[i][j].isChangeable }
+                    newRow.push(checkbox)
                 } else {
                     newRow.push(matrix[i][j])
                 }
@@ -43,7 +53,7 @@ export function NewStudyPlan() {
     }
 
     const renderText = (x: number, y: number) => {
-        return matrix[y][x] ? "T" : "F"
+        return matrix[y][x].isSelected ? "T" : "F"
     }
 
     const renderRows = () => {
