@@ -16,6 +16,10 @@ export class ModulesApi extends ApiBase implements IModulesApi {
     public async getAllModules(): Promise<ModuleDto[]> {
         return await this.get("modules/all", {}, {});
     }
+    
+    public async getAllModules2(): Promise<FullModuleDto[]> {
+        return await this.get("modules/all2", {}, {});
+    }
 
     public async deleteModuleById(deleteEducationalModuleRequest: DeleteModuleDto): Promise<void> {
         return await this.delete("modules/delete", {}, {
@@ -40,4 +44,5 @@ export interface IModulesApi {
     deleteModuleById(deleteModuleRequest: DeleteModuleDto): Promise<void>
     createModule(createModuleRequest: CreateModuleDto): Promise<void>
     getModuleById(moduleId: GetModuleDto): Promise<FullModuleDto>
+    getAllModules2(): Promise<FullModuleDto[]> 
 }
