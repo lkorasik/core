@@ -5,6 +5,7 @@ import { ModuleDto } from "../../apis/api/modules/ModuleDto";
 
 export function NewStudyPlan() {
     const [matrix, setMatrix] = useState<boolean[][]>([])
+    const [modules, setModules] = useState<ModuleDto[]>([])
 
     const api = useApis()
 
@@ -17,6 +18,7 @@ export function NewStudyPlan() {
                 newMatrix.push([false, false, false, false])
             }
             setMatrix(newMatrix)
+            setModules(modules)
 
             console.log(newMatrix)
         }
@@ -47,6 +49,7 @@ export function NewStudyPlan() {
     const renderRows = () => {
         return matrix.map((row, index) => 
             <tr className={styles.tr}>
+                <td className={styles.td}>{modules[index].name}</td>
                 <td className={styles.td} onClick={(e) => onClick(0, index)}>{renderText(0, index)}</td>
                 <td className={styles.td} onClick={(e) => onClick(1, index)}>{renderText(1, index)}</td>
                 <td className={styles.td} onClick={(e) => onClick(2, index)}>{renderText(2, index)}</td>
@@ -55,8 +58,27 @@ export function NewStudyPlan() {
         )
     }
 
+    const renderHeader = () => {
+        return (
+            <>
+                <tr className={styles.tr}>
+                    <td className={styles.td} rowSpan={2}></td>
+                    <td className={styles.td} colSpan={2}>1 курс</td>
+                    <td className={styles.td} colSpan={2}>2 курс</td>
+                </tr>
+                <tr className={styles.tr}>
+                    <td className={styles.td}>1 семестр</td>
+                    <td className={styles.td}>2 семестр</td>
+                    <td className={styles.td}>3 семестр</td>
+                    <td className={styles.td}>4 семестр</td>
+                </tr>
+            </>
+        )
+    }
+
     return (
         <table className={styles.table}>
+            {renderHeader()}
             {renderRows()}
         </table>
     )
