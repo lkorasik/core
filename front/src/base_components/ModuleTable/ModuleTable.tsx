@@ -14,11 +14,51 @@ export function ModuleTable(props: Props) {
 
     const onClick = (x: number, y: number) => {
         console.log(x + " -> " + y)
+        
+        if (props.matrix[y][x].isChangeable != 0) {
+            return
+        }
+
+        const newMatrix = []
+        for (let i = 0; i < props.matrix.length; i++) {
+            const newRow = []
+            for (let j = 0; j < props.matrix[i].length; j++) {
+                let checkbox: CheckBox;
+                if ((i == y) && (j == x)) {
+                    checkbox = { isSelected: !props.matrix[i][j].isSelected, isChangeable: props.matrix[i][j].isChangeable }
+                } else {
+                    checkbox = props.matrix[i][j]
+                }
+                newRow.push(checkbox)
+            }
+            newMatrix.push(newRow);
+        }
+
+        for (let i = 0; i < props.matrix.length; i++) {
+            if (i != y) {
+                if (newMatrix[y][x].isSelected) {
+                    newMatrix[i][x].isChangeable++
+                } else {
+                    newMatrix[i][x].isChangeable--
+                }
+            }
+        }
+
+        for (let i = 0; i < props.matrix[y].length; i++) {
+            if (i != x) {
+                if (newMatrix[y][x].isSelected) {
+                    newMatrix[y][i].isChangeable++
+                } else {
+                    newMatrix[y][i].isChangeable--
+                }
+            }
+        }
+
+        console.log(newMatrix)
+        props.setMatrix(newMatrix)
     }
 
     const renderValue = (x: number, y: number) => {
-        const value = props.matrix[y][x].isSelected ? "T" : "F"
-        console.log("Render: " + y + " -> " + x + " = " + value)
         return props.matrix[y][x].isSelected ? "T" : "F"
     }
 
