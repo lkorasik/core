@@ -31,9 +31,7 @@ class AddModuleScreenClear extends React.Component<Props, State> {
     }
 
     public async componentDidMount() {
-        const specialCourses = await this.props.apis.specialCoursesApi.getAllCourses();
         this.setState({
-            specialCoursesForDisplay: specialCourses,
             isLoadingCourses: false,
             specialCoursesIdsForNewModule: this.state.specialCoursesIdsForNewModule,
             moduleName: this.state.moduleName,
@@ -42,8 +40,7 @@ class AddModuleScreenClear extends React.Component<Props, State> {
 
     private async createEducationalModule() {
         await this.props.apis.educationalModulesApi.createModule({
-            moduleName: this.state.moduleName,
-            coursesIds: this.state.specialCoursesIdsForNewModule,
+            moduleName: this.state.moduleName
         });
     }
 
@@ -51,14 +48,6 @@ class AddModuleScreenClear extends React.Component<Props, State> {
         this.setState({
             ...this.state,
             moduleName: moduleName,
-        });
-    }
-
-    public onChangeSpecialCoursesOption(e: MultiValue<{value: string, label: string}>) {
-        var specialCoursesIds = e.map(v => v.value)
-        this.setState({
-            ...this.state,
-            specialCoursesIdsForNewModule: specialCoursesIds,
         });
     }
 
@@ -89,17 +78,6 @@ class AddModuleScreenClear extends React.Component<Props, State> {
                         <input className={styles.input} type={"text"} onChange={(e) => {
                             this.onChangeModuleName(e.target.value)
                         }} required/>
-                    </div>
-                    <div>
-                        <label className={styles.label}>
-                            Спецкурсы в Модуле <span className={styles.required}>*</span>
-                        </label>
-                        <Select className={styles.select} defaultValue={specialCourses[0]} options={specialCourses}
-                                isMulti={true}
-                                onChange={(e) => {
-                                    this.onChangeSpecialCoursesOption(e)
-                                }}/>
-                        <br/>
                     </div>
                 </div>
             </>

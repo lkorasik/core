@@ -135,8 +135,8 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public CreateModuleWithCourses createModuleWithCourses(ModuleGateway moduleGateway, CourseGateway courseGateway) {
-        return new CreateModuleWithCourses(moduleGateway, courseGateway);
+    public CreateModule createModuleWithCourses(ModuleGateway moduleGateway) {
+        return new CreateModule(moduleGateway);
     }
 
     @Bean

@@ -119,8 +119,7 @@ class EditModuleScreenClear extends React.Component<Props, State> {
 
     private async createEducationalModule() {
         await this.props.apis.educationalModulesApi.createModule({
-            moduleName: this.state.moduleName,
-            coursesIds: this.state.specialCoursesIdsForNewModule,
+            moduleName: this.state.moduleName
         });
     }
 }

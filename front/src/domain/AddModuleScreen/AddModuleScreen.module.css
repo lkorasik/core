@@ -60,38 +60,6 @@
     text-align: center;
 }
 
-.select {
-    width: 713px;
-    height: 60px;
-    border-radius: 10px;
-    border-width: 2px;
-    border-color: #D9D9D9;
-    background-color: rgba(0, 0, 0, 0);
-    border-style: solid;
-
-    padding-left: 0.5em;
-    font-family: Montserrat, sans-serif;
-    font-size: 24px;
-    font-weight: 600;
-    color: rgba(34, 34, 34, 1);
-}
-
-.select.option {
-    width: 713px;
-    height: 60px;
-    border-radius: 10px;
-    border-width: 2px;
-    border-color: #D9D9D9;
-    background-color: rgba(0, 0, 0, 0);
-    border-style: solid;
-
-    padding-left: 0.5em;
-    font-family: Montserrat, sans-serif;
-    font-size: 24px;
-    font-weight: 600;
-    color: rgba(34, 34, 34, 1);
-}
-
 .saveButton {
     margin-left: 18px;
     width: 170px;
