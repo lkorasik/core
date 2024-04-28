@@ -24,12 +24,11 @@ public class GroupEntity {
     private ProgramEntity program;
 
     public ProgramEntity getProgram() {
-        throw new RuntimeException("Not implemented!");
-//        return program;
+        return program;
     }
 
     public void setProgram(ProgramEntity programEntity) {
-//        this.program = programEntity;
+        this.program = programEntity;
     }
 
     public GroupEntity() {

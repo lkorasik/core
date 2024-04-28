@@ -7,7 +7,7 @@ import ru.urfu.mm.domain.Group;
 import ru.urfu.mm.domain.Program;
 import ru.urfu.mm.persistance.entity.ProgramEntity;
 import ru.urfu.mm.persistance.entity.GroupEntity;
-import ru.urfu.mm.persistance.repository.EducationalProgramRepository;
+import ru.urfu.mm.persistance.repository.ProgramRepository;
 import ru.urfu.mm.persistance.repository.GroupRepository;
 import ru.urfu.mm.persistance.repository.StudyPlanRepository;
 import ru.urfu.mm.service.mapper.Mapper;
@@ -18,18 +18,18 @@ import java.util.UUID;
 
 @Component
 public class ProgramGatewayImpl implements ProgramGateway {
-    private final EducationalProgramRepository educationalProgramRepository;
+    private final ProgramRepository programRepository;
     private final GroupRepository groupRepository;
     private final Mapper<ProgramEntity, Program> programMapper;
     private final StudyPlanRepository studyPlanRepository;
 
     @Autowired
     public ProgramGatewayImpl(
-            EducationalProgramRepository educationalProgramRepository,
+            ProgramRepository programRepository,
             GroupRepository groupRepository,
             Mapper<ProgramEntity, Program> programMapper,
             StudyPlanRepository studyPlanRepository) {
-        this.educationalProgramRepository = educationalProgramRepository;
+        this.programRepository = programRepository;
         this.groupRepository = groupRepository;
         this.programMapper = programMapper;
         this.studyPlanRepository = studyPlanRepository;
@@ -37,7 +37,7 @@ public class ProgramGatewayImpl implements ProgramGateway {
 
     @Override
     public Program getById(UUID id) {
-        ProgramEntity programEntity = educationalProgramRepository.getReferenceById(id);
+        ProgramEntity programEntity = programRepository.getReferenceById(id);
         Program program = new Program(
                 programEntity.getId(),
                 programEntity.getName(),
@@ -53,7 +53,7 @@ public class ProgramGatewayImpl implements ProgramGateway {
 
     @Override
     public Optional<Program> findById(UUID id) {
-        return educationalProgramRepository
+        return programRepository
                 .findById(id)
                 .map(x -> new Program(
                         x.getId(),
@@ -64,7 +64,7 @@ public class ProgramGatewayImpl implements ProgramGateway {
 
     @Override
     public List<Program> getAll() {
-        return educationalProgramRepository
+        return programRepository
                 .findAll()
                 .stream()
                 .map(programMapper::map)
@@ -80,9 +80,9 @@ public class ProgramGatewayImpl implements ProgramGateway {
         );
         Iterable<GroupEntity> groups = groupRepository
                 .findAllById(program.getGroups().stream().map(Group::getId).toList());
-//        groups.forEach(group -> group.setEducationalProgram(entity));
+        groups.forEach(group -> group.setProgram(entity));
         groupRepository.saveAll(groups);
-        educationalProgramRepository.save(entity);
+        programRepository.save(entity);
     }
 
     @Override

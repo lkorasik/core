@@ -7,5 +7,5 @@ import ru.urfu.mm.persistance.entity.ProgramEntity;
 import java.util.UUID;
 
 @Repository
-public interface EducationalProgramRepository extends JpaRepository<ProgramEntity, UUID> {
+public interface ProgramRepository extends JpaRepository<ProgramEntity, UUID> {
 }

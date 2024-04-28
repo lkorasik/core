@@ -9,7 +9,7 @@ import ru.urfu.mm.persistance.entity.ProgramEntity;
 import ru.urfu.mm.persistance.entity.Semester;
 import ru.urfu.mm.persistance.entity.SemesterPlanEntity;
 import ru.urfu.mm.persistance.entity.StudyPlanEntity;
-import ru.urfu.mm.persistance.repository.EducationalProgramRepository;
+import ru.urfu.mm.persistance.repository.ProgramRepository;
 import ru.urfu.mm.persistance.repository.SemesterPlanRepository;
 import ru.urfu.mm.persistance.repository.SemesterRepository;
 import ru.urfu.mm.persistance.repository.StudyPlanRepository;
@@ -22,14 +22,14 @@ public class StudyPlanGatewayImpl implements StudyPlanGateway {
     private final SemesterPlanRepository semesterPlanRepository;
     private final StudyPlanRepository studyPlanRepository;
     private final SemesterRepository semesterRepository;
-    private final EducationalProgramRepository programRepository;
+    private final ProgramRepository programRepository;
 
     @Autowired
     public StudyPlanGatewayImpl(
             SemesterPlanRepository semesterPlanRepository,
             StudyPlanRepository studyPlanRepository,
             SemesterRepository semesterRepository,
-            EducationalProgramRepository programRepository) {
+            ProgramRepository programRepository) {
         this.semesterPlanRepository = semesterPlanRepository;
         this.studyPlanRepository = studyPlanRepository;
         this.semesterRepository = semesterRepository;
