@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./NewStudyPlan.module.css";
 import { useApis } from "../../apis/ApiBase/ApiProvider";
 import { ModuleDto } from "../../apis/api/modules/ModuleDto";
-import { ModuleTable } from "../ModuleTable/ModuleTable";
+import { ModuleTable } from "./ModuleTable/ModuleTable";
 import { FullModuleDto } from "../../apis/api/modules/FullModuleDto";
 
 export interface CheckBox {

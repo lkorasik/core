@@ -1,5 +1,5 @@
-import { FullModuleDto } from "../../apis/api/modules/FullModuleDto"
-import { CheckBox } from "../NewStudyPlan/NewStudyPlan";
+import { FullModuleDto } from "../../../apis/api/modules/FullModuleDto"
+import { CheckBox } from "../NewStudyPlan";
 import styles from "./ModuleTable.module.css";
 
 export interface Props {
