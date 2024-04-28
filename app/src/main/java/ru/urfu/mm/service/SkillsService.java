@@ -15,7 +15,7 @@ public class SkillsService {
     @Autowired
     private GetSkillsForStudent getSkillsForStudent;
     @Autowired
-    private Mapper<Account, UserEntity> userMapper;
+    private Mapper<Account, AccountEntity> userMapper;
 
     public List<StudentSkills> getSkillsForStudent(UUID studentId) {
         return getSkillsForStudent

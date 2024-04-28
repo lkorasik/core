@@ -8,8 +8,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.urfu.mm.entity.UserEntity;
-import ru.urfu.mm.repository.UserRepository;
+import ru.urfu.mm.entity.AccountEntity;
+import ru.urfu.mm.repository.AccountRepository;
 import ru.urfu.mm.service.UserService;
 
 import java.util.Collections;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class AccountEntityServiceTest {
     @Mock
-    private static UserRepository userRepository;
+    private static AccountRepository accountRepository;
     @Mock
     private static PasswordEncoder passwordEncoder;
 
@@ -39,15 +39,15 @@ public class AccountEntityServiceTest {
     public void loadUserByUsername() {
         String login = UUID.randomUUID().toString();
 
-        UserEntity userEntity = new UserEntity();
+        AccountEntity accountEntity = new AccountEntity();
 
-        when(userRepository.findAllByLogin(UUID.fromString(login))).thenReturn(Optional.of(userEntity));
+        when(accountRepository.findAllByLogin(UUID.fromString(login))).thenReturn(Optional.of(accountEntity));
 
-        UserService userService = new UserService(userRepository);
+        UserService userService = new UserService(accountRepository);
 
         UserDetails userDetails = userService.loadUserByUsername(login);
 
-        UserDetails expected = new org.springframework.security.core.userdetails.User(userEntity.getLogin().toString(), userEntity.getPassword(), Collections.emptyList());
+        UserDetails expected = new org.springframework.security.core.userdetails.User(accountEntity.getLogin().toString(), accountEntity.getPassword(), Collections.emptyList());
         Assertions.assertEquals(expected, userDetails);
     }
 }

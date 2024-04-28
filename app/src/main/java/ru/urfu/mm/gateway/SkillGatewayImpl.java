@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.SkillGateway;
 import ru.urfu.mm.domain.*;
+import ru.urfu.mm.entity.AccountEntity;
 import ru.urfu.mm.entity.GroupEntity;
 import ru.urfu.mm.entity.StudentEntity;
-import ru.urfu.mm.entity.UserEntity;
 import ru.urfu.mm.repository.DesiredSkillsRepository;
 import ru.urfu.mm.repository.SkillRepository;
 import ru.urfu.mm.repository.StudentSkillRepository;
@@ -21,14 +21,14 @@ public class SkillGatewayImpl implements SkillGateway {
     private final SkillRepository skillRepository;
     private final StudentSkillRepository studentSkillRepository;
     private final DesiredSkillsRepository desiredSkillsRepository;
-    private final Mapper<Account, UserEntity> userMapper;
+    private final Mapper<Account, AccountEntity> userMapper;
 
     @Autowired
     public SkillGatewayImpl(
             SkillRepository skillRepository,
             StudentSkillRepository studentSkillRepository,
             DesiredSkillsRepository desiredSkillsRepository,
-            Mapper<Account, UserEntity> userMapper) {
+            Mapper<Account, AccountEntity> userMapper) {
         this.skillRepository = skillRepository;
         this.studentSkillRepository = studentSkillRepository;
         this.desiredSkillsRepository = desiredSkillsRepository;

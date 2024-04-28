@@ -5,9 +5,9 @@ import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.CourseGateway;
 import ru.urfu.mm.domain.Module;
 import ru.urfu.mm.domain.*;
+import ru.urfu.mm.entity.AccountEntity;
 import ru.urfu.mm.entity.GroupEntity;
 import ru.urfu.mm.entity.StudentEntity;
-import ru.urfu.mm.entity.UserEntity;
 import ru.urfu.mm.repository.EducationalProgramToCoursesWithSemestersRepository;
 import ru.urfu.mm.repository.SelectedCoursesRepository;
 import ru.urfu.mm.repository.SpecialCourseRepository;
@@ -23,7 +23,7 @@ public class CourseGatewayImpl implements CourseGateway {
     private final EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository;
     private final Mapper<ru.urfu.mm.entity.SemesterType, ru.urfu.mm.domain.SemesterType> semesterTypeToDomainMapper;
     private final Mapper<ru.urfu.mm.domain.SemesterType, ru.urfu.mm.entity.SemesterType> semesterTypeToEntityMapper;
-    private final Mapper<Account, UserEntity> userMapper;
+    private final Mapper<Account, AccountEntity> userMapper;
 
     @Autowired
     public CourseGatewayImpl(
@@ -32,7 +32,7 @@ public class CourseGatewayImpl implements CourseGateway {
             EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository,
             Mapper<ru.urfu.mm.entity.SemesterType, SemesterType> semesterTypeToDomainMapper,
             Mapper<SemesterType, ru.urfu.mm.entity.SemesterType> semesterTypeToEntityMapper,
-            Mapper<Account, UserEntity> userMapper) {
+            Mapper<Account, AccountEntity> userMapper) {
         this.courseRepository = courseRepository;
         this.selectedCoursesRepository = selectedCoursesRepository;
         this.educationalProgramToCoursesWithSemestersRepository = educationalProgramToCoursesWithSemestersRepository;

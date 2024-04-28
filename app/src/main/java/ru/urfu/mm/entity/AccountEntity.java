@@ -1,11 +1,12 @@
 package ru.urfu.mm.entity;
 
 import jakarta.persistence.*;
+
 import java.util.UUID;
 
 @Entity
-@Table(name = "users")
-public class UserEntity {
+@Table
+public class AccountEntity {
     @Id
     @Column
     private UUID login;
@@ -14,13 +15,13 @@ public class UserEntity {
     @Column
     private UserEntityRole role;
 
-    public UserEntity(UUID login, String password, UserEntityRole role) {
+    public AccountEntity(UUID login, String password, UserEntityRole role) {
         this.login = login;
         this.password = password;
         this.role = role;
     }
 
-    public UserEntity() {
+    public AccountEntity() {
     }
 
     public UUID getLogin() {

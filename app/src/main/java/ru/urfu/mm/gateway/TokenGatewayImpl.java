@@ -7,7 +7,7 @@ import ru.urfu.mm.domain.Group;
 import ru.urfu.mm.entity.GroupEntity;
 import ru.urfu.mm.entity.StudentEntity;
 import ru.urfu.mm.entity.StudentRegistrationToken;
-import ru.urfu.mm.entity.UserEntity;
+import ru.urfu.mm.entity.AccountEntity;
 import ru.urfu.mm.repository.GroupRepository;
 import ru.urfu.mm.repository.RegistrationTokenRepository;
 import ru.urfu.mm.repository.StudentRegistrationTokenRepository;
@@ -58,7 +58,7 @@ public class TokenGatewayImpl implements TokenGateway {
     @Override
     public boolean isStudentToken(UUID token) {
         Optional<StudentEntity> maybeStudent = studentRepository.findByLogin(token);
-        Optional<UserEntity> maybeUser = maybeStudent.map(StudentEntity::getUser);
+        Optional<AccountEntity> maybeUser = maybeStudent.map(StudentEntity::getUser);
         return maybeStudent.isPresent() && maybeUser.isEmpty();
     }
 }

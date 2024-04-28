@@ -20,13 +20,13 @@ import java.util.UUID;
 public class StudentGatewayImpl implements StudentGateway {
     private final StudentRepository studentRepository;
     private final GroupRepository groupRepository;
-    private final Mapper<Account, UserEntity> userMapper;
+    private final Mapper<Account, AccountEntity> userMapper;
 
     @Autowired
     public StudentGatewayImpl(
             StudentRepository studentRepository,
             GroupRepository groupRepository,
-            Mapper<Account, UserEntity> userMapper) {
+            Mapper<Account, AccountEntity> userMapper) {
         this.studentRepository = studentRepository;
         this.groupRepository = groupRepository;
         this.userMapper = userMapper;
