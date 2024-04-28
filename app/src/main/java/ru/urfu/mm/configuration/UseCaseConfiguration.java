@@ -9,6 +9,7 @@ import ru.urfu.mm.application.usecase.*;
 import ru.urfu.mm.application.usecase.create.CreateAdministrator;
 import ru.urfu.mm.application.usecase.create.CreateStudent;
 import ru.urfu.mm.application.usecase.create.account.CreateAccount;
+import ru.urfu.mm.application.usecase.create_course.CreateCourse;
 import ru.urfu.mm.application.usecase.create_group.CreateGroup;
 import ru.urfu.mm.application.usecase.create_program.CreateProgram;
 import ru.urfu.mm.application.usecase.create_semester_plan.CreateSemesterPlan;
@@ -103,10 +104,8 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public CreateModuleSpecialCourse createModuleSpecialCourse(
-            ModuleGateway moduleGateway,
-            CourseGateway courseGateway) {
-        return new CreateModuleSpecialCourse(moduleGateway, courseGateway);
+    public CreateCourse createCourse(ModuleGateway moduleGateway, CourseGateway courseGateway) {
+        return new CreateCourse(moduleGateway, courseGateway);
     }
 
     @Bean

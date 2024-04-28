@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import styles from "./EditEducationalProgramScreen.module.css";
 import Select from 'react-select'
 import { NText } from "../../../base_components/NText/NText";
-import { StudyPlan } from "../../../base_components/StudyPlan/StudyPlan";
 import { useApis } from "../../../apis/ApiBase/ApiProvider";
 import { ProgramIdDto } from "../../../apis/api/programs/ProgramIdDto";
 import { SaveButton } from "../../../base_components/Buttons/CrudButtons/SaveButton/SaveButton";

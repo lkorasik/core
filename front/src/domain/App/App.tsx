@@ -6,7 +6,6 @@ import {UserRole} from "../../apis/api/UserRole";
 import {LoginInfo} from "../../hooks/LoginInfo";
 import {AdministratorMainScreen} from '../AdministratorMainScreen/AdministratorMainScreen';
 import {EducationalProgramScreen} from '../EducationalProgramScreen/EducationalProgramScreen';
-import {AddModuleCourseScreen} from "../AddModuleCourseScreen/AddModuleCourseScreen";
 import {EditModuleScreen} from "../EditModuleScreen/EditModuleScreen";
 import {CourseScreen} from "../CoursesScreen/CourseScreen";
 import {EditModuleCourseScreen} from "../EditCoursesScreen/EditModuleCourseScreen";
@@ -24,6 +23,7 @@ import { AddGroupScreen } from '../EducationalProgramScreen/AddGroupScreen/AddGr
 import { GroupScreen } from '../EducationalProgramScreen/GroupScreen/GroupScreen';
 import { EditEducationalProgramScreen } from '../EducationalProgramScreen/EditEducationalProgramScreen/EditEducationalProgramScreen';
 import { AddModuleScreen } from '../AddModuleScreen/AddModuleScreen';
+import { AddCourseScreen } from '../AddCourseScreen/AddCourseScreen';
 
 export const EDUCATIONAL_PROGRAM_SCREEN_URL: string = "/administrator/educational_program/";
 export const MODULES_SCREEN_URL: string = "/administrator/courses_and_modules";
@@ -82,7 +82,7 @@ const App: FC = () => {
                     <Route path={ADMINISTRATOR + "/module/add"} element={<AddModuleScreen />}/>
                     <Route path={ADMINISTRATOR + "/module/edit" + "/*"} element={<EditModuleScreen/>}/>
                 <Route path={ADMINISTRATOR + "/module/:moduleId"} element={<ModuleCourses />}/>
-                    <Route path={ADMINISTRATOR + "/courses/add"} element={<AddModuleCourseScreen/>}/>
+                    <Route path={ADMINISTRATOR + "/courses/add"} element={<AddCourseScreen />}/>
                     <Route path={ADMINISTRATOR + "/courses" + "/*"} element={<CourseScreen/>}/>
                     <Route path={ADMINISTRATOR + "/module/edit" + "/*"} element={<EditModuleCourseScreen/>}/>
             </Route>

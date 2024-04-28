@@ -3,6 +3,8 @@ package ru.urfu.mm.controller.course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.application.usecase.*;
+import ru.urfu.mm.application.usecase.create_course.CreateCourse;
+import ru.urfu.mm.application.usecase.create_course.CreateCourseRequest;
 import ru.urfu.mm.application.usecase.load_available_courses.AvailableModuleResponse;
 import ru.urfu.mm.application.usecase.load_available_courses.LoadAvailableCourses;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
@@ -37,7 +39,7 @@ public class CourseController extends AbstractAuthorizedController {
     @Autowired
     private DeleteCourse deleteCourse;
     @Autowired
-    private CreateModuleSpecialCourse createModuleSpecialCourse;
+    private CreateCourse createCourse;
     @Autowired
     private GetCourse getCourse;
     @Autowired
@@ -140,17 +142,18 @@ public class CourseController extends AbstractAuthorizedController {
         );
     }
 
-    @PostMapping("/moduleCourses/create")
-    public void createModuleCourse(@RequestBody CreateModuleCourseDTO createModuleCourseDTO) {
-        createModuleSpecialCourse.createModuleSpecialCourse(
-                createModuleCourseDTO.courseName(),
-                createModuleCourseDTO.creditsCount(),
-                ControlTypes.values()[createModuleCourseDTO.controlType().ordinal()],
-                createModuleCourseDTO.courseDescription(),
-                createModuleCourseDTO.moduleId(),
-                createModuleCourseDTO.department(),
-                createModuleCourseDTO.teacherName()
+    @PostMapping("/create")
+    public void createModuleCourse(@RequestBody CreateModuleCourseDTO dto) {
+        CreateCourseRequest request = new CreateCourseRequest(
+                dto.name(),
+                dto.credits(),
+                ControlTypes.values()[dto.controlType().ordinal()],
+                dto.description(),
+                dto.moduleId(),
+                dto.department(),
+                dto.teacher()
         );
+        createCourse.createCourse(request);
     }
 
     @DeleteMapping("/delete")

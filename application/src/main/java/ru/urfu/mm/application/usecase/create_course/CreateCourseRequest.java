@@ -1,13 +1,13 @@
-package ru.urfu.mm.controller.course;
+package ru.urfu.mm.application.usecase.create_course;
 
-import ru.urfu.mm.entity.Control;
+import ru.urfu.mm.domain.ControlTypes;
 
 import java.util.UUID;
 
-public record CreateModuleCourseDTO(
+public record CreateCourseRequest(
         String name,
         int credits,
-        Control controlType,
+        ControlTypes controlTypes,
         String description,
         UUID moduleId,
         String department,
