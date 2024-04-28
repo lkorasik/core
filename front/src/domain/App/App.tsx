@@ -6,7 +6,6 @@ import {UserRole} from "../../apis/api/UserRole";
 import {LoginInfo} from "../../hooks/LoginInfo";
 import {AdministratorMainScreen} from '../AdministratorMainScreen/AdministratorMainScreen';
 import {EducationalProgramScreen} from '../EducationalProgramScreen/EducationalProgramScreen';
-import {AddModuleScreen} from "../AddModuleScreen/AddModuleScreen";
 import {AddModuleCourseScreen} from "../AddModuleCourseScreen/AddModuleCourseScreen";
 import {EditModuleScreen} from "../EditModuleScreen/EditModuleScreen";
 import {CourseScreen} from "../CoursesScreen/CourseScreen";
@@ -24,6 +23,7 @@ import { EducationalProgramDetailsScreen } from '../EducationalProgramScreen/Edu
 import { AddGroupScreen } from '../EducationalProgramScreen/AddGroupScreen/AddGroupScreen';
 import { GroupScreen } from '../EducationalProgramScreen/GroupScreen/GroupScreen';
 import { EditEducationalProgramScreen } from '../EducationalProgramScreen/EditEducationalProgramScreen/EditEducationalProgramScreen';
+import { AddModuleScreen } from '../AddModuleScreen/AddModuleScreen';
 
 export const EDUCATIONAL_PROGRAM_SCREEN_URL: string = "/administrator/educational_program/";
 export const MODULES_SCREEN_URL: string = "/administrator/courses_and_modules";
@@ -79,7 +79,7 @@ const App: FC = () => {
                 <Route path={ADMINISTRATOR + "/educational_program/add"} element={<AddEducationalProgramScreen />}/>
                 <Route path={ADMINISTRATOR + GROUP + "/add"} element={<AddGroupScreen />} />
                 <Route path={ADMINISTRATOR + GROUP + "/:groupId"} element={<GroupScreen />} />
-                    <Route path={ADMINISTRATOR + "/module/add"} element={<AddModuleScreen/>}/>
+                    <Route path={ADMINISTRATOR + "/module/add"} element={<AddModuleScreen />}/>
                     <Route path={ADMINISTRATOR + "/module/edit" + "/*"} element={<EditModuleScreen/>}/>
                 <Route path={ADMINISTRATOR + "/module/:moduleId"} element={<ModuleCourses />}/>
                     <Route path={ADMINISTRATOR + "/courses/add"} element={<AddModuleCourseScreen/>}/>
