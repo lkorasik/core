@@ -13,12 +13,23 @@ import { ProgramIdDto } from "../../../apis/api/programs/ProgramIdDto";
 import { SaveButton } from "../../../base_components/Buttons/CrudButtons/SaveButton/SaveButton";
 import { UpdateEducationalProgramDto } from "../../../apis/api/programs/UpdateEducationalProgramDto";
 import { NewStudyPlan } from "../../../base_components/NewStudyPlan/NewStudyPlan";
+import { StudyPlanDto } from "../../../apis/api/programs/StudyPlanDto";
+import { ModuleSelectionDto } from "../../../apis/api/programs/ModuleSelectionDto";
+import { CourseSelectionDto } from "../../../apis/api/programs/CourseSelectionDto";
+import { FullModuleDto } from "../../../apis/api/modules/FullModuleDto";
 
+export interface CheckBox {
+    isSelected: boolean,
+    isChangeable: number
+}
 
 export function EditEducationalProgramScreen() {
     const [educationalProgramName, setEducationalProgramName] = useState<string>("");
     const [trainingDirection, setTrainingDirection] = useState<string>("");
     const [years, setYears] = useState<number[]>([]);
+    
+    const [matrix, setMatrix] = useState<CheckBox[][]>([])
+    const [modules, setModules] = useState<FullModuleDto[]>([])
 
     const [shouldRenderStudyPlan, setShouldRenderStudyPlan] = useState(false);
 
@@ -45,6 +56,24 @@ export function EditEducationalProgramScreen() {
             setYears(response.map(x => x.startYear))
         };
         getAvailableYears().catch(console.error);
+
+        const loadModules = async () => {
+            const modules = await api.educationalModulesApi.getAllModules2()
+
+            const newMatrix = []
+            for (let i = 0; i < modules.length; i++) {
+                for (let j = 0; j < modules[i].courses.length; j++) {
+                    const checkBox0: CheckBox = { isSelected: false, isChangeable: 0 }
+                    const checkBox1: CheckBox = { isSelected: false, isChangeable: 0 }
+                    const checkBox2: CheckBox = { isSelected: false, isChangeable: 0 }
+                    const checkBox3: CheckBox = { isSelected: false, isChangeable: 0 }
+                    newMatrix.push([checkBox0, checkBox1, checkBox2, checkBox3])
+                }
+            }
+            setMatrix(newMatrix)
+            setModules(modules)
+        }
+        loadModules().catch(console.error)
     }, [])
 
     const save = () => {
@@ -65,10 +94,42 @@ export function EditEducationalProgramScreen() {
         }
     }
 
+    const buildStudyPlan = () => {
+        let index = 0
+
+        const result: StudyPlanDto = { startYear: years[0], modules: [] }
+        for (let i = 0; i < modules.length; i++) {
+            const moduleInfo: ModuleSelectionDto = { moduleId: modules[i].id, courses: [] };
+            for (let j = 0; j < modules[i].courses.length; j++) {
+                const checkBoxes = matrix[index].map(x => x.isSelected)
+                const position = checkBoxes.findIndex(x => x)
+                if (position == -1) {
+                    index++;
+                    continue
+                }
+                const info: CourseSelectionDto = { courseId: modules[i].courses[j].id, semester: position + 1 }
+                moduleInfo.courses.push(info)
+                index++;
+            }
+            result.modules.push(moduleInfo)
+        }
+        
+        return result;
+    }
+
+    const saveStudyPlan = () => {
+        const result = buildStudyPlan()
+        api.educationalProgramsApi.saveStudyPlan(result)
+    }
+
     return (
         <Container>
             <Toolbar title="Редактирование образовательной программы">
-                <SaveButton to={""} onClick={() => save()}/>
+                <SaveButton to={""} onClick={() => {
+                    save()
+                    saveStudyPlan()
+                }
+                }/>
                 <CloseButton />
             </Toolbar>
             <InputField 
@@ -86,7 +147,7 @@ export function EditEducationalProgramScreen() {
             <NText>Год начала обучения:</NText>
             <Select options={render()} onChange={(e) => setShouldRenderStudyPlan(true)}/>
             {renderStudyPlan()}
-            <NewStudyPlan />
+            <NewStudyPlan matrix={matrix} setMatrix={setMatrix} modules={modules} />
         </Container>
     )
 }

@@ -1,77 +1,24 @@
-import { useEffect, useState } from "react";
 import styles from "./NewStudyPlan.module.css";
 import { useApis } from "../../apis/ApiBase/ApiProvider";
 import { ModuleTable } from "./ModuleTable/ModuleTable";
 import { FullModuleDto } from "../../apis/api/modules/FullModuleDto";
-import { StudyPlanDto } from "../../apis/api/programs/StudyPlanDto";
-import { ModuleSelectionDto } from "../../apis/api/programs/ModuleSelectionDto";
-import { CourseSelectionDto } from "../../apis/api/programs/CourseSelectionDto";
+import { CheckBox } from "../../domain/EducationalProgramScreen/EditEducationalProgramScreen/EditEducationalProgramScreen";
 
-export interface CheckBox {
-    isSelected: boolean,
-    isChangeable: number
+export interface Props {
+    matrix: CheckBox[][],
+    setMatrix: React.Dispatch<React.SetStateAction<CheckBox[][]>>
+    modules: FullModuleDto[]
 }
 
-export function NewStudyPlan() {
-    const [matrix, setMatrix] = useState<CheckBox[][]>([])
-    const [modules, setModules] = useState<FullModuleDto[]>([])
-
+export function NewStudyPlan(props: Props) {
     const api = useApis()
-
-    useEffect(() => {
-        const loadModules = async () => {
-            const modules = await api.educationalModulesApi.getAllModules2()
-
-            const newMatrix = []
-            for (let i = 0; i < modules.length; i++) {
-                for (let j = 0; j < modules[i].courses.length; j++) {
-                    const checkBox0: CheckBox = { isSelected: false, isChangeable: 0 }
-                    const checkBox1: CheckBox = { isSelected: false, isChangeable: 0 }
-                    const checkBox2: CheckBox = { isSelected: false, isChangeable: 0 }
-                    const checkBox3: CheckBox = { isSelected: false, isChangeable: 0 }
-                    newMatrix.push([checkBox0, checkBox1, checkBox2, checkBox3])
-                }
-            }
-            setMatrix(newMatrix)
-            setModules(modules)
-        }
-        loadModules().catch(console.error)
-    }, [])
-
-    const buildResult = () => {
-        let index = 0
-
-        const result: StudyPlanDto = { startYear: 0, modules: [] }
-        for (let i = 0; i < modules.length; i++) {
-            const moduleInfo: ModuleSelectionDto = { moduleId: modules[i].id, courses: [] };
-            for (let j = 0; j < modules[i].courses.length; j++) {
-                const checkBoxes = matrix[index].map(x => x.isSelected)
-                const position = checkBoxes.findIndex(x => x)
-                if (position == -1) {
-                    index++;
-                    continue
-                }
-                const info: CourseSelectionDto = { courseId: modules[i].courses[j].id, semester: position + 1 }
-                moduleInfo.courses.push(info)
-                index++;
-            }
-            result.modules.push(moduleInfo)
-        }
-        
-        return result;
-    }
-
-    const save = () => {
-        const result = buildResult()
-        api.educationalProgramsApi.saveStudyPlan(result)
-    }
 
     const renderModules = () => {
         let x = 0
-        return modules.map(module => {
+        return props.modules.map(module => {
             let copy = x;
             x = x + module.courses.length;
-            return <ModuleTable module={module} shift={copy} matrix={matrix} setMatrix={setMatrix} />
+            return <ModuleTable module={module} shift={copy} matrix={props.matrix} setMatrix={props.setMatrix} />
         })
     }
 
@@ -91,7 +38,6 @@ export function NewStudyPlan() {
                 </tr>
                 {renderModules()}
             </table>
-            <button onClick={(e) => save()} >Save</button>
         </>
     )
 }
