@@ -21,4 +21,4 @@ server:
 
 # Посчитать количество строк в кода
 count:
-	@find . -name '*.java' | xargs wc -l | tail -n 1 | grep -o '[0-9]*'
+	@find . -name '*.java' -o -name '*.kt' | xargs wc -l | tail -n 1 | grep -o '[0-9]*'

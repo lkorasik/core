@@ -7,6 +7,8 @@ import { ShortProgramDTO } from "./ShortProgramDTO";
 import { UpdateEducationalProgramDto } from "./UpdateEducationalProgramDto";
 import { AvailableYearDto } from "./AvailableYearDto";
 import { StudyPlanDto } from "./StudyPlanDto";
+import { GetStudyPlanDto } from "./GetStudyPlanDto";
+import { StudyPlanDto2 } from "./StudyPlanDto2";
 
 export class ProgramsApi extends ApiBase implements IProgramsApi {
     public async getCurrentEducationalProgram(): Promise<ProgramInfoDto> {
@@ -36,6 +38,10 @@ export class ProgramsApi extends ApiBase implements IProgramsApi {
     public async saveStudyPlan(studyPlan: StudyPlanDto): Promise<void> {
         return this.post("programs/plan", {}, studyPlan);
     }
+
+    public async getStudyPlan(getStudyPlan: GetStudyPlanDto): Promise<StudyPlanDto2> {
+        return this.post("programs/getPlan", {}, getStudyPlan)
+    }
 }
 
 export interface IProgramsApi {
@@ -46,4 +52,5 @@ export interface IProgramsApi {
     updateEducationalProgram(updateProgram: UpdateEducationalProgramDto): Promise<void>
     getAvailableYears(programId: ProgramIdDto): Promise<AvailableYearDto[]>
     saveStudyPlan(studyPlan: StudyPlanDto): Promise<void>
+    getStudyPlan(getStudyPlan: GetStudyPlanDto): Promise<StudyPlanDto2>
 }
