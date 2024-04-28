@@ -67,7 +67,7 @@ public class ProgramController extends AbstractAuthorizedController {
     }
 
     @GetMapping("/all")
-    public List<ShortProgramDTO> getAvailablePrograms() {
+    public List<ShortProgramDTO> getAll() {
         return getAvailablePrograms.getAllPrograms()
                 .stream()
                 .map(x -> new ShortProgramDTO(x.id(), x.name()))

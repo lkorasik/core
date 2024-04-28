@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * Получить все программы
+ * 1. Получаем список всех программ
  */
 public class GetAllPrograms {
     private final ProgramGateway programGateway;
