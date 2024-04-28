@@ -4,7 +4,7 @@ create table educational_modules (id uuid not null, name varchar(255), primary k
 create table educational_program_to_courses_with_semesters (is_required_course boolean, educational_program_id uuid, id uuid not null, semester_id uuid, special_course_id uuid, primary key (id));
 create table educational_programs (id uuid not null, name varchar(255), semester_id_to_required_credits_count varchar(255), training_direction varchar(255), primary key (id));
 create table groups (year smallint check (year between 0 and 1), id uuid not null, number varchar(255), primary key (id));
-create table registration_tokens (registration_token uuid not null, user_role varchar(255) check (user_role in ('STUDENT','UNIVERSITY_EMPLOYEE','ADMIN')), primary key (registration_token));
+create table registration_tokens (registration_token uuid not null, user_role varchar(255) check (user_role in ('STUDENT','ADMIN')), primary key (registration_token));
 create table selected_courses (id uuid not null, semester_id uuid, special_course_id uuid, student_login uuid, primary key (id));
 create table semesters (semester_number integer, type smallint check (type between 0 and 1), year integer, id uuid not null, primary key (id));
 create table skills (id uuid not null, name varchar(255), primary key (id));

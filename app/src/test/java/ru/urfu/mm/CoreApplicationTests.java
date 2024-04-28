@@ -214,7 +214,6 @@
 //
 //        Iterable<RegistrationToken> tokens = List.of(
 //                new RegistrationToken(UUID.randomUUID(), UserEntityRole.STUDENT),
-//                new RegistrationToken(UUID.randomUUID(), UserEntityRole.UNIVERSITY_EMPLOYEE),
 //                new RegistrationToken(UUID.randomUUID(), UserEntityRole.ADMIN)
 //        );
 //        registrationTokenRepository.saveAll(tokens);
