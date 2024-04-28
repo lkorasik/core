@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.domain.Account;
 import ru.urfu.mm.persistance.entity.AccountEntity;
-import ru.urfu.mm.persistance.entity.UserEntityRole;
+import ru.urfu.mm.persistance.entity.enums.UserEntityRole;
 
 @Component
 public class UserToEntityMapper implements Mapper<Account, AccountEntity> {

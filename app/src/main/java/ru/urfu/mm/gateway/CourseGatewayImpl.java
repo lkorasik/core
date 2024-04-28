@@ -10,6 +10,7 @@ import ru.urfu.mm.domain.Semester;
 import ru.urfu.mm.domain.SemesterType;
 import ru.urfu.mm.persistance.entity.*;
 import ru.urfu.mm.persistance.entity.StudentEntity;
+import ru.urfu.mm.persistance.entity.enums.Control;
 import ru.urfu.mm.persistance.repository.EducationalProgramToCoursesWithSemestersRepository;
 import ru.urfu.mm.persistance.repository.SelectedCoursesRepository;
 import ru.urfu.mm.persistance.repository.SpecialCourseRepository;
@@ -23,8 +24,8 @@ public class CourseGatewayImpl implements CourseGateway {
     private final SpecialCourseRepository courseRepository;
     private final SelectedCoursesRepository selectedCoursesRepository;
     private final EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository;
-    private final Mapper<ru.urfu.mm.persistance.entity.SemesterType, ru.urfu.mm.domain.SemesterType> semesterTypeToDomainMapper;
-    private final Mapper<ru.urfu.mm.domain.SemesterType, ru.urfu.mm.persistance.entity.SemesterType> semesterTypeToEntityMapper;
+    private final Mapper<ru.urfu.mm.persistance.entity.enums.SemesterType, ru.urfu.mm.domain.SemesterType> semesterTypeToDomainMapper;
+    private final Mapper<ru.urfu.mm.domain.SemesterType, ru.urfu.mm.persistance.entity.enums.SemesterType> semesterTypeToEntityMapper;
     private final Mapper<Account, AccountEntity> userMapper;
 
     @Autowired
@@ -32,8 +33,8 @@ public class CourseGatewayImpl implements CourseGateway {
             SpecialCourseRepository courseRepository,
             SelectedCoursesRepository selectedCoursesRepository,
             EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository,
-            Mapper<ru.urfu.mm.persistance.entity.SemesterType, SemesterType> semesterTypeToDomainMapper,
-            Mapper<SemesterType, ru.urfu.mm.persistance.entity.SemesterType> semesterTypeToEntityMapper,
+            Mapper<ru.urfu.mm.persistance.entity.enums.SemesterType, SemesterType> semesterTypeToDomainMapper,
+            Mapper<SemesterType, ru.urfu.mm.persistance.entity.enums.SemesterType> semesterTypeToEntityMapper,
             Mapper<Account, AccountEntity> userMapper) {
         this.courseRepository = courseRepository;
         this.selectedCoursesRepository = selectedCoursesRepository;
@@ -314,7 +315,7 @@ public class CourseGatewayImpl implements CourseGateway {
                                                 new GroupEntity(
                                                         x.getStudent().getGroup().getId(),
                                                         x.getStudent().getGroup().getNumber(),
-                                                        ru.urfu.mm.persistance.entity.Years.values()[x.getStudent().getGroup().getYear().ordinal()]
+                                                        ru.urfu.mm.persistance.entity.enums.Years.values()[x.getStudent().getGroup().getYear().ordinal()]
                                                 ),
                                                 userMapper.map(x.getStudent().getUser())
                                         ),

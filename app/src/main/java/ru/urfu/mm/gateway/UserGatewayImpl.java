@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.UserGateway;
 import ru.urfu.mm.domain.Account;
 import ru.urfu.mm.persistance.entity.AccountEntity;
-import ru.urfu.mm.persistance.entity.UserEntityRole;
+import ru.urfu.mm.persistance.entity.enums.UserEntityRole;
 import ru.urfu.mm.persistance.repository.AccountRepository;
 import ru.urfu.mm.service.mapper.Mapper;
 

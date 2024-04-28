@@ -1,6 +1,8 @@
 package ru.urfu.mm.persistance.entity;
 
 import jakarta.persistence.*;
+import ru.urfu.mm.persistance.entity.enums.SkillLevel;
+
 import java.util.UUID;
 
 @Entity

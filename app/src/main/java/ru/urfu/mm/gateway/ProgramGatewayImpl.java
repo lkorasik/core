@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.domain.Group;
 import ru.urfu.mm.domain.Program;
-import ru.urfu.mm.entity.*;
 import ru.urfu.mm.persistance.entity.EducationalProgram;
 import ru.urfu.mm.persistance.entity.GroupEntity;
 import ru.urfu.mm.persistance.repository.EducationalProgramRepository;

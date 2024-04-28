@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.GroupGateway;
 import ru.urfu.mm.domain.Group;
 import ru.urfu.mm.persistance.entity.GroupEntity;
-import ru.urfu.mm.persistance.entity.Years;
+import ru.urfu.mm.persistance.entity.enums.Years;
 import ru.urfu.mm.persistance.repository.GroupRepository;
 
 import java.util.Optional;

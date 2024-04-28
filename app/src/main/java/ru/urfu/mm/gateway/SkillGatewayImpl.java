@@ -155,12 +155,12 @@ public class SkillGatewayImpl implements SkillGateway {
                                                 new GroupEntity(
                                                         student.getGroup().getId(),
                                                         student.getGroup().getNumber(),
-                                                        ru.urfu.mm.persistance.entity.Years.values()[student.getGroup().getYear().ordinal()]
+                                                        ru.urfu.mm.persistance.entity.enums.Years.values()[student.getGroup().getYear().ordinal()]
                                                 ),
                                                 userMapper.map(student.getUser())
                                         ),
                                         x.getKey(),
-                                        ru.urfu.mm.persistance.entity.SkillLevel.values()[x.getValue().ordinal()]
+                                        ru.urfu.mm.persistance.entity.enums.SkillLevel.values()[x.getValue().ordinal()]
                                 ))
                                 .toList()
                 );
@@ -187,12 +187,12 @@ public class SkillGatewayImpl implements SkillGateway {
                                                 new GroupEntity(
                                                         student.getGroup().getId(),
                                                         student.getGroup().getNumber(),
-                                                        ru.urfu.mm.persistance.entity.Years.values()[student.getGroup().getYear().ordinal()]
+                                                        ru.urfu.mm.persistance.entity.enums.Years.values()[student.getGroup().getYear().ordinal()]
                                                 ),
                                                 userMapper.map(student.getUser())
                                         ),
                                         x.getKey(),
-                                        ru.urfu.mm.persistance.entity.SkillLevel.values()[x.getValue().ordinal()]
+                                        ru.urfu.mm.persistance.entity.enums.SkillLevel.values()[x.getValue().ordinal()]
                                 ))
                                 .toList()
                 );

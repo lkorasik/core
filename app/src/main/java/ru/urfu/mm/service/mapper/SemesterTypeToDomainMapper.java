@@ -1,7 +1,7 @@
 package ru.urfu.mm.service.mapper;
 
 import org.springframework.stereotype.Component;
-import ru.urfu.mm.persistance.entity.SemesterType;
+import ru.urfu.mm.persistance.entity.enums.SemesterType;
 
 @Component
 public class SemesterTypeToDomainMapper implements Mapper<ru.urfu.mm.domain.SemesterType, SemesterType> {

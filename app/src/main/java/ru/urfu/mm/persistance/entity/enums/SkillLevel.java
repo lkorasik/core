@@ -1,6 +1,5 @@
-package ru.urfu.mm.persistance.entity;
+package ru.urfu.mm.persistance.entity.enums;
 
-import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum SkillLevel {

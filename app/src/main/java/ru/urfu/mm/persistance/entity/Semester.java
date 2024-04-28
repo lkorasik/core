@@ -1,6 +1,7 @@
 package ru.urfu.mm.persistance.entity;
 
 import jakarta.persistence.*;
+import ru.urfu.mm.persistance.entity.enums.SemesterType;
 
 import java.util.UUID;
 

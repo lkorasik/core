@@ -2,7 +2,7 @@ package ru.urfu.mm.service;
 
 import ru.urfu.mm.controller.course.CourseDTO;
 import ru.urfu.mm.domain.Course;
-import ru.urfu.mm.persistance.entity.Control;
+import ru.urfu.mm.persistance.entity.enums.Control;
 import ru.urfu.mm.persistance.entity.SpecialCourse;
 
 public class ModelConverterHelper {

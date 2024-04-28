@@ -3,6 +3,8 @@ package ru.urfu.mm.persistance.entity;
 import java.util.UUID;
 
 import jakarta.persistence.*;
+import ru.urfu.mm.persistance.entity.enums.SkillLevel;
+
 @Entity
 @Table(name = "courses_to_result_skills")
 public class CourseToResultSkills {

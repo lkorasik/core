@@ -1,6 +1,7 @@
 package ru.urfu.mm.persistance.entity;
 
 import jakarta.persistence.*;
+import ru.urfu.mm.persistance.entity.enums.Years;
 
 import java.util.List;
 import java.util.UUID;

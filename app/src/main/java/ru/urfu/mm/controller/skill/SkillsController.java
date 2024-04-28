@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.application.usecase.*;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
-import ru.urfu.mm.entity.*;
-import ru.urfu.mm.persistance.entity.SkillLevel;
+import ru.urfu.mm.persistance.entity.enums.SkillLevel;
 
 import java.util.List;
 import java.util.Map;

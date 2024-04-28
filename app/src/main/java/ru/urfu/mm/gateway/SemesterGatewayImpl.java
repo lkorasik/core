@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.SemesterGateway;
 import ru.urfu.mm.domain.Semester;
-import ru.urfu.mm.persistance.entity.SemesterType;
+import ru.urfu.mm.persistance.entity.enums.SemesterType;
 import ru.urfu.mm.persistance.repository.SemesterRepository;
 import ru.urfu.mm.service.mapper.Mapper;
 

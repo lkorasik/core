@@ -6,7 +6,7 @@ import ru.urfu.mm.application.gateway.SemesterPlanGateway;
 import ru.urfu.mm.domain.SemesterPlan;
 import ru.urfu.mm.persistance.entity.Semester;
 import ru.urfu.mm.persistance.entity.SemesterPlanEntity;
-import ru.urfu.mm.persistance.entity.SemesterType;
+import ru.urfu.mm.persistance.entity.enums.SemesterType;
 import ru.urfu.mm.persistance.repository.SemesterPlanRepository;
 
 @Component

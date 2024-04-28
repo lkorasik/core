@@ -1,4 +1,4 @@
-package ru.urfu.mm.persistance.entity;
+package ru.urfu.mm.persistance.entity.enums;
 
 /**
  * Тип семестра

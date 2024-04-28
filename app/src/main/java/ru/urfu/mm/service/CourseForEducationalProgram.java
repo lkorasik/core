@@ -1,6 +1,6 @@
 package ru.urfu.mm.service;
 
-import ru.urfu.mm.persistance.entity.Control;
+import ru.urfu.mm.persistance.entity.enums.Control;
 import ru.urfu.mm.persistance.entity.Semester;
 
 import java.util.List;

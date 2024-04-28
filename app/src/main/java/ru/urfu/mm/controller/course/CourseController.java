@@ -11,7 +11,7 @@ import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.domain.ControlTypes;
 import ru.urfu.mm.domain.SemesterType;
 import ru.urfu.mm.domain.Course;
-import ru.urfu.mm.persistance.entity.Control;
+import ru.urfu.mm.persistance.entity.enums.Control;
 import ru.urfu.mm.persistance.entity.Semester;
 import ru.urfu.mm.service.ModelConverterHelper;
 import ru.urfu.mm.service.mapper.Mapper;
@@ -51,7 +51,7 @@ public class CourseController extends AbstractAuthorizedController {
     @Autowired
     private LoadAvailableCourses loadAvailableCourses;
     @Autowired
-    private Mapper<SemesterType, ru.urfu.mm.persistance.entity.SemesterType> semesterTypeToEntityMapper;
+    private Mapper<SemesterType, ru.urfu.mm.persistance.entity.enums.SemesterType> semesterTypeToEntityMapper;
 
     @PostMapping
     public List<CourseForProgramDTO> specialCourse(@RequestBody GetCoursesDTO getCoursesDTO) {
