@@ -8,8 +8,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.urfu.mm.application.dsl.ProgramDSL;
 import ru.urfu.mm.application.gateway.ProgramGateway;
-import ru.urfu.mm.application.usecase.getallprograms.GetAllPrograms;
-import ru.urfu.mm.application.usecase.getallprograms.ProgramResponse;
+import ru.urfu.mm.application.usecase.get_all_programs.GetAllPrograms;
+import ru.urfu.mm.application.usecase.get_all_programs.ProgramResponse;
 import ru.urfu.mm.domain.Program;
 
 import java.util.List;

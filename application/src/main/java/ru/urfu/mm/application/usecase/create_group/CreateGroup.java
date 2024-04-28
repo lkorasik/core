@@ -3,7 +3,7 @@ package ru.urfu.mm.application.usecase.create_group;
 import ru.urfu.mm.application.gateway.GroupGateway;
 import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.application.gateway.SemesterGateway;
-import ru.urfu.mm.application.usecase.createstudyplan.CreateStudyPlan;
+import ru.urfu.mm.application.usecase.create_study_plan.CreateStudyPlan;
 import ru.urfu.mm.domain.Group;
 import ru.urfu.mm.domain.Program;
 import ru.urfu.mm.domain.Semester;

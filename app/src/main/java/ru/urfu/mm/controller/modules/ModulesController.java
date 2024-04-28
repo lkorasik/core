@@ -4,15 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.application.usecase.CreateModuleWithCourses;
 import ru.urfu.mm.application.usecase.DeleteModuleById;
-import ru.urfu.mm.application.usecase.getallmodules.GetAllModules;
+import ru.urfu.mm.application.usecase.get_all_modules.GetAllModules;
 import ru.urfu.mm.application.usecase.GetModulesByIds;
-import ru.urfu.mm.application.usecase.getmodule.GetModuleWithCourses;
-import ru.urfu.mm.application.usecase.getmodule.ModuleWithCoursesResponse;
-import ru.urfu.mm.application.usecase.getmodulescourses.GetModulesCourses;
+import ru.urfu.mm.application.usecase.get_module.GetModuleWithCourses;
+import ru.urfu.mm.application.usecase.get_module.ModuleWithCoursesResponse;
+import ru.urfu.mm.application.usecase.get_modules_courses.GetModulesCourses;
 import ru.urfu.mm.domain.Course;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/modules")

@@ -8,7 +8,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.urfu.mm.application.dsl.ModuleDSL;
 import ru.urfu.mm.application.gateway.ModuleGateway;
-import ru.urfu.mm.application.usecase.getallmodules.GetAllModules;
+import ru.urfu.mm.application.usecase.get_all_modules.GetAllModules;
 import ru.urfu.mm.domain.Module;
 
 import java.util.List;

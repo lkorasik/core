@@ -8,11 +8,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.urfu.mm.application.dsl.DSL;
-import ru.urfu.mm.application.usecase.loginuser.InvalidCredentialsException;
+import ru.urfu.mm.application.usecase.login_user.InvalidCredentialsException;
 import ru.urfu.mm.application.gateway.PasswordGateway;
 import ru.urfu.mm.application.gateway.UserGateway;
-import ru.urfu.mm.application.usecase.loginuser.LoginRequest;
-import ru.urfu.mm.application.usecase.loginuser.LoginUser;
+import ru.urfu.mm.application.usecase.login_user.LoginRequest;
+import ru.urfu.mm.application.usecase.login_user.LoginUser;
 import ru.urfu.mm.domain.Account;
 import ru.urfu.mm.domain.UserRole;
 
