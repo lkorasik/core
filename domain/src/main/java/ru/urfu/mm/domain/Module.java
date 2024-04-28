@@ -36,6 +36,10 @@ public class Module {
         return name;
     }
 
+    public void addCourse(Course course) {
+        courses.add(course);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

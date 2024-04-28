@@ -166,14 +166,14 @@ class AddModuleCourseScreenClear extends React.Component<Props, State> {
     }
 
     private async createModuleCourse() {
-        await this.props.apis.specialCoursesApi.createModuleSpecialCourse({
+        await this.props.apis.specialCoursesApi.createCourse({
             moduleId: this.state.educationalModuleId,
-            courseName: this.state.courseName,
+            name: this.state.courseName,
             department: this.state.department,
-            teacherName: this.state.teacherName,
-            creditsCount: this.state.creditsCount,
+            teacher: this.state.teacherName,
+            credits: this.state.creditsCount,
             controlType: this.state.controlType,
-            courseDescription: this.state.courseDescription,
+            description: this.state.courseDescription,
         });
     }
 }
