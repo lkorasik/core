@@ -10,6 +10,12 @@ export interface CheckBox {
     isChangeable: number
 }
 
+interface SaveObject {
+    moduleId: string,
+    startYear: number,
+    coursesSemester: number[]
+}
+
 export function NewStudyPlan() {
     const [matrix, setMatrix] = useState<CheckBox[][]>([])
     const [modules, setModules] = useState<FullModuleDto[]>([])
@@ -32,11 +38,28 @@ export function NewStudyPlan() {
             }
             setMatrix(newMatrix)
             setModules(modules)
-
-            console.log("State matrix: " + newMatrix)
         }
         loadModules().catch(console.error)
     }, [])
+
+    const save = () => {
+        console.log("Save")
+
+        let index = 0
+        const result = []
+        for (let i = 0; i < modules.length; i++) {
+            const moduleInfo: SaveObject = { moduleId: modules[i].id, startYear: 0, coursesSemester: [] };
+            for (let j = 0; j < modules[i].courses.length; j++) {
+                const checkBoxes = matrix[index].map(x => x.isSelected)
+                const position = checkBoxes.findIndex(x => x)
+                moduleInfo.coursesSemester.push(position + 1)
+                index++;
+            }
+            result.push(moduleInfo)
+        }
+
+        console.log(result)
+    }
 
     const renderModules = () => {
         let x = 0
@@ -48,19 +71,22 @@ export function NewStudyPlan() {
     }
 
     return (
-        <table className={styles.table}>
-            <tr className={styles.tr}>
-                <td className={styles.td} rowSpan={2} colSpan={2}></td>
-                <td className={styles.td} colSpan={2}>1 курс</td>
-                <td className={styles.td} colSpan={2}>2 курс</td>
-            </tr>
-            <tr className={styles.tr}>
-                <td className={styles.td}>1 семестр</td>
-                <td className={styles.td}>2 семестр</td>
-                <td className={styles.td}>3 семестр</td>
-                <td className={styles.td}>4 семестр</td>
-            </tr>
-            {renderModules()}
-        </table>
+        <>
+            <table className={styles.table}>
+                <tr className={styles.tr}>
+                    <td className={styles.td} rowSpan={2} colSpan={2}></td>
+                    <td className={styles.td} colSpan={2}>1 курс</td>
+                    <td className={styles.td} colSpan={2}>2 курс</td>
+                </tr>
+                <tr className={styles.tr}>
+                    <td className={styles.td}>1 семестр</td>
+                    <td className={styles.td}>2 семестр</td>
+                    <td className={styles.td}>3 семестр</td>
+                    <td className={styles.td}>4 семестр</td>
+                </tr>
+                {renderModules()}
+            </table>
+            <button onClick={(e) => save()} >Save</button>
+        </>
     )
 }

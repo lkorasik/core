@@ -10,8 +10,6 @@ export interface Props {
 }
 
 export function ModuleTable(props: Props) {
-    console.log(props.module.name + " -> " + props.shift)
-
     const onClick = (x: number, y: number) => {
         console.log(x + " -> " + y)
         
@@ -69,7 +67,7 @@ export function ModuleTable(props: Props) {
     }
 
     const renderValue = (x: number, y: number) => {
-        return props.matrix[y][x].isSelected ? "T" : "F"
+        return props.matrix[y][x].isSelected ? "X" : ""
     }
 
     const renderModule = () => {
