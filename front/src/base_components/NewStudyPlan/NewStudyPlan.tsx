@@ -5,7 +5,7 @@ import { ModuleDto } from "../../apis/api/modules/ModuleDto";
 import { ModuleTable } from "../ModuleTable/ModuleTable";
 import { FullModuleDto } from "../../apis/api/modules/FullModuleDto";
 
-interface CheckBox {
+export interface CheckBox {
     isSelected: boolean,
     isChangeable: number
 }
@@ -22,11 +22,13 @@ export function NewStudyPlan() {
 
             const newMatrix = []
             for (let i = 0; i < modules.length; i++) {
-                const checkBox0: CheckBox = { isSelected: false, isChangeable: 0 }
-                const checkBox1: CheckBox = { isSelected: false, isChangeable: 0 }
-                const checkBox2: CheckBox = { isSelected: false, isChangeable: 0 }
-                const checkBox3: CheckBox = { isSelected: false, isChangeable: 0 }
-                newMatrix.push([checkBox0, checkBox1, checkBox2, checkBox3])
+                for (let j = 0; j < modules[i].courses.length; j++) {
+                    const checkBox0: CheckBox = { isSelected: false, isChangeable: 0 }
+                    const checkBox1: CheckBox = { isSelected: false, isChangeable: 0 }
+                    const checkBox2: CheckBox = { isSelected: false, isChangeable: 0 }
+                    const checkBox3: CheckBox = { isSelected: false, isChangeable: 0 }
+                    newMatrix.push([checkBox0, checkBox1, checkBox2, checkBox3])
+                }
             }
             setMatrix(newMatrix)
             setModules(modules)
@@ -37,7 +39,12 @@ export function NewStudyPlan() {
     }, [])
 
     const renderModules = () => {
-        return modules.map(module => <ModuleTable module={module} />)
+        let x = 0
+        return modules.map(module => {
+            let copy = x;
+            x = x + module.courses.length;
+            return <ModuleTable module={module} shift={copy} matrix={matrix} setMatrix={setMatrix} />
+        })
     }
 
     return (
