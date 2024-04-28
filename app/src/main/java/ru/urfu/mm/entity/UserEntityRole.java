@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum UserEntityRole {
     STUDENT("Student"),
-    UNIVERSITY_EMPLOYEE("UniversityEmployee"),
     ADMIN("Admin");
 
     private final String value;
