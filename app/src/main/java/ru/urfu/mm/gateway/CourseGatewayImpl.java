@@ -327,11 +327,11 @@ public class CourseGatewayImpl implements CourseGateway {
                                         new SpecialCourse(
                                                 x.getSpecialCourse().getId(),
                                                 x.getSpecialCourse().getName(),
-                                                x.getSpecialCourse().getCreditsCount(),
+                                                x.getSpecialCourse().getCredits(),
                                                 Control.values()[x.getSpecialCourse().getControl().ordinal()],
                                                 x.getSpecialCourse().getDescription(),
                                                 x.getSpecialCourse().getDepartment(),
-                                                x.getSpecialCourse().getTeacherName(),
+                                                x.getSpecialCourse().getTeacher(),
                                                 new ru.urfu.mm.persistance.entity.Module(
                                                         x.getSpecialCourse().getEducationalModule().getId(),
                                                         x.getSpecialCourse().getEducationalModule().getName()
@@ -365,11 +365,11 @@ public class CourseGatewayImpl implements CourseGateway {
                 new SpecialCourse(
                         specialCourse.getId(),
                         specialCourse.getName(),
-                        specialCourse.getCreditsCount(),
+                        specialCourse.getCredits(),
                         Control.values()[specialCourse.getControl().ordinal()],
                         specialCourse.getDescription(),
                         specialCourse.getDepartment(),
-                        specialCourse.getTeacherName(),
+                        specialCourse.getTeacher(),
                         new ru.urfu.mm.persistance.entity.Module(
                                 specialCourse.getEducationalModule().getId(),
                                 specialCourse.getEducationalModule().getName()

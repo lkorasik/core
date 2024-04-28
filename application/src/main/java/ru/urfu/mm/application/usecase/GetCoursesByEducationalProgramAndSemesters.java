@@ -63,7 +63,7 @@ public class GetCoursesByEducationalProgramAndSemesters {
             var course = new CourseForEducationalProgram(
                     courseId,
                     firstCourseInfo.getName(),
-                    firstCourseInfo.getCreditsCount(),
+                    firstCourseInfo.getCredits(),
                     firstCourseInfo.getControl(),
                     firstCourseInfo.getDescription(),
                     info.stream().map(x -> new Semester(

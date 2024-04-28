@@ -23,11 +23,11 @@ public class ModelConverterHelper {
         return new CourseDTO(
                 specialCourse.getId(),
                 specialCourse.getName(),
-                specialCourse.getCreditsCount(),
+                specialCourse.getCredits(),
                 Control.values()[specialCourse.getControl().ordinal()],
                 specialCourse.getDescription(),
                 specialCourse.getEducationalModule().getId(),
-                specialCourse.getTeacherName(),
+                specialCourse.getTeacher(),
                 specialCourse.getDepartment()
         );
     }

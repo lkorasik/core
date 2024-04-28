@@ -25,9 +25,9 @@ public class EditModuleSpecialCourse {
         if (oldCourseValue != null) {
             oldCourseValue.setName(courseName);
             oldCourseValue.setDepartment(department);
-            oldCourseValue.setTeacherName(teacherName);
+            oldCourseValue.setTeacher(teacherName);
             oldCourseValue.setControl(controlTypes);
-            oldCourseValue.setCreditsCount(creditsCount);
+            oldCourseValue.setCredits(creditsCount);
             oldCourseValue.setDescription(courseDescription);
 
             courseGateway.save(oldCourseValue);

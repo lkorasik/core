@@ -9,46 +9,46 @@ import java.util.UUID;
 public class Course {
     private UUID id;
     private String name;
-    private int creditsCount;
+    private int credits;
     private ControlTypes controlTypes;
     private String description;
     private String department;
-    private String teacherName;
+    private String teacher;
     private Module module;
 
     public Course(
             UUID id,
             String name,
-            int creditsCount,
+            int credits,
             ControlTypes controlTypes,
             String description,
             String department,
-            String teacherName,
+            String teacher,
             Module module) {
         this.id = id;
         this.name = name;
-        this.creditsCount = creditsCount;
+        this.credits = credits;
         this.controlTypes = controlTypes;
         this.description = description;
         this.department = department;
-        this.teacherName = teacherName;
+        this.teacher = teacher;
         this.module = module;
     }
 
     public Course(
             String name,
-            int creditsCount,
+            int credits,
             ControlTypes controlTypes,
             String description,
             String department,
-            String teacherName,
+            String teacher,
             Module module) {
         this.name = name;
-        this.creditsCount = creditsCount;
+        this.credits = credits;
         this.controlTypes = controlTypes;
         this.description = description;
         this.department = department;
-        this.teacherName = teacherName;
+        this.teacher = teacher;
         this.module = module;
     }
 
@@ -60,8 +60,8 @@ public class Course {
         return name;
     }
 
-    public int getCreditsCount() {
-        return creditsCount;
+    public int getCredits() {
+        return credits;
     }
 
     public ControlTypes getControl() {
@@ -76,8 +76,8 @@ public class Course {
         return department;
     }
 
-    public String getTeacherName() {
-        return teacherName;
+    public String getTeacher() {
+        return teacher;
     }
 
     public Module getEducationalModule() {
@@ -92,8 +92,8 @@ public class Course {
         this.name = name;
     }
 
-    public void setCreditsCount(int creditsCount) {
-        this.creditsCount = creditsCount;
+    public void setCredits(int credits) {
+        this.credits = credits;
     }
 
     public void setControl(ControlTypes controlTypes) {
@@ -108,8 +108,8 @@ public class Course {
         this.department = department;
     }
 
-    public void setTeacherName(String teacherName) {
-        this.teacherName = teacherName;
+    public void setTeacher(String teacher) {
+        this.teacher = teacher;
     }
 
     @Override
@@ -119,14 +119,14 @@ public class Course {
         if ((obj == null) || (getClass() != obj.getClass()))
             return false;
         Course that = (Course) obj;
-        return creditsCount == that.creditsCount && Objects.equals(id, that.id) && Objects.equals(name, that.name) &&
+        return credits == that.credits && Objects.equals(id, that.id) && Objects.equals(name, that.name) &&
                controlTypes == that.controlTypes && Objects.equals(description, that.description) &&
-               Objects.equals(department, that.department) && Objects.equals(teacherName, that.teacherName) &&
+               Objects.equals(department, that.department) && Objects.equals(teacher, that.teacher) &&
                Objects.equals(module, that.module);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, creditsCount, controlTypes, description, department, teacherName, module);
+        return Objects.hash(id, name, credits, controlTypes, description, department, teacher, module);
     }
 }

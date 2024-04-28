@@ -133,11 +133,11 @@ public class CourseController extends AbstractAuthorizedController {
         return new CourseDTO(
                 course.getId(),
                 course.getName(),
-                course.getCreditsCount(),
+                course.getCredits(),
                 Control.values()[course.getControl().ordinal()],
                 course.getDescription(),
                 course.getEducationalModule().getId(),
-                course.getTeacherName(),
+                course.getTeacher(),
                 course.getDepartment()
         );
     }
