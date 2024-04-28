@@ -74,4 +74,9 @@ public class ProgramController extends AbstractAuthorizedController {
     public List<GetStudyPlanResponse> laod(@RequestParam("id") UUID id) {
         return getAvailableYears.getStudyPlan(id);
     }
+
+    @PostMapping("/plan")
+    public void saveStudyPlan(@RequestBody StudyPlanDTO dto) {
+        System.out.println("Receive: " + dto);
+    }
 }

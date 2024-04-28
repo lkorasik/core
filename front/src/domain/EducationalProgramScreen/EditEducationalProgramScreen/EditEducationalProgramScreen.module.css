@@ -1,3 +1,8 @@
-.select {
-    background: rebeccapurple;
+.table, .th, .tr, .td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.gray {
+    background-color: #c0c0c0;
 }
