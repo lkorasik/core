@@ -34,7 +34,8 @@ export function ModuleTable(props: Props) {
             newMatrix.push(newRow);
         }
 
-        for (let i = 0; i < props.matrix.length; i++) {
+        // Блокировки столбца
+        for (let i = props.shift; i < props.shift + props.module.courses.length; i++) {
             if (i != y) {
                 if (newMatrix[y][x].isSelected) {
                     newMatrix[i][x].isChangeable++
@@ -44,6 +45,7 @@ export function ModuleTable(props: Props) {
             }
         }
 
+        // Блокировка строки
         for (let i = 0; i < props.matrix[y].length; i++) {
             if (i != x) {
                 if (newMatrix[y][x].isSelected) {
@@ -56,6 +58,14 @@ export function ModuleTable(props: Props) {
 
         console.log(newMatrix)
         props.setMatrix(newMatrix)
+    }
+
+    const getCSSClasses = (x: number, y: number) => {
+        if (props.matrix[y][x].isChangeable == 0) {
+            return `${styles.td} ${styles.enabled}`
+        } else {
+            return `${styles.td} ${styles.disabled}`
+        }
     }
 
     const renderValue = (x: number, y: number) => {
@@ -71,10 +81,10 @@ export function ModuleTable(props: Props) {
                 <tr className={styles.tr}>
                     {i == 0 ? <td className={styles.td} rowSpan={module.courses.length}>{module.name}</td> : <></>}
                     <td className={styles.td}>{module.courses[i].name}</td>
-                    <td className={styles.td} onClick={(e) => onClick(0, props.shift + i)}>{renderValue(0, props.shift + i)}</td>
-                    <td className={styles.td} onClick={(e) => onClick(1, props.shift + i)}>{renderValue(1, props.shift + i)}</td>
-                    <td className={styles.td} onClick={(e) => onClick(2, props.shift + i)}>{renderValue(2, props.shift + i)}</td>
-                    <td className={styles.td} onClick={(e) => onClick(3, props.shift + i)}>{renderValue(3, props.shift + i)}</td>
+                    <td className={getCSSClasses(0, props.shift + i)} onClick={(e) => onClick(0, props.shift + i)}>{renderValue(0, props.shift + i)}</td>
+                    <td className={getCSSClasses(1, props.shift + i)} onClick={(e) => onClick(1, props.shift + i)}>{renderValue(1, props.shift + i)}</td>
+                    <td className={getCSSClasses(2, props.shift + i)} onClick={(e) => onClick(2, props.shift + i)}>{renderValue(2, props.shift + i)}</td>
+                    <td className={getCSSClasses(3, props.shift + i)} onClick={(e) => onClick(3, props.shift + i)}>{renderValue(3, props.shift + i)}</td>
                 </tr>
             )
             rows.push(element)
