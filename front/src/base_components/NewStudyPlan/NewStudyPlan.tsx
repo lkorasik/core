@@ -2,7 +2,7 @@ import styles from "./NewStudyPlan.module.css";
 import { useApis } from "../../apis/ApiBase/ApiProvider";
 import { ModuleTable } from "./ModuleTable/ModuleTable";
 import { FullModuleDto } from "../../apis/api/modules/FullModuleDto";
-import { CheckBox } from "../../domain/EducationalProgramScreen/EditEducationalProgramScreen/EditEducationalProgramScreen";
+import { CheckBox } from "../../domain/EducationalProgramScreen/EditEducationalProgramScreen";
 
 export interface Props {
     matrix: CheckBox[][],

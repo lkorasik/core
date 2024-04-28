@@ -1,12 +1,12 @@
-import { EDUCATIONAL_PROGRAM_SCREEN_URL } from "../../App/App";
+import { EDUCATIONAL_PROGRAM_SCREEN_URL } from "../App/App";
 import { useState } from "react";
-import { useApis } from "../../../apis/ApiBase/ApiProvider";
-import { Container } from "../../../base_components/Container/Container";
-import { Toolbar } from "../../../base_components/Toolbar/Toolbar";
-import { InputField } from "../../../base_components/InputField/InputField";
-import { CreateProgramDto } from "../../../apis/api/programs/CreateProgramDto";
-import { SaveButton } from "../../../base_components/Buttons/CrudButtons/SaveButton/SaveButton";
-import { CloseButton } from "../../../base_components/Buttons/CrudButtons/CloseButton/CloseButton";
+import { useApis } from "../../apis/ApiBase/ApiProvider";
+import { Container } from "../../base_components/Container/Container";
+import { Toolbar } from "../../base_components/Toolbar/Toolbar";
+import { InputField } from "../../base_components/InputField/InputField";
+import { CreateProgramDto } from "../../apis/api/programs/CreateProgramDto";
+import { SaveButton } from "../../base_components/Buttons/CrudButtons/SaveButton/SaveButton";
+import { CloseButton } from "../../base_components/Buttons/CrudButtons/CloseButton/CloseButton";
 
 interface Props {}
 

@@ -1,23 +1,22 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { Toolbar } from "../../../base_components/Toolbar/Toolbar";
-import { CloseButton } from "../../../base_components/Buttons/CrudButtons/CloseButton/CloseButton";
-import { Container } from "../../../base_components/Container/Container";
-import { InputField } from "../../../base_components/InputField/InputField";
+import { Toolbar } from "../../base_components/Toolbar/Toolbar";
+import { CloseButton } from "../../base_components/Buttons/CrudButtons/CloseButton/CloseButton";
+import { Container } from "../../base_components/Container/Container";
+import { InputField } from "../../base_components/InputField/InputField";
 import { useEffect, useState } from "react";
-import styles from "./EditEducationalProgramScreen.module.css";
 import Select from 'react-select'
-import { NText } from "../../../base_components/NText/NText";
-import { useApis } from "../../../apis/ApiBase/ApiProvider";
-import { ProgramIdDto } from "../../../apis/api/programs/ProgramIdDto";
-import { SaveButton } from "../../../base_components/Buttons/CrudButtons/SaveButton/SaveButton";
-import { UpdateEducationalProgramDto } from "../../../apis/api/programs/UpdateEducationalProgramDto";
-import { NewStudyPlan } from "../../../base_components/NewStudyPlan/NewStudyPlan";
-import { StudyPlanDto } from "../../../apis/api/programs/StudyPlanDto";
-import { ModuleSelectionDto } from "../../../apis/api/programs/ModuleSelectionDto";
-import { CourseSelectionDto } from "../../../apis/api/programs/CourseSelectionDto";
-import { FullModuleDto } from "../../../apis/api/modules/FullModuleDto";
-import { GetStudyPlanDto } from "../../../apis/api/programs/GetStudyPlanDto";
-import { StudyPlanDto2 } from "../../../apis/api/programs/StudyPlanDto2";
+import { NText } from "../../base_components/NText/NText";
+import { useApis } from "../../apis/ApiBase/ApiProvider";
+import { ProgramIdDto } from "../../apis/api/programs/ProgramIdDto";
+import { SaveButton } from "../../base_components/Buttons/CrudButtons/SaveButton/SaveButton";
+import { UpdateEducationalProgramDto } from "../../apis/api/programs/UpdateEducationalProgramDto";
+import { NewStudyPlan } from "../../base_components/NewStudyPlan/NewStudyPlan";
+import { StudyPlanDto } from "../../apis/api/programs/StudyPlanDto";
+import { ModuleSelectionDto } from "../../apis/api/programs/ModuleSelectionDto";
+import { CourseSelectionDto } from "../../apis/api/programs/CourseSelectionDto";
+import { FullModuleDto } from "../../apis/api/modules/FullModuleDto";
+import { GetStudyPlanDto } from "../../apis/api/programs/GetStudyPlanDto";
+import { StudyPlanDto2 } from "../../apis/api/programs/StudyPlanDto2";
 
 export interface CheckBox {
     isSelected: boolean,

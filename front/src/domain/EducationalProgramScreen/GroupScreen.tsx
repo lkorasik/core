@@ -1,18 +1,18 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { Container } from "../../../base_components/Container/Container";
-import { useApis } from "../../../apis/ApiBase/ApiProvider";
+import { useParams } from "react-router-dom";
+import { Container } from "../../base_components/Container/Container";
+import { useApis } from "../../apis/ApiBase/ApiProvider";
 import { useEffect, useState } from "react";
-import { GetGroupIdDto } from "../../../apis/api/groups/GetGroupIdDto";
-import { Toolbar } from "../../../base_components/Toolbar/Toolbar";
-import { Table } from "../../../base_components/Table/Table";
-import { DialogModal } from "../../DialogModal/DialogModal";
-import { Input } from "../../../base_components/Input/Input";
-import { GenerateTokenDto } from "../../../apis/api/groups/GenerateTokenDto";
-import { GetTokensDto } from "../../../apis/api/groups/GetTokensDto";
-import { TokenStatusDto } from "../../../apis/api/groups/TokenStatusDto";
-import { CloseButton } from "../../../base_components/Buttons/CrudButtons/CloseButton/CloseButton";
-import { DownloadButton } from "../../../base_components/Buttons/DownloadButton/DownloadButton";
-import { AddButton } from "../../../base_components/Buttons/AddButton/AddButton";
+import { GetGroupIdDto } from "../../apis/api/groups/GetGroupIdDto";
+import { Toolbar } from "../../base_components/Toolbar/Toolbar";
+import { Table } from "../../base_components/Table/Table";
+import { DialogModal } from "../DialogModal/DialogModal";
+import { Input } from "../../base_components/Input/Input";
+import { GenerateTokenDto } from "../../apis/api/groups/GenerateTokenDto";
+import { GetTokensDto } from "../../apis/api/groups/GetTokensDto";
+import { TokenStatusDto } from "../../apis/api/groups/TokenStatusDto";
+import { CloseButton } from "../../base_components/Buttons/CrudButtons/CloseButton/CloseButton";
+import { DownloadButton } from "../../base_components/Buttons/DownloadButton/DownloadButton";
+import { AddButton } from "../../base_components/Buttons/AddButton/AddButton";
 
 export function GroupScreen() {
     const [groupNumber, setGroupNumber] = useState<string>("");
