@@ -1,4 +1,4 @@
-package ru.urfu.mm.application.usecase.creategroup;
+package ru.urfu.mm.application.usecase.create_group;
 
 import ru.urfu.mm.application.gateway.GroupGateway;
 import ru.urfu.mm.application.gateway.ProgramGateway;

@@ -1,4 +1,4 @@
-package ru.urfu.mm.application.usecase.creategroup;
+package ru.urfu.mm.application.usecase.create_group;
 
 /**
  * Номер группы предоставлен в некорректном формате

@@ -9,7 +9,7 @@ import ru.urfu.mm.application.usecase.*;
 import ru.urfu.mm.application.usecase.create.CreateAdministrator;
 import ru.urfu.mm.application.usecase.create.CreateStudent;
 import ru.urfu.mm.application.usecase.create.account.CreateAccount;
-import ru.urfu.mm.application.usecase.creategroup.CreateGroup;
+import ru.urfu.mm.application.usecase.create_group.CreateGroup;
 import ru.urfu.mm.application.usecase.createprogram.CreateProgram;
 import ru.urfu.mm.application.usecase.createsemesterplan.CreateSemesterPlan;
 import ru.urfu.mm.application.usecase.createstudyplan.CreateStudyPlan;
