@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import styles from "./NewStudyPlan.module.css";
 import { useApis } from "../../apis/ApiBase/ApiProvider";
 import { ModuleDto } from "../../apis/api/modules/ModuleDto";
+import { ModuleTable } from "../ModuleTable/ModuleTable";
+import { FullModuleDto } from "../../apis/api/modules/FullModuleDto";
 
 interface CheckBox {
     isSelected: boolean,
@@ -10,13 +12,13 @@ interface CheckBox {
 
 export function NewStudyPlan() {
     const [matrix, setMatrix] = useState<CheckBox[][]>([])
-    const [modules, setModules] = useState<ModuleDto[]>([])
+    const [modules, setModules] = useState<FullModuleDto[]>([])
 
     const api = useApis()
 
     useEffect(() => {
         const loadModules = async () => {
-            const modules = await api.educationalModulesApi.getAllModules()
+            const modules = await api.educationalModulesApi.getAllModules2()
 
             const newMatrix = []
             for (let i = 0; i < modules.length; i++) {
@@ -29,100 +31,29 @@ export function NewStudyPlan() {
             setMatrix(newMatrix)
             setModules(modules)
 
-            console.log(newMatrix)
+            console.log("State matrix: " + newMatrix)
         }
         loadModules().catch(console.error)
     }, [])
 
-    const onClick = (x: number, y: number) => {
-        if (matrix[y][x].isChangeable != 0) {
-            return
-        }
-
-        const newMatrix = []
-        for (let i = 0; i < matrix.length; i++) {
-            const newRow = []
-            for (let j = 0; j < matrix[i].length; j++) {
-                if ((i == y) && (j == x)) {
-                    const checkbox: CheckBox = { isSelected: !matrix[i][j].isSelected, isChangeable: matrix[i][j].isChangeable }
-                    newRow.push(checkbox)
-                } else {
-                    newRow.push(matrix[i][j])
-                }
-            }
-            newMatrix.push(newRow);
-        }
-
-        for (let i = 0; i < matrix.length; i++) {
-            if (i != y) {
-                if (newMatrix[y][x].isSelected) {
-                    newMatrix[i][x].isChangeable++
-                } else {
-                    newMatrix[i][x].isChangeable--
-                }
-            }
-        }
-
-        for (let i = 0; i < matrix[y].length; i++) {
-            if (i != x) {
-                if (newMatrix[y][x].isSelected) {
-                    newMatrix[y][i].isChangeable++
-                } else {
-                    newMatrix[y][i].isChangeable--
-                }
-            }
-        }
-
-        setMatrix(newMatrix)
-        console.log(newMatrix)
-    }
-
-    const renderText = (x: number, y: number) => {
-        return matrix[y][x].isSelected ? "X" : ""
-    }
-
-    const getCSSClasses = (x: number, y: number) => {
-        if (matrix[y][x].isChangeable == 0) {
-            return `${styles.td} ${styles.enabled}`
-        } else {
-            return `${styles.td} ${styles.disabled}`
-        }
-    }
-
-    const renderRows = () => {
-        return matrix.map((row, index) => 
-            <tr className={styles.tr}>
-                <td className={styles.td}>{modules[index].name}</td>
-                <td className={getCSSClasses(0, index)} onClick={(e) => onClick(0, index)}>{renderText(0, index)}</td>
-                <td className={getCSSClasses(1, index)} onClick={(e) => onClick(1, index)}>{renderText(1, index)}</td>
-                <td className={getCSSClasses(2, index)} onClick={(e) => onClick(2, index)}>{renderText(2, index)}</td>
-                <td className={getCSSClasses(3, index)} onClick={(e) => onClick(3, index)}>{renderText(3, index)}</td>
-            </tr>
-        )
-    }
-
-    const renderHeader = () => {
-        return (
-            <>
-                <tr className={styles.tr}>
-                    <td className={styles.td} rowSpan={2}></td>
-                    <td className={styles.td} colSpan={2}>1 курс</td>
-                    <td className={styles.td} colSpan={2}>2 курс</td>
-                </tr>
-                <tr className={styles.tr}>
-                    <td className={styles.td}>1 семестр</td>
-                    <td className={styles.td}>2 семестр</td>
-                    <td className={styles.td}>3 семестр</td>
-                    <td className={styles.td}>4 семестр</td>
-                </tr>
-            </>
-        )
+    const renderModules = () => {
+        return modules.map(module => <ModuleTable module={module} />)
     }
 
     return (
         <table className={styles.table}>
-            {renderHeader()}
-            {renderRows()}
+            <tr className={styles.tr}>
+                <td className={styles.td} rowSpan={2} colSpan={2}></td>
+                <td className={styles.td} colSpan={2}>1 курс</td>
+                <td className={styles.td} colSpan={2}>2 курс</td>
+            </tr>
+            <tr className={styles.tr}>
+                <td className={styles.td}>1 семестр</td>
+                <td className={styles.td}>2 семестр</td>
+                <td className={styles.td}>3 семестр</td>
+                <td className={styles.td}>4 семестр</td>
+            </tr>
+            {renderModules()}
         </table>
     )
 }
