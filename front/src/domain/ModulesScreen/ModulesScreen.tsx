@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { useApis } from "../apis/ApiBase/ApiProvider";
-import { ModuleDto } from "../apis/api/modules/ModuleDto";
-import { Card } from "../base_components/Card/Card";
-import { Grid } from "../base_components/Grid/Grid";
+import { useApis } from "../../apis/ApiBase/ApiProvider";
+import { ModuleDto } from "../../apis/api/modules/ModuleDto";
+import { Card } from "../../base_components/Card/Card";
+import { Grid } from "../../base_components/Grid/Grid";
 import { Link } from "react-router-dom";
-import { Title } from "../base_components/Title/Title";
-import { Container } from "../base_components/Container/Container";
-import { AddButton } from "../base_components/Buttons/AddButton/AddButton";
+import { Title } from "../../base_components/Title/Title";
+import { Container } from "../../base_components/Container/Container";
+import { AddButton } from "../../base_components/Buttons/AddButton/AddButton";
 
 export function ModulesScreen() {
     const [modules, setModules] = useState<ModuleDto[]>([]);
