@@ -5,17 +5,17 @@ import java.util.UUID;
 /**
  * Образовательная программа с курсами и семестрами.
  */
-public class EducationalProgramToCoursesWithSemesters {
+public class ProgramToCoursesWithSemesters {
     private UUID id;
     private Program program;
     private Semester semester;
     private Course specialCourse;
     private boolean isRequiredCourse;
 
-    public EducationalProgramToCoursesWithSemesters() {
+    public ProgramToCoursesWithSemesters() {
     }
 
-    public EducationalProgramToCoursesWithSemesters(UUID id, Program program, Semester semester, Course specialCourse, boolean isRequiredCourse) {
+    public ProgramToCoursesWithSemesters(UUID id, Program program, Semester semester, Course specialCourse, boolean isRequiredCourse) {
         this.id = id;
         this.program = program;
         this.semester = semester;
@@ -23,7 +23,7 @@ public class EducationalProgramToCoursesWithSemesters {
         this.isRequiredCourse = isRequiredCourse;
     }
 
-    public EducationalProgramToCoursesWithSemesters(Program program, Semester semester, Course specialCourse, boolean isRequiredCourse) {
+    public ProgramToCoursesWithSemesters(Program program, Semester semester, Course specialCourse, boolean isRequiredCourse) {
         this.program = program;
         this.semester = semester;
         this.specialCourse = specialCourse;

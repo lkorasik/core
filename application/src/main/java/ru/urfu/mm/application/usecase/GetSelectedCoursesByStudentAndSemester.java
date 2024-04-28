@@ -2,8 +2,7 @@ package ru.urfu.mm.application.usecase;
 
 import ru.urfu.mm.application.gateway.CourseGateway;
 import ru.urfu.mm.application.gateway.StudentGateway;
-import ru.urfu.mm.domain.EducationalProgramToCoursesWithSemesters;
-import ru.urfu.mm.domain.SelectedCourses;
+import ru.urfu.mm.domain.ProgramToCoursesWithSemesters;
 import ru.urfu.mm.domain.Student;
 
 import java.util.List;
@@ -21,7 +20,7 @@ public class GetSelectedCoursesByStudentAndSemester {
         this.studentGateway = studentGateway;
     }
 
-    public List<EducationalProgramToCoursesWithSemesters> getSelectedCoursesByStudentAndSemester(UUID studentId, UUID semesterId) {
+    public List<ProgramToCoursesWithSemesters> getSelectedCoursesByStudentAndSemester(UUID studentId, UUID semesterId) {
         Student student = studentGateway.getById(studentId);
 
         return courseGateway

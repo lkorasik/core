@@ -2,7 +2,7 @@ package ru.urfu.mm.application.usecase.load_available_courses;
 
 import ru.urfu.mm.application.gateway.CourseGateway;
 import ru.urfu.mm.application.gateway.StudentGateway;
-import ru.urfu.mm.domain.EducationalProgramToCoursesWithSemesters;
+import ru.urfu.mm.domain.ProgramToCoursesWithSemesters;
 import ru.urfu.mm.domain.Module;
 import ru.urfu.mm.domain.Course;
 import ru.urfu.mm.domain.Student;
@@ -26,11 +26,11 @@ public class LoadAvailableCourses {
          */
 
         Student student = studentGateway.getById(studentId);
-        List<EducationalProgramToCoursesWithSemesters> educationalProgramToCoursesWithSemestersByEducationalProgram =
+        List<ProgramToCoursesWithSemesters> educationalProgramToCoursesWithSemestersByProgram =
                 courseGateway.getEducationalProgramToCoursesWithSemestersByEducationalProgram(student.getEducationalProgram().getId());
-        List<Course> courses = educationalProgramToCoursesWithSemestersByEducationalProgram
+        List<Course> courses = educationalProgramToCoursesWithSemestersByProgram
                 .stream()
-                .map(EducationalProgramToCoursesWithSemesters::getSpecialCourse)
+                .map(ProgramToCoursesWithSemesters::getSpecialCourse)
                 .toList();
         Map<Module, List<Course>> moduleToCourses = courses
                 .stream()

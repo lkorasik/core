@@ -2,7 +2,7 @@ package ru.urfu.mm.application.usecase;
 
 import ru.urfu.mm.application.gateway.CourseGateway;
 import ru.urfu.mm.application.gateway.StudentGateway;
-import ru.urfu.mm.domain.EducationalProgramToCoursesWithSemesters;
+import ru.urfu.mm.domain.ProgramToCoursesWithSemesters;
 import ru.urfu.mm.domain.Semester;
 import ru.urfu.mm.domain.Course;
 import ru.urfu.mm.domain.Student;
@@ -32,7 +32,7 @@ public class GetCoursesByEducationalProgramAndSemesters {
                                 Collectors
                                         .groupingBy(x -> x.getSpecialCourse().getId())
                         );
-        var temp = new HashMap<UUID, List<EducationalProgramToCoursesWithSemesters>>();
+        var temp = new HashMap<UUID, List<ProgramToCoursesWithSemesters>>();
         for (var key : courseIdToCourseInfo.keySet()) {
             var list = courseIdToCourseInfo.get(key)
                     .stream()
@@ -80,7 +80,7 @@ public class GetCoursesByEducationalProgramAndSemesters {
         return coursesForEducationalProgram;
     }
 
-    private boolean containsSemester(EducationalProgramToCoursesWithSemesters model, List<UUID> semestersIds)
+    private boolean containsSemester(ProgramToCoursesWithSemesters model, List<UUID> semestersIds)
     {
         return semestersIds == null || semestersIds.contains(model.getSemester().getId());
     }

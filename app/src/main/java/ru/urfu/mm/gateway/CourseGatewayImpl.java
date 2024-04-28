@@ -132,12 +132,12 @@ public class CourseGatewayImpl implements CourseGateway {
     }
 
     @Override
-    public List<EducationalProgramToCoursesWithSemesters> getEducationalProgramToCoursesWithSemestersByEducationalProgram(UUID educationalProgramId) {
+    public List<ProgramToCoursesWithSemesters> getEducationalProgramToCoursesWithSemestersByEducationalProgram(UUID educationalProgramId) {
         return educationalProgramToCoursesWithSemestersRepository
                 .findAll()
                 .stream()
                 .filter(x -> x.getEducationalProgram().getId() == educationalProgramId)
-                .map(x -> new EducationalProgramToCoursesWithSemesters(
+                .map(x -> new ProgramToCoursesWithSemesters(
                         x.getId(),
                         new Program(
                                 x.getEducationalProgram().getId(),
@@ -168,7 +168,7 @@ public class CourseGatewayImpl implements CourseGateway {
     }
 
     @Override
-    public List<EducationalProgramToCoursesWithSemesters> getEducationalProgramToCoursesWithSemestersBySemesters(List<UUID> semestersIds) {
+    public List<ProgramToCoursesWithSemesters> getEducationalProgramToCoursesWithSemestersBySemesters(List<UUID> semestersIds) {
         return educationalProgramToCoursesWithSemestersRepository
                 .findAll()
                 .stream()
@@ -176,7 +176,7 @@ public class CourseGatewayImpl implements CourseGateway {
                 .distinct()
                 .toList()
                 .stream()
-                .map(x -> new EducationalProgramToCoursesWithSemesters(
+                .map(x -> new ProgramToCoursesWithSemesters(
                         x.getId(),
                         new Program(
                                 x.getEducationalProgram().getId(),
@@ -207,12 +207,12 @@ public class CourseGatewayImpl implements CourseGateway {
     }
 
     @Override
-    public List<EducationalProgramToCoursesWithSemesters> getEducationalProgramToCoursesWithSemesterByModule(UUID moduleId) {
+    public List<ProgramToCoursesWithSemesters> getEducationalProgramToCoursesWithSemesterByModule(UUID moduleId) {
         return educationalProgramToCoursesWithSemestersRepository
                 .findAll()
                 .stream()
                 .filter(x -> x.getSpecialCourse().getEducationalModule().getId().equals(moduleId))
-                .map(x -> new EducationalProgramToCoursesWithSemesters(
+                .map(x -> new ProgramToCoursesWithSemesters(
                         x.getId(),
                         new Program(
                                 x.getEducationalProgram().getId(),
@@ -254,12 +254,12 @@ public class CourseGatewayImpl implements CourseGateway {
     }
 
     @Override
-    public List<EducationalProgramToCoursesWithSemesters> getRequiredCoursesForProgram(UUID programId) {
+    public List<ProgramToCoursesWithSemesters> getRequiredCoursesForProgram(UUID programId) {
         return educationalProgramToCoursesWithSemestersRepository
                 .findAll()
                 .stream()
                 .filter(x -> x.getEducationalProgram().getId() == programId && x.isRequiredCourse())
-                .map(x -> new EducationalProgramToCoursesWithSemesters(
+                .map(x -> new ProgramToCoursesWithSemesters(
                         x.getId(),
                         new Program(
                                 x.getEducationalProgram().getId(),
