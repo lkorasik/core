@@ -3,21 +3,13 @@ import styles from "./NewStudyPlan.module.css";
 import { useApis } from "../../apis/ApiBase/ApiProvider";
 import { ModuleTable } from "./ModuleTable/ModuleTable";
 import { FullModuleDto } from "../../apis/api/modules/FullModuleDto";
+import { StudyPlanDto } from "../../apis/api/programs/StudyPlanDto";
+import { ModuleSelectionDto } from "../../apis/api/programs/ModuleSelectionDto";
+import { CourseSelectionDto } from "../../apis/api/programs/CourseSelectionDto";
 
 export interface CheckBox {
     isSelected: boolean,
     isChangeable: number
-}
-
-interface SaveObject {
-    moduleId: string,
-    startYear: number,
-    courses: CourseSelection[]
-}
-
-interface CourseSelection {
-    courseId: string,
-    semester: number
 }
 
 export function NewStudyPlan() {
@@ -49,9 +41,9 @@ export function NewStudyPlan() {
     const buildResult = () => {
         let index = 0
 
-        const result = []
+        const result: StudyPlanDto = { startYear: 0, modules: [] }
         for (let i = 0; i < modules.length; i++) {
-            const moduleInfo: SaveObject = { moduleId: modules[i].id, startYear: 0, courses: [] };
+            const moduleInfo: ModuleSelectionDto = { moduleId: modules[i].id, courses: [] };
             for (let j = 0; j < modules[i].courses.length; j++) {
                 const checkBoxes = matrix[index].map(x => x.isSelected)
                 const position = checkBoxes.findIndex(x => x)
@@ -59,14 +51,19 @@ export function NewStudyPlan() {
                     index++;
                     continue
                 }
-                const info: CourseSelection = { courseId: modules[i].courses[j].id, semester: position + 1 }
+                const info: CourseSelectionDto = { courseId: modules[i].courses[j].id, semester: position + 1 }
                 moduleInfo.courses.push(info)
                 index++;
             }
-            result.push(moduleInfo)
+            result.modules.push(moduleInfo)
         }
         
         return result;
+    }
+
+    const save = () => {
+        const result = buildResult()
+        api.educationalProgramsApi.saveStudyPlan(result)
     }
 
     const renderModules = () => {
@@ -94,7 +91,7 @@ export function NewStudyPlan() {
                 </tr>
                 {renderModules()}
             </table>
-            <button onClick={(e) => buildResult()} >Save</button>
+            <button onClick={(e) => save()} >Save</button>
         </>
     )
 }
