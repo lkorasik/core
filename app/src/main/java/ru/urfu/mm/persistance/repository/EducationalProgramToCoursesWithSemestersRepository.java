@@ -9,5 +9,4 @@ import java.util.UUID;
 
 @Repository
 public interface EducationalProgramToCoursesWithSemestersRepository extends JpaRepository<EducationalProgramToCoursesWithSemesters, UUID> {
-    List<EducationalProgramToCoursesWithSemesters> findAllByEducationalProgramId(UUID id);
 }

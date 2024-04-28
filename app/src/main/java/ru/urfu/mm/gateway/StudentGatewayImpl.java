@@ -136,8 +136,8 @@ public class StudentGatewayImpl implements StudentGateway {
         return null;
     }
 
-    private EducationalProgram parse(Program program) {
-        return new EducationalProgram(
+    private ProgramEntity parse(Program program) {
+        return new ProgramEntity(
                 program.getId(),
                 program.getName(),
                 program.getTrainingDirection()

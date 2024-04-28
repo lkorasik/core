@@ -11,8 +11,8 @@ public class EducationalProgramToCoursesWithSemesters {
     @Column
     private UUID id;
     @ManyToOne
-    @JoinColumn(name = "educational_program_id")
-    private EducationalProgram educationalProgram;
+    @JoinColumn(name = "program_id")
+    private ProgramEntity programEntity;
     @ManyToOne
     @JoinColumn(name = "semester_id")
     private Semester semester;
@@ -25,16 +25,16 @@ public class EducationalProgramToCoursesWithSemesters {
     public EducationalProgramToCoursesWithSemesters() {
     }
 
-    public EducationalProgramToCoursesWithSemesters(UUID id, EducationalProgram educationalProgram, Semester semester, SpecialCourse specialCourse, boolean isRequiredCourse) {
+    public EducationalProgramToCoursesWithSemesters(UUID id, ProgramEntity programEntity, Semester semester, SpecialCourse specialCourse, boolean isRequiredCourse) {
         this.id = id;
-        this.educationalProgram = educationalProgram;
+        this.programEntity = programEntity;
         this.semester = semester;
         this.specialCourse = specialCourse;
         this.isRequiredCourse = isRequiredCourse;
     }
 
-    public EducationalProgramToCoursesWithSemesters(EducationalProgram educationalProgram, Semester semester, SpecialCourse specialCourse, boolean isRequiredCourse) {
-        this.educationalProgram = educationalProgram;
+    public EducationalProgramToCoursesWithSemesters(ProgramEntity programEntity, Semester semester, SpecialCourse specialCourse, boolean isRequiredCourse) {
+        this.programEntity = programEntity;
         this.semester = semester;
         this.specialCourse = specialCourse;
         this.isRequiredCourse = isRequiredCourse;
@@ -64,12 +64,12 @@ public class EducationalProgramToCoursesWithSemesters {
         this.semester = semester;
     }
 
-    public EducationalProgram getEducationalProgram() {
-        return educationalProgram;
+    public ProgramEntity getEducationalProgram() {
+        return programEntity;
     }
 
-    public void setEducationalProgram(EducationalProgram educationalProgram) {
-        this.educationalProgram = educationalProgram;
+    public void setEducationalProgram(ProgramEntity programEntity) {
+        this.programEntity = programEntity;
     }
 
 }

@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 import java.util.*;
 
 @Entity
-@Table(name = "educational_programs")
-public class EducationalProgram {
+@Table(name = "programs")
+public class ProgramEntity {
     @Id
     @GeneratedValue
     @Column
@@ -15,22 +15,22 @@ public class EducationalProgram {
     private String name;
     @Column
     private String trainingDirection;
+    @OneToMany
+    @JoinColumn(name = "groups_id")
+    private List<GroupEntity> groups;
+    @OneToMany
+    @JoinColumn(name = "study_plans_id")
+    private List<StudyPlanEntity> studyPlans;
 
-    public EducationalProgram() {
+    public ProgramEntity() {
     }
 
-    public EducationalProgram(
-            UUID id,
-            String name,
-            String trainingDirection) {
+    public ProgramEntity(UUID id, String name, String trainingDirection) {
         this.id = id;
         this.name = name;
         this.trainingDirection = trainingDirection;
-    }
-
-    public EducationalProgram(String name, String trainingDirection) {
-        this.name = name;
-        this.trainingDirection = trainingDirection;
+        this.groups = new ArrayList<>();
+        this.studyPlans = new ArrayList<>();
     }
 
     public UUID getId() {

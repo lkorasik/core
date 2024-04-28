@@ -307,7 +307,7 @@ public class CourseGatewayImpl implements CourseGateway {
                                         x.getId(),
                                         new StudentEntity(
                                                 x.getStudent().getLogin(),
-                                                new EducationalProgram(
+                                                new ProgramEntity(
                                                         x.getStudent().getProgram().getId(),
                                                         x.getStudent().getProgram().getName(),
                                                         x.getStudent().getProgram().getTrainingDirection()

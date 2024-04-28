@@ -20,15 +20,16 @@ public class GroupEntity {
     @OneToMany(mappedBy = "group")
     private List<StudentEntity> studentEntities;
     @ManyToOne
-    @JoinColumn(name="educational_programs_id")
-    private EducationalProgram educationalProgram;
+    @JoinColumn(name="programs_id")
+    private ProgramEntity program;
 
-    public EducationalProgram getEducationalProgram() {
-        return educationalProgram;
+    public ProgramEntity getProgram() {
+        throw new RuntimeException("Not implemented!");
+//        return program;
     }
 
-    public void setEducationalProgram(EducationalProgram educationalProgram) {
-        this.educationalProgram = educationalProgram;
+    public void setProgram(ProgramEntity programEntity) {
+//        this.program = programEntity;
     }
 
     public GroupEntity() {

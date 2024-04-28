@@ -7,7 +7,7 @@ import ru.urfu.mm.domain.*;
 import ru.urfu.mm.persistance.entity.AccountEntity;
 import ru.urfu.mm.persistance.entity.GroupEntity;
 import ru.urfu.mm.persistance.entity.StudentEntity;
-import ru.urfu.mm.persistance.entity.EducationalProgram;
+import ru.urfu.mm.persistance.entity.ProgramEntity;
 import ru.urfu.mm.persistance.repository.DesiredSkillsRepository;
 import ru.urfu.mm.persistance.repository.SkillRepository;
 import ru.urfu.mm.persistance.repository.StudentSkillRepository;
@@ -147,7 +147,7 @@ public class SkillGatewayImpl implements SkillGateway {
                                 .map(x -> new ru.urfu.mm.persistance.entity.StudentSkills(
                                         new StudentEntity(
                                                 student.getLogin(),
-                                                new EducationalProgram(
+                                                new ProgramEntity(
                                                         student.getProgram().getId(),
                                                         student.getProgram().getName(),
                                                         student.getProgram().getTrainingDirection()
@@ -179,7 +179,7 @@ public class SkillGatewayImpl implements SkillGateway {
                                 .map(x -> new ru.urfu.mm.persistance.entity.StudentDesiredSkills(
                                         new StudentEntity(
                                                 student.getLogin(),
-                                                new EducationalProgram(
+                                                new ProgramEntity(
                                                         student.getProgram().getId(),
                                                         student.getProgram().getName(),
                                                         student.getProgram().getTrainingDirection()

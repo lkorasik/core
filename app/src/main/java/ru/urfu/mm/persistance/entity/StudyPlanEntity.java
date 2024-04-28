@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table
+@Table(name = "study_plans")
 public class StudyPlanEntity {
     @Id
     private UUID id;
@@ -18,8 +18,8 @@ public class StudyPlanEntity {
     @ManyToOne
     private SemesterPlanEntity fourthSemester;
     @ManyToOne
-    @JoinColumn(name="educational_programs_id")
-    private EducationalProgram program;
+    @JoinColumn(name="programs_id")
+    private ProgramEntity program;
 
     public StudyPlanEntity() {
     }
@@ -30,7 +30,7 @@ public class StudyPlanEntity {
             SemesterPlanEntity secondSemester,
             SemesterPlanEntity thirdSemester,
             SemesterPlanEntity fourthSemester,
-            EducationalProgram program) {
+            ProgramEntity program) {
         this.id = id;
         this.program = program;
         this.firstSemester = firstSemester;
@@ -39,7 +39,7 @@ public class StudyPlanEntity {
         this.fourthSemester = fourthSemester;
     }
 
-    public void setProgram(EducationalProgram program) {
+    public void setProgram(ProgramEntity program) {
         this.program = program;
     }
 
@@ -63,7 +63,7 @@ public class StudyPlanEntity {
         return fourthSemester;
     }
 
-    public EducationalProgram getProgram() {
+    public ProgramEntity getProgram() {
         return program;
     }
 }

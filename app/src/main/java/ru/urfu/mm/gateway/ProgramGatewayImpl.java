@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.domain.Group;
 import ru.urfu.mm.domain.Program;
-import ru.urfu.mm.persistance.entity.EducationalProgram;
+import ru.urfu.mm.persistance.entity.ProgramEntity;
 import ru.urfu.mm.persistance.entity.GroupEntity;
 import ru.urfu.mm.persistance.repository.EducationalProgramRepository;
 import ru.urfu.mm.persistance.repository.GroupRepository;
@@ -20,14 +20,14 @@ import java.util.UUID;
 public class ProgramGatewayImpl implements ProgramGateway {
     private final EducationalProgramRepository educationalProgramRepository;
     private final GroupRepository groupRepository;
-    private final Mapper<EducationalProgram, Program> programMapper;
+    private final Mapper<ProgramEntity, Program> programMapper;
     private final StudyPlanRepository studyPlanRepository;
 
     @Autowired
     public ProgramGatewayImpl(
             EducationalProgramRepository educationalProgramRepository,
             GroupRepository groupRepository,
-            Mapper<EducationalProgram, Program> programMapper,
+            Mapper<ProgramEntity, Program> programMapper,
             StudyPlanRepository studyPlanRepository) {
         this.educationalProgramRepository = educationalProgramRepository;
         this.groupRepository = groupRepository;
@@ -37,13 +37,13 @@ public class ProgramGatewayImpl implements ProgramGateway {
 
     @Override
     public Program getById(UUID id) {
-        EducationalProgram educationalProgram = educationalProgramRepository.getReferenceById(id);
+        ProgramEntity programEntity = educationalProgramRepository.getReferenceById(id);
         Program program = new Program(
-                educationalProgram.getId(),
-                educationalProgram.getName(),
-                educationalProgram.getTrainingDirection()
+                programEntity.getId(),
+                programEntity.getName(),
+                programEntity.getTrainingDirection()
         );
-        List<Group> groups = groupRepository.findAllByEducationalProgram(educationalProgram)
+        List<Group> groups = groupRepository.findAllByProgram(programEntity)
                 .stream()
                 .map(x -> new Group(x.getId(), x.getNumber()))
                 .toList();
@@ -73,26 +73,27 @@ public class ProgramGatewayImpl implements ProgramGateway {
 
     @Override
     public void save(Program program) {
-        EducationalProgram entity = new EducationalProgram(
+        ProgramEntity entity = new ProgramEntity(
                 program.getId(),
                 program.getName(),
                 program.getTrainingDirection()
         );
         Iterable<GroupEntity> groups = groupRepository
                 .findAllById(program.getGroups().stream().map(Group::getId).toList());
-        groups.forEach(group -> group.setEducationalProgram(entity));
+//        groups.forEach(group -> group.setEducationalProgram(entity));
         groupRepository.saveAll(groups);
         educationalProgramRepository.save(entity);
     }
 
     @Override
     public Optional<Program> findByGroup(Group group) {
-        return groupRepository.findById(group.getId())
-                .map(GroupEntity::getEducationalProgram)
-                .map(x -> new Program(
-                        x.getId(),
-                        x.getName(),
-                        x.getTrainingDirection()
-                ));
+        throw new RuntimeException("Not implemented yet");
+//        return groupRepository.findById(group.getId())
+//                .map(GroupEntity::getEducationalProgram)
+//                .map(x -> new Program(
+//                        x.getId(),
+//                        x.getName(),
+//                        x.getTrainingDirection()
+//                ));
     }
 }

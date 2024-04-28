@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.StudyPlanGateway;
 import ru.urfu.mm.domain.*;
 import ru.urfu.mm.domain.Module;
-import ru.urfu.mm.persistance.entity.EducationalProgram;
+import ru.urfu.mm.persistance.entity.ProgramEntity;
 import ru.urfu.mm.persistance.entity.Semester;
 import ru.urfu.mm.persistance.entity.SemesterPlanEntity;
 import ru.urfu.mm.persistance.entity.StudyPlanEntity;
@@ -91,8 +91,8 @@ public class StudyPlanGatewayImpl implements StudyPlanGateway {
 
     @Override
     public List<StudyPlan> findAllByProgram(Program program) {
-        EducationalProgram educationalProgram = programRepository.findById(program.getId()).get();
-        return studyPlanRepository.findAllByProgram(educationalProgram)
+        ProgramEntity programEntity = programRepository.findById(program.getId()).get();
+        return studyPlanRepository.findAllByProgram(programEntity)
                 .stream()
                 .map(x -> new StudyPlan(
                         x.getId(),
