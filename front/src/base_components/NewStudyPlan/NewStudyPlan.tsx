@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./NewStudyPlan.module.css";
 import { useApis } from "../../apis/ApiBase/ApiProvider";
-import { ModuleDto } from "../../apis/api/modules/ModuleDto";
 import { ModuleTable } from "./ModuleTable/ModuleTable";
 import { FullModuleDto } from "../../apis/api/modules/FullModuleDto";
 
@@ -13,7 +12,12 @@ export interface CheckBox {
 interface SaveObject {
     moduleId: string,
     startYear: number,
-    coursesSemester: number[]
+    courses: CourseSelection[]
+}
+
+interface CourseSelection {
+    courseId: string,
+    semester: number
 }
 
 export function NewStudyPlan() {
@@ -42,23 +46,27 @@ export function NewStudyPlan() {
         loadModules().catch(console.error)
     }, [])
 
-    const save = () => {
-        console.log("Save")
-
+    const buildResult = () => {
         let index = 0
+
         const result = []
         for (let i = 0; i < modules.length; i++) {
-            const moduleInfo: SaveObject = { moduleId: modules[i].id, startYear: 0, coursesSemester: [] };
+            const moduleInfo: SaveObject = { moduleId: modules[i].id, startYear: 0, courses: [] };
             for (let j = 0; j < modules[i].courses.length; j++) {
                 const checkBoxes = matrix[index].map(x => x.isSelected)
                 const position = checkBoxes.findIndex(x => x)
-                moduleInfo.coursesSemester.push(position + 1)
+                if (position == -1) {
+                    index++;
+                    continue
+                }
+                const info: CourseSelection = { courseId: modules[i].courses[j].id, semester: position + 1 }
+                moduleInfo.courses.push(info)
                 index++;
             }
             result.push(moduleInfo)
         }
-
-        console.log(result)
+        
+        return result;
     }
 
     const renderModules = () => {
@@ -86,7 +94,7 @@ export function NewStudyPlan() {
                 </tr>
                 {renderModules()}
             </table>
-            <button onClick={(e) => save()} >Save</button>
+            <button onClick={(e) => buildResult()} >Save</button>
         </>
     )
 }
