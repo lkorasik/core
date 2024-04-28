@@ -1,4 +1,4 @@
-import React, {FC, useState} from "react";
+import {FC, useState} from "react";
 import styles from "./recommendationsScreen.module.css"
 import {Tabs} from "../../base_components/Tabs/Tabs";
 import {Text} from "../../base_components/Text/Text";

@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from "react";
+import {FC, useEffect, useState} from "react";
 import {useApis} from "../../apis/ApiBase/ApiProvider";
 import {SkillLevel} from "../../apis/api/SkillLevel";
 import Select from "react-select";

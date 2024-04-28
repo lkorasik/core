@@ -1,13 +1,13 @@
 import Select from 'react-select'
-import { Container } from "../../base_components/Container/Container";
-import { InputField } from "../../base_components/InputField/InputField";
-import { Toolbar } from "../../base_components/Toolbar/Toolbar";
-import { SaveButton } from '../../base_components/Buttons/CrudButtons/SaveButton/SaveButton';
-import { CloseButton } from '../../base_components/Buttons/CrudButtons/CloseButton/CloseButton';
-import { ADMINISTRATOR, COURESE_AND_MODULES } from '../App/App';
+import { Container } from "../base_components/Container/Container";
+import { InputField } from "../base_components/InputField/InputField";
+import { Toolbar } from "../base_components/Toolbar/Toolbar";
+import { SaveButton } from '../base_components/Buttons/CrudButtons/SaveButton/SaveButton';
+import { CloseButton } from '../base_components/Buttons/CrudButtons/CloseButton/CloseButton';
+import { ADMINISTRATOR, COURESE_AND_MODULES } from './App/App';
 import { useState } from 'react';
-import { CreateCourseDto } from '../../apis/api/course/CreateCourseDto';
-import { useApis } from '../../apis/ApiBase/ApiProvider';
+import { CreateCourseDto } from '../apis/api/course/CreateCourseDto';
+import { useApis } from '../apis/ApiBase/ApiProvider';
 
 export function AddCourseScreen() {
     const [name, setName] = useState("")

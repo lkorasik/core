@@ -1,17 +1,17 @@
 import { Link, useParams } from "react-router-dom";
-import { Card } from "../../../base_components/Card/Card";
-import { Container } from "../../../base_components/Container/Container";
-import { Grid } from "../../../base_components/Grid/Grid";
-import { Toolbar } from "../../../base_components/Toolbar/Toolbar";
+import { Card } from "../../base_components/Card/Card";
+import { Container } from "../../base_components/Container/Container";
+import { Grid } from "../../base_components/Grid/Grid";
+import { Toolbar } from "../../base_components/Toolbar/Toolbar";
 import { useEffect, useState } from "react";
-import { useApis } from "../../../apis/ApiBase/ApiProvider";
-import { ProgramIdDto } from "../../../apis/api/programs/ProgramIdDto";
-import { GetGroupDto } from "../../../apis/api/groups/GetGroupDto";
-import { GroupDto } from "../../../apis/api/groups/GroupDto";
-import { ADMINISTRATOR, EDIT, EDUCATIONAL_PROGRAM, GROUP } from "../../App/App";
-import { CloseButton } from "../../../base_components/Buttons/CrudButtons/CloseButton/CloseButton";
-import { AddButton } from "../../../base_components/Buttons/AddButton/AddButton";
-import { EditButton } from "../../../base_components/Buttons/CrudButtons/EditButton/EditButton";
+import { useApis } from "../../apis/ApiBase/ApiProvider";
+import { ProgramIdDto } from "../../apis/api/programs/ProgramIdDto";
+import { GetGroupDto } from "../../apis/api/groups/GetGroupDto";
+import { GroupDto } from "../../apis/api/groups/GroupDto";
+import { ADMINISTRATOR, EDIT, EDUCATIONAL_PROGRAM, GROUP } from "../App/App";
+import { CloseButton } from "../../base_components/Buttons/CrudButtons/CloseButton/CloseButton";
+import { AddButton } from "../../base_components/Buttons/AddButton/AddButton";
+import { EditButton } from "../../base_components/Buttons/CrudButtons/EditButton/EditButton";
 
 export const PROGRAM_ID_KEY = "ProgramId";
 
