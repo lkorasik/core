@@ -24,7 +24,7 @@ public class GetSelectedCoursesByStudentAndSemester {
         Student student = studentGateway.getById(studentId);
 
         return courseGateway
-                .getEducationalProgramToCoursesWithSemestersByEducationalProgram(student.getEducationalProgram().getId())
+                .getEducationalProgramToCoursesWithSemestersByEducationalProgram(student.getProgram().getId())
                 .stream()
                 .filter(x -> x.getSemester().getId().equals(semesterId))
                 .toList();

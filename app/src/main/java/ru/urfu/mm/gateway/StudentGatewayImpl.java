@@ -37,7 +37,7 @@ public class StudentGatewayImpl implements StudentGateway {
     public void update(Student student) {
         StudentEntity studentEntity1 = new StudentEntity(
                 student.getLogin(),
-                parse(student.getEducationalProgram()),
+                parse(student.getProgram()),
                 new GroupEntity(
                         student.getGroup().getId(),
                         student.getGroup().getNumber(),
@@ -52,7 +52,7 @@ public class StudentGatewayImpl implements StudentGateway {
     public void saveNewStudent(Student student) {
         StudentEntity entity = new StudentEntity(
                 student.getLogin(),
-                parse(student.getEducationalProgram()),
+                parse(student.getProgram()),
                 new GroupEntity(
                         student.getGroup().getId(),
                         student.getGroup().getNumber(),

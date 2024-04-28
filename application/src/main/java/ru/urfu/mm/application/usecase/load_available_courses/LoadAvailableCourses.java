@@ -27,7 +27,7 @@ public class LoadAvailableCourses {
 
         Student student = studentGateway.getById(studentId);
         List<ProgramToCoursesWithSemesters> educationalProgramToCoursesWithSemestersByProgram =
-                courseGateway.getEducationalProgramToCoursesWithSemestersByEducationalProgram(student.getEducationalProgram().getId());
+                courseGateway.getEducationalProgramToCoursesWithSemestersByEducationalProgram(student.getProgram().getId());
         List<Course> courses = educationalProgramToCoursesWithSemestersByProgram
                 .stream()
                 .map(ProgramToCoursesWithSemesters::getSpecialCourse)

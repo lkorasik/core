@@ -24,7 +24,7 @@ public class GetCoursesByEducationalProgramAndSemesters {
 
     public List<CourseForEducationalProgram> getCoursesByEducationalProgramAndSemesters(UUID studentId, List<UUID> semestersIds) {
         Student student = studentGateway.getById(studentId);
-        var coursesInfos = courseGateway.getEducationalProgramToCoursesWithSemestersByEducationalProgram(student.getEducationalProgram().getId());
+        var coursesInfos = courseGateway.getEducationalProgramToCoursesWithSemestersByEducationalProgram(student.getProgram().getId());
         var courseIdToCourseInfo =
                 coursesInfos
                         .stream()

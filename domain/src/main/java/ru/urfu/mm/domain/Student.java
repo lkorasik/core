@@ -8,11 +8,11 @@ public class Student {
     private Group group;
     private Account account;
 
-    public Program getEducationalProgram() {
+    public Program getProgram() {
         return program;
     }
 
-    public void setEducationalProgram(Program program) {
+    public void setProgram(Program program) {
         this.program = program;
     }
 

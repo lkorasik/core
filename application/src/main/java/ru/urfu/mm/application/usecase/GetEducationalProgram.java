@@ -18,6 +18,6 @@ public class GetEducationalProgram {
 
     public Program getEducationalProgram(UUID studentId) {
         Student student = studentGateway.getById(studentId);
-        return programGateway.getById(student.getEducationalProgram().getId());
+        return programGateway.getById(student.getProgram().getId());
     }
 }

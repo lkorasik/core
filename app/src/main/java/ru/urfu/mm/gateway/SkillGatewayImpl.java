@@ -148,9 +148,9 @@ public class SkillGatewayImpl implements SkillGateway {
                                         new StudentEntity(
                                                 student.getLogin(),
                                                 new EducationalProgram(
-                                                        student.getEducationalProgram().getId(),
-                                                        student.getEducationalProgram().getName(),
-                                                        student.getEducationalProgram().getTrainingDirection()
+                                                        student.getProgram().getId(),
+                                                        student.getProgram().getName(),
+                                                        student.getProgram().getTrainingDirection()
                                                 ),
                                                 new GroupEntity(
                                                         student.getGroup().getId(),
@@ -180,9 +180,9 @@ public class SkillGatewayImpl implements SkillGateway {
                                         new StudentEntity(
                                                 student.getLogin(),
                                                 new EducationalProgram(
-                                                        student.getEducationalProgram().getId(),
-                                                        student.getEducationalProgram().getName(),
-                                                        student.getEducationalProgram().getTrainingDirection()
+                                                        student.getProgram().getId(),
+                                                        student.getProgram().getName(),
+                                                        student.getProgram().getTrainingDirection()
                                                 ),
                                                 new GroupEntity(
                                                         student.getGroup().getId(),

@@ -106,7 +106,7 @@ public class SelectCourses {
                 .stream()
                 .map(ru.urfu.mm.application.usecase.CourseForEducationalProgram::getId)
                 .collect(Collectors.toSet());
-        var requiredCoursesIds = getRequiredCoursesForEducationalProgram(student.getEducationalProgram().getId())
+        var requiredCoursesIds = getRequiredCoursesForEducationalProgram(student.getProgram().getId())
                 .stream()
                 .filter(x -> x.getValue() == semesterId)
                 .map(Map.Entry::getKey)
