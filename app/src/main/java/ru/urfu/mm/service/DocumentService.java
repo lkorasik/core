@@ -3,11 +3,11 @@ package ru.urfu.mm.service;
 import org.apache.poi.xwpf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.urfu.mm.entity.EducationalProgramToCoursesWithSemesters;
-import ru.urfu.mm.entity.SelectedCourses;
-import ru.urfu.mm.repository.EducationalProgramToCoursesWithSemestersRepository;
-import ru.urfu.mm.repository.SelectedCoursesRepository;
-import ru.urfu.mm.repository.StudentRepository;
+import ru.urfu.mm.persistance.entity.EducationalProgramToCoursesWithSemesters;
+import ru.urfu.mm.persistance.entity.SelectedCourses;
+import ru.urfu.mm.persistance.repository.EducationalProgramToCoursesWithSemestersRepository;
+import ru.urfu.mm.persistance.repository.SelectedCoursesRepository;
+import ru.urfu.mm.persistance.repository.StudentRepository;
 
 import java.io.File;
 import java.io.FileOutputStream;

@@ -2,7 +2,7 @@ package ru.urfu.mm.service.mapper;
 
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.domain.Program;
-import ru.urfu.mm.entity.EducationalProgram;
+import ru.urfu.mm.persistance.entity.EducationalProgram;
 
 @Component
 public class ProgramToDomainMapper implements Mapper<EducationalProgram, Program> {

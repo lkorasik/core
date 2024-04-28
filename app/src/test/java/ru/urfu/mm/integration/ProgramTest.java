@@ -11,8 +11,8 @@ import ru.urfu.mm.controller.program.CreateProgramDTO;
 import ru.urfu.mm.controller.program.CreateSemesterDTO;
 import ru.urfu.mm.domain.UserRole;
 import ru.urfu.mm.dsl.DSL;
-import ru.urfu.mm.entity.RegistrationToken;
-import ru.urfu.mm.repository.RegistrationTokenRepository;
+import ru.urfu.mm.persistance.entity.RegistrationToken;
+import ru.urfu.mm.persistance.repository.RegistrationTokenRepository;
 
 import java.util.List;
 import java.util.UUID;

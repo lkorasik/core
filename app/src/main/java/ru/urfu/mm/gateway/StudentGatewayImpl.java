@@ -8,8 +8,9 @@ import ru.urfu.mm.domain.Group;
 import ru.urfu.mm.domain.Program;
 import ru.urfu.mm.domain.Student;
 import ru.urfu.mm.entity.*;
-import ru.urfu.mm.repository.GroupRepository;
-import ru.urfu.mm.repository.StudentRepository;
+import ru.urfu.mm.persistance.entity.*;
+import ru.urfu.mm.persistance.repository.GroupRepository;
+import ru.urfu.mm.persistance.repository.StudentRepository;
 import ru.urfu.mm.service.mapper.Mapper;
 
 import java.util.List;

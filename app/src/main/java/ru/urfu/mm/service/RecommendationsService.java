@@ -5,9 +5,9 @@ import org.springframework.stereotype.Service;
 import ru.urfu.mm.application.usecase.CourseForEducationalProgram;
 import ru.urfu.mm.application.usecase.GetCoursesByEducationalProgramAndSemesters;
 import ru.urfu.mm.controller.recommendation.*;
-import ru.urfu.mm.entity.StudentEntity;
-import ru.urfu.mm.entity.StudentDesiredSkills;
-import ru.urfu.mm.entity.StudentSkills;
+import ru.urfu.mm.persistance.entity.StudentEntity;
+import ru.urfu.mm.persistance.entity.StudentDesiredSkills;
+import ru.urfu.mm.persistance.entity.StudentSkills;
 
 import java.util.*;
 import java.util.stream.Collectors;

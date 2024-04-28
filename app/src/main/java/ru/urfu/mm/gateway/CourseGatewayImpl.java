@@ -5,12 +5,14 @@ import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.CourseGateway;
 import ru.urfu.mm.domain.Module;
 import ru.urfu.mm.domain.*;
-import ru.urfu.mm.entity.AccountEntity;
-import ru.urfu.mm.entity.GroupEntity;
-import ru.urfu.mm.entity.StudentEntity;
-import ru.urfu.mm.repository.EducationalProgramToCoursesWithSemestersRepository;
-import ru.urfu.mm.repository.SelectedCoursesRepository;
-import ru.urfu.mm.repository.SpecialCourseRepository;
+import ru.urfu.mm.domain.SelectedCourses;
+import ru.urfu.mm.domain.Semester;
+import ru.urfu.mm.domain.SemesterType;
+import ru.urfu.mm.persistance.entity.*;
+import ru.urfu.mm.persistance.entity.StudentEntity;
+import ru.urfu.mm.persistance.repository.EducationalProgramToCoursesWithSemestersRepository;
+import ru.urfu.mm.persistance.repository.SelectedCoursesRepository;
+import ru.urfu.mm.persistance.repository.SpecialCourseRepository;
 import ru.urfu.mm.service.mapper.Mapper;
 
 import java.util.List;
@@ -21,8 +23,8 @@ public class CourseGatewayImpl implements CourseGateway {
     private final SpecialCourseRepository courseRepository;
     private final SelectedCoursesRepository selectedCoursesRepository;
     private final EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository;
-    private final Mapper<ru.urfu.mm.entity.SemesterType, ru.urfu.mm.domain.SemesterType> semesterTypeToDomainMapper;
-    private final Mapper<ru.urfu.mm.domain.SemesterType, ru.urfu.mm.entity.SemesterType> semesterTypeToEntityMapper;
+    private final Mapper<ru.urfu.mm.persistance.entity.SemesterType, ru.urfu.mm.domain.SemesterType> semesterTypeToDomainMapper;
+    private final Mapper<ru.urfu.mm.domain.SemesterType, ru.urfu.mm.persistance.entity.SemesterType> semesterTypeToEntityMapper;
     private final Mapper<Account, AccountEntity> userMapper;
 
     @Autowired
@@ -30,8 +32,8 @@ public class CourseGatewayImpl implements CourseGateway {
             SpecialCourseRepository courseRepository,
             SelectedCoursesRepository selectedCoursesRepository,
             EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository,
-            Mapper<ru.urfu.mm.entity.SemesterType, SemesterType> semesterTypeToDomainMapper,
-            Mapper<SemesterType, ru.urfu.mm.entity.SemesterType> semesterTypeToEntityMapper,
+            Mapper<ru.urfu.mm.persistance.entity.SemesterType, SemesterType> semesterTypeToDomainMapper,
+            Mapper<SemesterType, ru.urfu.mm.persistance.entity.SemesterType> semesterTypeToEntityMapper,
             Mapper<Account, AccountEntity> userMapper) {
         this.courseRepository = courseRepository;
         this.selectedCoursesRepository = selectedCoursesRepository;
@@ -300,11 +302,11 @@ public class CourseGatewayImpl implements CourseGateway {
                 .saveAll(
                         courses
                                 .stream()
-                                .map(x -> new ru.urfu.mm.entity.SelectedCourses(
+                                .map(x -> new ru.urfu.mm.persistance.entity.SelectedCourses(
                                         x.getId(),
                                         new StudentEntity(
                                                 x.getStudent().getLogin(),
-                                                new ru.urfu.mm.entity.EducationalProgram(
+                                                new EducationalProgram(
                                                         x.getStudent().getEducationalProgram().getId(),
                                                         x.getStudent().getEducationalProgram().getName(),
                                                         x.getStudent().getEducationalProgram().getTrainingDirection()
@@ -312,24 +314,24 @@ public class CourseGatewayImpl implements CourseGateway {
                                                 new GroupEntity(
                                                         x.getStudent().getGroup().getId(),
                                                         x.getStudent().getGroup().getNumber(),
-                                                        ru.urfu.mm.entity.Years.values()[x.getStudent().getGroup().getYear().ordinal()]
+                                                        ru.urfu.mm.persistance.entity.Years.values()[x.getStudent().getGroup().getYear().ordinal()]
                                                 ),
                                                 userMapper.map(x.getStudent().getUser())
                                         ),
-                                        new ru.urfu.mm.entity.Semester(
+                                        new ru.urfu.mm.persistance.entity.Semester(
                                                 x.getSemester().getId(),
                                                 x.getSemester().getYear(),
                                                 semesterTypeToEntityMapper.map(x.getSemester().getType())
                                         ),
-                                        new ru.urfu.mm.entity.SpecialCourse(
+                                        new SpecialCourse(
                                                 x.getSpecialCourse().getId(),
                                                 x.getSpecialCourse().getName(),
                                                 x.getSpecialCourse().getCreditsCount(),
-                                                ru.urfu.mm.entity.Control.values()[x.getSpecialCourse().getControl().ordinal()],
+                                                Control.values()[x.getSpecialCourse().getControl().ordinal()],
                                                 x.getSpecialCourse().getDescription(),
                                                 x.getSpecialCourse().getDepartment(),
                                                 x.getSpecialCourse().getTeacherName(),
-                                                new ru.urfu.mm.entity.Module(
+                                                new ru.urfu.mm.persistance.entity.Module(
                                                         x.getSpecialCourse().getEducationalModule().getId(),
                                                         x.getSpecialCourse().getEducationalModule().getName()
                                                 )
@@ -359,15 +361,15 @@ public class CourseGatewayImpl implements CourseGateway {
     @Override
     public void save(Course specialCourse) {
         courseRepository.save(
-                new ru.urfu.mm.entity.SpecialCourse(
+                new SpecialCourse(
                         specialCourse.getId(),
                         specialCourse.getName(),
                         specialCourse.getCreditsCount(),
-                        ru.urfu.mm.entity.Control.values()[specialCourse.getControl().ordinal()],
+                        Control.values()[specialCourse.getControl().ordinal()],
                         specialCourse.getDescription(),
                         specialCourse.getDepartment(),
                         specialCourse.getTeacherName(),
-                        new ru.urfu.mm.entity.Module(
+                        new ru.urfu.mm.persistance.entity.Module(
                                 specialCourse.getEducationalModule().getId(),
                                 specialCourse.getEducationalModule().getName()
                         )

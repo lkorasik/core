@@ -1,16 +1,16 @@
 package ru.urfu.mm.gateway;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.ProgramGateway;
-import ru.urfu.mm.application.gateway.StudyPlanGateway;
 import ru.urfu.mm.domain.Group;
 import ru.urfu.mm.domain.Program;
 import ru.urfu.mm.entity.*;
-import ru.urfu.mm.repository.EducationalProgramRepository;
-import ru.urfu.mm.repository.GroupRepository;
-import ru.urfu.mm.repository.StudyPlanRepository;
+import ru.urfu.mm.persistance.entity.EducationalProgram;
+import ru.urfu.mm.persistance.entity.GroupEntity;
+import ru.urfu.mm.persistance.repository.EducationalProgramRepository;
+import ru.urfu.mm.persistance.repository.GroupRepository;
+import ru.urfu.mm.persistance.repository.StudyPlanRepository;
 import ru.urfu.mm.service.mapper.Mapper;
 
 import java.util.List;
@@ -38,7 +38,7 @@ public class ProgramGatewayImpl implements ProgramGateway {
 
     @Override
     public Program getById(UUID id) {
-        ru.urfu.mm.entity.EducationalProgram educationalProgram = educationalProgramRepository.getReferenceById(id);
+        EducationalProgram educationalProgram = educationalProgramRepository.getReferenceById(id);
         Program program = new Program(
                 educationalProgram.getId(),
                 educationalProgram.getName(),

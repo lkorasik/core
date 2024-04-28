@@ -1,25 +1,12 @@
 package ru.urfu.mm.unit;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ru.urfu.mm.dsl.EntityDSL;
-import ru.urfu.mm.controller.course.CourseStatisticsDTO;
 import ru.urfu.mm.entity.*;
-import ru.urfu.mm.entity.Module;
-import ru.urfu.mm.exceptions.CourseRequiredCriteriaException;
-import ru.urfu.mm.repository.EducationalProgramToCoursesWithSemestersRepository;
-import ru.urfu.mm.repository.SelectedCoursesRepository;
+import ru.urfu.mm.persistance.repository.EducationalProgramToCoursesWithSemestersRepository;
+import ru.urfu.mm.persistance.repository.SelectedCoursesRepository;
 import ru.urfu.mm.service.CourseForEducationalProgram;
-import ru.urfu.mm.service.CourseService;
-
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class CourseServiceTest {

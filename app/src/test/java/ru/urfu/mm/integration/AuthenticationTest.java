@@ -10,8 +10,8 @@ import ru.urfu.mm.controller.authentication.AccessTokenDTO;
 import ru.urfu.mm.controller.authentication.RegistrationDTO;
 import ru.urfu.mm.domain.UserRole;
 import ru.urfu.mm.dsl.DSL;
-import ru.urfu.mm.entity.RegistrationToken;
-import ru.urfu.mm.repository.RegistrationTokenRepository;
+import ru.urfu.mm.persistance.entity.RegistrationToken;
+import ru.urfu.mm.persistance.repository.RegistrationTokenRepository;
 
 import java.util.UUID;
 

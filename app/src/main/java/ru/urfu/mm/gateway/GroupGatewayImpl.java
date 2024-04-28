@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.GroupGateway;
 import ru.urfu.mm.domain.Group;
-import ru.urfu.mm.entity.GroupEntity;
-import ru.urfu.mm.entity.Years;
-import ru.urfu.mm.repository.GroupRepository;
+import ru.urfu.mm.persistance.entity.GroupEntity;
+import ru.urfu.mm.persistance.entity.Years;
+import ru.urfu.mm.persistance.repository.GroupRepository;
 
 import java.util.Optional;
 import java.util.UUID;

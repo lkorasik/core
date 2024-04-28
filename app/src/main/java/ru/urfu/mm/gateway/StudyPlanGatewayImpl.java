@@ -2,18 +2,17 @@ package ru.urfu.mm.gateway;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.application.gateway.StudyPlanGateway;
 import ru.urfu.mm.domain.*;
 import ru.urfu.mm.domain.Module;
-import ru.urfu.mm.entity.EducationalProgram;
-import ru.urfu.mm.entity.Semester;
-import ru.urfu.mm.entity.SemesterPlanEntity;
-import ru.urfu.mm.entity.StudyPlanEntity;
-import ru.urfu.mm.repository.EducationalProgramRepository;
-import ru.urfu.mm.repository.SemesterPlanRepository;
-import ru.urfu.mm.repository.SemesterRepository;
-import ru.urfu.mm.repository.StudyPlanRepository;
+import ru.urfu.mm.persistance.entity.EducationalProgram;
+import ru.urfu.mm.persistance.entity.Semester;
+import ru.urfu.mm.persistance.entity.SemesterPlanEntity;
+import ru.urfu.mm.persistance.entity.StudyPlanEntity;
+import ru.urfu.mm.persistance.repository.EducationalProgramRepository;
+import ru.urfu.mm.persistance.repository.SemesterPlanRepository;
+import ru.urfu.mm.persistance.repository.SemesterRepository;
+import ru.urfu.mm.persistance.repository.StudyPlanRepository;
 
 import java.util.List;
 import java.util.UUID;

@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
-import ru.urfu.mm.entity.StudentEntity;
+import ru.urfu.mm.persistance.entity.StudentEntity;
 import ru.urfu.mm.service.RecommendationsService;
 import ru.urfu.mm.service.StudentService;
 

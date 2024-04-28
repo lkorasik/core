@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
-import ru.urfu.mm.entity.AccountEntity;
-import ru.urfu.mm.repository.AccountRepository;
+import ru.urfu.mm.persistance.entity.AccountEntity;
+import ru.urfu.mm.persistance.repository.AccountRepository;
 
 import java.util.Collections;
 import java.util.UUID;

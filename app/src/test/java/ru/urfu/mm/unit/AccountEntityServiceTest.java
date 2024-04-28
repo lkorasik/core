@@ -8,8 +8,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.urfu.mm.entity.AccountEntity;
-import ru.urfu.mm.repository.AccountRepository;
+import ru.urfu.mm.persistance.entity.AccountEntity;
+import ru.urfu.mm.persistance.repository.AccountRepository;
 import ru.urfu.mm.service.UserService;
 
 import java.util.Collections;

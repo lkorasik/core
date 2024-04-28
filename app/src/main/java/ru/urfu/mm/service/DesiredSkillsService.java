@@ -2,10 +2,10 @@ package ru.urfu.mm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.urfu.mm.entity.StudentDesiredSkills;
-import ru.urfu.mm.repository.DesiredSkillsRepository;
-import ru.urfu.mm.repository.SkillRepository;
-import ru.urfu.mm.repository.StudentRepository;
+import ru.urfu.mm.persistance.entity.StudentDesiredSkills;
+import ru.urfu.mm.persistance.repository.DesiredSkillsRepository;
+import ru.urfu.mm.persistance.repository.SkillRepository;
+import ru.urfu.mm.persistance.repository.StudentRepository;
 
 import java.util.List;
 import java.util.UUID;

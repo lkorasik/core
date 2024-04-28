@@ -4,12 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.SkillGateway;
 import ru.urfu.mm.domain.*;
-import ru.urfu.mm.entity.AccountEntity;
-import ru.urfu.mm.entity.GroupEntity;
-import ru.urfu.mm.entity.StudentEntity;
-import ru.urfu.mm.repository.DesiredSkillsRepository;
-import ru.urfu.mm.repository.SkillRepository;
-import ru.urfu.mm.repository.StudentSkillRepository;
+import ru.urfu.mm.persistance.entity.AccountEntity;
+import ru.urfu.mm.persistance.entity.GroupEntity;
+import ru.urfu.mm.persistance.entity.StudentEntity;
+import ru.urfu.mm.persistance.entity.EducationalProgram;
+import ru.urfu.mm.persistance.repository.DesiredSkillsRepository;
+import ru.urfu.mm.persistance.repository.SkillRepository;
+import ru.urfu.mm.persistance.repository.StudentSkillRepository;
 import ru.urfu.mm.service.mapper.Mapper;
 
 import java.util.List;
@@ -143,10 +144,10 @@ public class SkillGatewayImpl implements SkillGateway {
                 .saveAll(
                         newSkills
                                 .stream()
-                                .map(x -> new ru.urfu.mm.entity.StudentSkills(
+                                .map(x -> new ru.urfu.mm.persistance.entity.StudentSkills(
                                         new StudentEntity(
                                                 student.getLogin(),
-                                                new ru.urfu.mm.entity.EducationalProgram(
+                                                new EducationalProgram(
                                                         student.getEducationalProgram().getId(),
                                                         student.getEducationalProgram().getName(),
                                                         student.getEducationalProgram().getTrainingDirection()
@@ -154,12 +155,12 @@ public class SkillGatewayImpl implements SkillGateway {
                                                 new GroupEntity(
                                                         student.getGroup().getId(),
                                                         student.getGroup().getNumber(),
-                                                        ru.urfu.mm.entity.Years.values()[student.getGroup().getYear().ordinal()]
+                                                        ru.urfu.mm.persistance.entity.Years.values()[student.getGroup().getYear().ordinal()]
                                                 ),
                                                 userMapper.map(student.getUser())
                                         ),
                                         x.getKey(),
-                                        ru.urfu.mm.entity.SkillLevel.values()[x.getValue().ordinal()]
+                                        ru.urfu.mm.persistance.entity.SkillLevel.values()[x.getValue().ordinal()]
                                 ))
                                 .toList()
                 );
@@ -175,10 +176,10 @@ public class SkillGatewayImpl implements SkillGateway {
                 .saveAll(
                         newSkills
                                 .stream()
-                                .map(x -> new ru.urfu.mm.entity.StudentDesiredSkills(
+                                .map(x -> new ru.urfu.mm.persistance.entity.StudentDesiredSkills(
                                         new StudentEntity(
                                                 student.getLogin(),
-                                                new ru.urfu.mm.entity.EducationalProgram(
+                                                new EducationalProgram(
                                                         student.getEducationalProgram().getId(),
                                                         student.getEducationalProgram().getName(),
                                                         student.getEducationalProgram().getTrainingDirection()
@@ -186,12 +187,12 @@ public class SkillGatewayImpl implements SkillGateway {
                                                 new GroupEntity(
                                                         student.getGroup().getId(),
                                                         student.getGroup().getNumber(),
-                                                        ru.urfu.mm.entity.Years.values()[student.getGroup().getYear().ordinal()]
+                                                        ru.urfu.mm.persistance.entity.Years.values()[student.getGroup().getYear().ordinal()]
                                                 ),
                                                 userMapper.map(student.getUser())
                                         ),
                                         x.getKey(),
-                                        ru.urfu.mm.entity.SkillLevel.values()[x.getValue().ordinal()]
+                                        ru.urfu.mm.persistance.entity.SkillLevel.values()[x.getValue().ordinal()]
                                 ))
                                 .toList()
                 );

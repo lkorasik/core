@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.urfu.mm.application.usecase.GetSkillsForStudent;
 import ru.urfu.mm.domain.Account;
 import ru.urfu.mm.entity.*;
+import ru.urfu.mm.persistance.entity.*;
 import ru.urfu.mm.service.mapper.Mapper;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class SkillsService {
                                 new GroupEntity(
                                         x.getStudent().getGroup().getId(),
                                         x.getStudent().getGroup().getNumber(),
-                                        ru.urfu.mm.entity.Years.values()[x.getStudent().getGroup().getYear().ordinal()]
+                                        Years.values()[x.getStudent().getGroup().getYear().ordinal()]
                                 ),
                                 userMapper.map(x.getStudent().getUser())
                         ),

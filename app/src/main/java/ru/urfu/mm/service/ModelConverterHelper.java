@@ -2,8 +2,8 @@ package ru.urfu.mm.service;
 
 import ru.urfu.mm.controller.course.CourseDTO;
 import ru.urfu.mm.domain.Course;
-import ru.urfu.mm.entity.Control;
-import ru.urfu.mm.entity.SpecialCourse;
+import ru.urfu.mm.persistance.entity.Control;
+import ru.urfu.mm.persistance.entity.SpecialCourse;
 
 public class ModelConverterHelper {
     public static CourseDTO toDomain(SpecialCourse specialCourse) {

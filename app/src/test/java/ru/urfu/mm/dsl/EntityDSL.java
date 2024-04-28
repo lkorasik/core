@@ -1,6 +1,6 @@
 package ru.urfu.mm.dsl;
 
-import ru.urfu.mm.entity.EducationalProgram;
+import ru.urfu.mm.persistance.entity.EducationalProgram;
 
 import java.util.UUID;
 

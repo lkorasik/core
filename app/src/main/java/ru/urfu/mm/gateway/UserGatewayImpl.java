@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.UserGateway;
 import ru.urfu.mm.domain.Account;
-import ru.urfu.mm.entity.AccountEntity;
-import ru.urfu.mm.entity.UserEntityRole;
-import ru.urfu.mm.repository.AccountRepository;
+import ru.urfu.mm.persistance.entity.AccountEntity;
+import ru.urfu.mm.persistance.entity.UserEntityRole;
+import ru.urfu.mm.persistance.repository.AccountRepository;
 import ru.urfu.mm.service.mapper.Mapper;
 
 import java.util.Optional;

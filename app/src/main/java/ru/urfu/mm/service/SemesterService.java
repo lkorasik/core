@@ -3,8 +3,8 @@ package ru.urfu.mm.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.urfu.mm.controller.semester.SemesterDTO;
-import ru.urfu.mm.entity.Semester;
-import ru.urfu.mm.repository.SemesterRepository;
+import ru.urfu.mm.persistance.entity.Semester;
+import ru.urfu.mm.persistance.repository.SemesterRepository;
 
 import java.time.Instant;
 import java.time.ZoneId;

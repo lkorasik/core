@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ru.urfu.mm.entity.StudentEntity;
-import ru.urfu.mm.repository.StudentRepository;
+import ru.urfu.mm.persistance.entity.StudentEntity;
+import ru.urfu.mm.persistance.repository.StudentRepository;
 import ru.urfu.mm.service.StudentService;
 
 import java.util.NoSuchElementException;

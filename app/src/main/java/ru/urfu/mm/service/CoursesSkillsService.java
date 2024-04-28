@@ -2,10 +2,10 @@ package ru.urfu.mm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.urfu.mm.entity.StudentEntity;
-import ru.urfu.mm.entity.StudentSkills;
-import ru.urfu.mm.repository.CourseToRequiredSkillsRepository;
-import ru.urfu.mm.repository.CourseToResultSkillsRepository;
+import ru.urfu.mm.persistance.entity.StudentEntity;
+import ru.urfu.mm.persistance.entity.StudentSkills;
+import ru.urfu.mm.persistance.repository.CourseToRequiredSkillsRepository;
+import ru.urfu.mm.persistance.repository.CourseToResultSkillsRepository;
 
 import java.util.List;
 import java.util.Map;

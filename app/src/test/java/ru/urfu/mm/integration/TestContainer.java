@@ -12,8 +12,8 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
-import ru.urfu.mm.entity.RegistrationToken;
-import ru.urfu.mm.repository.RegistrationTokenRepository;
+import ru.urfu.mm.persistance.entity.RegistrationToken;
+import ru.urfu.mm.persistance.repository.RegistrationTokenRepository;
 
 import java.util.UUID;
 

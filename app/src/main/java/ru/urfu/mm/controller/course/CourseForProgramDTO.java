@@ -1,7 +1,7 @@
 package ru.urfu.mm.controller.course;
 
-import ru.urfu.mm.entity.Control;
-import ru.urfu.mm.entity.Semester;
+import ru.urfu.mm.persistance.entity.Control;
+import ru.urfu.mm.persistance.entity.Semester;
 
 import java.util.List;
 import java.util.UUID;
