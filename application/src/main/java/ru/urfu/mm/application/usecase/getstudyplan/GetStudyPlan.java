@@ -19,12 +19,13 @@ public class GetStudyPlan {
         this.programGateway = programGateway;
     }
 
-    public void getStudyPlan(UUID programId, int startYear) {
+    public StudyPlan getStudyPlan(UUID programId, int startYear) {
         Program program = programGateway.getById(programId);
         StudyPlan studyPlan = studyPlanGateway.findAllByProgram(program)
                 .stream()
                 .filter(x -> x.getFirstSemesterPlan().getSemester().getYear() == startYear)
                 .findFirst()
                 .get();
+        return studyPlan;
     }
 }

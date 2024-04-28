@@ -12,10 +12,12 @@ import ru.urfu.mm.application.usecase.get_program_for_student.ProgramForStudentR
 import ru.urfu.mm.application.usecase.getprogrambyid.GetProgramById;
 import ru.urfu.mm.application.usecase.getavailableyears.GetAvailableYears;
 import ru.urfu.mm.application.usecase.getavailableyears.GetStudyPlanResponse;
+import ru.urfu.mm.application.usecase.getstudyplan.GetStudyPlan;
 import ru.urfu.mm.application.usecase.updateprogram.UpdateProgram;
 import ru.urfu.mm.application.usecase.updateprogram.UpdateProgramRequest;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.domain.Program;
+import ru.urfu.mm.domain.StudyPlan;
 
 import java.util.List;
 import java.util.UUID;
@@ -37,6 +39,8 @@ public class ProgramController extends AbstractAuthorizedController {
     private UpdateProgram updateProgram;
     @Autowired
     private GetAvailableYears getAvailableYears;
+    @Autowired
+    private GetStudyPlan getStudyPlan;
 
     @GetMapping("/current")
     public ProgramInfoDTO current() {
@@ -78,5 +82,10 @@ public class ProgramController extends AbstractAuthorizedController {
     @PostMapping("/plan")
     public void saveStudyPlan(@RequestBody StudyPlanDTO dto) {
         System.out.println("Receive: " + dto);
+    }
+
+    @PostMapping("/getPlan")
+    public StudyPlan getStudyPlan(@RequestBody GetStudyPlanDTO dto) {
+        return getStudyPlan.getStudyPlan(dto.programId(), dto.startYear());
     }
 }

@@ -17,6 +17,8 @@ import { StudyPlanDto } from "../../../apis/api/programs/StudyPlanDto";
 import { ModuleSelectionDto } from "../../../apis/api/programs/ModuleSelectionDto";
 import { CourseSelectionDto } from "../../../apis/api/programs/CourseSelectionDto";
 import { FullModuleDto } from "../../../apis/api/modules/FullModuleDto";
+import { GetStudyPlanDto } from "../../../apis/api/programs/GetStudyPlanDto";
+import { StudyPlanDto2 } from "../../../apis/api/programs/StudyPlanDto2";
 
 export interface CheckBox {
     isSelected: boolean,
@@ -31,7 +33,8 @@ export function EditEducationalProgramScreen() {
     const [matrix, setMatrix] = useState<CheckBox[][]>([])
     const [modules, setModules] = useState<FullModuleDto[]>([])
 
-    const [shouldRenderStudyPlan, setShouldRenderStudyPlan] = useState(false);
+    const [shouldRenderStudyPlan, setShouldRenderStudyPlan] = useState<number>(0);
+    const [studyPlan, setStudyPlan] = useState<StudyPlanDto2>()
 
     const { educationalProgramId } = useParams();
     const api = useApis();
@@ -76,6 +79,29 @@ export function EditEducationalProgramScreen() {
         loadModules().catch(console.error)
     }, [])
 
+    const loadStudyPlan = (year: number) => {
+        const loadStudyPlan = async () => {
+            const request: GetStudyPlanDto = { programId: educationalProgramId!, startYear: year }
+            const response = await api.educationalProgramsApi.getStudyPlan(request)
+
+            const newMatrix = []
+            for (let i = 0; i < modules.length; i++) {
+                for (let j = 0; j < modules[i].courses.length; j++) {
+                    const checkBox0: CheckBox = { isSelected: false, isChangeable: 0 }
+                    const checkBox1: CheckBox = { isSelected: false, isChangeable: 0 }
+                    const checkBox2: CheckBox = { isSelected: false, isChangeable: 0 }
+                    const checkBox3: CheckBox = { isSelected: false, isChangeable: 0 }
+                    newMatrix.push([checkBox0, checkBox1, checkBox2, checkBox3])
+                }
+            }
+            setMatrix(newMatrix)
+            setStudyPlan(response)
+
+            console.log(response)
+        }
+        loadStudyPlan().catch(console.error)
+    }
+
     const save = () => {
         const request = { id: educationalProgramId, name: educationalProgramName, trainingDirection: trainingDirection } as UpdateEducationalProgramDto;
         api.educationalProgramsApi.updateEducationalProgram(request);
@@ -88,9 +114,9 @@ export function EditEducationalProgramScreen() {
         return options;
     }
 
-    const renderStudyPlan = () => {
+    const renderNewStudyPlan = () => {
         if (shouldRenderStudyPlan) {
-            return <StudyPlan programId={educationalProgramId!} />
+            return <NewStudyPlan matrix={matrix} setMatrix={setMatrix} modules={modules}/>
         }
     }
 
@@ -145,9 +171,12 @@ export function EditEducationalProgramScreen() {
                     Направление подготовки
             </InputField>
             <NText>Год начала обучения:</NText>
-            <Select options={render()} onChange={(e) => setShouldRenderStudyPlan(true)}/>
-            {renderStudyPlan()}
-            <NewStudyPlan matrix={matrix} setMatrix={setMatrix} modules={modules} />
+            <Select options={render()} onChange={(e) => {
+                const year = parseInt(e?.value!)
+                loadStudyPlan(year)
+                return setShouldRenderStudyPlan(year)
+            }}/>
+            {renderNewStudyPlan()}
         </Container>
     )
 }
