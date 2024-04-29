@@ -49,8 +49,7 @@ public class GroupController extends AbstractAuthorizedController {
 
     @PostMapping("/group")
     public void createGroup(@RequestBody CreateGroupDTO dto) {
-        CreateGroupRequest request = new CreateGroupRequest(dto.number(), dto.year(), dto.programId());
-        createGroup.createGroup(request);
+        createGroup.createGroup(dto.toRequest());
     }
 
     @GetMapping("/groupById")

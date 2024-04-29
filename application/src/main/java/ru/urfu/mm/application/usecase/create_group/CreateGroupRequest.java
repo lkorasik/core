@@ -6,5 +6,4 @@ public record CreateGroupRequest(
         String number,
         int startYear,
         UUID programId
-) {
-}
+) { }
