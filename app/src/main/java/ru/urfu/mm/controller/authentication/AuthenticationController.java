@@ -1,24 +1,16 @@
 package ru.urfu.mm.controller.authentication;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.application.usecase.create.account.CreateAccount;
-import ru.urfu.mm.application.usecase.create.account.CreateAccountRequest;
-import ru.urfu.mm.application.usecase.login_user.LoginRequest;
 import ru.urfu.mm.application.usecase.login_user.LoginUser;
 import ru.urfu.mm.domain.Account;
 import ru.urfu.mm.domain.enums.UserRole;
-import ru.urfu.mm.domain.exception.NotImplementedException;
 import ru.urfu.mm.service.AuthenticationService;
-
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/authentication/")
 public class AuthenticationController {
-    private final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
     private final AuthenticationService authenticationService;
     private final CreateAccount createAccount;
     private final LoginUser loginUser;
@@ -35,32 +27,22 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public AccessTokenDTO register(@RequestBody RegistrationDTO dto) {
-        logger.info("User registration with params: {}", dto);
-
         UserRole role = createAccount.createUser(dto.toRequest());
         String token = authenticationService.generateToken(dto);
-
-        logger.info("User successfully registered");
 
         return new AccessTokenDTO(token, dto.token(), role.getValue());
     }
 
-    @PostMapping("/token")
-    public AccessTokenDTO login(@RequestBody LoginDTO loginDTO) {
-        LoginRequest login = new LoginRequest(UUID.fromString(loginDTO.token()), loginDTO.password());
-        Account account = loginUser.loginUser(login);
-        String token = authenticationService.generateToken(loginDTO);
+    @PostMapping("/login")
+    public AccessTokenDTO login(@RequestBody LoginDTO dto) {
+        Account account = loginUser.loginUser(dto.toRequest());
+        String token = authenticationService.generateToken(dto);
 
-        return new AccessTokenDTO(token, loginDTO.token(), account.role().getValue());
+        return new AccessTokenDTO(token, dto.token(), account.role().getValue());
     }
 
     @PostMapping("/validateToken")
     public void validateToken(@RequestBody TokenDTO tokenDTO) {
         authenticationService.validateToken(tokenDTO.token());
-    }
-
-    @GetMapping("/no")
-    public String no() {
-        return "no";
     }
 }

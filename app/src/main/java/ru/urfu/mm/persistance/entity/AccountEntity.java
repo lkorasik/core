@@ -6,7 +6,7 @@ import ru.urfu.mm.persistance.entity.enums.UserEntityRole;
 import java.util.UUID;
 
 @Entity
-@Table
+@Table(name = "accounts")
 public class AccountEntity {
     @Id
     @Column
