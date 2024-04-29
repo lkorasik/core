@@ -50,8 +50,7 @@ public class Course {
             ControlTypes controlTypes,
             String description,
             String department,
-            String teacher,
-            EducationalModule educationalModule) {
+            String teacher) {
         this.id = id;
         this.name = name;
         this.credits = credits;
@@ -59,7 +58,6 @@ public class Course {
         this.description = description;
         this.department = department;
         this.teacher = teacher;
-        this.educationalModule = educationalModule;
     }
 
     public Course(
@@ -68,15 +66,13 @@ public class Course {
             ControlTypes controlTypes,
             String description,
             String department,
-            String teacher,
-            EducationalModule educationalModule) {
+            String teacher) {
         this.name = name;
         this.credits = credits;
         this.controlTypes = controlTypes;
         this.description = description;
         this.department = department;
         this.teacher = teacher;
-        this.educationalModule = educationalModule;
     }
 
     public UUID getId() {
@@ -105,14 +101,6 @@ public class Course {
 
     public String getTeacher() {
         return teacher;
-    }
-
-    public EducationalModule getEducationalModule() {
-        return educationalModule;
-    }
-
-    public void setEducationalModule(EducationalModule educationalModule) {
-        this.educationalModule = educationalModule;
     }
 
     public void setName(String name) {
@@ -148,12 +136,11 @@ public class Course {
         Course that = (Course) obj;
         return credits == that.credits && Objects.equals(id, that.id) && Objects.equals(name, that.name) &&
                controlTypes == that.controlTypes && Objects.equals(description, that.description) &&
-               Objects.equals(department, that.department) && Objects.equals(teacher, that.teacher) &&
-               Objects.equals(educationalModule, that.educationalModule);
+               Objects.equals(department, that.department) && Objects.equals(teacher, that.teacher);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, credits, controlTypes, description, department, teacher, educationalModule);
+        return Objects.hash(id, name, credits, controlTypes, description, department, teacher);
     }
 }
