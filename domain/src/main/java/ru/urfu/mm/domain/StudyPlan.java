@@ -7,10 +7,25 @@ import java.util.UUID;
  * определенном году.
  */
 public class StudyPlan {
+    /**
+     * Идентификатор учебного плана
+     */
     private final UUID id;
+    /**
+     * План на первый семестр
+     */
     private final SemesterPlan firstSemesterPlan;
+    /**
+     * План на второй семестр
+     */
     private final SemesterPlan secondSemesterPlan;
+    /**
+     * План на третий семестр
+     */
     private final SemesterPlan thirdSemesterPlan;
+    /**
+     * План на четвертый семестр
+     */
     private final SemesterPlan fourthSemesterPlan;
 
     public StudyPlan(
