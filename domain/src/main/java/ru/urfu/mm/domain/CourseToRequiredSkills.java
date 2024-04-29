@@ -7,15 +7,12 @@ import java.util.UUID;
 /**
  * Курс и соотвествующий набор скиллов
  */
+@Deprecated
 public class CourseToRequiredSkills {
     private UUID id;
     private SkillLevel skillLevel;
     private Course specialCourse;
     private Skill requiredSkills;
-
-
-    public CourseToRequiredSkills() {
-    }
 
     public CourseToRequiredSkills(UUID id, SkillLevel skillLevel, Course specialCourse, Skill requiredSkills) {
         this.id = id;

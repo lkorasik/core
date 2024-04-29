@@ -4,7 +4,9 @@ import java.util.UUID;
 
 public class Student {
     private UUID login;
+    @Deprecated
     private Program program;
+    @Deprecated
     private Group group;
     private Account account;
 

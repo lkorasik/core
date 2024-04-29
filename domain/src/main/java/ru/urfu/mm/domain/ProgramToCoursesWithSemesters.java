@@ -5,6 +5,7 @@ import java.util.UUID;
 /**
  * Образовательная программа с курсами и семестрами.
  */
+@Deprecated
 public class ProgramToCoursesWithSemesters {
     private UUID id;
     private Program program;

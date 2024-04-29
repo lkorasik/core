@@ -16,6 +16,7 @@ public class Course {
     private String description;
     private String department;
     private String teacher;
+    @Deprecated
     private Module module;
 
     public Course(

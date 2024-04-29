@@ -4,6 +4,7 @@ import ru.urfu.mm.domain.enums.UserRole;
 
 import java.util.UUID;
 
+@Deprecated
 public class RegistrationToken {
     public UUID registrationToken;
     public UserRole userRole;

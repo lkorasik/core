@@ -7,6 +7,7 @@ import java.util.UUID;
 /**
  * Курс и преобритаемый скиллы
  */
+@Deprecated
 public class CourseToResultSkills {
     private UUID id;
     private Course specialCourse;
