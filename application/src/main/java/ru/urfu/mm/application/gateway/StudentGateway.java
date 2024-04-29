@@ -11,4 +11,5 @@ public interface StudentGateway {
     Student getById(UUID studentId);
     Optional<Student> findById(UUID studentId);
     List<Student> findAllStudentsByGroup(AcademicGroup academicGroup);
+    void saveGroupStudents(List<Student> students, AcademicGroup academicGroup);
 }

@@ -123,7 +123,7 @@ public class SkillGatewayImpl implements SkillGateway {
         var currentSkills = studentSkillRepository
                 .findAll()
                 .stream()
-                .filter(x -> x.getStudent().getLogin().equals(studentId))
+                .filter(x -> x.getStudent().getId().equals(studentId))
                 .toList();
         studentSkillRepository.deleteAll(currentSkills);
     }
@@ -133,7 +133,7 @@ public class SkillGatewayImpl implements SkillGateway {
         var currentSkills = desiredSkillsRepository
                 .findAll()
                 .stream()
-                .filter(x -> x.getStudent().getLogin().equals(studentId))
+                .filter(x -> x.getStudent().getId().equals(studentId))
                 .toList();
         desiredSkillsRepository.deleteAll(currentSkills);
     }

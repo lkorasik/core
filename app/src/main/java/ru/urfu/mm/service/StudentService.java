@@ -20,7 +20,7 @@ public class StudentService {
         UUID token = UUID.fromString(login);
 
         return studentRepository
-                .findByLogin(token)
+                .findById(token)
                 .orElseThrow();
     }
 }

@@ -11,6 +11,5 @@ import java.util.UUID;
 
 @Repository
 public interface StudentRepository extends JpaRepository<StudentEntity, UUID> {
-    Optional<StudentEntity> findByLogin(UUID login);
     List<StudentEntity> findAllByGroup(GroupEntity group);
 }

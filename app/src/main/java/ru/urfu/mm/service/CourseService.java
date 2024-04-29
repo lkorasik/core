@@ -67,7 +67,7 @@ public class CourseService {
                 .findAll()
                 .stream()
                 .filter(x -> x.getSpecialCourse().getId().equals(courseId))
-                .map(x -> x.getStudent().getLogin())
+                .map(x -> x.getStudent().getId())
                 .distinct()
                 .toList();
         return coursesModels.size();

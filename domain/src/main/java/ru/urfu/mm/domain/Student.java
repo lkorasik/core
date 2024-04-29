@@ -25,15 +25,11 @@ public class Student {
      */
     private List<Skill> skills;
 
-    public Student(UUID id, Account account) {
-        this.id = id;
-        this.account = account;
-        this.plan = null;
-        this.skills = new ArrayList<>();
-    }
-
     public Student(UUID id) {
         this.id = id;
+        this.account = null;
+        this.plan = null;
+        this.skills = new ArrayList<>();
     }
 
     public UUID getId() {

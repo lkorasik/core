@@ -10,6 +10,7 @@ import ru.urfu.mm.domain.Student;
 import ru.urfu.mm.domain.enums.UserRole;
 import ru.urfu.mm.domain.exception.NotImplementedException;
 import ru.urfu.mm.persistance.entity.*;
+import ru.urfu.mm.persistance.entity.enums.Years;
 import ru.urfu.mm.persistance.repository.GroupRepository;
 import ru.urfu.mm.persistance.repository.StudentRepository;
 import ru.urfu.mm.service.mapper.Mapper;
@@ -158,5 +159,14 @@ public class StudentGatewayImpl implements StudentGateway {
     @Override
     public List<Student> findAllStudentsByGroup(AcademicGroup academicGroup) {
         throw new NotImplementedException();
+    }
+
+    @Override
+    public void saveGroupStudents(List<Student> students, AcademicGroup group) {
+        GroupEntity groupEntity = new GroupEntity(group.getId(), group.getNumber(), Years.values()[group.getYear().ordinal()]);
+        List<StudentEntity> studentEntities = students.stream()
+                .map(x -> new StudentEntity(x.getId(), groupEntity))
+                .toList();
+        studentRepository.saveAll(studentEntities);
     }
 }

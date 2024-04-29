@@ -48,16 +48,16 @@ public class DocumentService {
                 "Современные проблемы компьютерных наук",
                 "Май 2025");
 
-        var student = studentRepository.findByLogin(studentId).get();
+        var student = studentRepository.findById(studentId).get();
         var courses = educationalProgramToCoursesWithSemestersRepository
                 .findAll()
                 .stream()
-                .filter(x -> x.getEducationalProgram().getId() == student.getEducationalProgram().getId())
+//                .filter(x -> x.getEducationalProgram().getId() == student.getEducationalProgram().getId())
                 .toList();
         var selectedCourses = selectedCoursesRepository
                 .findAll()
                 .stream()
-                .filter(x -> x.getStudent().getLogin().equals(studentId))
+                .filter(x -> x.getStudent().getId().equals(studentId))
                 .toList();
         var semesterToCourse = courses
                 .stream()

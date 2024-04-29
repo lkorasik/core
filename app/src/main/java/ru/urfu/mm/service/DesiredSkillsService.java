@@ -23,7 +23,7 @@ public class DesiredSkillsService {
         var studentSkills = desiredSkillsRepository
                 .findAll()
                 .stream()
-                .filter(x -> x.getStudent().getLogin().equals(studentId))
+                .filter(x -> x.getStudent().getId().equals(studentId))
                 .toList();
         return studentSkills;
     }

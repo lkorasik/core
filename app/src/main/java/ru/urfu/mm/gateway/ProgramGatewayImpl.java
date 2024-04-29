@@ -86,13 +86,8 @@ public class ProgramGatewayImpl implements ProgramGateway {
     }
 
     public Optional<EducationalProgram> findByGroup(AcademicGroup academicGroup) {
-        throw new RuntimeException("Not implemented yet");
-//        return groupRepository.findById(group.getId())
-//                .map(GroupEntity::getEducationalProgram)
-//                .map(x -> new Program(
-//                        x.getId(),
-//                        x.getName(),
-//                        x.getTrainingDirection()
-//                ));
+        return groupRepository.findById(academicGroup.getId())
+                .map(GroupEntity::getProgram)
+                .map(x -> new EducationalProgram(x.getId(), x.getName(), x.getTrainingDirection()));
     }
 }

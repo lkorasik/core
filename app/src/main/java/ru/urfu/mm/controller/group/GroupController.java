@@ -11,6 +11,7 @@ import ru.urfu.mm.application.usecase.download_tokens.DownloadTokens;
 import ru.urfu.mm.application.usecase.download_tokens.DownloadTokensRequest;
 //import ru.urfu.mm.application.usecase.generate_token.GenerateStudentRegistrationTokens;
 //import ru.urfu.mm.application.usecase.generate_token.GenerateStudentRegistrationTokensRequest;
+import ru.urfu.mm.application.usecase.generate_student_registration_token.GenerateStudentRegistrationToken;
 import ru.urfu.mm.application.usecase.get_group.GetGroup;
 import ru.urfu.mm.application.usecase.get_groups.GetGroupsByEducationalProgram;
 import ru.urfu.mm.application.usecase.get_token.GetTokensForGroup;
@@ -32,8 +33,8 @@ public class GroupController extends AbstractAuthorizedController {
     private CreateGroup createGroup;
     @Autowired
     private GetGroup getGroup;
-//    @Autowired
-//    private GenerateStudentRegistrationTokens generateStudentRegistrationTokens;
+    @Autowired
+    private GenerateStudentRegistrationToken generateStudentRegistrationToken;
     @Autowired
     private GetTokensForGroup getTokensForGroup;
     @Autowired
@@ -60,10 +61,7 @@ public class GroupController extends AbstractAuthorizedController {
 
     @PostMapping("/token")
     public List<UUID> generateTokens(@RequestBody GenerateTokenDTO generateTokenDTO) {
-        throw new NotImplementedException();
-//        GenerateStudentRegistrationTokensRequest request =
-//                new GenerateStudentRegistrationTokensRequest(generateTokenDTO.count(), generateTokenDTO.groupId());
-//        return generateStudentRegistrationTokens.generateTokens(request);
+        return generateStudentRegistrationToken.generateTokens(generateTokenDTO.groupId(), generateTokenDTO.count());
     }
 
     @GetMapping("/token")

@@ -57,7 +57,7 @@ public class TokenGatewayImpl implements TokenGateway {
 
     @Override
     public boolean isStudentToken(UUID token) {
-        Optional<StudentEntity> maybeStudent = studentRepository.findByLogin(token);
+        Optional<StudentEntity> maybeStudent = studentRepository.findById(token);
         Optional<AccountEntity> maybeUser = maybeStudent.map(StudentEntity::getUser);
         return maybeStudent.isPresent() && maybeUser.isEmpty();
     }

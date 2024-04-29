@@ -16,6 +16,7 @@ import ru.urfu.mm.application.usecase.create_semester_plan.CreateSemesterPlan;
 import ru.urfu.mm.application.usecase.create_study_plan.CreateStudyPlan;
 import ru.urfu.mm.application.usecase.download_tokens.DownloadTokens;
 //import ru.urfu.mm.application.usecase.generate_token.GenerateStudentRegistrationTokens;
+import ru.urfu.mm.application.usecase.generate_student_registration_token.GenerateStudentRegistrationToken;
 import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
 import ru.urfu.mm.application.usecase.get_all_modules.GetAllModules;
 import ru.urfu.mm.application.usecase.get_all_programs.GetAllPrograms;
@@ -230,14 +231,13 @@ public class UseCaseConfiguration {
         return new GetGroup(groupGateway);
     }
 
-//    @Bean
-//    public GenerateStudentRegistrationTokens generateStudentRegistrationTokens(
-//            TokenGateway tokenGateway,
-//            GetGroup getGroup,
-//            ProgramGateway programGateway,
-//            StudentGateway studentGateway) {
-//        return new GenerateStudentRegistrationTokens(tokenGateway, getGroup, programGateway, studentGateway);
-//    }
+    @Bean
+    public GenerateStudentRegistrationToken generateStudentRegistrationToken(
+            GetGroup getGroup,
+            ProgramGateway programGateway,
+            StudentGateway studentGateway) {
+        return new GenerateStudentRegistrationToken(getGroup, programGateway, studentGateway);
+    }
 
     @Bean
     public GetTokensForGroup getTokensForGroup(GetGroup getGroup, StudentGateway studentGateway) {

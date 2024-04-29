@@ -20,10 +20,8 @@ public class GroupEntity {
     @ManyToOne
     @JoinColumn(name = "program_id")
     private EducationalProgramEntity program;
-
-    @OneToMany
-    @JoinColumn(name = "group_id")
-    private List<StudentEntity> studentEntities;
+    @OneToMany(mappedBy = "group")
+    private List<StudentEntity> students;
 
     public EducationalProgramEntity getProgram() {
         return program;
@@ -48,10 +46,6 @@ public class GroupEntity {
 
     public Years getYear() {
         return year;
-    }
-
-    public List<StudentEntity> getStudentEntities() {
-        return studentEntities;
     }
 
     public String getNumber() {
