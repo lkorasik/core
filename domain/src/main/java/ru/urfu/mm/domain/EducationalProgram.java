@@ -23,7 +23,7 @@ public class EducationalProgram {
     /**
      * Список академических групп
      */
-    private List<Group> groups = new ArrayList<>();
+    private List<AcademicGroup> academicGroups = new ArrayList<>();
     /**
      * Список учбеных планов
      */
@@ -48,8 +48,8 @@ public class EducationalProgram {
         return name;
     }
 
-    public List<Group> getGroups() {
-        return groups;
+    public List<AcademicGroup> getGroups() {
+        return academicGroups;
     }
 
     public String getTrainingDirection() {
@@ -60,7 +60,7 @@ public class EducationalProgram {
         return studyPlans;
     }
 
-    public void setGroups(List<Group> groups) {
-        this.groups = groups;
+    public void setGroups(List<AcademicGroup> academicGroups) {
+        this.academicGroups = academicGroups;
     }
 }

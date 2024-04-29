@@ -1,6 +1,6 @@
 package ru.urfu.mm.application.gateway;
 
-import ru.urfu.mm.domain.Group;
+import ru.urfu.mm.domain.AcademicGroup;
 import ru.urfu.mm.domain.Student;
 
 import java.util.List;
@@ -19,5 +19,5 @@ public interface StudentGateway {
     void saveNewStudent(Student student);
     Student getById(UUID studentId);
     Optional<Student> findById(UUID studentId);
-    List<Student> findAllStudentsByGroup(Group group);
+    List<Student> findAllStudentsByGroup(AcademicGroup academicGroup);
 }

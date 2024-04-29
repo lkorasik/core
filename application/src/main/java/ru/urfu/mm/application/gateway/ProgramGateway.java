@@ -1,7 +1,7 @@
 package ru.urfu.mm.application.gateway;
 
+import ru.urfu.mm.domain.AcademicGroup;
 import ru.urfu.mm.domain.EducationalProgram;
-import ru.urfu.mm.domain.Group;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,5 +12,5 @@ public interface ProgramGateway {
     Optional<EducationalProgram> findById(UUID id);
     List<EducationalProgram> getAll();
     void save(EducationalProgram educationalProgram);
-    Optional<EducationalProgram> findByGroup(Group group);
+    Optional<EducationalProgram> findByGroup(AcademicGroup academicGroup);
 }

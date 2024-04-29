@@ -1,7 +1,7 @@
 package ru.urfu.mm.application.usecase.get_group;
 
 import ru.urfu.mm.application.gateway.GroupGateway;
-import ru.urfu.mm.domain.Group;
+import ru.urfu.mm.domain.AcademicGroup;
 
 import java.util.UUID;
 
@@ -12,7 +12,7 @@ public class GetGroup {
         this.groupGateway = groupGateway;
     }
 
-    public Group getGroup(UUID groupId) {
+    public AcademicGroup getGroup(UUID groupId) {
         return groupGateway
                 .findById(groupId)
                 .orElseThrow(() -> new GroupNotFoundException(groupId));

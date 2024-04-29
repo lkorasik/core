@@ -2,7 +2,7 @@ package ru.urfu.mm.application.usecase.download_tokens;
 
 import ru.urfu.mm.application.gateway.TokenGateway;
 import ru.urfu.mm.application.usecase.get_group.GetGroup;
-import ru.urfu.mm.domain.Group;
+import ru.urfu.mm.domain.AcademicGroup;
 
 import java.io.*;
 import java.util.List;
@@ -21,12 +21,12 @@ public class DownloadTokens {
     }
 
     public File downloadTokens(DownloadTokensRequest request) {
-        Group group = getGroup.getGroup(request.groupId());
-        List<UUID> tokens = tokenGateway.getTokensByGroup(group);
+        AcademicGroup academicGroup = getGroup.getGroup(request.groupId());
+        List<UUID> tokens = tokenGateway.getTokensByGroup(academicGroup);
 
         File file = null;
         try {
-            file = writeTokens(group.getNumber(), tokens);
+            file = writeTokens(academicGroup.getNumber(), tokens);
         } catch (IOException e) {
             throw new TempFileHandleException();
         }

@@ -16,7 +16,7 @@ import ru.urfu.mm.application.usecase.get_groups.GetGroupForEducationalProgram;
 import ru.urfu.mm.application.usecase.get_token.GetTokensForGroup;
 import ru.urfu.mm.application.usecase.get_token.GetTokensForGroupRequest;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
-import ru.urfu.mm.domain.Group;
+import ru.urfu.mm.domain.AcademicGroup;
 
 import java.io.*;
 import java.util.List;
@@ -54,8 +54,8 @@ public class GroupController extends AbstractAuthorizedController {
 
     @GetMapping("/groupById")
     public GroupDTO getGroup(@RequestParam("groupId") UUID groupId) {
-        Group group = getGroup.getGroup(groupId);
-        return new GroupDTO(group.getId(), group.getNumber());
+        AcademicGroup academicGroup = getGroup.getGroup(groupId);
+        return new GroupDTO(academicGroup.getId(), academicGroup.getNumber());
     }
 
     @PostMapping("/token")

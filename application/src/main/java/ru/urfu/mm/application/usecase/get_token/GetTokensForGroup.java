@@ -2,7 +2,7 @@ package ru.urfu.mm.application.usecase.get_token;
 
 import ru.urfu.mm.application.gateway.StudentGateway;
 import ru.urfu.mm.application.usecase.get_group.GetGroup;
-import ru.urfu.mm.domain.Group;
+import ru.urfu.mm.domain.AcademicGroup;
 
 import java.util.List;
 
@@ -21,8 +21,8 @@ public class GetTokensForGroup {
     }
 
     public List<GetTokensForGroupResponse> getTokensForGroup(GetTokensForGroupRequest request) {
-        Group group = getGroup.getGroup(request.groupId());
-        return studentGateway.findAllStudentsByGroup(group)
+        AcademicGroup academicGroup = getGroup.getGroup(request.groupId());
+        return studentGateway.findAllStudentsByGroup(academicGroup)
                 .stream()
                 .map(x -> new GetTokensForGroupResponse(
                         x.getLogin(),

@@ -9,7 +9,7 @@ import java.util.UUID;
 /**
  * Академическая группа.
  */
-public class Group {
+public class AcademicGroup {
     /**
      * Идентификатор группы
      */
@@ -27,7 +27,7 @@ public class Group {
      */
     private List<Student> students;
 
-    public Group(UUID id, String number) {
+    public AcademicGroup(UUID id, String number) {
         this.id = id;
         this.number = number;
         year = Years.FIRST;

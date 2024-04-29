@@ -3,7 +3,7 @@ package ru.urfu.mm.gateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.TokenGateway;
-import ru.urfu.mm.domain.Group;
+import ru.urfu.mm.domain.AcademicGroup;
 import ru.urfu.mm.persistance.entity.GroupEntity;
 import ru.urfu.mm.persistance.entity.StudentEntity;
 import ru.urfu.mm.persistance.entity.StudentRegistrationToken;
@@ -42,8 +42,8 @@ public class TokenGatewayImpl implements TokenGateway {
     }
 
     @Override
-    public List<UUID> getTokensByGroup(Group group) {
-        GroupEntity groupEntity = groupRepository.findById(group.getId()).get();
+    public List<UUID> getTokensByGroup(AcademicGroup academicGroup) {
+        GroupEntity groupEntity = groupRepository.findById(academicGroup.getId()).get();
         return studentRegistrationTokenRepository.findAllByGroup(groupEntity)
                 .stream()
                 .map(StudentRegistrationToken::getToken)

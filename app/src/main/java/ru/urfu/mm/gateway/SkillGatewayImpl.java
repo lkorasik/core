@@ -64,7 +64,7 @@ public class SkillGatewayImpl implements SkillGateway {
                                         x.getStudent().getEducationalProgram().getName(),
                                         x.getStudent().getEducationalProgram().getTrainingDirection()
                                 ),
-                                new Group(
+                                new AcademicGroup(
                                         x.getStudent().getGroup().getId(),
                                         x.getStudent().getGroup().getNumber()
                                 ),
@@ -97,7 +97,7 @@ public class SkillGatewayImpl implements SkillGateway {
                                         x.getStudent().getEducationalProgram().getName(),
                                         x.getStudent().getEducationalProgram().getTrainingDirection()
                                 ),
-                                new Group(
+                                new AcademicGroup(
                                         x.getStudent().getGroup().getId(),
                                         x.getStudent().getGroup().getNumber()
                                 ),

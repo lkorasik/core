@@ -3,9 +3,9 @@ package ru.urfu.mm.gateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.StudentGateway;
+import ru.urfu.mm.domain.AcademicGroup;
 import ru.urfu.mm.domain.Account;
 import ru.urfu.mm.domain.EducationalProgram;
-import ru.urfu.mm.domain.Group;
 import ru.urfu.mm.domain.Student;
 import ru.urfu.mm.domain.enums.UserRole;
 import ru.urfu.mm.persistance.entity.*;
@@ -74,7 +74,7 @@ public class StudentGatewayImpl implements StudentGateway {
                                 x.getEducationalProgram().getName(),
                                 x.getEducationalProgram().getTrainingDirection()
                         ),
-                        new Group(
+                        new AcademicGroup(
                                 x.getGroup().getId(),
                                 x.getGroup().getNumber()
                         ),
@@ -98,7 +98,7 @@ public class StudentGatewayImpl implements StudentGateway {
                                 x.getEducationalProgram().getName(),
                                 x.getEducationalProgram().getTrainingDirection()
                         ),
-                        new Group(
+                        new AcademicGroup(
                                 x.getGroup().getId(),
                                 x.getGroup().getNumber()
                         )
@@ -106,8 +106,8 @@ public class StudentGatewayImpl implements StudentGateway {
     }
 
     @Override
-    public List<Student> findAllStudentsByGroup(Group group) {
-        GroupEntity groupEntity = groupRepository.findById(group.getId()).get();
+    public List<Student> findAllStudentsByGroup(AcademicGroup academicGroup) {
+        GroupEntity groupEntity = groupRepository.findById(academicGroup.getId()).get();
         return studentRepository.findAllByGroup(groupEntity)
                 .stream()
                 .map(x -> new Student(
@@ -117,7 +117,7 @@ public class StudentGatewayImpl implements StudentGateway {
                                 x.getEducationalProgram().getName(),
                                 x.getEducationalProgram().getTrainingDirection()
                         ),
-                        new Group(
+                        new AcademicGroup(
                                 x.getGroup().getId(),
                                 x.getGroup().getNumber()
                         ),

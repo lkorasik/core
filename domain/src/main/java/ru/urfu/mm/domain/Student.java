@@ -7,7 +7,7 @@ public class Student {
     @Deprecated
     private EducationalProgram educationalProgram;
     @Deprecated
-    private Group group;
+    private AcademicGroup academicGroup;
     private Account account;
 
     public EducationalProgram getProgram() {
@@ -21,25 +21,25 @@ public class Student {
     public Student() {
     }
 
-    public Student(UUID login, EducationalProgram educationalProgram, Group group, Account account) {
+    public Student(UUID login, EducationalProgram educationalProgram, AcademicGroup academicGroup, Account account) {
         this.login = login;
         this.educationalProgram = educationalProgram;
-        this.group = group;
+        this.academicGroup = academicGroup;
         this.account = account;
     }
 
-    public Student(UUID login, EducationalProgram educationalProgram, Group group) {
+    public Student(UUID login, EducationalProgram educationalProgram, AcademicGroup academicGroup) {
         this.login = login;
         this.educationalProgram = educationalProgram;
-        this.group = group;
+        this.academicGroup = academicGroup;
     }
 
     public UUID getLogin() {
         return login;
     }
 
-    public Group getGroup() {
-        return group;
+    public AcademicGroup getGroup() {
+        return academicGroup;
     }
 
     public Account getUser() {

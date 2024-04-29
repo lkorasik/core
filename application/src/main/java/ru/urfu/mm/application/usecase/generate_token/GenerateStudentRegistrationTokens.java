@@ -4,7 +4,7 @@ import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.application.gateway.StudentGateway;
 import ru.urfu.mm.application.gateway.TokenGateway;
 import ru.urfu.mm.application.usecase.get_group.GetGroup;
-import ru.urfu.mm.domain.Group;
+import ru.urfu.mm.domain.AcademicGroup;
 import ru.urfu.mm.domain.EducationalProgram;
 import ru.urfu.mm.domain.Student;
 
@@ -38,20 +38,20 @@ public class GenerateStudentRegistrationTokens {
     }
 
     public List<UUID> generateTokens(GenerateStudentRegistrationTokensRequest request) {
-        Group group = getGroup.getGroup(request.groupId());
+        AcademicGroup academicGroup = getGroup.getGroup(request.groupId());
 
         if (request.tokenCount() <= 0) {
             throw new IncorrectCountOfTokens(request.tokenCount());
         }
 
         EducationalProgram educationalProgram = programGateway
-                .findByGroup(group)
-                .orElseThrow(() -> new EducationalProgramNotExistsException(group));
+                .findByGroup(academicGroup)
+                .orElseThrow(() -> new EducationalProgramNotExistsException(academicGroup));
 
         List<UUID> registrationTokens = Stream.generate(UUID::randomUUID).limit(request.tokenCount()).toList();
 
         List<Student> students = registrationTokens.stream()
-                .map(x -> new Student(x, educationalProgram, group))
+                .map(x -> new Student(x, educationalProgram, academicGroup))
                 .toList();
         students.forEach(studentGateway::saveNewStudent);
 

@@ -3,8 +3,8 @@ package ru.urfu.mm.gateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.ProgramGateway;
+import ru.urfu.mm.domain.AcademicGroup;
 import ru.urfu.mm.domain.EducationalProgram;
-import ru.urfu.mm.domain.Group;
 import ru.urfu.mm.persistance.entity.ProgramEntity;
 import ru.urfu.mm.persistance.entity.GroupEntity;
 import ru.urfu.mm.persistance.repository.ProgramRepository;
@@ -43,11 +43,11 @@ public class ProgramGatewayImpl implements ProgramGateway {
                 programEntity.getName(),
                 programEntity.getTrainingDirection()
         );
-        List<Group> groups = groupRepository.findAllByProgram(programEntity)
+        List<AcademicGroup> academicGroups = groupRepository.findAllByProgram(programEntity)
                 .stream()
-                .map(x -> new Group(x.getId(), x.getNumber()))
+                .map(x -> new AcademicGroup(x.getId(), x.getNumber()))
                 .toList();
-        educationalProgram.setGroups(groups);
+        educationalProgram.setGroups(academicGroups);
         return educationalProgram;
     }
 
@@ -79,14 +79,14 @@ public class ProgramGatewayImpl implements ProgramGateway {
                 educationalProgram.getTrainingDirection()
         );
         Iterable<GroupEntity> groups = groupRepository
-                .findAllById(educationalProgram.getGroups().stream().map(Group::getId).toList());
+                .findAllById(educationalProgram.getGroups().stream().map(AcademicGroup::getId).toList());
         groups.forEach(group -> group.setProgram(entity));
         groupRepository.saveAll(groups);
         programRepository.save(entity);
     }
 
     @Override
-    public Optional<EducationalProgram> findByGroup(Group group) {
+    public Optional<EducationalProgram> findByGroup(AcademicGroup academicGroup) {
         throw new RuntimeException("Not implemented yet");
 //        return groupRepository.findById(group.getId())
 //                .map(GroupEntity::getEducationalProgram)
