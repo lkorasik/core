@@ -8,7 +8,7 @@ import java.util.UUID;
 /**
  * Образовательный модуль
  */
-public class Module {
+public class EducationalModule {
     /**
      * Идентификатор модуля
      */
@@ -22,7 +22,7 @@ public class Module {
      */
     private final List<Course> courses;
 
-    public Module(UUID id, String name) {
+    public EducationalModule(UUID id, String name) {
         this.id = id;
         this.name = name;
         this.courses = new ArrayList<>();
@@ -46,8 +46,8 @@ public class Module {
             return true;
         if ((obj == null) || (getClass() != obj.getClass()))
             return false;
-        Module module = (Module) obj;
-        return Objects.equals(id, module.id) && Objects.equals(name, module.name);
+        EducationalModule educationalModule = (EducationalModule) obj;
+        return Objects.equals(id, educationalModule.id) && Objects.equals(name, educationalModule.name);
     }
 
     @Override

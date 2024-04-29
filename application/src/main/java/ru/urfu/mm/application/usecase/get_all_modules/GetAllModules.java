@@ -1,7 +1,7 @@
 package ru.urfu.mm.application.usecase.get_all_modules;
 
 import ru.urfu.mm.application.gateway.ModuleGateway;
-import ru.urfu.mm.domain.Module;
+import ru.urfu.mm.domain.EducationalModule;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class GetAllModules {
         this.moduleGateway = moduleGateway;
     }
 
-    public List<Module> getAllModules() {
+    public List<EducationalModule> getAllModules() {
         return moduleGateway.getAllModules();
     }
 }

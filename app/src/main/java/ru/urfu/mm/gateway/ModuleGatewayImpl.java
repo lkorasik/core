@@ -2,7 +2,7 @@ package ru.urfu.mm.gateway;
 
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.ModuleGateway;
-import ru.urfu.mm.domain.Module;
+import ru.urfu.mm.domain.EducationalModule;
 import ru.urfu.mm.persistance.repository.EducationalModuleRepository;
 
 import java.util.List;
@@ -18,47 +18,47 @@ public class ModuleGatewayImpl implements ModuleGateway {
     }
 
     @Override
-    public Module find(UUID moduleId) {
+    public EducationalModule find(UUID moduleId) {
         ru.urfu.mm.persistance.entity.Module entity = educationalModuleRepository.findById(moduleId).get();
-        return new Module(
+        return new EducationalModule(
                 entity.getId(),
                 entity.getName()
         );
     }
 
     @Override
-    public Optional<Module> getById(UUID moduleId) {
+    public Optional<EducationalModule> getById(UUID moduleId) {
         return educationalModuleRepository.findById(moduleId)
-                .map(x -> new ru.urfu.mm.domain.Module(x.getId(), x.getName()));
+                .map(x -> new EducationalModule(x.getId(), x.getName()));
     }
 
     @Override
-    public List<Module> getAllModules() {
+    public List<EducationalModule> getAllModules() {
         return educationalModuleRepository
                 .findAll()
                 .stream()
-                .map(x -> new Module(x.getId(), x.getName()))
+                .map(x -> new EducationalModule(x.getId(), x.getName()))
                 .toList();
     }
 
     @Override
-    public List<Module> getModulesByIds(List<UUID> modulesIds) {
+    public List<EducationalModule> getModulesByIds(List<UUID> modulesIds) {
         return educationalModuleRepository
                 .findAll()
                 .stream()
                 .filter(x -> modulesIds.contains(x.getId()))
-                .map(x -> new Module(x.getId(), x.getName()))
+                .map(x -> new EducationalModule(x.getId(), x.getName()))
                 .toList();
     }
 
     @Override
-    public void save(Module module) {
-        ru.urfu.mm.persistance.entity.Module entity = new ru.urfu.mm.persistance.entity.Module(module.getId(), module.getName());
+    public void save(EducationalModule educationalModule) {
+        ru.urfu.mm.persistance.entity.Module entity = new ru.urfu.mm.persistance.entity.Module(educationalModule.getId(), educationalModule.getName());
         educationalModuleRepository.save(entity);
     }
 
     @Override
-    public void delete(Module module) {
-        educationalModuleRepository.deleteById(module.getId());
+    public void delete(EducationalModule educationalModule) {
+        educationalModuleRepository.deleteById(educationalModule.getId());
     }
 }

@@ -2,8 +2,8 @@ package ru.urfu.mm.application.usecase.load_available_courses;
 
 import ru.urfu.mm.application.gateway.CourseGateway;
 import ru.urfu.mm.application.gateway.StudentGateway;
+import ru.urfu.mm.domain.EducationalModule;
 import ru.urfu.mm.domain.ProgramToCoursesWithSemesters;
-import ru.urfu.mm.domain.Module;
 import ru.urfu.mm.domain.Course;
 import ru.urfu.mm.domain.Student;
 
@@ -32,7 +32,7 @@ public class LoadAvailableCourses {
                 .stream()
                 .map(ProgramToCoursesWithSemesters::getSpecialCourse)
                 .toList();
-        Map<Module, List<Course>> moduleToCourses = courses
+        Map<EducationalModule, List<Course>> moduleToCourses = courses
                 .stream()
                 .collect(Collectors.groupingBy(Course::getEducationalModule));
 

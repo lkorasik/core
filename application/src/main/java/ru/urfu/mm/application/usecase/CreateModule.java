@@ -1,7 +1,7 @@
 package ru.urfu.mm.application.usecase;
 
 import ru.urfu.mm.application.gateway.ModuleGateway;
-import ru.urfu.mm.domain.Module;
+import ru.urfu.mm.domain.EducationalModule;
 
 import java.util.UUID;
 
@@ -18,7 +18,7 @@ public class CreateModule {
     }
 
     public void createModule(String educationalModuleName) {
-        Module module = new Module(UUID.randomUUID(), educationalModuleName);
-        moduleGateway.save(module);
+        EducationalModule educationalModule = new EducationalModule(UUID.randomUUID(), educationalModuleName);
+        moduleGateway.save(educationalModule);
     }
 }

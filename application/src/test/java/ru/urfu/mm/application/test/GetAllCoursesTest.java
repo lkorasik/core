@@ -8,8 +8,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.urfu.mm.application.gateway.CourseGateway;
 import ru.urfu.mm.application.usecase.GetAllCourses;
+import ru.urfu.mm.domain.EducationalModule;
 import ru.urfu.mm.domain.enums.ControlTypes;
-import ru.urfu.mm.domain.Module;
 import ru.urfu.mm.domain.Course;
 
 import java.util.List;
@@ -22,24 +22,24 @@ public class GetAllCoursesTest {
 
     @Test
     public void test_getAllCourses() {
-        List<Module> modules = List.of(
-                new Module(UUID.randomUUID(), "M1"),
-                new Module(UUID.randomUUID(), "M2"),
-                new Module(UUID.randomUUID(), "M3"),
-                new Module(UUID.randomUUID(), "M4")
+        List<EducationalModule> educationalModules = List.of(
+                new EducationalModule(UUID.randomUUID(), "M1"),
+                new EducationalModule(UUID.randomUUID(), "M2"),
+                new EducationalModule(UUID.randomUUID(), "M3"),
+                new EducationalModule(UUID.randomUUID(), "M4")
         );
 
         List<Course> specialCourses = List.of(
-                new Course(UUID.randomUUID(), "C1", 3, ControlTypes.TEST, "C1", "D1", "T1", modules.get(0)),
-                new Course(UUID.randomUUID(), "C2", 3, ControlTypes.TEST, "C2", "D2", "T2", modules.get(0)),
-                new Course(UUID.randomUUID(), "C3", 3, ControlTypes.TEST, "C3", "D3", "T3", modules.get(1)),
-                new Course(UUID.randomUUID(), "C4", 3, ControlTypes.TEST, "C4", "D4", "T4", modules.get(1)),
-                new Course(UUID.randomUUID(), "C5", 3, ControlTypes.TEST, "C5", "D5", "T5", modules.get(2)),
-                new Course(UUID.randomUUID(), "C6", 3, ControlTypes.TEST, "C6", "D6", "T6", modules.get(2)),
-                new Course(UUID.randomUUID(), "C7", 3, ControlTypes.TEST, "C7", "D7", "T7", modules.get(3)),
-                new Course(UUID.randomUUID(), "C8", 3, ControlTypes.TEST, "C8", "D8", "T8", modules.get(3)),
-                new Course(UUID.randomUUID(), "C9", 3, ControlTypes.TEST, "C9", "D9", "T9", modules.get(3)),
-                new Course(UUID.randomUUID(), "C10", 3, ControlTypes.TEST, "C10", "D10", "T10", modules.get(3))
+                new Course(UUID.randomUUID(), "C1", 3, ControlTypes.TEST, "C1", "D1", "T1", educationalModules.get(0)),
+                new Course(UUID.randomUUID(), "C2", 3, ControlTypes.TEST, "C2", "D2", "T2", educationalModules.get(0)),
+                new Course(UUID.randomUUID(), "C3", 3, ControlTypes.TEST, "C3", "D3", "T3", educationalModules.get(1)),
+                new Course(UUID.randomUUID(), "C4", 3, ControlTypes.TEST, "C4", "D4", "T4", educationalModules.get(1)),
+                new Course(UUID.randomUUID(), "C5", 3, ControlTypes.TEST, "C5", "D5", "T5", educationalModules.get(2)),
+                new Course(UUID.randomUUID(), "C6", 3, ControlTypes.TEST, "C6", "D6", "T6", educationalModules.get(2)),
+                new Course(UUID.randomUUID(), "C7", 3, ControlTypes.TEST, "C7", "D7", "T7", educationalModules.get(3)),
+                new Course(UUID.randomUUID(), "C8", 3, ControlTypes.TEST, "C8", "D8", "T8", educationalModules.get(3)),
+                new Course(UUID.randomUUID(), "C9", 3, ControlTypes.TEST, "C9", "D9", "T9", educationalModules.get(3)),
+                new Course(UUID.randomUUID(), "C10", 3, ControlTypes.TEST, "C10", "D10", "T10", educationalModules.get(3))
         );
 
         Mockito.when(courseGateway.getAllCourses()).thenReturn(specialCourses);

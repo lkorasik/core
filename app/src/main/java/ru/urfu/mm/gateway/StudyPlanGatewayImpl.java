@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.StudyPlanGateway;
 import ru.urfu.mm.domain.*;
-import ru.urfu.mm.domain.Module;
+import ru.urfu.mm.domain.EducationalModule;
 import ru.urfu.mm.domain.enums.SemesterType;
 import ru.urfu.mm.persistance.entity.ProgramEntity;
 import ru.urfu.mm.persistance.entity.Semester;
@@ -107,21 +107,21 @@ public class StudyPlanGatewayImpl implements StudyPlanGateway {
                                 x.getFirstSemester().getRecommendedCredits(),
                                 x.getFirstSemester().getRequiredModules()
                                         .stream()
-                                        .map(y -> new Module(
+                                        .map(y -> new EducationalModule(
                                                 y.getId(),
                                                 y.getName()
                                         ))
                                         .toList(),
                                 x.getFirstSemester().getSpecialModules()
                                         .stream()
-                                        .map(y -> new Module(
+                                        .map(y -> new EducationalModule(
                                                 y.getId(),
                                                 y.getName()
                                         ))
                                         .toList(),
                                 x.getFirstSemester().getScienceWork()
                                         .stream()
-                                        .map(y -> new Module(
+                                        .map(y -> new EducationalModule(
                                                 y.getId(),
                                                 y.getName()
                                         ))
@@ -137,21 +137,21 @@ public class StudyPlanGatewayImpl implements StudyPlanGateway {
                                 x.getSecondSemester().getRecommendedCredits(),
                                 x.getSecondSemester().getRequiredModules()
                                         .stream()
-                                        .map(y -> new Module(
+                                        .map(y -> new EducationalModule(
                                                 y.getId(),
                                                 y.getName()
                                         ))
                                         .toList(),
                                 x.getSecondSemester().getSpecialModules()
                                         .stream()
-                                        .map(y -> new Module(
+                                        .map(y -> new EducationalModule(
                                                 y.getId(),
                                                 y.getName()
                                         ))
                                         .toList(),
                                 x.getSecondSemester().getScienceWork()
                                         .stream()
-                                        .map(y -> new Module(
+                                        .map(y -> new EducationalModule(
                                                 y.getId(),
                                                 y.getName()
                                         ))
@@ -167,21 +167,21 @@ public class StudyPlanGatewayImpl implements StudyPlanGateway {
                                 x.getThirdSemester().getRecommendedCredits(),
                                 x.getThirdSemester().getRequiredModules()
                                         .stream()
-                                        .map(y -> new Module(
+                                        .map(y -> new EducationalModule(
                                                 y.getId(),
                                                 y.getName()
                                         ))
                                         .toList(),
                                 x.getThirdSemester().getSpecialModules()
                                         .stream()
-                                        .map(y -> new Module(
+                                        .map(y -> new EducationalModule(
                                                 y.getId(),
                                                 y.getName()
                                         ))
                                         .toList(),
                                 x.getThirdSemester().getScienceWork()
                                         .stream()
-                                        .map(y -> new Module(
+                                        .map(y -> new EducationalModule(
                                                 y.getId(),
                                                 y.getName()
                                         ))
@@ -197,21 +197,21 @@ public class StudyPlanGatewayImpl implements StudyPlanGateway {
                                 x.getFourthSemester().getRecommendedCredits(),
                                 x.getFourthSemester().getRequiredModules()
                                         .stream()
-                                        .map(y -> new Module(
+                                        .map(y -> new EducationalModule(
                                                 y.getId(),
                                                 y.getName()
                                         ))
                                         .toList(),
                                 x.getFourthSemester().getSpecialModules()
                                         .stream()
-                                        .map(y -> new Module(
+                                        .map(y -> new EducationalModule(
                                                 y.getId(),
                                                 y.getName()
                                         ))
                                         .toList(),
                                 x.getFourthSemester().getScienceWork()
                                         .stream()
-                                        .map(y -> new Module(
+                                        .map(y -> new EducationalModule(
                                                 y.getId(),
                                                 y.getName()
                                         ))

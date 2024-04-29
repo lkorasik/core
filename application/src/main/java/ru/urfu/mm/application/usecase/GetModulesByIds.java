@@ -1,7 +1,7 @@
 package ru.urfu.mm.application.usecase;
 
 import ru.urfu.mm.application.gateway.ModuleGateway;
-import ru.urfu.mm.domain.Module;
+import ru.urfu.mm.domain.EducationalModule;
 
 import java.util.List;
 import java.util.UUID;
@@ -13,7 +13,7 @@ public class GetModulesByIds {
         this.moduleGateway = moduleGateway;
     }
 
-    public List<Module> getModulesByIds(List<UUID> modulesIds) {
+    public List<EducationalModule> getModulesByIds(List<UUID> modulesIds) {
         return moduleGateway.getModulesByIds(modulesIds);
     }
 }

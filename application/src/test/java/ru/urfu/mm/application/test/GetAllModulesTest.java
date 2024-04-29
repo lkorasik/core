@@ -9,7 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ru.urfu.mm.application.dsl.ModuleDSL;
 import ru.urfu.mm.application.gateway.ModuleGateway;
 import ru.urfu.mm.application.usecase.get_all_modules.GetAllModules;
-import ru.urfu.mm.domain.Module;
+import ru.urfu.mm.domain.EducationalModule;
 
 import java.util.List;
 
@@ -23,15 +23,15 @@ public class GetAllModulesTest {
      */
     @Test
     public void getAllModules() {
-        List<Module> modules = List.of(ModuleDSL.create(), ModuleDSL.create());
+        List<EducationalModule> educationalModules = List.of(ModuleDSL.create(), ModuleDSL.create());
 
-        Mockito.when(moduleGateway.getAllModules()).thenReturn(modules);
+        Mockito.when(moduleGateway.getAllModules()).thenReturn(educationalModules);
 
         GetAllModules getAllModules = new GetAllModules(moduleGateway);
-        List<Module> allModules = getAllModules.getAllModules();
+        List<EducationalModule> allEducationalModules = getAllModules.getAllModules();
 
-        Assertions.assertEquals(modules.size(), allModules.size());
-        allModules.forEach(module -> Assertions.assertTrue(modules.contains(module)));
+        Assertions.assertEquals(educationalModules.size(), allEducationalModules.size());
+        allEducationalModules.forEach(module -> Assertions.assertTrue(educationalModules.contains(module)));
     }
 
     /**
@@ -39,13 +39,13 @@ public class GetAllModulesTest {
      */
     @Test
     public void getAllModules_empty() {
-        List<Module> modules = List.of();
+        List<EducationalModule> educationalModules = List.of();
 
-        Mockito.when(moduleGateway.getAllModules()).thenReturn(modules);
+        Mockito.when(moduleGateway.getAllModules()).thenReturn(educationalModules);
 
         GetAllModules getAllModules = new GetAllModules(moduleGateway);
-        List<Module> allModules = getAllModules.getAllModules();
+        List<EducationalModule> allEducationalModules = getAllModules.getAllModules();
 
-        Assertions.assertEquals(0, allModules.size());
+        Assertions.assertEquals(0, allEducationalModules.size());
     }
 }

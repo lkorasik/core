@@ -3,7 +3,7 @@ package ru.urfu.mm.gateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.CourseGateway;
-import ru.urfu.mm.domain.Module;
+import ru.urfu.mm.domain.EducationalModule;
 import ru.urfu.mm.domain.*;
 import ru.urfu.mm.domain.SelectedCourses;
 import ru.urfu.mm.domain.Semester;
@@ -59,7 +59,7 @@ public class CourseGatewayImpl implements CourseGateway {
                         x.getDescription(),
                         x.getDepartment(),
                         x.getTeacherName(),
-                        new Module(
+                        new EducationalModule(
                                 x.getEducationalModule().getId(),
                                 x.getEducationalModule().getName()
                         )
@@ -81,7 +81,7 @@ public class CourseGatewayImpl implements CourseGateway {
                         x.getDescription(),
                         x.getDepartment(),
                         x.getTeacherName(),
-                        new Module(
+                        new EducationalModule(
                                 x.getEducationalModule().getId(),
                                 x.getEducationalModule().getName()
                         )
@@ -127,7 +127,7 @@ public class CourseGatewayImpl implements CourseGateway {
                                 x.getSpecialCourse().getDescription(),
                                 x.getSpecialCourse().getDepartment(),
                                 x.getSpecialCourse().getTeacherName(),
-                                new Module(
+                                new EducationalModule(
                                         x.getSpecialCourse().getEducationalModule().getId(),
                                         x.getSpecialCourse().getEducationalModule().getName()
                                 )
@@ -162,7 +162,7 @@ public class CourseGatewayImpl implements CourseGateway {
                                 x.getSpecialCourse().getDescription(),
                                 x.getSpecialCourse().getDepartment(),
                                 x.getSpecialCourse().getTeacherName(),
-                                new Module(
+                                new EducationalModule(
                                         x.getSpecialCourse().getEducationalModule().getId(),
                                         x.getSpecialCourse().getEducationalModule().getName()
                                 )
@@ -201,7 +201,7 @@ public class CourseGatewayImpl implements CourseGateway {
                                 x.getSpecialCourse().getDescription(),
                                 x.getSpecialCourse().getDepartment(),
                                 x.getSpecialCourse().getTeacherName(),
-                                new Module(
+                                new EducationalModule(
                                         x.getSpecialCourse().getEducationalModule().getId(),
                                         x.getSpecialCourse().getEducationalModule().getName()
                                 )
@@ -237,7 +237,7 @@ public class CourseGatewayImpl implements CourseGateway {
                                 x.getSpecialCourse().getDescription(),
                                 x.getSpecialCourse().getDepartment(),
                                 x.getSpecialCourse().getTeacherName(),
-                                new Module(
+                                new EducationalModule(
                                         x.getSpecialCourse().getEducationalModule().getId(),
                                         x.getSpecialCourse().getEducationalModule().getName()
                                 )
@@ -284,7 +284,7 @@ public class CourseGatewayImpl implements CourseGateway {
                                 x.getSpecialCourse().getDescription(),
                                 x.getSpecialCourse().getDepartment(),
                                 x.getSpecialCourse().getTeacherName(),
-                                new Module(
+                                new EducationalModule(
                                         x.getSpecialCourse().getEducationalModule().getId(),
                                         x.getSpecialCourse().getEducationalModule().getName()
                                 )
@@ -354,7 +354,7 @@ public class CourseGatewayImpl implements CourseGateway {
                 x.getDescription(),
                 x.getDepartment(),
                 x.getTeacherName(),
-                new Module(
+                new EducationalModule(
                         x.getEducationalModule().getId(),
                         x.getEducationalModule().getName()
                 )
