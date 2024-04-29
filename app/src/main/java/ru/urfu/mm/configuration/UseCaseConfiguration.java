@@ -32,6 +32,11 @@ import ru.urfu.mm.application.usecase.update_program.UpdateProgram;
 @Configuration
 public class UseCaseConfiguration {
     @Bean
+    public CreateAccount createUser(CreateAdministrator createAdministrator, TokenGateway tokenGateway) {
+        return new CreateAccount(createAdministrator, tokenGateway);
+    }
+
+    @Bean
     public CreateAdministrator createAdministrator(
             TokenGateway tokenGateway,
             PasswordGateway passwordGateway,
@@ -242,14 +247,6 @@ public class UseCaseConfiguration {
     public DownloadTokens downloadTokens(TokenGateway tokenGateway, GetGroup getGroup) {
         return new DownloadTokens(tokenGateway, getGroup);
     }
-
-//    @Bean
-//    public CreateAccount createUser(
-//            CreateStudent createStudent,
-//            CreateAdministrator createAdministrator,
-//            TokenGateway tokenGateway) {
-//        return new CreateAccount(createStudent, createAdministrator, tokenGateway);
-//    }
 
     @Bean
     public CreateProgram createProgram(ProgramGateway programGateway) {

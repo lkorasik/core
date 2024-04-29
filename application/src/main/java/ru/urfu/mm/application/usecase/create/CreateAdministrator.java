@@ -3,7 +3,7 @@ package ru.urfu.mm.application.usecase.create;
 import ru.urfu.mm.application.gateway.PasswordGateway;
 import ru.urfu.mm.application.gateway.TokenGateway;
 import ru.urfu.mm.application.gateway.UserGateway;
-import ru.urfu.mm.application.usecase.create.account.CreateUserRequest;
+import ru.urfu.mm.application.usecase.create.account.CreateAccountRequest;
 import ru.urfu.mm.domain.Account;
 import ru.urfu.mm.domain.enums.UserRole;
 
@@ -27,7 +27,7 @@ public class CreateAdministrator implements CreateUseCase {
     }
 
     @Override
-    public void create(CreateUserRequest request) {
+    public void create(CreateAccountRequest request) {
         Account account = new Account(request.token(), passwordGateway.encode(request.password()), UserRole.ADMIN);
         userGateway.save(account);
 

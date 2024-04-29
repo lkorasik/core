@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.application.usecase.create.account.CreateAccount;
-import ru.urfu.mm.application.usecase.create.account.CreateUserRequest;
+import ru.urfu.mm.application.usecase.create.account.CreateAccountRequest;
 import ru.urfu.mm.application.usecase.login_user.LoginRequest;
 import ru.urfu.mm.application.usecase.login_user.LoginUser;
 import ru.urfu.mm.domain.Account;
@@ -20,35 +20,29 @@ import java.util.UUID;
 public class AuthenticationController {
     private final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
     private final AuthenticationService authenticationService;
-//    private final CreateAccount createAccount;
+    private final CreateAccount createAccount;
     private final LoginUser loginUser;
 
     @Autowired
     public AuthenticationController(
             AuthenticationService authenticationService,
-//            CreateAccount createAccount,
+            CreateAccount createAccount,
             LoginUser loginUser) {
         this.authenticationService = authenticationService;
-//        this.createAccount = createAccount;
+        this.createAccount = createAccount;
         this.loginUser = loginUser;
     }
 
     @PostMapping("/register")
     public AccessTokenDTO register(@RequestBody RegistrationDTO dto) {
-        throw new NotImplementedException();
-//        logger.info("User registration with params: " + dto);
-//
-//        CreateUserRequest request = new CreateUserRequest(
-//                UUID.fromString(dto.token()),
-//                dto.password(),
-//                dto.passwordAgain()
-//        );
-//        UserRole role = createAccount.createUser(request);
-//        String token = authenticationService.generateToken(dto);
-//
-//        logger.info("User successfully registered");
-//
-//        return new AccessTokenDTO(token, dto.token(), role.getValue());
+        logger.info("User registration with params: {}", dto);
+
+        UserRole role = createAccount.createUser(dto.toRequest());
+        String token = authenticationService.generateToken(dto);
+
+        logger.info("User successfully registered");
+
+        return new AccessTokenDTO(token, dto.token(), role.getValue());
     }
 
     @PostMapping("/token")
