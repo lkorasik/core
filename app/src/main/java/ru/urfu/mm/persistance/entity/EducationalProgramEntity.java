@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 import java.util.*;
 
 @Entity
-@Table(name = "programs")
-public class ProgramEntity {
+@Table(name = "educational_programs")
+public class EducationalProgramEntity {
     @Id
     @GeneratedValue
     @Column
@@ -22,10 +22,10 @@ public class ProgramEntity {
     @JoinColumn(name = "study_plans_id")
     private List<StudyPlanEntity> studyPlans;
 
-    public ProgramEntity() {
+    public EducationalProgramEntity() {
     }
 
-    public ProgramEntity(UUID id, String name, String trainingDirection) {
+    public EducationalProgramEntity(UUID id, String name, String trainingDirection) {
         this.id = id;
         this.name = name;
         this.trainingDirection = trainingDirection;

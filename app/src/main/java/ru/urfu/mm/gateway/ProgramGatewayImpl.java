@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.domain.AcademicGroup;
 import ru.urfu.mm.domain.EducationalProgram;
-import ru.urfu.mm.persistance.entity.ProgramEntity;
+import ru.urfu.mm.persistance.entity.EducationalProgramEntity;
 import ru.urfu.mm.persistance.entity.GroupEntity;
 import ru.urfu.mm.persistance.repository.ProgramRepository;
 import ru.urfu.mm.persistance.repository.GroupRepository;
@@ -20,14 +20,14 @@ import java.util.UUID;
 public class ProgramGatewayImpl implements ProgramGateway {
     private final ProgramRepository programRepository;
     private final GroupRepository groupRepository;
-    private final Mapper<ProgramEntity, EducationalProgram> programMapper;
+    private final Mapper<EducationalProgramEntity, EducationalProgram> programMapper;
     private final StudyPlanRepository studyPlanRepository;
 
     @Autowired
     public ProgramGatewayImpl(
             ProgramRepository programRepository,
             GroupRepository groupRepository,
-            Mapper<ProgramEntity, EducationalProgram> programMapper,
+            Mapper<EducationalProgramEntity, EducationalProgram> programMapper,
             StudyPlanRepository studyPlanRepository) {
         this.programRepository = programRepository;
         this.groupRepository = groupRepository;
@@ -37,13 +37,13 @@ public class ProgramGatewayImpl implements ProgramGateway {
 
     @Override
     public EducationalProgram getById(UUID id) {
-        ProgramEntity programEntity = programRepository.getReferenceById(id);
+        EducationalProgramEntity educationalProgramEntity = programRepository.getReferenceById(id);
         EducationalProgram educationalProgram = new EducationalProgram(
-                programEntity.getId(),
-                programEntity.getName(),
-                programEntity.getTrainingDirection()
+                educationalProgramEntity.getId(),
+                educationalProgramEntity.getName(),
+                educationalProgramEntity.getTrainingDirection()
         );
-        List<AcademicGroup> academicGroups = groupRepository.findAllByProgram(programEntity)
+        List<AcademicGroup> academicGroups = groupRepository.findAllByProgram(educationalProgramEntity)
                 .stream()
                 .map(x -> new AcademicGroup(x.getId(), x.getNumber()))
                 .toList();
@@ -73,7 +73,7 @@ public class ProgramGatewayImpl implements ProgramGateway {
 
     @Override
     public void save(EducationalProgram educationalProgram) {
-        ProgramEntity entity = new ProgramEntity(
+        EducationalProgramEntity entity = new EducationalProgramEntity(
                 educationalProgram.getId(),
                 educationalProgram.getName(),
                 educationalProgram.getTrainingDirection()

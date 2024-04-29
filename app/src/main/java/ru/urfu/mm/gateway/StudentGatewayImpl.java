@@ -10,7 +10,6 @@ import ru.urfu.mm.domain.Student;
 import ru.urfu.mm.domain.enums.UserRole;
 import ru.urfu.mm.domain.exception.NotImplementedException;
 import ru.urfu.mm.persistance.entity.*;
-import ru.urfu.mm.persistance.entity.enums.Years;
 import ru.urfu.mm.persistance.repository.GroupRepository;
 import ru.urfu.mm.persistance.repository.StudentRepository;
 import ru.urfu.mm.service.mapper.Mapper;
@@ -138,8 +137,8 @@ public class StudentGatewayImpl implements StudentGateway {
         return null;
     }
 
-    private ProgramEntity parse(EducationalProgram educationalProgram) {
-        return new ProgramEntity(
+    private EducationalProgramEntity parse(EducationalProgram educationalProgram) {
+        return new EducationalProgramEntity(
                 educationalProgram.getId(),
                 educationalProgram.getName(),
                 educationalProgram.getTrainingDirection()

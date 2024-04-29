@@ -18,8 +18,8 @@ public class StudyPlanEntity {
     @ManyToOne
     private SemesterPlanEntity fourthSemester;
     @ManyToOne
-    @JoinColumn(name="programs_id")
-    private ProgramEntity program;
+    @JoinColumn(name="educational_programs_id")
+    private EducationalProgramEntity program;
 
     public StudyPlanEntity() {
     }
@@ -30,7 +30,7 @@ public class StudyPlanEntity {
             SemesterPlanEntity secondSemester,
             SemesterPlanEntity thirdSemester,
             SemesterPlanEntity fourthSemester,
-            ProgramEntity program) {
+            EducationalProgramEntity program) {
         this.id = id;
         this.program = program;
         this.firstSemester = firstSemester;
@@ -39,7 +39,7 @@ public class StudyPlanEntity {
         this.fourthSemester = fourthSemester;
     }
 
-    public void setProgram(ProgramEntity program) {
+    public void setProgram(EducationalProgramEntity program) {
         this.program = program;
     }
 
@@ -63,7 +63,7 @@ public class StudyPlanEntity {
         return fourthSemester;
     }
 
-    public ProgramEntity getProgram() {
+    public EducationalProgramEntity getProgram() {
         return program;
     }
 }

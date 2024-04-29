@@ -20,15 +20,15 @@ public class GroupEntity {
     @OneToMany(mappedBy = "group")
     private List<StudentEntity> studentEntities;
     @ManyToOne
-    @JoinColumn(name="programs_id")
-    private ProgramEntity program;
+    @JoinColumn(name="educational_programs_id")
+    private EducationalProgramEntity program;
 
-    public ProgramEntity getProgram() {
+    public EducationalProgramEntity getProgram() {
         return program;
     }
 
-    public void setProgram(ProgramEntity programEntity) {
-        this.program = programEntity;
+    public void setProgram(EducationalProgramEntity educationalProgramEntity) {
+        this.program = educationalProgramEntity;
     }
 
     public GroupEntity() {

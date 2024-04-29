@@ -11,7 +11,7 @@ public class StudentEntity {
     private UUID login;
     @ManyToOne
     @JoinColumn(name = "educational_program_id")
-    private ProgramEntity programEntity;
+    private EducationalProgramEntity educationalProgramEntity;
     @OneToOne
     @JoinColumn(name = "users_login")
     private AccountEntity accountEntity;
@@ -27,27 +27,27 @@ public class StudentEntity {
         this.group = group;
     }
 
-    public ProgramEntity getEducationalProgram() {
-        return programEntity;
+    public EducationalProgramEntity getEducationalProgram() {
+        return educationalProgramEntity;
     }
 
-    public void setEducationalProgram(ProgramEntity programEntity) {
-        this.programEntity = programEntity;
+    public void setEducationalProgram(EducationalProgramEntity educationalProgramEntity) {
+        this.educationalProgramEntity = educationalProgramEntity;
     }
 
     public StudentEntity() {
     }
 
-    public StudentEntity(UUID login, ProgramEntity programEntity, GroupEntity group, AccountEntity accountEntity) {
+    public StudentEntity(UUID login, EducationalProgramEntity educationalProgramEntity, GroupEntity group, AccountEntity accountEntity) {
         this.login = login;
-        this.programEntity = programEntity;
+        this.educationalProgramEntity = educationalProgramEntity;
         this.group = group;
         this.accountEntity = accountEntity;
     }
 
-    public StudentEntity(UUID login, ProgramEntity programEntity, GroupEntity group) {
+    public StudentEntity(UUID login, EducationalProgramEntity educationalProgramEntity, GroupEntity group) {
         this.login = login;
-        this.programEntity = programEntity;
+        this.educationalProgramEntity = educationalProgramEntity;
         this.group = group;
     }
 
