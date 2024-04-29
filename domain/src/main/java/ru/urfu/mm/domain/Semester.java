@@ -4,9 +4,21 @@ import ru.urfu.mm.domain.enums.SemesterType;
 
 import java.util.UUID;
 
+/**
+ * Семестр
+ */
 public class Semester {
+    /**
+     * Идентификатор семестра
+     */
     private UUID id;
+    /**
+     * Год, в котором проходит семестр
+     */
     private int year;
+    /**
+     * Тип семестра
+     */
     private SemesterType type;
 
     public Semester() {
