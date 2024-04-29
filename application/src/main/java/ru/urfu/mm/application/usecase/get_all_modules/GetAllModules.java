@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * Получить список всех модулей
+ * 1. Получить список модулей
  */
 public class GetAllModules {
     private final ModuleGateway moduleGateway;
