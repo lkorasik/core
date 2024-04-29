@@ -42,21 +42,6 @@ public class SemesterPlan {
         scienceWork = new ArrayList<>();
     }
 
-    public SemesterPlan(
-            UUID id,
-            Semester semester,
-            int recommendedCredits,
-            List<Course> requiredCourses,
-            List<Course> specialCourses,
-            List<Course> scienceWork) {
-        this.id = id;
-        this.semester = semester;
-        this.recommendedCredits = recommendedCredits;
-        this.requiredCourses = requiredCourses;
-        this.specialCourses = specialCourses;
-        this.scienceWork = scienceWork;
-    }
-
     public UUID getId() {
         return id;
     }

@@ -21,16 +21,8 @@ public class Semester {
      */
     private SemesterType type;
 
-    public Semester() {
-    }
-
     public Semester(UUID id, int year, SemesterType type) {
         this.id = id;
-        this.year = year;
-        this.type = type;
-    }
-
-    public Semester(int year, SemesterType type) {
         this.year = year;
         this.type = type;
     }

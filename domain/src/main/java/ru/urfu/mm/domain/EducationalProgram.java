@@ -23,21 +23,18 @@ public class EducationalProgram {
     /**
      * Список академических групп
      */
-    private List<AcademicGroup> academicGroups = new ArrayList<>();
+    private List<AcademicGroup> academicGroups;
     /**
      * Список учбеных планов
      */
-    private List<Syllabus> syllabi = new ArrayList<>();
+    private List<Syllabus> syllabi;
 
     public EducationalProgram(UUID id, String name, String trainingDirection) {
         this.id = id;
         this.name = name;
         this.trainingDirection = trainingDirection;
-    }
-
-    public EducationalProgram(String name, String trainingDirection) {
-        this.name = name;
-        this.trainingDirection = trainingDirection;
+        this.academicGroups = new ArrayList<>();
+        this.syllabi = new ArrayList<>();
     }
 
     public UUID getId() {

@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.CourseGateway;
 import ru.urfu.mm.domain.EducationalModule;
 import ru.urfu.mm.domain.*;
-import ru.urfu.mm.domain.SelectedCourses;
 import ru.urfu.mm.domain.Semester;
 import ru.urfu.mm.domain.enums.SemesterType;
 import ru.urfu.mm.domain.enums.ControlTypes;

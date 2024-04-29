@@ -1,5 +1,6 @@
 package ru.urfu.mm.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,6 +28,8 @@ public class Student {
     public Student(UUID id, Account account) {
         this.id = id;
         this.account = account;
+        this.plan = null;
+        this.skills = new ArrayList<>();
     }
 
     public Student(UUID id) {

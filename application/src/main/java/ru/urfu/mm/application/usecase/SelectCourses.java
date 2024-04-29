@@ -5,7 +5,6 @@ import ru.urfu.mm.application.exception.CoursesSelectionValidationException;
 import ru.urfu.mm.application.gateway.CourseGateway;
 import ru.urfu.mm.application.gateway.SemesterGateway;
 import ru.urfu.mm.application.gateway.StudentGateway;
-import ru.urfu.mm.domain.SelectedCourses;
 import ru.urfu.mm.domain.Semester;
 import ru.urfu.mm.domain.Student;
 

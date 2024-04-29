@@ -21,17 +21,10 @@ public class Skill {
      */
     private SkillLevel level;
 
-    public Skill() {
-
-    }
-
-    public Skill(String name) {
-        this.name = name;
-    }
-
-    public Skill(UUID id, String name) {
+    public Skill(UUID id, String name, SkillLevel level) {
         this.id = id;
         this.name = name;
+        this.level = level;
     }
 
     public UUID getId() {

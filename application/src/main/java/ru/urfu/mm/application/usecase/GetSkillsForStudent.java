@@ -1,7 +1,6 @@
 package ru.urfu.mm.application.usecase;
 
 import ru.urfu.mm.application.gateway.SkillGateway;
-import ru.urfu.mm.domain.StudentSkills;
 
 import java.util.List;
 import java.util.UUID;

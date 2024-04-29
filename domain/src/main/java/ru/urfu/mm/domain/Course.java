@@ -48,29 +48,12 @@ public class Course {
             String name,
             int credits,
             ControlTypes controlTypes,
-            String description,
             String department,
             String teacher) {
         this.id = id;
         this.name = name;
         this.credits = credits;
         this.controlTypes = controlTypes;
-        this.description = description;
-        this.department = department;
-        this.teacher = teacher;
-    }
-
-    public Course(
-            String name,
-            int credits,
-            ControlTypes controlTypes,
-            String description,
-            String department,
-            String teacher) {
-        this.name = name;
-        this.credits = credits;
-        this.controlTypes = controlTypes;
-        this.description = description;
         this.department = department;
         this.teacher = teacher;
     }

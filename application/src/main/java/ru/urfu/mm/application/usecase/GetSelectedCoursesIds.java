@@ -1,7 +1,6 @@
 package ru.urfu.mm.application.usecase;
 
 import ru.urfu.mm.application.gateway.CourseGateway;
-import ru.urfu.mm.domain.SelectedCourses;
 
 import java.util.HashSet;
 import java.util.List;
