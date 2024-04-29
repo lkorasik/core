@@ -19,7 +19,7 @@ public class UserToEntityMapper implements Mapper<Account, AccountEntity> {
     @Override
     public AccountEntity map(Account account) {
         return new AccountEntity(
-                account.login(),
+                account.token(),
                 account.password(),
                 roleMapper.map(account.role())
         );

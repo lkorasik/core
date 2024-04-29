@@ -37,14 +37,14 @@ public class StudentGatewayImpl implements StudentGateway {
     @Override
     public void update(Student student) {
         StudentEntity studentEntity1 = new StudentEntity(
-                student.getLogin(),
+                student.getId(),
                 parse(student.getProgram()),
                 new GroupEntity(
                         student.getGroup().getId(),
                         student.getGroup().getNumber(),
                         Years.values()[student.getGroup().getYear().ordinal()]
                 ),
-                userMapper.map(student.getUser())
+                userMapper.map(student.getAccount())
         );
         studentRepository.save(studentEntity1);
     }
@@ -52,7 +52,7 @@ public class StudentGatewayImpl implements StudentGateway {
     @Override
     public void saveNewStudent(Student student) {
         StudentEntity entity = new StudentEntity(
-                student.getLogin(),
+                student.getId(),
                 parse(student.getProgram()),
                 new GroupEntity(
                         student.getGroup().getId(),

@@ -66,7 +66,7 @@ public class SelectCourses {
         var selectedCoursesIdsSet = new HashSet<>(selectedCoursesIds);
 
         var courses = getCoursesByEducationalProgramAndSemesters
-                .getCoursesByEducationalProgramAndSemesters(student.getLogin(), null)
+                .getCoursesByEducationalProgramAndSemesters(student.getId(), null)
                 .stream()
                 .map(x -> Map.entry(x.getEducationalModuleId(), x.getId()))
                 .toList();
@@ -102,7 +102,7 @@ public class SelectCourses {
         var selectedCoursesIdsSet = new HashSet<>(selectedCoursesIds);
 
         var coursesIdsForEducationalProgram = getCoursesByEducationalProgramAndSemesters
-                .getCoursesByEducationalProgramAndSemesters(student.getLogin(), List.of(semesterId))
+                .getCoursesByEducationalProgramAndSemesters(student.getId(), List.of(semesterId))
                 .stream()
                 .map(ru.urfu.mm.application.usecase.CourseForEducationalProgram::getId)
                 .collect(Collectors.toSet());
@@ -147,7 +147,7 @@ public class SelectCourses {
 
     private void writeSelectedCourses(Student student, List<Map.Entry<UUID, List<UUID>>> semesterIdWithCoursesIds) {
         var coursesToDelete = courseGateway
-                .getSelectedCourses(student.getLogin());
+                .getSelectedCourses(student.getId());
         var coursesIdToDelete = coursesToDelete
                 .stream()
                 .map(SelectedCourses::getId)

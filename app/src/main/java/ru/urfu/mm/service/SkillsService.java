@@ -25,7 +25,7 @@ public class SkillsService {
                 .stream()
                 .map(x -> new StudentSkills(
                         new StudentEntity(
-                                x.getStudent().getLogin(),
+                                x.getStudent().getId(),
                                 new ProgramEntity(
                                         x.getStudent().getProgram().getId(),
                                         x.getStudent().getProgram().getName(),
@@ -36,7 +36,7 @@ public class SkillsService {
                                         x.getStudent().getGroup().getNumber(),
                                         Years.values()[x.getStudent().getGroup().getYear().ordinal()]
                                 ),
-                                userMapper.map(x.getStudent().getUser())
+                                userMapper.map(x.getStudent().getAccount())
                         ),
                         new Skill(
                                 x.getSkill().getId(),

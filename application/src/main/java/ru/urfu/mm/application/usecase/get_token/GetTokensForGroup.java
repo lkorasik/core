@@ -25,8 +25,8 @@ public class GetTokensForGroup {
         return studentGateway.findAllStudentsByGroup(academicGroup)
                 .stream()
                 .map(x -> new GetTokensForGroupResponse(
-                        x.getLogin(),
-                        x.getUser() != null
+                        x.getId(),
+                        x.getAccount() != null
                 ))
                 .toList();
     }

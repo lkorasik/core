@@ -2,47 +2,37 @@ package ru.urfu.mm.domain;
 
 import java.util.UUID;
 
+/**
+ * Студент
+ */
 public class Student {
-    private UUID login;
-    @Deprecated
-    private EducationalProgram educationalProgram;
-    @Deprecated
-    private AcademicGroup academicGroup;
+    /**
+     * Идентификатор студента
+     */
+    private UUID id;
+    /**
+     * Аккаунт студента
+     */
     private Account account;
+    /**
+     * Индивидуальный учебный план
+     */
+    private StudyPlan individualPlan;
 
-    public EducationalProgram getProgram() {
-        return educationalProgram;
-    }
-
-    public void setProgram(EducationalProgram educationalProgram) {
-        this.educationalProgram = educationalProgram;
-    }
-
-    public Student() {
-    }
-
-    public Student(UUID login, EducationalProgram educationalProgram, AcademicGroup academicGroup, Account account) {
-        this.login = login;
-        this.educationalProgram = educationalProgram;
-        this.academicGroup = academicGroup;
+    public Student(UUID id, Account account) {
+        this.id = id;
         this.account = account;
     }
 
-    public Student(UUID login, EducationalProgram educationalProgram, AcademicGroup academicGroup) {
-        this.login = login;
-        this.educationalProgram = educationalProgram;
-        this.academicGroup = academicGroup;
+    public Student(UUID id) {
+        this.id = id;
     }
 
-    public UUID getLogin() {
-        return login;
+    public UUID getId() {
+        return id;
     }
 
-    public AcademicGroup getGroup() {
-        return academicGroup;
-    }
-
-    public Account getUser() {
+    public Account getAccount() {
         return account;
     }
 }

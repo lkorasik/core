@@ -49,7 +49,7 @@ public class AuthenticationController {
         return new AccessTokenDTO(token, dto.token(), role.getValue());
     }
 
-    @PostMapping("/login")
+    @PostMapping("/token")
     public AccessTokenDTO login(@RequestBody LoginDTO loginDTO) {
         LoginRequest login = new LoginRequest(UUID.fromString(loginDTO.token()), loginDTO.password());
         Account account = loginUser.loginUser(login);

@@ -148,7 +148,7 @@ public class SkillGatewayImpl implements SkillGateway {
                                 .stream()
                                 .map(x -> new ru.urfu.mm.persistance.entity.StudentSkills(
                                         new StudentEntity(
-                                                student.getLogin(),
+                                                student.getId(),
                                                 new ProgramEntity(
                                                         student.getProgram().getId(),
                                                         student.getProgram().getName(),
@@ -159,7 +159,7 @@ public class SkillGatewayImpl implements SkillGateway {
                                                         student.getGroup().getNumber(),
                                                         ru.urfu.mm.persistance.entity.enums.Years.values()[student.getGroup().getYear().ordinal()]
                                                 ),
-                                                userMapper.map(student.getUser())
+                                                userMapper.map(student.getAccount())
                                         ),
                                         x.getKey(),
                                         ru.urfu.mm.persistance.entity.enums.SkillLevel.values()[x.getValue().ordinal()]
@@ -180,7 +180,7 @@ public class SkillGatewayImpl implements SkillGateway {
                                 .stream()
                                 .map(x -> new ru.urfu.mm.persistance.entity.StudentDesiredSkills(
                                         new StudentEntity(
-                                                student.getLogin(),
+                                                student.getId(),
                                                 new ProgramEntity(
                                                         student.getProgram().getId(),
                                                         student.getProgram().getName(),
@@ -191,7 +191,7 @@ public class SkillGatewayImpl implements SkillGateway {
                                                         student.getGroup().getNumber(),
                                                         ru.urfu.mm.persistance.entity.enums.Years.values()[student.getGroup().getYear().ordinal()]
                                                 ),
-                                                userMapper.map(student.getUser())
+                                                userMapper.map(student.getAccount())
                                         ),
                                         x.getKey(),
                                         ru.urfu.mm.persistance.entity.enums.SkillLevel.values()[x.getValue().ordinal()]

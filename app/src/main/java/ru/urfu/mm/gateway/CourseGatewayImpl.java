@@ -308,7 +308,7 @@ public class CourseGatewayImpl implements CourseGateway {
                                 .map(x -> new ru.urfu.mm.persistance.entity.SelectedCourses(
                                         x.getId(),
                                         new StudentEntity(
-                                                x.getStudent().getLogin(),
+                                                x.getStudent().getId(),
                                                 new ProgramEntity(
                                                         x.getStudent().getProgram().getId(),
                                                         x.getStudent().getProgram().getName(),
@@ -319,7 +319,7 @@ public class CourseGatewayImpl implements CourseGateway {
                                                         x.getStudent().getGroup().getNumber(),
                                                         ru.urfu.mm.persistance.entity.enums.Years.values()[x.getStudent().getGroup().getYear().ordinal()]
                                                 ),
-                                                userMapper.map(x.getStudent().getUser())
+                                                userMapper.map(x.getStudent().getAccount())
                                         ),
                                         new ru.urfu.mm.persistance.entity.Semester(
                                                 x.getSemester().getId(),
