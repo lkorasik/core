@@ -51,4 +51,8 @@ public class GroupEntity {
     public String getNumber() {
         return number;
     }
+
+    public List<StudentEntity> getStudents() {
+        return students;
+    }
 }

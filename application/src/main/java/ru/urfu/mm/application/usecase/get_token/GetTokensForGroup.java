@@ -21,13 +21,10 @@ public class GetTokensForGroup {
     }
 
     public List<GetTokensForGroupResponse> getTokensForGroup(GetTokensForGroupRequest request) {
-        AcademicGroup academicGroup = getGroup.getGroup(request.groupId());
-        return studentGateway.findAllStudentsByGroup(academicGroup)
+        return getGroup.getGroup(request.groupId())
+                .getStudents()
                 .stream()
-                .map(x -> new GetTokensForGroupResponse(
-                        x.getId(),
-                        x.getAccount() != null
-                ))
+                .map(x -> new GetTokensForGroupResponse(x.getId(), x.getAccount() != null))
                 .toList();
     }
 }

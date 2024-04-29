@@ -34,6 +34,13 @@ public class AcademicGroup {
         students = new ArrayList<>();
     }
 
+    public AcademicGroup(UUID id, String number, Years year) {
+        this.id = id;
+        this.number = number;
+        this.year = year;
+        students = new ArrayList<>();
+    }
+
     public UUID getId() {
         return id;
     }

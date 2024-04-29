@@ -158,6 +158,7 @@ public class StudentGatewayImpl implements StudentGateway {
 
     @Override
     public List<Student> findAllStudentsByGroup(AcademicGroup academicGroup) {
+        academicGroup.getStudents();
         throw new NotImplementedException();
     }
 
