@@ -1,5 +1,6 @@
 package ru.urfu.mm.domain;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -18,6 +19,10 @@ public class Student {
      * Индивидуальный учебный план
      */
     private StudyPlan individualPlan;
+    /**
+     * Список навыков, которыми обладает студент
+     */
+    private List<Skill> skills;
 
     public Student(UUID id, Account account) {
         this.id = id;

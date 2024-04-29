@@ -2,6 +2,7 @@ package ru.urfu.mm.domain;
 
 import ru.urfu.mm.domain.enums.ControlTypes;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -9,15 +10,38 @@ import java.util.UUID;
  * Учебныц курс.
  */
 public class Course {
+    /**
+     * Идентификатор курса
+     */
     private UUID id;
+    /**
+     * Назавние курса
+     */
     private String name;
+    /**
+     * Число зачетных единиц
+     */
     private int credits;
+    /**
+     * Формат итогового контроля
+     */
     private ControlTypes controlTypes;
+    /**
+     * Описание курса
+     */
     private String description;
+    /**
+     * Кафедра
+     */
     private String department;
+    /**
+     * Преподаватель
+     */
     private String teacher;
-    @Deprecated
-    private EducationalModule educationalModule;
+    /**
+     * Список требуемых навыков
+     */
+    private List<Skill> requiredSkills;
 
     public Course(
             UUID id,
