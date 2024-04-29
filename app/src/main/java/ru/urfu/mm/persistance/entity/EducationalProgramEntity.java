@@ -16,7 +16,7 @@ public class EducationalProgramEntity {
     @Column
     private String trainingDirection;
     @OneToMany
-    @JoinColumn(name = "groups_id")
+//    @JoinColumn(name = "groups_id")
     private List<GroupEntity> groups;
     @OneToMany
     @JoinColumn(name = "study_plans_id")

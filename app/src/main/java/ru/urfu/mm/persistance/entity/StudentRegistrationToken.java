@@ -13,7 +13,7 @@ public class StudentRegistrationToken {
     @Id
     private UUID token;
     @ManyToOne
-    @JoinColumn(name = "groups_id")
+//    @JoinColumn(name = "groups_id")
     private GroupEntity group;
 
     public StudentRegistrationToken() {

@@ -16,7 +16,7 @@ public class StudentEntity {
     @JoinColumn(name = "users_login")
     private AccountEntity accountEntity;
     @ManyToOne
-    @JoinColumn(name = "groups_id")
+//    @JoinColumn(name = "groups_id")
     private GroupEntity group;
 
     public GroupEntity getGroup() {
