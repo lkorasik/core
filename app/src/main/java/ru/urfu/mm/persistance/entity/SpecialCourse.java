@@ -26,12 +26,12 @@ public class SpecialCourse {
     private String teacherName;
     @ManyToOne
     @JoinColumn(name = "educational_module_id")
-    private Module module;
+    private EducationalModuleEntity educationalModuleEntity;
 
     public SpecialCourse() {
     }
 
-    public SpecialCourse(UUID id, String name, int creditsCount, Control control, String description, String department, String teacherName, Module module) {
+    public SpecialCourse(UUID id, String name, int creditsCount, Control control, String description, String department, String teacherName, EducationalModuleEntity educationalModuleEntity) {
         this.id = id;
         this.name = name;
         this.creditsCount = creditsCount;
@@ -39,17 +39,17 @@ public class SpecialCourse {
         this.description = description;
         this.department = department;
         this.teacherName = teacherName;
-        this.module = module;
+        this.educationalModuleEntity = educationalModuleEntity;
     }
 
-    public SpecialCourse(String name, int creditsCount, Control control, String description, String department, String teacherName, Module module) {
+    public SpecialCourse(String name, int creditsCount, Control control, String description, String department, String teacherName, EducationalModuleEntity educationalModuleEntity) {
         this.name = name;
         this.creditsCount = creditsCount;
         this.control = control;
         this.description = description;
         this.department = department;
         this.teacherName = teacherName;
-        this.module = module;
+        this.educationalModuleEntity = educationalModuleEntity;
     }
 
     public UUID getId() {
@@ -80,12 +80,12 @@ public class SpecialCourse {
         return teacherName;
     }
 
-    public Module getEducationalModule() {
-        return module;
+    public EducationalModuleEntity getEducationalModule() {
+        return educationalModuleEntity;
     }
 
-    public void setEducationalModule(Module module) {
-        this.module = module;
+    public void setEducationalModule(EducationalModuleEntity educationalModuleEntity) {
+        this.educationalModuleEntity = educationalModuleEntity;
     }
 
     public void setName(String name) {

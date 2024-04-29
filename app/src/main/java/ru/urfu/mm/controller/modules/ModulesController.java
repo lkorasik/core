@@ -2,14 +2,13 @@ package ru.urfu.mm.controller.modules;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.urfu.mm.application.usecase.CreateModule;
+import ru.urfu.mm.application.usecase.create_module.CreateModule;
 import ru.urfu.mm.application.usecase.DeleteModuleById;
 import ru.urfu.mm.application.usecase.get_all_modules.GetAllModules;
 import ru.urfu.mm.application.usecase.GetModulesByIds;
 import ru.urfu.mm.application.usecase.get_module.GetModuleWithCourses;
 import ru.urfu.mm.application.usecase.get_module.ModuleWithCoursesResponse;
 import ru.urfu.mm.application.usecase.get_modules_courses.GetModulesCourses;
-import ru.urfu.mm.domain.Course;
 import ru.urfu.mm.domain.exception.NotImplementedException;
 
 import java.util.*;

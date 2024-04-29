@@ -16,11 +16,11 @@ public class SemesterPlanEntity {
     @Column
     private int recommendedCredits;
     @ManyToMany
-    List<Module> requiredModules;
+    List<EducationalModuleEntity> requiredEducationalModuleEntities;
     @ManyToMany
-    List<Module> specialModules;
+    List<EducationalModuleEntity> specialEducationalModuleEntities;
     @ManyToMany
-    List<Module> scienceWork;
+    List<EducationalModuleEntity> scienceWork;
 
     public SemesterPlanEntity() {
     }
@@ -43,15 +43,15 @@ public class SemesterPlanEntity {
         return recommendedCredits;
     }
 
-    public List<Module> getRequiredModules() {
-        return requiredModules;
+    public List<EducationalModuleEntity> getRequiredModules() {
+        return requiredEducationalModuleEntities;
     }
 
-    public List<Module> getSpecialModules() {
-        return specialModules;
+    public List<EducationalModuleEntity> getSpecialModules() {
+        return specialEducationalModuleEntities;
     }
 
-    public List<Module> getScienceWork() {
+    public List<EducationalModuleEntity> getScienceWork() {
         return scienceWork;
     }
 }

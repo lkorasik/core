@@ -3,6 +3,7 @@ package ru.urfu.mm.gateway;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.ModuleGateway;
 import ru.urfu.mm.domain.EducationalModule;
+import ru.urfu.mm.persistance.entity.EducationalModuleEntity;
 import ru.urfu.mm.persistance.repository.EducationalModuleRepository;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class ModuleGatewayImpl implements ModuleGateway {
 
     @Override
     public EducationalModule find(UUID moduleId) {
-        ru.urfu.mm.persistance.entity.Module entity = educationalModuleRepository.findById(moduleId).get();
+        EducationalModuleEntity entity = educationalModuleRepository.findById(moduleId).get();
         return new EducationalModule(
                 entity.getId(),
                 entity.getName()
@@ -53,7 +54,7 @@ public class ModuleGatewayImpl implements ModuleGateway {
 
     @Override
     public void save(EducationalModule educationalModule) {
-        ru.urfu.mm.persistance.entity.Module entity = new ru.urfu.mm.persistance.entity.Module(educationalModule.getId(), educationalModule.getName());
+        EducationalModuleEntity entity = new EducationalModuleEntity(educationalModule.getId(), educationalModule.getName());
         educationalModuleRepository.save(entity);
     }
 

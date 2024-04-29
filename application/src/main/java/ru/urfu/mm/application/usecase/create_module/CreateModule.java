@@ -1,4 +1,4 @@
-package ru.urfu.mm.application.usecase;
+package ru.urfu.mm.application.usecase.create_module;
 
 import ru.urfu.mm.application.gateway.ModuleGateway;
 import ru.urfu.mm.domain.EducationalModule;
