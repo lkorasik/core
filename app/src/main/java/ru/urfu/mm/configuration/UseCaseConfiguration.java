@@ -245,8 +245,8 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public DownloadTokens downloadTokens(TokenGateway tokenGateway, GetGroup getGroup) {
-        return new DownloadTokens(tokenGateway, getGroup);
+    public DownloadTokens downloadTokens(GetGroup getGroup) {
+        return new DownloadTokens(getGroup);
     }
 
     @Bean
