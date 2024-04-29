@@ -3,8 +3,8 @@ package ru.urfu.mm.domain.exception;
 /**
  * Functionality not yet implemented
  */
-public class NotImplementedYet extends RuntimeException {
-    public NotImplementedYet() {
+public class NotImplementedException extends RuntimeException {
+    public NotImplementedException() {
         super("Functionality not yet implemented!");
     }
 }

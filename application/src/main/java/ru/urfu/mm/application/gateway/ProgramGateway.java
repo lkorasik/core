@@ -12,5 +12,4 @@ public interface ProgramGateway {
     Optional<EducationalProgram> findById(UUID id);
     List<EducationalProgram> getAll();
     void save(EducationalProgram educationalProgram);
-    Optional<EducationalProgram> findByGroup(AcademicGroup academicGroup);
 }

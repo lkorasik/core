@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import ru.urfu.mm.application.gateway.*;
 import ru.urfu.mm.application.usecase.*;
 import ru.urfu.mm.application.usecase.create.CreateAdministrator;
-import ru.urfu.mm.application.usecase.create.CreateStudent;
 import ru.urfu.mm.application.usecase.create.account.CreateAccount;
 import ru.urfu.mm.application.usecase.create_course.CreateCourse;
 import ru.urfu.mm.application.usecase.create_group.CreateGroup;
@@ -27,7 +26,6 @@ import ru.urfu.mm.application.usecase.get_program_by_id.GetProgramById;
 import ru.urfu.mm.application.usecase.get_available_years.GetAvailableYears;
 import ru.urfu.mm.application.usecase.get_study_plan.GetStudyPlan;
 import ru.urfu.mm.application.usecase.get_token.GetTokensForGroup;
-import ru.urfu.mm.application.usecase.load_available_courses.LoadAvailableCourses;
 import ru.urfu.mm.application.usecase.login_user.LoginUser;
 import ru.urfu.mm.application.usecase.update_program.UpdateProgram;
 

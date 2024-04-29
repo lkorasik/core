@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.application.usecase.create_program.CreateProgram;
 import ru.urfu.mm.application.usecase.create_program.CreateProgramRequest;
 import ru.urfu.mm.application.usecase.get_all_programs.GetAllPrograms;
-import ru.urfu.mm.application.usecase.GetEducationalProgram;
 import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
 import ru.urfu.mm.application.usecase.get_program_for_student.ProgramForStudentResponse;
 import ru.urfu.mm.application.usecase.get_program_by_id.GetProgramById;

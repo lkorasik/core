@@ -15,12 +15,14 @@ import ru.urfu.mm.domain.enums.UserRole;
  * {@link CreateAdministrator}.
  */
 public class CreateAccount {
-    private final CreateStudent createStudent;
+//    private final CreateStudent createStudent;
     private final CreateAdministrator createAdministrator;
     private final TokenGateway tokenGateway;
 
-    public CreateAccount(CreateStudent createStudent, CreateAdministrator createAdministrator, TokenGateway tokenGateway) {
-        this.createStudent = createStudent;
+    public CreateAccount(
+//            CreateStudent createStudent,
+            CreateAdministrator createAdministrator, TokenGateway tokenGateway) {
+//        this.createStudent = createStudent;
         this.createAdministrator = createAdministrator;
         this.tokenGateway = tokenGateway;
     }
@@ -32,7 +34,7 @@ public class CreateAccount {
             createUseCase = createAdministrator;
             role = UserRole.ADMIN;
         } else if (tokenGateway.isStudentToken(request.token())) {
-            createUseCase = createStudent;
+//            createUseCase = createStudent;
             role = UserRole.STUDENT;
         } else {
             throw new RegistrationTokenNotExistException(request.token());
@@ -41,7 +43,7 @@ public class CreateAccount {
         ensurePasswordsSame(request.password(), request.passwordAgain());
         ensurePasswordStrongEnough(request.password());
 
-        createUseCase.create(request);
+//        createUseCase.create(request);
         return role;
     }
 

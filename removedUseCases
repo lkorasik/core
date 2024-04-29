@@ -1,0 +1,20 @@
+1) SelectCourses
+2) GetSkillsForStudent
+3) GetActualSpecialCoursesStatistics
+4) GetSkillsForStudent
+5) GetSelectedCoursesIds
+6) GetSelectedCoursesByStudentAndSemester
+
+Получить список выбранных курсов для конкретного студента и конкретного семестра
+
+7) GetEducationalProgram
+8) GetDesiredSkillsForStudent
+9) GetCoursesByEducationalProgramAndSemesters
+10) LoadAvailableCourses
+11) CreateStudent
+
+Создаем аккаунт студента
+1. Находим студента. Если студент не найден, то кидаем ошибку о том, что нет такого токена для регистрации.
+2. Создаем аккаунт пользователя.
+3. Заполняем студента.
+4. Сохраняем изменения в студенте.

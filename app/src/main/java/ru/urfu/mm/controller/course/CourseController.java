@@ -6,7 +6,6 @@ import ru.urfu.mm.application.usecase.*;
 import ru.urfu.mm.application.usecase.create_course.CreateCourse;
 import ru.urfu.mm.application.usecase.create_course.CreateCourseRequest;
 import ru.urfu.mm.application.usecase.load_available_courses.AvailableModuleResponse;
-import ru.urfu.mm.application.usecase.load_available_courses.LoadAvailableCourses;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.domain.enums.ControlTypes;
 import ru.urfu.mm.domain.enums.SemesterType;

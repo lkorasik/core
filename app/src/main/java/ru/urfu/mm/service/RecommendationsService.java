@@ -3,7 +3,6 @@ package ru.urfu.mm.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.urfu.mm.application.usecase.CourseForEducationalProgram;
-import ru.urfu.mm.application.usecase.GetCoursesByEducationalProgramAndSemesters;
 import ru.urfu.mm.controller.recommendation.*;
 import ru.urfu.mm.persistance.entity.StudentEntity;
 import ru.urfu.mm.persistance.entity.StudentDesiredSkills;

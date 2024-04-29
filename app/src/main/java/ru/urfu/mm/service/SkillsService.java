@@ -2,7 +2,6 @@ package ru.urfu.mm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.urfu.mm.application.usecase.GetSkillsForStudent;
 import ru.urfu.mm.domain.Account;
 import ru.urfu.mm.persistance.entity.*;
 import ru.urfu.mm.persistance.entity.enums.SkillLevel;

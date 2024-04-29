@@ -17,8 +17,10 @@ public class GetProgramForStudent {
         Student student = studentGateway.getById(studentId);
 
         return new ProgramForStudentResponse(
-                student.getProgram().getId(),
-                student.getProgram().getName(),
+                null,
+                null,
+//                student.getProgram().getId(),
+//                student.getProgram().getName(),
                 List.of(),
                 List.of()
         );

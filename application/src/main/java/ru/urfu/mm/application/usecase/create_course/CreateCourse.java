@@ -4,6 +4,8 @@ import ru.urfu.mm.application.gateway.CourseGateway;
 import ru.urfu.mm.application.gateway.ModuleGateway;
 import ru.urfu.mm.domain.Course;
 
+import java.util.UUID;
+
 /**
  * Создание курса.
  * 1. Находим модуль. Если модуль не найден, то кидем исключение.
@@ -25,13 +27,12 @@ public class CreateCourse {
                 .orElseThrow(() -> new ModuleNotFoundException(request.moduleId()));
 
         var course = new Course(
+                UUID.randomUUID(),
                 request.name(),
                 request.credits(),
                 request.controlTypes(),
-                request.description(),
                 request.department(),
-                request.teacher(),
-                module
+                request.teacher()
         );
         module.addCourse(course);
 
