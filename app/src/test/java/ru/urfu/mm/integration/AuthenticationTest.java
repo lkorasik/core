@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ru.urfu.mm.controller.ExceptionDTO;
 import ru.urfu.mm.controller.authentication.AccessTokenDTO;
 import ru.urfu.mm.controller.authentication.RegistrationDTO;
-import ru.urfu.mm.domain.UserRole;
+import ru.urfu.mm.domain.enums.UserRole;
 import ru.urfu.mm.dsl.DSL;
 import ru.urfu.mm.persistance.entity.RegistrationToken;
 import ru.urfu.mm.persistance.repository.RegistrationTokenRepository;

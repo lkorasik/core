@@ -1,5 +1,7 @@
 package ru.urfu.mm.domain;
 
+import ru.urfu.mm.domain.enums.UserRole;
+
 import java.util.UUID;
 
 public class RegistrationToken {

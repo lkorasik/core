@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.StudyPlanGateway;
 import ru.urfu.mm.domain.*;
 import ru.urfu.mm.domain.Module;
+import ru.urfu.mm.domain.enums.SemesterType;
 import ru.urfu.mm.persistance.entity.ProgramEntity;
 import ru.urfu.mm.persistance.entity.Semester;
 import ru.urfu.mm.persistance.entity.SemesterPlanEntity;

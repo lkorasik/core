@@ -8,7 +8,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.urfu.mm.application.gateway.CourseGateway;
 import ru.urfu.mm.application.usecase.GetAllCourses;
-import ru.urfu.mm.domain.ControlTypes;
+import ru.urfu.mm.domain.enums.ControlTypes;
 import ru.urfu.mm.domain.Module;
 import ru.urfu.mm.domain.Course;
 

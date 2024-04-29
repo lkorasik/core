@@ -1,12 +1,12 @@
 package ru.urfu.mm.service.mapper;
 
 import org.springframework.stereotype.Component;
-import ru.urfu.mm.domain.SemesterType;
+import ru.urfu.mm.domain.enums.SemesterType;
 
 @Component
-public class SemesterTypeToEntityMapper implements Mapper<ru.urfu.mm.persistance.entity.enums.SemesterType, ru.urfu.mm.domain.SemesterType> {
+public class SemesterTypeToEntityMapper implements Mapper<ru.urfu.mm.persistance.entity.enums.SemesterType, SemesterType> {
     @Override
     public SemesterType map(ru.urfu.mm.persistance.entity.enums.SemesterType object) {
-        return ru.urfu.mm.domain.SemesterType.values()[object.ordinal()];
+        return SemesterType.values()[object.ordinal()];
     }
 }

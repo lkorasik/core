@@ -7,7 +7,7 @@ import ru.urfu.mm.application.usecase.create_study_plan.CreateStudyPlan;
 import ru.urfu.mm.domain.Group;
 import ru.urfu.mm.domain.Program;
 import ru.urfu.mm.domain.Semester;
-import ru.urfu.mm.domain.SemesterType;
+import ru.urfu.mm.domain.enums.SemesterType;
 
 import java.util.*;
 import java.util.regex.Pattern;

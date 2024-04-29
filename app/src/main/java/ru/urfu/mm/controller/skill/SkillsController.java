@@ -48,9 +48,9 @@ public class SkillsController extends AbstractAuthorizedController {
 
     @PostMapping("/actual")
     public void saveActualSkills(@RequestBody SaveSkillsDTO saveSkillsDTO) {
-        List<Map.Entry<UUID, ru.urfu.mm.domain.SkillLevel>> skills = saveSkillsDTO.skills()
+        List<Map.Entry<UUID, ru.urfu.mm.domain.enums.SkillLevel>> skills = saveSkillsDTO.skills()
                 .stream()
-                .map(x -> Map.entry(x.id(), ru.urfu.mm.domain.SkillLevel.values()[x.level().ordinal()]))
+                .map(x -> Map.entry(x.id(), ru.urfu.mm.domain.enums.SkillLevel.values()[x.level().ordinal()]))
                 .toList();
 
         saveSkillsForStudent.saveSkillsForStudent(UUID.fromString(getUserToken()), skills);
@@ -70,9 +70,9 @@ public class SkillsController extends AbstractAuthorizedController {
 
     @PostMapping("/desired")
     public void saveDesiredSkills(@RequestBody SaveSkillsDTO saveSkillsDTO) {
-        List<Map.Entry<UUID, ru.urfu.mm.domain.SkillLevel>> skills = saveSkillsDTO.skills()
+        List<Map.Entry<UUID, ru.urfu.mm.domain.enums.SkillLevel>> skills = saveSkillsDTO.skills()
                 .stream()
-                .map(x -> Map.entry(x.id(), ru.urfu.mm.domain.SkillLevel.values()[x.level().ordinal()]))
+                .map(x -> Map.entry(x.id(), ru.urfu.mm.domain.enums.SkillLevel.values()[x.level().ordinal()]))
                 .toList();
 
         saveDesiredSkillsForStudent.saveSkillsForStudent(UUID.fromString(getUserToken()), skills);

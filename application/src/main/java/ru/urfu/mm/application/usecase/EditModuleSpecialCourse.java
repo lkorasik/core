@@ -1,7 +1,7 @@
 package ru.urfu.mm.application.usecase;
 
 import ru.urfu.mm.application.gateway.CourseGateway;
-import ru.urfu.mm.domain.ControlTypes;
+import ru.urfu.mm.domain.enums.ControlTypes;
 
 import java.util.UUID;
 

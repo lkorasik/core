@@ -14,7 +14,7 @@ import ru.urfu.mm.application.gateway.UserGateway;
 import ru.urfu.mm.application.usecase.login_user.LoginRequest;
 import ru.urfu.mm.application.usecase.login_user.LoginUser;
 import ru.urfu.mm.domain.Account;
-import ru.urfu.mm.domain.UserRole;
+import ru.urfu.mm.domain.enums.UserRole;
 
 import java.util.Optional;
 import java.util.UUID;

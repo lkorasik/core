@@ -1,4 +1,4 @@
-package ru.urfu.mm.domain;
+package ru.urfu.mm.domain.enums;
 
 public enum SkillLevel {
     BEGINNER("Beginner"),

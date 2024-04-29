@@ -6,7 +6,7 @@ import ru.urfu.mm.application.gateway.UserGateway;
 import ru.urfu.mm.application.usecase.create.account.CreateUserRequest;
 import ru.urfu.mm.domain.Account;
 import ru.urfu.mm.domain.Student;
-import ru.urfu.mm.domain.UserRole;
+import ru.urfu.mm.domain.enums.UserRole;
 
 /**
  * Создаем аккаунт студента

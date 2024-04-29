@@ -9,7 +9,7 @@ import ru.urfu.mm.application.usecase.create.account.CreateUserRequest;
 import ru.urfu.mm.application.usecase.login_user.LoginRequest;
 import ru.urfu.mm.application.usecase.login_user.LoginUser;
 import ru.urfu.mm.domain.Account;
-import ru.urfu.mm.domain.UserRole;
+import ru.urfu.mm.domain.enums.UserRole;
 import ru.urfu.mm.service.AuthenticationService;
 
 import java.util.UUID;

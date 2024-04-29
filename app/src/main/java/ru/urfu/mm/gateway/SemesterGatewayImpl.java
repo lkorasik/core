@@ -14,12 +14,12 @@ import java.util.UUID;
 @Component
 public class SemesterGatewayImpl implements SemesterGateway {
     private final SemesterRepository semesterRepository;
-    private final Mapper<SemesterType, ru.urfu.mm.domain.SemesterType> semesterTypeMapper;
+    private final Mapper<SemesterType, ru.urfu.mm.domain.enums.SemesterType> semesterTypeMapper;
 
     @Autowired
     public SemesterGatewayImpl(
             SemesterRepository semesterRepository,
-            Mapper<SemesterType, ru.urfu.mm.domain.SemesterType> semesterTypeMapper) {
+            Mapper<SemesterType, ru.urfu.mm.domain.enums.SemesterType> semesterTypeMapper) {
         this.semesterRepository = semesterRepository;
         this.semesterTypeMapper = semesterTypeMapper;
     }

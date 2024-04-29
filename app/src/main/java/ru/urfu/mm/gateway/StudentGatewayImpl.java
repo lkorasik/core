@@ -7,6 +7,7 @@ import ru.urfu.mm.domain.Account;
 import ru.urfu.mm.domain.Group;
 import ru.urfu.mm.domain.Program;
 import ru.urfu.mm.domain.Student;
+import ru.urfu.mm.domain.enums.UserRole;
 import ru.urfu.mm.persistance.entity.*;
 import ru.urfu.mm.persistance.entity.enums.Years;
 import ru.urfu.mm.persistance.repository.GroupRepository;
@@ -80,7 +81,7 @@ public class StudentGatewayImpl implements StudentGateway {
                         new Account(
                                 x.getUser().getLogin(),
                                 x.getUser().getPassword(),
-                                ru.urfu.mm.domain.UserRole.values()[x.getUser().getRole().ordinal()]
+                                UserRole.values()[x.getUser().getRole().ordinal()]
                         )
                 ))
                 .get();
@@ -130,7 +131,7 @@ public class StudentGatewayImpl implements StudentGateway {
             return new Account(
                     student.getUser().getLogin(),
                     student.getUser().getPassword(),
-                    ru.urfu.mm.domain.UserRole.values()[student.getUser().getRole().ordinal()]
+                    UserRole.values()[student.getUser().getRole().ordinal()]
             );
         }
         return null;

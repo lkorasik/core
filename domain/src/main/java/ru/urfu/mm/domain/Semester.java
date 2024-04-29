@@ -1,5 +1,7 @@
 package ru.urfu.mm.domain;
 
+import ru.urfu.mm.domain.enums.SemesterType;
+
 import java.util.UUID;
 
 public class Semester {

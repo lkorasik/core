@@ -1,7 +1,7 @@
 package ru.urfu.mm.service.mapper;
 
 import org.springframework.stereotype.Component;
-import ru.urfu.mm.domain.UserRole;
+import ru.urfu.mm.domain.enums.UserRole;
 import ru.urfu.mm.persistance.entity.enums.UserEntityRole;
 
 @Component

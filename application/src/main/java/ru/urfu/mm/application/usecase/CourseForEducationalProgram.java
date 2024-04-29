@@ -1,6 +1,6 @@
 package ru.urfu.mm.application.usecase;
 
-import ru.urfu.mm.domain.ControlTypes;
+import ru.urfu.mm.domain.enums.ControlTypes;
 import ru.urfu.mm.domain.Semester;
 
 import java.util.List;

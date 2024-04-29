@@ -4,9 +4,9 @@ import org.springframework.stereotype.Component;
 import ru.urfu.mm.persistance.entity.enums.SemesterType;
 
 @Component
-public class SemesterTypeToDomainMapper implements Mapper<ru.urfu.mm.domain.SemesterType, SemesterType> {
+public class SemesterTypeToDomainMapper implements Mapper<ru.urfu.mm.domain.enums.SemesterType, SemesterType> {
     @Override
-    public SemesterType map(ru.urfu.mm.domain.SemesterType object) {
+    public SemesterType map(ru.urfu.mm.domain.enums.SemesterType object) {
         return SemesterType.values()[object.ordinal()];
     }
 }

@@ -7,7 +7,9 @@ import ru.urfu.mm.domain.Module;
 import ru.urfu.mm.domain.*;
 import ru.urfu.mm.domain.SelectedCourses;
 import ru.urfu.mm.domain.Semester;
-import ru.urfu.mm.domain.SemesterType;
+import ru.urfu.mm.domain.enums.SemesterType;
+import ru.urfu.mm.domain.enums.ControlTypes;
+import ru.urfu.mm.domain.enums.UserRole;
 import ru.urfu.mm.persistance.entity.*;
 import ru.urfu.mm.persistance.entity.StudentEntity;
 import ru.urfu.mm.persistance.entity.enums.Control;
@@ -24,8 +26,8 @@ public class CourseGatewayImpl implements CourseGateway {
     private final SpecialCourseRepository courseRepository;
     private final SelectedCoursesRepository selectedCoursesRepository;
     private final EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository;
-    private final Mapper<ru.urfu.mm.persistance.entity.enums.SemesterType, ru.urfu.mm.domain.SemesterType> semesterTypeToDomainMapper;
-    private final Mapper<ru.urfu.mm.domain.SemesterType, ru.urfu.mm.persistance.entity.enums.SemesterType> semesterTypeToEntityMapper;
+    private final Mapper<ru.urfu.mm.persistance.entity.enums.SemesterType, SemesterType> semesterTypeToDomainMapper;
+    private final Mapper<SemesterType, ru.urfu.mm.persistance.entity.enums.SemesterType> semesterTypeToEntityMapper;
     private final Mapper<Account, AccountEntity> userMapper;
 
     @Autowired

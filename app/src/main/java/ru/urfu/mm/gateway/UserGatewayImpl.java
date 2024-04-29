@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.UserGateway;
 import ru.urfu.mm.domain.Account;
+import ru.urfu.mm.domain.enums.UserRole;
 import ru.urfu.mm.persistance.entity.AccountEntity;
 import ru.urfu.mm.persistance.entity.enums.UserEntityRole;
 import ru.urfu.mm.persistance.repository.AccountRepository;
@@ -15,13 +16,13 @@ import java.util.UUID;
 @Component
 public class UserGatewayImpl implements UserGateway {
     private final AccountRepository accountRepository;
-    private final Mapper<UserEntityRole, ru.urfu.mm.domain.UserRole> userRoleMapper;
+    private final Mapper<UserEntityRole, UserRole> userRoleMapper;
     private final Mapper<Account, AccountEntity> userMapper;
 
     @Autowired
     public UserGatewayImpl(
             AccountRepository accountRepository,
-            Mapper<UserEntityRole, ru.urfu.mm.domain.UserRole> userRoleMapper,
+            Mapper<UserEntityRole, UserRole> userRoleMapper,
             Mapper<Account, AccountEntity> userMapper) {
         this.accountRepository = accountRepository;
         this.userRoleMapper = userRoleMapper;
@@ -39,7 +40,7 @@ public class UserGatewayImpl implements UserGateway {
         return new Account(
                 entity.getLogin(),
                 entity.getPassword(),
-                ru.urfu.mm.domain.UserRole.values()[entity.getRole().ordinal()]
+                UserRole.values()[entity.getRole().ordinal()]
         );
     }
 

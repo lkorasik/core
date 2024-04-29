@@ -1,6 +1,7 @@
 package ru.urfu.mm.application.gateway;
 
 import ru.urfu.mm.domain.*;
+import ru.urfu.mm.domain.enums.SkillLevel;
 
 import java.util.List;
 import java.util.Map;

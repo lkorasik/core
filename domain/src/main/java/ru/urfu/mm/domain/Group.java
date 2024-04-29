@@ -1,5 +1,7 @@
 package ru.urfu.mm.domain;
 
+import ru.urfu.mm.domain.enums.Years;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;

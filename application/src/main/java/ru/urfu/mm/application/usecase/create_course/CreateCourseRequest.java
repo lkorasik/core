@@ -1,6 +1,6 @@
 package ru.urfu.mm.application.usecase.create_course;
 
-import ru.urfu.mm.domain.ControlTypes;
+import ru.urfu.mm.domain.enums.ControlTypes;
 
 import java.util.UUID;
 

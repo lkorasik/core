@@ -2,7 +2,7 @@ package ru.urfu.mm.application.usecase.create.account;
 
 import ru.urfu.mm.application.gateway.TokenGateway;
 import ru.urfu.mm.application.usecase.create.*;
-import ru.urfu.mm.domain.UserRole;
+import ru.urfu.mm.domain.enums.UserRole;
 
 /**
  * Создать аккаунт

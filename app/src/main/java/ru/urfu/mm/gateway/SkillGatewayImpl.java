@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.SkillGateway;
 import ru.urfu.mm.domain.*;
+import ru.urfu.mm.domain.enums.SkillLevel;
+import ru.urfu.mm.domain.enums.UserRole;
 import ru.urfu.mm.persistance.entity.AccountEntity;
 import ru.urfu.mm.persistance.entity.GroupEntity;
 import ru.urfu.mm.persistance.entity.StudentEntity;
