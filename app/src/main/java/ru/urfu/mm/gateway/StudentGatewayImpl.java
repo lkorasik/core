@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.StudentGateway;
 import ru.urfu.mm.domain.Account;
+import ru.urfu.mm.domain.EducationalProgram;
 import ru.urfu.mm.domain.Group;
-import ru.urfu.mm.domain.Program;
 import ru.urfu.mm.domain.Student;
 import ru.urfu.mm.domain.enums.UserRole;
 import ru.urfu.mm.persistance.entity.*;
@@ -69,7 +69,7 @@ public class StudentGatewayImpl implements StudentGateway {
                 .findByLogin(studentId)
                 .map(x -> new Student(
                         x.getLogin(),
-                        new Program(
+                        new EducationalProgram(
                                 x.getEducationalProgram().getId(),
                                 x.getEducationalProgram().getName(),
                                 x.getEducationalProgram().getTrainingDirection()
@@ -93,7 +93,7 @@ public class StudentGatewayImpl implements StudentGateway {
                 .findByLogin(studentId)
                 .map(x -> new Student(
                         x.getLogin(),
-                        new Program(
+                        new EducationalProgram(
                                 x.getEducationalProgram().getId(),
                                 x.getEducationalProgram().getName(),
                                 x.getEducationalProgram().getTrainingDirection()
@@ -112,7 +112,7 @@ public class StudentGatewayImpl implements StudentGateway {
                 .stream()
                 .map(x -> new Student(
                         x.getLogin(),
-                        new Program(
+                        new EducationalProgram(
                                 x.getEducationalProgram().getId(),
                                 x.getEducationalProgram().getName(),
                                 x.getEducationalProgram().getTrainingDirection()
@@ -137,11 +137,11 @@ public class StudentGatewayImpl implements StudentGateway {
         return null;
     }
 
-    private ProgramEntity parse(Program program) {
+    private ProgramEntity parse(EducationalProgram educationalProgram) {
         return new ProgramEntity(
-                program.getId(),
-                program.getName(),
-                program.getTrainingDirection()
+                educationalProgram.getId(),
+                educationalProgram.getName(),
+                educationalProgram.getTrainingDirection()
         );
     }
 }

@@ -17,7 +17,7 @@ import ru.urfu.mm.persistance.repository.RegistrationTokenRepository;
 import java.util.List;
 import java.util.UUID;
 
-public class ProgramTest extends AbstractTest {
+public class EducationalProgramTest extends AbstractTest {
     @Autowired
     private RegistrationTokenRepository repository;
 

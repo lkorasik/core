@@ -99,7 +99,7 @@ public class CourseGatewayImpl implements CourseGateway {
                         x.getId(),
                         new Student(
                                 x.getStudent().getLogin(),
-                                new Program(
+                                new EducationalProgram(
                                         x.getStudent().getEducationalProgram().getId(),
                                         x.getStudent().getEducationalProgram().getName(),
                                         x.getStudent().getEducationalProgram().getTrainingDirection()
@@ -144,7 +144,7 @@ public class CourseGatewayImpl implements CourseGateway {
                 .filter(x -> x.getEducationalProgram().getId() == educationalProgramId)
                 .map(x -> new ProgramToCoursesWithSemesters(
                         x.getId(),
-                        new Program(
+                        new EducationalProgram(
                                 x.getEducationalProgram().getId(),
                                 x.getEducationalProgram().getName(),
                                 x.getEducationalProgram().getTrainingDirection()
@@ -183,7 +183,7 @@ public class CourseGatewayImpl implements CourseGateway {
                 .stream()
                 .map(x -> new ProgramToCoursesWithSemesters(
                         x.getId(),
-                        new Program(
+                        new EducationalProgram(
                                 x.getEducationalProgram().getId(),
                                 x.getEducationalProgram().getName(),
                                 x.getEducationalProgram().getTrainingDirection()
@@ -219,7 +219,7 @@ public class CourseGatewayImpl implements CourseGateway {
                 .filter(x -> x.getSpecialCourse().getEducationalModule().getId().equals(moduleId))
                 .map(x -> new ProgramToCoursesWithSemesters(
                         x.getId(),
-                        new Program(
+                        new EducationalProgram(
                                 x.getEducationalProgram().getId(),
                                 x.getEducationalProgram().getName(),
                                 x.getEducationalProgram().getTrainingDirection()
@@ -266,7 +266,7 @@ public class CourseGatewayImpl implements CourseGateway {
                 .filter(x -> x.getEducationalProgram().getId() == programId && x.isRequiredCourse())
                 .map(x -> new ProgramToCoursesWithSemesters(
                         x.getId(),
-                        new Program(
+                        new EducationalProgram(
                                 x.getEducationalProgram().getId(),
                                 x.getEducationalProgram().getName(),
                                 x.getEducationalProgram().getTrainingDirection()

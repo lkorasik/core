@@ -5,32 +5,32 @@ import java.util.UUID;
 public class Student {
     private UUID login;
     @Deprecated
-    private Program program;
+    private EducationalProgram educationalProgram;
     @Deprecated
     private Group group;
     private Account account;
 
-    public Program getProgram() {
-        return program;
+    public EducationalProgram getProgram() {
+        return educationalProgram;
     }
 
-    public void setProgram(Program program) {
-        this.program = program;
+    public void setProgram(EducationalProgram educationalProgram) {
+        this.educationalProgram = educationalProgram;
     }
 
     public Student() {
     }
 
-    public Student(UUID login, Program program, Group group, Account account) {
+    public Student(UUID login, EducationalProgram educationalProgram, Group group, Account account) {
         this.login = login;
-        this.program = program;
+        this.educationalProgram = educationalProgram;
         this.group = group;
         this.account = account;
     }
 
-    public Student(UUID login, Program program, Group group) {
+    public Student(UUID login, EducationalProgram educationalProgram, Group group) {
         this.login = login;
-        this.program = program;
+        this.educationalProgram = educationalProgram;
         this.group = group;
     }
 

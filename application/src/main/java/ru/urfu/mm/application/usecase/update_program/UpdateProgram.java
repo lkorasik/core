@@ -1,7 +1,7 @@
 package ru.urfu.mm.application.usecase.update_program;
 
 import ru.urfu.mm.application.gateway.ProgramGateway;
-import ru.urfu.mm.domain.Program;
+import ru.urfu.mm.domain.EducationalProgram;
 
 /**
  * Обновить программу.
@@ -17,17 +17,17 @@ public class UpdateProgram {
     }
 
     public void updateProgram(UpdateProgramRequest request) {
-        Program program = programGateway
+        EducationalProgram educationalProgram = programGateway
                 .findById(request.id())
                 .orElseThrow(() -> new EducationalProgramNotFoundException(request.id()));
 
-        Program newProgram = new Program(
-                program.getId(),
+        EducationalProgram newEducationalProgram = new EducationalProgram(
+                educationalProgram.getId(),
                 request.name(),
                 request.trainingDirection()
         );
-        newProgram.setGroups(program.getGroups());
+        newEducationalProgram.setGroups(educationalProgram.getGroups());
 
-        programGateway.save(newProgram);
+        programGateway.save(newEducationalProgram);
     }
 }

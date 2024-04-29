@@ -59,7 +59,7 @@ public class SkillGatewayImpl implements SkillGateway {
                 .map(x -> new StudentSkills(
                         new Student(
                                 x.getStudent().getLogin(),
-                                new Program(
+                                new EducationalProgram(
                                         x.getStudent().getEducationalProgram().getId(),
                                         x.getStudent().getEducationalProgram().getName(),
                                         x.getStudent().getEducationalProgram().getTrainingDirection()
@@ -92,7 +92,7 @@ public class SkillGatewayImpl implements SkillGateway {
                 .map(x -> new StudentDesiredSkills(
                         new Student(
                                 x.getStudent().getLogin(),
-                                new Program(
+                                new EducationalProgram(
                                         x.getStudent().getEducationalProgram().getId(),
                                         x.getStudent().getEducationalProgram().getName(),
                                         x.getStudent().getEducationalProgram().getTrainingDirection()

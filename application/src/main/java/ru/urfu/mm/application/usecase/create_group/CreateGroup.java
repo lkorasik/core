@@ -4,8 +4,8 @@ import ru.urfu.mm.application.gateway.GroupGateway;
 import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.application.gateway.SemesterGateway;
 import ru.urfu.mm.application.usecase.create_study_plan.CreateStudyPlan;
+import ru.urfu.mm.domain.EducationalProgram;
 import ru.urfu.mm.domain.Group;
-import ru.urfu.mm.domain.Program;
 import ru.urfu.mm.domain.Semester;
 import ru.urfu.mm.domain.enums.SemesterType;
 
@@ -47,12 +47,12 @@ public class CreateGroup {
 
         createStudyPlan.createStudyPlan(request.startYear(), request.programId());
 
-        Program program = programGateway.getById(request.programId());
+        EducationalProgram educationalProgram = programGateway.getById(request.programId());
         var list = new ArrayList<Group>();
-        list.addAll(program.getGroups());
+        list.addAll(educationalProgram.getGroups());
         list.add(group);
-        program.setGroups(list.stream().toList());
-        programGateway.save(program);
+        educationalProgram.setGroups(list.stream().toList());
+        programGateway.save(educationalProgram);
     }
 
     private void ensureActualSemestersExists(int startYear) {

@@ -8,7 +8,7 @@ import java.util.UUID;
 @Deprecated
 public class ProgramToCoursesWithSemesters {
     private UUID id;
-    private Program program;
+    private EducationalProgram educationalProgram;
     private Semester semester;
     private Course specialCourse;
     private boolean isRequiredCourse;
@@ -16,16 +16,16 @@ public class ProgramToCoursesWithSemesters {
     public ProgramToCoursesWithSemesters() {
     }
 
-    public ProgramToCoursesWithSemesters(UUID id, Program program, Semester semester, Course specialCourse, boolean isRequiredCourse) {
+    public ProgramToCoursesWithSemesters(UUID id, EducationalProgram educationalProgram, Semester semester, Course specialCourse, boolean isRequiredCourse) {
         this.id = id;
-        this.program = program;
+        this.educationalProgram = educationalProgram;
         this.semester = semester;
         this.specialCourse = specialCourse;
         this.isRequiredCourse = isRequiredCourse;
     }
 
-    public ProgramToCoursesWithSemesters(Program program, Semester semester, Course specialCourse, boolean isRequiredCourse) {
-        this.program = program;
+    public ProgramToCoursesWithSemesters(EducationalProgram educationalProgram, Semester semester, Course specialCourse, boolean isRequiredCourse) {
+        this.educationalProgram = educationalProgram;
         this.semester = semester;
         this.specialCourse = specialCourse;
         this.isRequiredCourse = isRequiredCourse;
@@ -55,12 +55,12 @@ public class ProgramToCoursesWithSemesters {
         this.semester = semester;
     }
 
-    public Program getEducationalProgram() {
-        return program;
+    public EducationalProgram getEducationalProgram() {
+        return educationalProgram;
     }
 
-    public void setEducationalProgram(Program program) {
-        this.program = program;
+    public void setEducationalProgram(EducationalProgram educationalProgram) {
+        this.educationalProgram = educationalProgram;
     }
 
 }

@@ -2,7 +2,7 @@ package ru.urfu.mm.application.usecase.get_study_plan;
 
 import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.application.gateway.StudyPlanGateway;
-import ru.urfu.mm.domain.Program;
+import ru.urfu.mm.domain.EducationalProgram;
 import ru.urfu.mm.domain.StudyPlan;
 
 import java.util.UUID;
@@ -20,8 +20,8 @@ public class GetStudyPlan {
     }
 
     public StudyPlan getStudyPlan(UUID programId, int startYear) {
-        Program program = programGateway.getById(programId);
-        StudyPlan studyPlan = studyPlanGateway.findAllByProgram(program)
+        EducationalProgram educationalProgram = programGateway.getById(programId);
+        StudyPlan studyPlan = studyPlanGateway.findAllByProgram(educationalProgram)
                 .stream()
                 .filter(x -> x.getFirstSemesterPlan().getSemester().getYear() == startYear)
                 .findFirst()

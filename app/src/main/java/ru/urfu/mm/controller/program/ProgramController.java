@@ -16,7 +16,7 @@ import ru.urfu.mm.application.usecase.get_study_plan.GetStudyPlan;
 import ru.urfu.mm.application.usecase.update_program.UpdateProgram;
 import ru.urfu.mm.application.usecase.update_program.UpdateProgramRequest;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
-import ru.urfu.mm.domain.Program;
+import ru.urfu.mm.domain.EducationalProgram;
 import ru.urfu.mm.domain.StudyPlan;
 
 import java.util.List;
@@ -50,8 +50,8 @@ public class ProgramController extends AbstractAuthorizedController {
 
     @GetMapping("/program")
     public FullProgramDTO getEducationalProgram(@RequestParam("id") UUID programId) throws JsonProcessingException {
-        Program program = getProgramById.getProgramById(programId);
-        return new FullProgramDTO(program.getId(), program.getName(), program.getTrainingDirection());
+        EducationalProgram educationalProgram = getProgramById.getProgramById(programId);
+        return new FullProgramDTO(educationalProgram.getId(), educationalProgram.getName(), educationalProgram.getTrainingDirection());
     }
 
     @PutMapping("/program")

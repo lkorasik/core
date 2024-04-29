@@ -14,8 +14,8 @@ import ru.urfu.mm.application.gateway.UserGateway;
 import ru.urfu.mm.application.usecase.create.CreateStudent;
 import ru.urfu.mm.application.usecase.create.RegistrationTokenNotExistException;
 import ru.urfu.mm.application.usecase.create.account.CreateUserRequest;
+import ru.urfu.mm.domain.EducationalProgram;
 import ru.urfu.mm.domain.Group;
-import ru.urfu.mm.domain.Program;
 import ru.urfu.mm.domain.Student;
 
 import java.util.Optional;
@@ -40,9 +40,9 @@ public class CreateStudentTest {
         UUID token = UUID.randomUUID();
         String password = DSL.generateStrongPassword();
 
-        Program program = new Program(UUID.randomUUID(), DSL.generateString(), DSL.generateString());
+        EducationalProgram educationalProgram = new EducationalProgram(UUID.randomUUID(), DSL.generateString(), DSL.generateString());
         Group group = new Group(UUID.randomUUID(), "МЕНМ-100000");
-        Student student = new Student(token, program, group);
+        Student student = new Student(token, educationalProgram, group);
 
         Mockito.when(studentGateway.findById(token)).thenReturn(Optional.of(student));
 

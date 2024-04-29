@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Направление. Образовательная программа.
+ * Образовательная программа
  */
-public class Program {
+public class EducationalProgram {
     /**
      * Идентификатор направления
      */
@@ -21,7 +21,7 @@ public class Program {
      */
     private String trainingDirection;
     /**
-     * Список студентов, которые учатся на данном направлении.
+     * Список академических групп
      */
     private List<Group> groups = new ArrayList<>();
     /**
@@ -29,13 +29,13 @@ public class Program {
      */
     private List<StudyPlan> studyPlans = new ArrayList<>();
 
-    public Program(UUID id, String name, String trainingDirection) {
+    public EducationalProgram(UUID id, String name, String trainingDirection) {
         this.id = id;
         this.name = name;
         this.trainingDirection = trainingDirection;
     }
 
-    public Program(String name, String trainingDirection) {
+    public EducationalProgram(String name, String trainingDirection) {
         this.name = name;
         this.trainingDirection = trainingDirection;
     }

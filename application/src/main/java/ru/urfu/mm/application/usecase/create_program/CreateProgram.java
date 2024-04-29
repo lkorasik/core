@@ -1,7 +1,7 @@
 package ru.urfu.mm.application.usecase.create_program;
 
 import ru.urfu.mm.application.gateway.ProgramGateway;
-import ru.urfu.mm.domain.Program;
+import ru.urfu.mm.domain.EducationalProgram;
 
 import java.util.UUID;
 
@@ -13,10 +13,10 @@ public class CreateProgram {
     }
 
     public void createProgram(CreateProgramRequest request) {
-        Program program = new Program(
+        EducationalProgram educationalProgram = new EducationalProgram(
                 UUID.randomUUID(),
                 request.name(),
                 request.trainingDirection());
-        programGateway.save(program);
+        programGateway.save(educationalProgram);
     }
 }

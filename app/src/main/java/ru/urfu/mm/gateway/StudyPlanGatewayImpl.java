@@ -38,7 +38,7 @@ public class StudyPlanGatewayImpl implements StudyPlanGateway {
     }
 
     @Override
-    public void save(StudyPlan studyPlan, Program program) {
+    public void save(StudyPlan studyPlan, EducationalProgram educationalProgram) {
         Semester firstSemesterEntity = semesterRepository
                 .findById(studyPlan.getFirstSemesterPlan().getSemester().getId())
                 .get();
@@ -79,7 +79,7 @@ public class StudyPlanGatewayImpl implements StudyPlanGateway {
                 secondSemesterPlanEntity,
                 thirdSemesterPlanEntity,
                 fourthSemesterPlanEntity,
-                programRepository.findById(program.getId()).get()
+                programRepository.findById(educationalProgram.getId()).get()
         );
 
         semesterPlanRepository.save(firstSemesterPlanEntity);
@@ -91,8 +91,8 @@ public class StudyPlanGatewayImpl implements StudyPlanGateway {
     }
 
     @Override
-    public List<StudyPlan> findAllByProgram(Program program) {
-        ProgramEntity programEntity = programRepository.findById(program.getId()).get();
+    public List<StudyPlan> findAllByProgram(EducationalProgram educationalProgram) {
+        ProgramEntity programEntity = programRepository.findById(educationalProgram.getId()).get();
         return studyPlanRepository.findAllByProgram(programEntity)
                 .stream()
                 .map(x -> new StudyPlan(
