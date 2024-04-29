@@ -1,6 +1,5 @@
 package ru.urfu.mm.application.gateway;
 
-import ru.urfu.mm.domain.ProgramToCoursesWithSemesters;
 import ru.urfu.mm.domain.SelectedCourses;
 import ru.urfu.mm.domain.Course;
 

@@ -1,11 +1,11 @@
 package ru.urfu.mm.application.gateway;
 
 import ru.urfu.mm.domain.EducationalProgram;
-import ru.urfu.mm.domain.StudyPlan;
+import ru.urfu.mm.domain.Syllabus;
 
 import java.util.List;
 
 public interface StudyPlanGateway {
-    void save(StudyPlan studyPlan, EducationalProgram educationalProgram);
-    List<StudyPlan> findAllByProgram(EducationalProgram educationalProgram);
+    void save(Syllabus syllabus, EducationalProgram educationalProgram);
+    List<Syllabus> findAllByProgram(EducationalProgram educationalProgram);
 }

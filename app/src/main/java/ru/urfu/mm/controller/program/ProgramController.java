@@ -17,7 +17,7 @@ import ru.urfu.mm.application.usecase.update_program.UpdateProgram;
 import ru.urfu.mm.application.usecase.update_program.UpdateProgramRequest;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.domain.EducationalProgram;
-import ru.urfu.mm.domain.StudyPlan;
+import ru.urfu.mm.domain.Syllabus;
 
 import java.util.List;
 import java.util.UUID;
@@ -85,7 +85,7 @@ public class ProgramController extends AbstractAuthorizedController {
     }
 
     @PostMapping("/getPlan")
-    public StudyPlan getStudyPlan(@RequestBody GetStudyPlanDTO dto) {
+    public Syllabus getStudyPlan(@RequestBody GetStudyPlanDTO dto) {
         return getStudyPlan.getStudyPlan(dto.programId(), dto.startYear());
     }
 }

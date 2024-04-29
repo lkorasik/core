@@ -6,7 +6,7 @@ import java.util.UUID;
  * Учебный план. В нем по семестрам расписано, какие модули и курсы доступны студентам, которые начали учиться в
  * определенном году.
  */
-public class StudyPlan {
+public class Syllabus {
     /**
      * Идентификатор учебного плана
      */
@@ -28,7 +28,7 @@ public class StudyPlan {
      */
     private final SemesterPlan fourthSemesterPlan;
 
-    public StudyPlan(
+    public Syllabus(
             UUID id,
             SemesterPlan firstSemesterPlan,
             SemesterPlan secondSemesterPlan,

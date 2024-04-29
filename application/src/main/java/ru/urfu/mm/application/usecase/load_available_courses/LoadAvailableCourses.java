@@ -3,7 +3,6 @@ package ru.urfu.mm.application.usecase.load_available_courses;
 import ru.urfu.mm.application.gateway.CourseGateway;
 import ru.urfu.mm.application.gateway.StudentGateway;
 import ru.urfu.mm.domain.EducationalModule;
-import ru.urfu.mm.domain.ProgramToCoursesWithSemesters;
 import ru.urfu.mm.domain.Course;
 import ru.urfu.mm.domain.Student;
 

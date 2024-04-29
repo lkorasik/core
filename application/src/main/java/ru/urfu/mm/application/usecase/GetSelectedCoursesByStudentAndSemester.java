@@ -2,7 +2,6 @@ package ru.urfu.mm.application.usecase;
 
 import ru.urfu.mm.application.gateway.CourseGateway;
 import ru.urfu.mm.application.gateway.StudentGateway;
-import ru.urfu.mm.domain.ProgramToCoursesWithSemesters;
 import ru.urfu.mm.domain.Student;
 
 import java.util.List;

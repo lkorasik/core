@@ -18,7 +18,7 @@ public class Student {
     /**
      * Индивидуальный учебный план
      */
-    private StudyPlan individualPlan;
+    private Syllabus plan;
     /**
      * Список навыков, которыми обладает студент
      */

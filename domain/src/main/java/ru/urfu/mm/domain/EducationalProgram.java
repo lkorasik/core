@@ -9,15 +9,15 @@ import java.util.UUID;
  */
 public class EducationalProgram {
     /**
-     * Идентификатор направления
+     * Идентификатор образовательной программы
      */
     private UUID id;
     /**
-     * Название направления
+     * Название образовательной программы
      */
     private String name;
     /**
-     * Направление подготовки
+     * Назавние направления подготовки
      */
     private String trainingDirection;
     /**
@@ -27,7 +27,7 @@ public class EducationalProgram {
     /**
      * Список учбеных планов
      */
-    private List<StudyPlan> studyPlans = new ArrayList<>();
+    private List<Syllabus> syllabi = new ArrayList<>();
 
     public EducationalProgram(UUID id, String name, String trainingDirection) {
         this.id = id;
@@ -56,8 +56,8 @@ public class EducationalProgram {
         return trainingDirection;
     }
 
-    public List<StudyPlan> getStudyPlans() {
-        return studyPlans;
+    public List<Syllabus> getStudyPlans() {
+        return syllabi;
     }
 
     public void setGroups(List<AcademicGroup> academicGroups) {
