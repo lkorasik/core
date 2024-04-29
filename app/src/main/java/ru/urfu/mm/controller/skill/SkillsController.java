@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.application.usecase.*;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
+import ru.urfu.mm.domain.exception.NotImplementedException;
 import ru.urfu.mm.persistance.entity.enums.SkillLevel;
 
 import java.util.List;
@@ -15,12 +16,12 @@ import java.util.UUID;
 public class SkillsController extends AbstractAuthorizedController {
     @Autowired
     private GetSkills getSkills;
-    @Autowired
-    private GetSkillsForStudent getSkillsForStudent;
+//    @Autowired
+//    private GetSkillsForStudent getSkillsForStudent;
     @Autowired
     private SaveSkillsForStudent saveSkillsForStudent;
-    @Autowired
-    private GetDesiredSkillsForStudent getDesiredSkillsForStudent;
+//    @Autowired
+//    private GetDesiredSkillsForStudent getDesiredSkillsForStudent;
     @Autowired
     private SaveDesiredSkillsForStudent saveDesiredSkillsForStudent;
 
@@ -35,15 +36,16 @@ public class SkillsController extends AbstractAuthorizedController {
 
     @GetMapping("/actual")
     public List<SkillDTO> getActualSkills() {
-        return getSkillsForStudent
-                .getSkillsForStudent(UUID.fromString(getUserToken()))
-                .stream()
-                .map(x -> new SkillDTO(
-                        x.getSkill().getId(),
-                        x.getSkill().getName(),
-                        SkillLevel.values()[x.getLevel().ordinal()]
-                ))
-                .toList();
+        throw new NotImplementedException();
+//        return getSkillsForStudent
+//                .getSkillsForStudent(UUID.fromString(getUserToken()))
+//                .stream()
+//                .map(x -> new SkillDTO(
+//                        x.getSkill().getId(),
+//                        x.getSkill().getName(),
+//                        SkillLevel.values()[x.getLevel().ordinal()]
+//                ))
+//                .toList();
     }
 
     @PostMapping("/actual")
@@ -58,14 +60,15 @@ public class SkillsController extends AbstractAuthorizedController {
 
     @GetMapping("/desired")
     public List<SkillInfoDTO> getDesiredSkills() {
-        return getDesiredSkillsForStudent
-                .getDesiredSkillsForStudent(UUID.fromString(getUserToken()))
-                .stream()
-                .map(ru.urfu.mm.domain.StudentDesiredSkills::getSkill)
-                .toList()
-                .stream()
-                .map(x -> new SkillInfoDTO(x.getId(), x.getName()))
-                .toList();
+        throw new NotImplementedException();
+//        return getDesiredSkillsForStudent
+//                .getDesiredSkillsForStudent(UUID.fromString(getUserToken()))
+//                .stream()
+//                .map(ru.urfu.mm.domain.StudentDesiredSkills::getSkill)
+//                .toList()
+//                .stream()
+//                .map(x -> new SkillInfoDTO(x.getId(), x.getName()))
+//                .toList();
     }
 
     @PostMapping("/desired")

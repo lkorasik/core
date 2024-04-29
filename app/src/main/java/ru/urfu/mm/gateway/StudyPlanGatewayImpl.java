@@ -6,6 +6,7 @@ import ru.urfu.mm.application.gateway.StudyPlanGateway;
 import ru.urfu.mm.domain.*;
 import ru.urfu.mm.domain.EducationalModule;
 import ru.urfu.mm.domain.enums.SemesterType;
+import ru.urfu.mm.domain.exception.NotImplementedException;
 import ru.urfu.mm.persistance.entity.ProgramEntity;
 import ru.urfu.mm.persistance.entity.Semester;
 import ru.urfu.mm.persistance.entity.SemesterPlanEntity;
@@ -92,132 +93,137 @@ public class StudyPlanGatewayImpl implements StudyPlanGateway {
 
     @Override
     public List<Syllabus> findAllByProgram(EducationalProgram educationalProgram) {
-        ProgramEntity programEntity = programRepository.findById(educationalProgram.getId()).get();
-        return studyPlanRepository.findAllByProgram(programEntity)
-                .stream()
-                .map(x -> new Syllabus(
-                        x.getId(),
-                        new SemesterPlan(
-                                x.getFirstSemester().getId(),
-                                new ru.urfu.mm.domain.Semester(
-                                        x.getFirstSemester().getSemester().getId(),
-                                        x.getFirstSemester().getSemester().getYear(),
-                                        SemesterType.values()[x.getFirstSemester().getSemester().getType().ordinal()]
-                                ),
-                                x.getFirstSemester().getRecommendedCredits(),
-                                x.getFirstSemester().getRequiredModules()
-                                        .stream()
-                                        .map(y -> new EducationalModule(
-                                                y.getId(),
-                                                y.getName()
-                                        ))
-                                        .toList(),
-                                x.getFirstSemester().getSpecialModules()
-                                        .stream()
-                                        .map(y -> new EducationalModule(
-                                                y.getId(),
-                                                y.getName()
-                                        ))
-                                        .toList(),
-                                x.getFirstSemester().getScienceWork()
-                                        .stream()
-                                        .map(y -> new EducationalModule(
-                                                y.getId(),
-                                                y.getName()
-                                        ))
-                                        .toList()
-                        ),
-                        new SemesterPlan(
-                                x.getSecondSemester().getId(),
-                                new ru.urfu.mm.domain.Semester(
-                                        x.getSecondSemester().getSemester().getId(),
-                                        x.getSecondSemester().getSemester().getYear(),
-                                        SemesterType.values()[x.getSecondSemester().getSemester().getType().ordinal()]
-                                ),
-                                x.getSecondSemester().getRecommendedCredits(),
-                                x.getSecondSemester().getRequiredModules()
-                                        .stream()
-                                        .map(y -> new EducationalModule(
-                                                y.getId(),
-                                                y.getName()
-                                        ))
-                                        .toList(),
-                                x.getSecondSemester().getSpecialModules()
-                                        .stream()
-                                        .map(y -> new EducationalModule(
-                                                y.getId(),
-                                                y.getName()
-                                        ))
-                                        .toList(),
-                                x.getSecondSemester().getScienceWork()
-                                        .stream()
-                                        .map(y -> new EducationalModule(
-                                                y.getId(),
-                                                y.getName()
-                                        ))
-                                        .toList()
-                        ),
-                        new SemesterPlan(
-                                x.getThirdSemester().getId(),
-                                new ru.urfu.mm.domain.Semester(
-                                        x.getThirdSemester().getSemester().getId(),
-                                        x.getThirdSemester().getSemester().getYear(),
-                                        SemesterType.values()[x.getThirdSemester().getSemester().getType().ordinal()]
-                                ),
-                                x.getThirdSemester().getRecommendedCredits(),
-                                x.getThirdSemester().getRequiredModules()
-                                        .stream()
-                                        .map(y -> new EducationalModule(
-                                                y.getId(),
-                                                y.getName()
-                                        ))
-                                        .toList(),
-                                x.getThirdSemester().getSpecialModules()
-                                        .stream()
-                                        .map(y -> new EducationalModule(
-                                                y.getId(),
-                                                y.getName()
-                                        ))
-                                        .toList(),
-                                x.getThirdSemester().getScienceWork()
-                                        .stream()
-                                        .map(y -> new EducationalModule(
-                                                y.getId(),
-                                                y.getName()
-                                        ))
-                                        .toList()
-                        ),
-                        new SemesterPlan(
-                                x.getFourthSemester().getId(),
-                                new ru.urfu.mm.domain.Semester(
-                                        x.getFourthSemester().getSemester().getId(),
-                                        x.getFourthSemester().getSemester().getYear(),
-                                        SemesterType.values()[x.getFourthSemester().getSemester().getType().ordinal()]
-                                ),
-                                x.getFourthSemester().getRecommendedCredits(),
-                                x.getFourthSemester().getRequiredModules()
-                                        .stream()
-                                        .map(y -> new EducationalModule(
-                                                y.getId(),
-                                                y.getName()
-                                        ))
-                                        .toList(),
-                                x.getFourthSemester().getSpecialModules()
-                                        .stream()
-                                        .map(y -> new EducationalModule(
-                                                y.getId(),
-                                                y.getName()
-                                        ))
-                                        .toList(),
-                                x.getFourthSemester().getScienceWork()
-                                        .stream()
-                                        .map(y -> new EducationalModule(
-                                                y.getId(),
-                                                y.getName()
-                                        ))
-                                        .toList()
-                        )
-                ))
-                .toList();
+        throw new NotImplementedException();
     }
+
+//    @Override
+//    public List<Syllabus> findAllByProgram(EducationalProgram educationalProgram) {
+//        ProgramEntity programEntity = programRepository.findById(educationalProgram.getId()).get();
+//        return studyPlanRepository.findAllByProgram(programEntity)
+//                .stream()
+//                .map(x -> new Syllabus(
+//                        x.getId(),
+//                        new SemesterPlan(
+//                                x.getFirstSemester().getId(),
+//                                new ru.urfu.mm.domain.Semester(
+//                                        x.getFirstSemester().getSemester().getId(),
+//                                        x.getFirstSemester().getSemester().getYear(),
+//                                        SemesterType.values()[x.getFirstSemester().getSemester().getType().ordinal()]
+//                                ),
+//                                x.getFirstSemester().getRecommendedCredits(),
+//                                x.getFirstSemester().getRequiredModules()
+//                                        .stream()
+//                                        .map(y -> new EducationalModule(
+//                                                y.getId(),
+//                                                y.getName()
+//                                        ))
+//                                        .toList(),
+//                                x.getFirstSemester().getSpecialModules()
+//                                        .stream()
+//                                        .map(y -> new EducationalModule(
+//                                                y.getId(),
+//                                                y.getName()
+//                                        ))
+//                                        .toList(),
+//                                x.getFirstSemester().getScienceWork()
+//                                        .stream()
+//                                        .map(y -> new EducationalModule(
+//                                                y.getId(),
+//                                                y.getName()
+//                                        ))
+//                                        .toList()
+//                        ),
+//                        new SemesterPlan(
+//                                x.getSecondSemester().getId(),
+//                                new ru.urfu.mm.domain.Semester(
+//                                        x.getSecondSemester().getSemester().getId(),
+//                                        x.getSecondSemester().getSemester().getYear(),
+//                                        SemesterType.values()[x.getSecondSemester().getSemester().getType().ordinal()]
+//                                ),
+//                                x.getSecondSemester().getRecommendedCredits(),
+//                                x.getSecondSemester().getRequiredModules()
+//                                        .stream()
+//                                        .map(y -> new EducationalModule(
+//                                                y.getId(),
+//                                                y.getName()
+//                                        ))
+//                                        .toList(),
+//                                x.getSecondSemester().getSpecialModules()
+//                                        .stream()
+//                                        .map(y -> new EducationalModule(
+//                                                y.getId(),
+//                                                y.getName()
+//                                        ))
+//                                        .toList(),
+//                                x.getSecondSemester().getScienceWork()
+//                                        .stream()
+//                                        .map(y -> new EducationalModule(
+//                                                y.getId(),
+//                                                y.getName()
+//                                        ))
+//                                        .toList()
+//                        ),
+//                        new SemesterPlan(
+//                                x.getThirdSemester().getId(),
+//                                new ru.urfu.mm.domain.Semester(
+//                                        x.getThirdSemester().getSemester().getId(),
+//                                        x.getThirdSemester().getSemester().getYear(),
+//                                        SemesterType.values()[x.getThirdSemester().getSemester().getType().ordinal()]
+//                                ),
+//                                x.getThirdSemester().getRecommendedCredits(),
+//                                x.getThirdSemester().getRequiredModules()
+//                                        .stream()
+//                                        .map(y -> new EducationalModule(
+//                                                y.getId(),
+//                                                y.getName()
+//                                        ))
+//                                        .toList(),
+//                                x.getThirdSemester().getSpecialModules()
+//                                        .stream()
+//                                        .map(y -> new EducationalModule(
+//                                                y.getId(),
+//                                                y.getName()
+//                                        ))
+//                                        .toList(),
+//                                x.getThirdSemester().getScienceWork()
+//                                        .stream()
+//                                        .map(y -> new EducationalModule(
+//                                                y.getId(),
+//                                                y.getName()
+//                                        ))
+//                                        .toList()
+//                        ),
+//                        new SemesterPlan(
+//                                x.getFourthSemester().getId(),
+//                                new ru.urfu.mm.domain.Semester(
+//                                        x.getFourthSemester().getSemester().getId(),
+//                                        x.getFourthSemester().getSemester().getYear(),
+//                                        SemesterType.values()[x.getFourthSemester().getSemester().getType().ordinal()]
+//                                ),
+//                                x.getFourthSemester().getRecommendedCredits(),
+//                                x.getFourthSemester().getRequiredModules()
+//                                        .stream()
+//                                        .map(y -> new EducationalModule(
+//                                                y.getId(),
+//                                                y.getName()
+//                                        ))
+//                                        .toList(),
+//                                x.getFourthSemester().getSpecialModules()
+//                                        .stream()
+//                                        .map(y -> new EducationalModule(
+//                                                y.getId(),
+//                                                y.getName()
+//                                        ))
+//                                        .toList(),
+//                                x.getFourthSemester().getScienceWork()
+//                                        .stream()
+//                                        .map(y -> new EducationalModule(
+//                                                y.getId(),
+//                                                y.getName()
+//                                        ))
+//                                        .toList()
+//                        )
+//                ))
+//                .toList();
+//    }
 }

@@ -85,7 +85,6 @@ public class ProgramGatewayImpl implements ProgramGateway {
         programRepository.save(entity);
     }
 
-    @Override
     public Optional<EducationalProgram> findByGroup(AcademicGroup academicGroup) {
         throw new RuntimeException("Not implemented yet");
 //        return groupRepository.findById(group.getId())

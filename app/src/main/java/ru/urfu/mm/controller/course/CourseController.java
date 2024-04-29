@@ -10,6 +10,7 @@ import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.domain.enums.ControlTypes;
 import ru.urfu.mm.domain.enums.SemesterType;
 import ru.urfu.mm.domain.Course;
+import ru.urfu.mm.domain.exception.NotImplementedException;
 import ru.urfu.mm.persistance.entity.enums.Control;
 import ru.urfu.mm.persistance.entity.Semester;
 import ru.urfu.mm.service.ModelConverterHelper;
@@ -27,12 +28,12 @@ public class CourseController extends AbstractAuthorizedController {
     private GetAllCourses getAllCourses;
     @Autowired
     private GetEducationalModuleCourses getEducationalModuleCourses;
-    @Autowired
-    private GetSelectedCoursesIds getSelectedCoursesIds;
-    @Autowired
-    private SelectCourses selectCourses;
-    @Autowired
-    private GetCoursesByEducationalProgramAndSemesters getCoursesByEducationalProgramAndSemesters;
+//    @Autowired
+//    private GetSelectedCoursesIds getSelectedCoursesIds;
+//    @Autowired
+//    private SelectCourses selectCourses;
+//    @Autowired
+//    private GetCoursesByEducationalProgramAndSemesters getCoursesByEducationalProgramAndSemesters;
     @Autowired
     private EditModuleSpecialCourse editModuleSpecialCourse;
     @Autowired
@@ -41,104 +42,111 @@ public class CourseController extends AbstractAuthorizedController {
     private CreateCourse createCourse;
     @Autowired
     private GetCourse getCourse;
-    @Autowired
-    private GetActualSpecialCoursesStatistics getActualSpecialCoursesStatistics;
+//    @Autowired
+//    private GetActualSpecialCoursesStatistics getActualSpecialCoursesStatistics;
     @Autowired
     private GetSpecialCourseStudentsCount getSpecialCourseStudentsCount;
-    @Autowired
-    private GetSelectedCoursesByStudentAndSemester getSelectedCoursesByStudentAndSemester;
-    @Autowired
-    private LoadAvailableCourses loadAvailableCourses;
+//    @Autowired
+//    private GetSelectedCoursesByStudentAndSemester getSelectedCoursesByStudentAndSemester;
+//    @Autowired
+//    private LoadAvailableCourses loadAvailableCourses;
     @Autowired
     private Mapper<SemesterType, ru.urfu.mm.persistance.entity.enums.SemesterType> semesterTypeToEntityMapper;
 
     @PostMapping
     public List<CourseForProgramDTO> specialCourse(@RequestBody GetCoursesDTO getCoursesDTO) {
-        return getCoursesByEducationalProgramAndSemesters
-                .getCoursesByEducationalProgramAndSemesters(UUID.fromString(getUserToken()), getCoursesDTO.semestersIds())
-                .stream()
-                .map(x -> new CourseForProgramDTO(
-                        x.getId(),
-                        x.getName(),
-                        x.getCreditsCount(),
-                        Control.values()[x.getControl().ordinal()],
-                        x.getDescription(),
-                        x.getSemesters()
-                                .stream()
-                                .map(y -> new Semester(
-                                        y.getId(),
-                                        y.getYear(),
-                                        semesterTypeToEntityMapper.map(y.getType())
-                                ))
-                                .toList(),
-                        x.getEducationalModuleId(),
-                        x.getRequiredSemesterId()
-                ))
-                .toList();
+        throw new NotImplementedException();
+//        return getCoursesByEducationalProgramAndSemesters
+//                .getCoursesByEducationalProgramAndSemesters(UUID.fromString(getUserToken()), getCoursesDTO.semestersIds())
+//                .stream()
+//                .map(x -> new CourseForProgramDTO(
+//                        x.getId(),
+//                        x.getName(),
+//                        x.getCreditsCount(),
+//                        Control.values()[x.getControl().ordinal()],
+//                        x.getDescription(),
+//                        x.getSemesters()
+//                                .stream()
+//                                .map(y -> new Semester(
+//                                        y.getId(),
+//                                        y.getYear(),
+//                                        semesterTypeToEntityMapper.map(y.getType())
+//                                ))
+//                                .toList(),
+//                        x.getEducationalModuleId(),
+//                        x.getRequiredSemesterId()
+//                ))
+//                .toList();
     }
 
     @PostMapping("/selected")
     public List<CoursesBySemesterDTO> selected(@RequestBody GetSelectedCoursesDTO getSelectedCoursesDTO) {
-        var selected = getSelectedCoursesIds.getSelectedCoursesIds(UUID.fromString(getUserToken()), getSelectedCoursesDTO.semestersIds());
-
-        var result = new ArrayList<CoursesBySemesterDTO>();
-        for (var key : selected.keySet()) {
-            var item = new CoursesBySemesterDTO(key, selected.get(key));
-            result.add(item);
-        }
-        return result;
+        throw new NotImplementedException();
+//        var selected = getSelectedCoursesIds.getSelectedCoursesIds(UUID.fromString(getUserToken()), getSelectedCoursesDTO.semestersIds());
+//
+//        var result = new ArrayList<CoursesBySemesterDTO>();
+//        for (var key : selected.keySet()) {
+//            var item = new CoursesBySemesterDTO(key, selected.get(key));
+//            result.add(item);
+//        }
+//        return result;
     }
 
     @PostMapping("/select")
     public void select(@RequestBody SelectedCoursesDTO selectedCourses) {
-        selectCourses.selectCourses(UUID.fromString(getUserToken()), selectedCourses.coursesBySemesters().stream().map(x -> Map.entry(x.semesterId(), x.coursesIds())).toList());
+        throw new NotImplementedException();
+//        selectCourses.selectCourses(UUID.fromString(getUserToken()), selectedCourses.coursesBySemesters().stream().map(x -> Map.entry(x.semesterId(), x.coursesIds())).toList());
     }
 
     @GetMapping("/statistics")
     public List<CourseStatisticsDTO> getActualSpecialCoursesStatistics(@RequestParam List<UUID> semestersId) {
-        return getActualSpecialCoursesStatistics
-                .getActualSpecialCoursesStatistics(semestersId)
-                .stream()
-                .map(x -> new CourseStatisticsDTO(
-                                x.getSpecialCourse().getId(),
-                                x.getSpecialCourse().getName(),
-                                getSpecialCourseStudentsCount.specialCourseStudentsCount(x.getSpecialCourse().getId())
-                        )
-                )
-                .toList();
+        throw new NotImplementedException();
+//        return getActualSpecialCoursesStatistics
+//                .getActualSpecialCoursesStatistics(semestersId)
+//                .stream()
+//                .map(x -> new CourseStatisticsDTO(
+//                                x.getSpecialCourse().getId(),
+//                                x.getSpecialCourse().getName(),
+//                                getSpecialCourseStudentsCount.specialCourseStudentsCount(x.getSpecialCourse().getId())
+//                        )
+//                )
+//                .toList();
     }
 
     @GetMapping("/allCourses")
     public List<CourseDTO> getAllCourses() {
-        return getAllCourses
-                .getAllCourses()
-                .stream()
-                .map(ModelConverterHelper::toDomain)
-                .toList();
+        throw new NotImplementedException();
+//        return getAllCourses
+//                .getAllCourses()
+//                .stream()
+//                .map(ModelConverterHelper::toDomain)
+//                .toList();
     }
 
     @GetMapping("/moduleCourses")
     public List<CourseDTO> getEducationalModuleCourses(@RequestParam("moduleId") String moduleIdDTO) {
-        return getEducationalModuleCourses
-                .getEducationalModuleCourses(UUID.fromString(moduleIdDTO))
-                .stream()
-                .map(ModelConverterHelper::toDomain)
-                .toList();
+        throw new NotImplementedException();
+//        return getEducationalModuleCourses
+//                .getEducationalModuleCourses(UUID.fromString(moduleIdDTO))
+//                .stream()
+//                .map(ModelConverterHelper::toDomain)
+//                .toList();
     }
 
     @GetMapping("/course")
     public CourseDTO getCourseById(@RequestParam("id") UUID courseId) {
-        Course course = getCourse.getCourse(courseId);
-        return new CourseDTO(
-                course.getId(),
-                course.getName(),
-                course.getCredits(),
-                Control.values()[course.getControl().ordinal()],
-                course.getDescription(),
-                course.getEducationalModule().getId(),
-                course.getTeacher(),
-                course.getDepartment()
-        );
+        throw new NotImplementedException();
+//        Course course = getCourse.getCourse(courseId);
+//        return new CourseDTO(
+//                course.getId(),
+//                course.getName(),
+//                course.getCredits(),
+//                Control.values()[course.getControl().ordinal()],
+//                course.getDescription(),
+//                course.getEducationalModule().getId(),
+//                course.getTeacher(),
+//                course.getDepartment()
+//        );
     }
 
     @PostMapping("/create")
@@ -175,20 +183,22 @@ public class CourseController extends AbstractAuthorizedController {
 
     @GetMapping("/selectedCourseName")
     public List<SelectedCourseNameDTO> getSelectedCourseNamesBySemester(@RequestBody GetSelectedCoursesBySemesterDTO dto) {
-        UUID studentId = UUID.fromString(getUserToken());
-        return getSelectedCoursesByStudentAndSemester
-                .getSelectedCoursesByStudentAndSemester(studentId, UUID.fromString(dto.semesterId()))
-                .stream()
-                .map(x -> new SelectedCourseNameDTO(
-                        x.getSpecialCourse().getName(),
-                        x.isRequiredCourse(),
-                        x.getSpecialCourse().getId())
-                )
-                .toList();
+        throw new NotImplementedException();
+//        UUID studentId = UUID.fromString(getUserToken());
+//        return getSelectedCoursesByStudentAndSemester
+//                .getSelectedCoursesByStudentAndSemester(studentId, UUID.fromString(dto.semesterId()))
+//                .stream()
+//                .map(x -> new SelectedCourseNameDTO(
+//                        x.getSpecialCourse().getName(),
+//                        x.isRequiredCourse(),
+//                        x.getSpecialCourse().getId())
+//                )
+//                .toList();
     }
 
     @GetMapping("/available")
     public List<AvailableModuleResponse> loadAvailableCourses() {
-        return loadAvailableCourses.loadAvailableCourses(UUID.fromString(getUserToken()));
+        throw new NotImplementedException();
+//        return loadAvailableCourses.loadAvailableCourses(UUID.fromString(getUserToken()));
     }
 }

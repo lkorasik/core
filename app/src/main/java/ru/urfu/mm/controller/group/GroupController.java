@@ -9,14 +9,15 @@ import ru.urfu.mm.application.usecase.create_group.CreateGroup;
 import ru.urfu.mm.application.usecase.create_group.CreateGroupRequest;
 import ru.urfu.mm.application.usecase.download_tokens.DownloadTokens;
 import ru.urfu.mm.application.usecase.download_tokens.DownloadTokensRequest;
-import ru.urfu.mm.application.usecase.generate_token.GenerateStudentRegistrationTokens;
-import ru.urfu.mm.application.usecase.generate_token.GenerateStudentRegistrationTokensRequest;
+//import ru.urfu.mm.application.usecase.generate_token.GenerateStudentRegistrationTokens;
+//import ru.urfu.mm.application.usecase.generate_token.GenerateStudentRegistrationTokensRequest;
 import ru.urfu.mm.application.usecase.get_group.GetGroup;
 import ru.urfu.mm.application.usecase.get_groups.GetGroupForEducationalProgram;
 import ru.urfu.mm.application.usecase.get_token.GetTokensForGroup;
 import ru.urfu.mm.application.usecase.get_token.GetTokensForGroupRequest;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.domain.AcademicGroup;
+import ru.urfu.mm.domain.exception.NotImplementedException;
 
 import java.io.*;
 import java.util.List;
@@ -31,8 +32,8 @@ public class GroupController extends AbstractAuthorizedController {
     private CreateGroup createGroup;
     @Autowired
     private GetGroup getGroup;
-    @Autowired
-    private GenerateStudentRegistrationTokens generateStudentRegistrationTokens;
+//    @Autowired
+//    private GenerateStudentRegistrationTokens generateStudentRegistrationTokens;
     @Autowired
     private GetTokensForGroup getTokensForGroup;
     @Autowired
@@ -60,9 +61,10 @@ public class GroupController extends AbstractAuthorizedController {
 
     @PostMapping("/token")
     public List<UUID> generateTokens(@RequestBody GenerateTokenDTO generateTokenDTO) {
-        GenerateStudentRegistrationTokensRequest request =
-                new GenerateStudentRegistrationTokensRequest(generateTokenDTO.count(), generateTokenDTO.groupId());
-        return generateStudentRegistrationTokens.generateTokens(request);
+        throw new NotImplementedException();
+//        GenerateStudentRegistrationTokensRequest request =
+//                new GenerateStudentRegistrationTokensRequest(generateTokenDTO.count(), generateTokenDTO.groupId());
+//        return generateStudentRegistrationTokens.generateTokens(request);
     }
 
     @GetMapping("/token")

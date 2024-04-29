@@ -8,6 +8,7 @@ import ru.urfu.mm.domain.Account;
 import ru.urfu.mm.domain.EducationalProgram;
 import ru.urfu.mm.domain.Student;
 import ru.urfu.mm.domain.enums.UserRole;
+import ru.urfu.mm.domain.exception.NotImplementedException;
 import ru.urfu.mm.persistance.entity.*;
 import ru.urfu.mm.persistance.entity.enums.Years;
 import ru.urfu.mm.persistance.repository.GroupRepository;
@@ -34,97 +35,97 @@ public class StudentGatewayImpl implements StudentGateway {
         this.userMapper = userMapper;
     }
 
-    @Override
-    public void update(Student student) {
-        StudentEntity studentEntity1 = new StudentEntity(
-                student.getId(),
-                parse(student.getProgram()),
-                new GroupEntity(
-                        student.getGroup().getId(),
-                        student.getGroup().getNumber(),
-                        Years.values()[student.getGroup().getYear().ordinal()]
-                ),
-                userMapper.map(student.getAccount())
-        );
-        studentRepository.save(studentEntity1);
-    }
+//    @Override
+//    public void update(Student student) {
+//        StudentEntity studentEntity1 = new StudentEntity(
+//                student.getId(),
+//                parse(student.getProgram()),
+//                new GroupEntity(
+//                        student.getGroup().getId(),
+//                        student.getGroup().getNumber(),
+//                        Years.values()[student.getGroup().getYear().ordinal()]
+//                ),
+//                userMapper.map(student.getAccount())
+//        );
+//        studentRepository.save(studentEntity1);
+//    }
 
-    @Override
-    public void saveNewStudent(Student student) {
-        StudentEntity entity = new StudentEntity(
-                student.getId(),
-                parse(student.getProgram()),
-                new GroupEntity(
-                        student.getGroup().getId(),
-                        student.getGroup().getNumber(),
-                        Years.values()[student.getGroup().getYear().ordinal()]
-                )
-        );
-        studentRepository.save(entity);
-    }
+//    @Override
+//    public void saveNewStudent(Student student) {
+//        StudentEntity entity = new StudentEntity(
+//                student.getId(),
+//                parse(student.getProgram()),
+//                new GroupEntity(
+//                        student.getGroup().getId(),
+//                        student.getGroup().getNumber(),
+//                        Years.values()[student.getGroup().getYear().ordinal()]
+//                )
+//        );
+//        studentRepository.save(entity);
+//    }
 
-    @Override
-    public Student getById(UUID studentId) {
-        return studentRepository
-                .findByLogin(studentId)
-                .map(x -> new Student(
-                        x.getLogin(),
-                        new EducationalProgram(
-                                x.getEducationalProgram().getId(),
-                                x.getEducationalProgram().getName(),
-                                x.getEducationalProgram().getTrainingDirection()
-                        ),
-                        new AcademicGroup(
-                                x.getGroup().getId(),
-                                x.getGroup().getNumber()
-                        ),
-                        new Account(
-                                x.getUser().getLogin(),
-                                x.getUser().getPassword(),
-                                UserRole.values()[x.getUser().getRole().ordinal()]
-                        )
-                ))
-                .get();
-    }
+//    @Override
+//    public Student getById(UUID studentId) {
+//        return studentRepository
+//                .findByLogin(studentId)
+//                .map(x -> new Student(
+//                        x.getLogin(),
+//                        new EducationalProgram(
+//                                x.getEducationalProgram().getId(),
+//                                x.getEducationalProgram().getName(),
+//                                x.getEducationalProgram().getTrainingDirection()
+//                        ),
+//                        new AcademicGroup(
+//                                x.getGroup().getId(),
+//                                x.getGroup().getNumber()
+//                        ),
+//                        new Account(
+//                                x.getUser().getLogin(),
+//                                x.getUser().getPassword(),
+//                                UserRole.values()[x.getUser().getRole().ordinal()]
+//                        )
+//                ))
+//                .get();
+//    }
 
-    @Override
-    public Optional<Student> findById(UUID studentId) {
-        return studentRepository
-                .findByLogin(studentId)
-                .map(x -> new Student(
-                        x.getLogin(),
-                        new EducationalProgram(
-                                x.getEducationalProgram().getId(),
-                                x.getEducationalProgram().getName(),
-                                x.getEducationalProgram().getTrainingDirection()
-                        ),
-                        new AcademicGroup(
-                                x.getGroup().getId(),
-                                x.getGroup().getNumber()
-                        )
-                ));
-    }
+//    @Override
+//    public Optional<Student> findById(UUID studentId) {
+//        return studentRepository
+//                .findByLogin(studentId)
+//                .map(x -> new Student(
+//                        x.getLogin(),
+//                        new EducationalProgram(
+//                                x.getEducationalProgram().getId(),
+//                                x.getEducationalProgram().getName(),
+//                                x.getEducationalProgram().getTrainingDirection()
+//                        ),
+//                        new AcademicGroup(
+//                                x.getGroup().getId(),
+//                                x.getGroup().getNumber()
+//                        )
+//                ));
+//    }
 
-    @Override
-    public List<Student> findAllStudentsByGroup(AcademicGroup academicGroup) {
-        GroupEntity groupEntity = groupRepository.findById(academicGroup.getId()).get();
-        return studentRepository.findAllByGroup(groupEntity)
-                .stream()
-                .map(x -> new Student(
-                        x.getLogin(),
-                        new EducationalProgram(
-                                x.getEducationalProgram().getId(),
-                                x.getEducationalProgram().getName(),
-                                x.getEducationalProgram().getTrainingDirection()
-                        ),
-                        new AcademicGroup(
-                                x.getGroup().getId(),
-                                x.getGroup().getNumber()
-                        ),
-                        mapUser(x)
-                ))
-                .toList();
-    }
+//    @Override
+//    public List<Student> findAllStudentsByGroup(AcademicGroup academicGroup) {
+//        GroupEntity groupEntity = groupRepository.findById(academicGroup.getId()).get();
+//        return studentRepository.findAllByGroup(groupEntity)
+//                .stream()
+//                .map(x -> new Student(
+//                        x.getLogin(),
+//                        new EducationalProgram(
+//                                x.getEducationalProgram().getId(),
+//                                x.getEducationalProgram().getName(),
+//                                x.getEducationalProgram().getTrainingDirection()
+//                        ),
+//                        new AcademicGroup(
+//                                x.getGroup().getId(),
+//                                x.getGroup().getNumber()
+//                        ),
+//                        mapUser(x)
+//                ))
+//                .toList();
+//    }
 
     private Account mapUser(StudentEntity student) {
         if (student.getUser() != null) {
@@ -143,5 +144,20 @@ public class StudentGatewayImpl implements StudentGateway {
                 educationalProgram.getName(),
                 educationalProgram.getTrainingDirection()
         );
+    }
+
+    @Override
+    public Student getById(UUID studentId) {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public Optional<Student> findById(UUID studentId) {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public List<Student> findAllStudentsByGroup(AcademicGroup academicGroup) {
+        throw new NotImplementedException();
     }
 }

@@ -14,7 +14,7 @@ import ru.urfu.mm.application.usecase.create_program.CreateProgram;
 import ru.urfu.mm.application.usecase.create_semester_plan.CreateSemesterPlan;
 import ru.urfu.mm.application.usecase.create_study_plan.CreateStudyPlan;
 import ru.urfu.mm.application.usecase.download_tokens.DownloadTokens;
-import ru.urfu.mm.application.usecase.generate_token.GenerateStudentRegistrationTokens;
+//import ru.urfu.mm.application.usecase.generate_token.GenerateStudentRegistrationTokens;
 import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
 import ru.urfu.mm.application.usecase.get_all_modules.GetAllModules;
 import ru.urfu.mm.application.usecase.get_all_programs.GetAllPrograms;
@@ -39,17 +39,17 @@ public class UseCaseConfiguration {
         return new CreateAdministrator(tokenGateway, passwordGateway, userGateway);
     }
 
-    @Bean
-    public CreateStudent createStudent(
-            PasswordGateway passwordGateway,
-            UserGateway userGateway,
-            StudentGateway studentGateway) {
-        return new CreateStudent(
-                passwordGateway,
-                userGateway,
-                studentGateway
-        );
-    }
+//    @Bean
+//    public CreateStudent createStudent(
+//            PasswordGateway passwordGateway,
+//            UserGateway userGateway,
+//            StudentGateway studentGateway) {
+//        return new CreateStudent(
+//                passwordGateway,
+//                userGateway,
+//                studentGateway
+//        );
+//    }
 
     @Bean
     public LoginUser loginUser(UserGateway userGateway, PasswordGateway passwordGateway) {
@@ -66,30 +66,30 @@ public class UseCaseConfiguration {
         return new GetEducationalModuleCourses(courseGateway);
     }
 
-    @Bean
-    public GetSelectedCoursesIds getSelectedCoursesIds(CourseGateway courseGateway) {
-        return new GetSelectedCoursesIds(courseGateway);
-    }
+//    @Bean
+//    public GetSelectedCoursesIds getSelectedCoursesIds(CourseGateway courseGateway) {
+//        return new GetSelectedCoursesIds(courseGateway);
+//    }
 
-    @Bean
-    public GetCoursesByEducationalProgramAndSemesters getCoursesByEducationalProgramAndSemesters(
-            CourseGateway courseGateway,
-            StudentGateway studentGateway) {
-        return new GetCoursesByEducationalProgramAndSemesters(courseGateway, studentGateway);
-    }
+//    @Bean
+//    public GetCoursesByEducationalProgramAndSemesters getCoursesByEducationalProgramAndSemesters(
+//            CourseGateway courseGateway,
+//            StudentGateway studentGateway) {
+//        return new GetCoursesByEducationalProgramAndSemesters(courseGateway, studentGateway);
+//    }
 
-    @Bean
-    public SelectCourses selectCourses(
-            CourseGateway courseGateway,
-            SemesterGateway semesterGateway,
-            StudentGateway studentGateway,
-            GetCoursesByEducationalProgramAndSemesters getCoursesByEducationalProgramAndSemesters) {
-        return new SelectCourses(
-                courseGateway,
-                semesterGateway,
-                studentGateway,
-                getCoursesByEducationalProgramAndSemesters);
-    }
+//    @Bean
+//    public SelectCourses selectCourses(
+//            CourseGateway courseGateway,
+//            SemesterGateway semesterGateway,
+//            StudentGateway studentGateway,
+//            GetCoursesByEducationalProgramAndSemesters getCoursesByEducationalProgramAndSemesters) {
+//        return new SelectCourses(
+//                courseGateway,
+//                semesterGateway,
+//                studentGateway,
+//                getCoursesByEducationalProgramAndSemesters);
+//    }
 
     @Bean
     public EditModuleSpecialCourse editModuleSpecialCourse(CourseGateway courseGateway) {
@@ -116,10 +116,10 @@ public class UseCaseConfiguration {
         return new GetSpecialCourseStudentsCount(courseGateway);
     }
 
-    @Bean
-    public GetActualSpecialCoursesStatistics getActualSpecialCoursesStatistics(CourseGateway courseGateway) {
-        return new GetActualSpecialCoursesStatistics(courseGateway);
-    }
+//    @Bean
+//    public GetActualSpecialCoursesStatistics getActualSpecialCoursesStatistics(CourseGateway courseGateway) {
+//        return new GetActualSpecialCoursesStatistics(courseGateway);
+//    }
 
     @Bean
     public GetAllModules getAllModules(ModuleGateway moduleGateway) {
@@ -141,30 +141,30 @@ public class UseCaseConfiguration {
         return new DeleteModuleById(moduleGateway, courseGateway);
     }
 
-    @Bean
-    public GetEducationalProgram getEducationalProgram(ProgramGateway programGateway, StudentGateway studentGateway) {
-        return new GetEducationalProgram(programGateway, studentGateway);
-    }
+//    @Bean
+//    public GetEducationalProgram getEducationalProgram(ProgramGateway programGateway, StudentGateway studentGateway) {
+//        return new GetEducationalProgram(programGateway, studentGateway);
+//    }
 
     @Bean
     public GetAllPrograms getAllEducationalPrograms(ProgramGateway programGateway) {
         return new GetAllPrograms(programGateway);
     }
 
-    @Bean
-    public GetSkillsForStudent getSkillsForStudent(SkillGateway skillGateway) {
-        return new GetSkillsForStudent(skillGateway);
-    }
+//    @Bean
+//    public GetSkillsForStudent getSkillsForStudent(SkillGateway skillGateway) {
+//        return new GetSkillsForStudent(skillGateway);
+//    }
 
     @Bean
     public SaveSkillsForStudent saveSkillsForStudent(SkillGateway skillGateway, StudentGateway studentGateway) {
         return new SaveSkillsForStudent(skillGateway, studentGateway);
     }
 
-    @Bean
-    public GetDesiredSkillsForStudent getDesiredSkillsForStudent(SkillGateway skillGateway) {
-        return new GetDesiredSkillsForStudent(skillGateway);
-    }
+//    @Bean
+//    public GetDesiredSkillsForStudent getDesiredSkillsForStudent(SkillGateway skillGateway) {
+//        return new GetDesiredSkillsForStudent(skillGateway);
+//    }
 
     @Bean
     public SaveDesiredSkillsForStudent saveDesiredSkillsForStudent(
@@ -183,22 +183,22 @@ public class UseCaseConfiguration {
         return new GetSkills(skillGateway);
     }
 
-    @Bean
-    public GetSelectedCoursesByStudentAndSemester getSelectedCoursesByStudentAndSemester(
-            CourseGateway courseGateway,
-            StudentGateway studentGateway) {
-        return new GetSelectedCoursesByStudentAndSemester(courseGateway, studentGateway);
-    }
+//    @Bean
+//    public GetSelectedCoursesByStudentAndSemester getSelectedCoursesByStudentAndSemester(
+//            CourseGateway courseGateway,
+//            StudentGateway studentGateway) {
+//        return new GetSelectedCoursesByStudentAndSemester(courseGateway, studentGateway);
+//    }
 
     @Bean
     public GetProgramForStudent getProgramForStudent(StudentGateway studentGateway) {
         return new GetProgramForStudent(studentGateway);
     }
 
-    @Bean
-    public LoadAvailableCourses loadAvailableCourses(StudentGateway studentGateway, CourseGateway courseGateway) {
-        return new LoadAvailableCourses(studentGateway, courseGateway);
-    }
+//    @Bean
+//    public LoadAvailableCourses loadAvailableCourses(StudentGateway studentGateway, CourseGateway courseGateway) {
+//        return new LoadAvailableCourses(studentGateway, courseGateway);
+//    }
 
     @Bean
     public GetModuleWithCourses getModule(ModuleGateway moduleGateway, CourseGateway courseGateway) {
@@ -224,14 +224,14 @@ public class UseCaseConfiguration {
         return new GetGroup(groupGateway);
     }
 
-    @Bean
-    public GenerateStudentRegistrationTokens generateStudentRegistrationTokens(
-            TokenGateway tokenGateway,
-            GetGroup getGroup,
-            ProgramGateway programGateway,
-            StudentGateway studentGateway) {
-        return new GenerateStudentRegistrationTokens(tokenGateway, getGroup, programGateway, studentGateway);
-    }
+//    @Bean
+//    public GenerateStudentRegistrationTokens generateStudentRegistrationTokens(
+//            TokenGateway tokenGateway,
+//            GetGroup getGroup,
+//            ProgramGateway programGateway,
+//            StudentGateway studentGateway) {
+//        return new GenerateStudentRegistrationTokens(tokenGateway, getGroup, programGateway, studentGateway);
+//    }
 
     @Bean
     public GetTokensForGroup getTokensForGroup(GetGroup getGroup, StudentGateway studentGateway) {
@@ -243,13 +243,13 @@ public class UseCaseConfiguration {
         return new DownloadTokens(tokenGateway, getGroup);
     }
 
-    @Bean
-    public CreateAccount createUser(
-            CreateStudent createStudent,
-            CreateAdministrator createAdministrator,
-            TokenGateway tokenGateway) {
-        return new CreateAccount(createStudent, createAdministrator, tokenGateway);
-    }
+//    @Bean
+//    public CreateAccount createUser(
+//            CreateStudent createStudent,
+//            CreateAdministrator createAdministrator,
+//            TokenGateway tokenGateway) {
+//        return new CreateAccount(createStudent, createAdministrator, tokenGateway);
+//    }
 
     @Bean
     public CreateProgram createProgram(ProgramGateway programGateway) {

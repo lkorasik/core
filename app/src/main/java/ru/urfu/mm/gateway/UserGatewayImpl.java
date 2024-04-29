@@ -34,7 +34,6 @@ public class UserGatewayImpl implements UserGateway {
         accountRepository.save(userMapper.map(account));
     }
 
-    @Override
     public Account getByToken(UUID token) {
         AccountEntity entity = accountRepository.getReferenceById(token);
         return new Account(

@@ -19,16 +19,16 @@ public class ModelConverterHelper {
         );
     }
 
-    public static CourseDTO toDomain(Course specialCourse) {
-        return new CourseDTO(
-                specialCourse.getId(),
-                specialCourse.getName(),
-                specialCourse.getCredits(),
-                Control.values()[specialCourse.getControl().ordinal()],
-                specialCourse.getDescription(),
-                specialCourse.getEducationalModule().getId(),
-                specialCourse.getTeacher(),
-                specialCourse.getDepartment()
-        );
-    }
+//    public static CourseDTO toDomain(Course specialCourse) {
+//        return new CourseDTO(
+//                specialCourse.getId(),
+//                specialCourse.getName(),
+//                specialCourse.getCredits(),
+//                Control.values()[specialCourse.getControl().ordinal()],
+//                specialCourse.getDescription(),
+////                specialCourse.getEducationalModule().getId(),
+//                specialCourse.getTeacher(),
+//                specialCourse.getDepartment()
+//        );
+//    }
 }
