@@ -25,13 +25,21 @@ public class SpecialCourse {
     @Column
     private String teacherName;
     @ManyToOne
-    @JoinColumn(name = "educational_module_id")
-    private EducationalModuleEntity educationalModuleEntity;
+    @JoinColumn(name = "educational_modules_id")
+    private EducationalModuleEntity module;
 
     public SpecialCourse() {
     }
 
-    public SpecialCourse(UUID id, String name, int creditsCount, Control control, String description, String department, String teacherName, EducationalModuleEntity educationalModuleEntity) {
+    public SpecialCourse(
+            UUID id,
+            String name,
+            int creditsCount,
+            Control control,
+            String description,
+            String department,
+            String teacherName,
+            EducationalModuleEntity module) {
         this.id = id;
         this.name = name;
         this.creditsCount = creditsCount;
@@ -39,17 +47,24 @@ public class SpecialCourse {
         this.description = description;
         this.department = department;
         this.teacherName = teacherName;
-        this.educationalModuleEntity = educationalModuleEntity;
+        this.module = module;
     }
 
-    public SpecialCourse(String name, int creditsCount, Control control, String description, String department, String teacherName, EducationalModuleEntity educationalModuleEntity) {
+    public SpecialCourse(
+            String name,
+            int creditsCount,
+            Control control,
+            String description,
+            String department,
+            String teacherName,
+            EducationalModuleEntity module) {
         this.name = name;
         this.creditsCount = creditsCount;
         this.control = control;
         this.description = description;
         this.department = department;
         this.teacherName = teacherName;
-        this.educationalModuleEntity = educationalModuleEntity;
+        this.module = module;
     }
 
     public UUID getId() {
@@ -81,11 +96,11 @@ public class SpecialCourse {
     }
 
     public EducationalModuleEntity getEducationalModule() {
-        return educationalModuleEntity;
+        return module;
     }
 
     public void setEducationalModule(EducationalModuleEntity educationalModuleEntity) {
-        this.educationalModuleEntity = educationalModuleEntity;
+        this.module = educationalModuleEntity;
     }
 
     public void setName(String name) {

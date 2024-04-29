@@ -2,6 +2,7 @@ package ru.urfu.mm.persistance.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -13,9 +14,10 @@ public class EducationalModuleEntity {
     private UUID id;
     @Column
     private String name;
+    @OneToMany(mappedBy = "module")
+    private List<SpecialCourse> courses;
 
     public EducationalModuleEntity() {
-
     }
 
     public EducationalModuleEntity(UUID id, String name) {

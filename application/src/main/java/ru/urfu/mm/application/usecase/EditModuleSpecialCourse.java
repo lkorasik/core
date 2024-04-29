@@ -2,6 +2,7 @@ package ru.urfu.mm.application.usecase;
 
 import ru.urfu.mm.application.gateway.CourseGateway;
 import ru.urfu.mm.domain.enums.ControlTypes;
+import ru.urfu.mm.domain.exception.NotImplementedException;
 
 import java.util.UUID;
 
@@ -20,17 +21,18 @@ public class EditModuleSpecialCourse {
             String courseDescription,
             String department,
             String teacherName) {
-        var oldCourseValue = courseGateway.getById(courseId);
+        throw new NotImplementedException();
+//        var oldCourseValue = courseGateway.getById(courseId);
 
-        if (oldCourseValue != null) {
-            oldCourseValue.setName(courseName);
-            oldCourseValue.setDepartment(department);
-            oldCourseValue.setTeacher(teacherName);
-            oldCourseValue.setControl(controlTypes);
-            oldCourseValue.setCredits(creditsCount);
-            oldCourseValue.setDescription(courseDescription);
-
-            courseGateway.save(oldCourseValue);
-        }
+//        if (oldCourseValue != null) {
+//            oldCourseValue.setName(courseName);
+//            oldCourseValue.setDepartment(department);
+//            oldCourseValue.setTeacher(teacherName);
+//            oldCourseValue.setControl(controlTypes);
+//            oldCourseValue.setCredits(creditsCount);
+//            oldCourseValue.setDescription(courseDescription);
+//
+//            courseGateway.save(oldCourseValue);
+//        }
     }
 }

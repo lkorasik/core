@@ -40,6 +40,10 @@ public class EducationalModule {
         courses.add(course);
     }
 
+    public List<Course> getCourses() {
+        return courses;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

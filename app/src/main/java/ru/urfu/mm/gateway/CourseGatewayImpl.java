@@ -102,8 +102,18 @@ public class CourseGatewayImpl implements CourseGateway {
     }
 
     @Override
-    public void save(Course specialCourse) {
-        throw new NotImplementedException();
+    public void save(EducationalModule module, Course specialCourse) {
+        SpecialCourse entity = new SpecialCourse(
+                specialCourse.getId(),
+                specialCourse.getName(),
+                specialCourse.getCredits(),
+                Control.values()[specialCourse.getControl().ordinal()],
+                specialCourse.getDescription(),
+                specialCourse.getDepartment(),
+                specialCourse.getTeacher(),
+                new EducationalModuleEntity(module.getId(), module.getName())
+        );
+        courseRepository.save(entity);
     }
 
     @Override
@@ -191,7 +201,7 @@ public class CourseGatewayImpl implements CourseGateway {
 //                        x.isRequiredCourse()
 //                ))
 //                .toList();
-    }
+}
 
 //    public List<ProgramToCoursesWithSemesters> getEducationalProgramToCoursesWithSemestersBySemesters(List<UUID> semestersIds) {
 //        return educationalProgramToCoursesWithSemestersRepository

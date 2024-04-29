@@ -34,9 +34,10 @@ public class CreateCourse {
                 request.department(),
                 request.teacher()
         );
+        course.setDescription(request.description());
         module.addCourse(course);
 
-        courseGateway.save(course);
-        moduleGateway.save(module);
+        courseGateway.save(module, course);
+//        moduleGateway.save(module);
     }
 }
