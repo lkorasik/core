@@ -15,9 +15,9 @@ public class EducationalProgramEntity {
     private String name;
     @Column
     private String trainingDirection;
-    @OneToMany
-//    @JoinColumn(name = "groups_id")
+    @OneToMany(mappedBy="program")
     private List<GroupEntity> groups;
+
     @OneToMany
     @JoinColumn(name = "study_plans_id")
     private List<StudyPlanEntity> studyPlans;
@@ -43,5 +43,9 @@ public class EducationalProgramEntity {
 
     public String getTrainingDirection() {
         return trainingDirection;
+    }
+
+    public List<GroupEntity> getGroups() {
+        return groups;
     }
 }

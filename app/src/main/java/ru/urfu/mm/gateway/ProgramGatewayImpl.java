@@ -43,11 +43,11 @@ public class ProgramGatewayImpl implements ProgramGateway {
                 educationalProgramEntity.getName(),
                 educationalProgramEntity.getTrainingDirection()
         );
-//        List<AcademicGroup> academicGroups = groupRepository.findAllByProgram(educationalProgramEntity)
-//                .stream()
-//                .map(x -> new AcademicGroup(x.getId(), x.getNumber()))
-//                .toList();
-//        program.setGroups(academicGroups);
+        List<AcademicGroup> groups = educationalProgramEntity.getGroups()
+                .stream()
+                .map(x -> new AcademicGroup(x.getId(), x.getNumber()))
+                .toList();
+        program.getGroups().addAll(groups);
         return program;
     }
 

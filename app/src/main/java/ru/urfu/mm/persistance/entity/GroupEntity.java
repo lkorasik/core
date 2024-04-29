@@ -17,11 +17,13 @@ public class GroupEntity {
     @Column
     @Enumerated
     private Years year;
-    @OneToMany(mappedBy = "group")
-    private List<StudentEntity> studentEntities;
     @ManyToOne
-    @JoinColumn(name="educational_programs_id")
+    @JoinColumn(name = "program_id")
     private EducationalProgramEntity program;
+
+    @OneToMany
+    @JoinColumn(name = "group_id")
+    private List<StudentEntity> studentEntities;
 
     public EducationalProgramEntity getProgram() {
         return program;
