@@ -9,7 +9,7 @@ import { TokenStatusDto } from "./TokenStatusDto";
 
 export class GroupsApi extends ApiBase implements IGroupsApi {
     public async getGroupsForProgram(programId: GetGroupDto): Promise<GroupDto[]> {
-        return this.get("groups/group", {...programId});
+        return this.get("groups/groupsByProgram", {...programId});
     }
 
     public async createGroup(createGroup: CreateGroupDto): Promise<any> {

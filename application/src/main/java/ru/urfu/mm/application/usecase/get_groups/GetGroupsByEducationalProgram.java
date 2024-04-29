@@ -5,14 +5,17 @@ import ru.urfu.mm.application.gateway.ProgramGateway;
 import java.util.List;
 import java.util.UUID;
 
-public class GetGroupForEducationalProgram {
+/**
+ * Получить список групп для программы
+ */
+public class GetGroupsByEducationalProgram {
     private final ProgramGateway programGateway;
 
-    public GetGroupForEducationalProgram(ProgramGateway programGateway) {
+    public GetGroupsByEducationalProgram(ProgramGateway programGateway) {
         this.programGateway = programGateway;
     }
 
-    public List<GroupResponse> getGroupForEducationalProgram(UUID programId) {
+    public List<GroupResponse> getGroupsByEducationalProgram(UUID programId) {
         return programGateway.getById(programId)
                 .getGroups()
                 .stream()

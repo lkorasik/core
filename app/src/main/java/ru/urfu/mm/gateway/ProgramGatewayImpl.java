@@ -38,17 +38,17 @@ public class ProgramGatewayImpl implements ProgramGateway {
     @Override
     public EducationalProgram getById(UUID id) {
         EducationalProgramEntity educationalProgramEntity = programRepository.getReferenceById(id);
-        EducationalProgram educationalProgram = new EducationalProgram(
+        EducationalProgram program = new EducationalProgram(
                 educationalProgramEntity.getId(),
                 educationalProgramEntity.getName(),
                 educationalProgramEntity.getTrainingDirection()
         );
-        List<AcademicGroup> academicGroups = groupRepository.findAllByProgram(educationalProgramEntity)
-                .stream()
-                .map(x -> new AcademicGroup(x.getId(), x.getNumber()))
-                .toList();
-        educationalProgram.setGroups(academicGroups);
-        return educationalProgram;
+//        List<AcademicGroup> academicGroups = groupRepository.findAllByProgram(educationalProgramEntity)
+//                .stream()
+//                .map(x -> new AcademicGroup(x.getId(), x.getNumber()))
+//                .toList();
+//        program.setGroups(academicGroups);
+        return program;
     }
 
     @Override
