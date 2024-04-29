@@ -5,22 +5,40 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Семестровый учебный план
+ * Учебный план на конкретный семестр
  */
 public class SemesterPlan {
+    /**
+     * Идентификатор семестрового учебного плана
+     */
     private final UUID id;
+    /**
+     * Семестр
+     */
     private final Semester semester;
+    /**
+     * Рекомендуемое число зачисляемых единиц
+     */
     private final int recommendedCredits;
-    private final List<Module> requiredModules;
-    private final List<Module> specialModules;
-    private final List<Module> scienceWork;
+    /**
+     * Обязательные курсы
+     */
+    private final List<Course> requiredCourses;
+    /**
+     * Спец курсы
+     */
+    private final List<Course> specialCourses;
+    /**
+     * Научно-исследовательская работа
+     */
+    private final List<Course> scienceWork;
 
     public SemesterPlan(UUID id, Semester semester, int recommendedCredits) {
         this.id = id;
         this.semester = semester;
         this.recommendedCredits = recommendedCredits;
-        requiredModules = new ArrayList<>();
-        specialModules = new ArrayList<>();
+        requiredCourses = new ArrayList<>();
+        specialCourses = new ArrayList<>();
         scienceWork = new ArrayList<>();
     }
 
@@ -28,14 +46,14 @@ public class SemesterPlan {
             UUID id,
             Semester semester,
             int recommendedCredits,
-            List<Module> requiredModules,
-            List<Module> specialModules,
-            List<Module> scienceWork) {
+            List<Course> requiredCourses,
+            List<Course> specialCourses,
+            List<Course> scienceWork) {
         this.id = id;
         this.semester = semester;
         this.recommendedCredits = recommendedCredits;
-        this.requiredModules = requiredModules;
-        this.specialModules = specialModules;
+        this.requiredCourses = requiredCourses;
+        this.specialCourses = specialCourses;
         this.scienceWork = scienceWork;
     }
 
@@ -51,15 +69,15 @@ public class SemesterPlan {
         return recommendedCredits;
     }
 
-    public List<Module> getRequiredModules() {
-        return requiredModules;
+    public List<Course> getRequiredCourses() {
+        return requiredCourses;
     }
 
-    public List<Module> getSpecialModules() {
-        return specialModules;
+    public List<Course> getSpecialCourses() {
+        return specialCourses;
     }
 
-    public List<Module> getScienceWork() {
+    public List<Course> getScienceWork() {
         return scienceWork;
     }
 }
