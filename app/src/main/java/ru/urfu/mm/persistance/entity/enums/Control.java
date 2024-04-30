@@ -30,4 +30,11 @@ public enum Control {
             case EXAM -> EXAM;
         };
     }
+
+    public static ControlTypes toDomain(Control controlTypes) {
+        return switch (controlTypes) {
+            case TEST -> ControlTypes.TEST;
+            case EXAM -> ControlTypes.EXAM;
+        };
+    }
 }

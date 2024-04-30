@@ -6,6 +6,7 @@ import ru.urfu.mm.domain.Course;
 import ru.urfu.mm.domain.EducationalModule;
 import ru.urfu.mm.domain.enums.ControlTypes;
 import ru.urfu.mm.persistance.entity.EducationalModuleEntity;
+import ru.urfu.mm.persistance.entity.enums.Control;
 import ru.urfu.mm.persistance.repository.EducationalModuleRepository;
 
 import java.util.List;
@@ -55,7 +56,23 @@ public class ModuleGatewayImpl implements ModuleGateway {
         return educationalModuleRepository
                 .findAll()
                 .stream()
-                .map(x -> new EducationalModule(x.getId(), x.getName()))
+                .map(x -> {
+                    List<Course> courses = x.getCourses()
+                            .stream()
+                            .map(y -> new Course(
+                                            y.getId(),
+                                            y.getName(),
+                                            y.getCreditsCount(),
+                                            Control.toDomain(y.getControl()),
+                                            y.getDepartment(),
+                                            y.getTeacherName()
+                                    )
+                            )
+                            .toList();
+                    EducationalModule module = new EducationalModule(x.getId(), x.getName());
+                    module.getCourses().addAll(courses);
+                    return module;
+                })
                 .toList();
     }
 

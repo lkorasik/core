@@ -9,7 +9,6 @@ import ru.urfu.mm.application.usecase.GetModulesByIds;
 import ru.urfu.mm.application.usecase.get_module.GetModuleWithCourses;
 import ru.urfu.mm.application.usecase.get_module.ModuleWithCoursesResponse;
 import ru.urfu.mm.application.usecase.get_modules_courses.GetModulesCourses;
-import ru.urfu.mm.domain.exception.NotImplementedException;
 
 import java.util.*;
 
@@ -40,26 +39,16 @@ public class ModulesController {
 
     @GetMapping("/all2")
     public List<FullModuleDTO> getAllModules2() {
-        throw new NotImplementedException();
-//        List<Course> modulesCourses = getModulesCourses.getModulesCourses();
-//
-//        Map<UUID, FullModuleDTO> modules = new HashMap<>();
-//        for (Course course : modulesCourses) {
-//            if (modules.containsKey(course.getEducationalModule().getId())) {
-//                FullModuleDTO moduleDTO = modules.get(course.getEducationalModule().getId());
-//                FullCourseDTO courseDTO = new FullCourseDTO(course.getId(), course.getName());
-//                moduleDTO.courses().add(courseDTO);
-//                modules.put(moduleDTO.id(), moduleDTO);
-//            } else {
-//                FullCourseDTO courseDTO = new FullCourseDTO(course.getId(), course.getName());
-//                List<FullCourseDTO> courses = new ArrayList<>();
-//                courses.add(courseDTO);
-//                FullModuleDTO moduleDTO = new FullModuleDTO(course.getEducationalModule().getId(), course.getEducationalModule().getName(), courses);
-//                modules.put(moduleDTO.id(), moduleDTO);
-//            }
-//        }
-//
-//        return modules.values().stream().toList();
+        return getAllModules.getAllModules()
+                .stream()
+                .map(module -> {
+                    List<FullCourseDTO> courses = module.getCourses()
+                            .stream()
+                            .map(course -> new FullCourseDTO(course.getId(), course.getName()))
+                            .toList();
+                    return new FullModuleDTO(module.getId(), module.getName(), courses);
+                })
+                .toList();
     }
 
     @PostMapping
