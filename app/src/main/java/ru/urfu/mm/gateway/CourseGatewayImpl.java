@@ -26,8 +26,6 @@ public class CourseGatewayImpl implements CourseGateway {
     private final SpecialCourseRepository courseRepository;
     private final SelectedCoursesRepository selectedCoursesRepository;
     private final EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository;
-    private final Mapper<ru.urfu.mm.persistance.entity.enums.SemesterType, SemesterType> semesterTypeToDomainMapper;
-    private final Mapper<SemesterType, ru.urfu.mm.persistance.entity.enums.SemesterType> semesterTypeToEntityMapper;
     private final Mapper<Account, AccountEntity> userMapper;
 
     @Autowired
@@ -35,14 +33,10 @@ public class CourseGatewayImpl implements CourseGateway {
             SpecialCourseRepository courseRepository,
             SelectedCoursesRepository selectedCoursesRepository,
             EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository,
-            Mapper<ru.urfu.mm.persistance.entity.enums.SemesterType, SemesterType> semesterTypeToDomainMapper,
-            Mapper<SemesterType, ru.urfu.mm.persistance.entity.enums.SemesterType> semesterTypeToEntityMapper,
             Mapper<Account, AccountEntity> userMapper) {
         this.courseRepository = courseRepository;
         this.selectedCoursesRepository = selectedCoursesRepository;
         this.educationalProgramToCoursesWithSemestersRepository = educationalProgramToCoursesWithSemestersRepository;
-        this.semesterTypeToDomainMapper = semesterTypeToDomainMapper;
-        this.semesterTypeToEntityMapper = semesterTypeToEntityMapper;
         this.userMapper = userMapper;
     }
 
@@ -107,7 +101,7 @@ public class CourseGatewayImpl implements CourseGateway {
                 specialCourse.getId(),
                 specialCourse.getName(),
                 specialCourse.getCredits(),
-                Control.values()[specialCourse.getControl().ordinal()],
+                Control.fromDomain(specialCourse.getControl()),
                 specialCourse.getDescription(),
                 specialCourse.getDepartment(),
                 specialCourse.getTeacher(),

@@ -25,7 +25,7 @@ public class SemesterPlanGatewayImpl implements SemesterPlanGateway {
                 new Semester(
                         semesterPlan.getSemester().getId(),
                         semesterPlan.getSemester().getYear(),
-                        SemesterType.values()[semesterPlan.getSemester().getType().ordinal()]
+                        SemesterType.fromDomain(semesterPlan.getSemester().getType())
                 ),
                 semesterPlan.getRecommendedCredits()
         );

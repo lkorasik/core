@@ -50,8 +50,6 @@ public class CourseController extends AbstractAuthorizedController {
 //    private GetSelectedCoursesByStudentAndSemester getSelectedCoursesByStudentAndSemester;
 //    @Autowired
 //    private LoadAvailableCourses loadAvailableCourses;
-    @Autowired
-    private Mapper<SemesterType, ru.urfu.mm.persistance.entity.enums.SemesterType> semesterTypeToEntityMapper;
 
     @PostMapping
     public List<CourseForProgramDTO> specialCourse(@RequestBody GetCoursesDTO getCoursesDTO) {

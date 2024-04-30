@@ -14,14 +14,10 @@ import java.util.UUID;
 @Component
 public class SemesterGatewayImpl implements SemesterGateway {
     private final SemesterRepository semesterRepository;
-    private final Mapper<SemesterType, ru.urfu.mm.domain.enums.SemesterType> semesterTypeMapper;
 
     @Autowired
-    public SemesterGatewayImpl(
-            SemesterRepository semesterRepository,
-            Mapper<SemesterType, ru.urfu.mm.domain.enums.SemesterType> semesterTypeMapper) {
+    public SemesterGatewayImpl(SemesterRepository semesterRepository) {
         this.semesterRepository = semesterRepository;
-        this.semesterTypeMapper = semesterTypeMapper;
     }
 
     @Override
@@ -31,12 +27,12 @@ public class SemesterGatewayImpl implements SemesterGateway {
             entity = new ru.urfu.mm.persistance.entity.Semester(
                     semester.getId(),
                     semester.getYear(),
-                    SemesterType.values()[semester.getType().ordinal()]
+                    SemesterType.fromDomain(semester.getType())
             );
         } else {
             entity = new ru.urfu.mm.persistance.entity.Semester(
                     semester.getYear(),
-                    SemesterType.values()[semester.getType().ordinal()]
+                    SemesterType.fromDomain(semester.getType())
             );
         }
         semesterRepository.save(entity);
@@ -48,7 +44,7 @@ public class SemesterGatewayImpl implements SemesterGateway {
         return new Semester(
                 entity.getId(),
                 entity.getYear(),
-                semesterTypeMapper.map(entity.getType())
+                SemesterType.toDomain(entity.getType())
         );
     }
 
@@ -61,7 +57,7 @@ public class SemesterGatewayImpl implements SemesterGateway {
                 .map(x -> new Semester(
                         x.getId(),
                         x.getYear(),
-                        semesterTypeMapper.map(x.getType())
+                        SemesterType.toDomain(x.getType())
                 ))
                 .toList();
     }
@@ -75,7 +71,7 @@ public class SemesterGatewayImpl implements SemesterGateway {
                 .map(x -> new Semester(
                         x.getId(),
                         x.getYear(),
-                        semesterTypeMapper.map(x.getType())
+                        SemesterType.toDomain(x.getType())
                 ))
                 .toList();
     }

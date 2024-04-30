@@ -16,16 +16,11 @@ import java.util.UUID;
 @Component
 public class UserGatewayImpl implements UserGateway {
     private final AccountRepository accountRepository;
-    private final Mapper<UserEntityRole, UserRole> userRoleMapper;
     private final Mapper<Account, AccountEntity> userMapper;
 
     @Autowired
-    public UserGatewayImpl(
-            AccountRepository accountRepository,
-            Mapper<UserEntityRole, UserRole> userRoleMapper,
-            Mapper<Account, AccountEntity> userMapper) {
+    public UserGatewayImpl(AccountRepository accountRepository, Mapper<Account, AccountEntity> userMapper) {
         this.accountRepository = accountRepository;
-        this.userRoleMapper = userRoleMapper;
         this.userMapper = userMapper;
     }
 
@@ -49,7 +44,7 @@ public class UserGatewayImpl implements UserGateway {
         return entity.map(x -> new Account(
                 x.getLogin(),
                 x.getPassword(),
-                userRoleMapper.map(x.getRole())
+                UserEntityRole.toDomain(x.getRole())
         ));
     }
 }

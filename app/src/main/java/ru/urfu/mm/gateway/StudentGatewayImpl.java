@@ -164,7 +164,7 @@ public class StudentGatewayImpl implements StudentGateway {
 
     @Override
     public void saveGroupStudents(List<Student> students, AcademicGroup group) {
-        GroupEntity groupEntity = new GroupEntity(group.getId(), group.getNumber(), Years.values()[group.getYear().ordinal()]);
+        GroupEntity groupEntity = new GroupEntity(group.getId(), group.getNumber(), Years.fromDomain(group.getYear()));
         List<StudentEntity> studentEntities = students.stream()
                 .map(x -> new StudentEntity(x.getId(), groupEntity))
                 .toList();

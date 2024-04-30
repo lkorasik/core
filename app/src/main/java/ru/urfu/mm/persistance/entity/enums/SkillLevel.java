@@ -17,4 +17,12 @@ public enum SkillLevel {
     public String getValue() {
         return value;
     }
+
+    public static SkillLevel fromDomain(ru.urfu.mm.domain.enums.SkillLevel skillLevel) {
+        return switch (skillLevel) {
+            case BEGINNER -> BEGINNER;
+            case INTERMEDIATE -> INTERMEDIATE;
+            case ADVANCED -> ADVANCED;
+        };
+    }
 }

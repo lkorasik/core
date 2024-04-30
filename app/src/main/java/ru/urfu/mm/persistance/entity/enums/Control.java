@@ -1,6 +1,7 @@
 package ru.urfu.mm.persistance.entity.enums;
 
 import com.fasterxml.jackson.annotation.JsonValue;
+import ru.urfu.mm.domain.enums.ControlTypes;
 
 public enum Control {
     TEST("Test", "Зачет"),
@@ -21,5 +22,12 @@ public enum Control {
 
     public String getDocumentaryValue() {
         return documentaryValue;
+    }
+
+    public static Control fromDomain(ControlTypes controlTypes) {
+        return switch (controlTypes) {
+            case TEST -> TEST;
+            case EXAM -> EXAM;
+        };
     }
 }

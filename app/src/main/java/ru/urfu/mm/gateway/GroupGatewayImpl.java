@@ -26,7 +26,7 @@ public class GroupGatewayImpl implements GroupGateway {
 
     @Override
     public void save(AcademicGroup academicGroup) {
-        GroupEntity entity = new GroupEntity(academicGroup.getId(), academicGroup.getNumber(), Years.values()[academicGroup.getYear().ordinal()]);
+        GroupEntity entity = new GroupEntity(academicGroup.getId(), academicGroup.getNumber(), Years.fromDomain(academicGroup.getYear()));
         groupRepository.save(entity);
     }
 
