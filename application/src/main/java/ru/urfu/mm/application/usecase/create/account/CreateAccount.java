@@ -3,7 +3,6 @@ package ru.urfu.mm.application.usecase.create.account;
 import ru.urfu.mm.application.gateway.TokenGateway;
 import ru.urfu.mm.application.usecase.create.*;
 import ru.urfu.mm.domain.enums.UserRole;
-import ru.urfu.mm.domain.exception.NotImplementedException;
 
 /**
  * Создать аккаунт
@@ -16,14 +15,15 @@ import ru.urfu.mm.domain.exception.NotImplementedException;
  * {@link CreateAdministrator}.
  */
 public class CreateAccount {
-//    private final CreateStudent createStudent;
+    private final CreateStudent createStudent;
     private final CreateAdministrator createAdministrator;
     private final TokenGateway tokenGateway;
 
     public CreateAccount(
-//            CreateStudent createStudent,
-            CreateAdministrator createAdministrator, TokenGateway tokenGateway) {
-//        this.createStudent = createStudent;
+            CreateStudent createStudent,
+            CreateAdministrator createAdministrator,
+            TokenGateway tokenGateway) {
+        this.createStudent = createStudent;
         this.createAdministrator = createAdministrator;
         this.tokenGateway = tokenGateway;
     }
@@ -35,10 +35,8 @@ public class CreateAccount {
             createUseCase = createAdministrator;
             role = UserRole.ADMIN;
         } else if (tokenGateway.isStudentToken(request.token())) {
-//            createUseCase = createStudent;
+            createUseCase = createStudent;
             role = UserRole.STUDENT;
-
-            throw new NotImplementedException();
         } else {
             throw new RegistrationTokenNotExistException(request.token());
         }

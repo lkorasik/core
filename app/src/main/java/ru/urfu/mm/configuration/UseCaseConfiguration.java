@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import ru.urfu.mm.application.gateway.*;
 import ru.urfu.mm.application.usecase.*;
 import ru.urfu.mm.application.usecase.create.CreateAdministrator;
+import ru.urfu.mm.application.usecase.create.CreateStudent;
 import ru.urfu.mm.application.usecase.create.account.CreateAccount;
 import ru.urfu.mm.application.usecase.create_course.CreateCourse;
 import ru.urfu.mm.application.usecase.create_group.CreateGroup;
@@ -34,8 +35,11 @@ import ru.urfu.mm.application.usecase.update_program.UpdateProgram;
 @Configuration
 public class UseCaseConfiguration {
     @Bean
-    public CreateAccount createUser(CreateAdministrator createAdministrator, TokenGateway tokenGateway) {
-        return new CreateAccount(createAdministrator, tokenGateway);
+    public CreateAccount createUser(
+            CreateStudent createStudent,
+            CreateAdministrator createAdministrator,
+            TokenGateway tokenGateway) {
+        return new CreateAccount(createStudent, createAdministrator, tokenGateway);
     }
 
     @Bean
@@ -46,17 +50,19 @@ public class UseCaseConfiguration {
         return new CreateAdministrator(tokenGateway, passwordGateway, userGateway);
     }
 
-//    @Bean
-//    public CreateStudent createStudent(
-//            PasswordGateway passwordGateway,
-//            UserGateway userGateway,
-//            StudentGateway studentGateway) {
-//        return new CreateStudent(
-//                passwordGateway,
-//                userGateway,
-//                studentGateway
-//        );
-//    }
+    @Bean
+    public CreateStudent createStudent(
+            PasswordGateway passwordGateway,
+            UserGateway userGateway,
+            StudentGateway studentGateway,
+            GroupGateway groupGateway) {
+        return new CreateStudent(
+                studentGateway,
+                passwordGateway,
+                userGateway,
+                groupGateway
+        );
+    }
 
     @Bean
     public LoginUser loginUser(UserGateway userGateway, PasswordGateway passwordGateway) {

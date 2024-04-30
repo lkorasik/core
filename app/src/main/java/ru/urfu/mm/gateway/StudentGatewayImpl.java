@@ -10,6 +10,7 @@ import ru.urfu.mm.domain.Student;
 import ru.urfu.mm.domain.enums.UserRole;
 import ru.urfu.mm.domain.exception.NotImplementedException;
 import ru.urfu.mm.persistance.entity.*;
+import ru.urfu.mm.persistance.entity.enums.UserEntityRole;
 import ru.urfu.mm.persistance.entity.enums.Years;
 import ru.urfu.mm.persistance.repository.GroupRepository;
 import ru.urfu.mm.persistance.repository.StudentRepository;
@@ -153,7 +154,23 @@ public class StudentGatewayImpl implements StudentGateway {
 
     @Override
     public Optional<Student> findById(UUID studentId) {
-        throw new NotImplementedException();
+        return studentRepository.findById(studentId)
+                .map(x -> {
+                            Account account = null;
+                            if (x.getUser() != null) {
+                                account = new Account(
+                                        x.getUser().getLogin(),
+                                        x.getUser().getPassword(),
+                                        UserEntityRole.toDomain(x.getUser().getRole())
+                                );
+                            }
+                            return new Student(
+                                    x.getId(),
+                                    account,
+                                    null,
+                                    null);
+                        }
+                );
     }
 
     @Override
@@ -169,5 +186,13 @@ public class StudentGatewayImpl implements StudentGateway {
                 .map(x -> new StudentEntity(x.getId(), groupEntity))
                 .toList();
         studentRepository.saveAll(studentEntities);
+    }
+
+    @Override
+    public void update(Student student, Account account, AcademicGroup group) {
+        GroupEntity groupEntity = new GroupEntity(group.getId(), group.getNumber(), Years.fromDomain(group.getYear()));
+        StudentEntity entity = new StudentEntity(student.getId(), groupEntity);
+        entity.setAccount(new AccountEntity(account.token(), account.password(), UserEntityRole.fromDomain(account.role())));
+        studentRepository.save(entity);
     }
 }

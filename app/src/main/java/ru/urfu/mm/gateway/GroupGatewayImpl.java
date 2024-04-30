@@ -10,6 +10,7 @@ import ru.urfu.mm.domain.enums.UserRole;
 import ru.urfu.mm.persistance.entity.GroupEntity;
 import ru.urfu.mm.persistance.entity.enums.Years;
 import ru.urfu.mm.persistance.repository.GroupRepository;
+import ru.urfu.mm.persistance.repository.StudentRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,10 +19,12 @@ import java.util.UUID;
 @Component
 public class GroupGatewayImpl implements GroupGateway {
     private final GroupRepository groupRepository;
+    private final StudentRepository studentRepository;
 
     @Autowired
-    public GroupGatewayImpl(GroupRepository groupRepository) {
+    public GroupGatewayImpl(GroupRepository groupRepository, StudentRepository studentRepository) {
         this.groupRepository = groupRepository;
+        this.studentRepository = studentRepository;
     }
 
     @Override
@@ -50,5 +53,11 @@ public class GroupGatewayImpl implements GroupGateway {
                 .toList();
         academicGroup.getStudents().addAll(students);
         return Optional.of(academicGroup);
+    }
+
+    @Override
+    public AcademicGroup findByStudent(Student student) {
+        GroupEntity entity = studentRepository.findById(student.getId()).get().getGroup();
+        return new AcademicGroup(entity.getId(), entity.getNumber(), Years.toDomain(entity.getYear()));
     }
 }

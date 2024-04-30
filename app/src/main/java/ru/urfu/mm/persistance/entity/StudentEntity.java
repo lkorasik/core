@@ -24,6 +24,10 @@ public class StudentEntity {
         this.group = group;
     }
 
+    public void setAccount(AccountEntity account) {
+        this.account = account;
+    }
+
     public UUID getId() {
         return id;
     }
