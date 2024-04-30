@@ -5,6 +5,7 @@ import ru.urfu.mm.persistance.entity.enums.SkillLevel;
 
 import java.util.UUID;
 
+@Deprecated
 @Entity
 @Table(name = "courses_to_required_skills")
 public class CourseToRequiredSkills {

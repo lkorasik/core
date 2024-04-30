@@ -3,6 +3,7 @@ package ru.urfu.mm.persistance.entity;
 import jakarta.persistence.*;
 import java.util.UUID;
 
+@Deprecated
 @Entity
 @Table(name = "selected_courses")
 public class SelectedCourses {
