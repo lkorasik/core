@@ -10,10 +10,17 @@ recreate_db:
 	@echo "End database recreating"
 
 # Создать базу данных для тестирования
-test_create:
-	@echo "Start test database"
+create_test_db:
+	@echo "Start creating test database"
 	@docker run -d -p 5433:5432 -e POSTGRES_PASSWORD=180401 -e POSTGRES_USER=postgres -e POSTGRES_DB=Groopster_test --name test_db postgres:alpine3.19
-	@echo "End test database"
+	@echo "End creating test database"
+
+# Удалить базу данных для тестов
+delete_test_db:
+	@echo "Start deleting test database"
+	@docker stop test_db
+	@docker rm test_db
+	@echo "End deleting test database"
 
 # Войти на сервер
 server:

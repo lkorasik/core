@@ -9,8 +9,9 @@ import ru.urfu.mm.domain.enums.UserRole;
 
 /**
  * Зарегистрировать аккаунт администратора
- * 3. Создаем аккаунт пользователя.
- * 4. Удаляем токен из доступных токенов для регистрации.
+ * 1. Создаем аккаунт пользователя.
+ * 2. Сохраняем аккаунт пользователя.
+ * 3. Удаляем токен из доступных токенов для регистрации.
  */
 public class CreateAdministrator implements CreateUseCase {
     private final TokenGateway tokenGateway;
