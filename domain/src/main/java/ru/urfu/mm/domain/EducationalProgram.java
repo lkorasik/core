@@ -53,7 +53,7 @@ public class EducationalProgram {
         return trainingDirection;
     }
 
-    public List<Syllabus> getStudyPlans() {
+    public List<Syllabus> getSyllabi() {
         return syllabi;
     }
 

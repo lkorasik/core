@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "study_plans")
-public class StudyPlanEntity {
+@Table(name = "syllabus_entity")
+public class SyllabusEntity {
     @Id
     private UUID id;
     @ManyToOne
@@ -18,13 +18,13 @@ public class StudyPlanEntity {
     @ManyToOne
     private SemesterPlanEntity fourthSemester;
     @ManyToOne
-    @JoinColumn(name="educational_programs_id")
+    @JoinColumn(name="program_id")
     private EducationalProgramEntity program;
 
-    public StudyPlanEntity() {
+    public SyllabusEntity() {
     }
 
-    public StudyPlanEntity(
+    public SyllabusEntity(
             UUID id,
             SemesterPlanEntity firstSemester,
             SemesterPlanEntity secondSemester,

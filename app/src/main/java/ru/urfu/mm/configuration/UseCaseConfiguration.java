@@ -285,13 +285,13 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public GetAvailableYears getAvailableYears(StudyPlanGateway studyPlanGateway, ProgramGateway programGateway) {
-        return new GetAvailableYears(studyPlanGateway, programGateway);
+    public GetAvailableYears getAvailableYears(ProgramGateway programGateway) {
+        return new GetAvailableYears(programGateway);
     }
 
     @Bean
-    public GetStudyPlan getStudyPlan(StudyPlanGateway studyPlanGateway, ProgramGateway programGateway) {
-        return new GetStudyPlan(studyPlanGateway, programGateway);
+    public GetStudyPlan getStudyPlan(ProgramGateway programGateway) {
+        return new GetStudyPlan(programGateway);
     }
 
     @Bean

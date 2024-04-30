@@ -17,10 +17,8 @@ public class EducationalProgramEntity {
     private String trainingDirection;
     @OneToMany(mappedBy="program")
     private List<GroupEntity> groups;
-
-    @OneToMany
-    @JoinColumn(name = "study_plans_id")
-    private List<StudyPlanEntity> studyPlans;
+    @OneToMany(mappedBy = "program")
+    private List<SyllabusEntity> syllabuses;
 
     public EducationalProgramEntity() {
     }
@@ -30,7 +28,7 @@ public class EducationalProgramEntity {
         this.name = name;
         this.trainingDirection = trainingDirection;
         this.groups = new ArrayList<>();
-        this.studyPlans = new ArrayList<>();
+        this.syllabuses = new ArrayList<>();
     }
 
     public UUID getId() {
@@ -47,5 +45,9 @@ public class EducationalProgramEntity {
 
     public List<GroupEntity> getGroups() {
         return groups;
+    }
+
+    public List<SyllabusEntity> getSyllabuses() {
+        return syllabuses;
     }
 }

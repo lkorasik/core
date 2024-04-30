@@ -14,17 +14,15 @@ import java.util.UUID;
  * 2. Достать из планов года, которые затем отразить в фронтенде
  */
 public class GetAvailableYears {
-    private final StudyPlanGateway studyPlanGateway;
     private final ProgramGateway programGateway;
 
-    public GetAvailableYears(StudyPlanGateway studyPlanGateway, ProgramGateway programGateway) {
-        this.studyPlanGateway = studyPlanGateway;
+    public GetAvailableYears(ProgramGateway programGateway) {
         this.programGateway = programGateway;
     }
 
     public List<GetStudyPlanResponse> getStudyPlan(UUID programId) {
         EducationalProgram educationalProgram = programGateway.getById(programId);
-        List<Syllabus> syllabi = studyPlanGateway.findAllByProgram(educationalProgram);
+        List<Syllabus> syllabi = educationalProgram.getSyllabi();
 
         return syllabi
                 .stream()

@@ -11,21 +11,18 @@ import java.util.UUID;
  * Получить учебный план
  */
 public class GetStudyPlan {
-    private final StudyPlanGateway studyPlanGateway;
     private final ProgramGateway programGateway;
 
-    public GetStudyPlan(StudyPlanGateway studyPlanGateway, ProgramGateway programGateway) {
-        this.studyPlanGateway = studyPlanGateway;
+    public GetStudyPlan(ProgramGateway programGateway) {
         this.programGateway = programGateway;
     }
 
     public Syllabus getStudyPlan(UUID programId, int startYear) {
-        EducationalProgram educationalProgram = programGateway.getById(programId);
-        Syllabus syllabus = studyPlanGateway.findAllByProgram(educationalProgram)
+        return programGateway.getById(programId)
+                .getSyllabi()
                 .stream()
                 .filter(x -> x.getFirstSemesterPlan().getSemester().getYear() == startYear)
                 .findFirst()
                 .get();
-        return syllabus;
     }
 }

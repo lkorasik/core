@@ -7,7 +7,7 @@ import ru.urfu.mm.domain.*;
 import ru.urfu.mm.domain.exception.NotImplementedException;
 import ru.urfu.mm.persistance.entity.Semester;
 import ru.urfu.mm.persistance.entity.SemesterPlanEntity;
-import ru.urfu.mm.persistance.entity.StudyPlanEntity;
+import ru.urfu.mm.persistance.entity.SyllabusEntity;
 import ru.urfu.mm.persistance.repository.ProgramRepository;
 import ru.urfu.mm.persistance.repository.SemesterPlanRepository;
 import ru.urfu.mm.persistance.repository.SemesterRepository;
@@ -71,7 +71,7 @@ public class StudyPlanGatewayImpl implements StudyPlanGateway {
                 syllabus.getFourthSemesterPlan().getRecommendedCredits()
         );
 
-        StudyPlanEntity studyPlanEntity = new StudyPlanEntity(
+        SyllabusEntity syllabusEntity = new SyllabusEntity(
                 UUID.randomUUID(),
                 firstSemesterPlanEntity,
                 secondSemesterPlanEntity,
@@ -85,7 +85,7 @@ public class StudyPlanGatewayImpl implements StudyPlanGateway {
         semesterPlanRepository.save(thirdSemesterPlanEntity);
         semesterPlanRepository.save(fourthSemesterPlanEntity);
 
-        studyPlanRepository.save(studyPlanEntity);
+        studyPlanRepository.save(syllabusEntity);
     }
 
     @Override

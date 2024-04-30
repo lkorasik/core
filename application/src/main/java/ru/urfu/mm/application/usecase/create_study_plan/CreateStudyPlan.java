@@ -51,7 +51,7 @@ public class CreateStudyPlan {
                 semesterPlans.get(2),
                 semesterPlans.get(3)
         );
-        educationalProgram.getStudyPlans().add(syllabus);
+        educationalProgram.getSyllabi().add(syllabus);
 
         studyPlanGateway.save(syllabus, educationalProgram);
         programGateway.save(educationalProgram);
