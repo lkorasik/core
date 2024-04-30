@@ -32,4 +32,8 @@ public class EducationalModuleEntity {
     public String getName() {
         return name;
     }
+
+    public List<SpecialCourse> getCourses() {
+        return courses;
+    }
 }

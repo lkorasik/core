@@ -16,11 +16,9 @@ import java.util.UUID;
  */
 public class GetModuleWithCourses {
     private final ModuleGateway moduleGateway;
-    private final CourseGateway courseGateway;
 
-    public GetModuleWithCourses(ModuleGateway moduleGateway, CourseGateway courseGateway) {
+    public GetModuleWithCourses(ModuleGateway moduleGateway) {
         this.moduleGateway = moduleGateway;
-        this.courseGateway = courseGateway;
     }
 
     public ModuleWithCoursesResponse getModule(UUID moduleId) {

@@ -2,7 +2,9 @@ package ru.urfu.mm.gateway;
 
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.ModuleGateway;
+import ru.urfu.mm.domain.Course;
 import ru.urfu.mm.domain.EducationalModule;
+import ru.urfu.mm.domain.enums.ControlTypes;
 import ru.urfu.mm.persistance.entity.EducationalModuleEntity;
 import ru.urfu.mm.persistance.repository.EducationalModuleRepository;
 
@@ -30,7 +32,22 @@ public class ModuleGatewayImpl implements ModuleGateway {
     @Override
     public Optional<EducationalModule> getById(UUID moduleId) {
         return educationalModuleRepository.findById(moduleId)
-                .map(x -> new EducationalModule(x.getId(), x.getName()));
+                .map(x -> {
+                    List<Course> courses = x.getCourses()
+                            .stream()
+                            .map(y -> new Course(
+                                    y.getId(),
+                                    y.getName(),
+                                    y.getCreditsCount(),
+                                    ControlTypes.values()[y.getControl().ordinal()],
+                                    y.getDepartment(),
+                                    y.getTeacherName())
+                            )
+                            .toList();
+                    EducationalModule module = new EducationalModule(x.getId(), x.getName());
+                    courses.forEach(module::addCourse);
+                    return module;
+                });
     }
 
     @Override

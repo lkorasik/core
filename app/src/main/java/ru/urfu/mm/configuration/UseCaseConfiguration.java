@@ -208,8 +208,8 @@ public class UseCaseConfiguration {
 //    }
 
     @Bean
-    public GetModuleWithCourses getModule(ModuleGateway moduleGateway, CourseGateway courseGateway) {
-        return new GetModuleWithCourses(moduleGateway, courseGateway);
+    public GetModuleWithCourses getModule(ModuleGateway moduleGateway) {
+        return new GetModuleWithCourses(moduleGateway);
     }
 
     @Bean
