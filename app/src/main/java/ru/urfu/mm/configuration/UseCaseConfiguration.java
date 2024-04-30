@@ -18,10 +18,10 @@ import ru.urfu.mm.application.usecase.create_study_plan.CreateStudyPlan;
 import ru.urfu.mm.application.usecase.download_tokens.DownloadTokens;
 //import ru.urfu.mm.application.usecase.generate_token.GenerateStudentRegistrationTokens;
 import ru.urfu.mm.application.usecase.generate_student_registration_token.GenerateStudentRegistrationToken;
+import ru.urfu.mm.application.usecase.get_group.GetAcademicGroup;
 import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
 import ru.urfu.mm.application.usecase.get_all_modules.GetAllModules;
 import ru.urfu.mm.application.usecase.get_all_programs.GetAllPrograms;
-import ru.urfu.mm.application.usecase.get_group.GetGroup;
 import ru.urfu.mm.application.usecase.get_groups.GetGroupsByEducationalProgram;
 import ru.urfu.mm.application.usecase.get_module.GetModuleWithCourses;
 import ru.urfu.mm.application.usecase.get_modules_courses.GetModulesCourses;
@@ -233,26 +233,26 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public GetGroup getGroup(GroupGateway groupGateway) {
-        return new GetGroup(groupGateway);
+    public GetAcademicGroup getAcademicGroup(GroupGateway groupGateway) {
+        return new GetAcademicGroup(groupGateway);
     }
 
     @Bean
     public GenerateStudentRegistrationToken generateStudentRegistrationToken(
-            GetGroup getGroup,
+            GetAcademicGroup getAcademicGroup,
             ProgramGateway programGateway,
             StudentGateway studentGateway) {
-        return new GenerateStudentRegistrationToken(getGroup, programGateway, studentGateway);
+        return new GenerateStudentRegistrationToken(getAcademicGroup, programGateway, studentGateway);
     }
 
     @Bean
-    public GetTokensForGroup getTokensForGroup(GetGroup getGroup, StudentGateway studentGateway) {
-        return new GetTokensForGroup(getGroup, studentGateway);
+    public GetTokensForGroup getTokensForGroup(GetAcademicGroup getAcademicGroup, StudentGateway studentGateway) {
+        return new GetTokensForGroup(getAcademicGroup, studentGateway);
     }
 
     @Bean
-    public DownloadTokens downloadTokens(GetGroup getGroup) {
-        return new DownloadTokens(getGroup);
+    public DownloadTokens downloadTokens(GetAcademicGroup getAcademicGroup) {
+        return new DownloadTokens(getAcademicGroup);
     }
 
     @Bean

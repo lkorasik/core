@@ -5,10 +5,10 @@ import ru.urfu.mm.domain.AcademicGroup;
 
 import java.util.UUID;
 
-public class GetGroup {
+public class GetAcademicGroup {
     private final GroupGateway groupGateway;
 
-    public GetGroup(GroupGateway groupGateway) {
+    public GetAcademicGroup(GroupGateway groupGateway) {
         this.groupGateway = groupGateway;
     }
 

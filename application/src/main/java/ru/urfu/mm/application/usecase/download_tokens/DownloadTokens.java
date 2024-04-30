@@ -1,6 +1,6 @@
 package ru.urfu.mm.application.usecase.download_tokens;
 
-import ru.urfu.mm.application.usecase.get_group.GetGroup;
+import ru.urfu.mm.application.usecase.get_group.GetAcademicGroup;
 import ru.urfu.mm.domain.AcademicGroup;
 import ru.urfu.mm.domain.Student;
 
@@ -12,14 +12,14 @@ import java.util.UUID;
  * Скачать регистрационные токены конкретной группы
  */
 public class DownloadTokens {
-    private final GetGroup getGroup;
+    private final GetAcademicGroup getAcademicGroup;
 
-    public DownloadTokens(GetGroup getGroup) {
-        this.getGroup = getGroup;
+    public DownloadTokens(GetAcademicGroup getAcademicGroup) {
+        this.getAcademicGroup = getAcademicGroup;
     }
 
     public File downloadTokens(DownloadTokensRequest request) {
-        AcademicGroup academicGroup = getGroup.getGroup(request.groupId());
+        AcademicGroup academicGroup = getAcademicGroup.getGroup(request.groupId());
         List<UUID> tokens = academicGroup.getStudents().stream().map(Student::getId).toList();
 
         return writeTokens(academicGroup.getNumber(), tokens);

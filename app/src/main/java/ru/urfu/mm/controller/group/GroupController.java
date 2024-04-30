@@ -9,7 +9,7 @@ import ru.urfu.mm.application.usecase.create_group.CreateGroup;
 import ru.urfu.mm.application.usecase.download_tokens.DownloadTokens;
 import ru.urfu.mm.application.usecase.download_tokens.DownloadTokensRequest;
 import ru.urfu.mm.application.usecase.generate_student_registration_token.GenerateStudentRegistrationToken;
-import ru.urfu.mm.application.usecase.get_group.GetGroup;
+import ru.urfu.mm.application.usecase.get_group.GetAcademicGroup;
 import ru.urfu.mm.application.usecase.get_groups.GetGroupsByEducationalProgram;
 import ru.urfu.mm.application.usecase.get_token.GetTokensForGroup;
 import ru.urfu.mm.application.usecase.get_token.GetTokensForGroupRequest;
@@ -28,7 +28,7 @@ public class GroupController extends AbstractAuthorizedController {
     @Autowired
     private CreateGroup createGroup;
     @Autowired
-    private GetGroup getGroup;
+    private GetAcademicGroup getAcademicGroup;
     @Autowired
     private GenerateStudentRegistrationToken generateStudentRegistrationToken;
     @Autowired
@@ -51,7 +51,7 @@ public class GroupController extends AbstractAuthorizedController {
 
     @GetMapping("/groupById")
     public GroupDTO getGroup(@RequestParam("groupId") UUID groupId) {
-        AcademicGroup academicGroup = getGroup.getGroup(groupId);
+        AcademicGroup academicGroup = getAcademicGroup.getGroup(groupId);
         return new GroupDTO(academicGroup.getId(), academicGroup.getNumber());
     }
 

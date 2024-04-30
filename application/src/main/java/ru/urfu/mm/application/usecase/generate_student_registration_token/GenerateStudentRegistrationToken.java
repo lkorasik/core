@@ -2,7 +2,7 @@ package ru.urfu.mm.application.usecase.generate_student_registration_token;
 
 import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.application.gateway.StudentGateway;
-import ru.urfu.mm.application.usecase.get_group.GetGroup;
+import ru.urfu.mm.application.usecase.get_group.GetAcademicGroup;
 import ru.urfu.mm.domain.AcademicGroup;
 import ru.urfu.mm.domain.EducationalProgram;
 import ru.urfu.mm.domain.Student;
@@ -13,25 +13,25 @@ import java.util.stream.Stream;
 
 /**
  * Сгенерировать токены для студентов.
- * 1. Находим группу {@link GetGroup}
+ * 1. Находим группу {@link GetAcademicGroup}
  * 2. Если число запрошенных токенов равно нулю или меньше нуля, то кидаем ошибку.
  * 3. Генерируем нужное число токенов
  * 4. Находим программу. Если такой нет, то кидаем ошибку.
  * 4. Создаем частично заполненных студентов.
  */
 public class GenerateStudentRegistrationToken {
-    private final GetGroup getGroup;
+    private final GetAcademicGroup getAcademicGroup;
     private final ProgramGateway programGateway;
     private final StudentGateway studentGateway;
 
-    public GenerateStudentRegistrationToken(GetGroup getGroup, ProgramGateway programGateway, StudentGateway studentGateway) {
-        this.getGroup = getGroup;
+    public GenerateStudentRegistrationToken(GetAcademicGroup getAcademicGroup, ProgramGateway programGateway, StudentGateway studentGateway) {
+        this.getAcademicGroup = getAcademicGroup;
         this.programGateway = programGateway;
         this.studentGateway = studentGateway;
     }
 
     public List<UUID> generateTokens(UUID groupId, int tokensCount) {
-        AcademicGroup group = getGroup.getGroup(groupId);
+        AcademicGroup group = getAcademicGroup.getGroup(groupId);
 
         if (tokensCount <= 0) {
             throw new IncorrectNumberOfTokensException(tokensCount);
