@@ -7,6 +7,5 @@ import java.util.UUID;
 
 public interface UserGateway {
     void save(Account account);
-    Account getByToken(UUID token);
     Optional<Account> findByToken(UUID token);
 }

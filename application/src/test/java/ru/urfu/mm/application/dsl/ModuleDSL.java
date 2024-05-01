@@ -1,12 +1,12 @@
 package ru.urfu.mm.application.dsl;
 
-import ru.urfu.mm.domain.Module;
+import ru.urfu.mm.domain.EducationalModule;
 
 import java.util.UUID;
 
 public class ModuleDSL {
-    public static Module create() {
-        return new Module(
+    public static EducationalModule create() {
+        return new EducationalModule(
                 UUID.randomUUID(),
                 DSL.generateString()
         );

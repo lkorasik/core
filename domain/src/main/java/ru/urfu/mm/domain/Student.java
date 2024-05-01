@@ -1,46 +1,49 @@
 package ru.urfu.mm.domain;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
+/**
+ * Студент
+ */
 public class Student {
-    private UUID login;
-    private Program program;
-    private Group group;
+    /**
+     * Идентификатор студента
+     */
+    private UUID id;
+    /**
+     * Аккаунт студента
+     */
     private Account account;
+    /**
+     * Индивидуальный учебный план
+     */
+    private Syllabus plan;
+    /**
+     * Список навыков, которыми обладает студент
+     */
+    private List<Skill> skills;
 
-    public Program getEducationalProgram() {
-        return program;
+    public Student(UUID id) {
+        this.id = id;
+        this.account = null;
+        this.plan = null;
+        this.skills = new ArrayList<>();
     }
 
-    public void setEducationalProgram(Program program) {
-        this.program = program;
-    }
-
-    public Student() {
-    }
-
-    public Student(UUID login, Program program, Group group, Account account) {
-        this.login = login;
-        this.program = program;
-        this.group = group;
+    public Student(UUID id, Account account, Syllabus plan, List<Skill> skills) {
+        this.id = id;
         this.account = account;
+        this.plan = plan;
+        this.skills = skills;
     }
 
-    public Student(UUID login, Program program, Group group) {
-        this.login = login;
-        this.program = program;
-        this.group = group;
+    public UUID getId() {
+        return id;
     }
 
-    public UUID getLogin() {
-        return login;
-    }
-
-    public Group getGroup() {
-        return group;
-    }
-
-    public Account getUser() {
+    public Account getAccount() {
         return account;
     }
 }

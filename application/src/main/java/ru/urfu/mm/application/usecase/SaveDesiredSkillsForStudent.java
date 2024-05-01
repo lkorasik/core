@@ -2,7 +2,7 @@ package ru.urfu.mm.application.usecase;
 
 import ru.urfu.mm.application.gateway.SkillGateway;
 import ru.urfu.mm.application.gateway.StudentGateway;
-import ru.urfu.mm.domain.SkillLevel;
+import ru.urfu.mm.domain.enums.SkillLevel;
 import ru.urfu.mm.domain.Student;
 
 import java.util.List;

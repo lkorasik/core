@@ -19,8 +19,8 @@ public class DeleteModuleById {
         var courses = courseGateway.getEducationalModuleCourses(educationalModuleId);
 
         for(var course: courses) {
-            course.setEducationalModule(null);
-            courseGateway.save(course);
+//            course.setEducationalModule(null);
+//            courseGateway.save(course);
         }
         moduleGateway.delete(module);
     }

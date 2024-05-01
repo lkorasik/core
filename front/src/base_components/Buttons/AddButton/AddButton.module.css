@@ -6,14 +6,11 @@
     background-color: transparent;
     background-position: center;
     background-size: contain;
-    position: sticky;
-    left: 50%;
-    transform: translate(-50%, 0);
     bottom: 10px;
     border: none;
     opacity: 0.8;
+    transition: transform 0.2s ease-in, opacity 0.2s ease-in;
     margin: 1rem;
-    transition: scale 0.25s ease-in, opacity 0.3s ease-out;
 }
 
 .button:enabled {
@@ -21,9 +18,13 @@
 }
 
 .button:hover:enabled {
-    scale: 1.08;
     opacity: 1;
-    transition: scale 0.2s ease-in, opacity 0.25s ease-in;
+    transform: scale(1.1);
+}
+
+.button_container {
+    display: flex;
+    justify-content: center;
 }
 
 #image_container {

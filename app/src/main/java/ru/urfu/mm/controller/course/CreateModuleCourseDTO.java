@@ -1,6 +1,6 @@
 package ru.urfu.mm.controller.course;
 
-import ru.urfu.mm.entity.Control;
+import ru.urfu.mm.persistance.entity.enums.Control;
 
 import java.util.UUID;
 

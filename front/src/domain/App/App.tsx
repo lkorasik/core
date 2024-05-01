@@ -16,7 +16,7 @@ import {StatisticsScreen} from "../StatisticsScreen/StatisticsScreen";
 import { StudentScreen } from '../StudentScreen/StudentScreen';
 import { StudyPlan } from '../StudyPlan/StudyPlan';
 import { ModuleList } from '../ModuleList/ModuleList';
-import { ModulesScreen } from '../ModulesScreen';
+import { ModulesScreen } from '../ModulesScreen/ModulesScreen';
 import { ModuleCourses } from '../ModuleCourses/ModuleCourses';
 import { EducationalProgramDetailsScreen } from '../EducationalProgramScreen/EducationalProgramDetailsScreen';
 import { AddGroupScreen } from '../EducationalProgramScreen/AddGroupScreen';

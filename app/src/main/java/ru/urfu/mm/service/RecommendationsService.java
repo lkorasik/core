@@ -3,11 +3,10 @@ package ru.urfu.mm.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.urfu.mm.application.usecase.CourseForEducationalProgram;
-import ru.urfu.mm.application.usecase.GetCoursesByEducationalProgramAndSemesters;
 import ru.urfu.mm.controller.recommendation.*;
-import ru.urfu.mm.entity.StudentEntity;
-import ru.urfu.mm.entity.StudentDesiredSkills;
-import ru.urfu.mm.entity.StudentSkills;
+import ru.urfu.mm.persistance.entity.StudentEntity;
+import ru.urfu.mm.persistance.entity.StudentDesiredSkills;
+import ru.urfu.mm.persistance.entity.StudentSkills;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -24,156 +23,156 @@ public class RecommendationsService {
     private CourseService courseService;
     @Autowired
     private CoursesSkillsService coursesSkillsService;
-    @Autowired
-    private GetCoursesByEducationalProgramAndSemesters getCoursesByEducationalProgramAndSemesters;
+//    @Autowired
+//    private GetCoursesByEducationalProgramAndSemesters getCoursesByEducationalProgramAndSemesters;
 
-    public RecommendationResultDTO calculateRecommendations(StudentEntity studentEntity) {
-        var studentSkills = skillsService.getSkillsForStudent(studentEntity.getLogin());
-        var studentDesiredSkills = desiredSkillsService.getSkillsForStudent(studentEntity.getLogin());
-
-        var actualSemestersIds = semesterService.getActualSemesters()
-                .stream()
-                .map(ru.urfu.mm.controller.semester.SemesterDTO::id)
-                .toList();
-        var courses = getCoursesByEducationalProgramAndSemesters
-                .getCoursesByEducationalProgramAndSemesters(studentEntity.getLogin(), actualSemestersIds);
-
-        var optionalCourses = courses
-                .stream()
-                .filter(x -> x.getRequiredSemesterId() == null)
-                .toList();
-        var optionalCoursesIds = optionalCourses
-                .stream()
-                .map(ru.urfu.mm.application.usecase.CourseForEducationalProgram::getId)
-                .toList();
-        var courseIdToRequiredSkills = coursesSkillsService.getCoursesToRequiredSkills(studentEntity, optionalCoursesIds);
-        var courseIdToResultSkills = coursesSkillsService.getCoursesToResultSkills(studentEntity, optionalCoursesIds);
-
-        var perfectCoursesIds = getPerfectCoursesIds(
-                courseIdToRequiredSkills,
-                courseIdToResultSkills,
-                studentSkills,
-                studentDesiredSkills
-        );
-        var partiallySuitableCoursesIds = getPartiallySuitableCoursesIds(
-                courseIdToRequiredSkills,
-                courseIdToResultSkills,
-                studentSkills,
-                studentDesiredSkills
-        );
-        var complementaryCoursesIds = getComplementaryCoursesIds(
-                courseIdToRequiredSkills,
-                courseIdToResultSkills,
-                studentSkills,
-                partiallySuitableCoursesIds
-        );
-
-        var perfectCourses = buildCoursesWithSkills(
-                perfectCoursesIds,
-                courseIdToRequiredSkills,
-                courseIdToResultSkills
-        );
-        perfectCourses.sort(Comparator.comparing(x -> {
-                    var desiredSkillsIds = studentDesiredSkills
-                            .stream()
-                            .map(y -> y.getSkill().getId())
-                            .toList();
-                    var courseResultSkillsIds = x.resultSkills
-                            .stream()
-                            .map(y -> y.getSkill().getId())
-                            .toList();
-                    return intersection(courseResultSkillsIds, desiredSkillsIds).size();
-                }));
-
-        var partiallySuitableCourses = buildCoursesWithSkills(
-                partiallySuitableCoursesIds,
-                courseIdToRequiredSkills,
-                courseIdToResultSkills
-        );
-        partiallySuitableCourses.sort(Comparator.comparing(x -> {
-                    var studentActualSkillsIds = studentSkills.stream().map(y -> y.getSkill().getId()).toList();
-                    var desiredSkillsIds = studentDesiredSkills.stream().map(y -> y.getSkill().getId()).toList();
-                    var courseRequiredSkillsIds = x.requiredSkills.stream().map(y -> y.getSkill().getId()).toList();
-                    var courseResultSkillsIds = x.requiredSkills.stream().map(y -> y.getSkill().getId()).toList();
-
-                    return intersection(courseRequiredSkillsIds, studentActualSkillsIds).size() * 1000 + intersection(courseResultSkillsIds, desiredSkillsIds).size();
-                }));
-
-        var complementaryCourses = buildCoursesWithSkills(
-                complementaryCoursesIds,
-                courseIdToRequiredSkills,
-                courseIdToResultSkills
-        );
-        complementaryCourses.sort(Comparator.comparing(x -> {
-                    var skillsToLearn = getSkillsToLearn(
-                            partiallySuitableCourses
-                                    .stream()
-                                    .flatMap(w -> w.getRequiredSkills().stream())
-                                    .toList(),
-                            studentSkills
-                    );
-
-                    var skillsToLearnIds = skillsToLearn
-                            .stream()
-                            .map(y -> y.getSkill().getId())
-                            .toList();
-                    var courseResultSkillsIds = x
-                            .resultSkills
-                            .stream()
-                            .map(y -> y.getSkill().getId())
-                            .toList();
-                    return intersection(skillsToLearnIds, courseResultSkillsIds).size();
-                }));
-
-        var coursesById = courses
-                .stream()
-                .collect(
-                        Collectors
-                                .toMap(ru.urfu.mm.application.usecase.CourseForEducationalProgram::getId, x -> x)
-                );
-        var coursesByModule = courses
-                .stream()
-                .filter(x -> x.getEducationalModuleId() != null)
-                .collect(Collectors.groupingBy(ru.urfu.mm.application.usecase.CourseForEducationalProgram::getEducationalModuleId));
-
-        return new RecommendationResultDTO(
-                perfectCourses
-                        .stream()
-                        .map(x -> buildRecommendedCourse(coursesById, x))
-                        .toList(),
-                partiallySuitableCourses
-                        .stream()
-                        .map(x -> buildRecommendedCourse(coursesById, x))
-                        .toList(),
-                complementaryCourses
-                        .stream()
-                        .map(x -> buildRecommendedCourse(coursesById, x))
-                        .toList(),
-                coursesByModule
-                        .entrySet()
-                        .stream()
-                        .map(x -> new ModuleCoursesDTO(
-                                x.getKey(),
-                                x.getValue().stream().map(y -> new RecommendedCourseDTO(
-                                        y.getId(),
-                                        y.getName(),
-                                        y.getCreditsCount(),
-                                        // todo: Fix this
-                                        y.getSemesters().stream().map(w -> new SemesterDTO(w.getId(), w.getYear(), 0)).toList(),
-                                        y.getEducationalModuleId(),
-                                        y.requiredSemesterId,
-                                        courseIdToRequiredSkills.containsKey(y.getId())
-                                                ? courseIdToRequiredSkills.get(y.getId()).stream().map(w -> new SkillDTO(w.getId(), w.getSkill().getName(), w.getLevel())).toList()
-                                                : Collections.emptyList(),
-                                        courseIdToResultSkills.containsKey(y.getId())
-                                                ? courseIdToResultSkills.get(y.getId()).stream().map(w -> new SkillDTO(w.getId(), w.getSkill().getName(), w.getLevel())).toList()
-                                                : Collections.emptyList()
-                                ))
-                                        .toList()
-                        ))
-                        .toList()
-        );
-    }
+//    public RecommendationResultDTO calculateRecommendations(StudentEntity studentEntity) {
+//        var studentSkills = skillsService.getSkillsForStudent(studentEntity.getLogin());
+//        var studentDesiredSkills = desiredSkillsService.getSkillsForStudent(studentEntity.getLogin());
+//
+//        var actualSemestersIds = semesterService.getActualSemesters()
+//                .stream()
+//                .map(ru.urfu.mm.controller.semester.SemesterDTO::id)
+//                .toList();
+//        var courses = getCoursesByEducationalProgramAndSemesters
+//                .getCoursesByEducationalProgramAndSemesters(studentEntity.getLogin(), actualSemestersIds);
+//
+//        var optionalCourses = courses
+//                .stream()
+//                .filter(x -> x.getRequiredSemesterId() == null)
+//                .toList();
+//        var optionalCoursesIds = optionalCourses
+//                .stream()
+//                .map(ru.urfu.mm.application.usecase.CourseForEducationalProgram::getId)
+//                .toList();
+//        var courseIdToRequiredSkills = coursesSkillsService.getCoursesToRequiredSkills(studentEntity, optionalCoursesIds);
+//        var courseIdToResultSkills = coursesSkillsService.getCoursesToResultSkills(studentEntity, optionalCoursesIds);
+//
+//        var perfectCoursesIds = getPerfectCoursesIds(
+//                courseIdToRequiredSkills,
+//                courseIdToResultSkills,
+//                studentSkills,
+//                studentDesiredSkills
+//        );
+//        var partiallySuitableCoursesIds = getPartiallySuitableCoursesIds(
+//                courseIdToRequiredSkills,
+//                courseIdToResultSkills,
+//                studentSkills,
+//                studentDesiredSkills
+//        );
+//        var complementaryCoursesIds = getComplementaryCoursesIds(
+//                courseIdToRequiredSkills,
+//                courseIdToResultSkills,
+//                studentSkills,
+//                partiallySuitableCoursesIds
+//        );
+//
+//        var perfectCourses = buildCoursesWithSkills(
+//                perfectCoursesIds,
+//                courseIdToRequiredSkills,
+//                courseIdToResultSkills
+//        );
+//        perfectCourses.sort(Comparator.comparing(x -> {
+//                    var desiredSkillsIds = studentDesiredSkills
+//                            .stream()
+//                            .map(y -> y.getSkill().getId())
+//                            .toList();
+//                    var courseResultSkillsIds = x.resultSkills
+//                            .stream()
+//                            .map(y -> y.getSkill().getId())
+//                            .toList();
+//                    return intersection(courseResultSkillsIds, desiredSkillsIds).size();
+//                }));
+//
+//        var partiallySuitableCourses = buildCoursesWithSkills(
+//                partiallySuitableCoursesIds,
+//                courseIdToRequiredSkills,
+//                courseIdToResultSkills
+//        );
+//        partiallySuitableCourses.sort(Comparator.comparing(x -> {
+//                    var studentActualSkillsIds = studentSkills.stream().map(y -> y.getSkill().getId()).toList();
+//                    var desiredSkillsIds = studentDesiredSkills.stream().map(y -> y.getSkill().getId()).toList();
+//                    var courseRequiredSkillsIds = x.requiredSkills.stream().map(y -> y.getSkill().getId()).toList();
+//                    var courseResultSkillsIds = x.requiredSkills.stream().map(y -> y.getSkill().getId()).toList();
+//
+//                    return intersection(courseRequiredSkillsIds, studentActualSkillsIds).size() * 1000 + intersection(courseResultSkillsIds, desiredSkillsIds).size();
+//                }));
+//
+//        var complementaryCourses = buildCoursesWithSkills(
+//                complementaryCoursesIds,
+//                courseIdToRequiredSkills,
+//                courseIdToResultSkills
+//        );
+//        complementaryCourses.sort(Comparator.comparing(x -> {
+//                    var skillsToLearn = getSkillsToLearn(
+//                            partiallySuitableCourses
+//                                    .stream()
+//                                    .flatMap(w -> w.getRequiredSkills().stream())
+//                                    .toList(),
+//                            studentSkills
+//                    );
+//
+//                    var skillsToLearnIds = skillsToLearn
+//                            .stream()
+//                            .map(y -> y.getSkill().getId())
+//                            .toList();
+//                    var courseResultSkillsIds = x
+//                            .resultSkills
+//                            .stream()
+//                            .map(y -> y.getSkill().getId())
+//                            .toList();
+//                    return intersection(skillsToLearnIds, courseResultSkillsIds).size();
+//                }));
+//
+//        var coursesById = courses
+//                .stream()
+//                .collect(
+//                        Collectors
+//                                .toMap(ru.urfu.mm.application.usecase.CourseForEducationalProgram::getId, x -> x)
+//                );
+//        var coursesByModule = courses
+//                .stream()
+//                .filter(x -> x.getEducationalModuleId() != null)
+//                .collect(Collectors.groupingBy(ru.urfu.mm.application.usecase.CourseForEducationalProgram::getEducationalModuleId));
+//
+//        return new RecommendationResultDTO(
+//                perfectCourses
+//                        .stream()
+//                        .map(x -> buildRecommendedCourse(coursesById, x))
+//                        .toList(),
+//                partiallySuitableCourses
+//                        .stream()
+//                        .map(x -> buildRecommendedCourse(coursesById, x))
+//                        .toList(),
+//                complementaryCourses
+//                        .stream()
+//                        .map(x -> buildRecommendedCourse(coursesById, x))
+//                        .toList(),
+//                coursesByModule
+//                        .entrySet()
+//                        .stream()
+//                        .map(x -> new ModuleCoursesDTO(
+//                                x.getKey(),
+//                                x.getValue().stream().map(y -> new RecommendedCourseDTO(
+//                                        y.getId(),
+//                                        y.getName(),
+//                                        y.getCreditsCount(),
+//                                        // todo: Fix this
+//                                        y.getSemesters().stream().map(w -> new SemesterDTO(w.getId(), w.getYear(), 0)).toList(),
+//                                        y.getEducationalModuleId(),
+//                                        y.requiredSemesterId,
+//                                        courseIdToRequiredSkills.containsKey(y.getId())
+//                                                ? courseIdToRequiredSkills.get(y.getId()).stream().map(w -> new SkillDTO(w.getId(), w.getSkill().getName(), w.getLevel())).toList()
+//                                                : Collections.emptyList(),
+//                                        courseIdToResultSkills.containsKey(y.getId())
+//                                                ? courseIdToResultSkills.get(y.getId()).stream().map(w -> new SkillDTO(w.getId(), w.getSkill().getName(), w.getLevel())).toList()
+//                                                : Collections.emptyList()
+//                                ))
+//                                        .toList()
+//                        ))
+//                        .toList()
+//        );
+//    }
 
     private List<UUID> getComplementaryCoursesIds(
             Map<UUID, List<StudentSkills>> courseIdToRequiredSkills,

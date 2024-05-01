@@ -4,10 +4,10 @@ import ru.urfu.mm.application.gateway.GroupGateway;
 import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.application.gateway.SemesterGateway;
 import ru.urfu.mm.application.usecase.create_study_plan.CreateStudyPlan;
-import ru.urfu.mm.domain.Group;
-import ru.urfu.mm.domain.Program;
+import ru.urfu.mm.domain.AcademicGroup;
+import ru.urfu.mm.domain.EducationalProgram;
 import ru.urfu.mm.domain.Semester;
-import ru.urfu.mm.domain.SemesterType;
+import ru.urfu.mm.domain.enums.SemesterType;
 
 import java.util.*;
 import java.util.regex.Pattern;
@@ -42,17 +42,17 @@ public class CreateGroup {
 
         ensureActualSemestersExists(request.startYear());
 
-        Group group = new Group(UUID.randomUUID(), request.number());
-        groupGateway.save(group);
+        AcademicGroup academicGroup = new AcademicGroup(UUID.randomUUID(), request.number());
+        groupGateway.save(academicGroup);
 
         createStudyPlan.createStudyPlan(request.startYear(), request.programId());
 
-        Program program = programGateway.getById(request.programId());
-        var list = new ArrayList<Group>();
-        list.addAll(program.getGroups());
-        list.add(group);
-        program.setGroups(list.stream().toList());
-        programGateway.save(program);
+        EducationalProgram educationalProgram = programGateway.getById(request.programId());
+        var list = new ArrayList<AcademicGroup>();
+        list.addAll(educationalProgram.getGroups());
+        list.add(academicGroup);
+        educationalProgram.setGroups(list.stream().toList());
+        programGateway.save(educationalProgram);
     }
 
     private void ensureActualSemestersExists(int startYear) {

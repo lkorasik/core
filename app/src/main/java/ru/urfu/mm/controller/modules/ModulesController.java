@@ -2,19 +2,19 @@ package ru.urfu.mm.controller.modules;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.urfu.mm.application.usecase.CreateModule;
+import ru.urfu.mm.application.usecase.create_module.CreateModule;
 import ru.urfu.mm.application.usecase.DeleteModuleById;
 import ru.urfu.mm.application.usecase.get_all_modules.GetAllModules;
 import ru.urfu.mm.application.usecase.GetModulesByIds;
 import ru.urfu.mm.application.usecase.get_module.GetModuleWithCourses;
 import ru.urfu.mm.application.usecase.get_module.ModuleWithCoursesResponse;
 import ru.urfu.mm.application.usecase.get_modules_courses.GetModulesCourses;
-import ru.urfu.mm.domain.Course;
+import ru.urfu.mm.controller.Endpoints;
 
 import java.util.*;
 
 @RestController
-@RequestMapping("/api/modules")
+@RequestMapping(Endpoints.Module.BASE)
 public class ModulesController {
     @Autowired
     private GetAllModules getAllModules;
@@ -29,7 +29,7 @@ public class ModulesController {
     @Autowired
     private GetModulesCourses getModulesCourses;
 
-    @GetMapping("/all")
+    @GetMapping(Endpoints.Module.ALL)
     public List<ModuleDTO> getAllModules() {
         return getAllModules
                 .getAllModules()
@@ -38,27 +38,18 @@ public class ModulesController {
                 .toList();
     }
 
-    @GetMapping("/all2")
+    @GetMapping(Endpoints.Module.ALL2)
     public List<FullModuleDTO> getAllModules2() {
-        List<Course> modulesCourses = getModulesCourses.getModulesCourses();
-
-        Map<UUID, FullModuleDTO> modules = new HashMap<>();
-        for (Course course : modulesCourses) {
-            if (modules.containsKey(course.getEducationalModule().getId())) {
-                FullModuleDTO moduleDTO = modules.get(course.getEducationalModule().getId());
-                FullCourseDTO courseDTO = new FullCourseDTO(course.getId(), course.getName());
-                moduleDTO.courses().add(courseDTO);
-                modules.put(moduleDTO.id(), moduleDTO);
-            } else {
-                FullCourseDTO courseDTO = new FullCourseDTO(course.getId(), course.getName());
-                List<FullCourseDTO> courses = new ArrayList<>();
-                courses.add(courseDTO);
-                FullModuleDTO moduleDTO = new FullModuleDTO(course.getEducationalModule().getId(), course.getEducationalModule().getName(), courses);
-                modules.put(moduleDTO.id(), moduleDTO);
-            }
-        }
-
-        return modules.values().stream().toList();
+        return getAllModules.getAllModules()
+                .stream()
+                .map(module -> {
+                    List<FullCourseDTO> courses = module.getCourses()
+                            .stream()
+                            .map(course -> new FullCourseDTO(course.getId(), course.getName()))
+                            .toList();
+                    return new FullModuleDTO(module.getId(), module.getName(), courses);
+                })
+                .toList();
     }
 
     @PostMapping
@@ -70,7 +61,7 @@ public class ModulesController {
                 .toList();
     }
 
-    @GetMapping("/module")
+    @GetMapping(Endpoints.Module.MODULE)
     public ModuleWithCoursesDTO getModuleById(@RequestParam("id") String moduleId) {
         ModuleWithCoursesResponse module = getModuleWithCourses.getModule(UUID.fromString(moduleId));
         List<CourseDTO> courses = module.courses()
@@ -80,12 +71,12 @@ public class ModulesController {
         return new ModuleWithCoursesDTO(module.id(), module.name(), courses);
     }
 
-    @PostMapping("/create")
+    @PostMapping(Endpoints.Module.CREATE)
     public void createModule(@RequestBody CreateModuleDTO createModuleDTO) {
         createModule.createModule(createModuleDTO.moduleName());
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping(Endpoints.Module.DELETE)
     public void deleteModule(@RequestBody ModuleIdDTO moduleIdDTO) {
         deleteModuleById.deleteModuleById(moduleIdDTO.id());
     }

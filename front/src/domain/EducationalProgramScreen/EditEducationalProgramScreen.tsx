@@ -32,7 +32,7 @@ export function EditEducationalProgramScreen() {
     const [modules, setModules] = useState<FullModuleDto[]>([])
 
     const [shouldRenderStudyPlan, setShouldRenderStudyPlan] = useState<number>(0);
-    const [studyPlan, setStudyPlan] = useState<StudyPlanDto2>()
+    const [syllabus, setStudyPlan] = useState<StudyPlanDto2>()
 
     const { educationalProgramId } = useParams();
     const api = useApis();

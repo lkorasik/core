@@ -1,7 +1,7 @@
 package ru.urfu.mm.service;
 
-import ru.urfu.mm.entity.Control;
-import ru.urfu.mm.entity.Semester;
+import ru.urfu.mm.persistance.entity.enums.Control;
+import ru.urfu.mm.persistance.entity.Semester;
 
 import java.util.List;
 import java.util.UUID;

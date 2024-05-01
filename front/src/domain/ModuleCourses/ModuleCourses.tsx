@@ -4,7 +4,7 @@ import { Title } from "../../base_components/Title/Title";
 import { useApis } from "../../apis/ApiBase/ApiProvider";
 import { Link, useParams } from "react-router-dom";
 import { GetModuleDto } from "../../apis/api/modules/GetModuleDto";
-import { MODULES_SCREEN_URL } from "../App/App";
+import { ADMINISTRATOR, MODULES_SCREEN_URL } from "../App/App";
 import { CourseDto } from "../../apis/api/modules/CourseDto";
 import { Card } from "../../base_components/Card/Card";
 import { Grid } from "../../base_components/Grid/Grid";
@@ -63,9 +63,7 @@ export function ModuleCourses() {
                     </div>
                 </div>
                 <Grid cards={renderCourses()} />
-                <Link to={"/administrator/courses/add"}>
-                    <AddButton/>
-                </Link>
+                <AddButton to={ADMINISTRATOR + "/courses/add"}/>
             </div>
         </>
     )

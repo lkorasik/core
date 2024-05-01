@@ -1,20 +1,9 @@
 package ru.urfu.mm.application.test;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ru.urfu.mm.application.dsl.DSL;
 import ru.urfu.mm.application.gateway.CourseGateway;
-import ru.urfu.mm.application.usecase.GetSelectedCoursesIds;
-import ru.urfu.mm.domain.Module;
-import ru.urfu.mm.domain.*;
-
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 @ExtendWith(MockitoExtension.class)
 public class GetSelectedCoursesByStudentAndSemesterIdsTest {

@@ -1,7 +1,7 @@
 package ru.urfu.mm.application.usecase.get_program_by_id;
 
 import ru.urfu.mm.application.gateway.ProgramGateway;
-import ru.urfu.mm.domain.Program;
+import ru.urfu.mm.domain.EducationalProgram;
 
 import java.util.UUID;
 
@@ -12,7 +12,7 @@ public class GetProgramById {
         this.programGateway = programGateway;
     }
 
-    public Program getProgramById(UUID programId) {
+    public EducationalProgram getProgramById(UUID programId) {
         return programGateway.getById(programId);
     }
 }

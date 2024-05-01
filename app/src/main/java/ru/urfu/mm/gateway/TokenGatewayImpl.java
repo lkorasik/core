@@ -3,15 +3,15 @@ package ru.urfu.mm.gateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.TokenGateway;
-import ru.urfu.mm.domain.Group;
-import ru.urfu.mm.entity.GroupEntity;
-import ru.urfu.mm.entity.StudentEntity;
-import ru.urfu.mm.entity.StudentRegistrationToken;
-import ru.urfu.mm.entity.UserEntity;
-import ru.urfu.mm.repository.GroupRepository;
-import ru.urfu.mm.repository.RegistrationTokenRepository;
-import ru.urfu.mm.repository.StudentRegistrationTokenRepository;
-import ru.urfu.mm.repository.StudentRepository;
+import ru.urfu.mm.domain.AcademicGroup;
+import ru.urfu.mm.persistance.entity.GroupEntity;
+import ru.urfu.mm.persistance.entity.StudentEntity;
+import ru.urfu.mm.persistance.entity.StudentRegistrationToken;
+import ru.urfu.mm.persistance.entity.AccountEntity;
+import ru.urfu.mm.persistance.repository.GroupRepository;
+import ru.urfu.mm.persistance.repository.RegistrationTokenRepository;
+import ru.urfu.mm.persistance.repository.StudentRegistrationTokenRepository;
+import ru.urfu.mm.persistance.repository.StudentRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -42,8 +42,8 @@ public class TokenGatewayImpl implements TokenGateway {
     }
 
     @Override
-    public List<UUID> getTokensByGroup(Group group) {
-        GroupEntity groupEntity = groupRepository.findById(group.getId()).get();
+    public List<UUID> getTokensByGroup(AcademicGroup academicGroup) {
+        GroupEntity groupEntity = groupRepository.findById(academicGroup.getId()).get();
         return studentRegistrationTokenRepository.findAllByGroup(groupEntity)
                 .stream()
                 .map(StudentRegistrationToken::getToken)
@@ -57,8 +57,8 @@ public class TokenGatewayImpl implements TokenGateway {
 
     @Override
     public boolean isStudentToken(UUID token) {
-        Optional<StudentEntity> maybeStudent = studentRepository.findByLogin(token);
-        Optional<UserEntity> maybeUser = maybeStudent.map(StudentEntity::getUser);
+        Optional<StudentEntity> maybeStudent = studentRepository.findById(token);
+        Optional<AccountEntity> maybeUser = maybeStudent.map(StudentEntity::getUser);
         return maybeStudent.isPresent() && maybeUser.isEmpty();
     }
 }

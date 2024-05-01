@@ -2,8 +2,8 @@ package ru.urfu.mm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.urfu.mm.entity.StudentEntity;
-import ru.urfu.mm.repository.StudentRepository;
+import ru.urfu.mm.persistance.entity.StudentEntity;
+import ru.urfu.mm.persistance.repository.StudentRepository;
 
 import java.util.UUID;
 
@@ -20,7 +20,7 @@ public class StudentService {
         UUID token = UUID.fromString(login);
 
         return studentRepository
-                .findByLogin(token)
+                .findById(token)
                 .orElseThrow();
     }
 }

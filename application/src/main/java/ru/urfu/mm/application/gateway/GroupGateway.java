@@ -1,11 +1,13 @@
 package ru.urfu.mm.application.gateway;
 
-import ru.urfu.mm.domain.Group;
+import ru.urfu.mm.domain.AcademicGroup;
+import ru.urfu.mm.domain.Student;
 
 import java.util.Optional;
 import java.util.UUID;
 
 public interface GroupGateway {
-    void save(Group group);
-    Optional<Group> findById(UUID groupId);
+    void save(AcademicGroup academicGroup);
+    Optional<AcademicGroup> findById(UUID groupId);
+    AcademicGroup findByStudent(Student student);
 }

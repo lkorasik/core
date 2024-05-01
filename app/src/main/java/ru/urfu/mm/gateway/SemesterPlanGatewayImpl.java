@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.SemesterPlanGateway;
 import ru.urfu.mm.domain.SemesterPlan;
-import ru.urfu.mm.entity.Semester;
-import ru.urfu.mm.entity.SemesterPlanEntity;
-import ru.urfu.mm.entity.SemesterType;
-import ru.urfu.mm.repository.SemesterPlanRepository;
+import ru.urfu.mm.persistance.entity.Semester;
+import ru.urfu.mm.persistance.entity.SemesterPlanEntity;
+import ru.urfu.mm.persistance.entity.enums.SemesterType;
+import ru.urfu.mm.persistance.repository.SemesterPlanRepository;
 
 @Component
 public class SemesterPlanGatewayImpl implements SemesterPlanGateway {
@@ -25,7 +25,7 @@ public class SemesterPlanGatewayImpl implements SemesterPlanGateway {
                 new Semester(
                         semesterPlan.getSemester().getId(),
                         semesterPlan.getSemester().getYear(),
-                        SemesterType.values()[semesterPlan.getSemester().getType().ordinal()]
+                        SemesterType.fromDomain(semesterPlan.getSemester().getType())
                 ),
                 semesterPlan.getRecommendedCredits()
         );

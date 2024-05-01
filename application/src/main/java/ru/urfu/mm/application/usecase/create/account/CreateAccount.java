@@ -2,7 +2,7 @@ package ru.urfu.mm.application.usecase.create.account;
 
 import ru.urfu.mm.application.gateway.TokenGateway;
 import ru.urfu.mm.application.usecase.create.*;
-import ru.urfu.mm.domain.UserRole;
+import ru.urfu.mm.domain.enums.UserRole;
 
 /**
  * Создать аккаунт
@@ -19,13 +19,16 @@ public class CreateAccount {
     private final CreateAdministrator createAdministrator;
     private final TokenGateway tokenGateway;
 
-    public CreateAccount(CreateStudent createStudent, CreateAdministrator createAdministrator, TokenGateway tokenGateway) {
+    public CreateAccount(
+            CreateStudent createStudent,
+            CreateAdministrator createAdministrator,
+            TokenGateway tokenGateway) {
         this.createStudent = createStudent;
         this.createAdministrator = createAdministrator;
         this.tokenGateway = tokenGateway;
     }
 
-    public UserRole createUser(CreateUserRequest request) {
+    public UserRole createUser(CreateAccountRequest request) {
         UserRole role;
         CreateUseCase createUseCase;
         if (tokenGateway.isAdministratorToken(request.token())) {
