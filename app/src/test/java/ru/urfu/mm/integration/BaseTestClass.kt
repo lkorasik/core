@@ -1,20 +1,20 @@
-package ru.urfu.mm.integration;
+package ru.urfu.mm.integration
 
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.web.server.LocalServerPort
 
 /**
  * Базовый класс для всех интеграционных тестов
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class BaseTestClass {
+class BaseTestClass {
     @LocalServerPort
-    protected int port;
+    protected var port: Int = 0
 
     /**
      * Получить адрес локального сервера
      */
-    protected String address() {
-        return "http://localhost:" + port + "";
+    protected fun address(): String {
+        return "http://localhost:$port"
     }
 }
