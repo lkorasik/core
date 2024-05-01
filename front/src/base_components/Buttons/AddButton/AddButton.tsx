@@ -1,6 +1,5 @@
-import { ReactNode } from "react";
 import styles from "./AddButton.module.css"
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
     to?: string
@@ -9,19 +8,16 @@ type Props = {
 }
 
 export function AddButton({ isEnabled = true, onClick, to }: Props) {
-    const renderButton = () => {
-        return <button disabled={!isEnabled} className={styles.button} onClick={onClick} />
-    }
-
-    if (to) {
-        return (
-            <>
-                <Link to={to}>
-                    {renderButton()}
-                </Link>
-            </>
-        )
-    } else {
-        return renderButton()
-    }
+    const navigate = useNavigate()
+    
+    return (
+        <>
+            <div className={styles.button_container}>
+                <button disabled={!isEnabled} className={styles.button} onClick={() => {
+                    onClick?.()
+                    navigate(to ? to : "")
+                }} />
+            </div>
+        </>
+    )
 }
