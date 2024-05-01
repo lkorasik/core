@@ -6,6 +6,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.urfu.mm.controller.Endpoints;
 import ru.urfu.mm.controller.ExceptionDTO;
 import ru.urfu.mm.controller.authentication.AccessTokenDTO;
 import ru.urfu.mm.controller.authentication.RegistrationDTO;
@@ -25,9 +26,6 @@ public class AccountRegistrationTest extends BaseTestClass {
     private RegistrationTokenRepository registrationTokenRepository;
     @Autowired
     private AccountRepository accountRepository;
-
-    private final String API_REGISTRATION = "api/authentication/register";
-    private final String API_LOGIN = "api/authentication/login";
 
     @AfterEach
     void clean() {
@@ -54,7 +52,7 @@ public class AccountRegistrationTest extends BaseTestClass {
                 .body(registrationDTO)
                 .when()
                 .baseUri(address())
-                .post(API_REGISTRATION)
+                .post(Endpoints.Authentication.register())
                 .then()
                 .statusCode(400)
                 .extract()
@@ -84,7 +82,7 @@ public class AccountRegistrationTest extends BaseTestClass {
                 .body(registrationDTO)
                 .when()
                 .baseUri(address())
-                .post(API_REGISTRATION)
+                .post(Endpoints.Authentication.register())
                 .then()
                 .statusCode(400)
                 .extract()
@@ -117,7 +115,7 @@ public class AccountRegistrationTest extends BaseTestClass {
                 .body(registrationDTO)
                 .when()
                 .baseUri(address())
-                .post(API_REGISTRATION)
+                .post(Endpoints.Authentication.register())
                 .then()
                 .statusCode(200)
                 .extract()
@@ -132,7 +130,7 @@ public class AccountRegistrationTest extends BaseTestClass {
                 .body(registrationDTO)
                 .when()
                 .baseUri(address())
-                .post(API_REGISTRATION)
+                .post(Endpoints.Authentication.register())
                 .then()
                 .statusCode(400)
                 .extract()

@@ -15,6 +15,6 @@ public class BaseTestClass {
      * Получить адрес локального сервера
      */
     protected String address() {
-        return "http://localhost:" + port + "/";
+        return "http://localhost:" + port + "";
     }
 }

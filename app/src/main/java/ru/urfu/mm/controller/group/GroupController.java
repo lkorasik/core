@@ -14,6 +14,7 @@ import ru.urfu.mm.application.usecase.get_groups.GetGroupsByEducationalProgram;
 import ru.urfu.mm.application.usecase.get_token.GetTokensForGroup;
 import ru.urfu.mm.application.usecase.get_token.GetTokensForGroupRequest;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
+import ru.urfu.mm.controller.Endpoints;
 import ru.urfu.mm.domain.AcademicGroup;
 
 import java.io.*;
@@ -21,7 +22,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/groups")
+@RequestMapping(Endpoints.Group.BASE)
 public class GroupController extends AbstractAuthorizedController {
     @Autowired
     private GetGroupsByEducationalProgram getGroupsByEducationalProgram;
@@ -36,7 +37,7 @@ public class GroupController extends AbstractAuthorizedController {
     @Autowired
     private DownloadTokens downloadTokens;
 
-    @GetMapping("/groupsByProgram")
+    @GetMapping(Endpoints.Group.GROUPS_BY_PROGRAM)
     public List<GroupDTO> getGroupsByEducationalProgram(@RequestParam("programId") UUID programId) {
         return getGroupsByEducationalProgram.getGroupsByEducationalProgram(programId)
                 .stream()
@@ -44,23 +45,23 @@ public class GroupController extends AbstractAuthorizedController {
                 .toList();
     }
 
-    @PostMapping("/group")
+    @PostMapping(Endpoints.Group.GROUP)
     public void createGroup(@RequestBody CreateGroupDTO dto) {
         createGroup.createGroup(dto.toRequest());
     }
 
-    @GetMapping("/groupById")
+    @GetMapping(Endpoints.Group.GROUP_BY_ID)
     public GroupDTO getGroup(@RequestParam("groupId") UUID groupId) {
         AcademicGroup academicGroup = getAcademicGroup.getGroup(groupId);
         return new GroupDTO(academicGroup.getId(), academicGroup.getNumber());
     }
 
-    @PostMapping("/token")
+    @PostMapping(Endpoints.Group.TOKEN)
     public List<UUID> generateTokens(@RequestBody GenerateTokenDTO generateTokenDTO) {
         return generateStudentRegistrationToken.generateTokens(generateTokenDTO.groupId(), generateTokenDTO.count());
     }
 
-    @GetMapping("/token")
+    @GetMapping(Endpoints.Group.TOKEN)
     public List<TokenStatusDTO> getTokens(@RequestParam("groupId") UUID groupId) {
         GetTokensForGroupRequest request = new GetTokensForGroupRequest(groupId);
         return getTokensForGroup.getTokensForGroup(request)
@@ -69,7 +70,7 @@ public class GroupController extends AbstractAuthorizedController {
                 .toList();
     }
 
-    @GetMapping("/token_file")
+    @GetMapping(Endpoints.Group.TOKEN_FILE)
     public ResponseEntity<InputStreamResource> getFile(@RequestParam("groupId") UUID groupId) throws FileNotFoundException {
         DownloadTokensRequest request = new DownloadTokensRequest(groupId);
 

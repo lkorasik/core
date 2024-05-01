@@ -6,6 +6,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.urfu.mm.controller.Endpoints;
 import ru.urfu.mm.controller.ExceptionDTO;
 import ru.urfu.mm.controller.authentication.AccessTokenDTO;
 import ru.urfu.mm.controller.authentication.LoginDTO;
@@ -24,9 +25,6 @@ public class AdministratorLoginTest extends BaseTestClass {
     private RegistrationTokenRepository registrationTokenRepository;
     @Autowired
     private AccountRepository accountRepository;
-
-    private final String API_REGISTRATION = "api/authentication/register";
-    private final String API_LOGIN = "api/authentication/login";
 
     @AfterEach
     void clean() {
@@ -54,7 +52,7 @@ public class AdministratorLoginTest extends BaseTestClass {
                 .body(registrationDTO)
                 .when()
                 .baseUri(address())
-                .post(API_REGISTRATION)
+                .post(Endpoints.Authentication.BASE + Endpoints.Authentication.REGISTER)
                 .then()
                 .statusCode(200)
                 .extract()
@@ -71,7 +69,7 @@ public class AdministratorLoginTest extends BaseTestClass {
                 .body(loginDTO)
                 .when()
                 .baseUri(address())
-                .post(API_LOGIN)
+                .post(Endpoints.Authentication.BASE + Endpoints.Authentication.LOGIN)
                 .then()
                 .statusCode(200)
                 .extract()
@@ -105,7 +103,7 @@ public class AdministratorLoginTest extends BaseTestClass {
                 .body(registrationDTO)
                 .when()
                 .baseUri(address())
-                .post(API_REGISTRATION)
+                .post(Endpoints.Authentication.register())
                 .then()
                 .statusCode(200)
                 .extract()
@@ -122,7 +120,7 @@ public class AdministratorLoginTest extends BaseTestClass {
                 .body(loginDTO)
                 .when()
                 .baseUri(address())
-                .post(API_LOGIN)
+                .post(Endpoints.Authentication.login())
                 .then()
                 .statusCode(400)
                 .extract()
@@ -155,7 +153,7 @@ public class AdministratorLoginTest extends BaseTestClass {
                 .body(registrationDTO)
                 .when()
                 .baseUri(address())
-                .post(API_REGISTRATION)
+                .post(Endpoints.Authentication.register())
                 .then()
                 .statusCode(200)
                 .extract()
@@ -172,7 +170,7 @@ public class AdministratorLoginTest extends BaseTestClass {
                 .body(loginDTO)
                 .when()
                 .baseUri(address())
-                .post(API_LOGIN)
+                .post(Endpoints.Authentication.login())
                 .then()
                 .statusCode(400)
                 .extract()

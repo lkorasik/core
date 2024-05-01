@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.application.usecase.*;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
+import ru.urfu.mm.controller.Endpoints;
 import ru.urfu.mm.domain.exception.NotImplementedException;
 import ru.urfu.mm.persistance.entity.enums.SkillLevel;
 
@@ -12,7 +13,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/skills")
+@RequestMapping(Endpoints.Skill.BASE)
 public class SkillsController extends AbstractAuthorizedController {
     @Autowired
     private GetSkills getSkills;
@@ -34,7 +35,7 @@ public class SkillsController extends AbstractAuthorizedController {
                 .toList();
     }
 
-    @GetMapping("/actual")
+    @GetMapping(Endpoints.Skill.ACTUAL)
     public List<SkillDTO> getActualSkills() {
         throw new NotImplementedException();
 //        return getSkillsForStudent
@@ -48,7 +49,7 @@ public class SkillsController extends AbstractAuthorizedController {
 //                .toList();
     }
 
-    @PostMapping("/actual")
+    @PostMapping(Endpoints.Skill.ACTUAL)
     public void saveActualSkills(@RequestBody SaveSkillsDTO saveSkillsDTO) {
         List<Map.Entry<UUID, ru.urfu.mm.domain.enums.SkillLevel>> skills = saveSkillsDTO.skills()
                 .stream()
@@ -58,7 +59,7 @@ public class SkillsController extends AbstractAuthorizedController {
         saveSkillsForStudent.saveSkillsForStudent(UUID.fromString(getUserToken()), skills);
     }
 
-    @GetMapping("/desired")
+    @GetMapping(Endpoints.Skill.DESIRED)
     public List<SkillInfoDTO> getDesiredSkills() {
         throw new NotImplementedException();
 //        return getDesiredSkillsForStudent
@@ -71,7 +72,7 @@ public class SkillsController extends AbstractAuthorizedController {
 //                .toList();
     }
 
-    @PostMapping("/desired")
+    @PostMapping(Endpoints.Skill.DESIRED)
     public void saveDesiredSkills(@RequestBody SaveSkillsDTO saveSkillsDTO) {
         List<Map.Entry<UUID, ru.urfu.mm.domain.enums.SkillLevel>> skills = saveSkillsDTO.skills()
                 .stream()
