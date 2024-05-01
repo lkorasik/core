@@ -1,16 +1,27 @@
 import { ReactNode } from "react";
 import styles from "./AddButton.module.css"
+import { Link } from "react-router-dom";
 
 type Props = {
-    children?: ReactNode | ReactNode[];
+    to?: string
     isEnabled?: boolean
     onClick?: (() => void)
 }
 
-export function AddButton({ isEnabled = true , children, onClick }: Props) {
-    console.log(styles)
-    
-    return (
-        <button disabled={!isEnabled} className={styles.button} onClick={onClick} type="button" />
-    )
+export function AddButton({ isEnabled = true, onClick, to }: Props) {
+    const renderButton = () => {
+        return <button disabled={!isEnabled} className={styles.button} onClick={onClick} />
+    }
+
+    if (to) {
+        return (
+            <>
+                <Link to={to}>
+                    {renderButton()}
+                </Link>
+            </>
+        )
+    } else {
+        return renderButton()
+    }
 }

@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { Title } from "../../base_components/Title/Title";
 import { Container } from "../../base_components/Container/Container";
 import { AddButton } from "../../base_components/Buttons/AddButton/AddButton";
+import { ADMINISTRATOR } from "../App/App";
 
 export function ModulesScreen() {
     const [modules, setModules] = useState<ModuleDto[]>([]);
@@ -37,9 +38,7 @@ export function ModulesScreen() {
             <Container>
                 <Title>Курсы и модули</Title>
                 <Grid cards={modules.map(x => renderCard(x))}/>
-                <Link to={"/administrator/module/add"}>
-                    <AddButton />
-                </Link>
+                <AddButton to={ADMINISTRATOR + "/module/add"} />
             </Container>
         </>
     )

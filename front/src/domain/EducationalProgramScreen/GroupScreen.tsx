@@ -91,7 +91,7 @@ export function GroupScreen() {
                 <CloseButton />
             </Toolbar>
             <Table columnTitles={["Токен", "Статус"]} rows={renderTokens()}/>
-            <AddButton onClick={() => setShowDialog(true)} />
+            <AddButton onClick={() => setShowDialog(true)}/>
         </Container>
     )
 }

@@ -57,11 +57,7 @@ export function EducationalProgramDetailsScreen() {
                     <CloseButton />
                 </Toolbar>
                 <Grid cards={renderCards()} />
-                <Link to={"/administrator/group/add"} onClick={() => {
-                    localStorage.setItem(PROGRAM_ID_KEY, educationalProgramId!);
-                }}>
-                    <AddButton />
-                </Link>
+                <AddButton to={ADMINISTRATOR + "/group/add"} onClick={() => localStorage.setItem(PROGRAM_ID_KEY, educationalProgramId!)} />
             </Container>
         </>
     )

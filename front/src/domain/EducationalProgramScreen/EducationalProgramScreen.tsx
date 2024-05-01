@@ -43,9 +43,7 @@ export function EducationalProgramScreen(props: Props) {
             <Container>
                 <Title>Образовательные программы</Title>
                 <Grid cards={educationalPrograms.map(x => renderCard(x))}/>
-                <Link to={ADMINISTRATOR + "/educational_program/add"}>
-                    <AddButton />
-                </Link>
+                <AddButton to={ADMINISTRATOR + "/educational_program/add"}/>
             </Container>
         </>
     )
