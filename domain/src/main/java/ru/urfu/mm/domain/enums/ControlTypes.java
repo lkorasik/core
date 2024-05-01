@@ -7,8 +7,8 @@ public enum ControlTypes {
     TEST("Test", "Зачет"),
     EXAM("Exam", "Экзамен");
 
-    private String value;
-    private String documentaryValue;
+    private final String value;
+    private final String documentaryValue;
 
     ControlTypes(String value, String documentaryValue) {
         this.value = value;

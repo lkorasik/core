@@ -5,7 +5,7 @@ public enum SkillLevel {
     INTERMEDIATE("Intermediate"),
     ADVANCED("Advanced");
 
-    private String value;
+    private final String value;
 
     SkillLevel(String value) {
         this.value = value;
