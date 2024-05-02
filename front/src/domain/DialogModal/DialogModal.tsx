@@ -13,8 +13,6 @@ interface Props {
 }
 
 export function DialogModal(props: Props) {
-    const [show, setShow] = useState(true)
-
     const getLeftButtonTitle = () => {
         if (props.leftButtonTitle){
             return props.leftButtonTitle;
@@ -31,37 +29,25 @@ export function DialogModal(props: Props) {
         }
     }
 
-    const render = () => {
-        if(show) {
-            return (
-                <div className={styles.back}>
-                    <div className={styles.dialog}>
-                        <h3 className={styles.dialog_title}>{props.title}</h3>
-                        {props.children}
-                        <Flex direction={"row"} justifyContent={"center"}>
-                            <Button className={styles.button} onClick={() => props.close()}>
-                                {getLeftButtonTitle()}
-                            </Button>
-                            <Button className={styles.button} onClick={() => {
-                                if (props.onRightClick) {
-                                    props.onRightClick();
-                                }
-                                props.close();
-                            }}>
-                                {getRightButtonTitle()}
-                            </Button>
-                        </Flex>
-                    </div>
-                </div>
-            )
-        } else {
-            return (<></>)
-        }
-    }
-
     return (
-        <>
-        {render()}
-        </>
+        <div className={styles.back}>
+            <div className={styles.dialog}>
+                <h3 className={styles.dialog_title}>{props.title}</h3>
+                {props.children}
+                <Flex direction={"row"} justifyContent={"center"}>
+                    <Button className={styles.button} onClick={() => props.close()}>
+                        {getLeftButtonTitle()}
+                    </Button>
+                    <Button className={styles.button} onClick={() => {
+                        if (props.onRightClick) {
+                            props.onRightClick();
+                        }
+                        props.close();
+                    }}>
+                        {getRightButtonTitle()}
+                    </Button>
+                </Flex>
+            </div>
+        </div>
     )
 }

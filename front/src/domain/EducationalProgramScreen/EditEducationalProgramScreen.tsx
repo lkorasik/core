@@ -17,6 +17,7 @@ import { CourseSelectionDto } from "../../apis/api/programs/CourseSelectionDto";
 import { FullModuleDto } from "../../apis/api/modules/FullModuleDto";
 import { GetStudyPlanDto } from "../../apis/api/programs/GetStudyPlanDto";
 import { StudyPlanDto2 } from "../../apis/api/programs/StudyPlanDto2";
+import { DialogModal } from "../DialogModal/DialogModal";
 
 export interface CheckBox {
     isSelected: boolean,
@@ -146,8 +147,13 @@ export function EditEducationalProgramScreen() {
         api.educationalProgramsApi.saveStudyPlan(result)
     }
 
+    const renderDialog = () => {
+        return <DialogModal close={() => {}} title="Def"></DialogModal>
+    }
+
     return (
         <Container>
+            {renderDialog()}
             <Toolbar title="Редактирование образовательной программы">
                 <SaveButton to={""} onClick={() => {
                     save()
