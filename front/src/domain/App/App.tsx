@@ -1,18 +1,18 @@
-import {FC, useEffect} from 'react';
+import { FC, useEffect } from 'react';
 import './App.css';
-import {useAuthentication} from "../../hooks/useAuthentication";
-import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
-import {UserRole} from "../../apis/api/UserRole";
-import {LoginInfo} from "../../hooks/LoginInfo";
-import {AdministratorMainScreen} from '../AdministratorMainScreen/AdministratorMainScreen';
-import {EducationalProgramScreen} from '../EducationalProgramScreen/EducationalProgramScreen';
-import {EditModuleScreen} from "../EditModuleScreen/EditModuleScreen";
-import {CourseScreen} from "../CoursesScreen/CourseScreen";
-import {EditModuleCourseScreen} from "../EditCoursesScreen/EditModuleCourseScreen";
-import {WelcomeScreen} from '../WelcomeBackground/WelcomeBackground';
-import {RecommendationsScreen} from "../RecommendationsScreen/RecommendationsScreen";
+import { useAuthentication } from "../../hooks/useAuthentication";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { UserRole } from "../../apis/api/UserRole";
+import { LoginInfo } from "../../hooks/LoginInfo";
+import { AdministratorMainScreen } from '../AdministratorMainScreen/AdministratorMainScreen';
+import { EducationalProgramScreen } from '../EducationalProgramScreen/EducationalProgramScreen';
+import { EditModuleScreen } from "../EditModuleScreen/EditModuleScreen";
+import { CourseScreen } from "../CoursesScreen/CourseScreen";
+import { EditModuleCourseScreen } from "../EditCoursesScreen/EditModuleCourseScreen";
+import { WelcomeScreen } from '../WelcomeBackground/WelcomeBackground';
+import { RecommendationsScreen } from "../RecommendationsScreen/RecommendationsScreen";
 import { AddEducationalProgramScreen } from '../EducationalProgramScreen/AddEducationalProgramScreen';
-import {StatisticsScreen} from "../StatisticsScreen/StatisticsScreen";
+import { StatisticsScreen } from "../StatisticsScreen/StatisticsScreen";
 import { StudentScreen } from '../StudentScreen/StudentScreen';
 import { StudyPlan } from '../StudyPlan/StudyPlan';
 import { ModuleList } from '../ModuleList/ModuleList';
@@ -40,6 +40,7 @@ export const GROUP: string = "/group";
 export const COURESE_AND_MODULES = "/courses_and_modules";
 export const STATISTICS = "/statistics";
 export const EDIT = "/edit";
+export const ADD = "/add";
 
 const App: FC = () => {
     const {loginInfo, saveLoginInfo} = useAuthentication();
@@ -76,8 +77,8 @@ const App: FC = () => {
                 <Route path={ADMINISTRATOR + STATISTICS} element={<StatisticsScreen/>}/>
 
                     <Route path={ADMINISTRATOR + EDUCATIONAL_PROGRAM + "/:educationalProgramId"} element={<EducationalProgramDetailsScreen />}/>
-                <Route path={ADMINISTRATOR + "/educational_program/add"} element={<AddEducationalProgramScreen />}/>
-                <Route path={ADMINISTRATOR + GROUP + "/add"} element={<AddGroupScreen />} />
+                <Route path={ADMINISTRATOR + EDUCATIONAL_PROGRAM + ADD} element={<AddEducationalProgramScreen />}/>
+                <Route path={ADMINISTRATOR + GROUP + ADD} element={<AddGroupScreen />} />
                 <Route path={ADMINISTRATOR + GROUP + "/:groupId"} element={<GroupScreen />} />
                     <Route path={ADMINISTRATOR + "/module/add"} element={<AddModuleScreen />}/>
                     <Route path={ADMINISTRATOR + "/module/edit" + "/*"} element={<EditModuleScreen/>}/>

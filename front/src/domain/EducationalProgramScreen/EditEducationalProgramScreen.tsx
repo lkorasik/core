@@ -25,6 +25,8 @@ export interface CheckBox {
 }
 
 export function EditEducationalProgramScreen() {
+    const [showDialog, setShowDialog] = useState<boolean>(false)
+
     const [educationalProgramName, setEducationalProgramName] = useState<string>("");
     const [trainingDirection, setTrainingDirection] = useState<string>("");
     const [years, setYears] = useState<number[]>([]);
@@ -95,8 +97,6 @@ export function EditEducationalProgramScreen() {
             }
             setMatrix(newMatrix)
             setStudyPlan(response)
-
-            console.log(response)
         }
         loadStudyPlan().catch(console.error)
     }
@@ -115,7 +115,12 @@ export function EditEducationalProgramScreen() {
 
     const renderNewStudyPlan = () => {
         if (shouldRenderStudyPlan) {
-            return <NewStudyPlan matrix={matrix} setMatrix={setMatrix} modules={modules}/>
+            return (
+                <>
+                    <NewStudyPlan matrix={matrix} setMatrix={setMatrix} modules={modules}/>
+                    <button onClick={() => setShowDialog(true)}>Show dialog</button>
+                </>
+            )
         }
     }
 
@@ -148,12 +153,12 @@ export function EditEducationalProgramScreen() {
     }
 
     const renderDialog = () => {
-        return <DialogModal close={() => {}} title="Def"></DialogModal>
+        return <DialogModal close={() => setShowDialog(false)} title="Def"></DialogModal>
     }
 
     return (
         <Container>
-            {renderDialog()}
+            {showDialog && renderDialog()}
             <Toolbar title="Редактирование образовательной программы">
                 <SaveButton to={""} onClick={() => {
                     save()

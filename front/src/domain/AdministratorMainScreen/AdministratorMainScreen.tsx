@@ -1,22 +1,23 @@
 import styles from "./AdministratorMainScreen.module.css";
 import {ActionBar} from "../../base_components/ActionBar/ActionBar";
+import { ADMINISTRATOR, COURESE_AND_MODULES, EDUCATIONAL_PROGRAM, STATISTICS } from "../App/App";
 
 export function AdministratorMainScreen() {
     return (
-        <div id="root" className={styles.mainPageContainer}>
+        <div className={styles.mainPageContainer}>
             <ActionBar item={
                 [ 
                     {
                         label: "Образовательные программы",    
-                        link: "/administrator/educational_program"
+                        link: ADMINISTRATOR + EDUCATIONAL_PROGRAM
                     },
                     {
                         label: "Курсы и модули",    
-                        link: "/administrator/courses_and_modules"
+                        link: ADMINISTRATOR + COURESE_AND_MODULES
                     },
                     {
                         label: "Статистика",    
-                        link: "/administrator/statistics"
+                        link: ADMINISTRATOR + STATISTICS
                     }
                 ]
             } />
