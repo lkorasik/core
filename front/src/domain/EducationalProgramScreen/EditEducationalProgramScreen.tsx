@@ -18,6 +18,7 @@ import { FullModuleDto } from "../../apis/api/modules/FullModuleDto";
 import { GetStudyPlanDto } from "../../apis/api/programs/GetStudyPlanDto";
 import { StudyPlanDto2 } from "../../apis/api/programs/StudyPlanDto2";
 import { DialogModal } from "../DialogModal/DialogModal";
+import { CheckBox } from "../../base_components/CheckBox/CheckBox";
 
 export interface CheckBox {
     isSelected: boolean,
@@ -33,6 +34,7 @@ export function EditEducationalProgramScreen() {
     
     const [matrix, setMatrix] = useState<CheckBox[][]>([])
     const [modules, setModules] = useState<FullModuleDto[]>([])
+    const [states, setStates] = useState<boolean[]>([])
 
     const [shouldRenderStudyPlan, setShouldRenderStudyPlan] = useState<number>(0);
     const [syllabus, setStudyPlan] = useState<StudyPlanDto2>()
@@ -76,6 +78,12 @@ export function EditEducationalProgramScreen() {
             }
             setMatrix(newMatrix)
             setModules(modules)
+
+            const states = []
+            for(let i = 0; i < modules.length; i++) {
+                states.push(false)
+            }
+            setStates(states)
         }
         loadModules().catch(console.error)
     }, [])
@@ -153,7 +161,16 @@ export function EditEducationalProgramScreen() {
     }
 
     const renderDialog = () => {
-        return <DialogModal close={() => setShowDialog(false)} title="Def"></DialogModal>
+        return (
+            <DialogModal close={() => setShowDialog(false)} title="Модули">
+                {modules.map((module, index) => <div key={module.id}>
+                    <CheckBox checked={states[index]} onChange={(e) => {
+                        states[index] = e
+                        setStates(states)
+                        }} />{module.name}</div>
+                )}
+            </DialogModal>
+        )
     }
 
     return (

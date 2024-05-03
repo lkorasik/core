@@ -81,6 +81,7 @@ public class ProgramController extends AbstractAuthorizedController {
 
     @PostMapping(Endpoints.Program.PLAN)
     public void saveStudyPlan(@RequestBody StudyPlanDTO dto) {
+        // todo: реализуй сохранение учебного плана
         System.out.println("Receive: " + dto);
     }
 
