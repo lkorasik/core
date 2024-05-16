@@ -4,24 +4,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
-import ru.urfu.mm.entity.User;
-import ru.urfu.mm.repository.UserRepository;
+import ru.urfu.mm.persistance.entity.AccountEntity;
+import ru.urfu.mm.persistance.repository.AccountRepository;
 
 import java.util.Collections;
 import java.util.UUID;
 
 @Service
 public class UserService implements UserDetailsService {
-    private final UserRepository userRepository;
+    private final AccountRepository accountRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserService(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
     }
 
 //    @Transactional
     public UserDetails loadUserByUsername(String username) {
-        User user = userRepository.findAllByLogin(UUID.fromString(username)).orElseThrow();
-        return new org.springframework.security.core.userdetails.User(user.getLogin().toString(), user.getPassword(), Collections.emptyList());
+        AccountEntity accountEntity = accountRepository.findAllByLogin(UUID.fromString(username)).orElseThrow();
+        return new org.springframework.security.core.userdetails.User(accountEntity.getLogin().toString(), accountEntity.getPassword(), Collections.emptyList());
     }
 }

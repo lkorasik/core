@@ -1,0 +1,64 @@
+import { Link, useParams } from "react-router-dom";
+import { Card } from "../../base_components/Card/Card";
+import { Container } from "../../base_components/Container/Container";
+import { Grid } from "../../base_components/Grid/Grid";
+import { Toolbar } from "../../base_components/Toolbar/Toolbar";
+import { useEffect, useState } from "react";
+import { useApis } from "../../apis/ApiBase/ApiProvider";
+import { ProgramIdDto } from "../../apis/api/programs/ProgramIdDto";
+import { GetGroupDto } from "../../apis/api/groups/GetGroupDto";
+import { GroupDto } from "../../apis/api/groups/GroupDto";
+import { ADMINISTRATOR, EDIT, EDUCATIONAL_PROGRAM, GROUP } from "../App/App";
+import { CloseButton } from "../../base_components/Buttons/CrudButtons/CloseButton/CloseButton";
+import { AddButton } from "../../base_components/Buttons/AddButton/AddButton";
+import { EditButton } from "../../base_components/Buttons/CrudButtons/EditButton/EditButton";
+
+export const PROGRAM_ID_KEY = "ProgramId";
+
+export function EducationalProgramDetailsScreen() {
+    const [educationalProgramName, setEducationalProgramName] = useState<string>();
+    const [groups, setGroups] = useState<GroupDto[]>([]);
+
+    const { educationalProgramId } = useParams();
+    const api = useApis();
+
+    useEffect(() => {
+        const loadModule = async () => { 
+            const request = { id: educationalProgramId } as ProgramIdDto 
+            const response = await api.educationalProgramsApi.getEducationalProgramById(request);
+
+            setEducationalProgramName(response.title);
+        };
+        loadModule().catch(console.error);
+
+        const loadGroups = async () => {
+            const request = { programId: educationalProgramId } as GetGroupDto
+            const response = await api.groupsApi.getGroupsForProgram(request);
+
+            setGroups(response)
+        }
+        loadGroups().catch(console.error);
+    }, [])
+
+    const renderCards = () => {
+        return groups.map(x => <Card
+            link={ADMINISTRATOR + GROUP + "/" + x.id}
+            text={x.number}
+            type={"Group"}
+            paramNames={["Id", "Name"]}
+            paramsValues={[x.id, x.number]} />)
+    }
+
+    return (
+        <>
+            <Container>
+                <Toolbar title={educationalProgramName!}>
+                    <EditButton to={ADMINISTRATOR + EDUCATIONAL_PROGRAM + EDIT + "/" + educationalProgramId} />
+                    <CloseButton />
+                </Toolbar>
+                <Grid cards={renderCards()} />
+                <AddButton to={ADMINISTRATOR + "/group/add"} onClick={() => localStorage.setItem(PROGRAM_ID_KEY, educationalProgramId!)} />
+            </Container>
+        </>
+    )
+}

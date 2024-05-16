@@ -3,8 +3,8 @@ package ru.urfu.mm.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.urfu.mm.controller.semester.SemesterDTO;
-import ru.urfu.mm.entity.Semester;
-import ru.urfu.mm.repository.SemesterRepository;
+import ru.urfu.mm.persistance.entity.Semester;
+import ru.urfu.mm.persistance.repository.SemesterRepository;
 
 import java.time.Instant;
 import java.time.ZoneId;
@@ -24,7 +24,8 @@ public class SemesterService {
         ZonedDateTime now = Instant.now().atZone(ZoneId.systemDefault());
         return GetLaterOrEqual(GetAcademicYear(now))
                 .stream()
-                .map(semester -> new SemesterDTO(semester.getId(), semester.getYear(), semester.getSemesterNumber()))
+                // todo: fix it
+                .map(semester -> new SemesterDTO(semester.getId(), semester.getYear(), 0))
                 .toList();
     }
 

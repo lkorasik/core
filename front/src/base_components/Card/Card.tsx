@@ -1,6 +1,5 @@
 import styles from "./Card.module.css";
 import {Link} from "react-router-dom";
-import {Interface} from "readline";
 
 interface Props {
     text: string,
@@ -8,6 +7,7 @@ interface Props {
     type?: string,
     paramNames?: string[],
     paramsValues?: string[],
+    badge?: string
 }
 
 export function Card(props: Props) {
@@ -27,6 +27,14 @@ export function Card(props: Props) {
         }
     }
 
+    const getBadgeClass = () => {
+        if (props.badge) {
+            return styles.grid_badge_show;
+        } else {
+            return styles.grid_badge_hide;
+        }
+    }
+
     return (
         <>
             <Link to={props.link} className={styles.grid_link} onClick={onClick}>
@@ -37,6 +45,7 @@ export function Card(props: Props) {
                         src={process.env.PUBLIC_URL + "/gradient-red-1.png"}
                         alt={""}
                     />
+                    <div className={getBadgeClass()}>{props.badge}</div>
                 </div>
             </Link>
         </>

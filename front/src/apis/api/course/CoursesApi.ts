@@ -6,14 +6,22 @@ import {GetSelectedCoursesRequest} from "./GetSelectedCoursesRequest";
 import {CoursesBySemesterDto} from "./CoursesBySemesterDto";
 import {SpecialCourse} from "./SpecialCourse";
 import {GetEducationalModuleCoursesRequest} from "./GetEducationalModuleCoursesRequest";
-import {CreateModuleSpecialCourseRequest} from "./CreateModuleSpecialCourseRequest";
+import {CreateCourseDto} from "./CreateCourseDto";
 import {GetCourseByIdRequest} from "./GetCourseByIdRequest";
 import {DeleteSpecialCourseRequest} from "./DeleteSpecialCourseRequest";
 import {EditModuleSpecialCourseRequest} from "./EditModuleSpecialCourseRequest";
 import {CourseStatistics} from "./CourseStatistics";
 import {GetActualSpecialCoursesStatisticsRequest} from "./GetActualSpecialCoursesStatisticsRequest";
+import { GetSelectedCourseNamesBySemesterRequest } from "./GetSelectedCourseNamesBySemesterRequest";
+import { GetSelectedCourseNamesBySemesterResponse } from "./GetSelectedCourseNamesBySemesterResponse";
+import { AvailableCourseDTO } from "./AvailableCourseDTO";
+import { AvailableModuleDTO } from "./AvailableModuleDTO";
 
 export class CoursesApi extends ApiBase implements ICoursesApi {
+    public async getSelectedCourseNamesBySemester(getSelectedCourseNamesBySemester: GetSelectedCourseNamesBySemesterRequest): Promise<GetSelectedCourseNamesBySemesterResponse[]> {
+        return await this.get("courses/selectedCourseName", {}, getSelectedCourseNamesBySemester);
+    }
+
     public async getCoursesByEducationalProgramAndSemesters(getCoursesRequest: GetCoursesRequest): Promise<CourseForEducationalProgram[]> {
         return await this.post("courses", {}, {
             ...getCoursesRequest
@@ -42,10 +50,8 @@ export class CoursesApi extends ApiBase implements ICoursesApi {
         }, {});
     }
 
-    public async createModuleSpecialCourse(createModuleCourseRequest: CreateModuleSpecialCourseRequest): Promise<void> {
-        return await this.post("courses/moduleCourses/create", {}, {
-            ...createModuleCourseRequest
-        });
+    public async createCourse(createModuleCourseRequest: CreateCourseDto): Promise<void> {
+        return await this.post("courses/create", {}, {...createModuleCourseRequest});
     }
 
     public async getCourseById(getCourseByIdRequest: GetCourseByIdRequest): Promise<SpecialCourse> {
@@ -71,6 +77,10 @@ export class CoursesApi extends ApiBase implements ICoursesApi {
             ...getActualSpecialCoursesStatisticsRequest
         }, {});
     }
+
+    public async loadAvailableCourses(): Promise<AvailableModuleDTO[]> {
+        return await this.get("courses/available");
+    }
 }
 
 export interface ICoursesApi {
@@ -79,9 +89,11 @@ export interface ICoursesApi {
     getSelectedCoursesIds(getSelectedCoursesRequest: GetSelectedCoursesRequest): Promise<CoursesBySemesterDto[]>;
     getAllCourses(): Promise<SpecialCourse[]>;
     getEducationalModelCourses(getEducationalModuleCoursesRequest: GetEducationalModuleCoursesRequest): Promise<SpecialCourse[]>;
-    createModuleSpecialCourse(createModuleCourseRequest: CreateModuleSpecialCourseRequest): Promise<void>;
+    createCourse(createCourseDto: CreateCourseDto): Promise<void>;
     getCourseById(getCourseByIdRequest: GetCourseByIdRequest): Promise<SpecialCourse>;
-    deleteSpecialCourseById(deleteSpecialCourseRequest: DeleteSpecialCourseRequest): Promise<void>
-    editModuleSpecialCourse(editModuleSpecialCourseRequest: EditModuleSpecialCourseRequest): Promise<void>
+    deleteSpecialCourseById(deleteSpecialCourseRequest: DeleteSpecialCourseRequest): Promise<void>;
+    editModuleSpecialCourse(editModuleSpecialCourseRequest: EditModuleSpecialCourseRequest): Promise<void>;
     getActualSpecialCoursesStatistics(getActualSpecialCoursesStatisticsRequest: GetActualSpecialCoursesStatisticsRequest): Promise<CourseStatistics[]>;
+    getSelectedCourseNamesBySemester(getSelectedCourseNamesBySemester: GetSelectedCourseNamesBySemesterRequest): Promise<GetSelectedCourseNamesBySemesterResponse[]>;
+    loadAvailableCourses(): Promise<AvailableModuleDTO[]>;
 }

@@ -1,38 +1,41 @@
 package ru.urfu.mm.domain;
 
-import java.util.Objects;
+import ru.urfu.mm.domain.enums.SemesterType;
+
+import java.util.UUID;
 
 /**
- * Семестр.
- * Представляет собой один семестр.
+ * Семестр
  */
 public class Semester {
     /**
-     * Академический год, в котором этот семестр
+     * Идентификатор семестра
      */
-    private final AcademicYear year;
+    private UUID id;
+    /**
+     * Год, в котором проходит семестр
+     */
+    private int year;
     /**
      * Тип семестра
      */
-    private final SemesterType type;
+    private SemesterType type;
 
-    public Semester(AcademicYear year, SemesterType type) {
+    public Semester(UUID id, int year, SemesterType type) {
+        this.id = id;
         this.year = year;
         this.type = type;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if ((obj == null) || (getClass() != obj.getClass()))
-            return false;
-        Semester semester = (Semester) obj;
-        return Objects.equals(year, semester.year) && type == semester.type;
+    public UUID getId() {
+        return id;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(year, type);
+    public int getYear() {
+        return year;
+    }
+
+    public SemesterType getType() {
+        return type;
     }
 }

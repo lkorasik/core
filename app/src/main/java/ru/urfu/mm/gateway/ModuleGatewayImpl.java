@@ -1,12 +1,16 @@
 package ru.urfu.mm.gateway;
 
 import org.springframework.stereotype.Component;
-import ru.urfu.mm.applicationlegacy.gateway.ModuleGateway;
-import ru.urfu.mm.controller.modules.ModuleDTO;
-import ru.urfu.mm.domainlegacy.Module;
-import ru.urfu.mm.repository.EducationalModuleRepository;
+import ru.urfu.mm.application.gateway.ModuleGateway;
+import ru.urfu.mm.domain.Course;
+import ru.urfu.mm.domain.EducationalModule;
+import ru.urfu.mm.domain.enums.ControlTypes;
+import ru.urfu.mm.persistance.entity.EducationalModuleEntity;
+import ru.urfu.mm.persistance.entity.enums.Control;
+import ru.urfu.mm.persistance.repository.EducationalModuleRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -18,41 +22,78 @@ public class ModuleGatewayImpl implements ModuleGateway {
     }
 
     @Override
-    public Module find(UUID moduleId) {
-        ru.urfu.mm.entity.Module entity = educationalModuleRepository.findById(moduleId).get();
-        return new Module(
+    public EducationalModule find(UUID moduleId) {
+        EducationalModuleEntity entity = educationalModuleRepository.findById(moduleId).get();
+        return new EducationalModule(
                 entity.getId(),
                 entity.getName()
         );
     }
 
     @Override
-    public List<Module> getAllModules() {
+    public Optional<EducationalModule> getById(UUID moduleId) {
+        return educationalModuleRepository.findById(moduleId)
+                .map(x -> {
+                    List<Course> courses = x.getCourses()
+                            .stream()
+                            .map(y -> new Course(
+                                    y.getId(),
+                                    y.getName(),
+                                    y.getCreditsCount(),
+                                    ControlTypes.values()[y.getControl().ordinal()],
+                                    y.getDepartment(),
+                                    y.getTeacherName())
+                            )
+                            .toList();
+                    EducationalModule module = new EducationalModule(x.getId(), x.getName());
+                    courses.forEach(module::addCourse);
+                    return module;
+                });
+    }
+
+    @Override
+    public List<EducationalModule> getAllModules() {
         return educationalModuleRepository
                 .findAll()
                 .stream()
-                .map(x -> new Module(x.getId(), x.getName()))
+                .map(x -> {
+                    List<Course> courses = x.getCourses()
+                            .stream()
+                            .map(y -> new Course(
+                                            y.getId(),
+                                            y.getName(),
+                                            y.getCreditsCount(),
+                                            Control.toDomain(y.getControl()),
+                                            y.getDepartment(),
+                                            y.getTeacherName()
+                                    )
+                            )
+                            .toList();
+                    EducationalModule module = new EducationalModule(x.getId(), x.getName());
+                    module.getCourses().addAll(courses);
+                    return module;
+                })
                 .toList();
     }
 
     @Override
-    public List<Module> getModulesByIds(List<UUID> modulesIds) {
+    public List<EducationalModule> getModulesByIds(List<UUID> modulesIds) {
         return educationalModuleRepository
                 .findAll()
                 .stream()
                 .filter(x -> modulesIds.contains(x.getId()))
-                .map(x -> new Module(x.getId(), x.getName()))
+                .map(x -> new EducationalModule(x.getId(), x.getName()))
                 .toList();
     }
 
     @Override
-    public void save(Module module) {
-        ru.urfu.mm.entity.Module entity = new ru.urfu.mm.entity.Module(module.getId(), module.getName());
+    public void save(EducationalModule educationalModule) {
+        EducationalModuleEntity entity = new EducationalModuleEntity(educationalModule.getId(), educationalModule.getName());
         educationalModuleRepository.save(entity);
     }
 
     @Override
-    public void delete(Module module) {
-        educationalModuleRepository.deleteById(module.getId());
+    public void delete(EducationalModule educationalModule) {
+        educationalModuleRepository.deleteById(educationalModule.getId());
     }
 }

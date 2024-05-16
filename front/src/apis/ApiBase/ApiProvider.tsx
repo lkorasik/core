@@ -9,6 +9,7 @@ import {LoginInfo} from "../../hooks/LoginInfo";
 import {DocumentsApi, IDocumentsApi} from "../api/document/DocumentsApi";
 import {ISkillsApi, SkillsApi} from "../api/skill/SkillsApi";
 import {IRecommendationsApi, RecommendationsApi} from "../api/recommendation/RecommendationsApi";
+import { GroupsApi, IGroupsApi } from "../api/groups/GroupsApi";
 
 const apiPrefix: string = "/api/";
 
@@ -21,6 +22,7 @@ export interface IAllApis {
     documentsApi: IDocumentsApi;
     skillsApi: ISkillsApi;
     recommendationsApi: IRecommendationsApi;
+    groupsApi: IGroupsApi; 
 }
 
 export interface IAllApisProp {
@@ -46,6 +48,7 @@ export const RealApi: IAllApis = {
     documentsApi: new DocumentsApi(apiPrefix, getToken),
     skillsApi: new SkillsApi(apiPrefix, getToken),
     recommendationsApi: new RecommendationsApi(apiPrefix, getToken),
+    groupsApi: new GroupsApi(apiPrefix, getToken),
 };
 
 export const ApiContext = React.createContext(RealApi);

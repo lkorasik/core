@@ -1,0 +1,36 @@
+.mainPageContainer {
+    white-space: normal;
+    min-height: 100vh;
+    background-color: #f6f6f6;
+}
+
+.header {
+    background-color: #bababa;
+    padding: 2rem;
+}
+
+.flexContainer {
+    margin-top: 3rem;
+}
+
+.flexElement {
+    flex-basis: 50%;
+    flex-shrink: 1;
+}
+
+.button {
+    width: 25%;
+    padding: 20px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background: #008BD0;
+    border-radius: 1rem;
+    border: none;
+    font-size: 20px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.button:hover{
+    background: #0398e3;
+}

@@ -3,6 +3,8 @@ import {ModuleDto} from "./ModuleDto";
 import {ApiBase} from "../../ApiBase/ApiBase";
 import {DeleteModuleDto} from "./DeleteModuleDto";
 import {CreateModuleDto} from "./CreateModuleDto";
+import { GetModuleDto } from "./GetModuleDto";
+import { FullModuleDto } from "./FullModuleDto";
 
 export class ModulesApi extends ApiBase implements IModulesApi {
     public async getModulesByIds(getModulesRequest: GetModulesDto): Promise<ModuleDto[]> {
@@ -10,8 +12,13 @@ export class ModulesApi extends ApiBase implements IModulesApi {
             ...getModulesRequest
         });
     }
+    
     public async getAllModules(): Promise<ModuleDto[]> {
-        return await this.get("modules", {}, {});
+        return await this.get("modules/all", {}, {});
+    }
+    
+    public async getAllModules2(): Promise<FullModuleDto[]> {
+        return await this.get("modules/all2", {}, {});
     }
 
     public async deleteModuleById(deleteEducationalModuleRequest: DeleteModuleDto): Promise<void> {
@@ -25,6 +32,10 @@ export class ModulesApi extends ApiBase implements IModulesApi {
             ...createModuleRequest
         });
     }
+
+    public async getModuleById(moduleId: GetModuleDto): Promise<FullModuleDto> {
+        return await this.get("modules/module", {...moduleId});
+    }
 }
 
 export interface IModulesApi {
@@ -32,4 +43,6 @@ export interface IModulesApi {
     getAllModules(): Promise<ModuleDto[]>
     deleteModuleById(deleteModuleRequest: DeleteModuleDto): Promise<void>
     createModule(createModuleRequest: CreateModuleDto): Promise<void>
+    getModuleById(moduleId: GetModuleDto): Promise<FullModuleDto>
+    getAllModules2(): Promise<FullModuleDto[]> 
 }

@@ -1,7 +1,7 @@
 package ru.urfu.mm.service;
 
-import ru.urfu.mm.entity.Control;
-import ru.urfu.mm.entity.Semester;
+import ru.urfu.mm.persistance.entity.enums.Control;
+import ru.urfu.mm.persistance.entity.Semester;
 
 import java.util.List;
 import java.util.UUID;
@@ -16,7 +16,7 @@ public class CourseForEducationalProgram {
     private UUID educationalModuleId;
 
     /// <summary>
-    ///     Если курс является обязательным, то поле заполняется id семестра,
+    ///     Если курс является обязательным, то поле заполняется programId семестра,
     ///     в котором этот курс будет обязательным, иначе - null.
     /// </summary>
     public UUID requiredSemesterId;

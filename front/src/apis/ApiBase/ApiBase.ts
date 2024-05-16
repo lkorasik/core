@@ -160,7 +160,7 @@ export class ApiBase {
         }
     }
 
-    public async downloadFile(url: string, params?: ParamsMap): Promise<void> {
+    public async downloadFile(url: string, filename: string, params?: ParamsMap): Promise<void> {
         const response = await fetch(this.prefix + url + this.createQueryString(params), {
             ...this.getAdditionalHeaders(),
             headers: {
@@ -174,7 +174,7 @@ export class ApiBase {
         const linkElement = document.createElement('a');
         linkElement.id = "fileLink";
         linkElement.href = fileUrl;
-        linkElement.download = "uchebniy_plan.docx";
+        linkElement.download = filename;
         linkElement.click();
         linkElement.remove();
     }

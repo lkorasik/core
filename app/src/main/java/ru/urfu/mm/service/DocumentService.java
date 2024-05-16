@@ -3,11 +3,11 @@ package ru.urfu.mm.service;
 import org.apache.poi.xwpf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.urfu.mm.entity.EducationalProgramToCoursesWithSemesters;
-import ru.urfu.mm.entity.SelectedCourses;
-import ru.urfu.mm.repository.EducationalProgramToCoursesWithSemestersRepository;
-import ru.urfu.mm.repository.SelectedCoursesRepository;
-import ru.urfu.mm.repository.StudentRepository;
+import ru.urfu.mm.persistance.entity.EducationalProgramToCoursesWithSemesters;
+import ru.urfu.mm.persistance.entity.SelectedCourses;
+import ru.urfu.mm.persistance.repository.EducationalProgramToCoursesWithSemestersRepository;
+import ru.urfu.mm.persistance.repository.SelectedCoursesRepository;
+import ru.urfu.mm.persistance.repository.StudentRepository;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -48,22 +48,23 @@ public class DocumentService {
                 "Современные проблемы компьютерных наук",
                 "Май 2025");
 
-        var student = studentRepository.findByLogin(studentId).get();
+        var student = studentRepository.findById(studentId).get();
         var courses = educationalProgramToCoursesWithSemestersRepository
                 .findAll()
                 .stream()
-                .filter(x -> x.getEducationalProgram().getId() == student.getEducationalProgram().getId())
+//                .filter(x -> x.getEducationalProgram().getId() == student.getEducationalProgram().getId())
                 .toList();
         var selectedCourses = selectedCoursesRepository
                 .findAll()
                 .stream()
-                .filter(x -> x.getStudent().getLogin().equals(studentId))
+                .filter(x -> x.getStudent().getId().equals(studentId))
                 .toList();
         var semesterToCourse = courses
                 .stream()
                 .collect(
                         Collectors.groupingBy(
-                                x -> x.getSemester().getSemesterNumber(),
+                                x -> 0,
+                                // todo: fix it
                                 Collectors.mapping(
                                         x -> x,
                                         Collectors.toList()

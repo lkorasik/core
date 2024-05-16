@@ -1,0 +1,33 @@
+.button {
+    display: flex;
+    width: 100px;
+    height: 100px;
+    background-image: url("../../../../public/addButton.svg");
+    background-color: transparent;
+    background-position: center;
+    background-size: contain;
+    bottom: 10px;
+    border: none;
+    opacity: 0.8;
+    transition: transform 0.2s ease-in, opacity 0.2s ease-in;
+    margin: 1rem;
+}
+
+.button:enabled {
+    cursor: pointer;
+}
+
+.button:hover:enabled {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.button_container {
+    display: flex;
+    justify-content: center;
+}
+
+#image_container {
+    display: flex;
+    align-items: center;
+}

@@ -1,0 +1,10 @@
+package ru.urfu.mm.application.usecase.create_group;
+
+/**
+ * Номер группы предоставлен в некорректном формате
+ */
+public class InvalidGroupNameException extends RuntimeException {
+    public InvalidGroupNameException(String number) {
+        super("The group number " + number + " is not in the correct format.");
+    }
+}

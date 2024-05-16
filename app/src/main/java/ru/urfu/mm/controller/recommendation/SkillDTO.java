@@ -1,6 +1,6 @@
 package ru.urfu.mm.controller.recommendation;
 
-import ru.urfu.mm.entity.SkillLevel;
+import ru.urfu.mm.persistance.entity.enums.SkillLevel;
 
 import java.util.UUID;
 

@@ -4,21 +4,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.urfu.mm.applicationlegacy.usecase.GetActualSemesters;
-import ru.urfu.mm.service.SemesterService;
+import ru.urfu.mm.application.usecase.GetActualSemesters;
+import ru.urfu.mm.controller.Endpoints;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/semesters")
+@RequestMapping(Endpoints.Semester.BASE)
 public class SemesterController {
     @Autowired
     private GetActualSemesters getActualSemesters;
 
-    @GetMapping("/actual")
+    @GetMapping(Endpoints.Semester.ACTUAL)
     public List<SemesterDTO> actual() {
         return getActualSemesters.getActualSemesters().stream()
-                .map(semester -> new SemesterDTO(semester.getId(), semester.getYear(), semester.getSemesterNumber()))
+                // todo: fix this
+                .map(semester -> new SemesterDTO(semester.getId(), semester.getYear(), 0))
                 .toList();
     }
 }

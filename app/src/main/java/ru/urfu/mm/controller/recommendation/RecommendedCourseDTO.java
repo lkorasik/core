@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * @param requiredSemesterId Если курс является обязательным, то поле заполняется id семестра,
+ * @param requiredSemesterId Если курс является обязательным, то поле заполняется programId семестра,
  *                           в котором этот курс будет обязательным, иначе - null.
  */
 public record RecommendedCourseDTO(

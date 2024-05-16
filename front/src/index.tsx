@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import './theme.css';
 import App from './domain/App/App';
 import reportWebVitals from './reportWebVitals';
 import {ApiProvider, RealApi} from "./apis/ApiBase/ApiProvider";

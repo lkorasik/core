@@ -1,60 +1,33 @@
-import { Button } from "../../base_components/Button/Button";
+import { Button } from "../../base_components/Buttons/Button/Button";
 import { ButtonSelector } from "../../base_components/ButtonSelector/ButtonSelector";
 import { Input } from "../../base_components/Input/Input";
 import styles from "./WelcomeBackground.module.css";
 import { LoginInfo } from "../../hooks/LoginInfo";
-import Select from "react-select";
-import { ProgramInfoDto } from "../../apis/api/programs/ProgramInfoDto";
 import { useApis } from "../../apis/ApiBase/ApiProvider";
 import { AccessTokenDto } from "../../apis/api/authentication/AccessTokenDto";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface Props {
     saveLoginInfo: (loginInfo: LoginInfo) => void;
 }
 
 export function WelcomeScreen(props: Props) {
-    const [selectedProgramId, setSelectedProgramId] = useState("");
-    const accountTypes = ["Студент", "Администратор"]
     const [registrationToken, setRegistrationToken] = useState("");
     const [password, setPassword] = useState("");
     const [passwordAgain, setPasswordAgain] = useState("");
-    const [group, setGroup] = useState("");
-    const [educationalPrograms, setEducationalPrograms] = useState<ProgramInfoDto[]>();
-
     const [isRegistration, setIsRegistration] = useState(false)
-    const [registrationForm, setRegistrationForm] = useState(accountTypes[0])
 
     const apis = useApis();
-
-    useEffect(() => {
-        const loadEducationalPrograms = async () => {
-            const programs = await apis.educationalProgramsApi.getEducationalProgramsList();
-            setEducationalPrograms(programs);
-        }
-        loadEducationalPrograms().catch(console.error);
-    }, [apis.educationalProgramsApi])
 
     const saveLoginInfo = (registeredToken: AccessTokenDto) => {
         props.saveLoginInfo({
             token: registeredToken.accessToken,
-            userRole: registeredToken.userRole
+            userEntityRole: registeredToken.userEntityRole
         });
     }
 
-    const registerStudent = async () => {
-        const registeredToken = await apis.authenticationApi.registerStudent({
-            token: registrationToken,
-            programId: selectedProgramId,
-            group: group,
-            password: password,
-            passwordAgain: passwordAgain
-        });
-        saveLoginInfo(registeredToken)
-    }
-
-    const registerAdministration = async () => {
-        const registeredToken = await apis.authenticationApi.registerAdmin({
+    const register = async () => {
+        const registeredToken = await apis.authenticationApi.register({
             token: registrationToken,
             password: password,
             passwordAgain: passwordAgain
@@ -69,77 +42,40 @@ export function WelcomeScreen(props: Props) {
         });
         saveLoginInfo(loginToken)
     }
-
-    const renderLoginForm = () => {
+    
+    const renderBaseForm = () => {
         return (
             <>
-                <span>Логин<span className={styles.red}>*</span></span>
-                <Input type={"email"} placeholder={""} isRequired={true} onChange={event => setRegistrationToken(event.target.value)} />
-                <span>Пароль<span className={styles.red}>*</span></span>
+                <span className={styles.field_title}>Логин</span>
+                <Input 
+                    type={"text"} 
+                    placeholder={"15bf0ff0-61ca-4658-8a28-9b649adee5f3"} 
+                    isRequired={true} 
+                    onChange={event => setRegistrationToken(event.target.value)} />
+                <span className={styles.field_title}>Пароль</span>
                 <Input type={"password"} placeholder={""} isRequired={true} onChange={event => setPassword(event.target.value)} />
-                <Button id={styles.enterButton} onClick={login}>Войти</Button>
             </>
         )
     }
 
-    const renderAccountTypeSelector = () => {
-        return (
-            <Select
-                className={styles.select}
-                placeholder={"Тип аккаунта"}
-                isDisabled={false}
-                defaultValue={accountTypes.map(x => ({ value: x, label: x }))[0]}
-                options={accountTypes.map(x => ({ value: x, label: x }))}
-                onChange={newValue => {
-                    if (newValue) {
-                        setSelectedProgramId(newValue.value)
-                        setRegistrationForm(newValue.value)
-                    }
-                }}
-            />)
-    }
-
-    const renderAdministratorRegisterForm = () => {
+    const renderLoginForm = () => {
         return (
             <>
-                <Input type={"text"} placeholder={"Токен регистрации"} isRequired={true} onChange={event => setRegistrationToken(event.target.value)} />
-                <Input type={"password"} placeholder={"Пароль"} isRequired={true} onChange={event => setPassword(event.target.value)} />
-                <Input type={"password"} placeholder={"Повторите пароль"} isRequired={true} onChange={event => setPasswordAgain(event.target.value)} />
-                <Button onClick={registerAdministration}>Зарегистрироваться</Button>
+                {renderBaseForm()}
+                <Button className={styles.enterButton} onClick={login}>Войти</Button>
             </>
-        );
+        )
     }
 
-    const renderStudentRegisterForm = () => {
+    const renderRegistrationForm = () => {
         return (
             <>
-                <Input type={"text"} placeholder={"Токен регистрации"} isRequired={true} onChange={event => setRegistrationToken(event.target.value)} />
-                <Select
-                    className={styles.select}
-                    placeholder={"Образовательная программа"}
-                    isDisabled={!educationalPrograms}
-                    options={educationalPrograms!.map(x => ({ value: x.id, label: x.name }))}
-                    onChange={newValue => {
-                        if (newValue) {
-                            setSelectedProgramId(newValue.value)
-                        }
-                    }}
-                />
-                <Input type={"text"} placeholder={"Группа"} isRequired={true} onChange={event => setGroup(event.target.value)} />
-                <Input type={"password"} placeholder={"Пароль"} isRequired={true} onChange={event => setPassword(event.target.value)} />
-                <Input type={"password"} placeholder={"Повторите пароль"} isRequired={true} onChange={event => setPasswordAgain(event.target.value)} />
-                <Button onClick={registerStudent}>Зарегистрироваться</Button>
+                {renderBaseForm()}
+                <span className={styles.field_title}>Повторите пароль</span>
+                <Input type={"password"} placeholder={""} isRequired={true} onChange={event => setPasswordAgain(event.target.value)} />
+                <Button className={styles.enterButton} onClick={register}>Зарегистрироваться</Button>
             </>
         );
-    }
-
-    const renderRegistrationFrom = () => {
-        if (registrationForm === "Администратор") {
-            return renderAdministratorRegisterForm()
-        }
-        if (registrationForm === "Студент") {
-            return renderStudentRegisterForm()
-        }
     }
 
     return (
@@ -168,8 +104,7 @@ export function WelcomeScreen(props: Props) {
                     }} />
 
                     {!isRegistration && renderLoginForm()}
-                    {isRegistration && renderAccountTypeSelector()}
-                    {isRegistration && educationalPrograms && renderRegistrationFrom()}
+                    {isRegistration && renderRegistrationForm()}
                </div>
             </div>
         </div>

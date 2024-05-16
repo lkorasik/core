@@ -14,12 +14,13 @@ import {useDispatch} from "react-redux";
 import {CoursesStoreActionCreator} from "../../storing/coursesStore/coursesStore.actionCreator";
 import {ModuleDto} from "../../apis/api/modules/ModuleDto";
 import {TextLoadingPlaceholder} from "../../base_components/TextLoadingPlaceholder/TextLoadingPlaceholder";
-import {Button} from "../../base_components/Button/Button";
+import {Button} from "../../base_components/Buttons/Button/Button";
 import {useNavigate} from "react-router-dom";
 
 
+// Old implementation
 export const ChooseCoursesScreen: FC = () => {
-    const [educationalProgram, setEducationalProgram] = useState<ProgramInfoDto | undefined>();
+    const [program, setEducationalProgram] = useState<ProgramInfoDto | undefined>();
     const [actualSemesters, setActualSemesters] = useState<SemesterDto[] | undefined>();
     const [selectedSemesterId, setSelectedSemesterId] = useState<string | undefined>();
     const [educationalModules, setEducationalModules] = useState<ModuleDto[]>([]);
@@ -88,10 +89,10 @@ export const ChooseCoursesScreen: FC = () => {
                 {renderHeader()}
                 <div className={styles.wrapper}>
                     <Flex className={styles.educationalProgramAndSemesterWrapper} direction={"row"}>
-                        {educationalProgram
+                        {program
                             ? (
                                 <Text className={styles.educationalProgramText} size={2} fontWeight={"bold"} align={"left"}>
-                                    {educationalProgram.name}
+                                    {program.name}
                                 </Text>
                             )
                             : <TextLoadingPlaceholder className={styles.educationalProgramText} />}
@@ -105,7 +106,7 @@ export const ChooseCoursesScreen: FC = () => {
                                 chosenSemesterId={selectedSemesterId!}
                                 modules={educationalModules}
                             />
-                            <Button onClick={() => navigate("/student/recommendationService")}>
+                            <Button onClick={() => navigate("/studentEntity/recommendationService")}>
                                 Перейти в сервис рекомендаций спецкурсов
                             </Button>
                         </div>

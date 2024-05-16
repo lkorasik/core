@@ -2,7 +2,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: #1E4391;
+    background-color: var(--primary_color);
 }
 
 .img_container {
@@ -42,10 +42,16 @@
     flex-direction: column;
     z-index: 1;
     border-radius: 10px;
-    margin: 1em;
+    margin: 3em;
     background-color: #ffffff;
     width: 20em;
     padding: 1.75em
+}
+
+.field_title {
+    font-size: 0.7em;
+    margin: 0.1em;
+    color: rgba(34, 34, 34, 0.6);
 }
 
 #lastButton {
@@ -56,7 +62,7 @@
     color: #FB3727;
 }
 
-#enterButton {
+.enterButton {
     margin-top: 4em;
 }
 

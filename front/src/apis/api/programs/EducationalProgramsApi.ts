@@ -3,28 +3,54 @@ import {ApiBase} from "../../ApiBase/ApiBase";
 import { CreateProgramDto } from "./CreateProgramDto";
 import { ProgramIdDto } from "./ProgramIdDto";
 import { FullProgramDto } from "./FullProgramDto";
+import { ShortProgramDTO } from "./ShortProgramDTO";
+import { UpdateEducationalProgramDto } from "./UpdateEducationalProgramDto";
+import { AvailableYearDto } from "./AvailableYearDto";
+import { StudyPlanDto } from "./StudyPlanDto";
+import { GetStudyPlanDto } from "./GetStudyPlanDto";
+import { StudyPlanDto2 } from "./StudyPlanDto2";
 
 export class ProgramsApi extends ApiBase implements IProgramsApi {
-    public async getEducationalProgramsList(): Promise<ProgramInfoDto[]> {
-        return this.get("programs");
-    }
-
     public async getCurrentEducationalProgram(): Promise<ProgramInfoDto> {
         return this.get("programs/current");
     }
 
-    public async createEducationalProgramList(createEducationalProgram: CreateProgramDto): Promise<any> {
+    public async createEducationalProgram(createEducationalProgram: CreateProgramDto): Promise<any> {
         return this.post("programs/create", {}, createEducationalProgram);
     }
 
     public async getEducationalProgramById(id: ProgramIdDto): Promise<FullProgramDto> {
-        return this.post("programs/program", {}, id);
+        return this.get("programs/program", {...id});
+    }
+
+    public async getAllPrograms(): Promise<ShortProgramDTO[]> {
+        return this.get("programs/all");
+    }
+
+    public async updateEducationalProgram(updateProgram: UpdateEducationalProgramDto): Promise<void> {
+        return this.put("programs/program", {}, updateProgram);
+    }
+
+    public async getAvailableYears(programId: ProgramIdDto): Promise<AvailableYearDto[]> {
+        return this.get("programs/availableYears", {...programId});
+    }
+
+    public async saveStudyPlan(syllabus: StudyPlanDto): Promise<void> {
+        return this.post("programs/plan", {}, syllabus);
+    }
+
+    public async getStudyPlan(getStudyPlan: GetStudyPlanDto): Promise<StudyPlanDto2> {
+        return this.post("programs/getPlan", {}, getStudyPlan)
     }
 }
 
 export interface IProgramsApi {
-    getEducationalProgramsList(): Promise<ProgramInfoDto[]>
     getCurrentEducationalProgram(): Promise<ProgramInfoDto>
-    createEducationalProgramList(createEducationalProgram: CreateProgramDto): Promise<any>
+    createEducationalProgram(createEducationalProgram: CreateProgramDto): Promise<any>
     getEducationalProgramById(id: ProgramIdDto): Promise<FullProgramDto>
+    getAllPrograms(): Promise<ShortProgramDTO[]>
+    updateEducationalProgram(updateProgram: UpdateEducationalProgramDto): Promise<void>
+    getAvailableYears(programId: ProgramIdDto): Promise<AvailableYearDto[]>
+    saveStudyPlan(syllabus: StudyPlanDto): Promise<void>
+    getStudyPlan(getStudyPlan: GetStudyPlanDto): Promise<StudyPlanDto2>
 }

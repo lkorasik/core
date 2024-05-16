@@ -2,15 +2,10 @@ package ru.urfu.mm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.urfu.mm.controller.course.CourseDTO;
 import ru.urfu.mm.controller.course.CourseStatisticsDTO;
-import ru.urfu.mm.controller.course.CreateModuleCourseDTO;
-import ru.urfu.mm.entity.SpecialCourse;
 import ru.urfu.mm.exceptions.CourseRequiredCriteriaException;
-import ru.urfu.mm.repository.EducationalModuleRepository;
-import ru.urfu.mm.repository.EducationalProgramToCoursesWithSemestersRepository;
-import ru.urfu.mm.repository.SelectedCoursesRepository;
-import ru.urfu.mm.repository.SpecialCourseRepository;
+import ru.urfu.mm.persistance.repository.EducationalProgramToCoursesWithSemestersRepository;
+import ru.urfu.mm.persistance.repository.SelectedCoursesRepository;
 
 import java.util.List;
 import java.util.Map;
@@ -72,7 +67,7 @@ public class CourseService {
                 .findAll()
                 .stream()
                 .filter(x -> x.getSpecialCourse().getId().equals(courseId))
-                .map(x -> x.getStudent().getLogin())
+                .map(x -> x.getStudent().getId())
                 .distinct()
                 .toList();
         return coursesModels.size();

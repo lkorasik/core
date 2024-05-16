@@ -1,39 +1,129 @@
 package ru.urfu.mm.domain;
 
-import java.util.ArrayList;
+import ru.urfu.mm.domain.enums.ControlTypes;
+
 import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
- * Учебный курс.
- * Представляет собой обязательный курс, спецкурс или НИР.
+ * Учебныц курс.
  */
 public class Course {
     /**
-     * Название курса
+     * Идентификатор курса
      */
-    private final String name;
+    private UUID id;
     /**
-     * Навыки необходимые для прохождения данного курса
+     * Назавние курса
      */
-    private final List<Skill> requiredSkills;
+    private String name;
+    /**
+     * Число зачетных единиц
+     */
+    private int credits;
+    /**
+     * Формат итогового контроля
+     */
+    private ControlTypes controlTypes;
     /**
      * Описание курса
      */
-    private final String description;
+    private String description;
     /**
      * Кафедра
      */
-    private final String department;
+    private String department;
     /**
      * Преподаватель
      */
-    private final String teacher;
+    private String teacher;
+    /**
+     * Список требуемых навыков
+     */
+    private List<Skill> requiredSkills;
 
-    public Course(String name, String description, String department, String teacher) {
+    public Course(
+            UUID id,
+            String name,
+            int credits,
+            ControlTypes controlTypes,
+            String department,
+            String teacher) {
+        this.id = id;
         this.name = name;
-        this.description = description;
+        this.credits = credits;
+        this.controlTypes = controlTypes;
         this.department = department;
         this.teacher = teacher;
-        this.requiredSkills = new ArrayList<>();
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getCredits() {
+        return credits;
+    }
+
+    public ControlTypes getControl() {
+        return controlTypes;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public String getTeacher() {
+        return teacher;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCredits(int credits) {
+        this.credits = credits;
+    }
+
+    public void setControl(ControlTypes controlTypes) {
+        this.controlTypes = controlTypes;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public void setTeacher(String teacher) {
+        this.teacher = teacher;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if ((obj == null) || (getClass() != obj.getClass()))
+            return false;
+        Course that = (Course) obj;
+        return credits == that.credits && Objects.equals(id, that.id) && Objects.equals(name, that.name) &&
+               controlTypes == that.controlTypes && Objects.equals(description, that.description) &&
+               Objects.equals(department, that.department) && Objects.equals(teacher, that.teacher);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, credits, controlTypes, description, department, teacher);
     }
 }

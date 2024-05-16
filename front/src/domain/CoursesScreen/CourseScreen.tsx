@@ -3,10 +3,13 @@ import {IAllApisProp, withApis} from "../../apis/ApiBase/ApiProvider";
 import {connect, ConnectedProps} from "react-redux";
 import React from "react";
 import {RootState} from "../../index";
-import {Link} from "react-router-dom";
 import {EDIT_MODULE_COURSES_SCREEN_URL, MODULE_COURSES_SCREEN_URL} from "../App/App";
 import {SpecialCourse} from "../../apis/api/course/SpecialCourse";
 import {Control} from "../../apis/api/Control";
+import { Title } from "../../base_components/Title/Title";
+import { EditButton } from "../../base_components/Buttons/CrudButtons/EditButton/EditButton";
+import { DeleteButton } from "../../base_components/Buttons/CrudButtons/DeleteButton/DeleteButton";
+import { CloseButton } from "../../base_components/Buttons/CrudButtons/CloseButton/CloseButton";
 
 interface State {
     courseId: string;
@@ -37,26 +40,25 @@ class CourseScreenClear extends React.Component<Props, State> {
 
     public render() {
         this.componentDidMount()
+
+        const renderTitle = () => {
+            if (this.state.courseModel?.name) {
+                return this.state.courseModel?.name!;
+            } else {
+                return "";
+            }
+        }
+
         return (
             <>
                 <div id={styles.container}>
-                    <div className={styles.fontHeader1}>
-                        Курс: {this.state.courseModel?.name}
-                    </div>
+                    <Title>{"Курс: " + renderTitle()}</Title>
                     <div id={styles.helperButtons}>
-                        <Link className={styles.linkOverride}
-                              to={EDIT_MODULE_COURSES_SCREEN_URL + this.state.courseId}>
-                            <button className={styles.editButton}/>
-                        </Link>
-                        <Link className={styles.linkOverride}
-                              to={MODULE_COURSES_SCREEN_URL + this.state.courseModel?.moduleId}>
-                            <button className={styles.deleteButton} onClick={() => {
-                                this.deleteCourse()}}/>
-                        </Link>
-                        <Link className={styles.linkOverride}
-                              to={MODULE_COURSES_SCREEN_URL + this.state.courseModel?.moduleId}>
-                            <button className={styles.cancelButton}/>
-                        </Link>
+                        <EditButton to={EDIT_MODULE_COURSES_SCREEN_URL + this.state.courseId} />
+                        <DeleteButton 
+                            to={MODULE_COURSES_SCREEN_URL + this.state.courseModel?.moduleId} 
+                            onClick={() => this.deleteCourse()}/>
+                        <CloseButton />
                     </div>
                     <div>
                         <label className={styles.label}>
@@ -91,7 +93,7 @@ class CourseScreenClear extends React.Component<Props, State> {
                         </label>
                         <br/>
                         <span className={styles.input}>
-                            {this.state.courseModel?.control == Control.Test ? "Зачет" : "Экзамен"}
+                            {this.state.courseModel?.controlTypes == Control.Test ? "Зачет" : "Экзамен"}
                         </span>
                     </div>
                     <div>

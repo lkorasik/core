@@ -1,0 +1,214 @@
+.header {
+    padding: 1em;
+    background-color: #f6f6f6;
+}
+
+.flexContainer {
+    margin-top: 3rem;
+}
+
+.flexElement {
+    flex-basis: 50%;
+    flex-shrink: 1;
+}
+
+.add_button {
+    border: none;
+    background: none;
+    text-decoration: underline;
+    color: var(--primary_color);
+    font-weight: 600;
+}
+
+.add_button:disabled {
+    color: #f6f6f6;
+}
+
+.button_container {
+    display: flex;
+    justify-content: center;
+}
+
+.semester_columns {
+    display: flex;
+}
+
+.add_button:hover:enabled {
+    cursor: pointer;
+}
+
+#container {
+    padding: 1em;
+    background-color: #f6f6f6;
+}
+
+.background {
+    background-color: #f6f6f6;
+    background-size: cover;
+}
+
+.select_list {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.column_header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Montserrat, sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--primary_color);
+    width: 100%;
+}
+
+.column {
+    width: 100%;
+    margin: 0.25em;
+}
+
+.label {
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba(34, 34, 34, 0.6);
+    width: 173px;
+    height: 47px;
+}
+
+.input {
+    width: 713px;
+    height: 60px;
+    border-radius: 10px;
+    border-width: 2px;
+    border-color: #D9D9D9;
+    background-color: rgba(0, 0, 0, 0);
+    border-style: solid;
+    padding-left: 0.5em;
+    font-family: Montserrat, sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: rgba(34, 34, 34, 1);
+}
+
+.input_points {
+    width: 50px;
+    height: 60px;
+    border-radius: 10px;
+    border-width: 2px;
+    border-color: #D9D9D9;
+    background-color: rgba(0, 0, 0, 0);
+    border-style: solid;
+    margin-right: 0.5em;
+    display: flex;
+    align-items: center;
+    padding-left: 0.5em;
+    font-family: Montserrat, sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: rgba(34, 34, 34, 1);
+}
+
+.required {
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba(251, 55, 39, 1);
+    width: 173px;
+    height: 47px;
+    text-align: center;
+}
+
+.select {
+    width: 713px;
+    height: 60px;
+    border-radius: 10px;
+    border-width: 2px;
+    border-color: #D9D9D9;
+    background-color: rgba(0, 0, 0, 0);
+    border-style: solid;
+
+    padding-left: 0.5em;
+    font-family: Montserrat, sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: rgba(34, 34, 34, 1);
+}
+
+.select.option {
+    width: 713px;
+    height: 60px;
+    border-radius: 10px;
+    border-width: 2px;
+    border-color: #D9D9D9;
+    background-color: rgba(0, 0, 0, 0);
+    border-style: solid;
+
+    padding-left: 0.5em;
+    font-family: Montserrat, sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: rgba(34, 34, 34, 1);
+}
+
+.saveButton {
+    margin-left: 18px;
+    width: 170px;
+    height: 64px;
+    border: none;
+    border-radius: 16px;
+    background-color: var(--primary_color);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scale: 1;
+    transition: scale 0.5s ease;
+}
+
+.saveButton:disabled {
+    background-color: #c0c0c0;
+}
+
+.linkOverride {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.saveButton:hover:enabled {
+    cursor: pointer;
+    scale: 1.08;
+    transition: scale 0.5s ease;
+}
+
+#helperButtons {
+    display: flex;
+    background-position: center;
+    background-size: contain;
+    backgrount-repeat: none;
+    position: absolute;
+    right: 40px;
+    top: 147px;
+    vertical-align: bottom;
+    border: none;
+}
+
+.rule {
+    height: 0.1em;
+    width: 100%;
+    background-color: var(--primary_color);
+    border: 0;
+}
+
+.secondary_rule {
+    height: 0.05em;
+    width: 100%;
+    background-color: #D9D9D9;
+    border: 0;
+}

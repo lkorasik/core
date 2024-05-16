@@ -1,0 +1,16 @@
+package ru.urfu.mm.application.gateway;
+
+import ru.urfu.mm.domain.*;
+import ru.urfu.mm.domain.enums.SkillLevel;
+
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+public interface SkillGateway {
+    List<Skill> getAll();
+    void deleteSkillsForStudent(UUID studentId);
+    void deleteDesiredSkillsForStudent(UUID studentId);
+    void saveSkillsForStudent(Student student, List<Map.Entry<UUID, SkillLevel>> skills);
+    void saveDesiredSkillsForStudent(Student student, List<Map.Entry<UUID, SkillLevel>> skills);
+}
