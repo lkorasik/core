@@ -9,10 +9,10 @@ import { AuthService } from '../auth.service';
     selector: 'app-login-form',
     standalone: true,
     imports: [FormsModule, TextFieldComponent, ButtonComponent, FormSelectorComponent],
-    templateUrl: './login-form.component.html',
-    styleUrl: './login-form.component.css'
+    templateUrl: './auth-form.component.html',
+    styleUrl: './auth-form.component.css'
 })
-export class LoginFormComponent {
+export class AuthFormComponent {
     FormSelector = FormSelector;
 
     login = "";

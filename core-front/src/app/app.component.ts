@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { LoginFormComponent } from './login-form/login-form.component';
+import { AuthFormComponent } from './auth-form/auth-form.component';
 
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [LoginFormComponent],
+    imports: [AuthFormComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css'
 })
