@@ -10,10 +10,6 @@
 
     <app-text-field title="Логин" placeholder="15bf0ff0-61ca-4658-8a28-9b649adee5f3" (fieldValue)="setLogin($event)"/>
     <app-text-field title="Пароль" type="password" (fieldValue)="setPassword($event)"/>
-    
-    <button class="button enter_button" (click)="onLogin()">
-        <span class="inner_text">
-            Войти
-        </span>
-    </button>
+
+    <app-button label="Войти" (clickEvent)="click()" />
 </div>

@@ -9,12 +9,12 @@ import { FormsModule } from '@angular/forms';
     styleUrl: './text-field.component.css'
 })
 export class TextFieldComponent {
-    @Input() title: string = ""
-    @Input() placeholder: string = ""
-    @Input() type: string = "text"
+    @Input() title = ""
+    @Input() placeholder = ""
+    @Input() type = "text"
 
     @Output() fieldValue: EventEmitter<string> = new EventEmitter<string>();
-    value: string = ""
+    value = ""
 
     setFieldValue() {
         this.fieldValue.emit(this.value);
