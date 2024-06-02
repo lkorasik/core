@@ -16,6 +16,6 @@ export class AuthService {
 
         console.log(user)
 
-        let response = this.client.post("http://localhost:5000/api/authentication/login", user).subscribe(x => console.log(x));
+        let response = this.client.post("/api/authentication/login", user).subscribe(x => console.log(x));
     }
 }

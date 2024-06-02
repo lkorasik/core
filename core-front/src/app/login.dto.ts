@@ -1,4 +1,4 @@
 export class LoginDTO {
-    constructor(public name: string, public password: string) {
+    constructor(public token: string, public password: string) {
     }
 }
