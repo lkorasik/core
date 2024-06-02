@@ -1,8 +1,12 @@
 <div class="form">
-    <app-form-selector />
-    
+    <app-form-selector (formSelectorEvent)="setForm($event)" />
+
     <app-text-field title="Логин" placeholder="15bf0ff0-61ca-4658-8a28-9b649adee5f3" (fieldValue)="setLogin($event)" />
     <app-text-field title="Пароль" type="password" (fieldValue)="setPassword($event)" />
 
-    <app-button label="Войти" (clickEvent)="onClick()" />
+    @if (type == FormSelector.REGISTRATION) {
+        <app-text-field title="Повторите пароль" type="password" (fieldValue)="setPasswordAgain($event)" />
+    }
+
+    <app-button label={{buttonLabel}} (clickEvent)="onClick()" />
 </div>

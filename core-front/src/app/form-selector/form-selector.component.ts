@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
     selector: 'app-form-selector',
@@ -8,4 +8,16 @@ import { Component } from '@angular/core';
     styleUrl: './form-selector.component.css'
 })
 export class FormSelectorComponent {
+    @Output() formSelectorEvent = new EventEmitter<FormSelector>();
+
+    FormSelector = FormSelector
+
+    handle(type: FormSelector) {
+        this.formSelectorEvent.emit(type);
+    }
+}
+
+export enum FormSelector {
+    LOGIN,
+    REGISTRATION
 }
