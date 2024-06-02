@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { TextFieldComponent } from '../text-field/text-field.component';
 import { ButtonComponent } from '../button/button.component';
 import { FormSelector, FormSelectorComponent } from '../form-selector/form-selector.component';
+import { AuthService } from '../auth.service';
 
 @Component({
     selector: 'app-login-form',
@@ -21,8 +22,12 @@ export class LoginFormComponent {
 
     buttonLabel = "Войти";
 
+    constructor(private service: AuthService) {}
+
     onClick() {
         console.log("Login " + this.login + " " + this.password)
+
+        this.service.hello(this.login, this.password);
     }
 
     setLogin(login: string) {
@@ -40,12 +45,12 @@ export class LoginFormComponent {
     setForm(type: FormSelector) {
         this.type = type;
         switch(type) {
-            case FormSelector.LOGIN:
-                this.buttonLabel = "Войти";
-                break;
-            case FormSelector.REGISTRATION:
-                this.buttonLabel = "Зарегистрироваться";
-                break;
+        case FormSelector.LOGIN:
+            this.buttonLabel = "Войти";
+            break;
+        case FormSelector.REGISTRATION:
+            this.buttonLabel = "Зарегистрироваться";
+            break;
         }
     }
 }
