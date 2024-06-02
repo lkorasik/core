@@ -4,6 +4,7 @@ import { TextFieldComponent } from '../text-field/text-field.component';
 import { ButtonComponent } from '../button/button.component';
 import { FormSelector, FormSelectorComponent } from '../form-selector/form-selector.component';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-login-form',
@@ -22,12 +23,14 @@ export class AuthFormComponent {
 
     buttonLabel = "Войти";
 
-    constructor(private service: AuthService) {}
+    constructor(private service: AuthService, private router: Router) {}
 
     onClick() {
         console.log("Login " + this.login + " " + this.password)
 
         this.service.login(this.login, this.password);
+
+        this.router.navigate(["admin"])
     }
 
     setLogin(login: string) {
