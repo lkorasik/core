@@ -1,15 +1,8 @@
 <div class="form">
-    <div>
-        <input class="sbutton" type="radio" id="login" name="fav_language" value="HTML">
-        <label class="sbutton" for="login">Вход</label><br>
-    </div>
-    <div>
-        <input class="sbutton" type="radio" id="registration" name="fav_language" value="CSS">
-        <label class="sbutton" for="registration">Регистрация</label><br>
-    </div>
+    <app-form-selector />
+    
+    <app-text-field title="Логин" placeholder="15bf0ff0-61ca-4658-8a28-9b649adee5f3" (fieldValue)="setLogin($event)" />
+    <app-text-field title="Пароль" type="password" (fieldValue)="setPassword($event)" />
 
-    <app-text-field title="Логин" placeholder="15bf0ff0-61ca-4658-8a28-9b649adee5f3" (fieldValue)="setLogin($event)"/>
-    <app-text-field title="Пароль" type="password" (fieldValue)="setPassword($event)"/>
-
-    <app-button label="Войти" (clickEvent)="click()" />
+    <app-button label="Войти" (clickEvent)="onClick()" />
 </div>

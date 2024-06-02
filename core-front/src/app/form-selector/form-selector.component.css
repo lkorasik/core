@@ -1,0 +1,43 @@
+.label {
+    margin: 0 0.2em;
+    border-radius: 10em;
+    cursor: pointer;
+    padding: 0.2em 0.7em;
+    border: 2px solid rgba(34, 34, 34, 0.2);
+    transition: all .3s ease
+}
+
+.sbutton #login {
+    font-size: 20px;
+    color: rgba(34, 34, 34, 0.2);
+}
+
+#login:checked:checked~.sbutton {
+    border-color: var(--primary_color);
+}
+
+#login:checked:checked~.sbutton span {
+    color: var(--primary_color);
+}
+
+#registration:checked:checked~.sbutton {
+    border-color: var(--primary_color);
+}
+
+#registration:checked:checked~.sbutton span {
+    color: var(--primary_color);
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+}
+
+.input[type=radio] {
+    display: none;
+    appearance: none;
+}
+
+.inner_text {
+    color: rgba(34, 34, 34, 0.2);
+}
