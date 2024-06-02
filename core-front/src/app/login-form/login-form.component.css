@@ -1,0 +1,75 @@
+.field_title {
+    font-size: 0.7em;
+    margin: 0.1em;
+    color: rgba(34, 34, 34, 0.6);
+}
+
+.form_container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+    border-radius: 10px;
+    margin: 3em;
+    background-color: #ffffff;
+    width: 20em;
+    padding: 1.75em
+}
+
+.input {
+    padding: 1em;
+    border-radius: 10px;
+    background-color: inherit;
+    border: 2px solid #D9D9D9;
+    box-sizing: border-box;
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.input:focus {
+    border: 2px solid #AFAFAF;
+    outline: none;
+}
+
+.enter_button {
+    margin-top: 4em;
+}
+
+.button {
+    padding: 1.2em 3.5em;
+    border-radius: 1.2em;
+    border: none;
+    background-color: #EF302B;
+    color: #ffffff;
+    /* cursor: pointer; */
+    transition: background-color 0.2s ease-in;
+}
+
+.button:disabled {
+    background-color: #EF302B99;
+    transition: background-color 0.2s ease-in;
+}
+.button:enabled {
+    cursor: pointer;
+}
+
+.button:hover:enabled {
+    background-color: #C0231F;
+    transition: background-color 0.2s ease-in;
+}
+
+.button:active:enabled {
+    background-color: #A00B08;
+    transition: background-color 0.2s ease-in;
+}
+
+.inner_text {
+    font-family: 'Montserrat', sans-serif;
+}

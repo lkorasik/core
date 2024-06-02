@@ -1,0 +1,26 @@
+.field_title {
+    font-size: 0.7em;
+    margin: 0.1em;
+    color: rgba(34, 34, 34, 0.6);
+}
+
+.input {
+    padding: 1em;
+    border-radius: 10px;
+    background-color: inherit;
+    border: 2px solid #D9D9D9;
+    box-sizing: border-box;
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.input:focus {
+    border: 2px solid #AFAFAF;
+    outline: none;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}

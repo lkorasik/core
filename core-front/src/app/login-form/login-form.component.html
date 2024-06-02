@@ -1,0 +1,19 @@
+<div class="form">
+    <div>
+        <input class="sbutton" type="radio" id="login" name="fav_language" value="HTML">
+        <label class="sbutton" for="login">Вход</label><br>
+    </div>
+    <div>
+        <input class="sbutton" type="radio" id="registration" name="fav_language" value="CSS">
+        <label class="sbutton" for="registration">Регистрация</label><br>
+    </div>
+
+    <app-text-field title="Логин" placeholder="15bf0ff0-61ca-4658-8a28-9b649adee5f3" (fieldValue)="setLogin($event)"/>
+    <app-text-field title="Пароль" type="password" (fieldValue)="setPassword($event)"/>
+    
+    <button class="button enter_button" (click)="onLogin()">
+        <span class="inner_text">
+            Войти
+        </span>
+    </button>
+</div>
