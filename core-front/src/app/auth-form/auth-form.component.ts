@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { TextFieldComponent } from '../text-field/text-field.component';
 import { ButtonComponent } from '../button/button.component';
 import { FormSelector, FormSelectorComponent } from '../form-selector/form-selector.component';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
     selector: 'app-login-form',
@@ -27,7 +27,7 @@ export class AuthFormComponent {
     onClick() {
         console.log("Login " + this.login + " " + this.password)
 
-        this.service.hello(this.login, this.password);
+        this.service.login(this.login, this.password);
     }
 
     setLogin(login: string) {
