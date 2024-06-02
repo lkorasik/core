@@ -3,6 +3,7 @@ import { LoginDTO } from './login.dto';
 import { HttpClient } from '@angular/common/http';
 import { AccessTokenDto } from './access-token.dto';
 import { RegistrationDTO } from './registration.dto';
+import { Observable, catchError } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
