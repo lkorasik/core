@@ -11,5 +11,19 @@ import { GridCardComponent } from './grid-card/grid-card.component';
     styleUrl: './grid.component.css'
 })
 export class GridComponent {
-    @Input() cards: string[] = [];
+    @Input() cards: GridCard[] = [];
+
+    getLink(card: GridCard) {
+        return "administration/educational_program/" + card.link
+    }
+}
+
+export class GridCard {
+    title = "";
+    link = "";
+
+    constructor(title: string, link: string) {
+        this.title = title;
+        this.link = link;
+    }
 }

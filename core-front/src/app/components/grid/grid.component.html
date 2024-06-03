@@ -1,5 +1,5 @@
 <div class="grid_container">
     @for (card of cards; track $index) {
-        <app-grid-card title={{card}}></app-grid-card>
+        <app-grid-card title={{card.title}} link={{card.link}}></app-grid-card>
     }
 </div>

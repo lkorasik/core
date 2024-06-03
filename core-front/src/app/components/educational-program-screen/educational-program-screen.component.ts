@@ -1,13 +1,17 @@
 import { Component } from '@angular/core';
 import { ProgramService } from '../../services/program/program.service';
 import { ProgramDTO } from '../../services/program/program.dto';
-import { GridComponent } from '../grid/grid.component';
+import { GridCard, GridComponent } from '../grid/grid.component';
+import { RouterOutlet } from '@angular/router';
+import { TitleComponent } from '../title/title.component';
 
 @Component({
     selector: 'app-educational-program-screen',
     standalone: true,
     imports: [
-        GridComponent
+        GridComponent,
+        RouterOutlet,
+        TitleComponent
     ],
     templateUrl: './educational-program-screen.component.html',
     styleUrl: './educational-program-screen.component.css'
@@ -19,7 +23,7 @@ export class EducationalProgramScreenComponent {
         programService.getAllPrograms().subscribe(x => this.programs = x);
     }
 
-    getProgramNames() {
-        return this.programs.map(x => x.name);
+    getGridCards() {
+        return this.programs.map(x => new GridCard(x.name, x.id));
     }
 }

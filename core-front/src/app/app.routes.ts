@@ -3,6 +3,7 @@ import { AdminMainScreenComponent } from './components/admin-main-screen/admin-m
 import { AuthFormComponent } from './components/auth-form/auth-form.component';
 import { EducationalProgramScreenComponent } from './components/educational-program-screen/educational-program-screen.component';
 import { ModulesScreenComponent } from './components/modules-screen/modules-screen.component';
+import { EducationalProgramGroupsScreenComponent } from './components/educational-program-groups-screen/educational-program-groups-screen.component';
 
 export const routes: Routes = [
     { 
@@ -16,6 +17,10 @@ export const routes: Routes = [
             {
                 path: 'educational_program',
                 component: EducationalProgramScreenComponent
+            },
+            {
+                path: 'educational_program/:id',
+                component: EducationalProgramGroupsScreenComponent
             },
             {
                 path: 'link2',
