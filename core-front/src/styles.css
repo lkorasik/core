@@ -7,6 +7,9 @@ body {
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
 
+    display: flex;
+    flex-direction: column;
+
     white-space: nowrap;
 }
 
@@ -17,4 +20,5 @@ code {
 
 #root {
     min-height: 100vh;
+    background-color: #F6F6F6;
 }
