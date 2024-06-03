@@ -6,7 +6,7 @@
             </a>
             <nav>
                 @for (item of items; track $index;) {
-                    <a class="link" href={{item.link}}>{{item.title}}</a>
+                    <a class="link" routerLink={{item.link}}>{{item.title}}</a>
                 }
             </nav>
         </div>
