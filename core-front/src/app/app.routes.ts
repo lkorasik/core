@@ -10,11 +10,11 @@ export const routes: Routes = [
         component: AuthFormComponent 
     },
     { 
-        path: 'admin', 
+        path: 'administrator', 
         component: AdminMainScreenComponent,
         children: [
             {
-                path: 'link1',
+                path: 'educational_program',
                 component: EducationalProgramScreenComponent
             },
             {
