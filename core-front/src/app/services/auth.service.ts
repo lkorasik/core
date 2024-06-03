@@ -3,7 +3,6 @@ import { LoginDTO } from './login.dto';
 import { HttpClient } from '@angular/common/http';
 import { AccessTokenDto } from './access-token.dto';
 import { RegistrationDTO } from './registration.dto';
-import { Observable, catchError } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +12,11 @@ export class AuthService {
 
     login(name: string, password: string) {
         let login = new LoginDTO(name, password);
-        return this.client.post<AccessTokenDto>("/api/authentication/login", login).subscribe(x => console.log(x));
+        let token = this.client.post<AccessTokenDto>("/api/authentication/login", login).subscribe(
+            response => sessionStorage.setItem("token", response.accessToken),
+            error => console.log(error)
+        );
+        return token;
     }
 
     register(token: string, password: string, passwordAgain: string) {
