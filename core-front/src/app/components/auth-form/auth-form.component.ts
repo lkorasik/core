@@ -30,7 +30,7 @@ export class AuthFormComponent {
 
         this.service.login(this.login, this.password);
 
-        this.router.navigate(["admin"])
+        this.router.navigate(["admin/link1"]);
     }
 
     setLogin(login: string) {
