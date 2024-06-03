@@ -18,4 +18,8 @@ export class EducationalProgramScreenComponent {
     constructor(private programService: ProgramService) {
         programService.getAllPrograms().subscribe(x => this.programs = x);
     }
+
+    getProgramNames() {
+        return this.programs.map(x => x.name);
+    }
 }

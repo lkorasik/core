@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { GridCardComponent } from './grid-card/grid-card.component';
 
 @Component({
@@ -11,5 +11,5 @@ import { GridCardComponent } from './grid-card/grid-card.component';
     styleUrl: './grid.component.css'
 })
 export class GridComponent {
-    cards: string[] = [];
+    @Input() cards: string[] = [];
 }

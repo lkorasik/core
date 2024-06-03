@@ -1,6 +1,5 @@
 <div class="grid_container">
-    <app-grid-card title="A"></app-grid-card>
-    <app-grid-card title="B"></app-grid-card>
-    <app-grid-card title="C"></app-grid-card>
-    <app-grid-card title="D" badge="lol"></app-grid-card>
+    @for (card of cards; track $index) {
+        <app-grid-card title={{card}}></app-grid-card>
+    }
 </div>

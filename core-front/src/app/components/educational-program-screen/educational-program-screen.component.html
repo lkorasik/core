@@ -1,5 +1,1 @@
-<p>educational-program-screen works!</p>
-@for (program of programs; track $index) {
-    {{program.name}}
-}
-<app-grid></app-grid>
+<app-grid [cards]="getProgramNames()"></app-grid>
