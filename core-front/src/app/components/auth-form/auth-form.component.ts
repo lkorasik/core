@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { TextFieldComponent } from '../text-field/text-field.component';
 import { ButtonComponent } from '../button/button.component';
 import { FormSelector, FormSelectorComponent } from '../form-selector/form-selector.component';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
