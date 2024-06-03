@@ -9,9 +9,9 @@ import { Component } from '@angular/core';
 })
 export class ActionBarComponent {
     items: ActionBarItem[] = [
-        new ActionBarItem("Образовательные программы", "/link1"),
-        new ActionBarItem("Курсы и модули", "/link2"),
-        new ActionBarItem("Статистика", "/link3")
+        new ActionBarItem("Образовательные программы", "/admin/link1"),
+        new ActionBarItem("Курсы и модули", "/admin/link2"),
+        new ActionBarItem("Статистика", "/admin/link3")
     ]
 }
 
