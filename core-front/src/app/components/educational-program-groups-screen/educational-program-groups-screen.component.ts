@@ -5,7 +5,6 @@ import { ProgramService } from '../../services/program/program.service';
 import { ToolbarComponent } from '../toolbar/toolbar.component';
 import { CloseButtonComponent } from '../close-button/close-button.component';
 import { EditButtonComponent } from '../edit-button/edit-button.component';
-import { GridCardComponent } from '../grid/grid-card/grid-card.component';
 import { AddButtonComponent } from '../add-button/add-button.component';
 import { ProgramDTO } from '../../services/program/program.dto';
 import { GridCard, GridComponent } from '../grid/grid.component';
@@ -27,7 +26,10 @@ export class EducationalProgramGroupsScreenComponent {
     groups: GroupDto[] = []
 
     constructor(public route: ActivatedRoute, private programService: ProgramService, private groupService: GroupService) {
-        route.params.subscribe(x => this.id = x['id']);
+        route.params.subscribe(x => {
+            this.id = x['id']
+            localStorage.setItem('programId', this.id);
+        });
         programService.getEducationalProgramById({ id: this.id }).subscribe(x => this.name = x.title);
         const request = new GetGropupDTO(this.id);
         groupService.getGroupsForProgram(request).subscribe(x => this.groups = x);

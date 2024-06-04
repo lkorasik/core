@@ -1,0 +1,6 @@
+<app-toolbar title="Добавить академическую группу">
+    <app-save-button (clickEvent)="onSave()"/>
+    <app-close-button />
+</app-toolbar>
+<app-text-field title="Номер группы" (fieldValue)="setNumber($event)"/>
+<app-text-field title="Год начала учебы (год, когда проходит первый семестр)" (fieldValue)="setYear($event)"/>

@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AddButtonComponent {
     @Input() route: string = ""
-
+    
     constructor(private router: Router) { }
     
     onClick() {
