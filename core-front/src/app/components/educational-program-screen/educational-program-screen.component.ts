@@ -14,7 +14,10 @@ import { AddButtonComponent } from '../add-button/add-button.component';
     styleUrl: './educational-program-screen.component.css'
 })
 export class EducationalProgramScreenComponent {
-    programs: ProgramDTO[] = [];
+    programs: ProgramDTO[] = [{
+        id: "1",
+        name: "Образовательные программы"
+    }];
     
     constructor(private programService: ProgramService) {
         programService.getAllPrograms().subscribe(x => this.programs = x);

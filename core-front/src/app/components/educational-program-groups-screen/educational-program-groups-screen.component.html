@@ -1,1 +1,7 @@
-<app-title>{{name}}</app-title>
+<app-toolbar title={{name}}>
+    <app-edit-button />
+    <!-- <app-save-button (clickEvent)="onSave()"/> -->
+    <app-close-button />
+</app-toolbar>
+<app-grid [cards]="getGridCards()"></app-grid>
+<app-add-button></app-add-button>
