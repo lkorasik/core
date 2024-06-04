@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,9 +9,11 @@ import { Router } from '@angular/router';
     styleUrl: './add-button.component.css'
 })
 export class AddButtonComponent {
-    constructor(private router: Router) {}
+    @Input() route: string = ""
+
+    constructor(private router: Router) { }
     
     onClick() {
-        this.router.navigate(["administrator/educational_program/add"]);
+        this.router.navigate([this.route]);
     }
 }
