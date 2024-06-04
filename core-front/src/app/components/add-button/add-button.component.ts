@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-add-button',
@@ -8,7 +9,9 @@ import { Component } from '@angular/core';
     styleUrl: './add-button.component.css'
 })
 export class AddButtonComponent {
+    constructor(private router: Router) {}
+    
     onClick() {
-        console.log("DS")
+        this.router.navigate(["administrator/educational_program/add"]);
     }
 }
