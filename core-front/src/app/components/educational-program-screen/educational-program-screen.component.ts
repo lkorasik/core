@@ -4,15 +4,12 @@ import { ProgramDTO } from '../../services/program/program.dto';
 import { GridCard, GridComponent } from '../grid/grid.component';
 import { RouterOutlet } from '@angular/router';
 import { TitleComponent } from '../title/title.component';
+import { AddButtonComponent } from '../add-button/add-button.component';
 
 @Component({
     selector: 'app-educational-program-screen',
     standalone: true,
-    imports: [
-        GridComponent,
-        RouterOutlet,
-        TitleComponent
-    ],
+    imports: [GridComponent, RouterOutlet, TitleComponent, AddButtonComponent],
     templateUrl: './educational-program-screen.component.html',
     styleUrl: './educational-program-screen.component.css'
 })
