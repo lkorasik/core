@@ -42,7 +42,7 @@ export class EditEducationalProgramScreenComponent {
     }
 
     getClass(module: Module, course: CourseDto, semesterNumber: number) {
-        const index = module.courses.findIndex(c => c.id == course.id)
+        const index = module.courses.findIndex(c => c.id == course.id);
         if (module.blockFlags[index][semesterNumber - 1] == 0) {
             return "enabled"
         } else {
@@ -52,56 +52,19 @@ export class EditEducationalProgramScreenComponent {
 
     getMarker(module: Module, course: CourseDto, semesterNumber: number) {
         const index = module.courses.findIndex(c => c.id == course.id)
-        if (module.selectionFlags[index][semesterNumber - 1] == 0) {
-            return "X"
+        if (module.blockFlags[index][semesterNumber - 1] == 0) {
+            if (module.selectionFlags[index][semesterNumber - 1] == 0) {
+                return ""
+            } else {
+                return "X"
+            }
         } else {
             return ""
         }
     }
 
     onClick(module: Module, course: CourseDto, semesterNumber: number) {
-        console.log("Click " + module.name + " " + course.name + " " + semesterNumber)
-
-        const selectedCourse = this.getElement(module, course)!
-        const index = module.courses.findIndex(c => c.id == course.id)
-
-        if (module.selectionFlags[index][semesterNumber - 1] == 0) {
-            module.selectionFlags[index][semesterNumber - 1] = 1;
-
-            if (module.blockFlags[index][semesterNumber - 1] != 0) {
-                return
-            }
-            for (let i = 0; i < module.courses.length; i++) {
-                if (i != index) {
-                    module.blockFlags[i][semesterNumber - 1]++
-                }
-            }
-            for (let i = 0; i < 4; i++){
-                if (i != semesterNumber - 1) {
-                    module.blockFlags[index][i]++
-                }
-            }
-        } else if (module.selectionFlags[index][semesterNumber - 1] == 1) {
-            module.selectionFlags[index][semesterNumber - 1] = 0;
-
-            if (module.blockFlags[index][semesterNumber - 1] != 0) {
-                return
-            }
-            for (let i = 0; i < module.courses.length; i++) {
-                if (i != index) {
-                    module.blockFlags[i][semesterNumber - 1]--
-                }
-            }
-            for (let i = 0; i < 4; i++){
-                if (i != semesterNumber - 1) {
-                    module.blockFlags[index][i]--
-                }
-            }
-        }
-    }
-
-    private getElement(module: Module, course: CourseDto) {
-        return this.modules2.find(m => m.id == module.id)?.courses.find(c => c.id == course.id)!
+        module.select(course, semesterNumber);
     }
 }
 
@@ -117,11 +80,59 @@ class Module {
         this.name = name;
         this.courses = courses;
 
-        for(let i = 0; i < courses.length; i++) {
+        for (let i = 0; i < courses.length; i++) {
             this.blockFlags[i] = [0, 0, 0, 0];
         }
-        for(let i = 0; i < courses.length; i++) {
+        for (let i = 0; i < courses.length; i++) {
             this.selectionFlags[i] = [0, 0, 0, 0];
+        }
+    }
+
+    /**
+     * Ячейка может быть заблокированной, ячейка может быть выбранной.
+     * Заблокированная ячейка не может менять свое состояние. Выбранная ячейка может поменять свое состояние.
+     * 
+     * Если ячейка не заблокирована, то проверяем ее на выбор. 
+     * Если ячейка не выбрана, то выбираем ее и блокируем крест.
+     * Если ячейка выбрана, то снимаем выбор и разблокируем крест.
+     * Если ячейка заблокирована, то ничего не делаем.
+     */
+    select(course: CourseDto, semesterNumber: number) {
+        const index = this.courses.findIndex(c => c.id == course.id)
+
+        const blockFlag = this.blockFlags[index][semesterNumber - 1]
+        if (blockFlag == 0) {
+            // Ячейка не заблокирована
+            const selectionFlag = this.selectionFlags[index][semesterNumber - 1]
+            if (selectionFlag == 0) {
+                // Ячейка не выбрана
+                this.selectionFlags[index][semesterNumber - 1] = 1;
+
+                for (let i = 0; i < 4; i++) {
+                    if (i != semesterNumber - 1) {
+                        this.blockFlags[index][i]++
+                    }
+                }
+                for (let i = 0; i < this.courses.length; i++) {
+                    if (i != index) {
+                        this.blockFlags[i][semesterNumber - 1]++
+                    }
+                }
+            } else {
+                // Ячейка выбрана
+                this.selectionFlags[index][semesterNumber - 1] = 0;
+
+                for (let i = 0; i < 4; i++) {
+                    if (i != semesterNumber - 1) {
+                        this.blockFlags[index][i]--
+                    }
+                }
+                for (let i = 0; i < this.courses.length; i++) {
+                    if (i != index) {
+                        this.blockFlags[i][semesterNumber - 1]--
+                    }
+                }
+            }
         }
     }
 }
