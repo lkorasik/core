@@ -24,6 +24,6 @@ export class EducationalProgramScreenComponent {
     }
 
     getGridCards() {
-        return this.programs.map(x => new GridCard(x.name, x.id));
+        return this.programs.map(x => new GridCard(x.name, "/administrator/educational_program/" + x.id));
     }
 }

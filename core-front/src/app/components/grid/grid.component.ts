@@ -14,7 +14,7 @@ export class GridComponent {
     @Input() cards: GridCard[] = [];
 
     getLink(card: GridCard) {
-        return "administration/educational_program/" + card.link
+        return card.link
     }
 }
 

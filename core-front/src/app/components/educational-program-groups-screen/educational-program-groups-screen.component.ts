@@ -41,7 +41,7 @@ export class EducationalProgramGroupsScreenComponent {
     }
 
     getGroupCards() {
-        return this.groups.map(x => new GridCard(x.number, x.id));
+        return this.groups.map(x => new GridCard(x.number, '/administrator/group/' + x.id));
     }
 
     onClick() {
