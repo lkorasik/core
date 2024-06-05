@@ -112,33 +112,41 @@ class Module {
             if (selectionFlag == 0) {
                 // Ячейка не выбрана
                 this.selectionFlags[index][semesterNumber - 1] = 1;
-                course.semesterNumber = semesterNumber
+                course.semesterNumber = semesterNumber;
 
-                for (let i = 0; i < 4; i++) {
-                    if (i != semesterNumber - 1) {
-                        this.blockFlags[index][i]++
-                    }
-                }
-                for (let i = 0; i < this.courses.length; i++) {
-                    if (i != index) {
-                        this.blockFlags[i][semesterNumber - 1]++
-                    }
-                }
+                this.blockNearCells(index, semesterNumber);
             } else {
                 // Ячейка выбрана
                 this.selectionFlags[index][semesterNumber - 1] = 0;
-                course.semesterNumber = undefined
+                course.semesterNumber = undefined;
 
-                for (let i = 0; i < 4; i++) {
-                    if (i != semesterNumber - 1) {
-                        this.blockFlags[index][i]--
-                    }
-                }
-                for (let i = 0; i < this.courses.length; i++) {
-                    if (i != index) {
-                        this.blockFlags[i][semesterNumber - 1]--
-                    }
-                }
+                this.releaseNearCells(index, semesterNumber);
+            }
+        }
+    }
+
+    private blockNearCells(index: number, semesterNumber: number) {
+        for (let i = 0; i < 4; i++) {
+            if (i != semesterNumber - 1) {
+                this.blockFlags[index][i]++
+            }
+        }
+        for (let i = 0; i < this.courses.length; i++) {
+            if (i != index) {
+                this.blockFlags[i][semesterNumber - 1]++
+            }
+        }
+    }
+
+    private releaseNearCells(index: number, semesterNumber: number) {
+        for (let i = 0; i < 4; i++) {
+            if (i != semesterNumber - 1) {
+                this.blockFlags[index][i]--
+            }
+        }
+        for (let i = 0; i < this.courses.length; i++) {
+            if (i != index) {
+                this.blockFlags[i][semesterNumber - 1]--
             }
         }
     }
