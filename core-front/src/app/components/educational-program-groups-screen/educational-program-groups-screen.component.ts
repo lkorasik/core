@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { TitleComponent } from '../title/title.component';
 import { ProgramService } from '../../services/program/program.service';
 import { ToolbarComponent } from '../toolbar/toolbar.component';
@@ -25,7 +25,12 @@ export class EducationalProgramGroupsScreenComponent {
     programs: ProgramDTO[] = []
     groups: GroupDto[] = []
 
-    constructor(public route: ActivatedRoute, private programService: ProgramService, private groupService: GroupService) {
+    constructor(
+        public route: ActivatedRoute,
+        private router: Router,
+        private programService: ProgramService,
+        private groupService: GroupService
+    ) {
         route.params.subscribe(x => {
             this.id = x['id']
             localStorage.setItem('programId', this.id);
@@ -37,5 +42,9 @@ export class EducationalProgramGroupsScreenComponent {
 
     getGroupCards() {
         return this.groups.map(x => new GridCard(x.number, x.id));
+    }
+
+    onClick() {
+        this.router.navigate(["administrator/educational_program/edit/" + this.id])
     }
 }

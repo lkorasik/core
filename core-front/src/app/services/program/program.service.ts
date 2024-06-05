@@ -5,6 +5,7 @@ import { ProgramDTO } from "./program.dto";
 import { ProgramIdDto } from "./program.id.dto";
 import { FullProgramDto } from "./program.full.dto";
 import { CreateProgramDTO } from "./createProgram.dto";
+import { FullModuleDto } from "./fullModule.dto";
 
 @Injectable({
     providedIn: 'root'
@@ -14,6 +15,11 @@ export class ProgramService {
 
     getAllPrograms(): Observable<ProgramDTO[]> {
         return this.client.get<ProgramDTO[]>("api/programs/all");
+    }
+
+    getAllModules2() {
+        let headers = new HttpHeaders().append("Authorization", "Bearer " + sessionStorage.getItem("token"));
+        return this.client.get<FullModuleDto[]>("api/modules/all2", { headers });
     }
 
     getEducationalProgramById(id: ProgramIdDto) {
