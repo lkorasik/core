@@ -34,10 +34,10 @@
                     <td class="td" [attr.rowspan]="module.courses.length">{{module.name}}</td>
                 }
                 <td class="td">{{course.name}}</td>
-                <td class="td {{getClass(module, course, 1)}}" (click)="onClick(module, course, 1)"></td>
-                <td class="td {{getClass(module, course, 2)}}" (click)="onClick(module, course, 2)"></td>
-                <td class="td {{getClass(module, course, 3)}}" (click)="onClick(module, course, 3)"></td>
-                <td class="td {{getClass(module, course, 4)}}" (click)="onClick(module, course, 4)"></td>
+                <td class="td {{getClass(module, course, 1)}}" (click)="onClick(module, course, 1)">{{getMarker(module, course, 1)}}</td>
+                <td class="td {{getClass(module, course, 2)}}" (click)="onClick(module, course, 2)">{{getMarker(module, course, 2)}}</td>
+                <td class="td {{getClass(module, course, 3)}}" (click)="onClick(module, course, 3)">{{getMarker(module, course, 3)}}</td>
+                <td class="td {{getClass(module, course, 4)}}" (click)="onClick(module, course, 4)">{{getMarker(module, course, 4)}}</td>
             </tr>
         }
     }

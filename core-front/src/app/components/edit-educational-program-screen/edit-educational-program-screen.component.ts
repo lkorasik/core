@@ -42,19 +42,20 @@ export class EditEducationalProgramScreenComponent {
     }
 
     getClass(module: Module, course: CourseDto, semesterNumber: number) {
-        const selectedCourse = this.getElement(module, course)
-        
-        // if ((selectedCourse.semesterNumber !== undefined) && (selectedCourse.semesterNumber != semesterNumber)) {
-            // return "disabled"
-        // } else {
-            // return "enabled"
-        // }
-
         const index = module.courses.findIndex(c => c.id == course.id)
         if (module.blockFlags[index][semesterNumber - 1] == 0) {
             return "enabled"
         } else {
             return "disabled"
+        }
+    }
+
+    getMarker(module: Module, course: CourseDto, semesterNumber: number) {
+        const index = module.courses.findIndex(c => c.id == course.id)
+        if (module.selectionFlags[index][semesterNumber - 1] == 0) {
+            return "X"
+        } else {
+            return ""
         }
     }
 
