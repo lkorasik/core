@@ -6,6 +6,7 @@ import { ProgramIdDto } from "./program.id.dto";
 import { FullProgramDto } from "./program.full.dto";
 import { CreateProgramDTO } from "./createProgram.dto";
 import { FullModuleDto } from "./fullModule.dto";
+import { SaveStudyPlanDTO } from "./saveStudyPlan.dto";
 
 @Injectable({
     providedIn: 'root'
@@ -31,5 +32,10 @@ export class ProgramService {
     createEducationalProgram(createEducationalProgram: CreateProgramDTO) {
         let headers = new HttpHeaders().append("Authorization", "Bearer " + sessionStorage.getItem("token"));
         return this.client.post("api/programs/create", createEducationalProgram, { headers });
+    }
+
+    saveStudyPlan(saveStudyPlan: SaveStudyPlanDTO) {
+        let headers = new HttpHeaders().append("Authorization", "Bearer " + sessionStorage.getItem("token"));
+        return this.client.post("api/programs/plan", saveStudyPlan, { headers });
     }
 }

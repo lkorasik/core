@@ -5,6 +5,7 @@ import { CloseButtonComponent } from '../close-button/close-button.component';
 import { TextFieldComponent } from '../text-field/text-field.component';
 import { ProgramService } from '../../services/program/program.service';
 import { CourseDto, FullModuleDto } from '../../services/program/fullModule.dto';
+import { CourseSelectionDTO, ModuleDTO, SaveStudyPlanDTO } from '../../services/program/saveStudyPlan.dto';
 
 @Component({
     selector: 'app-edit-educational-program-screen',
@@ -31,6 +32,10 @@ export class EditEducationalProgramScreenComponent {
 
     onSave() {
         console.log("Save")
+
+        const modulesBody = this.modules2.map(x => new ModuleDTO(x.id, x.courses.map(y => new CourseSelectionDTO(y.id, y.semesterNumber!))))
+        const request = new SaveStudyPlanDTO(parseInt(this.years[0]), modulesBody)
+        this.programService.saveStudyPlan(request).subscribe(x => x)
     }
 
     setName(v: string) {
@@ -41,7 +46,7 @@ export class EditEducationalProgramScreenComponent {
         console.log("ser train")
     }
 
-    getClass(module: Module, course: CourseDto, semesterNumber: number) {
+    getClass(module: Module, course: Course, semesterNumber: number) {
         const index = module.courses.findIndex(c => c.id == course.id);
         if (module.blockFlags[index][semesterNumber - 1] == 0) {
             return "enabled"
@@ -50,7 +55,7 @@ export class EditEducationalProgramScreenComponent {
         }
     }
 
-    getMarker(module: Module, course: CourseDto, semesterNumber: number) {
+    getMarker(module: Module, course: Course, semesterNumber: number) {
         const index = module.courses.findIndex(c => c.id == course.id)
         if (module.blockFlags[index][semesterNumber - 1] == 0) {
             if (module.selectionFlags[index][semesterNumber - 1] == 0) {
@@ -63,7 +68,7 @@ export class EditEducationalProgramScreenComponent {
         }
     }
 
-    onClick(module: Module, course: CourseDto, semesterNumber: number) {
+    onClick(module: Module, course: Course, semesterNumber: number) {
         module.select(course, semesterNumber);
     }
 }
@@ -97,7 +102,7 @@ class Module {
      * Если ячейка выбрана, то снимаем выбор и разблокируем крест.
      * Если ячейка заблокирована, то ничего не делаем.
      */
-    select(course: CourseDto, semesterNumber: number) {
+    select(course: Course, semesterNumber: number) {
         const index = this.courses.findIndex(c => c.id == course.id)
 
         const blockFlag = this.blockFlags[index][semesterNumber - 1]
@@ -107,6 +112,7 @@ class Module {
             if (selectionFlag == 0) {
                 // Ячейка не выбрана
                 this.selectionFlags[index][semesterNumber - 1] = 1;
+                course.semesterNumber = semesterNumber
 
                 for (let i = 0; i < 4; i++) {
                     if (i != semesterNumber - 1) {
@@ -121,6 +127,7 @@ class Module {
             } else {
                 // Ячейка выбрана
                 this.selectionFlags[index][semesterNumber - 1] = 0;
+                course.semesterNumber = undefined
 
                 for (let i = 0; i < 4; i++) {
                     if (i != semesterNumber - 1) {
