@@ -47,4 +47,8 @@ export class EducationalProgramGroupsScreenComponent {
     onClick() {
         this.router.navigate(["administrator/educational_program/edit/" + this.id])
     }
+
+    onAddButtonClick() {
+        this.router.navigate(["administrator/group/add"])
+    }
 }

@@ -4,7 +4,7 @@ import { SaveButtonComponent } from '../save-button/save-button.component';
 import { EditButtonComponent } from '../edit-button/edit-button.component';
 import { TextFieldComponent } from '../text-field/text-field.component';
 import { CloseButtonComponent } from '../close-button/close-button.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GroupService } from '../../services/group/group.service';
 import { GetGroupIdDto } from '../../services/group/getGroupId.dto';
 import { TokenTableComponent } from '../token-table/token-table.component';
@@ -64,5 +64,9 @@ export class GroupScreenComponent {
 
     setYear(year: string) {
 
+    }
+
+    onAddButtonClick() {
+        console.log("Click!")
     }
 }

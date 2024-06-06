@@ -4,4 +4,4 @@
     <app-close-button />
 </app-toolbar>
 <app-grid [cards]="getGroupCards()"></app-grid>
-<app-add-button route="administrator/group/add"></app-add-button>
+<app-add-button (clickEvent)="onAddButtonClick()" />

@@ -1,5 +1,4 @@
-import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
     selector: 'app-add-button',
@@ -9,11 +8,9 @@ import { Router } from '@angular/router';
     styleUrl: './add-button.component.css'
 })
 export class AddButtonComponent {
-    @Input() route: string = ""
-    
-    constructor(private router: Router) { }
-    
+    @Output() clickEvent: EventEmitter<void> = new EventEmitter<void>();
+
     onClick() {
-        this.router.navigate([this.route]);
+        this.clickEvent.emit();
     }
 }
