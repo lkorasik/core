@@ -1,0 +1,18 @@
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Токен</th>
+                <th>Статус</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (row of tokens; track $index) {
+                <tr>
+                    <td>{{row[0]}}</td>
+                    <td>{{row[1]}}</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
