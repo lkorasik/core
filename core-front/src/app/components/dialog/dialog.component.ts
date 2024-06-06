@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ButtonComponent } from '../button/button.component';
 import { TextFieldComponent } from '../text-field/text-field.component';
 
@@ -14,11 +14,11 @@ import { TextFieldComponent } from '../text-field/text-field.component';
 })
 export class DialogComponent {
     @Input() title: string = "";
-    @Input() onClose: () => void = () => {};
-    @Input() onClick: () => void = () => {};
+    @Output() onLeftButtonClick: EventEmitter<void> = new EventEmitter<void>();
+    @Output() onRightButtonClick: EventEmitter<void> = new EventEmitter<void>();
     @Input() leftButtonTitle: string = ""
     @Input() rightButtonTitle: string = ""
-    isOpen = false;
+    @Input() isOpen = false;
     
     getLeftButtonTitle() {
         if (this.leftButtonTitle == "") {
@@ -32,5 +32,13 @@ export class DialogComponent {
             return "Сохранить";
         }
         return this.rightButtonTitle;
+    }
+
+    onCloseClick() {
+        this.onLeftButtonClick.emit();
+    }
+
+    onActionClick() {
+        this.onRightButtonClick.emit();
     }
 }

@@ -6,6 +6,7 @@ import { CreateGroupDTO } from './createGroup.dto';
 import { GetGroupIdDto } from './getGroupId.dto';
 import { GetTokensDto } from './getTokens.dto';
 import { TokenStatusDto } from './tokenStatus.dto';
+import { GenerateTokenDto } from './getToken.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -34,5 +35,11 @@ export class GroupService {
         let headers = new HttpHeaders().append("Authorization", "Bearer " + sessionStorage.getItem("token"));
         let params = new HttpParams().set("groupId", groupId.groupId);
         return this.client.get<TokenStatusDto[]>("api/groups/token", { headers, params });
+    }
+
+    public generateTokens(generateTokens: GenerateTokenDto) {
+        let headers = new HttpHeaders().append("Authorization", "Bearer " + sessionStorage.getItem("token"));
+        let params = new HttpParams().set("groupId", generateTokens.groupId);
+        return this.client.post<string[]>("api/groups/token", generateTokens, { headers, params });
     }
 }

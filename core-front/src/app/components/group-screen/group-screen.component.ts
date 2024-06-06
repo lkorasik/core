@@ -12,6 +12,7 @@ import { GetTokensDto } from '../../services/group/getTokens.dto';
 import { TokenStatusDto } from '../../services/group/tokenStatus.dto';
 import { AddButtonComponent } from '../add-button/add-button.component';
 import { DialogComponent } from '../dialog/dialog.component';
+import { GenerateTokenDto } from '../../services/group/getToken.dto';
 
 @Component({
     selector: 'app-group-screen',
@@ -33,6 +34,8 @@ export class GroupScreenComponent {
     id: string = "";
     name: string = "";
     tokens: string[][] = []
+    isOpen: boolean = false
+    dialogValue: number = 0
 
     constructor(private route: ActivatedRoute, private groupService: GroupService) {
         console.log("Log")
@@ -54,19 +57,26 @@ export class GroupScreenComponent {
         }
     }
 
-    onSave() {
-
+    onCloseDialogClick() {
+        this.closeDialog()
     }
 
-    setNumber(number: string) {
-
-    }
-
-    setYear(year: string) {
-
+    onGenerateDialogClick() {
+        const request = new GenerateTokenDto(this.dialogValue, this.id);
+        const tokens = this.groupService.generateTokens(request).subscribe(x => x);
+        this.closeDialog()
     }
 
     onAddButtonClick() {
-        console.log("Click!")
+        console.log("Click")
+        this.isOpen = true
+    }
+
+    private closeDialog() {
+        this.isOpen = false
+    }
+
+    updateTokensCount(count: string) {
+        this.dialogValue = parseInt(count)
     }
 }

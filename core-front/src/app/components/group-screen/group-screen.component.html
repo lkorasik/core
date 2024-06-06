@@ -3,7 +3,13 @@
     <app-close-button />
 </app-toolbar>
 <app-token-table [tokens]="tokens" />
-<app-add-button route="/administrator/group/add"/>
-<app-dialog title="Сгенерировать регистрационные токены" leftButtonTitle="Отмена">
-    <app-text-field title="Число токенов:" type="number" />
-</app-dialog>   
+<app-add-button (clickEvent)="onAddButtonClick()" />
+<app-dialog 
+    title="Сгенерировать регистрационные токены" 
+    leftButtonTitle="Отмена" 
+    rightButtonTitle="Сгенерировать"
+    (onLeftButtonClick)="onCloseDialogClick()"
+    (onRightButtonClick)="onGenerateDialogClick()"
+    [isOpen]="isOpen">
+        <app-text-field title="Число токенов:" type="number" (fieldValue)="updateTokensCount($event)"/>
+</app-dialog>

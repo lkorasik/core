@@ -4,8 +4,8 @@
             <h3 class="dialog_title">{{title}}</h3>
             <ng-content/>
             <div class="container">
-                <app-button (clickEvent)="onClose()" label="{{getLeftButtonTitle()}}" />
-                <app-button (clickEvent)="onClick()" label="{{getRightButtonTitle()}}" />
+                <app-button (clickEvent)="onCloseClick()" label="{{getLeftButtonTitle()}}" />
+                <app-button (clickEvent)="onActionClick()" label="{{getRightButtonTitle()}}" />
             </div>
         </div>
     </div>
