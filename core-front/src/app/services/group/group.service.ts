@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { GetGropupDTO } from './getGroup.dto';
 import { GroupDto } from './group.dto';
 import { CreateGroupDTO } from './createGroup.dto';
+import { GetGroupIdDto } from './getGroupId.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -19,5 +20,11 @@ export class GroupService {
     public createGroup(createGroup: CreateGroupDTO) {
         let headers = new HttpHeaders().append("Authorization", "Bearer " + sessionStorage.getItem("token"));
         return this.client.post("api/groups/group", createGroup, { headers });
+    }
+
+    public getGroup(getGroup: GetGroupIdDto) {
+        let headers = new HttpHeaders().append("Authorization", "Bearer " + sessionStorage.getItem("token"));
+        let params = new HttpParams().set("groupId", getGroup.groupId);
+        return this.client.get<GroupDto>("api/groups/groupById", { headers, params });
     }
 }
