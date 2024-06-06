@@ -11,6 +11,7 @@ import { TokenTableComponent } from '../token-table/token-table.component';
 import { GetTokensDto } from '../../services/group/getTokens.dto';
 import { TokenStatusDto } from '../../services/group/tokenStatus.dto';
 import { AddButtonComponent } from '../add-button/add-button.component';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
     selector: 'app-group-screen',
@@ -22,7 +23,8 @@ import { AddButtonComponent } from '../add-button/add-button.component';
         TextFieldComponent, 
         CloseButtonComponent, 
         TokenTableComponent,
-        AddButtonComponent
+        AddButtonComponent,
+        DialogComponent
     ],
     templateUrl: './group-screen.component.html',
     styleUrl: './group-screen.component.css'

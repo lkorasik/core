@@ -1,0 +1,12 @@
+@if (isOpen) {
+    <div class="back">
+        <div class="dialog">
+            <h3 class="dialog_title">{{title}}</h3>
+            <ng-content/>
+            <div class="container">
+                <app-button (clickEvent)="onClose()" label="{{getLeftButtonTitle()}}" />
+                <app-button (clickEvent)="onClick()" label="{{getRightButtonTitle()}}" />
+            </div>
+        </div>
+    </div>
+}
