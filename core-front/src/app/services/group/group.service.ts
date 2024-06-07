@@ -42,4 +42,31 @@ export class GroupService {
         let params = new HttpParams().set("groupId", generateTokens.groupId);
         return this.client.post<string[]>("api/groups/token", generateTokens, { headers, params });
     }
+
+    public downloadTokensFile(groupNumber: string, groupId: GetTokensDto) {
+        // let headers = new HttpHeaders()
+            // .append("Authorization", "Bearer " + sessionStorage.getItem("token"))
+            // .append("Content-Type", "application/octet-stream")
+            // .append("Accept", "application/octet-stream");
+        // let params = new HttpParams().set("groupId", groupId.groupId);
+        // return this.client.get("api/groups/token_file", { params, headers })
+
+        this.downloadFile("api/groups/token_file", groupNumber + ".txt", groupId.groupId);
+    }
+
+    downloadFile(url: string, fileName: string, groupId: string) {
+        let headers = new HttpHeaders()
+            .append("Authorization", "Bearer " + sessionStorage.getItem("token"))
+            .append("Content-Type", "application/octet-stream")
+            .append("Accept", "application/octet-stream");
+        let params = new HttpParams().set("groupId", groupId);
+        this.client.get(url, { params, headers, responseType: 'blob' }).subscribe((response: Blob) => {
+            const downloadUrl = window.URL.createObjectURL(response);
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.setAttribute('download', fileName);
+            link.click();
+            window.URL.revokeObjectURL(downloadUrl);
+        });
+    }
 }

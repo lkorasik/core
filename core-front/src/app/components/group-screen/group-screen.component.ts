@@ -9,10 +9,10 @@ import { GroupService } from '../../services/group/group.service';
 import { GetGroupIdDto } from '../../services/group/getGroupId.dto';
 import { TokenTableComponent } from '../token-table/token-table.component';
 import { GetTokensDto } from '../../services/group/getTokens.dto';
-import { TokenStatusDto } from '../../services/group/tokenStatus.dto';
 import { AddButtonComponent } from '../add-button/add-button.component';
 import { DialogComponent } from '../dialog/dialog.component';
 import { GenerateTokenDto } from '../../services/group/getToken.dto';
+import { DownloadButtonComponent } from '../download-button/download-button.component';
 
 @Component({
     selector: 'app-group-screen',
@@ -25,7 +25,8 @@ import { GenerateTokenDto } from '../../services/group/getToken.dto';
         CloseButtonComponent, 
         TokenTableComponent,
         AddButtonComponent,
-        DialogComponent
+        DialogComponent,
+        DownloadButtonComponent
     ],
     templateUrl: './group-screen.component.html',
     styleUrl: './group-screen.component.css'
@@ -78,5 +79,10 @@ export class GroupScreenComponent {
 
     updateTokensCount(count: string) {
         this.dialogValue = parseInt(count)
+    }
+
+    onDownloadClick() {
+        const request = new GetTokensDto(this.id);
+        this.groupService.downloadTokensFile(this.name, request);
     }
 }

@@ -1,6 +1,6 @@
 <app-toolbar title={{name}}>
-    <!-- Download button -->
-    <app-close-button />
+    <app-download-button (onClick)="onDownloadClick()"/>
+    <app-close-button/>
 </app-toolbar>
 <app-token-table [tokens]="tokens" />
 <app-add-button (clickEvent)="onAddButtonClick()" />
