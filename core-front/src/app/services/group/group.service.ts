@@ -7,40 +7,55 @@ import { GetGroupIdDto } from './getGroupId.dto';
 import { GetTokensDto } from './getTokens.dto';
 import { TokenStatusDto } from './tokenStatus.dto';
 import { GenerateTokenDto } from './getToken.dto';
+import { AuthorizedHttpClient } from '../authorizedHttpClient';
 
 @Injectable({
     providedIn: 'root'
 })
 export class GroupService {
-    constructor(private client: HttpClient) { }
+    constructor(private client: HttpClient, private authorizedClient: AuthorizedHttpClient) { }
 
     public getGroupsForProgram(group: GetGropupDTO) {
-        let headers = new HttpHeaders().append("Authorization", "Bearer " + sessionStorage.getItem("token"));
         let params = new HttpParams().set("programId", group.programId);
-        return this.client.get<GroupDto[]>("api/groups/groupsByProgram", { headers, params });
+        return this.authorizedClient.get<GroupDto[]>("api/groups/groupsByProgram", params);
+
+        // let headers = new HttpHeaders().append("Authorization", "Bearer " + sessionStorage.getItem("token"));
+        // let params = new HttpParams().set("programId", group.programId);
+        // return this.client.get<GroupDto[]>("api/groups/groupsByProgram", { headers, params });
     }
 
     public createGroup(createGroup: CreateGroupDTO) {
-        let headers = new HttpHeaders().append("Authorization", "Bearer " + sessionStorage.getItem("token"));
-        return this.client.post("api/groups/group", createGroup, { headers });
+        return this.authorizedClient.post("api/groups/group", createGroup);
+
+        // let headers = new HttpHeaders().append("Authorization", "Bearer " + sessionStorage.getItem("token"));
+        // return this.client.post("api/groups/group", createGroup, { headers });
     }
 
     public getGroup(getGroup: GetGroupIdDto) {
-        let headers = new HttpHeaders().append("Authorization", "Bearer " + sessionStorage.getItem("token"));
         let params = new HttpParams().set("groupId", getGroup.groupId);
-        return this.client.get<GroupDto>("api/groups/groupById", { headers, params });
+        return this.authorizedClient.get<GroupDto>("api/groups/groupById", params);
+
+        // let headers = new HttpHeaders().append("Authorization", "Bearer " + sessionStorage.getItem("token"));
+        // let params = new HttpParams().set("groupId", getGroup.groupId);
+        // return this.client.get<GroupDto>("api/groups/groupById", { headers, params });
     }
 
     public getTokens(groupId: GetTokensDto) {
-        let headers = new HttpHeaders().append("Authorization", "Bearer " + sessionStorage.getItem("token"));
         let params = new HttpParams().set("groupId", groupId.groupId);
-        return this.client.get<TokenStatusDto[]>("api/groups/token", { headers, params });
+        return this.authorizedClient.get<TokenStatusDto[]>("api/groups/token", params);
+
+        // let headers = new HttpHeaders().append("Authorization", "Bearer " + sessionStorage.getItem("token"));
+        // let params = new HttpParams().set("groupId", groupId.groupId);
+        // return this.client.get<TokenStatusDto[]>("api/groups/token", { headers, params });
     }
 
     public generateTokens(generateTokens: GenerateTokenDto) {
-        let headers = new HttpHeaders().append("Authorization", "Bearer " + sessionStorage.getItem("token"));
         let params = new HttpParams().set("groupId", generateTokens.groupId);
-        return this.client.post<string[]>("api/groups/token", generateTokens, { headers, params });
+        return this.authorizedClient.post<string[]>("api/groups/token", generateTokens, params);
+
+        // let headers = new HttpHeaders().append("Authorization", "Bearer " + sessionStorage.getItem("token"));
+        // let params = new HttpParams().set("groupId", generateTokens.groupId);
+        // return this.client.post<string[]>("api/groups/token", generateTokens, { headers, params });
     }
 
     public downloadTokensFile(groupNumber: string, groupId: GetTokensDto) {
