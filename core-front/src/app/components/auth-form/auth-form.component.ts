@@ -5,6 +5,10 @@ import { ButtonComponent } from '../button/button.component';
 import { FormSelector, FormSelectorComponent } from '../form-selector/form-selector.component';
 import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
+import { NotificationService } from '../../services/notification/notification.service';
+import { Observable, Observer } from 'rxjs';
+import { AccessTokenDto } from '../../services/auth/access-token.dto';
+import { Callback } from '../../services/callback';
 
 @Component({
     selector: 'app-login-form',
@@ -23,15 +27,27 @@ export class AuthFormComponent {
 
     buttonLabel = "Войти";
 
-    constructor(private service: AuthService, private router: Router) {}
+    constructor(
+        private service: AuthService, 
+        private router: Router, 
+        private notificationService: NotificationService
+    ) {}
 
     onClick() {
         if (this.type == FormSelector.LOGIN) {
-            this.service.login(this.login, this.password);
-            this.router.navigate(["administrator/educational_program"]);   
+            let callback: Callback<AccessTokenDto> = new Callback<AccessTokenDto>((x: AccessTokenDto) => {
+                this.notificationService.info("Вход", "Вы вошли в систему");
+                this.router.navigate(["administrator/educational_program"]);
+            }, (_: any) => this.notificationService.error("Вход", "Произошла ошибка"));
+
+            this.service.login(callback, this.login, this.password);
         } else {
-            this.service.register(this.login, this.password, this.passwordAgain);
-            this.router.navigate(["administrator/educational_program"]);
+            let callback: Callback<AccessTokenDto> = new Callback<AccessTokenDto>((x: AccessTokenDto) => {
+                this.notificationService.info("Регистрация", "Вы зарегистрировались");
+                this.router.navigate(["administrator/educational_program"]);   
+            }, (_: any) => this.notificationService.error("Регистрация", "Произошла ошибка"));
+
+            this.service.register(callback, this.login, this.password, this.passwordAgain);
         }
     }
 
