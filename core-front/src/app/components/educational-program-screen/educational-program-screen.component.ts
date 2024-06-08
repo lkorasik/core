@@ -2,16 +2,16 @@ import { Component } from '@angular/core';
 import { ProgramService } from '../../services/program/program.service';
 import { ProgramDTO } from '../../services/program/program.dto';
 import { GridCard, GridComponent } from '../grid/grid.component';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { TitleComponent } from '../title/title.component';
 import { AddButtonComponent } from '../add-button/add-button.component';
-import { NotificationService } from '../../services/notification.service';
-import { NotificationComponent } from '../notification/notification.component';
+import { NotificationService } from '../../services/notification/notification.service';
+import { NotificationListComponent } from '../notification-list/notification-list.component';
 
 @Component({
     selector: 'app-educational-program-screen',
     standalone: true,
-    imports: [GridComponent, RouterOutlet, TitleComponent, AddButtonComponent, NotificationComponent],
+    imports: [GridComponent, RouterOutlet, TitleComponent, AddButtonComponent, NotificationListComponent],
     templateUrl: './educational-program-screen.component.html',
     styleUrl: './educational-program-screen.component.css'
 })
@@ -21,7 +21,7 @@ export class EducationalProgramScreenComponent {
         name: "Образовательные программы"
     }];
     
-    constructor(private programService: ProgramService, private notification: NotificationService, private router: Router) {
+    constructor(private programService: ProgramService, private notificationService: NotificationService, private router: Router) {
         programService.getAllPrograms().subscribe(x => this.programs = x);
     }
 
@@ -31,10 +31,5 @@ export class EducationalProgramScreenComponent {
 
     onAddButtonClick() {
         this.router.navigate(["administrator/educational_program/add"])
-    }
-
-    onClick() {
-        console.log("Click")
-        this.notification.info('Hello World', 'This is an information', 5000);
     }
 }

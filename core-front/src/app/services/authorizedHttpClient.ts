@@ -16,6 +16,6 @@ export class AuthorizedHttpClient {
 
     post<T>(api: string, body: any, params?: HttpParams): Observable<T> {
         let headers = new HttpHeaders().append("Authorization", "Bearer " + this.storageService.loadAuthorizationToken());
-        return this.client.post<T>(api, body, { headers });
+        return this.client.post<T>(api, body, { headers, params });
     }
 }
