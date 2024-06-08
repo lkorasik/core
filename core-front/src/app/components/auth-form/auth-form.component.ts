@@ -26,11 +26,13 @@ export class AuthFormComponent {
     constructor(private service: AuthService, private router: Router) {}
 
     onClick() {
-        console.log("Login " + this.login + " " + this.password)
-
-        this.service.login(this.login, this.password);
-
-        this.router.navigate(["administrator/educational_program"]);
+        if (this.type == FormSelector.LOGIN) {
+            this.service.login(this.login, this.password);
+            this.router.navigate(["administrator/educational_program"]);   
+        } else {
+            this.service.register(this.login, this.password, this.passwordAgain);
+            this.router.navigate(["administrator/educational_program"]);
+        }
     }
 
     setLogin(login: string) {

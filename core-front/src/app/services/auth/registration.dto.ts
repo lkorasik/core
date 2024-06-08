@@ -1,3 +1,3 @@
 export class RegistrationDTO {
-    constructor(token: string, password: string, passwordAgain: string) { }
+    constructor(public token: string, public password: string, public passwordAgain: string) { }
 }
