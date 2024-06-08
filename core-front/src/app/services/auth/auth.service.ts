@@ -13,10 +13,9 @@ export class AuthService {
 
     login(name: string, password: string) {
         let login = new LoginDTO(name, password);
-        let token = this.client.post<AccessTokenDto>("/api/authentication/login", login).subscribe(
-            response => this.storageService.saveAuthorizationToken(response.accessToken),
-            error => console.log(error)
-        );
+        let token = this.client
+            .post<AccessTokenDto>("/api/authentication/login", login)
+            .subscribe(x => this.storageService.saveAuthorizationToken(x.accessToken));
         return token;
     }
 
