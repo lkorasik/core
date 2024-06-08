@@ -9,6 +9,7 @@ import { AddGroupScreenComponent } from './components/add-group-screen/add-group
 import { EditEducationalProgramScreenComponent } from './components/edit-educational-program-screen/edit-educational-program-screen.component';
 import { GroupScreenComponent } from './components/group-screen/group-screen.component';
 import { WelcomeScreenComponent } from './components/welcome-screen/welcome-screen.component';
+import { AddModuleScreenComponent } from './components/add-module-screen/add-module-screen.component';
 
 export const routes: Routes = [
     { 
@@ -44,8 +45,12 @@ export const routes: Routes = [
                 component: GroupScreenComponent
             },
             {
-                path: 'link2',
+                path: 'module',
                 component: ModulesScreenComponent
+            },
+            {
+                path: 'module/add',
+                component: AddModuleScreenComponent
             }
         ]
      },

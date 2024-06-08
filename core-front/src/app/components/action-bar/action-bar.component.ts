@@ -13,7 +13,7 @@ import { RouterLink } from '@angular/router';
 export class ActionBarComponent {
     items: ActionBarItem[] = [
         new ActionBarItem("Образовательные программы", "/administrator/educational_program"),
-        new ActionBarItem("Курсы и модули", "/administrator/link2"),
+        new ActionBarItem("Курсы и модули", "/administrator/module"),
         new ActionBarItem("Статистика", "/administrator/link3")
     ]
 }

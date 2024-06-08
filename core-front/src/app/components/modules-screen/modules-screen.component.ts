@@ -4,6 +4,7 @@ import { AddButtonComponent } from '../add-button/add-button.component';
 import { GridCard, GridComponent } from '../grid/grid.component';
 import { ModuleService } from '../../services/module/module.service';
 import { ModuleDTO } from '../../services/module/module.dto';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-modules-screen',
@@ -15,7 +16,7 @@ import { ModuleDTO } from '../../services/module/module.dto';
 export class ModulesScreenComponent {
     modules: ModuleDTO[] = []
 
-    constructor(private moduleService: ModuleService) {
+    constructor(private moduleService: ModuleService, private router: Router) {
         moduleService.getAllModules().subscribe(x => this.modules = x)
     }
     
@@ -24,6 +25,6 @@ export class ModulesScreenComponent {
     }
 
     onAddButtonClick() {
-
+        this.router.navigate(["administrator/module/add"])
     }
 }
