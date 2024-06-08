@@ -5,11 +5,13 @@ import { GridCard, GridComponent } from '../grid/grid.component';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { TitleComponent } from '../title/title.component';
 import { AddButtonComponent } from '../add-button/add-button.component';
+import { NotificationService } from '../../services/notification.service';
+import { NotificationComponent } from '../notification/notification.component';
 
 @Component({
     selector: 'app-educational-program-screen',
     standalone: true,
-    imports: [GridComponent, RouterOutlet, TitleComponent, AddButtonComponent],
+    imports: [GridComponent, RouterOutlet, TitleComponent, AddButtonComponent, NotificationComponent],
     templateUrl: './educational-program-screen.component.html',
     styleUrl: './educational-program-screen.component.css'
 })
@@ -19,7 +21,7 @@ export class EducationalProgramScreenComponent {
         name: "Образовательные программы"
     }];
     
-    constructor(private programService: ProgramService, private router: Router) {
+    constructor(private programService: ProgramService, private notification: NotificationService, private router: Router) {
         programService.getAllPrograms().subscribe(x => this.programs = x);
     }
 
@@ -29,5 +31,10 @@ export class EducationalProgramScreenComponent {
 
     onAddButtonClick() {
         this.router.navigate(["administrator/educational_program/add"])
+    }
+
+    onClick() {
+        console.log("Click")
+        this.notification.info('Hello World', 'This is an information', 5000);
     }
 }
