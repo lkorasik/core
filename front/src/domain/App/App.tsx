@@ -75,7 +75,6 @@ const App: FC = () => {
                     <Route path={ADMINISTRATOR + EDUCATIONAL_PROGRAM + EDIT + "/:educationalProgramId"} element={<EditEducationalProgramScreen/>}/>
                 <Route path={ADMINISTRATOR + COURESE_AND_MODULES} element={<ModulesScreen />}/>
                 <Route path={ADMINISTRATOR + STATISTICS} element={<StatisticsScreen/>}/>
-
                     <Route path={ADMINISTRATOR + EDUCATIONAL_PROGRAM + "/:educationalProgramId"} element={<EducationalProgramDetailsScreen />}/>
                 <Route path={ADMINISTRATOR + EDUCATIONAL_PROGRAM + ADD} element={<AddEducationalProgramScreen />}/>
                 <Route path={ADMINISTRATOR + GROUP + ADD} element={<AddGroupScreen />} />

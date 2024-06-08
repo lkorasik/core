@@ -1,0 +1,20 @@
+.download_button {
+    margin: 10px;
+    background-image: url("/download.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-origin: content-box;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: none;
+    background-size: 90% 90%;
+    background-color: var(--primary_color);
+    transition: scale 0.5s ease;
+}
+
+.download_button:hover {
+    cursor: pointer;
+    scale: 1.1;
+    transition: scale 0.5s ease;
+}

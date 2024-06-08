@@ -11,7 +11,7 @@ recreate_db:
 
 # Создание базы данных
 create_db:
-    @echo "Create database"
+	@echo "Create database"
 	@docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=180401 -e POSTGRES_USER=postgres -e POSTGRES_DB=Groopster --name db postgres:alpine3.19
 	@echo "Database created"
 

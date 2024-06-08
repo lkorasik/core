@@ -1,0 +1,7 @@
+<app-toolbar title={{name}}>
+    <app-edit-button (clickEvent)="onClick()"/>
+    <!-- <app-save-button (clickEvent)="onSave()"/> -->
+    <app-close-button />
+</app-toolbar>
+<app-grid [cards]="getGroupCards()"></app-grid>
+<app-add-button (clickEvent)="onAddButtonClick()" />

@@ -1,0 +1,6 @@
+<app-toolbar title="Добавить образовательную программу">
+    <app-save-button (clickEvent)="onSave()"/>
+    <app-close-button />
+</app-toolbar>
+<app-text-field title="Название образовательной программы" (fieldValue)="setName($event)"/>
+<app-text-field title="Направление подготовки" (fieldValue)="setTrainingDirection($event)"/>

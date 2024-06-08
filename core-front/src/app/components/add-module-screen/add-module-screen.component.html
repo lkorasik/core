@@ -1,0 +1,5 @@
+<app-toolbar title="Добавить модуль">
+    <app-save-button (clickEvent)="onSave()"/>
+    <app-close-button />
+</app-toolbar>
+<app-text-field title="Название" (fieldValue)="setName($event)"/>

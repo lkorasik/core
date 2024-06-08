@@ -1,0 +1,36 @@
+.enter_button {
+    margin-top: 4em;
+}
+
+.button {
+    width: 100%;
+    padding: 1.2em 3.5em;
+    border-radius: 1.2em;
+    border: none;
+    background-color: var(--accent_color);
+    color: #ffffff;
+    /* cursor: pointer; */
+    transition: background-color 0.2s ease-in;
+}
+
+.button:disabled {
+    background-color: #EF302B99;
+    transition: background-color 0.2s ease-in;
+}
+.button:enabled {
+    cursor: pointer;
+}
+
+.button:hover:enabled {
+    background-color: #C0231F;
+    transition: background-color 0.2s ease-in;
+}
+
+.button:active:enabled {
+    background-color: #A00B08;
+    transition: background-color 0.2s ease-in;
+}
+
+.inner_text {
+    font-family: 'Montserrat', sans-serif;
+}
