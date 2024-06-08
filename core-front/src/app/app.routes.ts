@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { AdminMainScreenComponent } from './components/admin-main-screen/admin-main-screen.component';
-import { AuthFormComponent } from './components/auth-form/auth-form.component';
 import { EducationalProgramScreenComponent } from './components/educational-program-screen/educational-program-screen.component';
 import { ModulesScreenComponent } from './components/modules-screen/modules-screen.component';
 import { EducationalProgramGroupsScreenComponent } from './components/educational-program-groups-screen/educational-program-groups-screen.component';
@@ -10,6 +9,7 @@ import { EditEducationalProgramScreenComponent } from './components/edit-educati
 import { GroupScreenComponent } from './components/group-screen/group-screen.component';
 import { WelcomeScreenComponent } from './components/welcome-screen/welcome-screen.component';
 import { AddModuleScreenComponent } from './components/add-module-screen/add-module-screen.component';
+import { NotFoundScreenComponent } from './components/not-found-screen/not-found-screen.component';
 
 export const routes: Routes = [
     { 
@@ -54,4 +54,8 @@ export const routes: Routes = [
             }
         ]
      },
+     {
+        path: '**',
+        component: NotFoundScreenComponent
+     }
 ];
