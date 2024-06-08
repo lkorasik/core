@@ -3,17 +3,18 @@ import { LoginDTO } from './login.dto';
 import { HttpClient } from '@angular/common/http';
 import { AccessTokenDto } from './access-token.dto';
 import { RegistrationDTO } from './registration.dto';
+import { StorageService } from '../storage.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
-    constructor(private client: HttpClient) { }
+    constructor(private client: HttpClient, private storageService: StorageService) { }
 
     login(name: string, password: string) {
         let login = new LoginDTO(name, password);
         let token = this.client.post<AccessTokenDto>("/api/authentication/login", login).subscribe(
-            response => sessionStorage.setItem("token", response.accessToken),
+            response => this.storageService.saveAuthorizationToken(response.accessToken),
             error => console.log(error)
         );
         return token;
