@@ -32,6 +32,6 @@ export class NotificationListComponent {
 
     private addNotification(notification: Notification) {
         this.notifications.push(notification);
-        // setTimeout(() => this.close(notification), notification.duration);
+        setTimeout(() => this.close(notification), notification.duration);
     }
 }
