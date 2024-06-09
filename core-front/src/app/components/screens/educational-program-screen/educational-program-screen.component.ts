@@ -16,10 +16,7 @@ import { NotificationService } from '../../../services/notification/notification
     styleUrl: './educational-program-screen.component.css'
 })
 export class EducationalProgramScreenComponent {
-    programs: ProgramDTO[] = [{
-        id: "1",
-        name: "Образовательные программы"
-    }];
+    programs: ProgramDTO[] = [];
     
     constructor(private programService: ProgramService, private notificationService: NotificationService, private router: Router) {
         programService.getAllPrograms().subscribe(x => this.programs = x);
