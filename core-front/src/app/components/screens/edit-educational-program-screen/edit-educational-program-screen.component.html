@@ -2,8 +2,8 @@
     <app-save-button (clickEvent)="onSave()"/>
     <app-close-button />
 </app-toolbar>
-<app-text-field title="Название образовательной программы" (fieldValue)="setName($event)"/>
-<app-text-field title="Направление подготовки" (fieldValue)="setTrainingDirection($event)"/>
+<app-text-field title="Название образовательной программы" value="{{title}}" (fieldValue)="setName($event)"/>
+<app-text-field title="Направление подготовки" value="{{trainingDirection}}" (fieldValue)="setTrainingDirection($event)"/>
 <select [value]="">
     <option disabled selected value> -- select an option -- </option>
     @for (year of years; track $index) {

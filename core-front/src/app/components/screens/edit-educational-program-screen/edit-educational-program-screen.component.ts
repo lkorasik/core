@@ -16,11 +16,20 @@ import { CourseSelectionDTO, ModuleDTO, SaveStudyPlanDTO } from '../../../servic
 })
 export class EditEducationalProgramScreenComponent {
     id: string = ""
+    title: string = ""
+    trainingDirection: string = ""
     years: string[] = ["2023"]
     modules: FullModuleDto[] = []
     modules2: Module[] = []
 
     constructor(private programService: ProgramService) {
+        this.id = sessionStorage.getItem("programId")!;
+
+        this.programService.getEducationalProgramById({ id: this.id }).subscribe(program => {
+            this.title = program.title
+            this.trainingDirection = program.trainingDirection
+        })
+
         programService.getAllModules2().subscribe(x => {
             this.modules = x
             this.modules2 = this.modules.map(module => {
@@ -31,8 +40,6 @@ export class EditEducationalProgramScreenComponent {
     }
 
     onSave() {
-        console.log("Save")
-
         const modulesBody = this.modules2.map(x => new ModuleDTO(x.id, x.courses.map(y => new CourseSelectionDTO(y.id, y.semesterNumber!))))
         const request = new SaveStudyPlanDTO(parseInt(this.years[0]), modulesBody)
         this.programService.saveStudyPlan(request).subscribe(x => x)
