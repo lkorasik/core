@@ -34,6 +34,7 @@ export class ModuleDetailScreenComponent {
     }
 
     onAddButtonClick() {
+        sessionStorage.setItem('moduleId', this.id);
         this.router.navigate(["administrator/module/course/add"])
     }
 }
