@@ -14,7 +14,7 @@ export class TextFieldComponent {
     @Input() type = "text"
 
     @Output() fieldValue: EventEmitter<string> = new EventEmitter<string>();
-    value = ""
+    @Input() value = ""
 
     setFieldValue() {
         this.fieldValue.emit(this.value);
