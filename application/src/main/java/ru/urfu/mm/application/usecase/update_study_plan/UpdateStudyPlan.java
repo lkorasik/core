@@ -43,22 +43,22 @@ public class UpdateStudyPlan {
 
         List<Course> firstSemester = request.courses()
                 .stream()
-                .filter(x -> x.semesterNumber() == 1)
+                .filter(x -> x.semesterNumber() == 0)
                 .map(x -> courseGateway.getById(x.courseId()))
                 .toList();
         List<Course> secondSemester = request.courses()
                 .stream()
-                .filter(x -> x.semesterNumber() == 2)
+                .filter(x -> x.semesterNumber() == 1)
                 .map(x -> courseGateway.getById(x.courseId()))
                 .toList();
         List<Course> thirdSemester = request.courses()
                 .stream()
-                .filter(x -> x.semesterNumber() == 3)
+                .filter(x -> x.semesterNumber() == 2)
                 .map(x -> courseGateway.getById(x.courseId()))
                 .toList();
         List<Course> fourthSemester = request.courses()
                 .stream()
-                .filter(x -> x.semesterNumber() == 4)
+                .filter(x -> x.semesterNumber() == 3)
                 .map(x -> courseGateway.getById(x.courseId()))
                 .toList();
 

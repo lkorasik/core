@@ -3,7 +3,7 @@ package ru.urfu.mm.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.urfu.mm.controller.semester.SemesterDTO;
-import ru.urfu.mm.persistance.entity.Semester;
+import ru.urfu.mm.persistance.entity.SemesterEntity;
 import ru.urfu.mm.persistance.repository.SemesterRepository;
 
 import java.time.Instant;
@@ -29,7 +29,7 @@ public class SemesterService {
                 .toList();
     }
 
-    private List<Semester> GetLaterOrEqual(int year) {
+    private List<SemesterEntity> GetLaterOrEqual(int year) {
         return semesterRepository.findAll().stream().filter(semester -> semester.getYear() >= year).toList();
     }
 

@@ -22,10 +22,10 @@ export class ModuleDTO {
 
 export class CourseSelectionDTO {
     courseId: string
-    semester: number
+    semesterEntity: number
 
-    constructor(courseId: string, semester: number) {
+    constructor(courseId: string, semesterEntity: number) {
         this.courseId = courseId
-        this.semester = semester
+        this.semesterEntity = semesterEntity
     }
 }

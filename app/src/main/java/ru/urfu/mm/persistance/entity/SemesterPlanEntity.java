@@ -2,6 +2,7 @@ package ru.urfu.mm.persistance.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,22 +13,22 @@ public class SemesterPlanEntity {
     private UUID id;
     @ManyToOne
     @JoinColumn(name = "semesters_id")
-    private Semester semester;
+    private SemesterEntity semesterEntity;
     @Column
     private int recommendedCredits;
     @ManyToMany
-    List<EducationalModuleEntity> requiredEducationalModuleEntities;
+    List<SpecialCourse> requiredCoursesEntities = new ArrayList<>();
     @ManyToMany
-    List<EducationalModuleEntity> specialEducationalModuleEntities;
+    List<SpecialCourse> specialCoursesEntities = new ArrayList<>();
     @ManyToMany
-    List<EducationalModuleEntity> scienceWork;
+    List<SpecialCourse> scienceWork = new ArrayList<>();
 
     public SemesterPlanEntity() {
     }
 
-    public SemesterPlanEntity(UUID id, Semester semester, int recommendedCredits) {
+    public SemesterPlanEntity(UUID id, SemesterEntity semesterEntity, int recommendedCredits) {
         this.id = id;
-        this.semester = semester;
+        this.semesterEntity = semesterEntity;
         this.recommendedCredits = recommendedCredits;
     }
 
@@ -35,23 +36,23 @@ public class SemesterPlanEntity {
         return id;
     }
 
-    public Semester getSemester() {
-        return semester;
+    public SemesterEntity getSemester() {
+        return semesterEntity;
     }
 
     public int getRecommendedCredits() {
         return recommendedCredits;
     }
 
-    public List<EducationalModuleEntity> getRequiredModules() {
-        return requiredEducationalModuleEntities;
+    public List<SpecialCourse> getRequiredModules() {
+        return requiredCoursesEntities;
     }
 
-    public List<EducationalModuleEntity> getSpecialModules() {
-        return specialEducationalModuleEntities;
+    public List<SpecialCourse> getSpecialModules() {
+        return specialCoursesEntities;
     }
 
-    public List<EducationalModuleEntity> getScienceWork() {
+    public List<SpecialCourse> getScienceWork() {
         return scienceWork;
     }
 }

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.SemesterPlanGateway;
 import ru.urfu.mm.domain.SemesterPlan;
-import ru.urfu.mm.persistance.entity.Semester;
+import ru.urfu.mm.persistance.entity.SemesterEntity;
 import ru.urfu.mm.persistance.entity.SemesterPlanEntity;
 import ru.urfu.mm.persistance.entity.enums.SemesterType;
 import ru.urfu.mm.persistance.repository.SemesterPlanRepository;
@@ -22,7 +22,7 @@ public class SemesterPlanGatewayImpl implements SemesterPlanGateway {
     public void save(SemesterPlan semesterPlan) {
         SemesterPlanEntity entity = new SemesterPlanEntity(
                 semesterPlan.getId(),
-                new Semester(
+                new SemesterEntity(
                         semesterPlan.getSemester().getId(),
                         semesterPlan.getSemester().getYear(),
                         SemesterType.fromDomain(semesterPlan.getSemester().getType())

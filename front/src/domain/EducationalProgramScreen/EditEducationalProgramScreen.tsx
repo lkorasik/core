@@ -145,7 +145,7 @@ export function EditEducationalProgramScreen() {
                     index++;
                     continue
                 }
-                const info: CourseSelectionDto = { courseId: modules[i].courses[j].id, semester: position + 1 }
+                const info: CourseSelectionDto = { courseId: modules[i].courses[j].id, semesterEntity: position + 1 }
                 moduleInfo.courses.push(info)
                 index++;
             }

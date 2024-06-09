@@ -4,16 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.StudyPlanGateway;
 import ru.urfu.mm.domain.*;
+import ru.urfu.mm.domain.Semester;
 import ru.urfu.mm.domain.enums.SemesterType;
-import ru.urfu.mm.domain.exception.NotImplementedException;
-import ru.urfu.mm.persistance.entity.EducationalProgramEntity;
-import ru.urfu.mm.persistance.entity.Semester;
-import ru.urfu.mm.persistance.entity.SemesterPlanEntity;
-import ru.urfu.mm.persistance.entity.SyllabusEntity;
-import ru.urfu.mm.persistance.repository.ProgramRepository;
-import ru.urfu.mm.persistance.repository.SemesterPlanRepository;
-import ru.urfu.mm.persistance.repository.SemesterRepository;
-import ru.urfu.mm.persistance.repository.StudyPlanRepository;
+import ru.urfu.mm.persistance.entity.*;
+import ru.urfu.mm.persistance.repository.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,31 +18,34 @@ public class StudyPlanGatewayImpl implements StudyPlanGateway {
     private final StudyPlanRepository studyPlanRepository;
     private final SemesterRepository semesterRepository;
     private final ProgramRepository programRepository;
+    private final SpecialCourseRepository courseRepository;
 
     @Autowired
     public StudyPlanGatewayImpl(
             SemesterPlanRepository semesterPlanRepository,
             StudyPlanRepository studyPlanRepository,
             SemesterRepository semesterRepository,
-            ProgramRepository programRepository) {
+            ProgramRepository programRepository,
+            SpecialCourseRepository courseRepository) {
         this.semesterPlanRepository = semesterPlanRepository;
         this.studyPlanRepository = studyPlanRepository;
         this.semesterRepository = semesterRepository;
         this.programRepository = programRepository;
+        this.courseRepository = courseRepository;
     }
 
     @Override
     public void save(Syllabus syllabus, EducationalProgram educationalProgram) {
-        Semester firstSemesterEntity = semesterRepository
+        SemesterEntity firstSemesterEntity = semesterRepository
                 .findById(syllabus.getFirstSemesterPlan().getSemester().getId())
                 .get();
-        Semester secondSemesterEntity = semesterRepository
+        SemesterEntity secondSemesterEntity = semesterRepository
                 .findById(syllabus.getSecondSemesterPlan().getSemester().getId())
                 .get();
-        Semester thirdSemesterEntity = semesterRepository
+        SemesterEntity thirdSemesterEntity = semesterRepository
                 .findById(syllabus.getThirdSemesterPlan().getSemester().getId())
                 .get();
-        Semester fourthSemesterEntity = semesterRepository
+        SemesterEntity fourthSemesterEntity = semesterRepository
                 .findById(syllabus.getFourthSemesterPlan().getSemester().getId())
                 .get();
 
@@ -72,6 +69,28 @@ public class StudyPlanGatewayImpl implements StudyPlanGateway {
                 fourthSemesterEntity,
                 syllabus.getFourthSemesterPlan().getRecommendedCredits()
         );
+
+        List<SpecialCourse> firstSemesterCourses = syllabus.getFirstSemesterPlan().getRequiredCourses()
+                .stream()
+                .map(x -> courseRepository.findById(x.getId()).get())
+                .toList();
+        List<SpecialCourse> secondSemesterCourses = syllabus.getSecondSemesterPlan().getRequiredCourses()
+                .stream()
+                .map(x -> courseRepository.findById(x.getId()).get())
+                .toList();
+        List<SpecialCourse> thirdSemesterCourses = syllabus.getThirdSemesterPlan().getRequiredCourses()
+                .stream()
+                .map(x -> courseRepository.findById(x.getId()).get())
+                .toList();
+        List<SpecialCourse> fourthSemesterCourses = syllabus.getFourthSemesterPlan().getRequiredCourses()
+                .stream()
+                .map(x -> courseRepository.findById(x.getId()).get())
+                .toList();
+
+        firstSemesterPlanEntity.getRequiredModules().addAll(firstSemesterCourses);
+        secondSemesterPlanEntity.getRequiredModules().addAll(secondSemesterCourses);
+        thirdSemesterPlanEntity.getRequiredModules().addAll(thirdSemesterCourses);
+        fourthSemesterPlanEntity.getRequiredModules().addAll(fourthSemesterCourses);
 
         SyllabusEntity syllabusEntity = new SyllabusEntity(
                 UUID.randomUUID(),

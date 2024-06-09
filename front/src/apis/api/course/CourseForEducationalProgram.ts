@@ -7,7 +7,7 @@ export interface CourseForEducationalProgram {
     creditsCount: number;
     controlTypes: Control;
     description: string;
-    semesters: SemesterDto[];
+    semesterEntities: SemesterDto[];
     moduleId: string | null;
     requiredSemesterId: string | null;
 }

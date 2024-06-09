@@ -6,7 +6,7 @@ export interface RecommendedCourseDto {
     id: string;
     name: string;
     creditsCount: number;
-    semesters: SemesterDto[];
+    semesterEntities: SemesterDto[];
     moduleId: string | null;
     requiredSemesterId: string | null;
     requiredSkills: SkillDto[];

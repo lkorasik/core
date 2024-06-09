@@ -1,7 +1,7 @@
 package ru.urfu.mm.controller.course;
 
+import ru.urfu.mm.persistance.entity.SemesterEntity;
 import ru.urfu.mm.persistance.entity.enums.Control;
-import ru.urfu.mm.persistance.entity.Semester;
 
 import java.util.List;
 import java.util.UUID;
@@ -16,7 +16,7 @@ public record CourseForProgramDTO(
         int creditsCount,
         Control control,
         String description,
-        List<Semester> semesters,
+        List<SemesterEntity> semesterEntities,
         UUID moduleId,
         UUID requiredSemesterId
 ) { }

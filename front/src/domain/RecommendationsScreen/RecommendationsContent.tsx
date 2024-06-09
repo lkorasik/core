@@ -37,9 +37,9 @@ export const RecommendationsContent: FC = () => {
     useEffect(() => {
         const loadRecommendations = async () => {
             const recommendationResult = await apis.recommendationsApi.calculateRecommendations();
-            const semesters = await apis.semestersApi.getActualSemesters();
+            const semesterEntities = await apis.semestersApi.getActualSemesters();
             setRecommendations(recommendationResult);
-            setActualSemesters(semesters);
+            setActualSemesters(semesterEntities);
         };
         loadRecommendations();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -53,7 +53,7 @@ export const RecommendationsContent: FC = () => {
                 }
                 return (
                   <>
-                      <div className={styles.semesters}>
+                      <div className={styles.semesterEntities}>
                           {[1, 2, 3, 4].map(renderSemester)}
                       </div>
                       <Text className={styles.headerText} size={2}>Соответствует вашим интересам и навыкам:</Text>
@@ -95,7 +95,7 @@ const renderCoursesForSemester = (courses: RecommendedCourseDto[] | undefined) =
         return;
     }
     return (
-        <div key={courses[0].semesters[0].id} className={styles.semesterBlock}>
+        <div key={courses[0].semesterEntities[0].id} className={styles.semesterBlock}>
             {courses.map(renderCourseCard)}
         </div>
     );
@@ -141,7 +141,7 @@ const getCoursesBySemesters = (
     const semesterIdToCourses = new Map<string, RecommendedCourseDto[]>();
     const allCourses = [...courses, ...additionalCourses]
     allCourses.forEach(course => {
-        const semesterIds = course.semesters.map(y => y.id);
+        const semesterIds = course.semesterEntities.map(y => y.id);
         for (const semesterId of semesterIds) {
             const semesterCourses = semesterIdToCourses.get(semesterId);
             if (semesterCourses) {

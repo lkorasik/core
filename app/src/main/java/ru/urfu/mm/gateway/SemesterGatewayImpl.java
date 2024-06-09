@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.SemesterGateway;
 import ru.urfu.mm.domain.Semester;
+import ru.urfu.mm.persistance.entity.SemesterEntity;
 import ru.urfu.mm.persistance.entity.enums.SemesterType;
 import ru.urfu.mm.persistance.repository.SemesterRepository;
-import ru.urfu.mm.service.mapper.Mapper;
 
 import java.util.List;
 import java.util.UUID;
@@ -22,15 +22,15 @@ public class SemesterGatewayImpl implements SemesterGateway {
 
     @Override
     public void save(Semester semester) {
-        ru.urfu.mm.persistance.entity.Semester entity;
+        SemesterEntity entity;
         if (semester.getId() != null) {
-            entity = new ru.urfu.mm.persistance.entity.Semester(
+            entity = new SemesterEntity(
                     semester.getId(),
                     semester.getYear(),
                     SemesterType.fromDomain(semester.getType())
             );
         } else {
-            entity = new ru.urfu.mm.persistance.entity.Semester(
+            entity = new SemesterEntity(
                     semester.getYear(),
                     SemesterType.fromDomain(semester.getType())
             );
@@ -40,7 +40,7 @@ public class SemesterGatewayImpl implements SemesterGateway {
 
     @Override
     public Semester getById(UUID semesterId) {
-        ru.urfu.mm.persistance.entity.Semester entity = semesterRepository.getReferenceById(semesterId);
+        SemesterEntity entity = semesterRepository.getReferenceById(semesterId);
         return new Semester(
                 entity.getId(),
                 entity.getYear(),
@@ -76,24 +76,24 @@ public class SemesterGatewayImpl implements SemesterGateway {
                 .toList();
     }
 
-    private boolean isActualSemester(ru.urfu.mm.persistance.entity.Semester semester, int startYear) {
-        return isFirstSemester(semester, startYear) || isSecondSemester(semester, startYear)
-                || isThirdSemester(semester, startYear) || isFourthSemester(semester, startYear);
+    private boolean isActualSemester(SemesterEntity semesterEntity, int startYear) {
+        return isFirstSemester(semesterEntity, startYear) || isSecondSemester(semesterEntity, startYear)
+                || isThirdSemester(semesterEntity, startYear) || isFourthSemester(semesterEntity, startYear);
     }
 
-    private boolean isFirstSemester(ru.urfu.mm.persistance.entity.Semester semester, int startYear) {
-        return (semester.getType() == SemesterType.FALL) && (semester.getYear() == startYear);
+    private boolean isFirstSemester(SemesterEntity semesterEntity, int startYear) {
+        return (semesterEntity.getType() == SemesterType.FALL) && (semesterEntity.getYear() == startYear);
     }
 
-    private boolean isSecondSemester(ru.urfu.mm.persistance.entity.Semester semester, int startYear) {
-        return (semester.getType() == SemesterType.SPRING) && (semester.getYear() == startYear + 1);
+    private boolean isSecondSemester(SemesterEntity semesterEntity, int startYear) {
+        return (semesterEntity.getType() == SemesterType.SPRING) && (semesterEntity.getYear() == startYear + 1);
     }
 
-    private boolean isThirdSemester(ru.urfu.mm.persistance.entity.Semester semester, int startYear) {
-        return (semester.getType() == SemesterType.FALL) && (semester.getYear() == startYear + 1);
+    private boolean isThirdSemester(SemesterEntity semesterEntity, int startYear) {
+        return (semesterEntity.getType() == SemesterType.FALL) && (semesterEntity.getYear() == startYear + 1);
     }
 
-    private boolean isFourthSemester(ru.urfu.mm.persistance.entity.Semester semester, int startYear) {
-        return (semester.getType() == SemesterType.SPRING) && (semester.getYear() == startYear + 2);
+    private boolean isFourthSemester(SemesterEntity semesterEntity, int startYear) {
+        return (semesterEntity.getType() == SemesterType.SPRING) && (semesterEntity.getYear() == startYear + 2);
     }
 }
