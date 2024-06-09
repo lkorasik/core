@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { TitleComponent } from '../title/title.component';
-import { AddButtonComponent } from '../add-button/add-button.component';
-import { GridCard, GridComponent } from '../grid/grid.component';
-import { ModuleService } from '../../services/module/module.service';
-import { ModuleDTO } from '../../services/module/module.dto';
+import { TitleComponent } from '../../base_components/title/title.component';
+import { AddButtonComponent } from '../../base_components/add-button/add-button.component';
+import { GridCard, GridComponent } from '../../base_components/grid/grid.component';
+import { ModuleService } from '../../../services/module/module.service';
+import { ModuleDTO } from '../../../services/module/module.dto';
 import { Router } from '@angular/router';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { ActionBarComponent } from '../action-bar/action-bar.component';
 import { RouterOutlet } from '@angular/router';
-import { ContainerComponent } from '../container/container.component';
+import { ActionBarComponent } from '../../base_components/action-bar/action-bar.component';
+import { ContainerComponent } from '../../base_components/container/container.component';
 
 @Component({
     selector: 'app-admin-main-screen',

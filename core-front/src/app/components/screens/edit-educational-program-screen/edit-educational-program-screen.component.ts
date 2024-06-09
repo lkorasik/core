@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { ToolbarComponent } from '../toolbar/toolbar.component';
-import { SaveButtonComponent } from '../save-button/save-button.component';
-import { CloseButtonComponent } from '../close-button/close-button.component';
-import { TextFieldComponent } from '../text-field/text-field.component';
-import { ProgramService } from '../../services/program/program.service';
-import { CourseDto, FullModuleDto } from '../../services/program/fullModule.dto';
-import { CourseSelectionDTO, ModuleDTO, SaveStudyPlanDTO } from '../../services/program/saveStudyPlan.dto';
+import { ToolbarComponent } from '../../base_components/toolbar/toolbar.component';
+import { SaveButtonComponent } from '../../base_components/save-button/save-button.component';
+import { CloseButtonComponent } from '../../base_components/close-button/close-button.component';
+import { TextFieldComponent } from '../../base_components/text-field/text-field.component';
+import { FullModuleDto } from '../../../services/program/fullModule.dto';
+import { ProgramService } from '../../../services/program/program.service';
+import { CourseSelectionDTO, ModuleDTO, SaveStudyPlanDTO } from '../../../services/program/saveStudyPlan.dto';
 
 @Component({
     selector: 'app-edit-educational-program-screen',

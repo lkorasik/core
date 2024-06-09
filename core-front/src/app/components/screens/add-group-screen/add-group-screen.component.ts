@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { TitleComponent } from '../title/title.component';
-import { TextFieldComponent } from '../text-field/text-field.component';
-import { ToolbarComponent } from '../toolbar/toolbar.component';
-import { SaveButtonComponent } from '../save-button/save-button.component';
-import { CloseButtonComponent } from '../close-button/close-button.component';
-import { ProgramService } from '../../services/program/program.service';
 import {Location} from '@angular/common';
-import { CreateGroupDTO } from '../../services/group/createGroup.dto';
-import { GroupService } from '../../services/group/group.service';
+import { TitleComponent } from '../../base_components/title/title.component';
+import { TextFieldComponent } from '../../base_components/text-field/text-field.component';
+import { ToolbarComponent } from '../../base_components/toolbar/toolbar.component';
+import { SaveButtonComponent } from '../../base_components/save-button/save-button.component';
+import { CloseButtonComponent } from '../../base_components/close-button/close-button.component';
+import { GroupService } from '../../../services/group/group.service';
+import { CreateGroupDTO } from '../../../services/group/createGroup.dto';
 
 @Component({
     selector: 'app-add-group-screen',

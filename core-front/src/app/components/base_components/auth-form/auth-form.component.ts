@@ -1,14 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { TextFieldComponent } from '../text-field/text-field.component';
 import { ButtonComponent } from '../button/button.component';
 import { FormSelector, FormSelectorComponent } from '../form-selector/form-selector.component';
-import { AuthService } from '../../services/auth/auth.service';
-import { Router } from '@angular/router';
-import { NotificationService } from '../../services/notification/notification.service';
-import { Observable, Observer } from 'rxjs';
-import { AccessTokenDto } from '../../services/auth/access-token.dto';
-import { Callback } from '../../services/callback';
+import { AuthService } from '../../../services/auth/auth.service';
+import { NotificationService } from '../../../services/notification/notification.service';
+import { AccessTokenDto } from '../../../services/auth/access-token.dto';
+import { Callback } from '../../../services/callback';
 
 @Component({
     selector: 'app-login-form',

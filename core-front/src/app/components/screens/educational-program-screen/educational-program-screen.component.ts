@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { ProgramService } from '../../services/program/program.service';
-import { ProgramDTO } from '../../services/program/program.dto';
-import { GridCard, GridComponent } from '../grid/grid.component';
 import { Router, RouterOutlet } from '@angular/router';
-import { TitleComponent } from '../title/title.component';
-import { AddButtonComponent } from '../add-button/add-button.component';
-import { NotificationService } from '../../services/notification/notification.service';
-import { NotificationListComponent } from '../notification-list/notification-list.component';
+import { GridCard, GridComponent } from '../../base_components/grid/grid.component';
+import { TitleComponent } from '../../base_components/title/title.component';
+import { AddButtonComponent } from '../../base_components/add-button/add-button.component';
+import { NotificationListComponent } from '../../base_components/notification-list/notification-list.component';
+import { ProgramDTO } from '../../../services/program/program.dto';
+import { ProgramService } from '../../../services/program/program.service';
+import { NotificationService } from '../../../services/notification/notification.service';
 
 @Component({
     selector: 'app-educational-program-screen',

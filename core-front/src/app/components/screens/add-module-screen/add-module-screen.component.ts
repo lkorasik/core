@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { ToolbarComponent } from '../toolbar/toolbar.component';
-import { SaveButtonComponent } from '../save-button/save-button.component';
-import { AddButtonComponent } from '../add-button/add-button.component';
-import { CloseButtonComponent } from '../close-button/close-button.component';
-import { TextFieldComponent } from '../text-field/text-field.component';
-import { ModuleService } from '../../services/module/module.service';
+import { SaveButtonComponent } from '../../base_components/save-button/save-button.component';
+import { AddButtonComponent } from '../../base_components/add-button/add-button.component';
+import { CloseButtonComponent } from '../../base_components/close-button/close-button.component';
+import { TextFieldComponent } from '../../base_components/text-field/text-field.component';
+import { ModuleService } from '../../../services/module/module.service';
 import {Location} from '@angular/common';
-import { CreateModuleDto } from '../../services/module/createModule.dto';
+import { CreateModuleDto } from '../../../services/module/createModule.dto';
+import { ToolbarComponent } from '../../base_components/toolbar/toolbar.component';
 
 @Component({
     selector: 'app-add-module-screen',

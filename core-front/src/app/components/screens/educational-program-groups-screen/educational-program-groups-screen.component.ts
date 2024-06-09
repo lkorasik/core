@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
-import { TitleComponent } from '../title/title.component';
-import { ProgramService } from '../../services/program/program.service';
-import { ToolbarComponent } from '../toolbar/toolbar.component';
-import { CloseButtonComponent } from '../close-button/close-button.component';
-import { EditButtonComponent } from '../edit-button/edit-button.component';
-import { AddButtonComponent } from '../add-button/add-button.component';
-import { ProgramDTO } from '../../services/program/program.dto';
-import { GridCard, GridComponent } from '../grid/grid.component';
-import { GroupService } from '../../services/group/group.service';
-import { GroupDto } from '../../services/group/group.dto';
-import { GetGropupDTO } from '../../services/group/getGroup.dto';
+import { TitleComponent } from '../../base_components/title/title.component';
+import { ToolbarComponent } from '../../base_components/toolbar/toolbar.component';
+import { CloseButtonComponent } from '../../base_components/close-button/close-button.component';
+import { EditButtonComponent } from '../../base_components/edit-button/edit-button.component';
+import { GridCard, GridComponent } from '../../base_components/grid/grid.component';
+import { AddButtonComponent } from '../../base_components/add-button/add-button.component';
+import { ProgramDTO } from '../../../services/program/program.dto';
+import { GroupDto } from '../../../services/group/group.dto';
+import { ProgramService } from '../../../services/program/program.service';
+import { GroupService } from '../../../services/group/group.service';
+import { GetGropupDTO } from '../../../services/group/getGroup.dto';
 
 @Component({
     selector: 'app-educational-program-groups-screen',
