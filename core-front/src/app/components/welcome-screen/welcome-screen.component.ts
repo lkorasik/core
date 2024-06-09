@@ -9,5 +9,4 @@ import { AuthFormComponent } from '../auth-form/auth-form.component';
     styleUrl: './welcome-screen.component.css'
 })
 export class WelcomeScreenComponent {
-
 }
