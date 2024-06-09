@@ -41,7 +41,7 @@ export class EditEducationalProgramScreenComponent {
 
     onSave() {
         const modulesBody = this.modules2.map(x => new ModuleDTO(x.id, x.courses.map(y => new CourseSelectionDTO(y.id, y.semesterNumber!))))
-        const request = new SaveStudyPlanDTO(parseInt(this.years[0]), modulesBody)
+        const request = new SaveStudyPlanDTO(parseInt(this.years[0]), this.id, modulesBody)
         this.programService.saveStudyPlan(request).subscribe(x => x)
     }
 

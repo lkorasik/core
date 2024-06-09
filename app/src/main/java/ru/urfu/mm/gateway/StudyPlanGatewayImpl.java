@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.StudyPlanGateway;
 import ru.urfu.mm.domain.*;
+import ru.urfu.mm.domain.enums.SemesterType;
 import ru.urfu.mm.domain.exception.NotImplementedException;
+import ru.urfu.mm.persistance.entity.EducationalProgramEntity;
 import ru.urfu.mm.persistance.entity.Semester;
 import ru.urfu.mm.persistance.entity.SemesterPlanEntity;
 import ru.urfu.mm.persistance.entity.SyllabusEntity;
@@ -90,6 +92,48 @@ public class StudyPlanGatewayImpl implements StudyPlanGateway {
 
     @Override
     public List<Syllabus> findAllByProgram(EducationalProgram educationalProgram) {
-        throw new NotImplementedException();
+        EducationalProgramEntity programEntity = programRepository.findById(educationalProgram.getId()).get();
+        return studyPlanRepository.findAllByProgram(programEntity)
+                .stream()
+                .map(x -> new Syllabus(
+                        x.getId(),
+                        new SemesterPlan(
+                                x.getFirstSemester().getId(),
+                                new ru.urfu.mm.domain.Semester(
+                                        x.getFirstSemester().getSemester().getId(),
+                                        x.getFirstSemester().getSemester().getYear(),
+                                        SemesterType.values()[x.getFirstSemester().getSemester().getType().ordinal()]
+                                ),
+                                x.getFirstSemester().getRecommendedCredits()
+                        ),
+                        new SemesterPlan(
+                                x.getSecondSemester().getId(),
+                                new ru.urfu.mm.domain.Semester(
+                                        x.getSecondSemester().getSemester().getId(),
+                                        x.getSecondSemester().getSemester().getYear(),
+                                        SemesterType.values()[x.getSecondSemester().getSemester().getType().ordinal()]
+                                ),
+                                x.getSecondSemester().getRecommendedCredits()
+                        ),
+                        new SemesterPlan(
+                                x.getThirdSemester().getId(),
+                                new ru.urfu.mm.domain.Semester(
+                                        x.getThirdSemester().getSemester().getId(),
+                                        x.getThirdSemester().getSemester().getYear(),
+                                        SemesterType.values()[x.getThirdSemester().getSemester().getType().ordinal()]
+                                ),
+                                x.getThirdSemester().getRecommendedCredits()
+                        ),
+                        new SemesterPlan(
+                                x.getFourthSemester().getId(),
+                                new ru.urfu.mm.domain.Semester(
+                                        x.getFourthSemester().getSemester().getId(),
+                                        x.getFourthSemester().getSemester().getYear(),
+                                        SemesterType.values()[x.getFourthSemester().getSemester().getType().ordinal()]
+                                ),
+                                x.getFourthSemester().getRecommendedCredits()
+                        )
+                ))
+                .toList();
     }
 }

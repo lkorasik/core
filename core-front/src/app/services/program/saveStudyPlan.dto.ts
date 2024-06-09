@@ -1,9 +1,11 @@
 export class SaveStudyPlanDTO {
     startYear: number
+    programId: string
     modules: ModuleDTO[]
 
-    constructor(startYear: number, modules: ModuleDTO[]) {
+    constructor(startYear: number, programId: string, modules: ModuleDTO[]) {
         this.startYear = startYear
+        this.programId = programId
         this.modules = modules
     }
 }

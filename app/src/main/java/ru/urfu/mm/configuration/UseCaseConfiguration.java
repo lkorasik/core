@@ -301,8 +301,11 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public UpdateStudyPlan updateStudyPlan(StudyPlanGateway studyPlanGateway) {
-        return new UpdateStudyPlan(studyPlanGateway);
+    public UpdateStudyPlan updateStudyPlan(
+            StudyPlanGateway studyPlanGateway,
+            GetProgramById getProgramById,
+            CourseGateway courseGateway) {
+        return new UpdateStudyPlan(studyPlanGateway, getProgramById, courseGateway);
     }
 
     @Bean

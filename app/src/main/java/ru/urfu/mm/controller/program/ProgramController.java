@@ -15,12 +15,15 @@ import ru.urfu.mm.application.usecase.get_available_years.GetStudyPlanResponse;
 import ru.urfu.mm.application.usecase.get_study_plan.GetStudyPlan;
 import ru.urfu.mm.application.usecase.update_program.UpdateProgram;
 import ru.urfu.mm.application.usecase.update_program.UpdateProgramRequest;
+import ru.urfu.mm.application.usecase.update_study_plan.CourseRequest;
 import ru.urfu.mm.application.usecase.update_study_plan.UpdateStudyPlan;
+import ru.urfu.mm.application.usecase.update_study_plan.UpdateStudyPlanRequest;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.controller.Endpoints;
 import ru.urfu.mm.domain.EducationalProgram;
 import ru.urfu.mm.domain.Syllabus;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -85,7 +88,15 @@ public class ProgramController extends AbstractAuthorizedController {
 
     @PostMapping(Endpoints.Program.PLAN)
     public void saveStudyPlan(@RequestBody StudyPlanDTO dto) {
-        updateStudyPlan.update();
+        List<CourseRequest> courses = dto.modules()
+                .stream()
+                .map(ModuleSelectionDTO::courses)
+                .flatMap(Collection::stream)
+                .map(x -> new CourseRequest(x.courseId(), x.semester()))
+                .toList();
+
+        UpdateStudyPlanRequest request = new UpdateStudyPlanRequest(dto.programId(), dto.startYear(), courses);
+        updateStudyPlan.update(request);
         // todo: реализуй обновление учебного плана
         System.out.println("Receive: " + dto);
     }
