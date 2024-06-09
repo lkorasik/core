@@ -33,6 +33,6 @@ export class ProgramService {
     }
 
     saveStudyPlan(saveStudyPlan: SaveStudyPlanDTO) {
-        return this.client.post("api/programs/plan", saveStudyPlan);
+        return this.authorizedClient.post("api/programs/plan", saveStudyPlan);
     }
 }

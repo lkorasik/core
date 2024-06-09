@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.application.usecase.create_educational_program.CreateEducationalProgram;
 import ru.urfu.mm.application.usecase.create_educational_program.CreateProgramRequest;
+import ru.urfu.mm.application.usecase.create_study_plan.CreateStudyPlan;
 import ru.urfu.mm.application.usecase.get_all_programs.GetAllPrograms;
 import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
 import ru.urfu.mm.application.usecase.get_program_for_student.ProgramForStudentResponse;
@@ -14,6 +15,7 @@ import ru.urfu.mm.application.usecase.get_available_years.GetStudyPlanResponse;
 import ru.urfu.mm.application.usecase.get_study_plan.GetStudyPlan;
 import ru.urfu.mm.application.usecase.update_program.UpdateProgram;
 import ru.urfu.mm.application.usecase.update_program.UpdateProgramRequest;
+import ru.urfu.mm.application.usecase.update_study_plan.UpdateStudyPlan;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.controller.Endpoints;
 import ru.urfu.mm.domain.EducationalProgram;
@@ -41,6 +43,8 @@ public class ProgramController extends AbstractAuthorizedController {
     private GetAvailableYears getAvailableYears;
     @Autowired
     private GetStudyPlan getStudyPlan;
+    @Autowired
+    private UpdateStudyPlan updateStudyPlan;
 
     @GetMapping(Endpoints.Program.CURRENT)
     public ProgramInfoDTO current() {
@@ -81,7 +85,8 @@ public class ProgramController extends AbstractAuthorizedController {
 
     @PostMapping(Endpoints.Program.PLAN)
     public void saveStudyPlan(@RequestBody StudyPlanDTO dto) {
-        // todo: реализуй сохранение учебного плана
+        updateStudyPlan.update();
+        // todo: реализуй обновление учебного плана
         System.out.println("Receive: " + dto);
     }
 
