@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthorizedHttpClient } from '../authorizedHttpClient';
 import { ModuleDTO } from './module.dto';
-import { CreateModuleDto } from './createModule.dto';
-import { GetModuleById, ModuleWithCoursesDTO } from './dtos';
+import { CreateModuleDto, GetModuleById, ModuleWithCoursesDTO } from './dtos';
 import { HttpParams } from '@angular/common/http';
 
 @Injectable({

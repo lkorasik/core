@@ -5,8 +5,8 @@ import { CloseButtonComponent } from '../../base_components/close-button/close-b
 import { TextFieldComponent } from '../../base_components/text-field/text-field.component';
 import { ModuleService } from '../../../services/module/module.service';
 import {Location} from '@angular/common';
-import { CreateModuleDto } from '../../../services/module/createModule.dto';
 import { ToolbarComponent } from '../../base_components/toolbar/toolbar.component';
+import { CreateModuleDto } from '../../../services/module/dtos';
 
 @Component({
     selector: 'app-add-module-screen',
