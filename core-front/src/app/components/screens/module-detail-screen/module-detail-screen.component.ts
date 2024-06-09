@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { TitleComponent } from '../../base_components/title/title.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModuleService } from '../../../services/module/module.service';
 import { CourseDTO, GetModuleById, ModuleWithCoursesDTO } from '../../../services/module/dtos';
 import { GridCard, GridComponent } from '../../base_components/grid/grid.component';
+import { AddButtonComponent } from '../../base_components/add-button/add-button.component';
 
 @Component({
     selector: 'app-module-detail-screen',
     standalone: true,
-    imports: [TitleComponent, GridComponent],
+    imports: [TitleComponent, GridComponent, AddButtonComponent],
     templateUrl: './module-detail-screen.component.html',
     styleUrl: './module-detail-screen.component.css'
 })
@@ -17,7 +18,7 @@ export class ModuleDetailScreenComponent {
     name: string = "";
     courses: CourseDTO[] = [];
     
-    constructor(private route: ActivatedRoute, private moduleService: ModuleService) {
+    constructor(private route: ActivatedRoute, private router: Router, private moduleService: ModuleService) {
         route.params.subscribe(x => this.id = x['id'])
 
         moduleService.getModuleById(new GetModuleById(this.id)).subscribe(x => this.onReceive(x))
@@ -30,5 +31,9 @@ export class ModuleDetailScreenComponent {
 
     getGridCards() {
         return this.courses.map(course => new GridCard(course.name, "/administrator/course/" + course.id));
+    }
+
+    onAddButtonClick() {
+        this.router.navigate(["administrator/module/course/add"])
     }
 }

@@ -11,6 +11,7 @@ import { EditEducationalProgramScreenComponent } from './components/screens/edit
 import { EducationalProgramGroupsScreenComponent } from './components/screens/educational-program-groups-screen/educational-program-groups-screen.component';
 import { EducationalProgramScreenComponent } from './components/screens/educational-program-screen/educational-program-screen.component';
 import { ModuleDetailScreenComponent } from './components/screens/module-detail-screen/module-detail-screen.component';
+import { AddCourseScreenComponent } from './components/screens/add-course-screen/add-course-screen.component';
 
 export const routes: Routes = [
     { 
@@ -56,6 +57,10 @@ export const routes: Routes = [
             {
                 path: 'module/:id',
                 component: ModuleDetailScreenComponent
+            },
+            {
+                path: 'module/course/add',
+                component: AddCourseScreenComponent
             }
         ]
      },
