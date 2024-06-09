@@ -10,10 +10,10 @@ import { Router } from '@angular/router';
     selector: 'app-modules-screen',
     standalone: true,
     imports: [TitleComponent, GridComponent, AddButtonComponent],
-    templateUrl: './modules-screen.component.html',
-    styleUrl: './modules-screen.component.css'
+    templateUrl: './module-screen.component.html',
+    styleUrl: './module-screen.component.css'
 })
-export class ModulesScreenComponent {
+export class ModuleScreenComponent {
     modules: ModuleDTO[] = []
 
     constructor(private moduleService: ModuleService, private router: Router) {

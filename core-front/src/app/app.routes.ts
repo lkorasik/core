@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { ModulesScreenComponent } from './components/screens/modules-screen/modules-screen.component';
+import { ModuleScreenComponent } from './components/screens/module-screen/module-screen.component';
 import { GroupScreenComponent } from './components/screens/group-screen/group-screen.component';
 import { AddModuleScreenComponent } from './components/screens/add-module-screen/add-module-screen.component';
 import { NotFoundScreenComponent } from './components/screens/not-found-screen/not-found-screen.component';
@@ -46,7 +46,7 @@ export const routes: Routes = [
             },
             {
                 path: 'module',
-                component: ModulesScreenComponent
+                component: ModuleScreenComponent
             },
             {
                 path: 'module/add',
