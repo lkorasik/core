@@ -10,6 +10,7 @@ import { AddGroupScreenComponent } from './components/screens/add-group-screen/a
 import { EditEducationalProgramScreenComponent } from './components/screens/edit-educational-program-screen/edit-educational-program-screen.component';
 import { EducationalProgramGroupsScreenComponent } from './components/screens/educational-program-groups-screen/educational-program-groups-screen.component';
 import { EducationalProgramScreenComponent } from './components/screens/educational-program-screen/educational-program-screen.component';
+import { ModuleDetailScreenComponent } from './components/screens/module-detail-screen/module-detail-screen.component';
 
 export const routes: Routes = [
     { 
@@ -51,6 +52,10 @@ export const routes: Routes = [
             {
                 path: 'module/add',
                 component: AddModuleScreenComponent
+            },
+            {
+                path: 'module/:id',
+                component: ModuleDetailScreenComponent
             }
         ]
      },
