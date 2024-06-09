@@ -33,7 +33,7 @@ export class EducationalProgramGroupsScreenComponent {
     ) {
         route.params.subscribe(x => {
             this.id = x['id']
-            localStorage.setItem('programId', this.id);
+            sessionStorage.setItem('programId', this.id);
         });
         programService.getEducationalProgramById({ id: this.id }).subscribe(x => this.name = x.title);
         const request = new GetGropupDTO(this.id);
