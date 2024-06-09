@@ -12,6 +12,7 @@ import { NotificationType } from '../../../services/notification/notificationsTy
 export class NotificationComponent {
     @Input() title: string = "";
     @Input() type: NotificationType = NotificationType.info;
+    @Input() text: string = "";
 
     getClass() {
         if (this.type == NotificationType.error) {
