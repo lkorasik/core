@@ -16,7 +16,7 @@ import { CreateGroupDTO } from '../../../services/group/createGroup.dto';
     styleUrl: './add-group-screen.component.css'
 })
 export class AddGroupScreenComponent {
-    id: string = localStorage.getItem('programId') || "";
+    id: string = sessionStorage.getItem('programId') || "";
     number: string = "";
     year: number = 0;
 
