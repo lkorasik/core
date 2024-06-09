@@ -5,10 +5,7 @@ import { TextFieldComponent } from '../text-field/text-field.component';
 @Component({
     selector: 'app-dialog',
     standalone: true,
-    imports: [
-        ButtonComponent,
-        TextFieldComponent
-    ],
+    imports: [ButtonComponent, TextFieldComponent],
     templateUrl: './dialog.component.html',
     styleUrl: './dialog.component.css'
 })

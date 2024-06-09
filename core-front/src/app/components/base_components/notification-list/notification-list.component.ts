@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Subscription } from "rxjs";
-import { NotificationService } from '../../services/notification/notification.service';
 import { CommonModule } from '@angular/common';
+import { Notification } from '../../../services/notification/notification';
 import { NotificationComponent } from './notification/notification.component';
-import { Notification } from '../../services/notification/notification';
+import { NotificationService } from '../../../services/notification/notification.service';
 
 @Component({
     selector: 'app-notification-list',

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthFormComponent } from '../auth-form/auth-form.component';
+import { AuthFormComponent } from '../../base_components/auth-form/auth-form.component';
 
 @Component({
     selector: 'app-welcome-screen',

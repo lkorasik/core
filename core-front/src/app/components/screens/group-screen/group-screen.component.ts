@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
-import { ToolbarComponent } from '../toolbar/toolbar.component';
-import { SaveButtonComponent } from '../save-button/save-button.component';
-import { EditButtonComponent } from '../edit-button/edit-button.component';
-import { TextFieldComponent } from '../text-field/text-field.component';
-import { CloseButtonComponent } from '../close-button/close-button.component';
+import { SaveButtonComponent } from '../../base_components/save-button/save-button.component';
+import { EditButtonComponent } from '../../base_components/edit-button/edit-button.component';
+import { TextFieldComponent } from '../../base_components/text-field/text-field.component';
+import { CloseButtonComponent } from '../../base_components/close-button/close-button.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GroupService } from '../../services/group/group.service';
-import { GetGroupIdDto } from '../../services/group/getGroupId.dto';
-import { TokenTableComponent } from '../token-table/token-table.component';
-import { GetTokensDto } from '../../services/group/getTokens.dto';
-import { AddButtonComponent } from '../add-button/add-button.component';
-import { DialogComponent } from '../dialog/dialog.component';
-import { GenerateTokenDto } from '../../services/group/getToken.dto';
-import { DownloadButtonComponent } from '../download-button/download-button.component';
+import { GroupService } from '../../../services/group/group.service';
+import { GetGroupIdDto } from '../../../services/group/getGroupId.dto';
+import { TokenTableComponent } from '../../base_components/token-table/token-table.component';
+import { GetTokensDto } from '../../../services/group/getTokens.dto';
+import { AddButtonComponent } from '../../base_components/add-button/add-button.component';
+import { GenerateTokenDto } from '../../../services/group/getToken.dto';
+import { DownloadButtonComponent } from '../../base_components/download-button/download-button.component';
+import { ToolbarComponent } from '../../base_components/toolbar/toolbar.component';
+import { DialogComponent } from '../../base_components/dialog/dialog.component';
 
 @Component({
     selector: 'app-group-screen',
