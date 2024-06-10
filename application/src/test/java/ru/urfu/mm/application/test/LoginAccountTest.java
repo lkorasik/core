@@ -44,7 +44,7 @@ public class LoginAccountTest {
 
         LoginUser loginUser = new LoginUser(userGateway, passwordGateway);
 
-        LoginRequest loginRequest = new LoginRequest(token, password);
+        LoginRequest loginRequest = createLoginRequest(token, password);
         Account gotAccount = loginUser.loginUser(loginRequest);
 
         Assertions.assertEquals(account, gotAccount);
@@ -62,7 +62,7 @@ public class LoginAccountTest {
 
         LoginUser loginUser = new LoginUser(userGateway, passwordGateway);
 
-        LoginRequest loginRequest = new LoginRequest(token, password);
+        LoginRequest loginRequest = createLoginRequest(token, password);
         Assertions.assertThrows(InvalidCredentialsException.class, () -> loginUser.loginUser(loginRequest));
     }
 
@@ -81,7 +81,21 @@ public class LoginAccountTest {
 
         LoginUser loginUser = new LoginUser(userGateway, passwordGateway);
 
-        LoginRequest loginRequest = new LoginRequest(token, password);
+        LoginRequest loginRequest = createLoginRequest(token, password);
         Assertions.assertThrows(InvalidCredentialsException.class, () -> loginUser.loginUser(loginRequest));
+    }
+
+    private LoginRequest createLoginRequest(UUID token, String password) {
+        return new LoginRequest() {
+            @Override
+            public UUID getToken() {
+                return token;
+            }
+
+            @Override
+            public String getPassword() {
+                return password;
+            }
+        };
     }
 }

@@ -19,7 +19,7 @@ class AuthenticationController @Autowired constructor(
 ) {
     @PostMapping(Endpoints.Authentication.REGISTER)
     fun register(@RequestBody dto: RegistrationDTO): AccessTokenDTO {
-        val role = createAccount.createUser(dto.toRequest())
+        val role = createAccount.createUser(dto)
         val token = authenticationService.generateToken(dto)
 
         return AccessTokenDTO(token, dto.token, role.value)
@@ -27,7 +27,7 @@ class AuthenticationController @Autowired constructor(
 
     @PostMapping(Endpoints.Authentication.LOGIN)
     fun login(@RequestBody dto: LoginDTO): AccessTokenDTO {
-        val account = loginUser.loginUser(dto.toRequest())
+        val account = loginUser.loginUser(dto)
         val token = authenticationService.generateToken(dto)
 
         return AccessTokenDTO(token, dto.token, account.role.value)

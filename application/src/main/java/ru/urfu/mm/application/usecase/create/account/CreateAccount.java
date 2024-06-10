@@ -31,18 +31,18 @@ public class CreateAccount {
     public UserRole createUser(CreateAccountRequest request) {
         UserRole role;
         CreateUseCase createUseCase;
-        if (tokenGateway.isAdministratorToken(request.token())) {
+        if (tokenGateway.isAdministratorToken(request.getToken())) {
             createUseCase = createAdministrator;
             role = UserRole.ADMIN;
-        } else if (tokenGateway.isStudentToken(request.token())) {
+        } else if (tokenGateway.isStudentToken(request.getToken())) {
             createUseCase = createStudent;
             role = UserRole.STUDENT;
         } else {
-            throw new RegistrationTokenNotExistException(request.token());
+            throw new RegistrationTokenNotExistException(request.getToken());
         }
 
-        ensurePasswordsSame(request.password(), request.passwordAgain());
-        ensurePasswordStrongEnough(request.password());
+        ensurePasswordsSame(request.getPassword(), request.getPasswordAgain());
+        ensurePasswordStrongEnough(request.getPassword());
 
         createUseCase.create(request);
         return role;

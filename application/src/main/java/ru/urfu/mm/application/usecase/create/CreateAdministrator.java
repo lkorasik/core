@@ -29,9 +29,9 @@ public class CreateAdministrator implements CreateUseCase {
 
     @Override
     public void create(CreateAccountRequest request) {
-        Account account = new Account(request.token(), passwordGateway.encode(request.password()), UserRole.ADMIN);
+        Account account = new Account(request.getToken(), passwordGateway.encode(request.getPassword()), UserRole.ADMIN);
         userGateway.save(account);
 
-        tokenGateway.deleteToken(request.token());
+        tokenGateway.deleteToken(request.getToken());
     }
 }
