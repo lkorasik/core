@@ -92,7 +92,15 @@ public class CourseGatewayImpl implements CourseGateway {
 
     @Override
     public Course getById(UUID id) {
-        throw new NotImplementedException();
+        SpecialCourse entity = courseRepository.findById(id).get();
+        return new Course(
+                entity.getId(),
+                entity.getName(),
+                entity.getCreditsCount(),
+                ControlTypes.values()[entity.getControl().ordinal()],
+                entity.getDepartment(),
+                entity.getTeacherName()
+        );
     }
 
     @Override

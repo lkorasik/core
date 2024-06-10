@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "semesters")
-public class Semester {
+public class SemesterEntity {
     @Id
     @GeneratedValue
     @Column
@@ -17,16 +17,16 @@ public class Semester {
     @Column
     private SemesterType type;
 
-    public Semester() {
+    public SemesterEntity() {
     }
 
-    public Semester(UUID id, int year, SemesterType type) {
+    public SemesterEntity(UUID id, int year, SemesterType type) {
         this.id = id;
         this.year = year;
         this.type = type;
     }
 
-    public Semester(int year, SemesterType type) {
+    public SemesterEntity(int year, SemesterType type) {
         this.year = year;
         this.type = type;
     }

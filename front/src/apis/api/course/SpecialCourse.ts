@@ -7,7 +7,7 @@ export interface SpecialCourse {
     creditsCount: number;
     controlTypes: Control;
     description: string;
-    semesters: SemesterDto[];
+    semesterEntities: SemesterDto[];
     moduleId: string | null;
     department?: string;
     teacherName?: string;

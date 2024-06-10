@@ -45,6 +45,7 @@ export class EducationalProgramGroupsScreenComponent {
     }
 
     onClick() {
+        sessionStorage.setItem("programId", this.id);
         this.router.navigate(["administrator/educational_program/edit/" + this.id])
     }
 

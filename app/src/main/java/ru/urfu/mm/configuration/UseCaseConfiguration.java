@@ -31,6 +31,7 @@ import ru.urfu.mm.application.usecase.get_study_plan.GetStudyPlan;
 import ru.urfu.mm.application.usecase.get_token.GetTokensForGroup;
 import ru.urfu.mm.application.usecase.login_user.LoginUser;
 import ru.urfu.mm.application.usecase.update_program.UpdateProgram;
+import ru.urfu.mm.application.usecase.update_study_plan.UpdateStudyPlan;
 
 @Configuration
 public class UseCaseConfiguration {
@@ -297,6 +298,14 @@ public class UseCaseConfiguration {
     @Bean
     public GetModulesCourses getModulesCourses(CourseGateway courseGateway) {
         return new GetModulesCourses(courseGateway);
+    }
+
+    @Bean
+    public UpdateStudyPlan updateStudyPlan(
+            StudyPlanGateway studyPlanGateway,
+            GetProgramById getProgramById,
+            CourseGateway courseGateway) {
+        return new UpdateStudyPlan(studyPlanGateway, getProgramById, courseGateway);
     }
 
     @Bean

@@ -9,17 +9,9 @@ import ru.urfu.mm.application.usecase.load_available_courses.AvailableModuleResp
 import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.controller.Endpoints;
 import ru.urfu.mm.domain.enums.ControlTypes;
-import ru.urfu.mm.domain.enums.SemesterType;
-import ru.urfu.mm.domain.Course;
 import ru.urfu.mm.domain.exception.NotImplementedException;
-import ru.urfu.mm.persistance.entity.enums.Control;
-import ru.urfu.mm.persistance.entity.Semester;
-import ru.urfu.mm.service.ModelConverterHelper;
-import ru.urfu.mm.service.mapper.Mapper;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @RestController

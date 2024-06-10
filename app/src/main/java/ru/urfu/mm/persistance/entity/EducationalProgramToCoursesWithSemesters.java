@@ -16,7 +16,7 @@ public class EducationalProgramToCoursesWithSemesters {
     private EducationalProgramEntity educationalProgramEntity;
     @ManyToOne
     @JoinColumn(name = "semester_id")
-    private Semester semester;
+    private SemesterEntity semesterEntity;
     @ManyToOne
     @JoinColumn(name = "special_course_id")
     private SpecialCourse specialCourse;
@@ -26,17 +26,17 @@ public class EducationalProgramToCoursesWithSemesters {
     public EducationalProgramToCoursesWithSemesters() {
     }
 
-    public EducationalProgramToCoursesWithSemesters(UUID id, EducationalProgramEntity educationalProgramEntity, Semester semester, SpecialCourse specialCourse, boolean isRequiredCourse) {
+    public EducationalProgramToCoursesWithSemesters(UUID id, EducationalProgramEntity educationalProgramEntity, SemesterEntity semesterEntity, SpecialCourse specialCourse, boolean isRequiredCourse) {
         this.id = id;
         this.educationalProgramEntity = educationalProgramEntity;
-        this.semester = semester;
+        this.semesterEntity = semesterEntity;
         this.specialCourse = specialCourse;
         this.isRequiredCourse = isRequiredCourse;
     }
 
-    public EducationalProgramToCoursesWithSemesters(EducationalProgramEntity educationalProgramEntity, Semester semester, SpecialCourse specialCourse, boolean isRequiredCourse) {
+    public EducationalProgramToCoursesWithSemesters(EducationalProgramEntity educationalProgramEntity, SemesterEntity semesterEntity, SpecialCourse specialCourse, boolean isRequiredCourse) {
         this.educationalProgramEntity = educationalProgramEntity;
-        this.semester = semester;
+        this.semesterEntity = semesterEntity;
         this.specialCourse = specialCourse;
         this.isRequiredCourse = isRequiredCourse;
     }
@@ -57,12 +57,12 @@ public class EducationalProgramToCoursesWithSemesters {
         this.specialCourse = specialCourse;
     }
 
-    public Semester getSemester() {
-        return semester;
+    public SemesterEntity getSemester() {
+        return semesterEntity;
     }
 
-    public void setSemester(Semester semester) {
-        this.semester = semester;
+    public void setSemester(SemesterEntity semesterEntity) {
+        this.semesterEntity = semesterEntity;
     }
 
     public EducationalProgramEntity getEducationalProgram() {
