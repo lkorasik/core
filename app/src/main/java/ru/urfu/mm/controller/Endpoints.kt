@@ -19,10 +19,6 @@ object Endpoints {
         const val REGISTER = "/register"
         @JvmStatic
         fun register() = "$BASE$REGISTER"
-
-        const val VALIDATE_TOKEN = "/validateToken"
-        @JvmStatic
-        fun validateToken() = "$BASE$VALIDATE_TOKEN"
     }
 
     /**

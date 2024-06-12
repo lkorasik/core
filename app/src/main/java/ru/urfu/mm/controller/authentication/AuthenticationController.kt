@@ -32,9 +32,4 @@ class AuthenticationController @Autowired constructor(
 
         return AccessTokenDTO(token, dto.token, account.role.value)
     }
-
-    @PostMapping(Endpoints.Authentication.VALIDATE_TOKEN)
-    fun validateToken(@RequestBody tokenDTO: TokenDTO) {
-        authenticationService.validateToken(tokenDTO.token)
-    }
 }

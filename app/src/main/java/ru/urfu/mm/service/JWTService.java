@@ -21,14 +21,10 @@ public class JWTService {
     @Value("${jwt.lifetime}")
     private Duration jwtLifetime;
 
-    public void validateToken(String token) {
-        Jwts.parserBuilder().setSigningKey(getSigningKey()).build().parse(token);
-    }
-
     public String generateToken(UserDetails userDetails) {
         Date issuedDate = new Date();
         Date expireDate;
-        if(jwtLifetime == null) {
+        if (jwtLifetime == null) {
             expireDate = new Date(issuedDate.getTime() + 10);
         } else {
             expireDate = new Date(issuedDate.getTime() + jwtLifetime.toMillis());
@@ -73,7 +69,7 @@ public class JWTService {
 
     public List<String> getRoles(String token) {
         List<String> claims = getAllClaimsFromToken(token).get("roles", List.class);
-        if(claims == null) {
+        if (claims == null) {
             claims = Collections.emptyList();
         }
         return claims;
