@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { ExitButtonComponent } from '../exit-button/exit-button.component';
 
 @Component({
     selector: 'app-action-bar',
     standalone: true,
     imports: [
-        RouterLink
+        RouterLink,
+        ExitButtonComponent
     ],
     templateUrl: './action-bar.component.html',
     styleUrl: './action-bar.component.css'
