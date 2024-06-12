@@ -39,7 +39,8 @@ public class CreateStudent implements CreateUseCase {
         Student student = studentGateway.findById(request.getToken())
                 .orElseThrow(() -> new RegistrationTokenNotExistException(request.getToken()));
 
-        Account account = new Account(request.getToken(), passwordGateway.encode(request.getPassword()), UserRole.STUDENT);
+        String encodedPassword = passwordGateway.encode(request.getPassword());
+        Account account = new Account(request.getToken(), encodedPassword, UserRole.STUDENT);
         userGateway.save(account);
 
         AcademicGroup group = groupGateway.findByStudent(student);
