@@ -4,6 +4,8 @@ import ru.urfu.mm.application.gateway.TokenGateway;
 import ru.urfu.mm.application.usecase.create.*;
 import ru.urfu.mm.domain.enums.UserRole;
 
+import java.util.UUID;
+
 /**
  * Создать аккаунт
  * 1. Находим токен. Если токен не найден или он уже занят, то кидаем ошибку о том, что такого токена для регистрации
@@ -29,22 +31,28 @@ public class CreateAccount {
     }
 
     public UserRole createUser(CreateAccountRequest request) {
+        UserRole role = determineRole(request.getToken());
+
+        ensurePasswordsSame(request.getPassword(), request.getPasswordAgain());
+        ensurePasswordStrongEnough(request.getPassword());
+
+        if (role == UserRole.ADMIN) {
+            createAdministrator.create(request);
+        } else {
+            createStudent.create(request);
+        }
+        return role;
+    }
+
+    private UserRole determineRole(UUID token) {
         UserRole role;
-        CreateUseCase createUseCase;
-        if (tokenGateway.isAdministratorToken(request.token())) {
-            createUseCase = createAdministrator;
+        if (tokenGateway.isAdministratorToken(token)) {
             role = UserRole.ADMIN;
-        } else if (tokenGateway.isStudentToken(request.token())) {
-            createUseCase = createStudent;
+        } else if (tokenGateway.isStudentToken(token)) {
             role = UserRole.STUDENT;
         } else {
-            throw new RegistrationTokenNotExistException(request.token());
+            throw new RegistrationTokenNotExistException(token);
         }
-
-        ensurePasswordsSame(request.password(), request.passwordAgain());
-        ensurePasswordStrongEnough(request.password());
-
-        createUseCase.create(request);
         return role;
     }
 

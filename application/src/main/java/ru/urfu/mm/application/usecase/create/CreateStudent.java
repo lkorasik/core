@@ -36,15 +36,16 @@ public class CreateStudent implements CreateUseCase {
 
     @Override
     public void create(CreateAccountRequest request) {
-        Student student = studentGateway.findById(request.token())
-                .orElseThrow(() -> new RegistrationTokenNotExistException(request.token()));
+        Student student = studentGateway.findById(request.getToken())
+                .orElseThrow(() -> new RegistrationTokenNotExistException(request.getToken()));
 
-        Account account = new Account(request.token(), passwordGateway.encode(request.password()), UserRole.STUDENT);
+        String encodedPassword = passwordGateway.encode(request.getPassword());
+        Account account = new Account(request.getToken(), encodedPassword, UserRole.STUDENT);
         userGateway.save(account);
 
         AcademicGroup group = groupGateway.findByStudent(student);
 
-        Student completeStudent = new Student(request.token(), account, null, null);
+        Student completeStudent = new Student(request.getToken(), account, null, null);
         studentGateway.update(completeStudent, account, group);
     }
 }
