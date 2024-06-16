@@ -1,0 +1,16 @@
+<div class="container">
+    <div>
+        <input class="sbutton input" type="radio" (change)="handle(FormSelector.LOGIN)" id="login" name="form_selector" checked>
+        <label class="sbutton label" for="login">
+            <span class="inner_text">Вход</span>
+        </label>
+        <br>
+    </div>
+    <div>
+        <input class="sbutton input" type="radio" (change)="handle(FormSelector.REGISTRATION)" id="registration" name="form_selector">
+        <label class="sbutton label" for="registration">
+            <span class="inner_text">Регистрация</span>
+        </label>
+        <br>
+    </div>
+</div>

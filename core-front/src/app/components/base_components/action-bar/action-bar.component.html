@@ -1,0 +1,20 @@
+<header class="header">
+    <div class="header_container">
+        <div class="header_left">
+            <a id="img_container" href="https://urfu.ru/">
+                <img id="image_link_container" src="logo_urfu.svg" alt="Ufru logo" />
+            </a>
+            <nav>
+                @for (item of items; track $index;) {
+                    <a class="link" routerLink={{item.link}}>{{item.title}}</a>
+                }
+            </nav>
+        </div>
+        <div class="header_right">
+            <app-exit-button />
+            <button class="search_button">
+                <img src="/search_icon.svg" alt="Search icon" />
+            </button>
+        </div>
+    </div>
+</header>

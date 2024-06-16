@@ -1,0 +1,44 @@
+<app-toolbar title="Редактирование образовательной программы">
+    <app-save-button (clickEvent)="onSave()"/>
+    <app-close-button />
+</app-toolbar>
+<app-text-field title="Название образовательной программы" value="{{title}}" (fieldValue)="setName($event)"/>
+<app-text-field title="Направление подготовки" value="{{trainingDirection}}" (fieldValue)="setTrainingDirection($event)"/>
+<select [value]="">
+    <option disabled selected value> -- select an option -- </option>
+    @for (year of years; track $index) {
+        <option>{{year}}</option>
+    }
+</select>
+
+<table class="table">
+    <tr class="tr">
+        <td class="td" rowspan="2" colspan="2"></td>
+        <td class="td" colspan="2">1 курс</td>
+        <td class="td" colspan="2">2 курс</td>
+    </tr>
+    <tr class="tr">
+        <td class="td">1 семестр</td>
+        <td class="td">2 семестр</td>
+        <td class="td">3 семестр</td>
+        <td class="td">4 семестр</td>
+    </tr>
+
+    <tr>
+
+    </tr>
+    @for (module of modules2; track $index; let i = $index) {
+        @for (course of module.courses; track $index; let j = $index) {
+            <tr class="tr">
+                @if (j == 0) {
+                    <td class="td" [attr.rowspan]="module.courses.length">{{module.name}}</td>
+                }
+                <td class="td">{{course.name}}</td>
+                <td class="td {{getClass(module, course, 1)}}" (click)="onClick(module, course, 1)">{{getMarker(module, course, 1)}}</td>
+                <td class="td {{getClass(module, course, 2)}}" (click)="onClick(module, course, 2)">{{getMarker(module, course, 2)}}</td>
+                <td class="td {{getClass(module, course, 3)}}" (click)="onClick(module, course, 3)">{{getMarker(module, course, 3)}}</td>
+                <td class="td {{getClass(module, course, 4)}}" (click)="onClick(module, course, 4)">{{getMarker(module, course, 4)}}</td>
+            </tr>
+        }
+    }
+</table>

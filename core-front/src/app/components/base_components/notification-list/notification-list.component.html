@@ -1,0 +1,5 @@
+<div class="notifications">
+	@for (notification of notifications; track $index) {
+		<app-notification title="{{notification.title}}" text="{{notification.message}}" [type]="notification.type"/>
+	}
+</div>

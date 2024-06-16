@@ -1,0 +1,29 @@
+.notification {
+    margin: 0.25em;
+    border-radius: 5px;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFFFF;
+    box-shadow: 2px 2px 10px #00000075;
+}
+
+.title {
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 5px 5px 0px 0px;
+    padding: 0.25em;
+    color: #FFFFFF;
+}
+
+.text {
+    font-family: 'Montserrat', sans-serif;
+    padding: 0.35em;
+}
+
+.error {
+    background: var(--accent_color);
+}
+
+.info {
+    background-color: var(--primary_color);
+}
