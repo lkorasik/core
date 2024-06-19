@@ -1,9 +1,7 @@
 package ru.urfu.mm.application.usecase.get_study_plan;
 
 import ru.urfu.mm.application.gateway.ProgramGateway;
-import ru.urfu.mm.application.gateway.StudyPlanGateway;
-import ru.urfu.mm.domain.EducationalProgram;
-import ru.urfu.mm.domain.Syllabus;
+import ru.urfu.mm.domain.StudentSyllabus;
 
 import java.util.UUID;
 
@@ -17,7 +15,7 @@ public class GetStudyPlan {
         this.programGateway = programGateway;
     }
 
-    public Syllabus getStudyPlan(UUID programId, int startYear) {
+    public StudentSyllabus getStudyPlan(UUID programId, int startYear) {
         return programGateway.getById(programId)
                 .getSyllabi()
                 .stream()

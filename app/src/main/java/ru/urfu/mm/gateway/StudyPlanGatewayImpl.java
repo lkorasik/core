@@ -36,39 +36,39 @@ public class StudyPlanGatewayImpl implements StudyPlanGateway {
     }
 
     @Override
-    public void save(Syllabus syllabus, EducationalProgram educationalProgram) {
+    public void save(StudentSyllabus studentSyllabus, EducationalProgram educationalProgram) {
         Semester firstSemesterEntity = semesterRepository
-                .findById(syllabus.getFirstSemesterPlan().getSemester().getId())
+                .findById(studentSyllabus.getFirstSemesterPlan().getSemester().getId())
                 .get();
         Semester secondSemesterEntity = semesterRepository
-                .findById(syllabus.getSecondSemesterPlan().getSemester().getId())
+                .findById(studentSyllabus.getSecondSemesterPlan().getSemester().getId())
                 .get();
         Semester thirdSemesterEntity = semesterRepository
-                .findById(syllabus.getThirdSemesterPlan().getSemester().getId())
+                .findById(studentSyllabus.getThirdSemesterPlan().getSemester().getId())
                 .get();
         Semester fourthSemesterEntity = semesterRepository
-                .findById(syllabus.getFourthSemesterPlan().getSemester().getId())
+                .findById(studentSyllabus.getFourthSemesterPlan().getSemester().getId())
                 .get();
 
         SemesterPlanEntity firstSemesterPlanEntity = new SemesterPlanEntity(
-                syllabus.getFirstSemesterPlan().getId(),
+                studentSyllabus.getFirstSemesterPlan().getId(),
                 firstSemesterEntity,
-                syllabus.getFirstSemesterPlan().getRecommendedCredits()
+                studentSyllabus.getFirstSemesterPlan().getRecommendedCredits()
         );
         SemesterPlanEntity secondSemesterPlanEntity = new SemesterPlanEntity(
-                syllabus.getSecondSemesterPlan().getId(),
+                studentSyllabus.getSecondSemesterPlan().getId(),
                 secondSemesterEntity,
-                syllabus.getSecondSemesterPlan().getRecommendedCredits()
+                studentSyllabus.getSecondSemesterPlan().getRecommendedCredits()
         );
         SemesterPlanEntity thirdSemesterPlanEntity = new SemesterPlanEntity(
-                syllabus.getThirdSemesterPlan().getId(),
+                studentSyllabus.getThirdSemesterPlan().getId(),
                 thirdSemesterEntity,
-                syllabus.getThirdSemesterPlan().getRecommendedCredits()
+                studentSyllabus.getThirdSemesterPlan().getRecommendedCredits()
         );
         SemesterPlanEntity fourthSemesterPlanEntity = new SemesterPlanEntity(
-                syllabus.getFourthSemesterPlan().getId(),
+                studentSyllabus.getFourthSemesterPlan().getId(),
                 fourthSemesterEntity,
-                syllabus.getFourthSemesterPlan().getRecommendedCredits()
+                studentSyllabus.getFourthSemesterPlan().getRecommendedCredits()
         );
 
         SyllabusEntity syllabusEntity = new SyllabusEntity(
@@ -89,7 +89,7 @@ public class StudyPlanGatewayImpl implements StudyPlanGateway {
     }
 
     @Override
-    public List<Syllabus> findAllByProgram(EducationalProgram educationalProgram) {
+    public List<StudentSyllabus> findAllByProgram(EducationalProgram educationalProgram) {
         throw new NotImplementedException();
     }
 

@@ -2,7 +2,6 @@ package ru.urfu.mm.application.usecase.create_semester_plan;
 
 import ru.urfu.mm.application.gateway.SemesterPlanGateway;
 import ru.urfu.mm.domain.Semester;
-import ru.urfu.mm.domain.SemesterPlan;
 
 import java.util.UUID;
 

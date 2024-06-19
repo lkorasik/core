@@ -2,128 +2,56 @@ package ru.urfu.mm.domain;
 
 import ru.urfu.mm.domain.enums.ControlTypes;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 /**
- * Учебныц курс.
+ * Учебный курс
  */
 public class Course {
     /**
      * Идентификатор курса
      */
-    private UUID id;
+    private final UUID id;
     /**
      * Назавние курса
      */
-    private String name;
+    private final String name;
     /**
      * Число зачетных единиц
      */
-    private int credits;
+    private final int credits;
     /**
      * Формат итогового контроля
      */
-    private ControlTypes controlTypes;
+    private final ControlTypes control;
     /**
      * Описание курса
      */
-    private String description;
+    private final String description;
     /**
      * Кафедра
      */
-    private String department;
+    private final String department;
     /**
      * Преподаватель
      */
-    private String teacher;
+    private final String teacher;
     /**
      * Список требуемых навыков
      */
-    private List<Skill> requiredSkills;
+    private final List<Skill> requiredSkills;
 
-    public Course(
-            UUID id,
-            String name,
-            int credits,
-            ControlTypes controlTypes,
-            String department,
-            String teacher) {
+    public Course(UUID id, String name, int credits, ControlTypes control, String description, String department, String teacher) {
         this.id = id;
         this.name = name;
         this.credits = credits;
-        this.controlTypes = controlTypes;
-        this.department = department;
-        this.teacher = teacher;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getCredits() {
-        return credits;
-    }
-
-    public ControlTypes getControl() {
-        return controlTypes;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getDepartment() {
-        return department;
-    }
-
-    public String getTeacher() {
-        return teacher;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setCredits(int credits) {
-        this.credits = credits;
-    }
-
-    public void setControl(ControlTypes controlTypes) {
-        this.controlTypes = controlTypes;
-    }
-
-    public void setDescription(String description) {
+        this.control = control;
         this.description = description;
-    }
-
-    public void setDepartment(String department) {
         this.department = department;
-    }
-
-    public void setTeacher(String teacher) {
         this.teacher = teacher;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if ((obj == null) || (getClass() != obj.getClass()))
-            return false;
-        Course that = (Course) obj;
-        return credits == that.credits && Objects.equals(id, that.id) && Objects.equals(name, that.name) &&
-               controlTypes == that.controlTypes && Objects.equals(description, that.description) &&
-               Objects.equals(department, that.department) && Objects.equals(teacher, that.teacher);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, credits, controlTypes, description, department, teacher);
+        this.requiredSkills = new ArrayList<>();
     }
 }

@@ -3,7 +3,6 @@ package ru.urfu.mm.gateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.SemesterPlanGateway;
-import ru.urfu.mm.domain.SemesterPlan;
 import ru.urfu.mm.persistance.entity.Semester;
 import ru.urfu.mm.persistance.entity.SemesterPlanEntity;
 import ru.urfu.mm.persistance.entity.enums.SemesterType;

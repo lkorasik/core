@@ -48,9 +48,9 @@ public class ProgramGatewayImpl implements ProgramGateway {
                 .map(x -> new AcademicGroup(x.getId(), x.getNumber()))
                 .toList();
         program.getGroups().addAll(groups);
-        List<Syllabus> syllabuses = educationalProgramEntity.getSyllabuses()
+        List<StudentSyllabus> studentSyllabi = educationalProgramEntity.getSyllabuses()
                 .stream()
-                .map(x -> new Syllabus(
+                .map(x -> new StudentSyllabus(
                                 x.getId(),
                                 new SemesterPlan(
                                         x.getFirstSemester().getId(),
@@ -91,7 +91,7 @@ public class ProgramGatewayImpl implements ProgramGateway {
                         )
                 )
                 .toList();
-        program.getSyllabi().addAll(syllabuses);
+        program.getSyllabi().addAll(studentSyllabi);
         return program;
     }
 

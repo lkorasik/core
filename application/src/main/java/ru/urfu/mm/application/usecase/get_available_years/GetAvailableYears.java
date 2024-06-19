@@ -1,9 +1,8 @@
 package ru.urfu.mm.application.usecase.get_available_years;
 
 import ru.urfu.mm.application.gateway.ProgramGateway;
-import ru.urfu.mm.application.gateway.StudyPlanGateway;
 import ru.urfu.mm.domain.EducationalProgram;
-import ru.urfu.mm.domain.Syllabus;
+import ru.urfu.mm.domain.StudentSyllabus;
 
 import java.util.List;
 import java.util.UUID;
@@ -22,7 +21,7 @@ public class GetAvailableYears {
 
     public List<GetStudyPlanResponse> getStudyPlan(UUID programId) {
         EducationalProgram educationalProgram = programGateway.getById(programId);
-        List<Syllabus> syllabi = educationalProgram.getSyllabi();
+        List<StudentSyllabus> syllabi = educationalProgram.getSyllabi();
 
         return syllabi
                 .stream()

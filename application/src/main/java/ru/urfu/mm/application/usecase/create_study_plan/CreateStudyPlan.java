@@ -5,8 +5,7 @@ import ru.urfu.mm.application.gateway.SemesterGateway;
 import ru.urfu.mm.application.gateway.StudyPlanGateway;
 import ru.urfu.mm.application.usecase.create_semester_plan.CreateSemesterPlan;
 import ru.urfu.mm.domain.EducationalProgram;
-import ru.urfu.mm.domain.SemesterPlan;
-import ru.urfu.mm.domain.Syllabus;
+import ru.urfu.mm.domain.StudentSyllabus;
 
 import java.util.List;
 import java.util.UUID;
@@ -44,16 +43,16 @@ public class CreateStudyPlan {
 
         EducationalProgram educationalProgram = programGateway.getById(programId);
 
-        Syllabus syllabus = new Syllabus(
+        StudentSyllabus studentSyllabus = new StudentSyllabus(
                 UUID.randomUUID(),
                 semesterPlans.get(0),
                 semesterPlans.get(1),
                 semesterPlans.get(2),
                 semesterPlans.get(3)
         );
-        educationalProgram.getSyllabi().add(syllabus);
+        educationalProgram.getSyllabi().add(studentSyllabus);
 
-        studyPlanGateway.save(syllabus, educationalProgram);
+        studyPlanGateway.save(studentSyllabus, educationalProgram);
         programGateway.save(educationalProgram);
     }
 }

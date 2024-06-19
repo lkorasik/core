@@ -11,31 +11,19 @@ public class Semester {
     /**
      * Идентификатор семестра
      */
-    private UUID id;
+    private final UUID id;
     /**
      * Год, в котором проходит семестр
      */
-    private int year;
+    private final int year;
     /**
      * Тип семестра
      */
-    private SemesterType type;
+    private final SemesterType type;
 
     public Semester(UUID id, int year, SemesterType type) {
         this.id = id;
         this.year = year;
         this.type = type;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public SemesterType getType() {
-        return type;
     }
 }
