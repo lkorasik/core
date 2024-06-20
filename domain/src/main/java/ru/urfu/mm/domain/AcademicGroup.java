@@ -31,11 +31,31 @@ public class AcademicGroup {
      */
     private final BaseSyllabus baseSyllabus;
 
-    public AcademicGroup(UUID id, String number, Years year, BaseSyllabus baseSyllabus) {
+    public AcademicGroup(UUID id, String number, BaseSyllabus baseSyllabus) {
         this.id = id;
         this.number = number;
-        this.year = year;
+        this.year = Years.FIRST;
         this.students = new ArrayList<>();
         this.baseSyllabus = baseSyllabus;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public Years getYear() {
+        return year;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public BaseSyllabus getBaseSyllabus() {
+        return baseSyllabus;
     }
 }

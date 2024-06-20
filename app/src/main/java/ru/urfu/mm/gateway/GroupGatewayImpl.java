@@ -5,15 +5,12 @@ import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.exception.NotImplementedException;
 import ru.urfu.mm.application.gateway.GroupGateway;
 import ru.urfu.mm.domain.AcademicGroup;
-import ru.urfu.mm.domain.Account;
 import ru.urfu.mm.domain.Student;
-import ru.urfu.mm.domain.enums.UserRole;
 import ru.urfu.mm.persistance.entity.GroupEntity;
-import ru.urfu.mm.persistance.entity.enums.Years;
 import ru.urfu.mm.persistance.repository.GroupRepository;
 import ru.urfu.mm.persistance.repository.StudentRepository;
+import ru.urfu.mm.service.mapper.AcademicGroupMapper;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -21,18 +18,23 @@ import java.util.UUID;
 public class GroupGatewayImpl implements GroupGateway {
     private final GroupRepository groupRepository;
     private final StudentRepository studentRepository;
+    private final AcademicGroupMapper academicGroupMapper;
 
     @Autowired
-    public GroupGatewayImpl(GroupRepository groupRepository, StudentRepository studentRepository) {
+    public GroupGatewayImpl(
+            GroupRepository groupRepository,
+            StudentRepository studentRepository,
+            AcademicGroupMapper academicGroupMapper
+    ) {
         this.groupRepository = groupRepository;
         this.studentRepository = studentRepository;
+        this.academicGroupMapper = academicGroupMapper;
     }
 
     @Override
     public void save(AcademicGroup academicGroup) {
-        throw new NotImplementedException();
-//        GroupEntity entity = new GroupEntity(academicGroup.getId(), academicGroup.getNumber(), Years.fromDomain(academicGroup.getYear()));
-//        groupRepository.save(entity);
+        GroupEntity entity = academicGroupMapper.toEntity(academicGroup);
+        groupRepository.save(entity);
     }
 
     @Override

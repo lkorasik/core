@@ -3,6 +3,7 @@ package ru.urfu.mm.application.usecase.create_group;
 import ru.urfu.mm.application.exception.NotImplementedException;
 import ru.urfu.mm.application.gateway.*;
 import ru.urfu.mm.application.usecase.create_study_plan.CreateBaseSyllabus;
+import ru.urfu.mm.domain.AcademicGroup;
 import ru.urfu.mm.domain.BaseSemesterPlan;
 import ru.urfu.mm.domain.BaseSyllabus;
 import ru.urfu.mm.domain.Semester;
@@ -16,10 +17,9 @@ import java.util.regex.Pattern;
  * 1. Проверяем, что указан валидный номер группы. Номер группы должен соответствовать формату МЕНМ-ХХХХХХ. Если номер
  * группы не совпадает с указанным шаблоном, то кидаем ошибку.
  * 2. Проверяем, есть ли в системе нужные семестры. Если их нет, то создаем недостающие.
- * 3. Создаем базовый учебный план
- *
- * 3. Если учебного плана еще нет, то создаем его.
- * 4. Достаем программу и добавляем в нее группу.
+ * 3. Создаем базовый семестровые планы
+ * 4. Создаем базовый учбеный план
+ * 5. Создаем группу
  */
 public class CreateGroup {
     private final GroupGateway groupGateway;
@@ -82,18 +82,12 @@ public class CreateGroup {
         );
         baseSyllabusPlanGateway.save(baseSyllabus);
 
-        throw new NotImplementedException();
-//        AcademicGroup academicGroup = new AcademicGroup(UUID.randomUUID(), request.number());
-//        groupGateway.save(academicGroup);
-
-//        createStudyPlan.createStudyPlan(request.startYear(), request.programId());
-
-//        EducationalProgram educationalProgram = programGateway.getById(request.programId());
-//        var list = new ArrayList<AcademicGroup>();
-//        list.addAll(educationalProgram.getGroups());
-//        list.add(academicGroup);
-//        educationalProgram.setGroups(list.stream().toList());
-//        programGateway.save(educationalProgram);
+        AcademicGroup academicGroup = new AcademicGroup(
+                UUID.randomUUID(),
+                request.number(),
+                baseSyllabus
+        );
+        groupGateway.save(academicGroup);
     }
 
     private List<Semester> ensureActualSemestersExists(int startYear) {
