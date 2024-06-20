@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import ru.urfu.mm.RestAssureExtension.cast
 import ru.urfu.mm.RestAssureExtension.whenever
 import ru.urfu.mm.controller.Endpoints
-import ru.urfu.mm.controller.Endpoints.Authentication.login
 import ru.urfu.mm.controller.ExceptionDTO
 import ru.urfu.mm.controller.authentication.AccessTokenDTO
 import ru.urfu.mm.controller.authentication.LoginDTO
@@ -50,7 +49,7 @@ class `Administrator login` : BaseTestClass() {
         val expected = AccessTokenDTO("", token.toString(), UserRole.ADMIN.value)
 
         val registrationDTO = RegistrationDTO(token.toString(), password, password)
-        AuthorizationDSL.registerAsAdministrator(registrationDTO, address())
+        AuthorizationDSL.registerAsAdministratorAccount(registrationDTO, address())
 
         val loginDTO = LoginDTO(token.toString(), password)
 
@@ -59,7 +58,7 @@ class `Administrator login` : BaseTestClass() {
             .body(loginDTO)
             .whenever()
             .baseUri(address())
-            .post(Endpoints.Authentication.BASE + Endpoints.Authentication.LOGIN)
+            .post(Endpoints.Authentication.login())
             .then()
             .statusCode(200)
             .extract()
@@ -85,7 +84,7 @@ class `Administrator login` : BaseTestClass() {
         registrationTokenRepository.save(registrationToken)
 
         val registrationDTO = RegistrationDTO(token.toString(), password, password)
-        AuthorizationDSL.registerAsAdministrator(registrationDTO, address())
+        AuthorizationDSL.registerAsAdministratorAccount(registrationDTO, address())
 
         val loginDTO = LoginDTO(UUID.randomUUID().toString(), password)
 
@@ -94,7 +93,7 @@ class `Administrator login` : BaseTestClass() {
             .body(loginDTO)
             .whenever()
             .baseUri(address())
-            .post(login())
+            .post(Endpoints.Authentication.login())
             .then()
             .statusCode(400)
             .extract()
@@ -121,7 +120,7 @@ class `Administrator login` : BaseTestClass() {
         registrationTokenRepository.save(registrationToken)
 
         val registrationDTO = RegistrationDTO(token.toString(), password, password)
-        AuthorizationDSL.registerAsAdministrator(registrationDTO, address())
+        AuthorizationDSL.registerAsAdministratorAccount(registrationDTO, address())
 
         val loginDTO = LoginDTO(token.toString(), UUID.randomUUID().toString())
 
@@ -130,7 +129,7 @@ class `Administrator login` : BaseTestClass() {
             .body(loginDTO)
             .whenever()
             .baseUri(address())
-            .post(login())
+            .post(Endpoints.Authentication.login())
             .then()
             .statusCode(400)
             .extract()
