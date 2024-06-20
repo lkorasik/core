@@ -1,6 +1,5 @@
 package ru.urfu.mm.application.usecase.get_all_programs;
 
-import ru.urfu.mm.application.exception.NotImplementedException;
 import ru.urfu.mm.application.gateway.ProgramGateway;
 
 import java.util.List;
@@ -17,10 +16,9 @@ public class GetAllPrograms {
     }
 
     public List<ProgramResponse> getAllPrograms() {
-        throw new NotImplementedException();
-//        return programGateway.getAll()
-//                .stream()
-//                .map(x -> new ProgramResponse(x.getId(), x.getName()))
-//                .toList();
+        return programGateway.getAll()
+                .stream()
+                .map(x -> new ProgramResponse(x.getId(), x.getName()))
+                .toList();
     }
 }
