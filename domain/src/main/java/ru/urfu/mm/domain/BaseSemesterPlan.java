@@ -36,4 +36,12 @@ public class BaseSemesterPlan {
         this.availableCourses = new ArrayList<>();
         this.scienceWorks = new ArrayList<>();
     }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public Semester getSemester() {
+        return semester;
+    }
 }

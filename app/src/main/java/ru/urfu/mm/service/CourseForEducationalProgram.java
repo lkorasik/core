@@ -1,7 +1,7 @@
 package ru.urfu.mm.service;
 
+import ru.urfu.mm.persistance.entity.SemesterEntity;
 import ru.urfu.mm.persistance.entity.enums.Control;
-import ru.urfu.mm.persistance.entity.Semester;
 
 import java.util.List;
 import java.util.UUID;
@@ -12,7 +12,7 @@ public class CourseForEducationalProgram {
     private int creditsCount;
     private Control control;
     private String description;
-    private List<Semester> semesters;
+    private List<SemesterEntity> semesterEntities;
     private UUID educationalModuleId;
 
     /// <summary>
@@ -21,13 +21,13 @@ public class CourseForEducationalProgram {
     /// </summary>
     public UUID requiredSemesterId;
 
-    public CourseForEducationalProgram(UUID id, String name, int creditsCount, Control control, String description, List<Semester> semesters, UUID educationalModuleId, UUID requiredSemesterId) {
+    public CourseForEducationalProgram(UUID id, String name, int creditsCount, Control control, String description, List<SemesterEntity> semesterEntities, UUID educationalModuleId, UUID requiredSemesterId) {
         this.id = id;
         this.name = name;
         this.creditsCount = creditsCount;
         this.control = control;
         this.description = description;
-        this.semesters = semesters;
+        this.semesterEntities = semesterEntities;
         this.educationalModuleId = educationalModuleId;
         this.requiredSemesterId = requiredSemesterId;
     }
@@ -52,8 +52,8 @@ public class CourseForEducationalProgram {
         return description;
     }
 
-    public List<Semester> getSemesters() {
-        return semesters;
+    public List<SemesterEntity> getSemesters() {
+        return semesterEntities;
     }
 
     public UUID getEducationalModuleId() {

@@ -12,7 +12,7 @@ public class SemesterPlanEntity {
     private UUID id;
     @ManyToOne
     @JoinColumn(name = "semesters_id")
-    private Semester semester;
+    private SemesterEntity semesterEntity;
     @Column
     private int recommendedCredits;
     @ManyToMany
@@ -25,9 +25,9 @@ public class SemesterPlanEntity {
     public SemesterPlanEntity() {
     }
 
-    public SemesterPlanEntity(UUID id, Semester semester, int recommendedCredits) {
+    public SemesterPlanEntity(UUID id, SemesterEntity semesterEntity, int recommendedCredits) {
         this.id = id;
-        this.semester = semester;
+        this.semesterEntity = semesterEntity;
         this.recommendedCredits = recommendedCredits;
     }
 
@@ -35,8 +35,8 @@ public class SemesterPlanEntity {
         return id;
     }
 
-    public Semester getSemester() {
-        return semester;
+    public SemesterEntity getSemester() {
+        return semesterEntity;
     }
 
     public int getRecommendedCredits() {

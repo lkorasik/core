@@ -224,12 +224,27 @@ public class UseCaseConfiguration {
     }
 
     @Bean
+    public CreateBaseSyllabus createBaseSyllabus(
+            SemesterGateway semesterGateway,
+            StudyPlanGateway studyPlanGateway,
+            ProgramGateway programGateway) {
+        return new CreateBaseSyllabus(semesterGateway, studyPlanGateway, programGateway);
+    }
+
+    @Bean
     public CreateGroup createGroup(
             GroupGateway groupGateway,
             ProgramGateway programGateway,
             SemesterGateway semesterGateway,
-            CreateBaseSyllabus createBaseSyllabus) {
-        return new CreateGroup(groupGateway, programGateway, semesterGateway, createBaseSyllabus);
+            CreateBaseSyllabus createBaseSyllabus,
+            BaseSemesterPlanGateway baseSemesterPlanGateway) {
+        return new CreateGroup(
+                groupGateway,
+                programGateway,
+                semesterGateway,
+                createBaseSyllabus,
+                baseSemesterPlanGateway
+        );
     }
 
     @Bean

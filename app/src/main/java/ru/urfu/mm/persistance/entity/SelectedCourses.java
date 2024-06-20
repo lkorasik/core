@@ -16,7 +16,7 @@ public class SelectedCourses {
     private StudentEntity studentEntity;
     @ManyToOne
     @JoinColumn(name = "semester_id")
-    private Semester semester;
+    private SemesterEntity semesterEntity;
     @ManyToOne
     @JoinColumn(name = "special_course_id")
     private SpecialCourse specialCourse;
@@ -24,16 +24,16 @@ public class SelectedCourses {
     public SelectedCourses() {
     }
 
-    public SelectedCourses(UUID id, StudentEntity studentEntity, Semester semester, SpecialCourse specialCourse) {
+    public SelectedCourses(UUID id, StudentEntity studentEntity, SemesterEntity semesterEntity, SpecialCourse specialCourse) {
         this.id = id;
         this.studentEntity = studentEntity;
-        this.semester = semester;
+        this.semesterEntity = semesterEntity;
         this.specialCourse = specialCourse;
     }
 
-    public SelectedCourses(StudentEntity studentEntity, Semester semester, SpecialCourse specialCourse) {
+    public SelectedCourses(StudentEntity studentEntity, SemesterEntity semesterEntity, SpecialCourse specialCourse) {
         this.studentEntity = studentEntity;
-        this.semester = semester;
+        this.semesterEntity = semesterEntity;
         this.specialCourse = specialCourse;
     }
 
@@ -53,12 +53,12 @@ public class SelectedCourses {
         this.specialCourse = specialCourse;
     }
 
-    public Semester getSemester() {
-        return semester;
+    public SemesterEntity getSemester() {
+        return semesterEntity;
     }
 
-    public void setSemester(Semester semester) {
-        this.semester = semester;
+    public void setSemester(SemesterEntity semesterEntity) {
+        this.semesterEntity = semesterEntity;
     }
 
     public UUID getId() {

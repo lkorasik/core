@@ -26,4 +26,16 @@ public class Semester {
         this.year = year;
         this.type = type;
     }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public SemesterType getType() {
+        return type;
+    }
+
+    public int getYear() {
+        return year;
+    }
 }

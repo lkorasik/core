@@ -5,16 +5,12 @@ import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.StudyPlanGateway;
 import ru.urfu.mm.domain.*;
 import ru.urfu.mm.domain.exception.NotImplementedException;
-import ru.urfu.mm.persistance.entity.Semester;
-import ru.urfu.mm.persistance.entity.SemesterPlanEntity;
-import ru.urfu.mm.persistance.entity.SyllabusEntity;
 import ru.urfu.mm.persistance.repository.ProgramRepository;
 import ru.urfu.mm.persistance.repository.SemesterPlanRepository;
 import ru.urfu.mm.persistance.repository.SemesterRepository;
 import ru.urfu.mm.persistance.repository.StudyPlanRepository;
 
 import java.util.List;
-import java.util.UUID;
 
 @Component
 public class StudyPlanGatewayImpl implements StudyPlanGateway {
