@@ -13,4 +13,12 @@ public class ProgramMapper {
                 program.getTrainingDirection()
         );
     }
+
+    public EducationalProgram toDomain(EducationalProgramEntity program) {
+        return new EducationalProgram(
+                program.getId(),
+                program.getName(),
+                program.getTrainingDirection()
+        );
+    }
 }

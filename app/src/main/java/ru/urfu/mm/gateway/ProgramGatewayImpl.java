@@ -111,12 +111,11 @@ public class ProgramGatewayImpl implements ProgramGateway {
 
     @Override
     public List<EducationalProgram> getAll() {
-        throw new NotImplementedException();
-//        return programRepository
-//                .findAll()
-//                .stream()
-//                .map(programMapper::map)
-//                .toList();
+        return programRepository
+                .findAll()
+                .stream()
+                .map(programMapper::toDomain)
+                .toList();
     }
 
     @Override
