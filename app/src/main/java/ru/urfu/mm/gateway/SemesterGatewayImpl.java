@@ -7,7 +7,6 @@ import ru.urfu.mm.application.gateway.SemesterGateway;
 import ru.urfu.mm.domain.Semester;
 import ru.urfu.mm.persistance.entity.enums.SemesterType;
 import ru.urfu.mm.persistance.repository.SemesterRepository;
-import ru.urfu.mm.service.mapper.Mapper;
 
 import java.util.List;
 import java.util.UUID;

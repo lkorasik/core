@@ -9,7 +9,6 @@ import ru.urfu.mm.persistance.entity.AccountEntity;
 import ru.urfu.mm.persistance.entity.enums.UserEntityRole;
 import ru.urfu.mm.persistance.repository.AccountRepository;
 import ru.urfu.mm.service.mapper.AccountMapper;
-import ru.urfu.mm.service.mapper.Mapper;
 
 import java.util.Optional;
 import java.util.UUID;

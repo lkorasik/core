@@ -2,15 +2,7 @@ package ru.urfu.mm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.urfu.mm.domain.Account;
-import ru.urfu.mm.persistance.entity.*;
-import ru.urfu.mm.persistance.entity.enums.SkillLevel;
-import ru.urfu.mm.persistance.entity.enums.Years;
 import ru.urfu.mm.service.mapper.AccountMapper;
-import ru.urfu.mm.service.mapper.Mapper;
-
-import java.util.List;
-import java.util.UUID;
 
 @Service
 public class SkillsService {

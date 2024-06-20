@@ -6,12 +6,9 @@ import ru.urfu.mm.application.exception.NotImplementedException;
 import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.domain.*;
 import ru.urfu.mm.persistance.entity.EducationalProgramEntity;
-import ru.urfu.mm.persistance.entity.GroupEntity;
-import ru.urfu.mm.persistance.entity.enums.SemesterType;
 import ru.urfu.mm.persistance.repository.ProgramRepository;
 import ru.urfu.mm.persistance.repository.GroupRepository;
 import ru.urfu.mm.persistance.repository.StudyPlanRepository;
-import ru.urfu.mm.service.mapper.Mapper;
 import ru.urfu.mm.service.mapper.ProgramMapper;
 
 import java.util.List;

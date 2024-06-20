@@ -6,12 +6,10 @@ import ru.urfu.mm.application.gateway.SkillGateway;
 import ru.urfu.mm.domain.*;
 import ru.urfu.mm.domain.enums.SkillLevel;
 import ru.urfu.mm.domain.exception.NotImplementedException;
-import ru.urfu.mm.persistance.entity.AccountEntity;
 import ru.urfu.mm.persistance.repository.DesiredSkillsRepository;
 import ru.urfu.mm.persistance.repository.SkillRepository;
 import ru.urfu.mm.persistance.repository.StudentSkillRepository;
 import ru.urfu.mm.service.mapper.AccountMapper;
-import ru.urfu.mm.service.mapper.Mapper;
 
 import java.util.List;
 import java.util.Map;

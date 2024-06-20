@@ -10,12 +10,9 @@ import ru.urfu.mm.domain.Student;
 import ru.urfu.mm.domain.enums.UserRole;
 import ru.urfu.mm.domain.exception.NotImplementedException;
 import ru.urfu.mm.persistance.entity.*;
-import ru.urfu.mm.persistance.entity.enums.UserEntityRole;
-import ru.urfu.mm.persistance.entity.enums.Years;
 import ru.urfu.mm.persistance.repository.GroupRepository;
 import ru.urfu.mm.persistance.repository.StudentRepository;
 import ru.urfu.mm.service.mapper.AccountMapper;
-import ru.urfu.mm.service.mapper.Mapper;
 
 import java.util.List;
 import java.util.Optional;
