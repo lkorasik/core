@@ -1,5 +1,6 @@
 package ru.urfu.mm.application.usecase.create_group;
 
+import ru.urfu.mm.application.exception.NotImplementedException;
 import ru.urfu.mm.application.gateway.GroupGateway;
 import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.application.gateway.SemesterGateway;
@@ -38,21 +39,22 @@ public class CreateGroup {
     }
 
     public void createGroup(CreateGroupRequest request) {
-        ensureValidGroupNumber(request.number());
+        throw new NotImplementedException();
+//        ensureValidGroupNumber(request.number());
 
-        ensureActualSemestersExists(request.startYear());
+//        ensureActualSemestersExists(request.startYear());
 
-        AcademicGroup academicGroup = new AcademicGroup(UUID.randomUUID(), request.number());
-        groupGateway.save(academicGroup);
+//        AcademicGroup academicGroup = new AcademicGroup(UUID.randomUUID(), request.number());
+//        groupGateway.save(academicGroup);
 
-        createStudyPlan.createStudyPlan(request.startYear(), request.programId());
+//        createStudyPlan.createStudyPlan(request.startYear(), request.programId());
 
-        EducationalProgram educationalProgram = programGateway.getById(request.programId());
-        var list = new ArrayList<AcademicGroup>();
-        list.addAll(educationalProgram.getGroups());
-        list.add(academicGroup);
-        educationalProgram.setGroups(list.stream().toList());
-        programGateway.save(educationalProgram);
+//        EducationalProgram educationalProgram = programGateway.getById(request.programId());
+//        var list = new ArrayList<AcademicGroup>();
+//        list.addAll(educationalProgram.getGroups());
+//        list.add(academicGroup);
+//        educationalProgram.setGroups(list.stream().toList());
+//        programGateway.save(educationalProgram);
     }
 
     private void ensureActualSemestersExists(int startYear) {
@@ -67,11 +69,12 @@ public class CreateGroup {
     }
 
     private Semester ensureSemester(List<Semester> semesters, int startYear, SemesterType semesterType) {
-        return semesters
-                .stream()
-                .filter(x -> (x.getYear() == startYear) && (x.getType() == semesterType))
-                .findFirst()
-                .orElseGet(() -> new Semester(UUID.randomUUID(), startYear, semesterType));
+        throw new NotImplementedException();
+//        return semesters
+//                .stream()
+//                .filter(x -> (x.getYear() == startYear) && (x.getType() == semesterType))
+//                .findFirst()
+//                .orElseGet(() -> new Semester(UUID.randomUUID(), startYear, semesterType));
     }
 
     private String extractDepartmentName(String number) {

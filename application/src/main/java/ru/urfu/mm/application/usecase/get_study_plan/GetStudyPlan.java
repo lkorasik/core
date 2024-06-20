@@ -1,5 +1,6 @@
 package ru.urfu.mm.application.usecase.get_study_plan;
 
+import ru.urfu.mm.application.exception.NotImplementedException;
 import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.domain.StudentSyllabus;
 
@@ -16,11 +17,12 @@ public class GetStudyPlan {
     }
 
     public StudentSyllabus getStudyPlan(UUID programId, int startYear) {
-        return programGateway.getById(programId)
-                .getSyllabi()
-                .stream()
-                .filter(x -> x.getFirstSemesterPlan().getSemester().getYear() == startYear)
-                .findFirst()
-                .get();
+        throw new NotImplementedException();
+//        return programGateway.getById(programId)
+//                .getSyllabi()
+//                .stream()
+//                .filter(x -> x.getFirstSemesterPlan().getSemester().getYear() == startYear)
+//                .findFirst()
+//                .get();
     }
 }

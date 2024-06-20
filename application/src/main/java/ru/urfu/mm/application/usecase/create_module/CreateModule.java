@@ -1,5 +1,6 @@
 package ru.urfu.mm.application.usecase.create_module;
 
+import ru.urfu.mm.application.exception.NotImplementedException;
 import ru.urfu.mm.application.gateway.ModuleGateway;
 import ru.urfu.mm.domain.EducationalModule;
 
@@ -18,7 +19,8 @@ public class CreateModule {
     }
 
     public void createModule(String educationalModuleName) {
-        EducationalModule educationalModule = new EducationalModule(UUID.randomUUID(), educationalModuleName);
-        moduleGateway.save(educationalModule);
+        throw new NotImplementedException();
+//        EducationalModule educationalModule = new EducationalModule(UUID.randomUUID(), educationalModuleName);
+//        moduleGateway.save(educationalModule);
     }
 }

@@ -1,5 +1,6 @@
 package ru.urfu.mm.application.usecase.create;
 
+import ru.urfu.mm.application.exception.NotImplementedException;
 import ru.urfu.mm.application.gateway.GroupGateway;
 import ru.urfu.mm.application.gateway.PasswordGateway;
 import ru.urfu.mm.application.gateway.StudentGateway;
@@ -36,15 +37,16 @@ public class CreateStudent implements CreateUseCase {
 
     @Override
     public void create(CreateAccountRequest request) {
-        Student student = studentGateway.findById(request.token())
-                .orElseThrow(() -> new RegistrationTokenNotExistException(request.token()));
+        throw new NotImplementedException();
+//        Student student = studentGateway.findById(request.token())
+//                .orElseThrow(() -> new RegistrationTokenNotExistException(request.token()));
 
-        Account account = new Account(request.token(), passwordGateway.encode(request.password()), UserRole.STUDENT);
-        userGateway.save(account);
+//        Account account = new Account(request.token(), passwordGateway.encode(request.password()), UserRole.STUDENT);
+//        userGateway.save(account);
 
-        AcademicGroup group = groupGateway.findByStudent(student);
+//        AcademicGroup group = groupGateway.findByStudent(student);
 
-        Student completeStudent = new Student(request.token(), account, null, null);
-        studentGateway.update(completeStudent, account, group);
+//        Student completeStudent = new Student(request.token(), account, null, null);
+//        studentGateway.update(completeStudent, account, group);
     }
 }

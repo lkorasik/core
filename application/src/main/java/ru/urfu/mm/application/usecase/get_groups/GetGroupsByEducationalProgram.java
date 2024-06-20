@@ -1,5 +1,6 @@
 package ru.urfu.mm.application.usecase.get_groups;
 
+import ru.urfu.mm.application.exception.NotImplementedException;
 import ru.urfu.mm.application.gateway.ProgramGateway;
 
 import java.util.List;
@@ -16,10 +17,11 @@ public class GetGroupsByEducationalProgram {
     }
 
     public List<GroupResponse> getGroupsByEducationalProgram(UUID programId) {
-        return programGateway.getById(programId)
-                .getGroups()
-                .stream()
-                .map(x -> new GroupResponse(x.getId(), x.getNumber()))
-                .toList();
+        throw new NotImplementedException();
+//        return programGateway.getById(programId)
+//                .getGroups()
+//                .stream()
+//                .map(x -> new GroupResponse(x.getId(), x.getNumber()))
+//                .toList();
     }
 }

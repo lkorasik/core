@@ -1,5 +1,6 @@
 package ru.urfu.mm.application.usecase.get_token;
 
+import ru.urfu.mm.application.exception.NotImplementedException;
 import ru.urfu.mm.application.gateway.StudentGateway;
 import ru.urfu.mm.application.usecase.get_group.GetAcademicGroup;
 
@@ -20,10 +21,11 @@ public class GetTokensForGroup {
     }
 
     public List<GetTokensForGroupResponse> getTokensForGroup(GetTokensForGroupRequest request) {
-        return getAcademicGroup.getGroup(request.groupId())
-                .getStudents()
-                .stream()
-                .map(x -> new GetTokensForGroupResponse(x.getId(), x.getAccount() != null))
-                .toList();
+        throw new NotImplementedException();
+//        return getAcademicGroup.getGroup(request.groupId())
+//                .getStudents()
+//                .stream()
+//                .map(x -> new GetTokensForGroupResponse(x.getId(), x.getAccount() != null))
+//                .toList();
     }
 }

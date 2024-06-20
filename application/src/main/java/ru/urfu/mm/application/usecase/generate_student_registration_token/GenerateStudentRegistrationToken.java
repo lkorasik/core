@@ -1,5 +1,6 @@
 package ru.urfu.mm.application.usecase.generate_student_registration_token;
 
+import ru.urfu.mm.application.exception.NotImplementedException;
 import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.application.gateway.StudentGateway;
 import ru.urfu.mm.application.usecase.get_group.GetAcademicGroup;
@@ -31,21 +32,22 @@ public class GenerateStudentRegistrationToken {
     }
 
     public List<UUID> generateTokens(UUID groupId, int tokensCount) {
-        AcademicGroup group = getAcademicGroup.getGroup(groupId);
+        throw new NotImplementedException();
+//        AcademicGroup group = getAcademicGroup.getGroup(groupId);
 
-        if (tokensCount <= 0) {
-            throw new IncorrectNumberOfTokensException(tokensCount);
-        }
+//        if (tokensCount <= 0) {
+//            throw new IncorrectNumberOfTokensException(tokensCount);
+//        }
 
-        List<UUID> registrationTokens = Stream.generate(UUID::randomUUID).limit(tokensCount).toList();
+//        List<UUID> registrationTokens = Stream.generate(UUID::randomUUID).limit(tokensCount).toList();
 
-        EducationalProgram educationalProgram = programGateway
-                .findByGroup(group)
-                .orElseThrow(() -> new EducationalProgramNotFoundException(groupId));
+//        EducationalProgram educationalProgram = programGateway
+//                .findByGroup(group)
+//                .orElseThrow(() -> new EducationalProgramNotFoundException(groupId));
 
-        List<Student> students = registrationTokens.stream().map(Student::new).toList();
-        studentGateway.saveGroupStudents(students, group);
+//        List<Student> students = registrationTokens.stream().map(Student::new).toList();
+//        studentGateway.saveGroupStudents(students, group);
 
-        return registrationTokens;
+//        return registrationTokens;
     }
 }

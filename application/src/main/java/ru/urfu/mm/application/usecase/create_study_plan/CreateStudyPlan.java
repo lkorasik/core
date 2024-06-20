@@ -1,9 +1,10 @@
 package ru.urfu.mm.application.usecase.create_study_plan;
 
+import ru.urfu.mm.application.exception.NotImplementedException;
 import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.application.gateway.SemesterGateway;
 import ru.urfu.mm.application.gateway.StudyPlanGateway;
-import ru.urfu.mm.application.usecase.create_semester_plan.CreateSemesterPlan;
+//import ru.urfu.mm.application.usecase.create_semester_plan.CreateSemesterPlan;
 import ru.urfu.mm.domain.EducationalProgram;
 import ru.urfu.mm.domain.StudentSyllabus;
 
@@ -22,37 +23,39 @@ public class CreateStudyPlan {
     private final SemesterGateway semesterGateway;
     private final StudyPlanGateway studyPlanGateway;
     private final ProgramGateway programGateway;
-    private final CreateSemesterPlan createSemesterPlan;
+//    private final CreateSemesterPlan createSemesterPlan;
 
     public CreateStudyPlan(
             SemesterGateway semesterGateway,
             StudyPlanGateway studyPlanGateway,
-            ProgramGateway programGateway,
-            CreateSemesterPlan createSemesterPlan) {
+            ProgramGateway programGateway
+//            CreateSemesterPlan createSemesterPlan
+    ) {
         this.semesterGateway = semesterGateway;
         this.studyPlanGateway = studyPlanGateway;
         this.programGateway = programGateway;
-        this.createSemesterPlan = createSemesterPlan;
+//        this.createSemesterPlan = createSemesterPlan;
     }
 
     public void createStudyPlan(int startYear, UUID programId) {
-        List<SemesterPlan> semesterPlans = semesterGateway.getSemestersForEntireStudyPeriod(startYear)
-                .stream()
-                .map(createSemesterPlan::createSemesterPlan)
-                .toList();
+        throw new NotImplementedException();
+//        List<SemesterPlan> semesterPlans = semesterGateway.getSemestersForEntireStudyPeriod(startYear)
+//                .stream()
+//                .map(createSemesterPlan::createSemesterPlan)
+//                .toList();
 
-        EducationalProgram educationalProgram = programGateway.getById(programId);
+//        EducationalProgram educationalProgram = programGateway.getById(programId);
 
-        StudentSyllabus studentSyllabus = new StudentSyllabus(
-                UUID.randomUUID(),
-                semesterPlans.get(0),
-                semesterPlans.get(1),
-                semesterPlans.get(2),
-                semesterPlans.get(3)
-        );
-        educationalProgram.getSyllabi().add(studentSyllabus);
+//        StudentSyllabus studentSyllabus = new StudentSyllabus(
+//                UUID.randomUUID(),
+//                semesterPlans.get(0),
+//                semesterPlans.get(1),
+//                semesterPlans.get(2),
+//                semesterPlans.get(3)
+//        );
+//        educationalProgram.getSyllabi().add(studentSyllabus);
 
-        studyPlanGateway.save(studentSyllabus, educationalProgram);
-        programGateway.save(educationalProgram);
+//        studyPlanGateway.save(studentSyllabus, educationalProgram);
+//        programGateway.save(educationalProgram);
     }
 }

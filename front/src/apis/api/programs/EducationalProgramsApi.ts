@@ -35,8 +35,8 @@ export class ProgramsApi extends ApiBase implements IProgramsApi {
         return this.get("programs/availableYears", {...programId});
     }
 
-    public async saveStudyPlan(syllabus: StudyPlanDto): Promise<void> {
-        return this.post("programs/plan", {}, syllabus);
+    public async saveStudyPlan(studentSyllabus: StudyPlanDto): Promise<void> {
+        return this.post("programs/plan", {}, studentSyllabus);
     }
 
     public async getStudyPlan(getStudyPlan: GetStudyPlanDto): Promise<StudyPlanDto2> {
@@ -51,6 +51,6 @@ export interface IProgramsApi {
     getAllPrograms(): Promise<ShortProgramDTO[]>
     updateEducationalProgram(updateProgram: UpdateEducationalProgramDto): Promise<void>
     getAvailableYears(programId: ProgramIdDto): Promise<AvailableYearDto[]>
-    saveStudyPlan(syllabus: StudyPlanDto): Promise<void>
+    saveStudyPlan(studentSyllabus: StudyPlanDto): Promise<void>
     getStudyPlan(getStudyPlan: GetStudyPlanDto): Promise<StudyPlanDto2>
 }

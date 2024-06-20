@@ -1,5 +1,6 @@
 package ru.urfu.mm.application.usecase.get_available_years;
 
+import ru.urfu.mm.application.exception.NotImplementedException;
 import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.domain.EducationalProgram;
 import ru.urfu.mm.domain.StudentSyllabus;
@@ -20,13 +21,14 @@ public class GetAvailableYears {
     }
 
     public List<GetStudyPlanResponse> getStudyPlan(UUID programId) {
-        EducationalProgram educationalProgram = programGateway.getById(programId);
-        List<StudentSyllabus> syllabi = educationalProgram.getSyllabi();
+        throw new NotImplementedException();
+//        EducationalProgram educationalProgram = programGateway.getById(programId);
+//        List<StudentSyllabus> syllabi = educationalProgram.getSyllabi();
 
-        return syllabi
-                .stream()
-                .map(x -> x.getFirstSemesterPlan().getSemester().getYear())
-                .map(GetStudyPlanResponse::new)
-                .toList();
+//        return syllabi
+//                .stream()
+//                .map(x -> x.getFirstSemesterPlan().getSemester().getYear())
+//                .map(GetStudyPlanResponse::new)
+//                .toList();
     }
 }

@@ -37,7 +37,7 @@ export function EditEducationalProgramScreen() {
     const [states, setStates] = useState<boolean[]>([])
 
     const [shouldRenderStudyPlan, setShouldRenderStudyPlan] = useState<number>(0);
-    const [syllabus, setStudyPlan] = useState<StudyPlanDto2>()
+    const [studentSyllabus, setStudyPlan] = useState<StudyPlanDto2>()
 
     const { educationalProgramId } = useParams();
     const api = useApis();

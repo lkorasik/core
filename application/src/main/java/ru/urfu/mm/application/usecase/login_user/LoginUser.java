@@ -1,5 +1,6 @@
 package ru.urfu.mm.application.usecase.login_user;
 
+import ru.urfu.mm.application.exception.NotImplementedException;
 import ru.urfu.mm.application.gateway.PasswordGateway;
 import ru.urfu.mm.application.gateway.UserGateway;
 import ru.urfu.mm.domain.Account;
@@ -22,14 +23,16 @@ public class LoginUser {
     }
 
     public Account loginUser(LoginRequest loginRequest) {
-        Account account = userGateway
-                .findByToken(loginRequest.token())
-                .orElseThrow(InvalidCredentialsException::new);
+        throw new NotImplementedException();
 
-        if (!passwordGateway.matches(loginRequest.password(), account.password())) {
-            throw new InvalidCredentialsException();
-        }
+//        Account account = userGateway
+//                .findByToken(loginRequest.token())
+//                .orElseThrow(InvalidCredentialsException::new);
 
-        return account;
+//        if (!passwordGateway.matches(loginRequest.password(), account.password())) {
+//            throw new InvalidCredentialsException();
+//        }
+
+//        return account;
     }
 }
