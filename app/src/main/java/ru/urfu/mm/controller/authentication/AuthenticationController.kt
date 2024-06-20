@@ -2,7 +2,6 @@ package ru.urfu.mm.controller.authentication
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.RestController
-import ru.urfu.mm.application.exception.NotImplementedException
 import ru.urfu.mm.application.usecase.create.account.CreateAccount
 import ru.urfu.mm.application.usecase.login_user.LoginUser
 import ru.urfu.mm.service.AuthenticationService
@@ -24,8 +23,7 @@ class AuthenticationController @Autowired constructor(
         val account = loginUser.loginUser(dto.toRequest())
         val token = authenticationService.generateToken(dto)
 
-        throw NotImplementedException()
-//        return AccessTokenDTO(token, dto.token, account.role.value)
+        return AccessTokenDTO(token, dto.token, account.role.value)
     }
 
     override fun validateToken(tokenDTO: TokenDTO) {
