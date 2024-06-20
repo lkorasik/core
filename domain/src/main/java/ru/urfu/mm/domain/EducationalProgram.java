@@ -39,4 +39,8 @@ public class EducationalProgram {
     public String getName() {
         return name;
     }
+
+    public String getTrainingDirection() {
+        return trainingDirection;
+    }
 }

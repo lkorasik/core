@@ -12,6 +12,7 @@ import ru.urfu.mm.persistance.repository.ProgramRepository;
 import ru.urfu.mm.persistance.repository.GroupRepository;
 import ru.urfu.mm.persistance.repository.StudyPlanRepository;
 import ru.urfu.mm.service.mapper.Mapper;
+import ru.urfu.mm.service.mapper.ProgramMapper;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,19 +22,19 @@ import java.util.UUID;
 public class ProgramGatewayImpl implements ProgramGateway {
     private final ProgramRepository programRepository;
     private final GroupRepository groupRepository;
-    private final Mapper<EducationalProgramEntity, EducationalProgram> programMapper;
     private final StudyPlanRepository studyPlanRepository;
+    private final ProgramMapper programMapper;
 
     @Autowired
     public ProgramGatewayImpl(
             ProgramRepository programRepository,
             GroupRepository groupRepository,
-            Mapper<EducationalProgramEntity, EducationalProgram> programMapper,
-            StudyPlanRepository studyPlanRepository) {
+            StudyPlanRepository studyPlanRepository,
+            ProgramMapper programMapper) {
         this.programRepository = programRepository;
         this.groupRepository = groupRepository;
-        this.programMapper = programMapper;
         this.studyPlanRepository = studyPlanRepository;
+        this.programMapper = programMapper;
     }
 
     @Override
@@ -110,26 +111,22 @@ public class ProgramGatewayImpl implements ProgramGateway {
 
     @Override
     public List<EducationalProgram> getAll() {
-        return programRepository
-                .findAll()
-                .stream()
-                .map(programMapper::map)
-                .toList();
+        throw new NotImplementedException();
+//        return programRepository
+//                .findAll()
+//                .stream()
+//                .map(programMapper::map)
+//                .toList();
     }
 
     @Override
     public void save(EducationalProgram educationalProgram) {
-        throw new NotImplementedException();
-//        EducationalProgramEntity entity = new EducationalProgramEntity(
-//                educationalProgram.getId(),
-//                educationalProgram.getName(),
-//                educationalProgram.getTrainingDirection()
-//        );
+        EducationalProgramEntity entity = programMapper.toEntity(educationalProgram);
 //        Iterable<GroupEntity> groups = groupRepository
 //                .findAllById(educationalProgram.getGroups().stream().map(AcademicGroup::getId).toList());
 //        groups.forEach(group -> group.setProgram(entity));
 //        groupRepository.saveAll(groups);
-//        programRepository.save(entity);
+        programRepository.save(entity);
     }
 
     public Optional<EducationalProgram> findByGroup(AcademicGroup academicGroup) {
