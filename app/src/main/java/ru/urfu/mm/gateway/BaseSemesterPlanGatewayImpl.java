@@ -6,28 +6,25 @@ import ru.urfu.mm.application.gateway.BaseSemesterPlanGateway;
 import ru.urfu.mm.domain.BaseSemesterPlan;
 import ru.urfu.mm.persistance.entity.BaseSemesterPlanEntity;
 import ru.urfu.mm.persistance.repository.BaseSemesterPlanRepository;
-import ru.urfu.mm.service.mapper.SemesterMapper;
+import ru.urfu.mm.service.mapper.BaseSemesterPlanMapper;
 
 @Component
 public class BaseSemesterPlanGatewayImpl implements BaseSemesterPlanGateway {
     private final BaseSemesterPlanRepository baseSemesterPlanRepository;
-    private final SemesterMapper semesterMapper;
+    private final BaseSemesterPlanMapper baseSemesterPlanMapper;
 
     @Autowired
     public BaseSemesterPlanGatewayImpl(
             BaseSemesterPlanRepository baseSemesterPlanRepository,
-            SemesterMapper semesterMapper
+            BaseSemesterPlanMapper baseSemesterPlanMapper
     ) {
         this.baseSemesterPlanRepository = baseSemesterPlanRepository;
-        this.semesterMapper = semesterMapper;
+        this.baseSemesterPlanMapper = baseSemesterPlanMapper;
     }
 
     @Override
     public void save(BaseSemesterPlan baseSemesterPlan) {
-        BaseSemesterPlanEntity entity = new BaseSemesterPlanEntity(
-                baseSemesterPlan.getId(),
-                semesterMapper.toEntity(baseSemesterPlan.getSemester())
-        );
+        BaseSemesterPlanEntity entity = baseSemesterPlanMapper.toEntity(baseSemesterPlan);
         baseSemesterPlanRepository.save(entity);
     }
 }

@@ -237,12 +237,14 @@ public class UseCaseConfiguration {
             ProgramGateway programGateway,
             SemesterGateway semesterGateway,
             CreateBaseSyllabus createBaseSyllabus,
+            BaseSyllabusPlanGateway baseSyllabusPlanGateway,
             BaseSemesterPlanGateway baseSemesterPlanGateway) {
         return new CreateGroup(
                 groupGateway,
                 programGateway,
                 semesterGateway,
                 createBaseSyllabus,
+                baseSyllabusPlanGateway,
                 baseSemesterPlanGateway
         );
     }

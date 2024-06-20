@@ -8,7 +8,6 @@ import java.util.*;
 @Table(name = "educational_programs")
 public class EducationalProgramEntity {
     @Id
-    @GeneratedValue
     @Column
     private UUID id;
     @Column

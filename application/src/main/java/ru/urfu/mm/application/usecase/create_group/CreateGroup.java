@@ -1,10 +1,7 @@
 package ru.urfu.mm.application.usecase.create_group;
 
 import ru.urfu.mm.application.exception.NotImplementedException;
-import ru.urfu.mm.application.gateway.BaseSemesterPlanGateway;
-import ru.urfu.mm.application.gateway.GroupGateway;
-import ru.urfu.mm.application.gateway.ProgramGateway;
-import ru.urfu.mm.application.gateway.SemesterGateway;
+import ru.urfu.mm.application.gateway.*;
 import ru.urfu.mm.application.usecase.create_study_plan.CreateBaseSyllabus;
 import ru.urfu.mm.domain.BaseSemesterPlan;
 import ru.urfu.mm.domain.BaseSyllabus;
@@ -29,6 +26,7 @@ public class CreateGroup {
     private final ProgramGateway programGateway;
     private final SemesterGateway semesterGateway;
     private final CreateBaseSyllabus createBaseSyllabus;
+    private final BaseSyllabusPlanGateway baseSyllabusPlanGateway;
     private final BaseSemesterPlanGateway baseSemesterPlanGateway;
 
     public CreateGroup(
@@ -36,11 +34,13 @@ public class CreateGroup {
             ProgramGateway programGateway,
             SemesterGateway semesterGateway,
             CreateBaseSyllabus createBaseSyllabus,
+            BaseSyllabusPlanGateway baseSyllabusPlanGateway,
             BaseSemesterPlanGateway baseSemesterPlanGateway) {
         this.groupGateway = groupGateway;
         this.programGateway = programGateway;
         this.semesterGateway = semesterGateway;
         this.createBaseSyllabus = createBaseSyllabus;
+        this.baseSyllabusPlanGateway = baseSyllabusPlanGateway;
         this.baseSemesterPlanGateway = baseSemesterPlanGateway;
     }
 
@@ -80,6 +80,7 @@ public class CreateGroup {
                 thirdSemesterPlan,
                 fourthSemesterPlan
         );
+        baseSyllabusPlanGateway.save(baseSyllabus);
 
         throw new NotImplementedException();
 //        AcademicGroup academicGroup = new AcademicGroup(UUID.randomUUID(), request.number());

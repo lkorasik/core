@@ -40,4 +40,24 @@ public class BaseSyllabus {
         this.thirdSemesterPlan = thirdSemesterPlan;
         this.fourthSemesterPlan = fourthSemesterPlan;
     }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public BaseSemesterPlan getFirstSemesterPlan() {
+        return firstSemesterPlan;
+    }
+
+    public BaseSemesterPlan getSecondSemesterPlan() {
+        return secondSemesterPlan;
+    }
+
+    public BaseSemesterPlan getThirdSemesterPlan() {
+        return thirdSemesterPlan;
+    }
+
+    public BaseSemesterPlan getFourthSemesterPlan() {
+        return fourthSemesterPlan;
+    }
 }

@@ -10,7 +10,6 @@ import java.util.UUID;
 @Table(name = "base_semester_plans")
 public class BaseSemesterPlanEntity {
     @Id
-    @GeneratedValue
     private UUID id;
     @ManyToOne
     private SemesterEntity semesterEntity;
