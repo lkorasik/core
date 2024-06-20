@@ -13,6 +13,7 @@ import ru.urfu.mm.controller.ExceptionDTO
 import ru.urfu.mm.controller.authentication.AccessTokenDTO
 import ru.urfu.mm.controller.authentication.RegistrationDTO
 import ru.urfu.mm.domain.enums.UserRole
+import ru.urfu.mm.dsl.AuthorizationDSL
 import ru.urfu.mm.dsl.DSL
 import ru.urfu.mm.integration.BaseTestClass
 import ru.urfu.mm.persistance.entity.RegistrationToken
@@ -26,6 +27,8 @@ class `Administrator registration` : BaseTestClass() {
     private lateinit var registrationTokenRepository: RegistrationTokenRepository
     @Autowired
     private lateinit var accountRepository: AccountRepository
+    @Autowired
+    private lateinit var authorizationDSL: AuthorizationDSL
 
     @AfterEach
     fun clean() {

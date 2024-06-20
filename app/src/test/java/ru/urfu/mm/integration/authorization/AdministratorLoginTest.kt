@@ -25,9 +25,10 @@ import java.util.*
 class `Administrator login` : BaseTestClass() {
     @Autowired
     private lateinit var registrationTokenRepository: RegistrationTokenRepository
-
     @Autowired
     private lateinit var accountRepository: AccountRepository
+    @Autowired
+    private lateinit var authorizationDSL: AuthorizationDSL
 
     @AfterEach
     fun clean() {
@@ -49,7 +50,7 @@ class `Administrator login` : BaseTestClass() {
         val expected = AccessTokenDTO("", token.toString(), UserRole.ADMIN.value)
 
         val registrationDTO = RegistrationDTO(token.toString(), password, password)
-        AuthorizationDSL.registerAsAdministratorAccount(registrationDTO, address())
+        authorizationDSL.registerAsAdministratorAccount(registrationDTO, address())
 
         val loginDTO = LoginDTO(token.toString(), password)
 
@@ -84,7 +85,7 @@ class `Administrator login` : BaseTestClass() {
         registrationTokenRepository.save(registrationToken)
 
         val registrationDTO = RegistrationDTO(token.toString(), password, password)
-        AuthorizationDSL.registerAsAdministratorAccount(registrationDTO, address())
+        authorizationDSL.registerAsAdministratorAccount(registrationDTO, address())
 
         val loginDTO = LoginDTO(UUID.randomUUID().toString(), password)
 
@@ -120,7 +121,7 @@ class `Administrator login` : BaseTestClass() {
         registrationTokenRepository.save(registrationToken)
 
         val registrationDTO = RegistrationDTO(token.toString(), password, password)
-        AuthorizationDSL.registerAsAdministratorAccount(registrationDTO, address())
+        authorizationDSL.registerAsAdministratorAccount(registrationDTO, address())
 
         val loginDTO = LoginDTO(token.toString(), UUID.randomUUID().toString())
 

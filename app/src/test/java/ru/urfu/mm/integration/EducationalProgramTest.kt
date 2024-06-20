@@ -9,14 +9,17 @@ import ru.urfu.mm.controller.authentication.AccessTokenDTO
 import ru.urfu.mm.controller.authentication.RegistrationDTO
 import ru.urfu.mm.controller.program.CreateSemesterDTO
 import ru.urfu.mm.domain.enums.UserRole
+import ru.urfu.mm.dsl.AuthorizationDSL
 import ru.urfu.mm.dsl.DSL
 import ru.urfu.mm.persistance.entity.RegistrationToken
 import ru.urfu.mm.persistance.repository.RegistrationTokenRepository
 import java.util.*
 
-class `Educational Program` : BaseTestClass() {
+class EducationalProgramTest : BaseTestClass() {
     @Autowired
-    private val repository: RegistrationTokenRepository? = null
+    private lateinit var repository: RegistrationTokenRepository
+    @Autowired
+    private lateinit var authorizationDSL: AuthorizationDSL
 
     /**
      * Создание программы
@@ -27,22 +30,12 @@ class `Educational Program` : BaseTestClass() {
         val password = DSL.generatePassword()
 
         val registrationToken = RegistrationToken(token)
-        repository!!.save(registrationToken)
+        repository.save(registrationToken)
 
         val expected = AccessTokenDTO("", token.toString(), UserRole.ADMIN.value)
 
         val registrationDTO = RegistrationDTO(token.toString(), password, password)
-
-        val actual = RestAssured.given()
-            .contentType(ContentType.JSON)
-            .body(registrationDTO)
-            .`when`()
-            .baseUri(address())
-            .post("/api/authentication/register")
-            .then()
-            .statusCode(200)
-            .extract()
-            .`as`(AccessTokenDTO::class.java)
+        val actual = authorizationDSL.registerAsAdministratorAccount(registrationDTO, address())
 
         val createSemesterDTO1 = CreateSemesterDTO(listOf(), listOf(), listOf())
         val createSemesterDTO2 = CreateSemesterDTO(listOf(), listOf(), listOf())

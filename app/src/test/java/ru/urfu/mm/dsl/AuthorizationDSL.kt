@@ -1,5 +1,6 @@
 package ru.urfu.mm.dsl
 
+import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
 import ru.urfu.mm.controller.Endpoints
 import ru.urfu.mm.controller.authentication.AccessTokenDTO
@@ -9,6 +10,7 @@ import java.net.URI
 /**
  * Класс, предоставляющий операции для работы с приложением
  */
+@Component
 object AuthorizationDSL {
     fun registerAsAdministratorAccount(registrationDTO: RegistrationDTO, address: String): AccessTokenDTO {
         val client = RestTemplate()
