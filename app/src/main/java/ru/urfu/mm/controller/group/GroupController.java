@@ -27,8 +27,8 @@ import java.util.UUID;
 public class GroupController extends AbstractAuthorizedController {
     @Autowired
     private GetGroupsByEducationalProgram getGroupsByEducationalProgram;
-//    @Autowired
-//    private CreateGroup createGroup;
+    @Autowired
+    private CreateGroup createGroup;
     @Autowired
     private GetAcademicGroup getAcademicGroup;
     @Autowired
@@ -48,8 +48,7 @@ public class GroupController extends AbstractAuthorizedController {
 
     @PostMapping(Endpoints.Group.GROUP)
     public void createGroup(@RequestBody CreateGroupDTO dto) {
-        throw new NotImplementedException();
-//        createGroup.createGroup(dto.toRequest());
+        createGroup.createGroup(dto.toRequest());
     }
 
     @GetMapping(Endpoints.Group.GROUP_BY_ID)

@@ -22,9 +22,6 @@ export class GroupService {
 
     public createGroup(createGroup: CreateGroupDTO) {
         return this.authorizedClient.post("api/groups/group", createGroup);
-
-        // let headers = new HttpHeaders().append("Authorization", "Bearer " + sessionStorage.getItem("token"));
-        // return this.client.post("api/groups/group", createGroup, { headers });
     }
 
     public getGroup(getGroup: GetGroupIdDto) {

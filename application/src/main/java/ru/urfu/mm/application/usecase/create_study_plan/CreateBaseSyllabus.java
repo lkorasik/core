@@ -5,27 +5,24 @@ import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.application.gateway.SemesterGateway;
 import ru.urfu.mm.application.gateway.StudyPlanGateway;
 //import ru.urfu.mm.application.usecase.create_semester_plan.CreateSemesterPlan;
-import ru.urfu.mm.domain.EducationalProgram;
-import ru.urfu.mm.domain.StudentSyllabus;
 
-import java.util.List;
 import java.util.UUID;
 
 /**
- * Создаем учебный план.
+ * Создаем базовый учебный план.
  * 1. Находим нужные нам семестры.
  * 2. На каждый семестр создаем семестровый план.
  * 3. Находим программу. Добавляем туда наш план.
  * 4. Сохраняем план
  * 5. Сохраняем программу
  */
-public class CreateStudyPlan {
+public class CreateBaseSyllabus {
     private final SemesterGateway semesterGateway;
     private final StudyPlanGateway studyPlanGateway;
     private final ProgramGateway programGateway;
 //    private final CreateSemesterPlan createSemesterPlan;
 
-    public CreateStudyPlan(
+    public CreateBaseSyllabus(
             SemesterGateway semesterGateway,
             StudyPlanGateway studyPlanGateway,
             ProgramGateway programGateway
