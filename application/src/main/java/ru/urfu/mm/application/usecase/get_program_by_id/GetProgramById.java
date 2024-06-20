@@ -5,6 +5,9 @@ import ru.urfu.mm.domain.EducationalProgram;
 
 import java.util.UUID;
 
+/**
+ * Получить программу по идентификатору
+ */
 public class GetProgramById {
     private final ProgramGateway programGateway;
 

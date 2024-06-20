@@ -14,4 +14,12 @@ public class SemesterMapper {
                 SemesterType.fromDomain(semester.getType())
         );
     }
+
+    public Semester toDomain(SemesterEntity entity) {
+        return new Semester(
+                entity.getId(),
+                entity.getYear(),
+                SemesterType.toDomain(entity.getType())
+        );
+    }
 }

@@ -1,6 +1,8 @@
 package ru.urfu.mm.persistance.entity;
 
 import jakarta.persistence.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ru.urfu.mm.persistance.entity.enums.Years;
 
 import java.util.List;
@@ -53,5 +55,9 @@ public class GroupEntity {
 
     public List<StudentEntity> getStudents() {
         return students;
+    }
+
+    public BaseSyllabusEntity getBaseSyllabus() {
+        return baseSyllabus;
     }
 }

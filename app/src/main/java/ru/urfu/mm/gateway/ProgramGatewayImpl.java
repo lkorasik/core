@@ -37,58 +37,7 @@ public class ProgramGatewayImpl implements ProgramGateway {
     @Override
     public EducationalProgram getById(UUID id) {
         EducationalProgramEntity educationalProgramEntity = programRepository.getReferenceById(id);
-        EducationalProgram program = programMapper.toDomain(educationalProgramEntity);
-        throw new NotImplementedException();
-//        List<AcademicGroup> groups = educationalProgramEntity.getGroups()
-//                .stream()
-//                .map(x -> new AcademicGroup(x.getId(), x.getNumber()))
-//                .toList();
-//        program.getGroups().addAll(groups);
-//        List<StudentSyllabus> studentSyllabi = educationalProgramEntity.getSyllabuses()
-//                .stream()
-//                .map(x -> new StudentSyllabus(
-//                                x.getId(),
-//                                new SemesterPlan(
-//                                        x.getFirstSemester().getId(),
-//                                        new Semester(
-//                                                x.getFirstSemester().getSemester().getId(),
-//                                                x.getFirstSemester().getSemester().getYear(),
-//                                                SemesterType.toDomain(x.getFirstSemester().getSemester().getType())
-//                                        ),
-//                                        x.getFirstSemester().getRecommendedCredits()
-//                                ),
-//                                new SemesterPlan(
-//                                        x.getSecondSemester().getId(),
-//                                        new Semester(
-//                                                x.getSecondSemester().getSemester().getId(),
-//                                                x.getSecondSemester().getSemester().getYear(),
-//                                                SemesterType.toDomain(x.getSecondSemester().getSemester().getType())
-//                                        ),
-//                                        x.getSecondSemester().getRecommendedCredits()
-//                                ),
-//                                new SemesterPlan(
-//                                        x.getThirdSemester().getId(),
-//                                        new Semester(
-//                                                x.getThirdSemester().getSemester().getId(),
-//                                                x.getThirdSemester().getSemester().getYear(),
-//                                                SemesterType.toDomain(x.getThirdSemester().getSemester().getType())
-//                                        ),
-//                                        x.getThirdSemester().getRecommendedCredits()
-//                                ),
-//                                new SemesterPlan(
-//                                        x.getFourthSemester().getId(),
-//                                        new Semester(
-//                                                x.getFourthSemester().getSemester().getId(),
-//                                                x.getFourthSemester().getSemester().getYear(),
-//                                                SemesterType.toDomain(x.getFourthSemester().getSemester().getType())
-//                                        ),
-//                                        x.getFourthSemester().getRecommendedCredits()
-//                                )
-//                        )
-//                )
-//                .toList();
-//        program.getSyllabi().addAll(studentSyllabi);
-//        return program;
+        return programMapper.toDomain(educationalProgramEntity);
     }
 
     @Override

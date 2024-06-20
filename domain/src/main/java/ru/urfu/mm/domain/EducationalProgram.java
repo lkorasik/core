@@ -1,6 +1,7 @@
 package ru.urfu.mm.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,10 +27,14 @@ public class EducationalProgram {
     private final List<AcademicGroup> academicGroups;
 
     public EducationalProgram(UUID id, String name, String trainingDirection) {
+        this(id, name, trainingDirection, new ArrayList<>());
+    }
+
+    public EducationalProgram(UUID id, String name, String trainingDirection, List<AcademicGroup> academicGroups) {
         this.id = id;
         this.name = name;
         this.trainingDirection = trainingDirection;
-        this.academicGroups = new ArrayList<>();
+        this.academicGroups = academicGroups;
     }
 
     public UUID getId() {
@@ -42,5 +47,9 @@ public class EducationalProgram {
 
     public String getTrainingDirection() {
         return trainingDirection;
+    }
+
+    public List<AcademicGroup> getAcademicGroups() {
+        return Collections.unmodifiableList(academicGroups);
     }
 }

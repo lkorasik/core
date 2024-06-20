@@ -34,4 +34,24 @@ public class BaseSyllabusEntity {
         this.thirdSemesterPlan = thirdSemesterPlan;
         this.fourthSemesterPlan = fourthSemesterPlan;
     }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public BaseSemesterPlanEntity getFirstSemesterPlan() {
+        return firstSemesterPlan;
+    }
+
+    public BaseSemesterPlanEntity getSecondSemesterPlan() {
+        return secondSemesterPlan;
+    }
+
+    public BaseSemesterPlanEntity getThirdSemesterPlan() {
+        return thirdSemesterPlan;
+    }
+
+    public BaseSemesterPlanEntity getFourthSemesterPlan() {
+        return fourthSemesterPlan;
+    }
 }

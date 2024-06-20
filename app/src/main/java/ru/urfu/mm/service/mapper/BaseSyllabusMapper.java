@@ -23,4 +23,14 @@ public class BaseSyllabusMapper {
                 baseSemesterPlanMapper.toEntity(syllabus.getFourthSemesterPlan())
         );
     }
+
+    public BaseSyllabus toDomain(BaseSyllabusEntity entity) {
+        return new BaseSyllabus(
+                entity.getId(),
+                baseSemesterPlanMapper.toDomain(entity.getFirstSemesterPlan()),
+                baseSemesterPlanMapper.toDomain(entity.getSecondSemesterPlan()),
+                baseSemesterPlanMapper.toDomain(entity.getThirdSemesterPlan()),
+                baseSemesterPlanMapper.toDomain(entity.getFourthSemesterPlan())
+        );
+    }
 }

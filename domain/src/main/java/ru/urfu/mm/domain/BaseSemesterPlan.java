@@ -37,6 +37,20 @@ public class BaseSemesterPlan {
         this.scienceWorks = new ArrayList<>();
     }
 
+    public BaseSemesterPlan(
+            UUID id,
+            Semester semester,
+            List<Course> requiredCourses,
+            List<Course> availableCourses,
+            List<Course> scienceWorks
+    ) {
+        this.id = id;
+        this.semester = semester;
+        this.requiredCourses = requiredCourses;
+        this.availableCourses = availableCourses;
+        this.scienceWorks = scienceWorks;
+    }
+
     public UUID getId() {
         return id;
     }

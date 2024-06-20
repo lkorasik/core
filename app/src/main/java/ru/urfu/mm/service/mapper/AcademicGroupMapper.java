@@ -29,4 +29,12 @@ public class AcademicGroupMapper {
                 baseSyllabusMapper.toEntity(group.getBaseSyllabus())
         );
     }
+
+    public AcademicGroup toDomain(GroupEntity entity) {
+        return new AcademicGroup(
+                entity.getId(),
+                entity.getNumber(),
+                baseSyllabusMapper.toDomain(entity.getBaseSyllabus())
+        );
+    }
 }
