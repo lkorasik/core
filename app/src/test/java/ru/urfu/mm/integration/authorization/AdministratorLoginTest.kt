@@ -10,7 +10,6 @@ import ru.urfu.mm.RestAssureExtension.cast
 import ru.urfu.mm.RestAssureExtension.whenever
 import ru.urfu.mm.controller.Endpoints
 import ru.urfu.mm.controller.Endpoints.Authentication.login
-import ru.urfu.mm.controller.Endpoints.Authentication.register
 import ru.urfu.mm.controller.ExceptionDTO
 import ru.urfu.mm.controller.authentication.AccessTokenDTO
 import ru.urfu.mm.controller.authentication.LoginDTO
@@ -51,7 +50,6 @@ class `Administrator login` : BaseTestClass() {
         val expected = AccessTokenDTO("", token.toString(), UserRole.ADMIN.value)
 
         val registrationDTO = RegistrationDTO(token.toString(), password, password)
-
         AuthorizationDSL.registerAsAdministrator(registrationDTO, address())
 
         val loginDTO = LoginDTO(token.toString(), password)
@@ -86,24 +84,8 @@ class `Administrator login` : BaseTestClass() {
         val registrationToken = RegistrationToken(token)
         registrationTokenRepository.save(registrationToken)
 
-        val expected = AccessTokenDTO("", token.toString(), UserRole.ADMIN.value)
-
         val registrationDTO = RegistrationDTO(token.toString(), password, password)
-
-        val actual = RestAssured.given()
-            .contentType(ContentType.JSON)
-            .body(registrationDTO)
-            .whenever()
-            .baseUri(address())
-            .post(register())
-            .then()
-            .statusCode(200)
-            .extract()
-            .cast(AccessTokenDTO::class.java)
-
-        Assertions.assertNotNull(actual.accessToken)
-        Assertions.assertEquals(actual.userEntityRole, expected.userEntityRole)
-        Assertions.assertEquals(actual.userToken, expected.userToken)
+        AuthorizationDSL.registerAsAdministrator(registrationDTO, address())
 
         val loginDTO = LoginDTO(UUID.randomUUID().toString(), password)
 
@@ -138,24 +120,8 @@ class `Administrator login` : BaseTestClass() {
         val registrationToken = RegistrationToken(token)
         registrationTokenRepository.save(registrationToken)
 
-        val expected = AccessTokenDTO("", token.toString(), UserRole.ADMIN.value)
-
         val registrationDTO = RegistrationDTO(token.toString(), password, password)
-
-        val actual = RestAssured.given()
-            .contentType(ContentType.JSON)
-            .body(registrationDTO)
-            .whenever()
-            .baseUri(address())
-            .post(register())
-            .then()
-            .statusCode(200)
-            .extract()
-            .cast(AccessTokenDTO::class.java)
-
-        Assertions.assertNotNull(actual.accessToken)
-        Assertions.assertEquals(actual.userEntityRole, expected.userEntityRole)
-        Assertions.assertEquals(actual.userToken, expected.userToken)
+        AuthorizationDSL.registerAsAdministrator(registrationDTO, address())
 
         val loginDTO = LoginDTO(token.toString(), UUID.randomUUID().toString())
 
