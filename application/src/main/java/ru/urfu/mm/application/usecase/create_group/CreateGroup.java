@@ -3,10 +3,7 @@ package ru.urfu.mm.application.usecase.create_group;
 import ru.urfu.mm.application.exception.NotImplementedException;
 import ru.urfu.mm.application.gateway.*;
 import ru.urfu.mm.application.usecase.create_study_plan.CreateBaseSyllabus;
-import ru.urfu.mm.domain.AcademicGroup;
-import ru.urfu.mm.domain.BaseSemesterPlan;
-import ru.urfu.mm.domain.BaseSyllabus;
-import ru.urfu.mm.domain.Semester;
+import ru.urfu.mm.domain.*;
 import ru.urfu.mm.domain.enums.SemesterType;
 
 import java.util.*;
@@ -88,6 +85,17 @@ public class CreateGroup {
                 baseSyllabus
         );
         groupGateway.save(academicGroup);
+
+        EducationalProgram program = programGateway.findById(request.programId()).get();
+        List<AcademicGroup> groups = new ArrayList<>(program.getAcademicGroups());
+        groups.add(academicGroup);
+        EducationalProgram newProgram = new EducationalProgram(
+                program.getId(),
+                program.getName(),
+                program.getTrainingDirection(),
+                groups
+        );
+        programGateway.save(newProgram);
     }
 
     private List<Semester> ensureActualSemestersExists(int startYear) {
