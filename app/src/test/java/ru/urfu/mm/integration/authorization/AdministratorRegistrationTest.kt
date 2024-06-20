@@ -6,6 +6,8 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import ru.urfu.mm.RestAssureExtension.cast
+import ru.urfu.mm.RestAssureExtension.whenever
 import ru.urfu.mm.controller.Endpoints
 import ru.urfu.mm.controller.ExceptionDTO
 import ru.urfu.mm.controller.authentication.AccessTokenDTO
@@ -49,13 +51,13 @@ class `Administrator registration` : BaseTestClass() {
         val actual = RestAssured.given()
             .contentType(ContentType.JSON)
             .body(registrationDTO)
-            .`when`()
+            .whenever()
             .baseUri(address())
             .post(Endpoints.Authentication.register())
             .then()
             .statusCode(200)
             .extract()
-            .`as`(AccessTokenDTO::class.java)
+            .cast(AccessTokenDTO::class.java)
 
         Assertions.assertNotNull(actual.accessToken)
         Assertions.assertEquals(actual.userEntityRole, expected.userEntityRole)
@@ -83,13 +85,13 @@ class `Administrator registration` : BaseTestClass() {
         val actual = RestAssured.given()
             .contentType(ContentType.JSON)
             .body(registrationDTO)
-            .`when`()
+            .whenever()
             .baseUri(address())
             .post(Endpoints.Authentication.register())
             .then()
             .statusCode(400)
             .extract()
-            .`as`(ExceptionDTO::class.java)
+            .cast(ExceptionDTO::class.java)
 
         Assertions.assertEquals(actual.message, "Registration token $token does not exist")
 

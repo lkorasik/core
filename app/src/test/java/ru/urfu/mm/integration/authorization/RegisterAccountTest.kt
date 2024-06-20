@@ -49,13 +49,13 @@
 //        val actual = RestAssured.given()
 //            .contentType(ContentType.JSON)
 //            .body(registrationDTO)
-//            .`when`()
+//            .whenever()
 //            .baseUri(address())
 //            .post(register())
 //            .then()
 //            .statusCode(400)
 //            .extract()
-//            .`as`(ExceptionDTO::class.java)
+//            .cast(ExceptionDTO::class.java)
 //
 //        Assertions.assertEquals(actual.message, "The passwords entered by the user do not match.")
 //
@@ -79,13 +79,13 @@
 //        val actual = RestAssured.given()
 //            .contentType(ContentType.JSON)
 //            .body(registrationDTO)
-//            .`when`()
+//            .whenever()
 //            .baseUri(address())
 //            .post(register())
 //            .then()
 //            .statusCode(400)
 //            .extract()
-//            .`as`(ExceptionDTO::class.java)
+//            .cast(ExceptionDTO::class.java)
 //
 //        Assertions.assertEquals(
 //            actual.message, "Password is too short. The password must be at least eight " +
@@ -114,13 +114,13 @@
 //        val actual = RestAssured.given()
 //            .contentType(ContentType.JSON)
 //            .body(registrationDTO)
-//            .`when`()
+//            .whenever()
 //            .baseUri(address())
 //            .post(register())
 //            .then()
 //            .statusCode(200)
 //            .extract()
-//            .`as`(AccessTokenDTO::class.java)
+//            .cast(AccessTokenDTO::class.java)
 //
 //        Assertions.assertNotNull(actual.accessToken)
 //        Assertions.assertEquals(actual.userEntityRole, expected.userEntityRole)
@@ -129,13 +129,13 @@
 //        val actual2 = RestAssured.given()
 //            .contentType(ContentType.JSON)
 //            .body(registrationDTO)
-//            .`when`()
+//            .whenever()
 //            .baseUri(address())
 //            .post(register())
 //            .then()
 //            .statusCode(400)
 //            .extract()
-//            .`as`(ExceptionDTO::class.java)
+//            .cast(ExceptionDTO::class.java)
 //
 //        Assertions.assertEquals(actual2.message, "Registration token $token does not exist")
 //
