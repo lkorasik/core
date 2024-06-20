@@ -26,4 +26,16 @@ public class Account {
         this.password = password;
         this.role = role;
     }
+
+    public UUID getToken() {
+        return token;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
 }

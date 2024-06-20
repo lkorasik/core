@@ -10,6 +10,7 @@ import ru.urfu.mm.persistance.entity.AccountEntity;
 import ru.urfu.mm.persistance.repository.DesiredSkillsRepository;
 import ru.urfu.mm.persistance.repository.SkillRepository;
 import ru.urfu.mm.persistance.repository.StudentSkillRepository;
+import ru.urfu.mm.service.mapper.AccountMapper;
 import ru.urfu.mm.service.mapper.Mapper;
 
 import java.util.List;
@@ -21,14 +22,14 @@ public class SkillGatewayImpl implements SkillGateway {
     private final SkillRepository skillRepository;
     private final StudentSkillRepository studentSkillRepository;
     private final DesiredSkillsRepository desiredSkillsRepository;
-    private final Mapper<Account, AccountEntity> userMapper;
+    private final AccountMapper userMapper;
 
     @Autowired
     public SkillGatewayImpl(
             SkillRepository skillRepository,
             StudentSkillRepository studentSkillRepository,
             DesiredSkillsRepository desiredSkillsRepository,
-            Mapper<Account, AccountEntity> userMapper) {
+            AccountMapper userMapper) {
         this.skillRepository = skillRepository;
         this.studentSkillRepository = studentSkillRepository;
         this.desiredSkillsRepository = desiredSkillsRepository;

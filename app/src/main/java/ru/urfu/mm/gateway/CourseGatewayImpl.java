@@ -16,6 +16,7 @@ import ru.urfu.mm.persistance.entity.enums.Control;
 import ru.urfu.mm.persistance.repository.EducationalProgramToCoursesWithSemestersRepository;
 import ru.urfu.mm.persistance.repository.SelectedCoursesRepository;
 import ru.urfu.mm.persistance.repository.SpecialCourseRepository;
+import ru.urfu.mm.service.mapper.AccountMapper;
 import ru.urfu.mm.service.mapper.Mapper;
 
 import java.util.List;
@@ -26,14 +27,14 @@ public class CourseGatewayImpl implements CourseGateway {
     private final SpecialCourseRepository courseRepository;
     private final SelectedCoursesRepository selectedCoursesRepository;
     private final EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository;
-    private final Mapper<Account, AccountEntity> userMapper;
+    private final AccountMapper userMapper;
 
     @Autowired
     public CourseGatewayImpl(
             SpecialCourseRepository courseRepository,
             SelectedCoursesRepository selectedCoursesRepository,
             EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository,
-            Mapper<Account, AccountEntity> userMapper) {
+            AccountMapper userMapper) {
         this.courseRepository = courseRepository;
         this.selectedCoursesRepository = selectedCoursesRepository;
         this.educationalProgramToCoursesWithSemestersRepository = educationalProgramToCoursesWithSemestersRepository;

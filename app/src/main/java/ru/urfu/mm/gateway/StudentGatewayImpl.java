@@ -14,6 +14,7 @@ import ru.urfu.mm.persistance.entity.enums.UserEntityRole;
 import ru.urfu.mm.persistance.entity.enums.Years;
 import ru.urfu.mm.persistance.repository.GroupRepository;
 import ru.urfu.mm.persistance.repository.StudentRepository;
+import ru.urfu.mm.service.mapper.AccountMapper;
 import ru.urfu.mm.service.mapper.Mapper;
 
 import java.util.List;
@@ -24,13 +25,13 @@ import java.util.UUID;
 public class StudentGatewayImpl implements StudentGateway {
     private final StudentRepository studentRepository;
     private final GroupRepository groupRepository;
-    private final Mapper<Account, AccountEntity> userMapper;
+    private final AccountMapper userMapper;
 
     @Autowired
     public StudentGatewayImpl(
             StudentRepository studentRepository,
             GroupRepository groupRepository,
-            Mapper<Account, AccountEntity> userMapper) {
+            AccountMapper userMapper) {
         this.studentRepository = studentRepository;
         this.groupRepository = groupRepository;
         this.userMapper = userMapper;

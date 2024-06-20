@@ -6,6 +6,7 @@ import ru.urfu.mm.domain.Account;
 import ru.urfu.mm.persistance.entity.*;
 import ru.urfu.mm.persistance.entity.enums.SkillLevel;
 import ru.urfu.mm.persistance.entity.enums.Years;
+import ru.urfu.mm.service.mapper.AccountMapper;
 import ru.urfu.mm.service.mapper.Mapper;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class SkillsService {
 //    @Autowired
 //    private GetSkillsForStudent getSkillsForStudent;
     @Autowired
-    private Mapper<Account, AccountEntity> userMapper;
+    private AccountMapper userMapper;
 
 //    public List<StudentSkills> getSkillsForStudent(UUID studentId) {
 //        return getSkillsForStudent
