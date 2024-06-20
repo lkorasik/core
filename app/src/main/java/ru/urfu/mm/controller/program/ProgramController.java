@@ -51,9 +51,8 @@ public class ProgramController extends AbstractAuthorizedController {
 
     @GetMapping(Endpoints.Program.PROGRAM)
     public FullProgramDTO getEducationalProgram(@RequestParam("id") UUID programId) throws JsonProcessingException {
-        throw new NotImplementedException();
-//        EducationalProgram educationalProgram = getProgramById.getProgramById(programId);
-//        return new FullProgramDTO(educationalProgram.getId(), educationalProgram.getName(), educationalProgram.getTrainingDirection());
+        EducationalProgram educationalProgram = getProgramById.getProgramById(programId);
+        return new FullProgramDTO(educationalProgram.getId(), educationalProgram.getName(), educationalProgram.getTrainingDirection());
     }
 
     @PutMapping(Endpoints.Program.PROGRAM)

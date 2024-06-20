@@ -36,13 +36,9 @@ public class ProgramGatewayImpl implements ProgramGateway {
 
     @Override
     public EducationalProgram getById(UUID id) {
+        EducationalProgramEntity educationalProgramEntity = programRepository.getReferenceById(id);
+        EducationalProgram program = programMapper.toDomain(educationalProgramEntity);
         throw new NotImplementedException();
-//        EducationalProgramEntity educationalProgramEntity = programRepository.getReferenceById(id);
-//        EducationalProgram program = new EducationalProgram(
-//                educationalProgramEntity.getId(),
-//                educationalProgramEntity.getName(),
-//                educationalProgramEntity.getTrainingDirection()
-//        );
 //        List<AcademicGroup> groups = educationalProgramEntity.getGroups()
 //                .stream()
 //                .map(x -> new AcademicGroup(x.getId(), x.getNumber()))
