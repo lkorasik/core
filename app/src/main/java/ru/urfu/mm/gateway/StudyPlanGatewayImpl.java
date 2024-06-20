@@ -37,55 +37,56 @@ public class StudyPlanGatewayImpl implements StudyPlanGateway {
 
     @Override
     public void save(StudentSyllabus studentSyllabus, EducationalProgram educationalProgram) {
-        Semester firstSemesterEntity = semesterRepository
-                .findById(studentSyllabus.getFirstSemesterPlan().getSemester().getId())
-                .get();
-        Semester secondSemesterEntity = semesterRepository
-                .findById(studentSyllabus.getSecondSemesterPlan().getSemester().getId())
-                .get();
-        Semester thirdSemesterEntity = semesterRepository
-                .findById(studentSyllabus.getThirdSemesterPlan().getSemester().getId())
-                .get();
-        Semester fourthSemesterEntity = semesterRepository
-                .findById(studentSyllabus.getFourthSemesterPlan().getSemester().getId())
-                .get();
+        throw new ru.urfu.mm.application.exception.NotImplementedException();
+//        Semester firstSemesterEntity = semesterRepository
+//                .findById(studentSyllabus.getFirstSemesterPlan().getSemester().getId())
+//                .get();
+//        Semester secondSemesterEntity = semesterRepository
+//                .findById(studentSyllabus.getSecondSemesterPlan().getSemester().getId())
+//                .get();
+//        Semester thirdSemesterEntity = semesterRepository
+//                .findById(studentSyllabus.getThirdSemesterPlan().getSemester().getId())
+//                .get();
+//        Semester fourthSemesterEntity = semesterRepository
+//                .findById(studentSyllabus.getFourthSemesterPlan().getSemester().getId())
+//                .get();
+//
+//        SemesterPlanEntity firstSemesterPlanEntity = new SemesterPlanEntity(
+//                studentSyllabus.getFirstSemesterPlan().getId(),
+//                firstSemesterEntity,
+//                studentSyllabus.getFirstSemesterPlan().getRecommendedCredits()
+//        );
+//        SemesterPlanEntity secondSemesterPlanEntity = new SemesterPlanEntity(
+//                studentSyllabus.getSecondSemesterPlan().getId(),
+//                secondSemesterEntity,
+//                studentSyllabus.getSecondSemesterPlan().getRecommendedCredits()
+//        );
+//        SemesterPlanEntity thirdSemesterPlanEntity = new SemesterPlanEntity(
+//                studentSyllabus.getThirdSemesterPlan().getId(),
+//                thirdSemesterEntity,
+//                studentSyllabus.getThirdSemesterPlan().getRecommendedCredits()
+//        );
+//        SemesterPlanEntity fourthSemesterPlanEntity = new SemesterPlanEntity(
+//                studentSyllabus.getFourthSemesterPlan().getId(),
+//                fourthSemesterEntity,
+//                studentSyllabus.getFourthSemesterPlan().getRecommendedCredits()
+//        );
+//
+//        SyllabusEntity syllabusEntity = new SyllabusEntity(
+//                UUID.randomUUID(),
+//                firstSemesterPlanEntity,
+//                secondSemesterPlanEntity,
+//                thirdSemesterPlanEntity,
+//                fourthSemesterPlanEntity,
+//                programRepository.findById(educationalProgram.getId()).get()
+//        );
+//
+//        semesterPlanRepository.save(firstSemesterPlanEntity);
+//        semesterPlanRepository.save(secondSemesterPlanEntity);
+//        semesterPlanRepository.save(thirdSemesterPlanEntity);
+//        semesterPlanRepository.save(fourthSemesterPlanEntity);
 
-        SemesterPlanEntity firstSemesterPlanEntity = new SemesterPlanEntity(
-                studentSyllabus.getFirstSemesterPlan().getId(),
-                firstSemesterEntity,
-                studentSyllabus.getFirstSemesterPlan().getRecommendedCredits()
-        );
-        SemesterPlanEntity secondSemesterPlanEntity = new SemesterPlanEntity(
-                studentSyllabus.getSecondSemesterPlan().getId(),
-                secondSemesterEntity,
-                studentSyllabus.getSecondSemesterPlan().getRecommendedCredits()
-        );
-        SemesterPlanEntity thirdSemesterPlanEntity = new SemesterPlanEntity(
-                studentSyllabus.getThirdSemesterPlan().getId(),
-                thirdSemesterEntity,
-                studentSyllabus.getThirdSemesterPlan().getRecommendedCredits()
-        );
-        SemesterPlanEntity fourthSemesterPlanEntity = new SemesterPlanEntity(
-                studentSyllabus.getFourthSemesterPlan().getId(),
-                fourthSemesterEntity,
-                studentSyllabus.getFourthSemesterPlan().getRecommendedCredits()
-        );
-
-        SyllabusEntity syllabusEntity = new SyllabusEntity(
-                UUID.randomUUID(),
-                firstSemesterPlanEntity,
-                secondSemesterPlanEntity,
-                thirdSemesterPlanEntity,
-                fourthSemesterPlanEntity,
-                programRepository.findById(educationalProgram.getId()).get()
-        );
-
-        semesterPlanRepository.save(firstSemesterPlanEntity);
-        semesterPlanRepository.save(secondSemesterPlanEntity);
-        semesterPlanRepository.save(thirdSemesterPlanEntity);
-        semesterPlanRepository.save(fourthSemesterPlanEntity);
-
-        studyPlanRepository.save(syllabusEntity);
+//        studyPlanRepository.save(syllabusEntity);
     }
 
     @Override

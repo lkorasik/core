@@ -28,11 +28,12 @@ public class SkillsController extends AbstractAuthorizedController {
 
     @GetMapping
     public List<SkillInfoDTO> getSkills() {
-        return getSkills
-                .getSkills()
-                .stream()
-                .map(x -> new SkillInfoDTO(x.getId(), x.getName()))
-                .toList();
+        throw new ru.urfu.mm.application.exception.NotImplementedException();
+//        return getSkills
+//                .getSkills()
+//                .stream()
+//                .map(x -> new SkillInfoDTO(x.getId(), x.getName()))
+//                .toList();
     }
 
     @GetMapping(Endpoints.Skill.ACTUAL)

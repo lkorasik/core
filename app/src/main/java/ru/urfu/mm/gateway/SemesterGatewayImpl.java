@@ -2,6 +2,7 @@ package ru.urfu.mm.gateway;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ru.urfu.mm.application.exception.NotImplementedException;
 import ru.urfu.mm.application.gateway.SemesterGateway;
 import ru.urfu.mm.domain.Semester;
 import ru.urfu.mm.persistance.entity.enums.SemesterType;
@@ -22,20 +23,21 @@ public class SemesterGatewayImpl implements SemesterGateway {
 
     @Override
     public void save(Semester semester) {
-        ru.urfu.mm.persistance.entity.Semester entity;
-        if (semester.getId() != null) {
-            entity = new ru.urfu.mm.persistance.entity.Semester(
-                    semester.getId(),
-                    semester.getYear(),
-                    SemesterType.fromDomain(semester.getType())
-            );
-        } else {
-            entity = new ru.urfu.mm.persistance.entity.Semester(
-                    semester.getYear(),
-                    SemesterType.fromDomain(semester.getType())
-            );
-        }
-        semesterRepository.save(entity);
+        throw new NotImplementedException();
+//        ru.urfu.mm.persistance.entity.Semester entity;
+//        if (semester.getId() != null) {
+//            entity = new ru.urfu.mm.persistance.entity.Semester(
+//                    semester.getId(),
+//                    semester.getYear(),
+//                    SemesterType.fromDomain(semester.getType())
+//            );
+//        } else {
+//            entity = new ru.urfu.mm.persistance.entity.Semester(
+//                    semester.getYear(),
+//                    SemesterType.fromDomain(semester.getType())
+//            );
+//        }
+//        semesterRepository.save(entity);
     }
 
     @Override

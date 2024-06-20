@@ -2,6 +2,7 @@ package ru.urfu.mm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.urfu.mm.application.exception.NotImplementedException;
 import ru.urfu.mm.application.usecase.CourseForEducationalProgram;
 import ru.urfu.mm.controller.recommendation.*;
 import ru.urfu.mm.persistance.entity.StudentEntity;
@@ -342,26 +343,27 @@ public class RecommendationsService {
     private RecommendedCourseDTO buildRecommendedCourse(
             Map<UUID, CourseForEducationalProgram> coursesById,
             CourseWithSkills courseWithSkills) {
-        var course = coursesById.get(courseWithSkills.courseId);
-        return new RecommendedCourseDTO(
-                courseWithSkills.courseId,
-                course.getName(),
-                course.getCreditsCount(),
-                course.getSemesters().stream()
-                        // todo: fix this
-                        .map(x -> new SemesterDTO(x.getId(), x.getYear(), 0))
-                        .toList(),
-                course.getEducationalModuleId(),
-                course.requiredSemesterId,
-                courseWithSkills.requiredSkills
-                        .stream()
-                        .map(x -> new SkillDTO(x.getId(), x.getSkill().getName(), x.getLevel()))
-                        .toList(),
-                courseWithSkills.requiredSkills
-                        .stream()
-                        .map(x -> new SkillDTO(x.getId(), x.getSkill().getName(), x.getLevel()))
-                        .toList()
-        );
+        throw new NotImplementedException();
+//        var course = coursesById.get(courseWithSkills.courseId);
+//        return new RecommendedCourseDTO(
+//                courseWithSkills.courseId,
+//                course.getName(),
+//                course.getCreditsCount(),
+//                course.getSemesters().stream()
+//                         todo: fix this
+//                        .map(x -> new SemesterDTO(x.getId(), x.getYear(), 0))
+//                        .toList(),
+//                course.getEducationalModuleId(),
+//                course.requiredSemesterId,
+//                courseWithSkills.requiredSkills
+//                        .stream()
+//                        .map(x -> new SkillDTO(x.getId(), x.getSkill().getName(), x.getLevel()))
+//                        .toList(),
+//                courseWithSkills.requiredSkills
+//                        .stream()
+//                        .map(x -> new SkillDTO(x.getId(), x.getSkill().getName(), x.getLevel()))
+//                        .toList()
+//        );
     }
 
     private static class CourseWithSkills {

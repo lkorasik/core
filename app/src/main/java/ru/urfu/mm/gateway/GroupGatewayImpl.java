@@ -2,6 +2,7 @@ package ru.urfu.mm.gateway;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ru.urfu.mm.application.exception.NotImplementedException;
 import ru.urfu.mm.application.gateway.GroupGateway;
 import ru.urfu.mm.domain.AcademicGroup;
 import ru.urfu.mm.domain.Account;
@@ -29,35 +30,38 @@ public class GroupGatewayImpl implements GroupGateway {
 
     @Override
     public void save(AcademicGroup academicGroup) {
-        GroupEntity entity = new GroupEntity(academicGroup.getId(), academicGroup.getNumber(), Years.fromDomain(academicGroup.getYear()));
-        groupRepository.save(entity);
+        throw new NotImplementedException();
+//        GroupEntity entity = new GroupEntity(academicGroup.getId(), academicGroup.getNumber(), Years.fromDomain(academicGroup.getYear()));
+//        groupRepository.save(entity);
     }
 
     @Override
     public Optional<AcademicGroup> findById(UUID groupId) {
-        GroupEntity entity = groupRepository.findById(groupId).get();
-        AcademicGroup academicGroup = new AcademicGroup(
-                entity.getId(),
-                entity.getNumber(),
-                ru.urfu.mm.domain.enums.Years.values()[entity.getYear().ordinal()]
-        );
-        List<Student> students = entity.getStudents()
-                .stream()
-                .map(x -> {
-                    Account account = null;
-                    if (x.getUser() != null) {
-                        account = new Account(x.getUser().getLogin(), x.getUser().getPassword(), UserRole.values()[x.getUser().getRole().ordinal()]);
-                    }
-                    return new Student(x.getId(), account, null, null);
-                })
-                .toList();
-        academicGroup.getStudents().addAll(students);
-        return Optional.of(academicGroup);
+        throw new NotImplementedException();
+//        GroupEntity entity = groupRepository.findById(groupId).get();
+//        AcademicGroup academicGroup = new AcademicGroup(
+//                entity.getId(),
+//                entity.getNumber(),
+//                ru.urfu.mm.domain.enums.Years.values()[entity.getYear().ordinal()]
+//        );
+//        List<Student> students = entity.getStudents()
+//                .stream()
+//                .map(x -> {
+//                    Account account = null;
+//                    if (x.getUser() != null) {
+//                        account = new Account(x.getUser().getLogin(), x.getUser().getPassword(), UserRole.values()[x.getUser().getRole().ordinal()]);
+//                    }
+//                    return new Student(x.getId(), account, null, null);
+//                })
+//                .toList();
+//        academicGroup.getStudents().addAll(students);
+//        return Optional.of(academicGroup);
     }
 
     @Override
     public AcademicGroup findByStudent(Student student) {
-        GroupEntity entity = studentRepository.findById(student.getId()).get().getGroup();
-        return new AcademicGroup(entity.getId(), entity.getNumber(), Years.toDomain(entity.getYear()));
+        throw new NotImplementedException();
+//        GroupEntity entity = studentRepository.findById(student.getId()).get().getGroup();
+//        return new AcademicGroup(entity.getId(), entity.getNumber(), Years.toDomain(entity.getYear()));
     }
 }

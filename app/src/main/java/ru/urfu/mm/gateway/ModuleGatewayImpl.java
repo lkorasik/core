@@ -1,6 +1,7 @@
 package ru.urfu.mm.gateway;
 
 import org.springframework.stereotype.Component;
+import ru.urfu.mm.application.exception.NotImplementedException;
 import ru.urfu.mm.application.gateway.ModuleGateway;
 import ru.urfu.mm.domain.Course;
 import ru.urfu.mm.domain.EducationalModule;
@@ -23,77 +24,83 @@ public class ModuleGatewayImpl implements ModuleGateway {
 
     @Override
     public EducationalModule find(UUID moduleId) {
-        EducationalModuleEntity entity = educationalModuleRepository.findById(moduleId).get();
-        return new EducationalModule(
-                entity.getId(),
-                entity.getName()
-        );
+        throw new NotImplementedException();
+//        EducationalModuleEntity entity = educationalModuleRepository.findById(moduleId).get();
+//        return new EducationalModule(
+//                entity.getId(),
+//                entity.getName()
+//        );
     }
 
     @Override
     public Optional<EducationalModule> getById(UUID moduleId) {
-        return educationalModuleRepository.findById(moduleId)
-                .map(x -> {
-                    List<Course> courses = x.getCourses()
-                            .stream()
-                            .map(y -> new Course(
-                                    y.getId(),
-                                    y.getName(),
-                                    y.getCreditsCount(),
-                                    ControlTypes.values()[y.getControl().ordinal()],
-                                    y.getDepartment(),
-                                    y.getTeacherName())
-                            )
-                            .toList();
-                    EducationalModule module = new EducationalModule(x.getId(), x.getName());
-                    courses.forEach(module::addCourse);
-                    return module;
-                });
+        throw new NotImplementedException();
+//        return educationalModuleRepository.findById(moduleId)
+//                .map(x -> {
+//                    List<Course> courses = x.getCourses()
+//                            .stream()
+//                            .map(y -> new Course(
+//                                    y.getId(),
+//                                    y.getName(),
+//                                    y.getCreditsCount(),
+//                                    ControlTypes.values()[y.getControl().ordinal()],
+//                                    y.getDepartment(),
+//                                    y.getTeacherName())
+//                            )
+//                            .toList();
+//                    EducationalModule module = new EducationalModule(x.getId(), x.getName());
+//                    courses.forEach(module::addCourse);
+//                    return module;
+//                });
     }
 
     @Override
     public List<EducationalModule> getAllModules() {
-        return educationalModuleRepository
-                .findAll()
-                .stream()
-                .map(x -> {
-                    List<Course> courses = x.getCourses()
-                            .stream()
-                            .map(y -> new Course(
-                                            y.getId(),
-                                            y.getName(),
-                                            y.getCreditsCount(),
-                                            Control.toDomain(y.getControl()),
-                                            y.getDepartment(),
-                                            y.getTeacherName()
-                                    )
-                            )
-                            .toList();
-                    EducationalModule module = new EducationalModule(x.getId(), x.getName());
-                    module.getCourses().addAll(courses);
-                    return module;
-                })
-                .toList();
+        throw new NotImplementedException();
+//        return educationalModuleRepository
+//                .findAll()
+//                .stream()
+//                .map(x -> {
+//                    List<Course> courses = x.getCourses()
+//                            .stream()
+//                            .map(y -> new Course(
+//                                            y.getId(),
+//                                            y.getName(),
+//                                            y.getCreditsCount(),
+//                                            Control.toDomain(y.getControl()),
+//                                            y.getDepartment(),
+//                                            y.getTeacherName()
+//                                    )
+//                            )
+//                            .toList();
+//                    EducationalModule module = new EducationalModule(x.getId(), x.getName());
+//                    module.getCourses().addAll(courses);
+//                    return module;
+//                })
+//                .toList();
     }
 
     @Override
     public List<EducationalModule> getModulesByIds(List<UUID> modulesIds) {
-        return educationalModuleRepository
-                .findAll()
-                .stream()
-                .filter(x -> modulesIds.contains(x.getId()))
-                .map(x -> new EducationalModule(x.getId(), x.getName()))
-                .toList();
+        throw new NotImplementedException();
+//        return educationalModuleRepository
+//                .findAll()
+//                .stream()
+//                .filter(x -> modulesIds.contains(x.getId()))
+//                .map(x -> new EducationalModule(x.getId(), x.getName()))
+//                .toList();
     }
 
     @Override
     public void save(EducationalModule educationalModule) {
-        EducationalModuleEntity entity = new EducationalModuleEntity(educationalModule.getId(), educationalModule.getName());
-        educationalModuleRepository.save(entity);
+        throw new NotImplementedException();
+//        EducationalModuleEntity entity = new EducationalModuleEntity(educationalModule.getId(), educationalModule.getName());
+//        educationalModuleRepository.save(entity);
     }
 
     @Override
     public void delete(EducationalModule educationalModule) {
-        educationalModuleRepository.deleteById(educationalModule.getId());
+        throw new NotImplementedException();
+//        educationalModuleRepository.deleteById(educationalModule.getId());
     }
 }

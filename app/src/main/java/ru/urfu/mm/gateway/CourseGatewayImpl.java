@@ -97,17 +97,18 @@ public class CourseGatewayImpl implements CourseGateway {
 
     @Override
     public void save(EducationalModule module, Course specialCourse) {
-        SpecialCourse entity = new SpecialCourse(
-                specialCourse.getId(),
-                specialCourse.getName(),
-                specialCourse.getCredits(),
-                Control.fromDomain(specialCourse.getControl()),
-                specialCourse.getDescription(),
-                specialCourse.getDepartment(),
-                specialCourse.getTeacher(),
-                new EducationalModuleEntity(module.getId(), module.getName())
-        );
-        courseRepository.save(entity);
+        throw new ru.urfu.mm.application.exception.NotImplementedException();
+//        SpecialCourse entity = new SpecialCourse(
+//                specialCourse.getId(),
+//                specialCourse.getName(),
+//                specialCourse.getCredits(),
+//                Control.fromDomain(specialCourse.getControl()),
+//                specialCourse.getDescription(),
+//                specialCourse.getDepartment(),
+//                specialCourse.getTeacher(),
+//                new EducationalModuleEntity(module.getId(), module.getName())
+//        );
+//        courseRepository.save(entity);
     }
 
     @Override

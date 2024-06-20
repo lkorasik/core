@@ -5,6 +5,7 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.urfu.mm.application.exception.NotImplementedException;
 import ru.urfu.mm.application.usecase.create_group.CreateGroup;
 import ru.urfu.mm.application.usecase.download_tokens.DownloadTokens;
 import ru.urfu.mm.application.usecase.download_tokens.DownloadTokensRequest;
@@ -26,8 +27,8 @@ import java.util.UUID;
 public class GroupController extends AbstractAuthorizedController {
     @Autowired
     private GetGroupsByEducationalProgram getGroupsByEducationalProgram;
-    @Autowired
-    private CreateGroup createGroup;
+//    @Autowired
+//    private CreateGroup createGroup;
     @Autowired
     private GetAcademicGroup getAcademicGroup;
     @Autowired
@@ -47,13 +48,15 @@ public class GroupController extends AbstractAuthorizedController {
 
     @PostMapping(Endpoints.Group.GROUP)
     public void createGroup(@RequestBody CreateGroupDTO dto) {
-        createGroup.createGroup(dto.toRequest());
+        throw new NotImplementedException();
+//        createGroup.createGroup(dto.toRequest());
     }
 
     @GetMapping(Endpoints.Group.GROUP_BY_ID)
     public GroupDTO getGroup(@RequestParam("groupId") UUID groupId) {
-        AcademicGroup academicGroup = getAcademicGroup.getGroup(groupId);
-        return new GroupDTO(academicGroup.getId(), academicGroup.getNumber());
+        throw new NotImplementedException();
+//        AcademicGroup academicGroup = getAcademicGroup.getGroup(groupId);
+//        return new GroupDTO(academicGroup.getId(), academicGroup.getNumber());
     }
 
     @PostMapping(Endpoints.Group.TOKEN)

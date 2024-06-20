@@ -13,7 +13,7 @@ import ru.urfu.mm.application.usecase.create_course.CreateCourse;
 import ru.urfu.mm.application.usecase.create_group.CreateGroup;
 import ru.urfu.mm.application.usecase.create_educational_program.CreateEducationalProgram;
 import ru.urfu.mm.application.usecase.create_module.CreateModule;
-import ru.urfu.mm.application.usecase.create_semester_plan.CreateSemesterPlan;
+//import ru.urfu.mm.application.usecase.create_semester_plan.CreateSemesterPlan;
 import ru.urfu.mm.application.usecase.create_study_plan.CreateStudyPlan;
 import ru.urfu.mm.application.usecase.download_tokens.DownloadTokens;
 //import ru.urfu.mm.application.usecase.generate_token.GenerateStudentRegistrationTokens;
@@ -223,14 +223,14 @@ public class UseCaseConfiguration {
         return new GetGroupsByEducationalProgram(programGateway);
     }
 
-    @Bean
-    public CreateGroup createGroup(
-            GroupGateway groupGateway,
-            ProgramGateway programGateway,
-            SemesterGateway semesterGateway,
-            CreateStudyPlan createStudyPlan) {
-        return new CreateGroup(groupGateway, programGateway, semesterGateway, createStudyPlan);
-    }
+//    @Bean
+//    public CreateGroup createGroup(
+//            GroupGateway groupGateway,
+//            ProgramGateway programGateway,
+//            SemesterGateway semesterGateway,
+//            CreateStudyPlan createStudyPlan) {
+//        return new CreateGroup(groupGateway, programGateway, semesterGateway, createStudyPlan);
+//    }
 
     @Bean
     public GetAcademicGroup getAcademicGroup(GroupGateway groupGateway) {
@@ -265,24 +265,24 @@ public class UseCaseConfiguration {
         return new GetProgramById(programGateway);
     }
 
-    @Bean
-    public CreateStudyPlan createStudyPlan(
-            SemesterGateway semesterGateway,
-            StudyPlanGateway studyPlanGateway,
-            ProgramGateway programGateway,
-            CreateSemesterPlan createSemesterPlan) {
-        return new CreateStudyPlan(semesterGateway, studyPlanGateway, programGateway, createSemesterPlan);
-    }
+//    @Bean
+//    public CreateStudyPlan createStudyPlan(
+//            SemesterGateway semesterGateway,
+//            StudyPlanGateway studyPlanGateway,
+//            ProgramGateway programGateway,
+//            CreateSemesterPlan createSemesterPlan) {
+//        return new CreateStudyPlan(semesterGateway, studyPlanGateway, programGateway, createSemesterPlan);
+//    }
 
     @Bean
     public UpdateProgram updateProgram(ProgramGateway programGateway) {
         return new UpdateProgram(programGateway);
     }
 
-    @Bean
-    public CreateSemesterPlan createSemesterPlan(SemesterPlanGateway semesterPlanGateway) {
-        return new CreateSemesterPlan(semesterPlanGateway);
-    }
+//    @Bean
+//    public CreateSemesterPlan createSemesterPlan(SemesterPlanGateway semesterPlanGateway) {
+//        return new CreateSemesterPlan(semesterPlanGateway);
+//    }
 
     @Bean
     public GetAvailableYears getAvailableYears(ProgramGateway programGateway) {

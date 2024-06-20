@@ -3,6 +3,7 @@ package ru.urfu.mm.controller.program;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ru.urfu.mm.application.exception.NotImplementedException;
 import ru.urfu.mm.application.usecase.create_educational_program.CreateEducationalProgram;
 import ru.urfu.mm.application.usecase.create_educational_program.CreateProgramRequest;
 import ru.urfu.mm.application.usecase.get_all_programs.GetAllPrograms;
@@ -50,8 +51,9 @@ public class ProgramController extends AbstractAuthorizedController {
 
     @GetMapping(Endpoints.Program.PROGRAM)
     public FullProgramDTO getEducationalProgram(@RequestParam("id") UUID programId) throws JsonProcessingException {
-        EducationalProgram educationalProgram = getProgramById.getProgramById(programId);
-        return new FullProgramDTO(educationalProgram.getId(), educationalProgram.getName(), educationalProgram.getTrainingDirection());
+        throw new NotImplementedException();
+//        EducationalProgram educationalProgram = getProgramById.getProgramById(programId);
+//        return new FullProgramDTO(educationalProgram.getId(), educationalProgram.getName(), educationalProgram.getTrainingDirection());
     }
 
     @PutMapping(Endpoints.Program.PROGRAM)

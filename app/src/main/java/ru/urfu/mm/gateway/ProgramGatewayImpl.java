@@ -2,6 +2,7 @@ package ru.urfu.mm.gateway;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ru.urfu.mm.application.exception.NotImplementedException;
 import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.domain.*;
 import ru.urfu.mm.persistance.entity.EducationalProgramEntity;
@@ -37,62 +38,63 @@ public class ProgramGatewayImpl implements ProgramGateway {
 
     @Override
     public EducationalProgram getById(UUID id) {
-        EducationalProgramEntity educationalProgramEntity = programRepository.getReferenceById(id);
-        EducationalProgram program = new EducationalProgram(
-                educationalProgramEntity.getId(),
-                educationalProgramEntity.getName(),
-                educationalProgramEntity.getTrainingDirection()
-        );
-        List<AcademicGroup> groups = educationalProgramEntity.getGroups()
-                .stream()
-                .map(x -> new AcademicGroup(x.getId(), x.getNumber()))
-                .toList();
-        program.getGroups().addAll(groups);
-        List<StudentSyllabus> studentSyllabi = educationalProgramEntity.getSyllabuses()
-                .stream()
-                .map(x -> new StudentSyllabus(
-                                x.getId(),
-                                new SemesterPlan(
-                                        x.getFirstSemester().getId(),
-                                        new Semester(
-                                                x.getFirstSemester().getSemester().getId(),
-                                                x.getFirstSemester().getSemester().getYear(),
-                                                SemesterType.toDomain(x.getFirstSemester().getSemester().getType())
-                                        ),
-                                        x.getFirstSemester().getRecommendedCredits()
-                                ),
-                                new SemesterPlan(
-                                        x.getSecondSemester().getId(),
-                                        new Semester(
-                                                x.getSecondSemester().getSemester().getId(),
-                                                x.getSecondSemester().getSemester().getYear(),
-                                                SemesterType.toDomain(x.getSecondSemester().getSemester().getType())
-                                        ),
-                                        x.getSecondSemester().getRecommendedCredits()
-                                ),
-                                new SemesterPlan(
-                                        x.getThirdSemester().getId(),
-                                        new Semester(
-                                                x.getThirdSemester().getSemester().getId(),
-                                                x.getThirdSemester().getSemester().getYear(),
-                                                SemesterType.toDomain(x.getThirdSemester().getSemester().getType())
-                                        ),
-                                        x.getThirdSemester().getRecommendedCredits()
-                                ),
-                                new SemesterPlan(
-                                        x.getFourthSemester().getId(),
-                                        new Semester(
-                                                x.getFourthSemester().getSemester().getId(),
-                                                x.getFourthSemester().getSemester().getYear(),
-                                                SemesterType.toDomain(x.getFourthSemester().getSemester().getType())
-                                        ),
-                                        x.getFourthSemester().getRecommendedCredits()
-                                )
-                        )
-                )
-                .toList();
-        program.getSyllabi().addAll(studentSyllabi);
-        return program;
+        throw new NotImplementedException();
+//        EducationalProgramEntity educationalProgramEntity = programRepository.getReferenceById(id);
+//        EducationalProgram program = new EducationalProgram(
+//                educationalProgramEntity.getId(),
+//                educationalProgramEntity.getName(),
+//                educationalProgramEntity.getTrainingDirection()
+//        );
+//        List<AcademicGroup> groups = educationalProgramEntity.getGroups()
+//                .stream()
+//                .map(x -> new AcademicGroup(x.getId(), x.getNumber()))
+//                .toList();
+//        program.getGroups().addAll(groups);
+//        List<StudentSyllabus> studentSyllabi = educationalProgramEntity.getSyllabuses()
+//                .stream()
+//                .map(x -> new StudentSyllabus(
+//                                x.getId(),
+//                                new SemesterPlan(
+//                                        x.getFirstSemester().getId(),
+//                                        new Semester(
+//                                                x.getFirstSemester().getSemester().getId(),
+//                                                x.getFirstSemester().getSemester().getYear(),
+//                                                SemesterType.toDomain(x.getFirstSemester().getSemester().getType())
+//                                        ),
+//                                        x.getFirstSemester().getRecommendedCredits()
+//                                ),
+//                                new SemesterPlan(
+//                                        x.getSecondSemester().getId(),
+//                                        new Semester(
+//                                                x.getSecondSemester().getSemester().getId(),
+//                                                x.getSecondSemester().getSemester().getYear(),
+//                                                SemesterType.toDomain(x.getSecondSemester().getSemester().getType())
+//                                        ),
+//                                        x.getSecondSemester().getRecommendedCredits()
+//                                ),
+//                                new SemesterPlan(
+//                                        x.getThirdSemester().getId(),
+//                                        new Semester(
+//                                                x.getThirdSemester().getSemester().getId(),
+//                                                x.getThirdSemester().getSemester().getYear(),
+//                                                SemesterType.toDomain(x.getThirdSemester().getSemester().getType())
+//                                        ),
+//                                        x.getThirdSemester().getRecommendedCredits()
+//                                ),
+//                                new SemesterPlan(
+//                                        x.getFourthSemester().getId(),
+//                                        new Semester(
+//                                                x.getFourthSemester().getSemester().getId(),
+//                                                x.getFourthSemester().getSemester().getYear(),
+//                                                SemesterType.toDomain(x.getFourthSemester().getSemester().getType())
+//                                        ),
+//                                        x.getFourthSemester().getRecommendedCredits()
+//                                )
+//                        )
+//                )
+//                .toList();
+//        program.getSyllabi().addAll(studentSyllabi);
+//        return program;
     }
 
     @Override
@@ -117,21 +119,23 @@ public class ProgramGatewayImpl implements ProgramGateway {
 
     @Override
     public void save(EducationalProgram educationalProgram) {
-        EducationalProgramEntity entity = new EducationalProgramEntity(
-                educationalProgram.getId(),
-                educationalProgram.getName(),
-                educationalProgram.getTrainingDirection()
-        );
-        Iterable<GroupEntity> groups = groupRepository
-                .findAllById(educationalProgram.getGroups().stream().map(AcademicGroup::getId).toList());
-        groups.forEach(group -> group.setProgram(entity));
-        groupRepository.saveAll(groups);
-        programRepository.save(entity);
+        throw new NotImplementedException();
+//        EducationalProgramEntity entity = new EducationalProgramEntity(
+//                educationalProgram.getId(),
+//                educationalProgram.getName(),
+//                educationalProgram.getTrainingDirection()
+//        );
+//        Iterable<GroupEntity> groups = groupRepository
+//                .findAllById(educationalProgram.getGroups().stream().map(AcademicGroup::getId).toList());
+//        groups.forEach(group -> group.setProgram(entity));
+//        groupRepository.saveAll(groups);
+//        programRepository.save(entity);
     }
 
     public Optional<EducationalProgram> findByGroup(AcademicGroup academicGroup) {
-        return groupRepository.findById(academicGroup.getId())
-                .map(GroupEntity::getProgram)
-                .map(x -> new EducationalProgram(x.getId(), x.getName(), x.getTrainingDirection()));
+        throw new NotImplementedException();
+//        return groupRepository.findById(academicGroup.getId())
+//                .map(GroupEntity::getProgram)
+//                .map(x -> new EducationalProgram(x.getId(), x.getName(), x.getTrainingDirection()));
     }
 }

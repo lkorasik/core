@@ -17,17 +17,17 @@ public class SemesterPlanGatewayImpl implements SemesterPlanGateway {
         this.semesterPlanRepository = semesterPlanRepository;
     }
 
-    @Override
-    public void save(SemesterPlan semesterPlan) {
-        SemesterPlanEntity entity = new SemesterPlanEntity(
-                semesterPlan.getId(),
-                new Semester(
-                        semesterPlan.getSemester().getId(),
-                        semesterPlan.getSemester().getYear(),
-                        SemesterType.fromDomain(semesterPlan.getSemester().getType())
-                ),
-                semesterPlan.getRecommendedCredits()
-        );
-        semesterPlanRepository.save(entity);
-    }
+//    @Override
+//    public void save(SemesterPlan semesterPlan) {
+//        SemesterPlanEntity entity = new SemesterPlanEntity(
+//                semesterPlan.getId(),
+//                new Semester(
+//                        semesterPlan.getSemester().getId(),
+//                        semesterPlan.getSemester().getYear(),
+//                        SemesterType.fromDomain(semesterPlan.getSemester().getType())
+//                ),
+//                semesterPlan.getRecommendedCredits()
+//        );
+//        semesterPlanRepository.save(entity);
+//    }
 }
