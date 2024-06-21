@@ -11,7 +11,6 @@ import ru.urfu.mm.application.usecase.download_tokens.DownloadTokens;
 import ru.urfu.mm.application.usecase.download_tokens.DownloadTokensRequest;
 import ru.urfu.mm.application.usecase.generate_student_registration_token.GenerateStudentRegistrationToken;
 import ru.urfu.mm.application.usecase.get_group.GetAcademicGroup;
-import ru.urfu.mm.application.usecase.get_groups.GetGroupsByEducationalProgram;
 import ru.urfu.mm.application.usecase.get_token.GetTokensForGroup;
 import ru.urfu.mm.application.usecase.get_token.GetTokensForGroupRequest;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
@@ -26,8 +25,6 @@ import java.util.UUID;
 @RequestMapping(Endpoints.Group.BASE)
 public class GroupController extends AbstractAuthorizedController {
     @Autowired
-    private GetGroupsByEducationalProgram getGroupsByEducationalProgram;
-    @Autowired
     private CreateGroup createGroup;
     @Autowired
     private GetAcademicGroup getAcademicGroup;
@@ -37,14 +34,6 @@ public class GroupController extends AbstractAuthorizedController {
     private GetTokensForGroup getTokensForGroup;
     @Autowired
     private DownloadTokens downloadTokens;
-
-    @GetMapping(Endpoints.Group.GROUPS_BY_PROGRAM)
-    public List<GroupDTO> getGroupsByEducationalProgram(@RequestParam("programId") UUID programId) {
-        return getGroupsByEducationalProgram.getGroupsByEducationalProgram(programId)
-                .stream()
-                .map(x -> new GroupDTO(x.id(), x.number()))
-                .toList();
-    }
 
     @PostMapping(Endpoints.Group.GROUP)
     public void createGroup(@RequestBody CreateGroupDTO dto) {

@@ -22,7 +22,6 @@ import ru.urfu.mm.application.usecase.get_group.GetAcademicGroup;
 import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
 import ru.urfu.mm.application.usecase.get_all_modules.GetAllModules;
 import ru.urfu.mm.application.usecase.get_all_programs.GetAllPrograms;
-import ru.urfu.mm.application.usecase.get_groups.GetGroupsByEducationalProgram;
 import ru.urfu.mm.application.usecase.get_module.GetModuleWithCourses;
 import ru.urfu.mm.application.usecase.get_modules_courses.GetModulesCourses;
 import ru.urfu.mm.application.usecase.get_program_by_id.GetProgramById;
@@ -216,11 +215,6 @@ public class UseCaseConfiguration {
     @Bean
     public GetModuleWithCourses getModule(ModuleGateway moduleGateway) {
         return new GetModuleWithCourses(moduleGateway);
-    }
-
-    @Bean
-    public GetGroupsByEducationalProgram getGroupForEducationalProgram(ProgramGateway programGateway) {
-        return new GetGroupsByEducationalProgram(programGateway);
     }
 
     @Bean

@@ -95,10 +95,6 @@ object Endpoints {
     object Group {
         const val BASE = "$API/groups"
 
-        const val GROUPS_BY_PROGRAM = "/groupsByProgram"
-        @JvmStatic
-        fun groupsByProgram() = "$BASE$GROUPS_BY_PROGRAM"
-
         const val GROUP = "/group"
         @JvmStatic
         fun group() = "$BASE$GROUP"
