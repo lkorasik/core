@@ -1,10 +1,6 @@
 package ru.urfu.mm.application.usecase.get_module;
 
-import ru.urfu.mm.application.exception.NotImplementedException;
-import ru.urfu.mm.application.gateway.CourseGateway;
 import ru.urfu.mm.application.gateway.ModuleGateway;
-import ru.urfu.mm.application.usecase.get_token.GetTokensForGroupResponse;
-import ru.urfu.mm.domain.Course;
 import ru.urfu.mm.domain.EducationalModule;
 
 import java.util.List;
@@ -23,15 +19,15 @@ public class GetModuleWithCourses {
     }
 
     public ModuleWithCoursesResponse getModule(UUID moduleId) {
-        throw new NotImplementedException();
-//        EducationalModule educationalModule = moduleGateway.getById(moduleId).get();
-//        List<Course> list = educationalModule.getCourses();
-//        return new ModuleWithCoursesResponse(
-//                educationalModule.getId(),
-//                educationalModule.getName(),
-//                list.stream()
-//                        .map(x -> new CourseResponse(x.getId(), x.getName()))
-//                        .toList()
-//        ) ;
+        EducationalModule educationalModule = moduleGateway.getById(moduleId).get();
+        List<CourseResponse> list = educationalModule.getCourses()
+                .stream()
+                .map(x -> new CourseResponse(x.getId(), x.getName()))
+                .toList();
+        return new ModuleWithCoursesResponse(
+                educationalModule.getId(),
+                educationalModule.getName(),
+                list
+        );
     }
 }

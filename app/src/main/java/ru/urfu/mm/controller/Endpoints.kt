@@ -45,7 +45,7 @@ object Endpoints {
         @JvmStatic
         fun statistics() = "$BASE$STATISTICS"
 
-        const val ALL_COURSES = "/allCourses"
+        const val ALL_COURSES = "/all"
         @JvmStatic
         fun allCourses() = "$BASE$ALL_COURSES"
 

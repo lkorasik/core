@@ -19,9 +19,11 @@ public interface ModulesControllerDescription {
     @PostMapping
     List<ModuleDTO> getModulesById(@RequestBody GetModulesDTO getModulesDTO);
 
+    @Operation(summary = "Получить информацию о конкретном модуле")
     @GetMapping(Endpoints.Module.MODULE)
     ModuleWithCoursesDTO getModuleById(@RequestParam("id") String moduleId);
 
+    @Operation(summary = "Создать модуль")
     @PostMapping(Endpoints.Module.CREATE)
     void createModule(@RequestBody CreateModuleDTO createModuleDTO);
 
