@@ -22,6 +22,9 @@ import ru.urfu.mm.persistance.repository.AccountRepository
 import ru.urfu.mm.persistance.repository.RegistrationTokenRepository
 import java.util.*
 
+/**
+ * Регистрация администратора
+ */
 class `Administrator registration` : BaseTestClass() {
     @Autowired
     private lateinit var registrationTokenRepository: RegistrationTokenRepository
@@ -37,7 +40,7 @@ class `Administrator registration` : BaseTestClass() {
     }
 
     /**
-     * Регистрация администратора
+     * Основной сценарий
      */
     @Test
     fun `Register administrator`() {
@@ -75,7 +78,7 @@ class `Administrator registration` : BaseTestClass() {
     }
 
     /**
-     * Регистрация администратора. Токен не добавлен в базу данных.
+     * Токен не добавлен в базу данных.
      */
     @Test
     fun `No token`() {
@@ -98,6 +101,36 @@ class `Administrator registration` : BaseTestClass() {
         Assertions.assertEquals(actual.message, "Registration token $token does not exist")
 
         Assertions.assertTrue(registrationTokenRepository.findAll().isEmpty())
+        Assertions.assertTrue(accountRepository.findAll().isEmpty())
+    }
+
+    /**
+     * Слишком короткий пароль.
+     */
+    @Test
+    fun `Too short password`() {
+        val password = DSL.generatePassword().substring(0, 5)
+
+        val registrationToken = RegistrationTokenFactory.build()
+        registrationTokenRepository.save(registrationToken)
+
+        val registrationDTO = RegistrationDTO(registrationToken.registrationToken, password, password)
+
+        val actual = RestAssured.given()
+            .contentType(ContentType.JSON)
+            .body(registrationDTO)
+            .whenever()
+            .baseUri(address())
+            .post(Endpoints.Authentication.register())
+            .then()
+            .statusCode(400)
+            .extract()
+            .cast(ExceptionDTO::class.java)
+
+        Assertions.assertEquals(actual.message, "Password is too short. The password must be at least eight " +
+                "characters long.")
+
+        Assertions.assertTrue(registrationTokenRepository.findAll().isNotEmpty())
         Assertions.assertTrue(accountRepository.findAll().isEmpty())
     }
 }

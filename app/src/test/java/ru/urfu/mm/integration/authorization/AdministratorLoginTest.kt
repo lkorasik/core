@@ -22,6 +22,9 @@ import ru.urfu.mm.persistance.repository.AccountRepository
 import ru.urfu.mm.persistance.repository.RegistrationTokenRepository
 import java.util.*
 
+/**
+ * Вход администратора в систему
+ */
 class `Administrator login` : BaseTestClass() {
     @Autowired
     private lateinit var registrationTokenRepository: RegistrationTokenRepository
@@ -37,7 +40,7 @@ class `Administrator login` : BaseTestClass() {
     }
 
     /**
-     * Вход в систему администратором.
+     * Основной сценарий
      */
     @Test
     fun `Login administrator`() {
@@ -73,7 +76,7 @@ class `Administrator login` : BaseTestClass() {
     }
 
     /**
-     * Вход в систему администратором. Неверный токен.
+     * Неверный токен.
      */
     @Test
     fun `Token invalid`() {
@@ -108,7 +111,7 @@ class `Administrator login` : BaseTestClass() {
     }
 
     /**
-     * Вход в систему администратором. Неверный пароль.
+     * Неверный пароль.
      */
     @Test
     fun `Incorrect password`() {
