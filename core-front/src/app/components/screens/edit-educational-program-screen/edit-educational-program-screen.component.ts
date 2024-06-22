@@ -41,15 +41,15 @@ export class EditEducationalProgramScreenComponent {
             this.trainingDirection = program.trainingDirection
         })
 
-        this.programService.getActualYears({ id: this.id }).subscribe(x => {
-            this.years = x.map(x => new DropdownItem(x.toString(), x.toString()))
-        })
-
-        programService.getAllModulesWithCourses().subscribe(x => {
+        this.programService.getAllModulesWithCourses().subscribe(x => {
             this.modules = x.map(y => {
                 const courses = y.courses.map(course => new Course(course.id, course.name));
                 return new Module(y.id, y.name, courses)
             });
+        })
+
+        this.programService.getAllSyllabi({ id: this.id }).subscribe(x => {
+            this.years = x.map(y => y.firstSemesterPlan.semester.year)
         })
     }
 

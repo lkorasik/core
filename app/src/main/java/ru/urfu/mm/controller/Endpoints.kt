@@ -178,10 +178,6 @@ object Endpoints {
         const val GET_PLAN = "/getPlan"
         @JvmStatic
         fun getPlan() = "$BASE$GET_PLAN"
-
-        const val GET_ACTUAL_YEARS = "/getActualYears"
-        @JvmStatic
-        fun getActualYears() = "$BASE$GET_ACTUAL_YEARS"
     }
 
     /**

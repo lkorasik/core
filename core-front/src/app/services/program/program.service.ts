@@ -37,9 +37,9 @@ export class ProgramService {
     saveStudyPlan(saveStudyPlan: SaveStudyPlanDTO) {
         return this.authorizedClient.post("api/programs/plan", saveStudyPlan);
     }
-
-    getActualYears(id: ProgramIdDto) {
+    
+    getAllSyllabi(id: ProgramIdDto) {
         let params = new HttpParams().set("programId", id.id);
-        return this.authorizedClient.get<number[]>("api/programs/getActualYears", params);
+        return this.authorizedClient.post<Syllabus[]>("api/programs/getPlan", params);
     }
 }

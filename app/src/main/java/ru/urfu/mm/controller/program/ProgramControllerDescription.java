@@ -1,12 +1,10 @@
 package ru.urfu.mm.controller.program;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.application.usecase.get_available_years.GetStudyPlanResponse;
 import ru.urfu.mm.controller.Endpoints;
 import ru.urfu.mm.domain.BaseSyllabus;
-import ru.urfu.mm.domain.StudentSyllabus;
 
 import java.util.List;
 import java.util.UUID;
@@ -36,8 +34,5 @@ public interface ProgramControllerDescription {
     void saveStudyPlan(@RequestBody StudyPlanDTO dto);
 
     @PostMapping(Endpoints.Program.GET_PLAN)
-    List<BaseSyllabus> getStudyPlan(@RequestBody GetStudyPlanDTO dto);
-
-    @GetMapping(Endpoints.Program.GET_ACTUAL_YEARS)
-    List<Integer> getActualYears(@RequestParam("programId") UUID programId);
+    List<BaseSyllabus> getAllSyllabi(@RequestParam("programId") UUID programId);
 }

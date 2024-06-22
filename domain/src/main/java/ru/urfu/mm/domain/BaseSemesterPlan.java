@@ -58,4 +58,16 @@ public class BaseSemesterPlan {
     public Semester getSemester() {
         return semester;
     }
+
+    public List<Course> getRequiredCourses() {
+        return requiredCourses;
+    }
+
+    public List<Course> getAvailableCourses() {
+        return availableCourses;
+    }
+
+    public List<Course> getScienceWorks() {
+        return scienceWorks;
+    }
 }
