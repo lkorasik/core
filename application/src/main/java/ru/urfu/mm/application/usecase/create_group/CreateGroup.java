@@ -1,8 +1,7 @@
 package ru.urfu.mm.application.usecase.create_group;
 
-import ru.urfu.mm.application.exception.NotImplementedException;
 import ru.urfu.mm.application.gateway.*;
-import ru.urfu.mm.application.usecase.create_study_plan.CreateBaseSyllabus;
+import ru.urfu.mm.application.usecase.create_syylabus.CreateBaseSyllabus;
 import ru.urfu.mm.domain.*;
 import ru.urfu.mm.domain.enums.SemesterType;
 

@@ -4,6 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.application.usecase.create_educational_program.CreateEducationalProgram;
 import ru.urfu.mm.application.usecase.create_educational_program.CreateProgramRequest;
+import ru.urfu.mm.application.usecase.create_syylabus.CourseSelectionDTO;
+import ru.urfu.mm.application.usecase.create_syylabus.CreateBaseSyllabus;
+import ru.urfu.mm.application.usecase.create_syylabus.CreateSyllabusRequest;
+import ru.urfu.mm.application.usecase.create_syylabus.ModuleSelectionDTO;
 import ru.urfu.mm.application.usecase.get_all_programs.GetAllPrograms;
 import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
 import ru.urfu.mm.application.usecase.get_program_for_student.ProgramForStudentResponse;
@@ -39,6 +43,8 @@ public class ProgramController extends AbstractAuthorizedController implements P
     private GetAvailableYears getAvailableYears;
     @Autowired
     private GetAllSyllabi getAllSyllabi;
+    @Autowired
+    private CreateBaseSyllabus createBaseSyllabus;
 
     @Override
     public ProgramInfoDTO current() {
@@ -85,6 +91,19 @@ public class ProgramController extends AbstractAuthorizedController implements P
     public void saveStudyPlan(StudyPlanDTO dto) {
         // todo: реализуй сохранение учебного плана
         System.out.println("Receive: " + dto);
+
+        List<ModuleSelectionDTO> modules = dto.modules()
+                .stream()
+                .map(x -> {
+                    List<CourseSelectionDTO> courses = x.courses()
+                            .stream()
+                            .map(y -> new CourseSelectionDTO(y.courseId(), y.semesterId()))
+                            .toList();
+                    return new ModuleSelectionDTO(x.moduleId(), courses);
+                })
+                .toList();
+        CreateSyllabusRequest request = new CreateSyllabusRequest(dto.firstSemesterId(), modules);
+        createBaseSyllabus.createStudyPlan(request);
     }
 
     @Override

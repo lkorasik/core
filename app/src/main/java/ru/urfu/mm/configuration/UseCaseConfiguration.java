@@ -14,7 +14,7 @@ import ru.urfu.mm.application.usecase.create_group.CreateGroup;
 import ru.urfu.mm.application.usecase.create_educational_program.CreateEducationalProgram;
 import ru.urfu.mm.application.usecase.create_module.CreateModule;
 //import ru.urfu.mm.application.usecase.create_semester_plan.CreateSemesterPlan;
-import ru.urfu.mm.application.usecase.create_study_plan.CreateBaseSyllabus;
+import ru.urfu.mm.application.usecase.create_syylabus.CreateBaseSyllabus;
 import ru.urfu.mm.application.usecase.download_tokens.DownloadTokens;
 //import ru.urfu.mm.application.usecase.generate_token.GenerateStudentRegistrationTokens;
 import ru.urfu.mm.application.usecase.generate_student_registration_token.GenerateStudentRegistrationToken;
@@ -218,11 +218,8 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public CreateBaseSyllabus createBaseSyllabus(
-            SemesterGateway semesterGateway,
-            StudyPlanGateway studyPlanGateway,
-            ProgramGateway programGateway) {
-        return new CreateBaseSyllabus(semesterGateway, studyPlanGateway, programGateway);
+    public CreateBaseSyllabus createBaseSyllabus() {
+        return new CreateBaseSyllabus();
     }
 
     @Bean
