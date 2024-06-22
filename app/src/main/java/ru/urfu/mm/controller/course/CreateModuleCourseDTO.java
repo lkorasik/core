@@ -4,7 +4,7 @@ import ru.urfu.mm.persistance.entity.enums.Control;
 
 import java.util.UUID;
 
-public record CreateModuleCourseDTO(
+record CreateModuleCourseDTO(
         String name,
         int credits,
         Control controlType,
