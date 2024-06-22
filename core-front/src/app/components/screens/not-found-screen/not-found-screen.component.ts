@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
-import {Location} from '@angular/common';
+import { ButtonComponent } from '../../base_components/button/button.component';
+import { Location } from '@angular/common';
 
 @Component({
-    selector: 'app-not-found-screen',
+    selector: 'app-not-found',
     standalone: true,
-    imports: [],
+    imports: [ButtonComponent],
     templateUrl: './not-found-screen.component.html',
     styleUrl: './not-found-screen.component.css'
 })
 export class NotFoundScreenComponent {
     constructor(private location: Location) { }
 
-    onClick() {
+    onBackClick() {
         this.location.back()
     }
 }

@@ -2,10 +2,14 @@ package ru.urfu.mm.controller.authentication
 
 import io.swagger.v3.oas.annotations.media.Schema
 
+@Schema(description = "Данные для входа в систему")
 @JvmRecord
 data class AccessTokenDTO(
+    @Schema(description = "Токен доступа. Используй так: 'Authorization: Bearer <token>'")
     val accessToken: String,
+    @Schema(description = "Токен пользователя")
     val userToken: String,
+    @Schema(description = "Роль пользователя")
     val userEntityRole: String
 )
 
