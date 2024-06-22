@@ -22,8 +22,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(Endpoints.Group.BASE)
-public class GroupController extends AbstractAuthorizedController {
+public class GroupController extends AbstractAuthorizedController implements GroupControllerDescription {
     @Autowired
     private CreateGroup createGroup;
     @Autowired
@@ -35,24 +34,24 @@ public class GroupController extends AbstractAuthorizedController {
     @Autowired
     private DownloadTokens downloadTokens;
 
-    @PostMapping(Endpoints.Group.GROUP)
+    @Override
     public void createGroup(@RequestBody CreateGroupDTO dto) {
         createGroup.createGroup(dto.toRequest());
     }
 
-    @GetMapping(Endpoints.Group.GROUP_BY_ID)
+    @Override
     public GroupDTO getGroup(@RequestParam("groupId") UUID groupId) {
         throw new NotImplementedException();
 //        AcademicGroup academicGroup = getAcademicGroup.getGroup(groupId);
 //        return new GroupDTO(academicGroup.getId(), academicGroup.getNumber());
     }
 
-    @PostMapping(Endpoints.Group.TOKEN)
+    @Override
     public List<UUID> generateTokens(@RequestBody GenerateTokenDTO generateTokenDTO) {
         return generateStudentRegistrationToken.generateTokens(generateTokenDTO.groupId(), generateTokenDTO.count());
     }
 
-    @GetMapping(Endpoints.Group.TOKEN)
+    @Override
     public List<TokenStatusDTO> getTokens(@RequestParam("groupId") UUID groupId) {
         GetTokensForGroupRequest request = new GetTokensForGroupRequest(groupId);
         return getTokensForGroup.getTokensForGroup(request)
@@ -61,7 +60,7 @@ public class GroupController extends AbstractAuthorizedController {
                 .toList();
     }
 
-    @GetMapping(Endpoints.Group.TOKEN_FILE)
+    @Override
     public ResponseEntity<InputStreamResource> getFile(@RequestParam("groupId") UUID groupId) throws FileNotFoundException {
         DownloadTokensRequest request = new DownloadTokensRequest(groupId);
 

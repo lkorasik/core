@@ -24,8 +24,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(Endpoints.Program.BASE)
-public class ProgramController extends AbstractAuthorizedController {
+public class ProgramController extends AbstractAuthorizedController implements ProgramControllerDescription {
 //    @Autowired
 //    private GetEducationalProgram getEducationalProgram;
     @Autowired
@@ -43,14 +42,14 @@ public class ProgramController extends AbstractAuthorizedController {
     @Autowired
     private GetStudyPlan getStudyPlan;
 
-    @GetMapping(Endpoints.Program.CURRENT)
+    @Override
     public ProgramInfoDTO current() {
         ProgramForStudentResponse response = getProgramForStudent.getProgramForStudent(UUID.fromString(getUserToken()));
         return ProgramInfoDTO.from(response);
     }
 
-    @GetMapping(Endpoints.Program.PROGRAM)
-    public FullProgramDTO getEducationalProgram(@RequestParam("id") UUID programId) throws JsonProcessingException {
+    @Override
+    public FullProgramDTO getEducationalProgram(UUID programId) throws JsonProcessingException {
         EducationalProgram program = getProgramById.getProgramById(programId);
         List<GroupDTO> groups = program.getAcademicGroups()
                 .stream()
@@ -59,19 +58,19 @@ public class ProgramController extends AbstractAuthorizedController {
         return new FullProgramDTO(program.getId(), program.getName(), groups);
     }
 
-    @PutMapping(Endpoints.Program.PROGRAM)
-    public void updateEducationalProgram(@RequestBody UpdateProgramDTO dto) {
+    @Override
+    public void updateEducationalProgram(UpdateProgramDTO dto) {
         UpdateProgramRequest request = new UpdateProgramRequest(dto.id(), dto.name(), dto.trainingDirection());
         updateProgram.updateProgram(request);
     }
 
-    @PostMapping(Endpoints.Program.CREATE)
-    public void createEducationalProgram(@RequestBody CreateProgramDTO dto) {
+    @Override
+    public void createEducationalProgram(CreateProgramDTO dto) {
         CreateProgramRequest request = new CreateProgramRequest(dto.name(), dto.trainingDirection());
         createEducationalProgram.createProgram(request);
     }
 
-    @GetMapping(Endpoints.Program.ALL)
+    @Override
     public List<ShortProgramDTO> getAll() {
         return getAvailablePrograms.getAllPrograms()
                 .stream()
@@ -79,19 +78,19 @@ public class ProgramController extends AbstractAuthorizedController {
                 .toList();
     }
 
-    @GetMapping(Endpoints.Program.AVAILABLE_YEARS)
-    public List<GetStudyPlanResponse> laod(@RequestParam("id") UUID id) {
+    @Override
+    public List<GetStudyPlanResponse> laod(UUID id) {
         return getAvailableYears.getStudyPlan(id);
     }
 
-    @PostMapping(Endpoints.Program.PLAN)
-    public void saveStudyPlan(@RequestBody StudyPlanDTO dto) {
+    @Override
+    public void saveStudyPlan(StudyPlanDTO dto) {
         // todo: реализуй сохранение учебного плана
         System.out.println("Receive: " + dto);
     }
 
-    @PostMapping(Endpoints.Program.GET_PLAN)
-    public StudentSyllabus getStudyPlan(@RequestBody GetStudyPlanDTO dto) {
+    @Override
+    public StudentSyllabus getStudyPlan(GetStudyPlanDTO dto) {
         return getStudyPlan.getStudyPlan(dto.programId(), dto.startYear());
     }
 }

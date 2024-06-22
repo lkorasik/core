@@ -12,11 +12,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping(Endpoints.Semester.BASE)
-public class SemesterController {
+public class SemesterController implements SemesterControllerDescription {
     @Autowired
     private GetActualSemesters getActualSemesters;
 
-    @GetMapping(Endpoints.Semester.ACTUAL)
+    @Override
     public List<SemesterDTO> actual() {
         throw new NotImplementedException();
 //        return getActualSemesters.getActualSemesters().stream()

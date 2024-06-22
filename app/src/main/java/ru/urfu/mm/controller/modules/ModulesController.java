@@ -16,7 +16,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping(Endpoints.Module.BASE)
-public class ModulesController {
+public class ModulesController implements ModulesControllerDescription {
     @Autowired
     private GetAllModules getAllModules;
     @Autowired
@@ -30,7 +30,7 @@ public class ModulesController {
     @Autowired
     private GetModulesCourses getModulesCourses;
 
-    @GetMapping(Endpoints.Module.ALL)
+    @Override
     public List<ModuleDTO> getAllModules() {
         throw new NotImplementedException();
 //        return getAllModules
@@ -40,7 +40,7 @@ public class ModulesController {
 //                .toList();
     }
 
-    @GetMapping(Endpoints.Module.ALL2)
+    @Override
     public List<FullModuleDTO> getAllModules2() {
         throw new NotImplementedException();
 //        return getAllModules.getAllModules()
@@ -55,7 +55,7 @@ public class ModulesController {
 //                .toList();
     }
 
-    @PostMapping
+    @Override
     public List<ModuleDTO> getModulesById(@RequestBody GetModulesDTO getModulesDTO) {
         throw new NotImplementedException();
 //        return getModulesByIds
@@ -65,7 +65,7 @@ public class ModulesController {
 //                .toList();
     }
 
-    @GetMapping(Endpoints.Module.MODULE)
+    @Override
     public ModuleWithCoursesDTO getModuleById(@RequestParam("id") String moduleId) {
         ModuleWithCoursesResponse module = getModuleWithCourses.getModule(UUID.fromString(moduleId));
         List<CourseDTO> courses = module.courses()
@@ -75,12 +75,12 @@ public class ModulesController {
         return new ModuleWithCoursesDTO(module.id(), module.name(), courses);
     }
 
-    @PostMapping(Endpoints.Module.CREATE)
+    @Override
     public void createModule(@RequestBody CreateModuleDTO createModuleDTO) {
         createModule.createModule(createModuleDTO.moduleName());
     }
 
-    @DeleteMapping(Endpoints.Module.DELETE)
+    @Override
     public void deleteModule(@RequestBody ModuleIdDTO moduleIdDTO) {
         deleteModuleById.deleteModuleById(moduleIdDTO.id());
     }

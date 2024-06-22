@@ -1,18 +1,24 @@
 package ru.urfu.mm.controller.authentication
 
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import ru.urfu.mm.controller.Endpoints
 
+@Tag(name = "Authorization", description = "Вход и регистрация")
 @RequestMapping(Endpoints.Authentication.BASE)
 interface AuthenticationControllerDescription {
+    @Operation(summary = "Регистрация")
     @PostMapping(Endpoints.Authentication.REGISTER)
     fun register(@RequestBody dto: RegistrationDTO): AccessTokenDTO
 
+    @Operation(summary = "Вход")
     @PostMapping(Endpoints.Authentication.LOGIN)
     fun login(@RequestBody dto: LoginDTO): AccessTokenDTO
 
+    @Operation(summary = "Проверка токена")
     @PostMapping(Endpoints.Authentication.VALIDATE_TOKEN)
     fun validateToken(@RequestBody tokenDTO: TokenDTO)
 }

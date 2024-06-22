@@ -12,12 +12,11 @@ import java.io.IOException;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(Endpoints.Document.BASE)
-public class DocumentController extends AbstractAuthorizedController {
+public class DocumentController extends AbstractAuthorizedController implements DocumentControllerDescription {
     @Autowired
     private DocumentService documentService;
 
-    @GetMapping(Endpoints.Document.GENERATE)
+    @Override
     public byte[] generateDocument() throws IOException {
         return documentService.generateDocument(UUID.fromString(getUserToken()));
     }

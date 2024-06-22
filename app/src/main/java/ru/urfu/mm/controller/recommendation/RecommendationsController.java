@@ -13,13 +13,13 @@ import ru.urfu.mm.service.StudentService;
 
 @RestController
 @RequestMapping(Endpoints.Recommendation.BASE)
-public class RecommendationsController extends AbstractAuthorizedController {
+public class RecommendationsController extends AbstractAuthorizedController implements RecommendationsControllerDescription {
     @Autowired
     private RecommendationsService recommendationsService;
     @Autowired
     private StudentService studentService;
 
-    @GetMapping
+    @Override
     public RecommendationResultDTO calculateRecommendations() {
         throw new NotImplementedException();
 //        StudentEntity studentEntity = studentService.getStudent(getUserToken());
