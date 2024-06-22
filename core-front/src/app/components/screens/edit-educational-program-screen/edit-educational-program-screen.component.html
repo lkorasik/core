@@ -4,7 +4,7 @@
 </app-toolbar>
 <app-text-field title="Название образовательной программы" value="{{title}}" (fieldValue)="setName($event)"/>
 <app-text-field title="Направление подготовки" value="{{trainingDirection}}" (fieldValue)="setTrainingDirection($event)"/>
-<app-dropdown [values]="years"/>
+<app-dropdown [values]="years" (selectEvent)="on($event)"/>
 <app-dialog 
     [isOpen]="isOpen" 
     (onLeftButtonClick)="onLeftButtonClick()" 
@@ -14,12 +14,12 @@
     @for (item of modules; track $index) {
         <div>
             <input type="checkbox" id="scales" name="scales" (click)="onSelectModule($index)" />
-            <label for="scales">{{item.module.name}}</label>
+            <label for="scales">{{item.name}}</label>
         </div>
     }
 </app-dialog>
 
-@if (shouldDrawTable()) {
+@if (shouldShowPlanConstructor()) {
     <table class="table">
         <tr class="tr">
             <td class="td" rowspan="2" colspan="2"></td>
@@ -36,22 +36,23 @@
         <tr>
     
         </tr>
-        @for (module of modules2; track $index; let i = $index) {
-            @for (course of module.courses; track $index; let j = $index) {
-                <tr class="tr">
-                    @if (j == 0) {
-                        <td class="td" [attr.rowspan]="module.courses.length">{{module.name}}</td>
-                    }
-                    <td class="td">{{course.name}}</td>
-                    <td class="td {{getClass(module, course, 1)}}" (click)="onClick(module, course, 1)">{{getMarker(module, course, 1)}}</td>
-                    <td class="td {{getClass(module, course, 2)}}" (click)="onClick(module, course, 2)">{{getMarker(module, course, 2)}}</td>
-                    <td class="td {{getClass(module, course, 3)}}" (click)="onClick(module, course, 3)">{{getMarker(module, course, 3)}}</td>
-                    <td class="td {{getClass(module, course, 4)}}" (click)="onClick(module, course, 4)">{{getMarker(module, course, 4)}}</td>
-                </tr>
+        @for (module of modules; track $index; let i = $index) {
+            @if (module.dialogSelected) {
+                @for (course of module.courses; track $index; let j = $index) {
+                    <tr class="tr">
+                        @if (j == 0) {
+                            <td class="td" [attr.rowspan]="module.courses.length">{{module.name}}</td>
+                        }
+                        <td class="td">{{course.name}}</td>
+                        <td class="td {{getClass(module, course, 1)}}" (click)="onClick(module, course, 1)">{{getMarker(module, course, 1)}}</td>
+                        <td class="td {{getClass(module, course, 2)}}" (click)="onClick(module, course, 2)">{{getMarker(module, course, 2)}}</td>
+                        <td class="td {{getClass(module, course, 3)}}" (click)="onClick(module, course, 3)">{{getMarker(module, course, 3)}}</td>
+                        <td class="td {{getClass(module, course, 4)}}" (click)="onClick(module, course, 4)">{{getMarker(module, course, 4)}}</td>
+                    </tr>
+                }
             }
         }
     </table>
+
+    <app-button label="Выбрать модули" (clickEvent)="onSelectModules()"/>
 }
-
-
-<app-button label="Выбрать модули" (clickEvent)="onSelectModules()"/>

@@ -6,5 +6,5 @@
 <app-text-field title="Название кафедры" (fieldValue)="setDepartment($event)"/>
 <app-text-field title="Преподаватель" (fieldValue)="setTeacher($event)"/>
 <app-text-field title="Количество зачетных единиц" (fieldValue)="setCredits($event)"/>
-<app-dropdown [values]="values" [defaultItemPosition]="0" [selected]="setContorlType"/>
+<app-dropdown [values]="values" [defaultItemPosition]="0" (selectEvent)="setContorlType"/>
 <app-text-field title="Описание курса" (fieldValue)="setDescription($event)"/>

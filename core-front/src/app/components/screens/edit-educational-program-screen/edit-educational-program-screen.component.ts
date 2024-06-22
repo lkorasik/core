@@ -8,7 +8,6 @@ import { DropdownComponent, DropdownItem } from '../../base_components/dropdown/
 import { DialogComponent } from '../../base_components/dialog/dialog.component';
 import { ButtonComponent } from '../../base_components/button/button.component';
 import { ModuleService } from '../../../services/module/module.service';
-import { ModuleDTO } from '../../../services/module/module.dto';
 
 @Component({
     selector: 'app-edit-educational-program-screen',
@@ -30,9 +29,9 @@ export class EditEducationalProgramScreenComponent {
     title: string = ""
     trainingDirection: string = ""
     years: DropdownItem[] = []
-    modules: SelectableModule[] = []
-    modules2: Module[] = []
-    isOpen: boolean = true;
+    modules: Module[] = []
+    isOpen: boolean = false;
+    year: DropdownItem | undefined = undefined
 
     constructor(private programService: ProgramService, private moduleService: ModuleService) {
         this.id = sessionStorage.getItem("programId")!;
@@ -47,14 +46,10 @@ export class EditEducationalProgramScreenComponent {
         })
 
         programService.getAllModulesWithCourses().subscribe(x => {
-            this.modules2 = x.map(y => {
+            this.modules = x.map(y => {
                 const courses = y.courses.map(course => new Course(course.id, course.name));
                 return new Module(y.id, y.name, courses)
             });
-        })
-
-        moduleService.getAllModules().subscribe(x => {
-            this.modules = x.map(y => new SelectableModule(y, false))
         })
     }
 
@@ -110,23 +105,17 @@ export class EditEducationalProgramScreenComponent {
         this.isOpen = true;
     }
 
-    shouldDrawTable() {
-        console.log(this.modules)
-        return this.modules.filter(x => x.isSelected).length != 0
+    shouldShowPlanConstructor() {
+        return this.year !== undefined
+        // return this.modules.filter(x => x.dialogSelected).length != 0
     }
 
     onSelectModule(index: number) {
-        this.modules[index].isSelected = !this.modules[index].isSelected
+        this.modules[index].dialogSelected = !this.modules[index].dialogSelected;
     }
-}
 
-class SelectableModule {
-    module: ModuleDTO
-    isSelected: boolean
-
-    constructor(module: ModuleDTO, isSelected: boolean) {
-        this.module = module;
-        this.isSelected = isSelected;
+    on(item: DropdownItem) {
+        this.year = item
     }
 }
 
@@ -136,11 +125,13 @@ class Module {
     courses: Course[];
     blockFlags: number[][] = [];
     selectionFlags: number[][] = [];
+    dialogSelected: boolean;
 
     constructor(id: string, name: string, courses: Course[]) {
         this.id = id;
         this.name = name;
         this.courses = courses;
+        this.dialogSelected = false;
 
         for (let i = 0; i < courses.length; i++) {
             this.blockFlags[i] = [0, 0, 0, 0];

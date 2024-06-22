@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
     selector: 'app-dropdown',
@@ -12,7 +12,7 @@ export class DropdownComponent {
     value: string = "Выберите элемент"
     @Input() values: DropdownItem[] = []
     @Input() defaultItemPosition: number = 0
-    @Input() selected: ((item: DropdownItem) => void) | undefined
+    @Output() selectEvent: EventEmitter<DropdownItem> = new EventEmitter<DropdownItem>();
 
     ngOnInit() {
         this.value = this.values[this.defaultItemPosition].label
@@ -32,9 +32,8 @@ export class DropdownComponent {
     onSelect(item: DropdownItem) {
         this.toggle()
         this.value = item.label
-        if (this.selected !== undefined) {
-            this.selected(item)
-        }
+        console.log("Select")
+        this.selectEvent.emit(item)
     }
 
     rotate() {
