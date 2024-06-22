@@ -3,6 +3,7 @@ package ru.urfu.mm.dsl
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
+import ru.urfu.mm.TestConfiguration
 import ru.urfu.mm.controller.Endpoints
 import ru.urfu.mm.controller.authentication.AccessTokenDTO
 import ru.urfu.mm.controller.authentication.RegistrationDTO
@@ -15,7 +16,10 @@ import java.util.UUID
  * Класс, предоставляющий операции для работы с приложением
  */
 @Component
-class AuthorizationDSL @Autowired constructor(private val registrationTokenRepository: RegistrationTokenRepository) {
+class AuthorizationDSL @Autowired constructor(
+    private val registrationTokenRepository: RegistrationTokenRepository,
+    private val configuration: TestConfiguration
+) {
     fun registerAsAdministratorAccount(registrationDTO: RegistrationDTO, address: String): AccessTokenDTO {
         val client = RestTemplate()
         val uri = URI.create(address + Endpoints.Authentication.register())
