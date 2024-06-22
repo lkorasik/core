@@ -19,8 +19,7 @@ public class CreateModule {
     }
 
     public void createModule(String educationalModuleName) {
-        throw new NotImplementedException();
-//        EducationalModule educationalModule = new EducationalModule(UUID.randomUUID(), educationalModuleName);
-//        moduleGateway.save(educationalModule);
+        EducationalModule educationalModule = new EducationalModule(UUID.randomUUID(), educationalModuleName);
+        moduleGateway.save(educationalModule);
     }
 }

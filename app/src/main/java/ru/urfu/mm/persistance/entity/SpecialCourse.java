@@ -99,16 +99,8 @@ public class SpecialCourse {
         return module;
     }
 
-    public void setEducationalModule(EducationalModuleEntity educationalModuleEntity) {
-        this.module = educationalModuleEntity;
-    }
-
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setCreditsCount(int creditsCount) {
-        this.creditsCount = creditsCount;
     }
 
     public void setControl(Control control) {
@@ -117,13 +109,5 @@ public class SpecialCourse {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
-    public void setTeacherName(String teacherName) {
-        this.teacherName = teacherName;
     }
 }

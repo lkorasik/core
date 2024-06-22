@@ -2,10 +2,7 @@ package ru.urfu.mm.domain;
 
 import ru.urfu.mm.domain.enums.ControlTypes;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Учебный курс
@@ -53,5 +50,37 @@ public class Course {
         this.department = department;
         this.teacher = teacher;
         this.requiredSkills = new ArrayList<>();
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getCredits() {
+        return credits;
+    }
+
+    public ControlTypes getControl() {
+        return control;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public String getTeacher() {
+        return teacher;
+    }
+
+    public List<Skill> getRequiredSkills() {
+        return Collections.unmodifiableList(requiredSkills);
     }
 }

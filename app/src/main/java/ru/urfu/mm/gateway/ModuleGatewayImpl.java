@@ -79,9 +79,8 @@ public class ModuleGatewayImpl implements ModuleGateway {
 
     @Override
     public void save(EducationalModule educationalModule) {
-        throw new NotImplementedException();
-//        EducationalModuleEntity entity = new EducationalModuleEntity(educationalModule.getId(), educationalModule.getName());
-//        educationalModuleRepository.save(entity);
+        EducationalModuleEntity entity = moduleMapper.toEntity(educationalModule);
+        educationalModuleRepository.save(entity);
     }
 
     @Override

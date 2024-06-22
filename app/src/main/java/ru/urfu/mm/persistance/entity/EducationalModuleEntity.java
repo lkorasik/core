@@ -25,6 +25,12 @@ public class EducationalModuleEntity {
         this.name = name;
     }
 
+    public EducationalModuleEntity(UUID id, String name, List<SpecialCourse> courses) {
+        this.id = id;
+        this.name = name;
+        this.courses = courses;
+    }
+
     public UUID getId() {
         return id;
     }

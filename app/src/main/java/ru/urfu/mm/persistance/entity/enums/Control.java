@@ -24,7 +24,7 @@ public enum Control {
         return documentaryValue;
     }
 
-    public static Control fromDomain(ControlTypes controlTypes) {
+    public static Control toEntity(ControlTypes controlTypes) {
         return switch (controlTypes) {
             case TEST -> TEST;
             case EXAM -> EXAM;

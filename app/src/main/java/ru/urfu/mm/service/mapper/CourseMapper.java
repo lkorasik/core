@@ -18,4 +18,17 @@ public class CourseMapper {
                 course.getTeacherName()
         );
     }
+
+    public SpecialCourse toEntity(Course course) {
+        return new SpecialCourse(
+                course.getId(),
+                course.getName(),
+                course.getCredits(),
+                Control.toEntity(course.getControl()),
+                course.getDescription(),
+                course.getDepartment(),
+                course.getTeacher(),
+                null
+        );
+    }
 }
