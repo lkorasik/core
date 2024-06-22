@@ -3,15 +3,25 @@ import { ToolbarComponent } from '../../base_components/toolbar/toolbar.componen
 import { SaveButtonComponent } from '../../base_components/save-button/save-button.component';
 import { CloseButtonComponent } from '../../base_components/close-button/close-button.component';
 import { TextFieldComponent } from '../../base_components/text-field/text-field.component';
-import { FullModuleDto } from '../../../services/program/fullModule.dto';
 import { ProgramService } from '../../../services/program/program.service';
-import { CourseSelectionDTO, ModuleDTO, SaveStudyPlanDTO } from '../../../services/program/saveStudyPlan.dto';
 import { DropdownComponent, DropdownItem } from '../../base_components/dropdown/dropdown.component';
+import { DialogComponent } from '../../base_components/dialog/dialog.component';
+import { ButtonComponent } from '../../base_components/button/button.component';
+import { ModuleService } from '../../../services/module/module.service';
+import { ModuleDTO } from '../../../services/module/module.dto';
 
 @Component({
     selector: 'app-edit-educational-program-screen',
     standalone: true,
-    imports: [ToolbarComponent, SaveButtonComponent, CloseButtonComponent, TextFieldComponent, DropdownComponent],
+    imports: [
+        ToolbarComponent, 
+        SaveButtonComponent, 
+        CloseButtonComponent, 
+        TextFieldComponent, 
+        DropdownComponent, 
+        DialogComponent,
+        ButtonComponent
+    ],
     templateUrl: './edit-educational-program-screen.component.html',
     styleUrl: './edit-educational-program-screen.component.css'
 })
@@ -20,10 +30,11 @@ export class EditEducationalProgramScreenComponent {
     title: string = ""
     trainingDirection: string = ""
     years: DropdownItem[] = []
-    modules: FullModuleDto[] = []
+    modules: SelectableModule[] = []
     modules2: Module[] = []
+    isOpen: boolean = true;
 
-    constructor(private programService: ProgramService) {
+    constructor(private programService: ProgramService, private moduleService: ModuleService) {
         this.id = sessionStorage.getItem("programId")!;
 
         this.programService.getEducationalProgramById({ id: this.id }).subscribe(program => {
@@ -35,19 +46,23 @@ export class EditEducationalProgramScreenComponent {
             this.years = x.map(x => new DropdownItem(x.toString(), x.toString()))
         })
 
-        programService.getAllModules2().subscribe(x => {
-            this.modules = x
-            this.modules2 = this.modules.map(module => {
-                const courses = module.courses.map(course => new Course(course.id, course.name));
-                return new Module(module.id, module.name, courses)
-            })
+        // programService.getAllModules2().subscribe(x => {
+        //     this.modules = x
+        //     this.modules2 = this.modules.map(module => {
+        //         const courses = module.courses.map(course => new Course(course.id, course.name));
+        //         return new Module(module.id, module.name, courses)
+        //     })
+        // })
+
+        moduleService.getAllModules().subscribe(x => {
+            this.modules = x.map(y => new SelectableModule(y, false))
         })
     }
 
     onSave() {
-        const modulesBody = this.modules2.map(x => new ModuleDTO(x.id, x.courses.map(y => new CourseSelectionDTO(y.id, y.semesterNumber!))))
-        const request = new SaveStudyPlanDTO(parseInt(this.years[0].value), this.id, modulesBody)
-        this.programService.saveStudyPlan(request).subscribe(x => x)
+        // const modulesBody = this.modules2.map(x => new ModuleDTO(x.id, x.courses.map(y => new CourseSelectionDTO(y.id, y.semesterNumber!))))
+        // const request = new SaveStudyPlanDTO(parseInt(this.years[0].value), this.id, modulesBody)
+        // this.programService.saveStudyPlan(request).subscribe(x => x)
     }
 
     setName(v: string) {
@@ -82,6 +97,37 @@ export class EditEducationalProgramScreenComponent {
 
     onClick(module: Module, course: Course, semesterNumber: number) {
         module.select(course, semesterNumber);
+    }
+
+    onLeftButtonClick() {
+        this.isOpen = false;
+    }
+
+    onRightButtonClick() {
+        this.isOpen = false;
+    }
+    
+    onSelectModules() {
+        this.isOpen = true;
+    }
+
+    shouldDrawTable() {
+        console.log(this.modules)
+        return this.modules.filter(x => x.isSelected).length != 0
+    }
+
+    onSelectModule(index: number) {
+        this.modules[index].isSelected = !this.modules[index].isSelected
+    }
+}
+
+class SelectableModule {
+    module: ModuleDTO
+    isSelected: boolean
+
+    constructor(module: ModuleDTO, isSelected: boolean) {
+        this.module = module;
+        this.isSelected = isSelected;
     }
 }
 

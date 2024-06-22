@@ -9,7 +9,7 @@ import { HttpParams } from '@angular/common/http';
 })
 export class ModuleService {
     constructor(private authorizedClient: AuthorizedHttpClient) { }
-    
+
     public getAllModules() {
         return this.authorizedClient.get<ModuleDTO[]>("api/modules/all");
     }
