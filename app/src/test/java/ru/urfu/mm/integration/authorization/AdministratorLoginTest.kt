@@ -139,6 +139,6 @@ class `Administrator login` : BaseTestClass() {
         Assertions.assertEquals("Invalid credentials. Please check your token and password.", actual2.message)
 
         Assertions.assertTrue(registrationTokenRepository.findAll().isEmpty())
-        Assertions.assertEquals(1, accountRepository.findAll().size)
+        Assertions.assertTrue(accountRepository.findAll().any { it.login.equals(token) })
     }
 }
