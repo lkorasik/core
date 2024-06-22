@@ -28,8 +28,10 @@ import java.util.*
 class `Administrator registration` : BaseTestClass() {
     @Autowired
     private lateinit var registrationTokenRepository: RegistrationTokenRepository
+
     @Autowired
     private lateinit var accountRepository: AccountRepository
+
     @Autowired
     private lateinit var authorizationDSL: AuthorizationDSL
 
@@ -49,8 +51,6 @@ class `Administrator registration` : BaseTestClass() {
         val registrationToken = RegistrationTokenFactory.build()
         registrationTokenRepository.save(registrationToken)
 
-        val expected = AccessTokenDTO("", registrationToken.registrationToken.toString(), UserRole.ADMIN.value)
-
         val registrationDTO = RegistrationDTO(registrationToken.registrationToken, password, password)
 
         val actual = RestAssured.given()
@@ -65,8 +65,8 @@ class `Administrator registration` : BaseTestClass() {
             .cast(AccessTokenDTO::class.java)
 
         Assertions.assertNotNull(actual.accessToken)
-        Assertions.assertEquals(actual.userEntityRole, expected.userEntityRole)
-        Assertions.assertEquals(actual.userToken, expected.userToken)
+        Assertions.assertEquals(actual.userEntityRole, UserRole.ADMIN.value)
+        Assertions.assertEquals(actual.userToken, registrationToken.registrationToken)
 
         Assertions.assertTrue(registrationTokenRepository.findAll().isEmpty())
         Assertions.assertEquals(1, accountRepository.findAll().size)
@@ -127,8 +127,10 @@ class `Administrator registration` : BaseTestClass() {
             .extract()
             .cast(ExceptionDTO::class.java)
 
-        Assertions.assertEquals(actual.message, "Password is too short. The password must be at least eight " +
-                "characters long.")
+        Assertions.assertEquals(
+            actual.message, "Password is too short. The password must be at least eight " +
+                    "characters long."
+        )
 
         Assertions.assertTrue(registrationTokenRepository.findAll().isNotEmpty())
         Assertions.assertTrue(accountRepository.findAll().isEmpty())
