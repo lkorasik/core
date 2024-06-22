@@ -3,12 +3,8 @@ package ru.urfu.mm.controller.program;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
-import ru.urfu.mm.application.usecase.create_educational_program.CreateProgramRequest;
 import ru.urfu.mm.application.usecase.get_available_years.GetStudyPlanResponse;
-import ru.urfu.mm.application.usecase.get_program_for_student.ProgramForStudentResponse;
-import ru.urfu.mm.application.usecase.update_program.UpdateProgramRequest;
 import ru.urfu.mm.controller.Endpoints;
-import ru.urfu.mm.domain.EducationalProgram;
 import ru.urfu.mm.domain.StudentSyllabus;
 
 import java.util.List;
@@ -21,7 +17,7 @@ public interface ProgramControllerDescription {
     ProgramInfoDTO current();
 
     @GetMapping(Endpoints.Program.PROGRAM)
-    FullProgramDTO getEducationalProgram(@RequestParam("id") UUID programId) throws JsonProcessingException;
+    FullProgramDTO getEducationalProgram(@RequestParam("id") UUID programId);
 
     @PutMapping(Endpoints.Program.PROGRAM)
     void updateEducationalProgram(@RequestBody UpdateProgramDTO dto);

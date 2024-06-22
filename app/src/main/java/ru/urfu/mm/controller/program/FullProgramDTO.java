@@ -6,5 +6,6 @@ import java.util.UUID;
 public record FullProgramDTO(
         UUID id,
         String title,
+        String trainingDirection,
         List<GroupDTO> groups
 ) { }

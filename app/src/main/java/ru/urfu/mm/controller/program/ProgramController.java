@@ -1,9 +1,7 @@
 package ru.urfu.mm.controller.program;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.urfu.mm.application.exception.NotImplementedException;
 import ru.urfu.mm.application.usecase.create_educational_program.CreateEducationalProgram;
 import ru.urfu.mm.application.usecase.create_educational_program.CreateProgramRequest;
 import ru.urfu.mm.application.usecase.get_all_programs.GetAllPrograms;
@@ -16,7 +14,6 @@ import ru.urfu.mm.application.usecase.get_study_plan.GetStudyPlan;
 import ru.urfu.mm.application.usecase.update_program.UpdateProgram;
 import ru.urfu.mm.application.usecase.update_program.UpdateProgramRequest;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
-import ru.urfu.mm.controller.Endpoints;
 import ru.urfu.mm.domain.EducationalProgram;
 import ru.urfu.mm.domain.StudentSyllabus;
 
@@ -49,13 +46,13 @@ public class ProgramController extends AbstractAuthorizedController implements P
     }
 
     @Override
-    public FullProgramDTO getEducationalProgram(UUID programId) throws JsonProcessingException {
+    public FullProgramDTO getEducationalProgram(UUID programId) {
         EducationalProgram program = getProgramById.getProgramById(programId);
         List<GroupDTO> groups = program.getAcademicGroups()
                 .stream()
                 .map(x -> new GroupDTO(x.getId(), x.getNumber()))
                 .toList();
-        return new FullProgramDTO(program.getId(), program.getName(), groups);
+        return new FullProgramDTO(program.getId(), program.getName(), program.getTrainingDirection(), groups);
     }
 
     @Override

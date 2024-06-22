@@ -27,7 +27,7 @@ export class EditEducationalProgramScreenComponent {
 
         this.programService.getEducationalProgramById({ id: this.id }).subscribe(program => {
             this.title = program.title
-            // this.trainingDirection = program.trainingDirection
+            this.trainingDirection = program.trainingDirection
         })
 
         programService.getAllModules2().subscribe(x => {
