@@ -14,4 +14,12 @@ public class AccountMapper {
                 UserEntityRole.fromDomain(account.getRole())
         );
     }
+
+    public Account toDomain(AccountEntity entity) {
+        return new Account(
+                entity.getLogin(),
+                entity.getPassword(),
+                UserEntityRole.toDomain(entity.getRole())
+        );
+    }
 }

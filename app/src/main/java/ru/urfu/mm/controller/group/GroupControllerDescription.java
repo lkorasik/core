@@ -1,6 +1,7 @@
 package ru.urfu.mm.controller.group;
 
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ public interface GroupControllerDescription {
     @PostMapping(Endpoints.Group.GROUP)
     void createGroup(@RequestBody CreateGroupDTO dto);
 
+    @Operation(summary = "Получить группу по идентификатору")
     @GetMapping(Endpoints.Group.GROUP_BY_ID)
     GroupDTO getGroup(@RequestParam("groupId") UUID groupId);
 

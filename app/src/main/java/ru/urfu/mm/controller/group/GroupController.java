@@ -41,9 +41,8 @@ public class GroupController extends AbstractAuthorizedController implements Gro
 
     @Override
     public GroupDTO getGroup(@RequestParam("groupId") UUID groupId) {
-        throw new NotImplementedException();
-//        AcademicGroup academicGroup = getAcademicGroup.getGroup(groupId);
-//        return new GroupDTO(academicGroup.getId(), academicGroup.getNumber());
+        AcademicGroup academicGroup = getAcademicGroup.getGroup(groupId);
+        return new GroupDTO(academicGroup.getId(), academicGroup.getNumber());
     }
 
     @Override
