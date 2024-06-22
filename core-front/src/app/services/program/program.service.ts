@@ -21,8 +21,8 @@ export class ProgramService {
         return this.client.get<ProgramDTO[]>("api/programs/all");
     }
 
-    getAllModules2() {
-        return this.authorizedClient.get<FullModuleDto[]>("api/modules/all2");
+    getAllModulesWithCourses(): Observable<FullModuleDto[]> {
+        return this.authorizedClient.get<FullModuleDto[]>("api/modules/allWithCourses");
     }
 
     getEducationalProgramById(id: ProgramIdDto) {

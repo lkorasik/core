@@ -14,11 +14,11 @@ import { ModuleDTO } from '../../../services/module/module.dto';
     selector: 'app-edit-educational-program-screen',
     standalone: true,
     imports: [
-        ToolbarComponent, 
-        SaveButtonComponent, 
-        CloseButtonComponent, 
-        TextFieldComponent, 
-        DropdownComponent, 
+        ToolbarComponent,
+        SaveButtonComponent,
+        CloseButtonComponent,
+        TextFieldComponent,
+        DropdownComponent,
         DialogComponent,
         ButtonComponent
     ],
@@ -46,13 +46,12 @@ export class EditEducationalProgramScreenComponent {
             this.years = x.map(x => new DropdownItem(x.toString(), x.toString()))
         })
 
-        // programService.getAllModules2().subscribe(x => {
-        //     this.modules = x
-        //     this.modules2 = this.modules.map(module => {
-        //         const courses = module.courses.map(course => new Course(course.id, course.name));
-        //         return new Module(module.id, module.name, courses)
-        //     })
-        // })
+        programService.getAllModulesWithCourses().subscribe(x => {
+            this.modules2 = x.map(y => {
+                const courses = y.courses.map(course => new Course(course.id, course.name));
+                return new Module(y.id, y.name, courses)
+            });
+        })
 
         moduleService.getAllModules().subscribe(x => {
             this.modules = x.map(y => new SelectableModule(y, false))
@@ -106,7 +105,7 @@ export class EditEducationalProgramScreenComponent {
     onRightButtonClick() {
         this.isOpen = false;
     }
-    
+
     onSelectModules() {
         this.isOpen = true;
     }

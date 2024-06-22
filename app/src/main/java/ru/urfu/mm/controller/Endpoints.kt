@@ -124,9 +124,9 @@ object Endpoints {
         @JvmStatic
         fun all() = "$BASE$ALL"
 
-        const val ALL2 = "/all2"
+        const val ALL_WITH_COURSES = "/allWithCourses"
         @JvmStatic
-        fun all2() = "$BASE$ALL2"
+        fun allWithCourses() = "$BASE$ALL_WITH_COURSES"
 
         const val MODULE = "/module"
         @JvmStatic

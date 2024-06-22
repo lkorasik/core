@@ -13,8 +13,9 @@ public interface ModulesControllerDescription {
     @GetMapping(Endpoints.Module.ALL)
     List<ModuleDTO> getAllModules();
 
-    @GetMapping(Endpoints.Module.ALL2)
-    List<FullModuleDTO> getAllModules2();
+    @Operation(summary = "Получить список всех модулей с курсами")
+    @GetMapping(Endpoints.Module.ALL_WITH_COURSES)
+    List<FullModuleDTO> getAllModulesWithCourses();
 
     @PostMapping
     List<ModuleDTO> getModulesById(@RequestBody GetModulesDTO getModulesDTO);

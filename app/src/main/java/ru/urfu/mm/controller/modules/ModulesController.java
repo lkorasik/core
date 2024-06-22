@@ -40,18 +40,17 @@ public class ModulesController implements ModulesControllerDescription {
     }
 
     @Override
-    public List<FullModuleDTO> getAllModules2() {
-        throw new NotImplementedException();
-//        return getAllModules.getAllModules()
-//                .stream()
-//                .map(module -> {
-//                    List<FullCourseDTO> courses = module.getCourses()
-//                            .stream()
-//                            .map(course -> new FullCourseDTO(course.getId(), course.getName()))
-//                            .toList();
-//                    return new FullModuleDTO(module.getId(), module.getName(), courses);
-//                })
-//                .toList();
+    public List<FullModuleDTO> getAllModulesWithCourses() {
+        return getAllModules.getAllModules()
+                .stream()
+                .map(module -> {
+                    List<FullCourseDTO> courses = module.getCourses()
+                            .stream()
+                            .map(course -> new FullCourseDTO(course.getId(), course.getName()))
+                            .toList();
+                    return new FullModuleDTO(module.getId(), module.getName(), courses);
+                })
+                .toList();
     }
 
     @Override
