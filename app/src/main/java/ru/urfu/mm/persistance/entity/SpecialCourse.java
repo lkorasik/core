@@ -9,7 +9,6 @@ import java.util.UUID;
 @Table(name = "special_courses")
 public class SpecialCourse {
     @Id
-    @GeneratedValue
     @Column
     private UUID id;
     @Column

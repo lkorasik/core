@@ -41,7 +41,15 @@ public class Course {
      */
     private final List<Skill> requiredSkills;
 
-    public Course(UUID id, String name, int credits, ControlTypes control, String description, String department, String teacher) {
+    public Course(
+            UUID id,
+            String name,
+            int credits,
+            ControlTypes control,
+            String description,
+            String department,
+            String teacher
+    ) {
         this.id = id;
         this.name = name;
         this.credits = credits;

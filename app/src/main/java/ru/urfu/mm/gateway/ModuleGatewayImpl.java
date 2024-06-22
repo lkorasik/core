@@ -9,6 +9,7 @@ import ru.urfu.mm.domain.enums.ControlTypes;
 import ru.urfu.mm.persistance.entity.EducationalModuleEntity;
 import ru.urfu.mm.persistance.entity.enums.Control;
 import ru.urfu.mm.persistance.repository.EducationalModuleRepository;
+import ru.urfu.mm.service.mapper.CourseMapper;
 import ru.urfu.mm.service.mapper.ModuleMapper;
 
 import java.util.List;
@@ -19,10 +20,16 @@ import java.util.UUID;
 public class ModuleGatewayImpl implements ModuleGateway {
     private final EducationalModuleRepository educationalModuleRepository;
     private final ModuleMapper moduleMapper;
+    private final CourseMapper courseMapper;
 
-    public ModuleGatewayImpl(EducationalModuleRepository educationalModuleRepository, ModuleMapper moduleMapper) {
+    public ModuleGatewayImpl(
+            EducationalModuleRepository educationalModuleRepository,
+            ModuleMapper moduleMapper,
+            CourseMapper courseMapper
+    ) {
         this.educationalModuleRepository = educationalModuleRepository;
         this.moduleMapper = moduleMapper;
+        this.courseMapper = courseMapper;
     }
 
     @Override
@@ -37,24 +44,16 @@ public class ModuleGatewayImpl implements ModuleGateway {
 
     @Override
     public Optional<EducationalModule> getById(UUID moduleId) {
-        throw new NotImplementedException();
-//        return educationalModuleRepository.findById(moduleId)
-//                .map(x -> {
-//                    List<Course> courses = x.getCourses()
-//                            .stream()
-//                            .map(y -> new Course(
-//                                    y.getId(),
-//                                    y.getName(),
-//                                    y.getCreditsCount(),
-//                                    ControlTypes.values()[y.getControl().ordinal()],
-//                                    y.getDepartment(),
-//                                    y.getTeacherName())
-//                            )
-//                            .toList();
-//                    EducationalModule module = new EducationalModule(x.getId(), x.getName());
+        return educationalModuleRepository.findById(moduleId)
+                .map(x -> {
+                    List<Course> courses = x.getCourses()
+                            .stream()
+                            .map(courseMapper::toDomain)
+                            .toList();
+                    EducationalModule module = new EducationalModule(x.getId(), x.getName());
 //                    courses.forEach(module::addCourse);
-//                    return module;
-//                });
+                    return module;
+                });
     }
 
     @Override

@@ -7,10 +7,13 @@ import ru.urfu.mm.domain.EducationalModule;
 import ru.urfu.mm.domain.*;
 import ru.urfu.mm.domain.exception.NotImplementedException;
 import ru.urfu.mm.persistance.entity.*;
+import ru.urfu.mm.persistance.entity.enums.Control;
 import ru.urfu.mm.persistance.repository.EducationalProgramToCoursesWithSemestersRepository;
 import ru.urfu.mm.persistance.repository.SelectedCoursesRepository;
 import ru.urfu.mm.persistance.repository.SpecialCourseRepository;
 import ru.urfu.mm.service.mapper.AccountMapper;
+import ru.urfu.mm.service.mapper.CourseMapper;
+import ru.urfu.mm.service.mapper.ModuleMapper;
 
 import java.util.List;
 import java.util.UUID;
@@ -21,17 +24,24 @@ public class CourseGatewayImpl implements CourseGateway {
     private final SelectedCoursesRepository selectedCoursesRepository;
     private final EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository;
     private final AccountMapper userMapper;
+    private final CourseMapper courseMapper;
+    private final ModuleMapper moduleMapper;
 
     @Autowired
     public CourseGatewayImpl(
             SpecialCourseRepository courseRepository,
             SelectedCoursesRepository selectedCoursesRepository,
             EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository,
-            AccountMapper userMapper) {
+            AccountMapper userMapper,
+            CourseMapper courseMapper,
+            ModuleMapper moduleMapper
+    ) {
         this.courseRepository = courseRepository;
         this.selectedCoursesRepository = selectedCoursesRepository;
         this.educationalProgramToCoursesWithSemestersRepository = educationalProgramToCoursesWithSemestersRepository;
         this.userMapper = userMapper;
+        this.courseMapper = courseMapper;
+        this.moduleMapper = moduleMapper;
     }
 
     @Override
@@ -91,18 +101,18 @@ public class CourseGatewayImpl implements CourseGateway {
 
     @Override
     public void save(EducationalModule module, Course specialCourse) {
-        throw new ru.urfu.mm.application.exception.NotImplementedException();
-//        SpecialCourse entity = new SpecialCourse(
-//                specialCourse.getId(),
-//                specialCourse.getName(),
-//                specialCourse.getCredits(),
-//                Control.fromDomain(specialCourse.getControl()),
-//                specialCourse.getDescription(),
-//                specialCourse.getDepartment(),
-//                specialCourse.getTeacher(),
-//                new EducationalModuleEntity(module.getId(), module.getName())
-//        );
-//        courseRepository.save(entity);
+        SpecialCourse entity = courseMapper.toEntity(specialCourse);
+        SpecialCourse entity2 = new SpecialCourse(
+                entity.getId(),
+                entity.getName(),
+                entity.getCreditsCount(),
+                entity.getControl(),
+                entity.getDescription(),
+                entity.getDepartment(),
+                entity.getTeacherName(),
+                moduleMapper.toEntity(module)
+        );
+        courseRepository.save(entity2);
     }
 
     @Override

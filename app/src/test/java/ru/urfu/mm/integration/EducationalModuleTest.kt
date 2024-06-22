@@ -9,12 +9,15 @@ import ru.urfu.mm.RestAssureExtension.whenever
 import ru.urfu.mm.controller.Endpoints
 import ru.urfu.mm.controller.modules.CreateModuleDTO
 import ru.urfu.mm.dsl.AuthorizationDSL
+import ru.urfu.mm.dsl.ModuleDSL
 import ru.urfu.mm.persistance.repository.EducationalModuleRepository
 import java.util.*
 
-class EducationalModuleTest : BaseTestClass() {
+class `Educational module test` : BaseTestClass() {
     @Autowired
     private lateinit var authorization: AuthorizationDSL
+    @Autowired
+    private lateinit var moduleDSL: ModuleDSL
     @Autowired
     private lateinit var moduleRepository: EducationalModuleRepository
 

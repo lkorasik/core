@@ -13,7 +13,7 @@ import ru.urfu.mm.dsl.AuthorizationDSL
 import ru.urfu.mm.persistance.repository.ProgramRepository
 import java.util.*
 
-class EducationalProgramTest : BaseTestClass() {
+class `Educational program test` : BaseTestClass() {
     @Autowired
     private lateinit var authorization: AuthorizationDSL
     @Autowired
