@@ -15,6 +15,7 @@ import ru.urfu.mm.controller.authentication.RegistrationDTO
 import ru.urfu.mm.domain.enums.UserRole
 import ru.urfu.mm.dsl.AuthorizationDSL
 import ru.urfu.mm.dsl.DSL
+import ru.urfu.mm.dsl.RegistrationTokenFactory
 import ru.urfu.mm.integration.BaseTestClass
 import ru.urfu.mm.persistance.entity.RegistrationToken
 import ru.urfu.mm.persistance.entity.enums.UserEntityRole
@@ -41,15 +42,14 @@ class `Administrator registration` : BaseTestClass() {
      */
     @Test
     fun `Register administrator`() {
-        val token = UUID.randomUUID()
         val password = DSL.generatePassword()
 
-        val registrationToken = RegistrationToken(token)
+        val registrationToken = RegistrationTokenFactory.build()
         registrationTokenRepository.save(registrationToken)
 
-        val expected = AccessTokenDTO("", token.toString(), UserRole.ADMIN.value)
+        val expected = AccessTokenDTO("", registrationToken.registrationToken.toString(), UserRole.ADMIN.value)
 
-        val registrationDTO = RegistrationDTO(token.toString(), password, password)
+        val registrationDTO = RegistrationDTO(registrationToken.registrationToken.toString(), password, password)
 
         val actual = RestAssured.given()
             .contentType(ContentType.JSON)
@@ -70,7 +70,7 @@ class `Administrator registration` : BaseTestClass() {
         Assertions.assertEquals(1, accountRepository.findAll().size)
 
         val account = accountRepository.findAll().stream().findFirst().get()
-        Assertions.assertEquals(account.login, token)
+        Assertions.assertEquals(account.login, registrationToken.registrationToken)
         Assertions.assertFalse(account.password.isEmpty())
         Assertions.assertEquals(account.role, UserEntityRole.ADMIN)
     }

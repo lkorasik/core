@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
 import ru.urfu.mm.controller.Endpoints
 import ru.urfu.mm.controller.authentication.AccessTokenDTO
-import ru.urfu.mm.controller.authentication.LoginDTO
 import ru.urfu.mm.controller.authentication.RegistrationDTO
 import ru.urfu.mm.persistance.entity.RegistrationToken
 import ru.urfu.mm.persistance.repository.RegistrationTokenRepository
