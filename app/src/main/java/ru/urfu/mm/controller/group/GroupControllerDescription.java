@@ -25,6 +25,7 @@ public interface GroupControllerDescription {
     @PostMapping(Endpoints.Group.TOKEN)
     List<UUID> generateTokens(@RequestBody GenerateTokenDTO generateTokenDTO);
 
+    @Operation(summary = "Получить токены")
     @GetMapping(Endpoints.Group.TOKEN)
     List<TokenStatusDTO> getTokens(@RequestParam("groupId") UUID groupId);
 

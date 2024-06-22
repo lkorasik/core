@@ -21,11 +21,10 @@ public class GetTokensForGroup {
     }
 
     public List<GetTokensForGroupResponse> getTokensForGroup(GetTokensForGroupRequest request) {
-        throw new NotImplementedException();
-//        return getAcademicGroup.getGroup(request.groupId())
-//                .getStudents()
-//                .stream()
-//                .map(x -> new GetTokensForGroupResponse(x.getId(), x.getAccount() != null))
-//                .toList();
+        return getAcademicGroup.getGroup(request.groupId())
+                .getStudents()
+                .stream()
+                .map(x -> new GetTokensForGroupResponse(x.getId(), x.getAccount() != null))
+                .toList();
     }
 }
