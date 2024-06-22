@@ -4,12 +4,7 @@
 </app-toolbar>
 <app-text-field title="Название образовательной программы" value="{{title}}" (fieldValue)="setName($event)"/>
 <app-text-field title="Направление подготовки" value="{{trainingDirection}}" (fieldValue)="setTrainingDirection($event)"/>
-<select [value]="">
-    <option disabled selected value> -- select an option -- </option>
-    @for (year of years; track $index) {
-        <option>{{year}}</option>
-    }
-</select>
+<app-dropdown [values]="years"/>
 
 <table class="table">
     <tr class="tr">

@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.application.usecase.get_available_years.GetStudyPlanResponse;
 import ru.urfu.mm.controller.Endpoints;
+import ru.urfu.mm.domain.BaseSyllabus;
 import ru.urfu.mm.domain.StudentSyllabus;
 
 import java.util.List;
@@ -35,5 +36,8 @@ public interface ProgramControllerDescription {
     void saveStudyPlan(@RequestBody StudyPlanDTO dto);
 
     @PostMapping(Endpoints.Program.GET_PLAN)
-    StudentSyllabus getStudyPlan(@RequestBody GetStudyPlanDTO dto);
+    List<BaseSyllabus> getStudyPlan(@RequestBody GetStudyPlanDTO dto);
+
+    @GetMapping(Endpoints.Program.GET_ACTUAL_YEARS)
+    List<Integer> getActualYears(@RequestParam("programId") UUID programId);
 }

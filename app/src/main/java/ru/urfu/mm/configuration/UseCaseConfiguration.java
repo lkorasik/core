@@ -18,6 +18,7 @@ import ru.urfu.mm.application.usecase.create_study_plan.CreateBaseSyllabus;
 import ru.urfu.mm.application.usecase.download_tokens.DownloadTokens;
 //import ru.urfu.mm.application.usecase.generate_token.GenerateStudentRegistrationTokens;
 import ru.urfu.mm.application.usecase.generate_student_registration_token.GenerateStudentRegistrationToken;
+import ru.urfu.mm.application.usecase.get_actual_years_by_syllabi.GetActualYearsBySyllabi;
 import ru.urfu.mm.application.usecase.get_group.GetAcademicGroup;
 import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
 import ru.urfu.mm.application.usecase.get_all_modules.GetAllModules;
@@ -26,7 +27,7 @@ import ru.urfu.mm.application.usecase.get_module.GetModuleWithCourses;
 import ru.urfu.mm.application.usecase.get_modules_courses.GetModulesCourses;
 import ru.urfu.mm.application.usecase.get_program_by_id.GetProgramById;
 import ru.urfu.mm.application.usecase.get_available_years.GetAvailableYears;
-import ru.urfu.mm.application.usecase.get_study_plan.GetStudyPlan;
+import ru.urfu.mm.application.usecase.get_base_syllabus.GetAllSyllabi;
 import ru.urfu.mm.application.usecase.get_token.GetTokensForGroup;
 import ru.urfu.mm.application.usecase.login_user.LoginUser;
 import ru.urfu.mm.application.usecase.update_program.UpdateProgram;
@@ -301,13 +302,18 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public GetStudyPlan getStudyPlan(ProgramGateway programGateway) {
-        return new GetStudyPlan(programGateway);
+    public GetAllSyllabi getStudyPlan(ProgramGateway programGateway, BaseSyllabusPlanGateway baseSyllabusPlanGateway) {
+        return new GetAllSyllabi(programGateway, baseSyllabusPlanGateway);
     }
 
     @Bean
     public GetModulesCourses getModulesCourses(CourseGateway courseGateway) {
         return new GetModulesCourses(courseGateway);
+    }
+
+    @Bean
+    public GetActualYearsBySyllabi getActualYearsBySyllabi(BaseSyllabusPlanGateway baseSyllabusPlanGateway) {
+        return new GetActualYearsBySyllabi(baseSyllabusPlanGateway);
     }
 
     @Bean

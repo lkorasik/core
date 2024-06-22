@@ -8,6 +8,8 @@ import { CreateProgramDTO } from "./createProgram.dto";
 import { FullModuleDto } from "./fullModule.dto";
 import { SaveStudyPlanDTO } from "./saveStudyPlan.dto";
 import { AuthorizedHttpClient } from "../authorizedHttpClient";
+import { GetAllSyllabi } from "./getAllSyllabi.dto";
+import { Syllabus } from "./syllabus.dto";
 
 @Injectable({
     providedIn: 'root'
@@ -34,5 +36,10 @@ export class ProgramService {
 
     saveStudyPlan(saveStudyPlan: SaveStudyPlanDTO) {
         return this.authorizedClient.post("api/programs/plan", saveStudyPlan);
+    }
+
+    getActualYears(id: ProgramIdDto) {
+        let params = new HttpParams().set("programId", id.id);
+        return this.authorizedClient.get<number[]>("api/programs/getActualYears", params);
     }
 }

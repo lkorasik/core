@@ -4,16 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.application.usecase.create_educational_program.CreateEducationalProgram;
 import ru.urfu.mm.application.usecase.create_educational_program.CreateProgramRequest;
+import ru.urfu.mm.application.usecase.get_actual_years_by_syllabi.GetActualYearsBySyllabi;
 import ru.urfu.mm.application.usecase.get_all_programs.GetAllPrograms;
 import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
 import ru.urfu.mm.application.usecase.get_program_for_student.ProgramForStudentResponse;
 import ru.urfu.mm.application.usecase.get_program_by_id.GetProgramById;
 import ru.urfu.mm.application.usecase.get_available_years.GetAvailableYears;
 import ru.urfu.mm.application.usecase.get_available_years.GetStudyPlanResponse;
-import ru.urfu.mm.application.usecase.get_study_plan.GetStudyPlan;
+import ru.urfu.mm.application.usecase.get_base_syllabus.GetAllSyllabi;
 import ru.urfu.mm.application.usecase.update_program.UpdateProgram;
 import ru.urfu.mm.application.usecase.update_program.UpdateProgramRequest;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
+import ru.urfu.mm.domain.BaseSyllabus;
 import ru.urfu.mm.domain.EducationalProgram;
 import ru.urfu.mm.domain.StudentSyllabus;
 
@@ -37,7 +39,9 @@ public class ProgramController extends AbstractAuthorizedController implements P
     @Autowired
     private GetAvailableYears getAvailableYears;
     @Autowired
-    private GetStudyPlan getStudyPlan;
+    private GetAllSyllabi getAllSyllabi;
+    @Autowired
+    private GetActualYearsBySyllabi getActualYearsBySyllabi;
 
     @Override
     public ProgramInfoDTO current() {
@@ -87,7 +91,12 @@ public class ProgramController extends AbstractAuthorizedController implements P
     }
 
     @Override
-    public StudentSyllabus getStudyPlan(GetStudyPlanDTO dto) {
-        return getStudyPlan.getStudyPlan(dto.programId(), dto.startYear());
+    public List<BaseSyllabus> getStudyPlan(GetStudyPlanDTO dto) {
+        return getAllSyllabi.getStudyPlan(dto.programId());
+    }
+
+    @Override
+    public List<Integer> getActualYears(UUID programId) {
+        return getActualYearsBySyllabi.getActualYearsBySyllabi(programId);
     }
 }

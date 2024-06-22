@@ -6,11 +6,12 @@ import { TextFieldComponent } from '../../base_components/text-field/text-field.
 import { FullModuleDto } from '../../../services/program/fullModule.dto';
 import { ProgramService } from '../../../services/program/program.service';
 import { CourseSelectionDTO, ModuleDTO, SaveStudyPlanDTO } from '../../../services/program/saveStudyPlan.dto';
+import { DropdownComponent, DropdownItem } from '../../base_components/dropdown/dropdown.component';
 
 @Component({
     selector: 'app-edit-educational-program-screen',
     standalone: true,
-    imports: [ToolbarComponent, SaveButtonComponent, CloseButtonComponent, TextFieldComponent],
+    imports: [ToolbarComponent, SaveButtonComponent, CloseButtonComponent, TextFieldComponent, DropdownComponent],
     templateUrl: './edit-educational-program-screen.component.html',
     styleUrl: './edit-educational-program-screen.component.css'
 })
@@ -18,7 +19,7 @@ export class EditEducationalProgramScreenComponent {
     id: string = ""
     title: string = ""
     trainingDirection: string = ""
-    years: string[] = ["2023"]
+    years: DropdownItem[] = []
     modules: FullModuleDto[] = []
     modules2: Module[] = []
 
@@ -28,6 +29,10 @@ export class EditEducationalProgramScreenComponent {
         this.programService.getEducationalProgramById({ id: this.id }).subscribe(program => {
             this.title = program.title
             this.trainingDirection = program.trainingDirection
+        })
+
+        this.programService.getActualYears({ id: this.id }).subscribe(x => {
+            this.years = x.map(x => new DropdownItem(x.toString(), x.toString()))
         })
 
         programService.getAllModules2().subscribe(x => {
@@ -41,7 +46,7 @@ export class EditEducationalProgramScreenComponent {
 
     onSave() {
         const modulesBody = this.modules2.map(x => new ModuleDTO(x.id, x.courses.map(y => new CourseSelectionDTO(y.id, y.semesterNumber!))))
-        const request = new SaveStudyPlanDTO(parseInt(this.years[0]), this.id, modulesBody)
+        const request = new SaveStudyPlanDTO(parseInt(this.years[0].value), this.id, modulesBody)
         this.programService.saveStudyPlan(request).subscribe(x => x)
     }
 
