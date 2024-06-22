@@ -27,4 +27,18 @@ public class EducationalModule {
         this.id = id;
         this.courses = new ArrayList<>();
     }
+
+    public EducationalModule(UUID id, String name, List<Course> courses) {
+        this.id = id;
+        this.name = name;
+        this.courses = courses;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

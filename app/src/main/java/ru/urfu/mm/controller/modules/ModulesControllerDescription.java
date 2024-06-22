@@ -1,5 +1,6 @@
 package ru.urfu.mm.controller.modules;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.controller.Endpoints;
@@ -8,6 +9,7 @@ import java.util.List;
 
 @Tag(name = "Module", description = "Управление модулями")
 public interface ModulesControllerDescription {
+    @Operation(summary = "Получить список всех модулей")
     @GetMapping(Endpoints.Module.ALL)
     List<ModuleDTO> getAllModules();
 

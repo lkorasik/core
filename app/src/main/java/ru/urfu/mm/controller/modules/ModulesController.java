@@ -32,12 +32,11 @@ public class ModulesController implements ModulesControllerDescription {
 
     @Override
     public List<ModuleDTO> getAllModules() {
-        throw new NotImplementedException();
-//        return getAllModules
-//                .getAllModules()
-//                .stream()
-//                .map(x -> new ModuleDTO(x.getId(), x.getName()))
-//                .toList();
+        return getAllModules
+                .getAllModules()
+                .stream()
+                .map(x -> new ModuleDTO(x.getId(), x.getName()))
+                .toList();
     }
 
     @Override
