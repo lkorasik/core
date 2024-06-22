@@ -25,11 +25,11 @@ public class AuthenticationService {
     }
 
     public String generateToken(LoginDTO dto) {
-        return generateToken(dto.token(), dto.password());
+        return generateToken(String.valueOf(dto.token()), dto.password());
     }
 
     public String generateToken(RegistrationDTO dto) {
-        return generateToken(dto.token(), dto.password());
+        return generateToken(String.valueOf(dto.token()), dto.password());
     }
 
     public void validateToken(String token) {

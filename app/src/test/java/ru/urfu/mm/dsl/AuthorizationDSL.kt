@@ -30,7 +30,7 @@ class AuthorizationDSL @Autowired constructor(private val registrationTokenRepos
         registrationTokenRepository.save(registrationToken)
 
         val password = UUID.randomUUID().toString().replace("-", "")
-        val dto = RegistrationDTO(token.toString(), password, password)
+        val dto = RegistrationDTO(token, password, password)
 
         val client = RestTemplate()
         val uri = URI.create(address + Endpoints.Authentication.register())

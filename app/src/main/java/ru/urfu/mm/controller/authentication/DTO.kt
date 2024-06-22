@@ -1,6 +1,7 @@
 package ru.urfu.mm.controller.authentication
 
 import io.swagger.v3.oas.annotations.media.Schema
+import java.util.UUID
 
 @Schema(description = "Данные для входа в систему")
 @JvmRecord
@@ -17,7 +18,7 @@ data class AccessTokenDTO(
 @JvmRecord
 data class LoginDTO(
     @Schema(description = "Токен", example = "62868339-1019-43d7-a7a9-df00c06022e3")
-    val token: String,
+    val token: UUID,
     @Schema(description = "Пароль", example = "123456789")
     val password: String
 )
@@ -26,7 +27,7 @@ data class LoginDTO(
 @JvmRecord
 data class RegistrationDTO(
     @Schema(description = "Токен", example = "62868339-1019-43d7-a7a9-df00c06022e3")
-    val token: String,
+    val token: UUID,
     @Schema(description = "Пароль", example = "123456789")
     val password: String,
     @Schema(description = "Повтор пароля", example = "123456789")

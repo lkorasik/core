@@ -48,7 +48,7 @@ class `Administrator registration` : BaseTestClass() {
 
         val expected = AccessTokenDTO("", registrationToken.registrationToken.toString(), UserRole.ADMIN.value)
 
-        val registrationDTO = RegistrationDTO(registrationToken.registrationToken.toString(), password, password)
+        val registrationDTO = RegistrationDTO(registrationToken.registrationToken, password, password)
 
         val actual = RestAssured.given()
             .contentType(ContentType.JSON)
@@ -82,7 +82,7 @@ class `Administrator registration` : BaseTestClass() {
         val token = UUID.randomUUID()
         val password = DSL.generatePassword()
 
-        val registrationDTO = RegistrationDTO(token.toString(), password, password)
+        val registrationDTO = RegistrationDTO(token, password, password)
 
         val actual = RestAssured.given()
             .contentType(ContentType.JSON)

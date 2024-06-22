@@ -48,10 +48,10 @@ class `Administrator login` : BaseTestClass() {
 
         val expected = AccessTokenDTO("", registrationToken.registrationToken.toString(), UserRole.ADMIN.value)
 
-        val registrationDTO = RegistrationDTO(registrationToken.registrationToken.toString(), password, password)
+        val registrationDTO = RegistrationDTO(registrationToken.registrationToken, password, password)
         authorizationDSL.registerAsAdministratorAccount(registrationDTO, address())
 
-        val loginDTO = LoginDTO(registrationToken.registrationToken.toString(), password)
+        val loginDTO = LoginDTO(registrationToken.registrationToken, password)
 
         val actual = RestAssured.given()
             .contentType(ContentType.JSON)
@@ -82,10 +82,10 @@ class `Administrator login` : BaseTestClass() {
         val registrationToken = RegistrationTokenFactory.build()
         registrationTokenRepository.save(registrationToken)
 
-        val registrationDTO = RegistrationDTO(registrationToken.registrationToken.toString(), password, password)
+        val registrationDTO = RegistrationDTO(registrationToken.registrationToken, password, password)
         authorizationDSL.registerAsAdministratorAccount(registrationDTO, address())
 
-        val loginDTO = LoginDTO(UUID.randomUUID().toString(), password)
+        val loginDTO = LoginDTO(UUID.randomUUID(), password)
 
         val actual2 = RestAssured.given()
             .contentType(ContentType.JSON)
@@ -117,10 +117,10 @@ class `Administrator login` : BaseTestClass() {
         val registrationToken = RegistrationTokenFactory.build()
         registrationTokenRepository.save(registrationToken)
 
-        val registrationDTO = RegistrationDTO(registrationToken.registrationToken.toString(), password, password)
+        val registrationDTO = RegistrationDTO(registrationToken.registrationToken, password, password)
         authorizationDSL.registerAsAdministratorAccount(registrationDTO, address())
 
-        val loginDTO = LoginDTO(registrationToken.registrationToken.toString(), UUID.randomUUID().toString())
+        val loginDTO = LoginDTO(registrationToken.registrationToken, UUID.randomUUID().toString())
 
         val actual2 = RestAssured.given()
             .contentType(ContentType.JSON)
