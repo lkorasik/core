@@ -10,11 +10,20 @@ import { CreateCourseDto } from '../../../services/course/dtos';
 import { Callback } from '../../../services/callback';
 import { Location } from '@angular/common';
 import { NotificationService } from '../../../services/notification/notification.service';
+import { DropdownComponent, DropdownItem } from '../../base_components/dropdown/dropdown.component';
 
 @Component({
     selector: 'app-add-course-screen',
     standalone: true,
-    imports: [TitleComponent, ToolbarComponent, TextFieldComponent, FormsModule, SaveButtonComponent, CloseButtonComponent],
+    imports: [
+        TitleComponent, 
+        ToolbarComponent, 
+        TextFieldComponent, 
+        FormsModule, 
+        SaveButtonComponent, 
+        CloseButtonComponent,
+        DropdownComponent
+    ],
     templateUrl: './add-course-screen.component.html',
     styleUrl: './add-course-screen.component.css'
 })
@@ -26,6 +35,10 @@ export class AddCourseScreenComponent {
     credits: number = 0
     contorlType: string = "Test"
     description: string = ""
+    values: DropdownItem[] = [
+        new DropdownItem("Зачет", "Test"),
+        new DropdownItem("Экзамен", "Exam")
+    ]
 
     constructor(
         private courseService: CourceService, 
@@ -51,8 +64,8 @@ export class AddCourseScreenComponent {
         this.credits = parseInt(credits)
     }
 
-    setContorlType(contorlType: string) {
-        this.contorlType = contorlType
+    setContorlType(contorlType: DropdownItem) {
+        this.contorlType = contorlType.value
     }
 
     setDescription(description: string) {

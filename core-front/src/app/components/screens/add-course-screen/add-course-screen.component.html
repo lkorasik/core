@@ -6,8 +6,5 @@
 <app-text-field title="Название кафедры" (fieldValue)="setDepartment($event)"/>
 <app-text-field title="Преподаватель" (fieldValue)="setTeacher($event)"/>
 <app-text-field title="Количество зачетных единиц" (fieldValue)="setCredits($event)"/>
-<select [(ngModel)]="contorlType">
-    <option value="Test">Зачет</option>
-    <option value="Exam">Экзамен</option>
-</select>
+<app-dropdown [values]="values" [defaultItemPosition]="0" [selected]="setContorlType"/>
 <app-text-field title="Описание курса" (fieldValue)="setDescription($event)"/>
