@@ -8,6 +8,7 @@ import { DropdownComponent, DropdownItem } from '../../base_components/dropdown/
 import { DialogComponent } from '../../base_components/dialog/dialog.component';
 import { ButtonComponent } from '../../base_components/button/button.component';
 import { ModuleService } from '../../../services/module/module.service';
+import { CourseSelectionDTO, ModuleDTO, SaveStudyPlanDTO } from '../../../services/program/saveStudyPlan.dto';
 
 @Component({
     selector: 'app-edit-educational-program-screen',
@@ -29,6 +30,7 @@ export class EditEducationalProgramScreenComponent {
     title: string = ""
     trainingDirection: string = ""
     years: DropdownItem[] = []
+    years2: Year[] = []
     modules: Module[] = []
     isOpen: boolean = false;
     year: DropdownItem | undefined = undefined
@@ -49,14 +51,37 @@ export class EditEducationalProgramScreenComponent {
         })
 
         this.programService.getAllSyllabi({ id: this.id }).subscribe(x => {
-            this.years = x.map(y => y.firstSemesterPlan.semester.year)
+            this.years2 = x.map(y => new Year(
+                y.firstSemesterPlan.semester.id, 
+                y.secondSemesterPlan.semester.id,
+                y.thirdSemesterPlan.semester.id,
+                y.fourthSemesterPlan.semester.id,
+                y.firstSemesterPlan.semester.year
+            ))
+            this.years = x.map(y => y.firstSemesterPlan.semester).map(y => new DropdownItem(y.year.toString(), y.id.toString()))
         })
     }
 
     onSave() {
-        // const modulesBody = this.modules2.map(x => new ModuleDTO(x.id, x.courses.map(y => new CourseSelectionDTO(y.id, y.semesterNumber!))))
-        // const request = new SaveStudyPlanDTO(parseInt(this.years[0].value), this.id, modulesBody)
-        // this.programService.saveStudyPlan(request).subscribe(x => x)
+        console.log(this.year)
+        console.log(this.modules)
+        let year = this.years2.filter(x => x.firstSemesterId == this.year?.value)[0]
+        console.log(year)
+        let modules = this.modules.filter(x => x.dialogSelected).map(x => new ModuleDTO(x.id, x.courses.map(y => {
+            let semesterId:string = ""
+            if (y.semesterNumber == 1) {
+                semesterId = year.firstSemesterId
+            } else if (y.semesterNumber == 2) {
+                semesterId = year.secondSemesterId
+            } else if (y.semesterNumber == 3) {
+                semesterId = year.thirdSemesterId
+            } else {
+                semesterId = year.fourthSemesterId;
+            }
+            return new CourseSelectionDTO(y.id, semesterId)
+        })))
+        let request = new SaveStudyPlanDTO(this.year!.value, modules)
+        this.programService.saveStudyPlan(request).subscribe(x => x)
     }
 
     setName(v: string) {
@@ -116,6 +141,22 @@ export class EditEducationalProgramScreenComponent {
 
     on(item: DropdownItem) {
         this.year = item
+    }
+}
+
+class Year {
+    firstSemesterId: string
+    secondSemesterId: string
+    thirdSemesterId: string
+    fourthSemesterId: string
+    year: number
+
+    constructor(firstSemesterId: string, secondSemesterId: string, thirdSemesterId: string, fourthSemesterId: string, year: number) {
+        this.firstSemesterId = firstSemesterId
+        this.secondSemesterId = secondSemesterId
+        this.thirdSemesterId = thirdSemesterId
+        this.fourthSemesterId = fourthSemesterId
+        this.year = year
     }
 }
 

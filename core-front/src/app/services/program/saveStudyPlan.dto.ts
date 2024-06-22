@@ -1,12 +1,10 @@
 export class SaveStudyPlanDTO {
-    startYear: number
-    programId: string
+    firstSemesterId: string
     modules: ModuleDTO[]
 
-    constructor(startYear: number, programId: string, modules: ModuleDTO[]) {
-        this.startYear = startYear
-        this.programId = programId
-        this.modules = modules
+    constructor(firstSemesterId: string, modules: ModuleDTO[]) {
+        this.firstSemesterId = firstSemesterId;
+        this.modules = modules;
     }
 }
 
@@ -22,10 +20,10 @@ export class ModuleDTO {
 
 export class CourseSelectionDTO {
     courseId: string
-    semesterEntity: number
+    semesterId: string
 
-    constructor(courseId: string, semesterEntity: number) {
+    constructor(courseId: string, semesterId: string) {
         this.courseId = courseId
-        this.semesterEntity = semesterEntity
+        this.semesterId = semesterId
     }
 }

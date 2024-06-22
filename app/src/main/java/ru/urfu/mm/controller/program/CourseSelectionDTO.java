@@ -4,5 +4,5 @@ import java.util.UUID;
 
 public record  CourseSelectionDTO(
         UUID courseId,
-        int semester
+        UUID semesterId
 ) { }
