@@ -25,7 +25,7 @@ class ModuleDSL {
         val dto = CreateModuleDTO(name)
 
         val client = RestTemplate()
-        var uri = URI.create(address + Endpoints.Module.create())
+        val uri = URI.create(address + Endpoints.Module.create())
         val headers = org.springframework.http.HttpHeaders()
         headers.add("Authorization", "Bearer $accessToken")
         val entity = HttpEntity(dto, headers)
