@@ -13,13 +13,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import ru.urfu.mm.filter.JwtFilter;
-import ru.urfu.mm.service.UserService;
+import ru.urfu.mm.service.AccountService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
     @Autowired
-    private UserService userService;
+    private AccountService accountService;
 
     @Autowired
     private JwtFilter jwtFilter;
@@ -44,7 +44,7 @@ public class SecurityConfiguration {
     public DaoAuthenticationProvider daoAuthProvider() {
         var daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-        daoAuthenticationProvider.setUserDetailsService(userService);
+        daoAuthenticationProvider.setUserDetailsService(accountService);
         return daoAuthenticationProvider;
     }
 

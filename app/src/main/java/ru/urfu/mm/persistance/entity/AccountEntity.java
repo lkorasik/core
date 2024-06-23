@@ -22,7 +22,7 @@ public class AccountEntity {
         this.role = role;
     }
 
-    public AccountEntity() {
+    protected AccountEntity() {
     }
 
     public UUID getLogin() {
