@@ -63,10 +63,7 @@ export class EditEducationalProgramScreenComponent {
     }
 
     onSave() {
-        console.log(this.year)
-        console.log(this.modules)
         let year = this.years2.filter(x => x.firstSemesterId == this.year?.value)[0]
-        console.log(year)
         let modules = this.modules.filter(x => x.dialogSelected).map(x => new ModuleDTO(x.id, x.courses.map(y => {
             let semesterId:string = ""
             if (y.semesterNumber == 1) {
@@ -80,7 +77,7 @@ export class EditEducationalProgramScreenComponent {
             }
             return new CourseSelectionDTO(y.id, semesterId)
         })))
-        let request = new SaveStudyPlanDTO(this.year!.value, modules)
+        let request = new SaveStudyPlanDTO(this.id, this.year!.value, modules)
         this.programService.saveStudyPlan(request).subscribe(x => x)
     }
 

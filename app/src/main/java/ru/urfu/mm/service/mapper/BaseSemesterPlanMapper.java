@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.urfu.mm.domain.BaseSemesterPlan;
 import ru.urfu.mm.persistance.entity.BaseSemesterPlanEntity;
+import ru.urfu.mm.persistance.entity.SpecialCourse;
+
+import java.util.List;
 
 @Service
 public class BaseSemesterPlanMapper {
@@ -17,9 +20,24 @@ public class BaseSemesterPlanMapper {
     }
 
     public BaseSemesterPlanEntity toEntity(BaseSemesterPlan baseSemesterPlan) {
+        List<SpecialCourse> requiredCourses = baseSemesterPlan.getRequiredCourses()
+                .stream()
+                .map(courseMapper::toEntity)
+                .toList();
+        List<SpecialCourse> availableCourses = baseSemesterPlan.getAvailableCourses()
+                .stream()
+                .map(courseMapper::toEntity)
+                .toList();
+        List<SpecialCourse> scienceWorks = baseSemesterPlan.getScienceWorks()
+                .stream()
+                .map(courseMapper::toEntity)
+                .toList();
         return new BaseSemesterPlanEntity(
                 baseSemesterPlan.getId(),
-                semesterMapper.toEntity(baseSemesterPlan.getSemester())
+                semesterMapper.toEntity(baseSemesterPlan.getSemester()),
+                requiredCourses,
+                availableCourses,
+                scienceWorks
         );
     }
 

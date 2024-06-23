@@ -218,8 +218,11 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public CreateBaseSyllabus createBaseSyllabus() {
-        return new CreateBaseSyllabus();
+    public CreateBaseSyllabus createBaseSyllabus(
+            BaseSyllabusPlanGateway baseSyllabusPlanGateway,
+            CourseGateway courseGateway
+    ) {
+        return new CreateBaseSyllabus(baseSyllabusPlanGateway, courseGateway);
     }
 
     @Bean

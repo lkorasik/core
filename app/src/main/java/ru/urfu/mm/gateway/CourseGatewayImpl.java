@@ -96,7 +96,8 @@ public class CourseGatewayImpl implements CourseGateway {
 
     @Override
     public Course getById(UUID id) {
-        throw new NotImplementedException();
+        SpecialCourse entity = courseRepository.getReferenceById(id);
+        return courseMapper.toDomain(entity);
     }
 
     @Override

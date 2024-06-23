@@ -31,7 +31,7 @@ public interface ProgramControllerDescription {
     List<GetStudyPlanResponse> laod(@RequestParam("id") UUID id);
 
     @PostMapping(Endpoints.Program.PLAN)
-    void saveStudyPlan(@RequestBody StudyPlanDTO dto);
+    void saveSyllabus(@RequestBody SyllabusDTO dto);
 
     @PostMapping(Endpoints.Program.GET_PLAN)
     List<BaseSyllabus> getAllSyllabi(@RequestParam("programId") UUID programId);

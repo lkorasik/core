@@ -33,6 +33,20 @@ public class BaseSemesterPlanEntity {
         this.scienceWorks = new ArrayList<>();
     }
 
+    public BaseSemesterPlanEntity(
+            UUID id,
+            SemesterEntity semesterEntity,
+            List<SpecialCourse> requiredCourses,
+            List<SpecialCourse> availableCourses,
+            List<SpecialCourse> scienceWorks
+    ) {
+        this.id = id;
+        this.semesterEntity = semesterEntity;
+        this.requiredCourses = requiredCourses;
+        this.availableCourses = availableCourses;
+        this.scienceWorks = scienceWorks;
+    }
+
     public UUID getId() {
         return id;
     }

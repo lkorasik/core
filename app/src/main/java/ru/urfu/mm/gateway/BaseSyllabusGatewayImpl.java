@@ -7,6 +7,7 @@ import ru.urfu.mm.domain.BaseSyllabus;
 import ru.urfu.mm.persistance.entity.BaseSyllabusEntity;
 import ru.urfu.mm.persistance.entity.EducationalProgramEntity;
 import ru.urfu.mm.persistance.entity.GroupEntity;
+import ru.urfu.mm.persistance.repository.BaseSemesterPlanRepository;
 import ru.urfu.mm.persistance.repository.BaseSyllabusRepository;
 import ru.urfu.mm.persistance.repository.ProgramRepository;
 import ru.urfu.mm.service.mapper.BaseSyllabusMapper;
@@ -20,21 +21,28 @@ public class BaseSyllabusGatewayImpl implements BaseSyllabusPlanGateway {
     private final BaseSyllabusRepository baseSyllabusRepository;
     private final BaseSyllabusMapper baseSyllabusMapper;
     private final ProgramRepository programRepository;
+    private final BaseSemesterPlanRepository baseSemesterPlanRepository;
 
     @Autowired
     public BaseSyllabusGatewayImpl(
             BaseSyllabusRepository baseSyllabusRepository,
             BaseSyllabusMapper baseSyllabusMapper,
-            ProgramRepository programRepository
+            ProgramRepository programRepository,
+            BaseSemesterPlanRepository baseSemesterPlanRepository
     ) {
         this.baseSyllabusRepository = baseSyllabusRepository;
         this.baseSyllabusMapper = baseSyllabusMapper;
         this.programRepository = programRepository;
+        this.baseSemesterPlanRepository = baseSemesterPlanRepository;
     }
 
     @Override
     public void save(BaseSyllabus syllabus) {
         BaseSyllabusEntity entity = baseSyllabusMapper.toEntity(syllabus);
+        baseSemesterPlanRepository.save(entity.getFirstSemesterPlan());
+        baseSemesterPlanRepository.save(entity.getSecondSemesterPlan());
+        baseSemesterPlanRepository.save(entity.getThirdSemesterPlan());
+        baseSemesterPlanRepository.save(entity.getFourthSemesterPlan());
         baseSyllabusRepository.save(entity);
     }
 
