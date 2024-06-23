@@ -9,10 +9,11 @@ public class RegistrationToken {
     @Id
     @Column(name = "registration_token")
     public UUID registrationToken;
-    public RegistrationToken() {
-    }
 
     public RegistrationToken(UUID registrationToken) {
         this.registrationToken = registrationToken;
+    }
+
+    protected RegistrationToken() {
     }
 }
