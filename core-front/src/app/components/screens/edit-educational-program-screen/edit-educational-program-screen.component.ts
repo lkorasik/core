@@ -29,11 +29,11 @@ export class EditEducationalProgramScreenComponent {
     id: string = ""
     title: string = ""
     trainingDirection: string = ""
-    years: DropdownItem[] = []
-    years2: Year[] = []
+    availableYears: DropdownItem[] = []
+    years: Year[] = []
     modules: Module[] = []
     isOpen: boolean = false;
-    year: DropdownItem | undefined = undefined
+    selectedYear: DropdownItem | undefined = undefined
 
     constructor(private programService: ProgramService, private moduleService: ModuleService) {
         this.id = sessionStorage.getItem("programId")!;
@@ -51,19 +51,19 @@ export class EditEducationalProgramScreenComponent {
         })
 
         this.programService.getAllSyllabi({ id: this.id }).subscribe(x => {
-            this.years2 = x.map(y => new Year(
+            this.years = x.map(y => new Year(
                 y.firstSemesterPlan.semester.id, 
                 y.secondSemesterPlan.semester.id,
                 y.thirdSemesterPlan.semester.id,
                 y.fourthSemesterPlan.semester.id,
                 y.firstSemesterPlan.semester.year
             ))
-            this.years = x.map(y => y.firstSemesterPlan.semester).map(y => new DropdownItem(y.year.toString(), y.id.toString()))
+            this.availableYears = x.map(y => y.firstSemesterPlan.semester).map(y => new DropdownItem(y.year.toString(), y.id.toString()))
         })
     }
 
     onSave() {
-        let year = this.years2.filter(x => x.firstSemesterId == this.year?.value)[0]
+        let year = this.years.filter(x => x.firstSemesterId == this.selectedYear?.value)[0]
         let modules = this.modules.filter(x => x.dialogSelected).map(x => new ModuleDTO(x.id, x.courses.map(y => {
             let semesterId:string = ""
             if (y.semesterNumber == 1) {
@@ -77,7 +77,7 @@ export class EditEducationalProgramScreenComponent {
             }
             return new CourseSelectionDTO(y.id, semesterId)
         })))
-        let request = new SaveStudyPlanDTO(this.id, this.year!.value, modules)
+        let request = new SaveStudyPlanDTO(this.id, this.selectedYear!.value, modules)
         this.programService.saveStudyPlan(request).subscribe(x => x)
     }
 
@@ -128,7 +128,7 @@ export class EditEducationalProgramScreenComponent {
     }
 
     shouldShowPlanConstructor() {
-        return this.year !== undefined
+        return this.selectedYear !== undefined
         // return this.modules.filter(x => x.dialogSelected).length != 0
     }
 
@@ -137,7 +137,7 @@ export class EditEducationalProgramScreenComponent {
     }
 
     on(item: DropdownItem) {
-        this.year = item
+        this.selectedYear = item
     }
 }
 

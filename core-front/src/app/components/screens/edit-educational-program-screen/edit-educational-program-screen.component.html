@@ -4,7 +4,7 @@
 </app-toolbar>
 <app-text-field title="Название образовательной программы" value="{{title}}" (fieldValue)="setName($event)"/>
 <app-text-field title="Направление подготовки" value="{{trainingDirection}}" (fieldValue)="setTrainingDirection($event)"/>
-<app-dropdown [values]="years" (selectEvent)="on($event)"/>
+<app-dropdown [values]="availableYears" (selectEvent)="on($event)"/>
 <app-dialog 
     [isOpen]="isOpen" 
     (onLeftButtonClick)="onLeftButtonClick()" 
