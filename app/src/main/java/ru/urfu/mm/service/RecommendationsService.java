@@ -22,8 +22,6 @@ public class RecommendationsService {
     private SemesterService semesterService;
     @Autowired
     private CourseService courseService;
-    @Autowired
-    private CoursesSkillsService coursesSkillsService;
 //    @Autowired
 //    private GetCoursesByEducationalProgramAndSemesters getCoursesByEducationalProgramAndSemesters;
 
