@@ -8,5 +8,4 @@ import java.util.List;
 
 public interface StudyPlanGateway {
     void save(BaseSyllabus studentSyllabus, EducationalProgram educationalProgram);
-    List<BaseSyllabus> findAllByProgram(EducationalProgram educationalProgram);
 }

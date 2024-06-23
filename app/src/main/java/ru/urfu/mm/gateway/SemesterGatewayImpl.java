@@ -41,20 +41,6 @@ public class SemesterGatewayImpl implements SemesterGateway {
     }
 
     @Override
-    public List<Semester> GetLaterOrEqual(int year) {
-        return semesterRepository
-                .findAll()
-                .stream()
-                .filter(semester -> semester.getYear() >= year)
-                .map(x -> new Semester(
-                        x.getId(),
-                        x.getYear(),
-                        SemesterType.toDomain(x.getType())
-                ))
-                .toList();
-    }
-
-    @Override
     public List<Semester> getSemestersForEntireStudyPeriod(int startYear) {
         return semesterRepository
                 .findAll()

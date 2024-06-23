@@ -10,5 +10,4 @@ import java.util.UUID;
 
 @Repository
 public interface StudentRegistrationTokenRepository extends JpaRepository<StudentRegistrationToken, UUID> {
-    List<StudentRegistrationToken> findAllByGroup(GroupEntity group);
 }

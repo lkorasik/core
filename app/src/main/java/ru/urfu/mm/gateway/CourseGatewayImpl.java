@@ -36,17 +36,7 @@ public class CourseGatewayImpl implements CourseGateway {
     }
 
     @Override
-    public List<Course> getAllCourses() {
-        throw new NotImplementedException();
-    }
-
-    @Override
     public List<Course> getEducationalModuleCourses(UUID moduleId) {
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public List<UUID> getStudentBySelectedCourse(UUID courseId) {
         throw new NotImplementedException();
     }
 

@@ -10,5 +10,4 @@ import java.util.UUID;
 
 @Repository
 public interface StudyPlanRepository extends JpaRepository<SyllabusEntity, UUID> {
-    List<SyllabusEntity> findAllByProgram(EducationalProgramEntity program);
 }
