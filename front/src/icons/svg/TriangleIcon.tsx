@@ -1,9 +1,0 @@
-import React from "react";
-
-export const TriangleIcon: React.FC = (): React.ReactElement => {
-    return (
-        <svg width="100%" height="100%" viewBox="0 0 26 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1.83822 16.75L13 0.869516L24.1618 16.75H1.83822Z" fill="#D9D9D9" stroke="black"/>
-        </svg>
-    );
-}

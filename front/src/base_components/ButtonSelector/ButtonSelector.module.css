@@ -1,8 +1,0 @@
-.wrapper {
-    display: inline-flex;
-}
-
-.input[type=radio] {
-    display: none;
-    appearance: none;
-}
