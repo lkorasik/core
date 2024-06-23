@@ -1,5 +1,6 @@
 package ru.urfu.mm.application.usecase.get_token;
 
+import ru.urfu.mm.application.exception.NotImplementedException;
 import ru.urfu.mm.application.gateway.StudentGateway;
 import ru.urfu.mm.application.usecase.get_group.GetAcademicGroup;
 

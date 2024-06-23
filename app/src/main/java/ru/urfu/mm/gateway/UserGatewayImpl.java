@@ -8,7 +8,7 @@ import ru.urfu.mm.domain.enums.UserRole;
 import ru.urfu.mm.persistance.entity.AccountEntity;
 import ru.urfu.mm.persistance.entity.enums.UserEntityRole;
 import ru.urfu.mm.persistance.repository.AccountRepository;
-import ru.urfu.mm.service.mapper.Mapper;
+import ru.urfu.mm.service.mapper.AccountMapper;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -16,17 +16,17 @@ import java.util.UUID;
 @Component
 public class UserGatewayImpl implements UserGateway {
     private final AccountRepository accountRepository;
-    private final Mapper<Account, AccountEntity> userMapper;
+    private final AccountMapper userMapper;
 
     @Autowired
-    public UserGatewayImpl(AccountRepository accountRepository, Mapper<Account, AccountEntity> userMapper) {
+    public UserGatewayImpl(AccountRepository accountRepository, AccountMapper userMapper) {
         this.accountRepository = accountRepository;
         this.userMapper = userMapper;
     }
 
     @Override
     public void save(Account account) {
-        accountRepository.save(userMapper.map(account));
+        accountRepository.save(userMapper.toEntity(account));
     }
 
     public Account getByToken(UUID token) {

@@ -3,14 +3,25 @@ import { ToolbarComponent } from '../../base_components/toolbar/toolbar.componen
 import { SaveButtonComponent } from '../../base_components/save-button/save-button.component';
 import { CloseButtonComponent } from '../../base_components/close-button/close-button.component';
 import { TextFieldComponent } from '../../base_components/text-field/text-field.component';
-import { FullModuleDto } from '../../../services/program/fullModule.dto';
 import { ProgramService } from '../../../services/program/program.service';
+import { DropdownComponent, DropdownItem } from '../../base_components/dropdown/dropdown.component';
+import { DialogComponent } from '../../base_components/dialog/dialog.component';
+import { ButtonComponent } from '../../base_components/button/button.component';
+import { ModuleService } from '../../../services/module/module.service';
 import { CourseSelectionDTO, ModuleDTO, SaveStudyPlanDTO } from '../../../services/program/saveStudyPlan.dto';
 
 @Component({
     selector: 'app-edit-educational-program-screen',
     standalone: true,
-    imports: [ToolbarComponent, SaveButtonComponent, CloseButtonComponent, TextFieldComponent],
+    imports: [
+        ToolbarComponent,
+        SaveButtonComponent,
+        CloseButtonComponent,
+        TextFieldComponent,
+        DropdownComponent,
+        DialogComponent,
+        ButtonComponent
+    ],
     templateUrl: './edit-educational-program-screen.component.html',
     styleUrl: './edit-educational-program-screen.component.css'
 })
@@ -18,11 +29,13 @@ export class EditEducationalProgramScreenComponent {
     id: string = ""
     title: string = ""
     trainingDirection: string = ""
-    years: string[] = ["2023"]
-    modules: FullModuleDto[] = []
-    modules2: Module[] = []
+    years: DropdownItem[] = []
+    years2: Year[] = []
+    modules: Module[] = []
+    isOpen: boolean = false;
+    year: DropdownItem | undefined = undefined
 
-    constructor(private programService: ProgramService) {
+    constructor(private programService: ProgramService, private moduleService: ModuleService) {
         this.id = sessionStorage.getItem("programId")!;
 
         this.programService.getEducationalProgramById({ id: this.id }).subscribe(program => {
@@ -30,18 +43,41 @@ export class EditEducationalProgramScreenComponent {
             this.trainingDirection = program.trainingDirection
         })
 
-        programService.getAllModules2().subscribe(x => {
-            this.modules = x
-            this.modules2 = this.modules.map(module => {
-                const courses = module.courses.map(course => new Course(course.id, course.name));
-                return new Module(module.id, module.name, courses)
-            })
+        this.programService.getAllModulesWithCourses().subscribe(x => {
+            this.modules = x.map(y => {
+                const courses = y.courses.map(course => new Course(course.id, course.name));
+                return new Module(y.id, y.name, courses)
+            });
+        })
+
+        this.programService.getAllSyllabi({ id: this.id }).subscribe(x => {
+            this.years2 = x.map(y => new Year(
+                y.firstSemesterPlan.semester.id, 
+                y.secondSemesterPlan.semester.id,
+                y.thirdSemesterPlan.semester.id,
+                y.fourthSemesterPlan.semester.id,
+                y.firstSemesterPlan.semester.year
+            ))
+            this.years = x.map(y => y.firstSemesterPlan.semester).map(y => new DropdownItem(y.year.toString(), y.id.toString()))
         })
     }
 
     onSave() {
-        const modulesBody = this.modules2.map(x => new ModuleDTO(x.id, x.courses.map(y => new CourseSelectionDTO(y.id, y.semesterNumber!))))
-        const request = new SaveStudyPlanDTO(parseInt(this.years[0]), this.id, modulesBody)
+        let year = this.years2.filter(x => x.firstSemesterId == this.year?.value)[0]
+        let modules = this.modules.filter(x => x.dialogSelected).map(x => new ModuleDTO(x.id, x.courses.map(y => {
+            let semesterId:string = ""
+            if (y.semesterNumber == 1) {
+                semesterId = year.firstSemesterId
+            } else if (y.semesterNumber == 2) {
+                semesterId = year.secondSemesterId
+            } else if (y.semesterNumber == 3) {
+                semesterId = year.thirdSemesterId
+            } else {
+                semesterId = year.fourthSemesterId;
+            }
+            return new CourseSelectionDTO(y.id, semesterId)
+        })))
+        let request = new SaveStudyPlanDTO(this.id, this.year!.value, modules)
         this.programService.saveStudyPlan(request).subscribe(x => x)
     }
 
@@ -78,6 +114,47 @@ export class EditEducationalProgramScreenComponent {
     onClick(module: Module, course: Course, semesterNumber: number) {
         module.select(course, semesterNumber);
     }
+
+    onLeftButtonClick() {
+        this.isOpen = false;
+    }
+
+    onRightButtonClick() {
+        this.isOpen = false;
+    }
+
+    onSelectModules() {
+        this.isOpen = true;
+    }
+
+    shouldShowPlanConstructor() {
+        return this.year !== undefined
+        // return this.modules.filter(x => x.dialogSelected).length != 0
+    }
+
+    onSelectModule(index: number) {
+        this.modules[index].dialogSelected = !this.modules[index].dialogSelected;
+    }
+
+    on(item: DropdownItem) {
+        this.year = item
+    }
+}
+
+class Year {
+    firstSemesterId: string
+    secondSemesterId: string
+    thirdSemesterId: string
+    fourthSemesterId: string
+    year: number
+
+    constructor(firstSemesterId: string, secondSemesterId: string, thirdSemesterId: string, fourthSemesterId: string, year: number) {
+        this.firstSemesterId = firstSemesterId
+        this.secondSemesterId = secondSemesterId
+        this.thirdSemesterId = thirdSemesterId
+        this.fourthSemesterId = fourthSemesterId
+        this.year = year
+    }
 }
 
 class Module {
@@ -86,11 +163,13 @@ class Module {
     courses: Course[];
     blockFlags: number[][] = [];
     selectionFlags: number[][] = [];
+    dialogSelected: boolean;
 
     constructor(id: string, name: string, courses: Course[]) {
         this.id = id;
         this.name = name;
         this.courses = courses;
+        this.dialogSelected = false;
 
         for (let i = 0; i < courses.length; i++) {
             this.blockFlags[i] = [0, 0, 0, 0];

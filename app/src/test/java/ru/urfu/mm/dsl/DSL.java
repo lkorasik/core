@@ -9,8 +9,4 @@ public class DSL {
     public static String generatePassword() {
         return UUID.randomUUID().toString();
     }
-
-    public static String generateProgramName() {
-        return "Программа_" + UUID.randomUUID();
-    }
 }

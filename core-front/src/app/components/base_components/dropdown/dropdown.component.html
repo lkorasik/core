@@ -1,0 +1,11 @@
+<div class="select {{getClass()}}">
+    <div class="select__header" (click)="toggle()">
+        <span class="select__current">{{value}}</span>
+        <div class="select__icon {{rotate()}}">&#9662;</div>
+    </div>
+    <div class="select__body">
+        @for (item of values; track $index) {
+            <div class="select__item" (click)="onSelect(item)">{{item.label}}</div>
+        }
+    </div>
+</div>

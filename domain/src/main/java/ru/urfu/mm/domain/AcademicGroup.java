@@ -13,32 +13,38 @@ public class AcademicGroup {
     /**
      * Идентификатор группы
      */
-    private UUID id;
+    private final UUID id;
     /**
      * Номер группы (МЕНМ-ХХХХХХ)
      */
-    private String number;
+    private final String number;
     /**
      * Номер курса
      */
-    private Years year;
+    private final Years year;
     /**
      * Список студентов
      */
-    private List<Student> students;
+    private final List<Student> students;
+    /**
+     * Базовый учебный план
+     */
+    private final BaseSyllabus baseSyllabus;
 
-    public AcademicGroup(UUID id, String number) {
+    public AcademicGroup(UUID id, String number, BaseSyllabus baseSyllabus) {
         this.id = id;
         this.number = number;
-        year = Years.FIRST;
-        students = new ArrayList<>();
+        this.year = Years.FIRST;
+        this.students = new ArrayList<>();
+        this.baseSyllabus = baseSyllabus;
     }
 
-    public AcademicGroup(UUID id, String number, Years year) {
+    public AcademicGroup(UUID id, String number, Years year, List<Student> students, BaseSyllabus baseSyllabus) {
         this.id = id;
         this.number = number;
         this.year = year;
-        students = new ArrayList<>();
+        this.students = students;
+        this.baseSyllabus = baseSyllabus;
     }
 
     public UUID getId() {
@@ -55,5 +61,9 @@ public class AcademicGroup {
 
     public List<Student> getStudents() {
         return students;
+    }
+
+    public BaseSyllabus getBaseSyllabus() {
+        return baseSyllabus;
     }
 }

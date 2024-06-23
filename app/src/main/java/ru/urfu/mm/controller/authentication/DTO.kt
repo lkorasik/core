@@ -1,32 +1,40 @@
 package ru.urfu.mm.controller.authentication
 
-import ru.urfu.mm.application.usecase.create.account.CreateAccountRequest
-import ru.urfu.mm.application.usecase.login_user.LoginRequest
-import java.util.*
+import io.swagger.v3.oas.annotations.media.Schema
+import java.util.UUID
 
+@Schema(description = "Данные для входа в систему")
 @JvmRecord
 data class AccessTokenDTO(
+    @Schema(description = "Токен доступа. Используй так: 'Authorization: Bearer <token>'")
     val accessToken: String,
+    @Schema(description = "Токен пользователя")
     val userToken: String,
+    @Schema(description = "Роль пользователя")
     val userEntityRole: String
 )
 
+@Schema(description = "Для регистрации аккаунта")
 @JvmRecord
 data class LoginDTO(
-    val token: String,
+    @Schema(description = "Токен", example = "62868339-1019-43d7-a7a9-df00c06022e3")
+    val token: UUID,
+    @Schema(description = "Пароль", example = "123456789")
     val password: String
-) : LoginRequest {
-    override fun getToken(): UUID = UUID.fromString(token)
-    override fun getPassword(): String = password
-}
+)
 
+@Schema(description = "Для регистрации аккаунта")
 @JvmRecord
 data class RegistrationDTO(
-    val token: String,
+    @Schema(description = "Токен", example = "62868339-1019-43d7-a7a9-df00c06022e3")
+    val token: UUID,
+    @Schema(description = "Пароль", example = "123456789")
     val password: String,
+    @Schema(description = "Повтор пароля", example = "123456789")
     val passwordAgain: String
-) : CreateAccountRequest {
-    override fun getToken(): UUID = UUID.fromString(token)
-    override fun getPassword(): String = password
-    override fun getPasswordAgain(): String = passwordAgain
-}
+)
+
+@JvmRecord
+data class TokenDTO(
+    val token: String
+)

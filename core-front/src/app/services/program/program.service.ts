@@ -8,6 +8,8 @@ import { CreateProgramDTO } from "./createProgram.dto";
 import { FullModuleDto } from "./fullModule.dto";
 import { SaveStudyPlanDTO } from "./saveStudyPlan.dto";
 import { AuthorizedHttpClient } from "../authorizedHttpClient";
+import { GetAllSyllabi } from "./getAllSyllabi.dto";
+import { Syllabus } from "./syllabus.dto";
 
 @Injectable({
     providedIn: 'root'
@@ -19,8 +21,8 @@ export class ProgramService {
         return this.client.get<ProgramDTO[]>("api/programs/all");
     }
 
-    getAllModules2() {
-        return this.authorizedClient.get<FullModuleDto[]>("api/modules/all2");
+    getAllModulesWithCourses(): Observable<FullModuleDto[]> {
+        return this.authorizedClient.get<FullModuleDto[]>("api/modules/allWithCourses");
     }
 
     getEducationalProgramById(id: ProgramIdDto) {
@@ -34,5 +36,10 @@ export class ProgramService {
 
     saveStudyPlan(saveStudyPlan: SaveStudyPlanDTO) {
         return this.authorizedClient.post("api/programs/plan", saveStudyPlan);
+    }
+    
+    getAllSyllabi(id: ProgramIdDto) {
+        let params = new HttpParams().set("programId", id.id);
+        return this.authorizedClient.post<Syllabus[]>("api/programs/getPlan", params);
     }
 }

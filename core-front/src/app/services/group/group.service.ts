@@ -18,17 +18,10 @@ export class GroupService {
     public getGroupsForProgram(group: GetGropupDTO) {
         let params = new HttpParams().set("programId", group.programId);
         return this.authorizedClient.get<GroupDto[]>("api/groups/groupsByProgram", params);
-
-        // let headers = new HttpHeaders().append("Authorization", "Bearer " + sessionStorage.getItem("token"));
-        // let params = new HttpParams().set("programId", group.programId);
-        // return this.client.get<GroupDto[]>("api/groups/groupsByProgram", { headers, params });
     }
 
     public createGroup(createGroup: CreateGroupDTO) {
         return this.authorizedClient.post("api/groups/group", createGroup);
-
-        // let headers = new HttpHeaders().append("Authorization", "Bearer " + sessionStorage.getItem("token"));
-        // return this.client.post("api/groups/group", createGroup, { headers });
     }
 
     public getGroup(getGroup: GetGroupIdDto) {

@@ -1,0 +1,61 @@
+.container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    background-color: var(--primary_color);
+}
+
+.img_container {
+    margin: 1em;
+    /* position: relative; */
+    /* left: 1em; */
+    /* top: 1em; */
+    /* z-index: 1; */
+}
+
+#curve {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+
+#title {
+    position: absolute;
+    left: 5rem;
+    top: 12rem;
+    display: flex;
+    flex-direction: column;
+    font-size: 5rem;
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 0.9;
+}
+
+.field_title {
+    font-size: 0.7em;
+    margin: 0.1em;
+    color: rgba(34, 34, 34, 0.6);
+}
+
+.code {
+    font-size: 250px;
+}
+
+.notFound {
+    font-size: 90px;
+}
+
+.button {
+    position: absolute;
+    right: 2rem;
+    bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    font-size: 5rem;
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 0.9;
+}

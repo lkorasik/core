@@ -2,11 +2,13 @@ package ru.urfu.mm.gateway;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ru.urfu.mm.application.exception.NotImplementedException;
 import ru.urfu.mm.application.gateway.SemesterGateway;
 import ru.urfu.mm.domain.Semester;
 import ru.urfu.mm.persistance.entity.SemesterEntity;
 import ru.urfu.mm.persistance.entity.enums.SemesterType;
 import ru.urfu.mm.persistance.repository.SemesterRepository;
+import ru.urfu.mm.service.mapper.SemesterMapper;
 
 import java.util.List;
 import java.util.UUID;
@@ -14,27 +16,17 @@ import java.util.UUID;
 @Component
 public class SemesterGatewayImpl implements SemesterGateway {
     private final SemesterRepository semesterRepository;
+    private final SemesterMapper semesterMapper;
 
     @Autowired
-    public SemesterGatewayImpl(SemesterRepository semesterRepository) {
+    public SemesterGatewayImpl(SemesterRepository semesterRepository, SemesterMapper semesterMapper) {
         this.semesterRepository = semesterRepository;
+        this.semesterMapper = semesterMapper;
     }
 
     @Override
     public void save(Semester semester) {
-        SemesterEntity entity;
-        if (semester.getId() != null) {
-            entity = new SemesterEntity(
-                    semester.getId(),
-                    semester.getYear(),
-                    SemesterType.fromDomain(semester.getType())
-            );
-        } else {
-            entity = new SemesterEntity(
-                    semester.getYear(),
-                    SemesterType.fromDomain(semester.getType())
-            );
-        }
+        SemesterEntity entity = semesterMapper.toEntity(semester);
         semesterRepository.save(entity);
     }
 

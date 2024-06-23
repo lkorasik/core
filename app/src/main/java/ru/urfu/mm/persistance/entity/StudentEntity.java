@@ -19,9 +19,8 @@ public class StudentEntity {
     public StudentEntity() {
     }
 
-    public StudentEntity(UUID id, GroupEntity group) {
+    public StudentEntity(UUID id) {
         this.id = id;
-        this.group = group;
     }
 
     public void setAccount(AccountEntity account) {

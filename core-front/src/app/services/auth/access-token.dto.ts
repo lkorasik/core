@@ -1,7 +1,7 @@
 export interface AccessTokenDto {
     accessToken: string;
     userToken: string;
-    userEntityRole: UserRole;
+    accountEntityRole: UserRole;
 }
 
 export enum UserRole {

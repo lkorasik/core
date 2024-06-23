@@ -11,6 +11,7 @@ import { GroupDto } from '../../../services/group/group.dto';
 import { ProgramService } from '../../../services/program/program.service';
 import { GroupService } from '../../../services/group/group.service';
 import { GetGropupDTO } from '../../../services/group/getGroup.dto';
+import { GroupDTO } from '../../../services/program/group.dto';
 
 @Component({
     selector: 'app-educational-program-groups-screen',
@@ -23,7 +24,7 @@ export class EducationalProgramGroupsScreenComponent {
     id: string = ""
     name: string = ""
     programs: ProgramDTO[] = []
-    groups: GroupDto[] = []
+    groups: GroupDTO[] = []
 
     constructor(
         public route: ActivatedRoute,
@@ -35,9 +36,10 @@ export class EducationalProgramGroupsScreenComponent {
             this.id = x['id']
             sessionStorage.setItem('programId', this.id);
         });
-        programService.getEducationalProgramById({ id: this.id }).subscribe(x => this.name = x.title);
-        const request = new GetGropupDTO(this.id);
-        groupService.getGroupsForProgram(request).subscribe(x => this.groups = x);
+        programService.getEducationalProgramById({ id: this.id }).subscribe(x => {
+            this.name = x.title;
+            this.groups = x.groups;
+        });
     }
 
     getGroupCards() {

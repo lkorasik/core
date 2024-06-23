@@ -3,7 +3,10 @@ package ru.urfu.mm.application.usecase.create_course;
 import ru.urfu.mm.application.gateway.CourseGateway;
 import ru.urfu.mm.application.gateway.ModuleGateway;
 import ru.urfu.mm.domain.Course;
+import ru.urfu.mm.domain.EducationalModule;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -31,13 +34,20 @@ public class CreateCourse {
                 request.name(),
                 request.credits(),
                 request.controlTypes(),
+                request.description(),
                 request.department(),
                 request.teacher()
         );
-        course.setDescription(request.description());
-        module.addCourse(course);
 
-        courseGateway.save(module, course);
-//        moduleGateway.save(module);
+        List<Course> courses = new ArrayList<>(module.getCourses());
+        courses.add(course);
+        var newModule = new EducationalModule(
+                module.getId(),
+                module.getName(),
+                courses
+        );
+
+        courseGateway.save(newModule, course);
+        moduleGateway.save(newModule);
     }
 }

@@ -10,11 +10,10 @@ import ru.urfu.mm.domain.Student;
 import ru.urfu.mm.domain.enums.UserRole;
 import ru.urfu.mm.domain.exception.NotImplementedException;
 import ru.urfu.mm.persistance.entity.*;
-import ru.urfu.mm.persistance.entity.enums.UserEntityRole;
-import ru.urfu.mm.persistance.entity.enums.Years;
 import ru.urfu.mm.persistance.repository.GroupRepository;
 import ru.urfu.mm.persistance.repository.StudentRepository;
-import ru.urfu.mm.service.mapper.Mapper;
+import ru.urfu.mm.service.mapper.AccountMapper;
+import ru.urfu.mm.service.mapper.StudentMapper;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,16 +23,20 @@ import java.util.UUID;
 public class StudentGatewayImpl implements StudentGateway {
     private final StudentRepository studentRepository;
     private final GroupRepository groupRepository;
-    private final Mapper<Account, AccountEntity> userMapper;
+    private final AccountMapper userMapper;
+    private final StudentMapper studentMapper;
 
     @Autowired
     public StudentGatewayImpl(
             StudentRepository studentRepository,
             GroupRepository groupRepository,
-            Mapper<Account, AccountEntity> userMapper) {
+            AccountMapper userMapper,
+            StudentMapper studentMapper
+    ) {
         this.studentRepository = studentRepository;
         this.groupRepository = groupRepository;
         this.userMapper = userMapper;
+        this.studentMapper = studentMapper;
     }
 
 //    @Override
@@ -140,11 +143,12 @@ public class StudentGatewayImpl implements StudentGateway {
     }
 
     private EducationalProgramEntity parse(EducationalProgram educationalProgram) {
-        return new EducationalProgramEntity(
-                educationalProgram.getId(),
-                educationalProgram.getName(),
-                educationalProgram.getTrainingDirection()
-        );
+        throw new ru.urfu.mm.application.exception.NotImplementedException();
+//        return new EducationalProgramEntity(
+//                educationalProgram.getId(),
+//                educationalProgram.getName(),
+//                educationalProgram.getTrainingDirection()
+//        );
     }
 
     @Override
@@ -153,46 +157,56 @@ public class StudentGatewayImpl implements StudentGateway {
     }
 
     @Override
+    public void save(Student student) {
+        StudentEntity entity = studentMapper.toEntity(student);
+        studentRepository.save(entity);
+    }
+
+    @Override
     public Optional<Student> findById(UUID studentId) {
-        return studentRepository.findById(studentId)
-                .map(x -> {
-                            Account account = null;
-                            if (x.getUser() != null) {
-                                account = new Account(
-                                        x.getUser().getLogin(),
-                                        x.getUser().getPassword(),
-                                        UserEntityRole.toDomain(x.getUser().getRole())
-                                );
-                            }
-                            return new Student(
-                                    x.getId(),
-                                    account,
-                                    null,
-                                    null);
-                        }
-                );
+        throw new ru.urfu.mm.application.exception.NotImplementedException();
+//        return studentRepository.findById(studentId)
+//                .map(x -> {
+//                            Account account = null;
+//                            if (x.getUser() != null) {
+//                                account = new Account(
+//                                        x.getUser().getLogin(),
+//                                        x.getUser().getPassword(),
+//                                        UserEntityRole.toDomain(x.getUser().getRole())
+//                                );
+//                            }
+//                            return new Student(
+//                                    x.getId(),
+//                                    account,
+//                                    null,
+//                                    null);
+//                        }
+//                );
     }
 
     @Override
     public List<Student> findAllStudentsByGroup(AcademicGroup academicGroup) {
-        academicGroup.getStudents();
-        throw new NotImplementedException();
+        throw new ru.urfu.mm.application.exception.NotImplementedException();
+//        academicGroup.getStudents();
+//        throw new NotImplementedException();
     }
 
     @Override
     public void saveGroupStudents(List<Student> students, AcademicGroup group) {
-        GroupEntity groupEntity = new GroupEntity(group.getId(), group.getNumber(), Years.fromDomain(group.getYear()));
-        List<StudentEntity> studentEntities = students.stream()
-                .map(x -> new StudentEntity(x.getId(), groupEntity))
-                .toList();
-        studentRepository.saveAll(studentEntities);
+//        GroupEntity groupEntity = new GroupEntity(group.getId(), group.getNumber(), Years.fromDomain(group.getYear()));
+//        List<StudentEntity> studentEntities = students.stream()
+//                .map(x -> new StudentEntity(x.getId(), groupEntity))
+//                .toList();
+//        studentRepository.saveAll(studentEntities);
+        throw new NotImplementedException();
     }
 
     @Override
     public void update(Student student, Account account, AcademicGroup group) {
-        GroupEntity groupEntity = new GroupEntity(group.getId(), group.getNumber(), Years.fromDomain(group.getYear()));
-        StudentEntity entity = new StudentEntity(student.getId(), groupEntity);
-        entity.setAccount(new AccountEntity(account.token(), account.password(), UserEntityRole.fromDomain(account.role())));
-        studentRepository.save(entity);
+        throw new ru.urfu.mm.application.exception.NotImplementedException();
+//        GroupEntity groupEntity = new GroupEntity(group.getId(), group.getNumber(), Years.fromDomain(group.getYear()));
+//        StudentEntity entity = new StudentEntity(student.getId(), groupEntity);
+//        entity.setAccount(new AccountEntity(account.token(), account.password(), UserEntityRole.fromDomain(account.role())));
+//        studentRepository.save(entity);
     }
 }

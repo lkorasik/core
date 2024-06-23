@@ -6,11 +6,10 @@ import ru.urfu.mm.application.gateway.SkillGateway;
 import ru.urfu.mm.domain.*;
 import ru.urfu.mm.domain.enums.SkillLevel;
 import ru.urfu.mm.domain.exception.NotImplementedException;
-import ru.urfu.mm.persistance.entity.AccountEntity;
 import ru.urfu.mm.persistance.repository.DesiredSkillsRepository;
 import ru.urfu.mm.persistance.repository.SkillRepository;
 import ru.urfu.mm.persistance.repository.StudentSkillRepository;
-import ru.urfu.mm.service.mapper.Mapper;
+import ru.urfu.mm.service.mapper.AccountMapper;
 
 import java.util.List;
 import java.util.Map;
@@ -21,14 +20,14 @@ public class SkillGatewayImpl implements SkillGateway {
     private final SkillRepository skillRepository;
     private final StudentSkillRepository studentSkillRepository;
     private final DesiredSkillsRepository desiredSkillsRepository;
-    private final Mapper<Account, AccountEntity> userMapper;
+    private final AccountMapper userMapper;
 
     @Autowired
     public SkillGatewayImpl(
             SkillRepository skillRepository,
             StudentSkillRepository studentSkillRepository,
             DesiredSkillsRepository desiredSkillsRepository,
-            Mapper<Account, AccountEntity> userMapper) {
+            AccountMapper userMapper) {
         this.skillRepository = skillRepository;
         this.studentSkillRepository = studentSkillRepository;
         this.desiredSkillsRepository = desiredSkillsRepository;

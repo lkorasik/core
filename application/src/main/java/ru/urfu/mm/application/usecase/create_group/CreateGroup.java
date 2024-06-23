@@ -1,12 +1,8 @@
 package ru.urfu.mm.application.usecase.create_group;
 
-import ru.urfu.mm.application.gateway.GroupGateway;
-import ru.urfu.mm.application.gateway.ProgramGateway;
-import ru.urfu.mm.application.gateway.SemesterGateway;
-import ru.urfu.mm.application.usecase.create_study_plan.CreateStudyPlan;
-import ru.urfu.mm.domain.AcademicGroup;
-import ru.urfu.mm.domain.EducationalProgram;
-import ru.urfu.mm.domain.Semester;
+import ru.urfu.mm.application.gateway.*;
+import ru.urfu.mm.application.usecase.create_syylabus.CreateBaseSyllabus;
+import ru.urfu.mm.domain.*;
 import ru.urfu.mm.domain.enums.SemesterType;
 
 import java.util.*;
@@ -17,45 +13,91 @@ import java.util.regex.Pattern;
  * 1. Проверяем, что указан валидный номер группы. Номер группы должен соответствовать формату МЕНМ-ХХХХХХ. Если номер
  * группы не совпадает с указанным шаблоном, то кидаем ошибку.
  * 2. Проверяем, есть ли в системе нужные семестры. Если их нет, то создаем недостающие.
- * 3. Если учебного плана еще нет, то создаем его.
- * 4. Достаем программу и добавляем в нее группу.
+ * 3. Создаем базовый семестровые планы
+ * 4. Создаем базовый учбеный план
+ * 5. Создаем группу
  */
 public class CreateGroup {
     private final GroupGateway groupGateway;
     private final ProgramGateway programGateway;
     private final SemesterGateway semesterGateway;
-    private final CreateStudyPlan createStudyPlan;
+    private final CreateBaseSyllabus createBaseSyllabus;
+    private final BaseSyllabusPlanGateway baseSyllabusPlanGateway;
+    private final BaseSemesterPlanGateway baseSemesterPlanGateway;
 
     public CreateGroup(
             GroupGateway groupGateway,
             ProgramGateway programGateway,
             SemesterGateway semesterGateway,
-            CreateStudyPlan createStudyPlan) {
+            CreateBaseSyllabus createBaseSyllabus,
+            BaseSyllabusPlanGateway baseSyllabusPlanGateway,
+            BaseSemesterPlanGateway baseSemesterPlanGateway) {
         this.groupGateway = groupGateway;
         this.programGateway = programGateway;
         this.semesterGateway = semesterGateway;
-        this.createStudyPlan = createStudyPlan;
+        this.createBaseSyllabus = createBaseSyllabus;
+        this.baseSyllabusPlanGateway = baseSyllabusPlanGateway;
+        this.baseSemesterPlanGateway = baseSemesterPlanGateway;
     }
 
     public void createGroup(CreateGroupRequest request) {
         ensureValidGroupNumber(request.number());
 
-        ensureActualSemestersExists(request.startYear());
+        List<Semester> semesters = ensureActualSemestersExists(request.startYear());
 
-        AcademicGroup academicGroup = new AcademicGroup(UUID.randomUUID(), request.number());
+        BaseSemesterPlan firstSemesterPlan = new BaseSemesterPlan(
+                UUID.randomUUID(),
+                semesters.get(0)
+        );
+        baseSemesterPlanGateway.save(firstSemesterPlan);
+
+        BaseSemesterPlan secondSemesterPlan = new BaseSemesterPlan(
+                UUID.randomUUID(),
+                semesters.get(1)
+        );
+        baseSemesterPlanGateway.save(secondSemesterPlan);
+
+        BaseSemesterPlan thirdSemesterPlan = new BaseSemesterPlan(
+                UUID.randomUUID(),
+                semesters.get(2)
+        );
+        baseSemesterPlanGateway.save(thirdSemesterPlan);
+
+        BaseSemesterPlan fourthSemesterPlan = new BaseSemesterPlan(
+                UUID.randomUUID(),
+                semesters.get(3)
+        );
+        baseSemesterPlanGateway.save(fourthSemesterPlan);
+
+        BaseSyllabus baseSyllabus = new BaseSyllabus(
+                UUID.randomUUID(),
+                firstSemesterPlan,
+                secondSemesterPlan,
+                thirdSemesterPlan,
+                fourthSemesterPlan
+        );
+        baseSyllabusPlanGateway.save(baseSyllabus);
+
+        AcademicGroup academicGroup = new AcademicGroup(
+                UUID.randomUUID(),
+                request.number(),
+                baseSyllabus
+        );
         groupGateway.save(academicGroup);
 
-        createStudyPlan.createStudyPlan(request.startYear(), request.programId());
-
-        EducationalProgram educationalProgram = programGateway.getById(request.programId());
-        var list = new ArrayList<AcademicGroup>();
-        list.addAll(educationalProgram.getGroups());
-        list.add(academicGroup);
-        educationalProgram.setGroups(list.stream().toList());
-        programGateway.save(educationalProgram);
+        EducationalProgram program = programGateway.findById(request.programId()).get();
+        List<AcademicGroup> groups = new ArrayList<>(program.getAcademicGroups());
+        groups.add(academicGroup);
+        EducationalProgram newProgram = new EducationalProgram(
+                program.getId(),
+                program.getName(),
+                program.getTrainingDirection(),
+                groups
+        );
+        programGateway.save(newProgram);
     }
 
-    private void ensureActualSemestersExists(int startYear) {
+    private List<Semester> ensureActualSemestersExists(int startYear) {
         List<Semester> semesters = semesterGateway.getSemestersForEntireStudyPeriod(startYear);
         List<Semester> actualSemesters = List.of(
                 ensureSemester(semesters, startYear, SemesterType.FALL),
@@ -64,6 +106,7 @@ public class CreateGroup {
                 ensureSemester(semesters, startYear + 2, SemesterType.SPRING)
         );
         actualSemesters.forEach(semesterGateway::save);
+        return actualSemesters;
     }
 
     private Semester ensureSemester(List<Semester> semesters, int startYear, SemesterType semesterType) {

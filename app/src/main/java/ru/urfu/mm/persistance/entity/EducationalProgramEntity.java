@@ -8,27 +8,23 @@ import java.util.*;
 @Table(name = "educational_programs")
 public class EducationalProgramEntity {
     @Id
-    @GeneratedValue
     @Column
     private UUID id;
     @Column
     private String name;
     @Column
     private String trainingDirection;
-    @OneToMany(mappedBy="program")
+    @OneToMany
     private List<GroupEntity> groups;
-    @OneToMany(mappedBy = "program")
-    private List<SyllabusEntity> syllabuses;
 
     public EducationalProgramEntity() {
     }
 
-    public EducationalProgramEntity(UUID id, String name, String trainingDirection) {
+    public EducationalProgramEntity(UUID id, String name, String trainingDirection, List<GroupEntity> groups) {
         this.id = id;
         this.name = name;
         this.trainingDirection = trainingDirection;
-        this.groups = new ArrayList<>();
-        this.syllabuses = new ArrayList<>();
+        this.groups = groups;
     }
 
     public UUID getId() {
@@ -44,10 +40,6 @@ public class EducationalProgramEntity {
     }
 
     public List<GroupEntity> getGroups() {
-        return groups;
-    }
-
-    public List<SyllabusEntity> getSyllabuses() {
-        return syllabuses;
+        return Collections.unmodifiableList(groups);
     }
 }

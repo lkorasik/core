@@ -1,5 +1,6 @@
 package ru.urfu.mm.application.usecase.update_program;
 
+import ru.urfu.mm.application.exception.NotImplementedException;
 import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.domain.EducationalProgram;
 
@@ -17,17 +18,19 @@ public class UpdateProgram {
     }
 
     public void updateProgram(UpdateProgramRequest request) {
-        EducationalProgram educationalProgram = programGateway
-                .findById(request.id())
-                .orElseThrow(() -> new EducationalProgramNotFoundException(request.id()));
+        throw new NotImplementedException();
 
-        EducationalProgram newEducationalProgram = new EducationalProgram(
-                educationalProgram.getId(),
-                request.name(),
-                request.trainingDirection()
-        );
-        newEducationalProgram.setGroups(educationalProgram.getGroups());
+//        EducationalProgram educationalProgram = programGateway
+//                .findById(request.id())
+//                .orElseThrow(() -> new EducationalProgramNotFoundException(request.id()));
 
-        programGateway.save(newEducationalProgram);
+//        EducationalProgram newEducationalProgram = new EducationalProgram(
+//                educationalProgram.getId(),
+//                request.name(),
+//                request.trainingDirection()
+//        );
+//        newEducationalProgram.setGroups(educationalProgram.getGroups());
+
+//        programGateway.save(newEducationalProgram);
     }
 }

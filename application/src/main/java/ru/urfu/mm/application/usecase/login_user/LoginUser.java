@@ -23,10 +23,10 @@ public class LoginUser {
 
     public Account loginUser(LoginRequest loginRequest) {
         Account account = userGateway
-                .findByToken(loginRequest.getToken())
+                .findByToken(loginRequest.token())
                 .orElseThrow(InvalidCredentialsException::new);
 
-        if (!passwordGateway.matches(loginRequest.getPassword(), account.password())) {
+        if (!passwordGateway.matches(loginRequest.password(), account.getPassword())) {
             throw new InvalidCredentialsException();
         }
 

@@ -1,6 +1,7 @@
 package ru.urfu.mm.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -11,30 +12,29 @@ public class EducationalProgram {
     /**
      * Идентификатор образовательной программы
      */
-    private UUID id;
+    private final UUID id;
     /**
      * Название образовательной программы
      */
-    private String name;
+    private final String name;
     /**
      * Назавние направления подготовки
      */
-    private String trainingDirection;
+    private final String trainingDirection;
     /**
      * Список академических групп
      */
-    private List<AcademicGroup> academicGroups;
-    /**
-     * Список учбеных планов
-     */
-    private List<Syllabus> syllabi;
+    private final List<AcademicGroup> academicGroups;
 
     public EducationalProgram(UUID id, String name, String trainingDirection) {
+        this(id, name, trainingDirection, new ArrayList<>());
+    }
+
+    public EducationalProgram(UUID id, String name, String trainingDirection, List<AcademicGroup> academicGroups) {
         this.id = id;
         this.name = name;
         this.trainingDirection = trainingDirection;
-        this.academicGroups = new ArrayList<>();
-        this.syllabi = new ArrayList<>();
+        this.academicGroups = academicGroups;
     }
 
     public UUID getId() {
@@ -45,19 +45,11 @@ public class EducationalProgram {
         return name;
     }
 
-    public List<AcademicGroup> getGroups() {
-        return academicGroups;
-    }
-
     public String getTrainingDirection() {
         return trainingDirection;
     }
 
-    public List<Syllabus> getSyllabi() {
-        return syllabi;
-    }
-
-    public void setGroups(List<AcademicGroup> academicGroups) {
-        this.academicGroups = academicGroups;
+    public List<AcademicGroup> getAcademicGroups() {
+        return Collections.unmodifiableList(academicGroups);
     }
 }

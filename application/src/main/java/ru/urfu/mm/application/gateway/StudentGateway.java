@@ -10,6 +10,7 @@ import java.util.UUID;
 
 public interface StudentGateway {
     Student getById(UUID studentId);
+    void save(Student student);
     Optional<Student> findById(UUID studentId);
     List<Student> findAllStudentsByGroup(AcademicGroup academicGroup);
     void saveGroupStudents(List<Student> students, AcademicGroup academicGroup);

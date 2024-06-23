@@ -1,5 +1,7 @@
 package ru.urfu.mm.application.usecase.generate_student_registration_token;
 
+import ru.urfu.mm.application.exception.NotImplementedException;
+import ru.urfu.mm.application.gateway.GroupGateway;
 import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.application.gateway.StudentGateway;
 import ru.urfu.mm.application.usecase.get_group.GetAcademicGroup;
@@ -21,13 +23,17 @@ import java.util.stream.Stream;
  */
 public class GenerateStudentRegistrationToken {
     private final GetAcademicGroup getAcademicGroup;
-    private final ProgramGateway programGateway;
     private final StudentGateway studentGateway;
+    private final GroupGateway groupGateway;
 
-    public GenerateStudentRegistrationToken(GetAcademicGroup getAcademicGroup, ProgramGateway programGateway, StudentGateway studentGateway) {
+    public GenerateStudentRegistrationToken(
+            GetAcademicGroup getAcademicGroup,
+            StudentGateway studentGateway,
+            GroupGateway groupGateway
+    ) {
         this.getAcademicGroup = getAcademicGroup;
-        this.programGateway = programGateway;
         this.studentGateway = studentGateway;
+        this.groupGateway = groupGateway;
     }
 
     public List<UUID> generateTokens(UUID groupId, int tokensCount) {
@@ -39,12 +45,17 @@ public class GenerateStudentRegistrationToken {
 
         List<UUID> registrationTokens = Stream.generate(UUID::randomUUID).limit(tokensCount).toList();
 
-        EducationalProgram educationalProgram = programGateway
-                .findByGroup(group)
-                .orElseThrow(() -> new EducationalProgramNotFoundException(groupId));
-
         List<Student> students = registrationTokens.stream().map(Student::new).toList();
-        studentGateway.saveGroupStudents(students, group);
+        AcademicGroup newGroup = new AcademicGroup(
+                group.getId(),
+                group.getNumber(),
+                group.getYear(),
+                students,
+                group.getBaseSyllabus()
+        );
+
+        students.forEach(studentGateway::save);
+        groupGateway.save(newGroup);
 
         return registrationTokens;
     }

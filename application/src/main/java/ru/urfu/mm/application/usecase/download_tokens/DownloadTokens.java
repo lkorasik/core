@@ -1,5 +1,6 @@
 package ru.urfu.mm.application.usecase.download_tokens;
 
+import ru.urfu.mm.application.exception.NotImplementedException;
 import ru.urfu.mm.application.usecase.get_group.GetAcademicGroup;
 import ru.urfu.mm.domain.AcademicGroup;
 import ru.urfu.mm.domain.Student;
@@ -19,10 +20,11 @@ public class DownloadTokens {
     }
 
     public File downloadTokens(DownloadTokensRequest request) {
-        AcademicGroup academicGroup = getAcademicGroup.getGroup(request.groupId());
-        List<UUID> tokens = academicGroup.getStudents().stream().map(Student::getId).toList();
+        throw new NotImplementedException();
+//        AcademicGroup academicGroup = getAcademicGroup.getGroup(request.groupId());
+//        List<UUID> tokens = academicGroup.getStudents().stream().map(Student::getId).toList();
 
-        return writeTokens(academicGroup.getNumber(), tokens);
+//        return writeTokens(academicGroup.getNumber(), tokens);
     }
 
     private File writeTokens(String groupNumber, List<UUID> tokens) {

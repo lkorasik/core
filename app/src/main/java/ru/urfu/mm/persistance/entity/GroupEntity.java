@@ -1,6 +1,8 @@
 package ru.urfu.mm.persistance.entity;
 
 import jakarta.persistence.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ru.urfu.mm.persistance.entity.enums.Years;
 
 import java.util.List;
@@ -17,27 +19,26 @@ public class GroupEntity {
     @Column
     @Enumerated
     private Years year;
-    @ManyToOne
-    @JoinColumn(name = "program_id")
-    private EducationalProgramEntity program;
-    @OneToMany(mappedBy = "group")
+    @OneToMany
     private List<StudentEntity> students;
-
-    public EducationalProgramEntity getProgram() {
-        return program;
-    }
-
-    public void setProgram(EducationalProgramEntity educationalProgramEntity) {
-        this.program = educationalProgramEntity;
-    }
+    @OneToOne
+    private BaseSyllabusEntity baseSyllabus;
 
     public GroupEntity() {
     }
 
-    public GroupEntity(UUID id, String number, Years year) {
+    public GroupEntity(
+            UUID id,
+            String number,
+            Years year,
+            List<StudentEntity> students,
+            BaseSyllabusEntity baseSyllabus
+    ) {
         this.id = id;
         this.number = number;
         this.year = year;
+        this.students = students;
+        this.baseSyllabus = baseSyllabus;
     }
 
     public UUID getId() {
@@ -54,5 +55,9 @@ public class GroupEntity {
 
     public List<StudentEntity> getStudents() {
         return students;
+    }
+
+    public BaseSyllabusEntity getBaseSyllabus() {
+        return baseSyllabus;
     }
 }

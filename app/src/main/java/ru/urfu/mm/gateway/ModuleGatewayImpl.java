@@ -1,6 +1,7 @@
 package ru.urfu.mm.gateway;
 
 import org.springframework.stereotype.Component;
+import ru.urfu.mm.application.exception.NotImplementedException;
 import ru.urfu.mm.application.gateway.ModuleGateway;
 import ru.urfu.mm.domain.Course;
 import ru.urfu.mm.domain.EducationalModule;
@@ -8,6 +9,8 @@ import ru.urfu.mm.domain.enums.ControlTypes;
 import ru.urfu.mm.persistance.entity.EducationalModuleEntity;
 import ru.urfu.mm.persistance.entity.enums.Control;
 import ru.urfu.mm.persistance.repository.EducationalModuleRepository;
+import ru.urfu.mm.service.mapper.CourseMapper;
+import ru.urfu.mm.service.mapper.ModuleMapper;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,18 +19,27 @@ import java.util.UUID;
 @Component
 public class ModuleGatewayImpl implements ModuleGateway {
     private final EducationalModuleRepository educationalModuleRepository;
+    private final ModuleMapper moduleMapper;
+    private final CourseMapper courseMapper;
 
-    public ModuleGatewayImpl(EducationalModuleRepository educationalModuleRepository) {
+    public ModuleGatewayImpl(
+            EducationalModuleRepository educationalModuleRepository,
+            ModuleMapper moduleMapper,
+            CourseMapper courseMapper
+    ) {
         this.educationalModuleRepository = educationalModuleRepository;
+        this.moduleMapper = moduleMapper;
+        this.courseMapper = courseMapper;
     }
 
     @Override
     public EducationalModule find(UUID moduleId) {
-        EducationalModuleEntity entity = educationalModuleRepository.findById(moduleId).get();
-        return new EducationalModule(
-                entity.getId(),
-                entity.getName()
-        );
+        throw new NotImplementedException();
+//        EducationalModuleEntity entity = educationalModuleRepository.findById(moduleId).get();
+//        return new EducationalModule(
+//                entity.getId(),
+//                entity.getName()
+//        );
     }
 
     @Override
@@ -36,17 +48,10 @@ public class ModuleGatewayImpl implements ModuleGateway {
                 .map(x -> {
                     List<Course> courses = x.getCourses()
                             .stream()
-                            .map(y -> new Course(
-                                    y.getId(),
-                                    y.getName(),
-                                    y.getCreditsCount(),
-                                    ControlTypes.values()[y.getControl().ordinal()],
-                                    y.getDepartment(),
-                                    y.getTeacherName())
-                            )
+                            .map(courseMapper::toDomain)
                             .toList();
                     EducationalModule module = new EducationalModule(x.getId(), x.getName());
-                    courses.forEach(module::addCourse);
+//                    courses.forEach(module::addCourse);
                     return module;
                 });
     }
@@ -56,44 +61,30 @@ public class ModuleGatewayImpl implements ModuleGateway {
         return educationalModuleRepository
                 .findAll()
                 .stream()
-                .map(x -> {
-                    List<Course> courses = x.getCourses()
-                            .stream()
-                            .map(y -> new Course(
-                                            y.getId(),
-                                            y.getName(),
-                                            y.getCreditsCount(),
-                                            Control.toDomain(y.getControl()),
-                                            y.getDepartment(),
-                                            y.getTeacherName()
-                                    )
-                            )
-                            .toList();
-                    EducationalModule module = new EducationalModule(x.getId(), x.getName());
-                    module.getCourses().addAll(courses);
-                    return module;
-                })
+                .map(moduleMapper::toDomain)
                 .toList();
     }
 
     @Override
     public List<EducationalModule> getModulesByIds(List<UUID> modulesIds) {
-        return educationalModuleRepository
-                .findAll()
-                .stream()
-                .filter(x -> modulesIds.contains(x.getId()))
-                .map(x -> new EducationalModule(x.getId(), x.getName()))
-                .toList();
+        throw new NotImplementedException();
+//        return educationalModuleRepository
+//                .findAll()
+//                .stream()
+//                .filter(x -> modulesIds.contains(x.getId()))
+//                .map(x -> new EducationalModule(x.getId(), x.getName()))
+//                .toList();
     }
 
     @Override
     public void save(EducationalModule educationalModule) {
-        EducationalModuleEntity entity = new EducationalModuleEntity(educationalModule.getId(), educationalModule.getName());
+        EducationalModuleEntity entity = moduleMapper.toEntity(educationalModule);
         educationalModuleRepository.save(entity);
     }
 
     @Override
     public void delete(EducationalModule educationalModule) {
-        educationalModuleRepository.deleteById(educationalModule.getId());
+        throw new NotImplementedException();
+//        educationalModuleRepository.deleteById(educationalModule.getId());
     }
 }

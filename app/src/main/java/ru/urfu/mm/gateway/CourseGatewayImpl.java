@@ -5,18 +5,15 @@ import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.CourseGateway;
 import ru.urfu.mm.domain.EducationalModule;
 import ru.urfu.mm.domain.*;
-import ru.urfu.mm.domain.Semester;
-import ru.urfu.mm.domain.enums.SemesterType;
-import ru.urfu.mm.domain.enums.ControlTypes;
-import ru.urfu.mm.domain.enums.UserRole;
 import ru.urfu.mm.domain.exception.NotImplementedException;
 import ru.urfu.mm.persistance.entity.*;
-import ru.urfu.mm.persistance.entity.StudentEntity;
 import ru.urfu.mm.persistance.entity.enums.Control;
 import ru.urfu.mm.persistance.repository.EducationalProgramToCoursesWithSemestersRepository;
 import ru.urfu.mm.persistance.repository.SelectedCoursesRepository;
 import ru.urfu.mm.persistance.repository.SpecialCourseRepository;
-import ru.urfu.mm.service.mapper.Mapper;
+import ru.urfu.mm.service.mapper.AccountMapper;
+import ru.urfu.mm.service.mapper.CourseMapper;
+import ru.urfu.mm.service.mapper.ModuleMapper;
 
 import java.util.List;
 import java.util.UUID;
@@ -26,18 +23,25 @@ public class CourseGatewayImpl implements CourseGateway {
     private final SpecialCourseRepository courseRepository;
     private final SelectedCoursesRepository selectedCoursesRepository;
     private final EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository;
-    private final Mapper<Account, AccountEntity> userMapper;
+    private final AccountMapper userMapper;
+    private final CourseMapper courseMapper;
+    private final ModuleMapper moduleMapper;
 
     @Autowired
     public CourseGatewayImpl(
             SpecialCourseRepository courseRepository,
             SelectedCoursesRepository selectedCoursesRepository,
             EducationalProgramToCoursesWithSemestersRepository educationalProgramToCoursesWithSemestersRepository,
-            Mapper<Account, AccountEntity> userMapper) {
+            AccountMapper userMapper,
+            CourseMapper courseMapper,
+            ModuleMapper moduleMapper
+    ) {
         this.courseRepository = courseRepository;
         this.selectedCoursesRepository = selectedCoursesRepository;
         this.educationalProgramToCoursesWithSemestersRepository = educationalProgramToCoursesWithSemestersRepository;
         this.userMapper = userMapper;
+        this.courseMapper = courseMapper;
+        this.moduleMapper = moduleMapper;
     }
 
     @Override
@@ -92,30 +96,24 @@ public class CourseGatewayImpl implements CourseGateway {
 
     @Override
     public Course getById(UUID id) {
-        SpecialCourse entity = courseRepository.findById(id).get();
-        return new Course(
-                entity.getId(),
-                entity.getName(),
-                entity.getCreditsCount(),
-                ControlTypes.values()[entity.getControl().ordinal()],
-                entity.getDepartment(),
-                entity.getTeacherName()
-        );
+        SpecialCourse entity = courseRepository.getReferenceById(id);
+        return courseMapper.toDomain(entity);
     }
 
     @Override
     public void save(EducationalModule module, Course specialCourse) {
-        SpecialCourse entity = new SpecialCourse(
-                specialCourse.getId(),
-                specialCourse.getName(),
-                specialCourse.getCredits(),
-                Control.fromDomain(specialCourse.getControl()),
-                specialCourse.getDescription(),
-                specialCourse.getDepartment(),
-                specialCourse.getTeacher(),
-                new EducationalModuleEntity(module.getId(), module.getName())
+        SpecialCourse entity = courseMapper.toEntity(specialCourse);
+        SpecialCourse entity2 = new SpecialCourse(
+                entity.getId(),
+                entity.getName(),
+                entity.getCreditsCount(),
+                entity.getControl(),
+                entity.getDescription(),
+                entity.getDepartment(),
+                entity.getTeacherName(),
+                moduleMapper.toEntity(module)
         );
-        courseRepository.save(entity);
+        courseRepository.save(entity2);
     }
 
     @Override

@@ -1,6 +1,8 @@
 .field_title {
     font-size: 0.7em;
     margin: 0.1em;
+    font-family: Montserrat, sans-serif;
+    font-weight: 600;
     color: rgba(34, 34, 34, 0.6);
 }
 

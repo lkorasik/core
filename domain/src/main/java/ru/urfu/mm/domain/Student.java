@@ -11,32 +11,32 @@ public class Student {
     /**
      * Идентификатор студента
      */
-    private UUID id;
+    private final UUID id;
     /**
      * Аккаунт студента
      */
-    private Account account;
+    private final Account account;
     /**
      * Индивидуальный учебный план
      */
-    private Syllabus plan;
+    private final StudentSyllabus plan;
     /**
      * Список навыков, которыми обладает студент
      */
-    private List<Skill> skills;
+    private final List<Skill> skills;
+
+    public Student(UUID id, Account account, StudentSyllabus plan) {
+        this.id = id;
+        this.account = account;
+        this.plan = plan;
+        skills = new ArrayList<>();
+    }
 
     public Student(UUID id) {
         this.id = id;
         this.account = null;
         this.plan = null;
-        this.skills = new ArrayList<>();
-    }
-
-    public Student(UUID id, Account account, Syllabus plan, List<Skill> skills) {
-        this.id = id;
-        this.account = account;
-        this.plan = plan;
-        this.skills = skills;
+        this.skills = null;
     }
 
     public UUID getId() {

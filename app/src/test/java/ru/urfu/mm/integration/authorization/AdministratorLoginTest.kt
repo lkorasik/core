@@ -6,27 +6,32 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import ru.urfu.mm.RestAssureExtension.cast
+import ru.urfu.mm.RestAssureExtension.whenever
 import ru.urfu.mm.controller.Endpoints
-import ru.urfu.mm.controller.Endpoints.Authentication.login
-import ru.urfu.mm.controller.Endpoints.Authentication.register
 import ru.urfu.mm.controller.ExceptionDTO
 import ru.urfu.mm.controller.authentication.AccessTokenDTO
 import ru.urfu.mm.controller.authentication.LoginDTO
 import ru.urfu.mm.controller.authentication.RegistrationDTO
 import ru.urfu.mm.domain.enums.UserRole
+import ru.urfu.mm.dsl.AuthorizationDSL
 import ru.urfu.mm.dsl.DSL
+import ru.urfu.mm.dsl.RegistrationTokenFactory
 import ru.urfu.mm.integration.BaseTestClass
-import ru.urfu.mm.persistance.entity.RegistrationToken
 import ru.urfu.mm.persistance.repository.AccountRepository
 import ru.urfu.mm.persistance.repository.RegistrationTokenRepository
 import java.util.*
 
+/**
+ * Вход администратора в систему
+ */
 class `Administrator login` : BaseTestClass() {
     @Autowired
     private lateinit var registrationTokenRepository: RegistrationTokenRepository
-
     @Autowired
     private lateinit var accountRepository: AccountRepository
+    @Autowired
+    private lateinit var authorizationDSL: AuthorizationDSL
 
     @AfterEach
     fun clean() {
@@ -35,98 +40,66 @@ class `Administrator login` : BaseTestClass() {
     }
 
     /**
-     * Вход в систему администратором.
+     * Основной сценарий
      */
     @Test
     fun `Login administrator`() {
-        val token = UUID.randomUUID()
         val password = DSL.generatePassword()
 
-        val registrationToken = RegistrationToken(token)
+        val registrationToken = RegistrationTokenFactory.build()
         registrationTokenRepository.save(registrationToken)
 
-        val expected = AccessTokenDTO("", token.toString(), UserRole.ADMIN.value)
+        val expected = AccessTokenDTO("", registrationToken.registrationToken.toString(), UserRole.ADMIN.value)
 
-        val registrationDTO = RegistrationDTO(token.toString(), password, password)
+        val registrationDTO = RegistrationDTO(registrationToken.registrationToken, password, password)
+        authorizationDSL.registerAsAdministratorAccount(registrationDTO)
+
+        val loginDTO = LoginDTO(registrationToken.registrationToken, password)
 
         val actual = RestAssured.given()
             .contentType(ContentType.JSON)
-            .body(registrationDTO)
-            .`when`()
-            .baseUri(address())
-            .post(Endpoints.Authentication.BASE + Endpoints.Authentication.REGISTER)
+            .body(loginDTO)
+            .whenever()
+            .baseUri(configuration.address())
+            .post(Endpoints.Authentication.login())
             .then()
             .statusCode(200)
             .extract()
-            .`as`(AccessTokenDTO::class.java)
+            .cast(AccessTokenDTO::class.java)
 
         Assertions.assertNotNull(actual.accessToken)
         Assertions.assertEquals(actual.userEntityRole, expected.userEntityRole)
         Assertions.assertEquals(actual.userToken, expected.userToken)
-
-        val loginDTO = LoginDTO(token.toString(), password)
-
-        val actual2 = RestAssured.given()
-            .contentType(ContentType.JSON)
-            .body(loginDTO)
-            .`when`()
-            .baseUri(address())
-            .post(Endpoints.Authentication.BASE + Endpoints.Authentication.LOGIN)
-            .then()
-            .statusCode(200)
-            .extract()
-            .`as`(AccessTokenDTO::class.java)
-
-        Assertions.assertNotNull(actual2.accessToken)
-        Assertions.assertEquals(actual2.userEntityRole, expected.userEntityRole)
-        Assertions.assertEquals(actual2.userToken, expected.userToken)
 
         Assertions.assertTrue(registrationTokenRepository.findAll().isEmpty())
         Assertions.assertEquals(1, accountRepository.findAll().size)
     }
 
     /**
-     * Вход в систему администратором. Неверный токен.
+     * Неверный токен.
      */
     @Test
     fun `Token invalid`() {
-        val token = UUID.randomUUID()
         val password = DSL.generatePassword()
 
-        val registrationToken = RegistrationToken(token)
+        val registrationToken = RegistrationTokenFactory.build()
         registrationTokenRepository.save(registrationToken)
 
-        val expected = AccessTokenDTO("", token.toString(), UserRole.ADMIN.value)
+        val registrationDTO = RegistrationDTO(registrationToken.registrationToken, password, password)
+        authorizationDSL.registerAsAdministratorAccount(registrationDTO)
 
-        val registrationDTO = RegistrationDTO(token.toString(), password, password)
-
-        val actual = RestAssured.given()
-            .contentType(ContentType.JSON)
-            .body(registrationDTO)
-            .`when`()
-            .baseUri(address())
-            .post(register())
-            .then()
-            .statusCode(200)
-            .extract()
-            .`as`(AccessTokenDTO::class.java)
-
-        Assertions.assertNotNull(actual.accessToken)
-        Assertions.assertEquals(actual.userEntityRole, expected.userEntityRole)
-        Assertions.assertEquals(actual.userToken, expected.userToken)
-
-        val loginDTO = LoginDTO(UUID.randomUUID().toString(), password)
+        val loginDTO = LoginDTO(UUID.randomUUID(), password)
 
         val actual2 = RestAssured.given()
             .contentType(ContentType.JSON)
             .body(loginDTO)
-            .`when`()
-            .baseUri(address())
-            .post(login())
+            .whenever()
+            .baseUri(configuration.address())
+            .post(Endpoints.Authentication.login())
             .then()
             .statusCode(400)
             .extract()
-            .`as`(ExceptionDTO::class.java)
+            .cast(ExceptionDTO::class.java)
 
         Assertions.assertEquals(
             "Invalid credentials. Please check your token and password.",
@@ -138,51 +111,34 @@ class `Administrator login` : BaseTestClass() {
     }
 
     /**
-     * Вход в систему администратором. Неверный пароль.
+     * Неверный пароль.
      */
     @Test
     fun `Incorrect password`() {
-        val token = UUID.randomUUID()
         val password = DSL.generatePassword()
 
-        val registrationToken = RegistrationToken(token)
+        val registrationToken = RegistrationTokenFactory.build()
         registrationTokenRepository.save(registrationToken)
 
-        val expected = AccessTokenDTO("", token.toString(), UserRole.ADMIN.value)
+        val registrationDTO = RegistrationDTO(registrationToken.registrationToken, password, password)
+        authorizationDSL.registerAsAdministratorAccount(registrationDTO)
 
-        val registrationDTO = RegistrationDTO(token.toString(), password, password)
-
-        val actual = RestAssured.given()
-            .contentType(ContentType.JSON)
-            .body(registrationDTO)
-            .`when`()
-            .baseUri(address())
-            .post(register())
-            .then()
-            .statusCode(200)
-            .extract()
-            .`as`(AccessTokenDTO::class.java)
-
-        Assertions.assertNotNull(actual.accessToken)
-        Assertions.assertEquals(actual.userEntityRole, expected.userEntityRole)
-        Assertions.assertEquals(actual.userToken, expected.userToken)
-
-        val loginDTO = LoginDTO(token.toString(), UUID.randomUUID().toString())
+        val loginDTO = LoginDTO(registrationToken.registrationToken, UUID.randomUUID().toString())
 
         val actual2 = RestAssured.given()
             .contentType(ContentType.JSON)
             .body(loginDTO)
-            .`when`()
-            .baseUri(address())
-            .post(login())
+            .whenever()
+            .baseUri(configuration.address())
+            .post(Endpoints.Authentication.login())
             .then()
             .statusCode(400)
             .extract()
-            .`as`(ExceptionDTO::class.java)
+            .cast(ExceptionDTO::class.java)
 
         Assertions.assertEquals("Invalid credentials. Please check your token and password.", actual2.message)
 
         Assertions.assertTrue(registrationTokenRepository.findAll().isEmpty())
-        Assertions.assertEquals(1, accountRepository.findAll().size)
+        Assertions.assertTrue(accountRepository.findAll().any { it.login.equals(registrationToken.registrationToken) })
     }
 }

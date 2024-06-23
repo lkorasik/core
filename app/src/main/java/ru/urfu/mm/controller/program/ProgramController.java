@@ -1,35 +1,31 @@
 package ru.urfu.mm.controller.program;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.application.usecase.create_educational_program.CreateEducationalProgram;
 import ru.urfu.mm.application.usecase.create_educational_program.CreateProgramRequest;
-import ru.urfu.mm.application.usecase.create_study_plan.CreateStudyPlan;
+import ru.urfu.mm.application.usecase.create_syylabus.CourseSelectionDTO;
+import ru.urfu.mm.application.usecase.create_syylabus.CreateBaseSyllabus;
+import ru.urfu.mm.application.usecase.create_syylabus.CreateSyllabusRequest;
+import ru.urfu.mm.application.usecase.create_syylabus.ModuleSelectionDTO;
 import ru.urfu.mm.application.usecase.get_all_programs.GetAllPrograms;
 import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
 import ru.urfu.mm.application.usecase.get_program_for_student.ProgramForStudentResponse;
 import ru.urfu.mm.application.usecase.get_program_by_id.GetProgramById;
 import ru.urfu.mm.application.usecase.get_available_years.GetAvailableYears;
 import ru.urfu.mm.application.usecase.get_available_years.GetStudyPlanResponse;
-import ru.urfu.mm.application.usecase.get_study_plan.GetStudyPlan;
+import ru.urfu.mm.application.usecase.get_base_syllabus.GetAllSyllabi;
 import ru.urfu.mm.application.usecase.update_program.UpdateProgram;
 import ru.urfu.mm.application.usecase.update_program.UpdateProgramRequest;
-import ru.urfu.mm.application.usecase.update_study_plan.CourseRequest;
-import ru.urfu.mm.application.usecase.update_study_plan.UpdateStudyPlan;
-import ru.urfu.mm.application.usecase.update_study_plan.UpdateStudyPlanRequest;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
-import ru.urfu.mm.controller.Endpoints;
+import ru.urfu.mm.domain.BaseSyllabus;
 import ru.urfu.mm.domain.EducationalProgram;
-import ru.urfu.mm.domain.Syllabus;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(Endpoints.Program.BASE)
-public class ProgramController extends AbstractAuthorizedController {
+public class ProgramController extends AbstractAuthorizedController implements ProgramControllerDescription {
 //    @Autowired
 //    private GetEducationalProgram getEducationalProgram;
     @Autowired
@@ -45,35 +41,39 @@ public class ProgramController extends AbstractAuthorizedController {
     @Autowired
     private GetAvailableYears getAvailableYears;
     @Autowired
-    private GetStudyPlan getStudyPlan;
+    private GetAllSyllabi getAllSyllabi;
     @Autowired
-    private UpdateStudyPlan updateStudyPlan;
+    private CreateBaseSyllabus createBaseSyllabus;
 
-    @GetMapping(Endpoints.Program.CURRENT)
+    @Override
     public ProgramInfoDTO current() {
         ProgramForStudentResponse response = getProgramForStudent.getProgramForStudent(UUID.fromString(getUserToken()));
         return ProgramInfoDTO.from(response);
     }
 
-    @GetMapping(Endpoints.Program.PROGRAM)
-    public FullProgramDTO getEducationalProgram(@RequestParam("id") UUID programId) throws JsonProcessingException {
-        EducationalProgram educationalProgram = getProgramById.getProgramById(programId);
-        return new FullProgramDTO(educationalProgram.getId(), educationalProgram.getName(), educationalProgram.getTrainingDirection());
+    @Override
+    public FullProgramDTO getEducationalProgram(UUID programId) {
+        EducationalProgram program = getProgramById.getProgramById(programId);
+        List<GroupDTO> groups = program.getAcademicGroups()
+                .stream()
+                .map(x -> new GroupDTO(x.getId(), x.getNumber()))
+                .toList();
+        return new FullProgramDTO(program.getId(), program.getName(), program.getTrainingDirection(), groups);
     }
 
-    @PutMapping(Endpoints.Program.PROGRAM)
-    public void updateEducationalProgram(@RequestBody UpdateProgramDTO dto) {
+    @Override
+    public void updateEducationalProgram(UpdateProgramDTO dto) {
         UpdateProgramRequest request = new UpdateProgramRequest(dto.id(), dto.name(), dto.trainingDirection());
         updateProgram.updateProgram(request);
     }
 
-    @PostMapping(Endpoints.Program.CREATE)
-    public void createEducationalProgram(@RequestBody CreateProgramDTO dto) {
+    @Override
+    public void createEducationalProgram(CreateProgramDTO dto) {
         CreateProgramRequest request = new CreateProgramRequest(dto.name(), dto.trainingDirection());
         createEducationalProgram.createProgram(request);
     }
 
-    @GetMapping(Endpoints.Program.ALL)
+    @Override
     public List<ShortProgramDTO> getAll() {
         return getAvailablePrograms.getAllPrograms()
                 .stream()
@@ -81,28 +81,29 @@ public class ProgramController extends AbstractAuthorizedController {
                 .toList();
     }
 
-    @GetMapping(Endpoints.Program.AVAILABLE_YEARS)
-    public List<GetStudyPlanResponse> laod(@RequestParam("id") UUID id) {
+    @Override
+    public List<GetStudyPlanResponse> laod(UUID id) {
         return getAvailableYears.getStudyPlan(id);
     }
 
-    @PostMapping(Endpoints.Program.PLAN)
-    public void saveStudyPlan(@RequestBody StudyPlanDTO dto) {
-        List<CourseRequest> courses = dto.modules()
+    @Override
+    public void saveSyllabus(SyllabusDTO dto) {
+        List<ModuleSelectionDTO> modules = dto.modules()
                 .stream()
-                .map(ModuleSelectionDTO::courses)
-                .flatMap(Collection::stream)
-                .map(x -> new CourseRequest(x.courseId(), x.semester()))
+                .map(x -> {
+                    List<CourseSelectionDTO> courses = x.courses()
+                            .stream()
+                            .map(y -> new CourseSelectionDTO(y.courseId(), y.semesterId()))
+                            .toList();
+                    return new ModuleSelectionDTO(x.moduleId(), courses);
+                })
                 .toList();
-
-        UpdateStudyPlanRequest request = new UpdateStudyPlanRequest(dto.programId(), dto.startYear(), courses);
-        updateStudyPlan.update(request);
-        // todo: реализуй обновление учебного плана
-        System.out.println("Receive: " + dto);
+        CreateSyllabusRequest request = new CreateSyllabusRequest(dto.programId(), dto.firstSemesterId(), modules);
+        createBaseSyllabus.createStudyPlan(request);
     }
 
-    @PostMapping(Endpoints.Program.GET_PLAN)
-    public Syllabus getStudyPlan(@RequestBody GetStudyPlanDTO dto) {
-        return getStudyPlan.getStudyPlan(dto.programId(), dto.startYear());
+    @Override
+    public List<BaseSyllabus> getAllSyllabi(UUID programId) {
+        return getAllSyllabi.getStudyPlan(programId);
     }
 }

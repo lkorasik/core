@@ -11,27 +11,19 @@ public class Skill {
     /**
      * Идентификатор навыка
      */
-    private UUID id;
+    private final UUID id;
     /**
      * Назавние навыка
      */
-    private String name;
+    private final String name;
     /**
      * Уровень навыка
      */
-    private SkillLevel level;
+    private final SkillLevel level;
 
     public Skill(UUID id, String name, SkillLevel level) {
         this.id = id;
         this.name = name;
         this.level = level;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
     }
 }

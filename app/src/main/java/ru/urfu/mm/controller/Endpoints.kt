@@ -41,7 +41,7 @@ object Endpoints {
         @JvmStatic
         fun statistics() = "$BASE$STATISTICS"
 
-        const val ALL_COURSES = "/allCourses"
+        const val ALL_COURSES = "/all"
         @JvmStatic
         fun allCourses() = "$BASE$ALL_COURSES"
 
@@ -91,10 +91,6 @@ object Endpoints {
     object Group {
         const val BASE = "$API/groups"
 
-        const val GROUPS_BY_PROGRAM = "/groupsByProgram"
-        @JvmStatic
-        fun groupsByProgram() = "$BASE$GROUPS_BY_PROGRAM"
-
         const val GROUP = "/group"
         @JvmStatic
         fun group() = "$BASE$GROUP"
@@ -124,9 +120,9 @@ object Endpoints {
         @JvmStatic
         fun all() = "$BASE$ALL"
 
-        const val ALL2 = "/all2"
+        const val ALL_WITH_COURSES = "/allWithCourses"
         @JvmStatic
-        fun all2() = "$BASE$ALL2"
+        fun allWithCourses() = "$BASE$ALL_WITH_COURSES"
 
         const val MODULE = "/module"
         @JvmStatic

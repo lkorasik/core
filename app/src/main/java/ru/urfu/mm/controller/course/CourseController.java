@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(Endpoints.Course.BASE)
-public class CourseController extends AbstractAuthorizedController {
+public class CourseController extends AbstractAuthorizedController implements CourseControllerDescription {
     @Autowired
     private GetAllCourses getAllCourses;
     @Autowired
@@ -44,7 +44,7 @@ public class CourseController extends AbstractAuthorizedController {
 //    @Autowired
 //    private LoadAvailableCourses loadAvailableCourses;
 
-    @PostMapping
+    @Override
     public List<CourseForProgramDTO> specialCourse(@RequestBody GetCoursesDTO getCoursesDTO) {
         throw new NotImplementedException();
 //        return getCoursesByEducationalProgramAndSemesters
@@ -70,7 +70,7 @@ public class CourseController extends AbstractAuthorizedController {
 //                .toList();
     }
 
-    @PostMapping(Endpoints.Course.SELECTED)
+    @Override
     public List<CoursesBySemesterDTO> selected(@RequestBody GetSelectedCoursesDTO getSelectedCoursesDTO) {
         throw new NotImplementedException();
 //        var selected = getSelectedCoursesIds.getSelectedCoursesIds(UUID.fromString(getUserToken()), getSelectedCoursesDTO.semestersIds());
@@ -83,13 +83,13 @@ public class CourseController extends AbstractAuthorizedController {
 //        return result;
     }
 
-    @PostMapping(Endpoints.Course.SELECT)
+    @Override
     public void select(@RequestBody SelectedCoursesDTO selectedCourses) {
         throw new NotImplementedException();
 //        selectCourses.selectCourses(UUID.fromString(getUserToken()), selectedCourses.coursesBySemesters().stream().map(x -> Map.entry(x.semesterId(), x.coursesIds())).toList());
     }
 
-    @GetMapping(Endpoints.Course.STATISTICS)
+    @Override
     public List<CourseStatisticsDTO> getActualSpecialCoursesStatistics(@RequestParam List<UUID> semestersId) {
         throw new NotImplementedException();
 //        return getActualSpecialCoursesStatistics
@@ -104,7 +104,7 @@ public class CourseController extends AbstractAuthorizedController {
 //                .toList();
     }
 
-    @GetMapping(Endpoints.Course.ALL_COURSES)
+    @Override
     public List<CourseDTO> getAllCourses() {
         throw new NotImplementedException();
 //        return getAllCourses
@@ -114,7 +114,7 @@ public class CourseController extends AbstractAuthorizedController {
 //                .toList();
     }
 
-    @GetMapping(Endpoints.Course.MODULE_COURSES)
+    @Override
     public List<CourseDTO> getEducationalModuleCourses(@RequestParam("moduleId") String moduleIdDTO) {
         throw new NotImplementedException();
 //        return getEducationalModuleCourses
@@ -124,7 +124,7 @@ public class CourseController extends AbstractAuthorizedController {
 //                .toList();
     }
 
-    @GetMapping(Endpoints.Course.COURSE)
+    @Override
     public CourseDTO getCourseById(@RequestParam("id") UUID courseId) {
         throw new NotImplementedException();
 //        Course course = getCourse.getCourse(courseId);
@@ -140,7 +140,7 @@ public class CourseController extends AbstractAuthorizedController {
 //        );
     }
 
-    @PostMapping(Endpoints.Course.CREATE)
+    @Override
     public void createModuleCourse(@RequestBody CreateModuleCourseDTO dto) {
         CreateCourseRequest request = new CreateCourseRequest(
                 dto.name(),
@@ -154,12 +154,12 @@ public class CourseController extends AbstractAuthorizedController {
         createCourse.createCourse(request);
     }
 
-    @DeleteMapping(Endpoints.Course.DELETE)
+    @Override
     public void deleteSpecialCourse(@RequestBody CourseIdDTO courseIdDTO) {
         deleteCourse.deleteCourse(courseIdDTO.courseId());
     }
 
-    @PostMapping(Endpoints.Course.MODULE_COURSES_EDIT)
+    @Override
     public void editModuleCourse(@RequestBody EditModuleCourseDTO editModuleCourseDTO) {
         editModuleSpecialCourse.editModuleSpecialCourse(
                 editModuleCourseDTO.courseId(),
@@ -172,7 +172,7 @@ public class CourseController extends AbstractAuthorizedController {
         );
     }
 
-    @GetMapping(Endpoints.Course.SELECTED_COURSE_NAME)
+    @Override
     public List<SelectedCourseNameDTO> getSelectedCourseNamesBySemester(@RequestBody GetSelectedCoursesBySemesterDTO dto) {
         throw new NotImplementedException();
 //        UUID studentId = UUID.fromString(getUserToken());
@@ -187,7 +187,7 @@ public class CourseController extends AbstractAuthorizedController {
 //                .toList();
     }
 
-    @GetMapping(Endpoints.Course.AVAILABLE)
+    @Override
     public List<AvailableModuleResponse> loadAvailableCourses() {
         throw new NotImplementedException();
 //        return loadAvailableCourses.loadAvailableCourses(UUID.fromString(getUserToken()));

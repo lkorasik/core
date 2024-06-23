@@ -1,9 +1,6 @@
 package ru.urfu.mm.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Образовательный модуль
@@ -23,9 +20,15 @@ public class EducationalModule {
     private final List<Course> courses;
 
     public EducationalModule(UUID id, String name) {
+        this.name = name;
+        this.id = id;
+        this.courses = new ArrayList<>();
+    }
+
+    public EducationalModule(UUID id, String name, List<Course> courses) {
         this.id = id;
         this.name = name;
-        this.courses = new ArrayList<>();
+        this.courses = courses;
     }
 
     public UUID getId() {
@@ -36,26 +39,7 @@ public class EducationalModule {
         return name;
     }
 
-    public void addCourse(Course course) {
-        courses.add(course);
-    }
-
     public List<Course> getCourses() {
-        return courses;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if ((obj == null) || (getClass() != obj.getClass()))
-            return false;
-        EducationalModule educationalModule = (EducationalModule) obj;
-        return Objects.equals(id, educationalModule.id) && Objects.equals(name, educationalModule.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name);
+        return Collections.unmodifiableList(courses);
     }
 }
