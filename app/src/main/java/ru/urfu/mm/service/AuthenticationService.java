@@ -32,10 +32,6 @@ public class AuthenticationService {
         return generateToken(String.valueOf(dto.token()), dto.password());
     }
 
-    public void validateToken(String token) {
-        jwtService.validateToken(token);
-    }
-
     private String generateToken(String principal, String credentials) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(principal, credentials));
         UserDetails userDetails = userService.loadUserByUsername(principal);

@@ -2,6 +2,7 @@ package ru.urfu.mm.persistance.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,11 +17,11 @@ public class SemesterPlanEntity {
     @Column
     private int recommendedCredits;
     @ManyToMany
-    List<EducationalModuleEntity> requiredEducationalModuleEntities;
+    List<SpecialCourse> requiredCoursesEntities = new ArrayList<>();
     @ManyToMany
-    List<EducationalModuleEntity> specialEducationalModuleEntities;
+    List<SpecialCourse> specialCoursesEntities = new ArrayList<>();
     @ManyToMany
-    List<EducationalModuleEntity> scienceWork;
+    List<SpecialCourse> scienceWork = new ArrayList<>();
 
     public SemesterPlanEntity() {
     }
@@ -43,15 +44,15 @@ public class SemesterPlanEntity {
         return recommendedCredits;
     }
 
-    public List<EducationalModuleEntity> getRequiredModules() {
-        return requiredEducationalModuleEntities;
+    public List<SpecialCourse> getRequiredModules() {
+        return requiredCoursesEntities;
     }
 
-    public List<EducationalModuleEntity> getSpecialModules() {
-        return specialEducationalModuleEntities;
+    public List<SpecialCourse> getSpecialModules() {
+        return specialCoursesEntities;
     }
 
-    public List<EducationalModuleEntity> getScienceWork() {
+    public List<SpecialCourse> getScienceWork() {
         return scienceWork;
     }
 }

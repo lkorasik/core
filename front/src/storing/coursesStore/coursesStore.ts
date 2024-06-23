@@ -77,12 +77,12 @@ export const coursesStoreReducer = (state: CoursesStoreState | undefined, action
                     coursesIds: [...x.coursesIds]
                 }));
             action.courses.forEach(course => {
-                const semesterWithCourses = chosenCoursesBySemestersCopy.find(x => x.semesterId === course.semesters[0].id);
+                const semesterWithCourses = chosenCoursesBySemestersCopy.find(x => x.semesterId === course.semesterEntities[0].id);
                 if (semesterWithCourses) {
                     semesterWithCourses.coursesIds.push(course.id);
                 } else {
                     chosenCoursesBySemestersCopy.push({
-                        semesterId: course.semesters[0].id,
+                        semesterId: course.semesterEntities[0].id,
                         coursesIds: [course.id]
                     });
                 }

@@ -32,7 +32,22 @@ public class CreateAdministratorTest {
 
         CreateAdministrator createAdministrator = new CreateAdministrator(tokenGateway, passwordGateway, userGateway);
 
-        CreateAccountRequest request = new CreateAccountRequest(token, password, password);
+        CreateAccountRequest request = new CreateAccountRequest() {
+            @Override
+            public UUID getToken() {
+                return token;
+            }
+
+            @Override
+            public String getPassword() {
+                return password;
+            }
+
+            @Override
+            public String getPasswordAgain() {
+                return password;
+            }
+        };
         createAdministrator.create(request);
     }
 }

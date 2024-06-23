@@ -148,8 +148,8 @@ class CourseCardClear extends React.Component<ExtendedProps, State> {
         }
 
         // Если в модуле есть такие курсы, которые могут вестись в разных семестрах
-        if (this.props.containedCourses.filter(x => x.semesters.length !== 1).length !== 0) {
-            throw new Error("Courses inside module can only be present in 1 semester at once");
+        if (this.props.containedCourses.filter(x => x.semesterEntities.length !== 1).length !== 0) {
+            throw new Error("Courses inside module can only be present in 1 semesterEntity at once");
         }
 
         return (
@@ -161,7 +161,7 @@ class CourseCardClear extends React.Component<ExtendedProps, State> {
                             cardType={CardType.Course}
                             cardColor={"indigo"}
                             cardButtonAction={CardButtonAction.Ignore}
-                            semesterId={x.semesters[0].id}
+                            semesterId={x.semesterEntities[0].id}
                             specialCourse={x}
                         />
                     ))
