@@ -17,9 +17,6 @@ public interface ModulesControllerDescription {
     @GetMapping(Endpoints.Module.ALL_WITH_COURSES)
     List<FullModuleDTO> getAllModulesWithCourses();
 
-    @PostMapping
-    List<ModuleDTO> getModulesById(@RequestBody GetModulesDTO getModulesDTO);
-
     @Operation(summary = "Получить информацию о конкретном модуле")
     @GetMapping(Endpoints.Module.MODULE)
     ModuleWithCoursesDTO getModuleById(@RequestParam("id") String moduleId);

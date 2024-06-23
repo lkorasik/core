@@ -26,8 +26,6 @@ import java.util.UUID;
 
 @RestController
 public class ProgramController extends AbstractAuthorizedController implements ProgramControllerDescription {
-//    @Autowired
-//    private GetEducationalProgram getEducationalProgram;
     @Autowired
     private GetAllPrograms getAvailablePrograms;
     @Autowired

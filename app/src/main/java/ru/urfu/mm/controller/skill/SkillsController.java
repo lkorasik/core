@@ -16,39 +16,9 @@ import java.util.UUID;
 @RequestMapping(Endpoints.Skill.BASE)
 public class SkillsController extends AbstractAuthorizedController implements SkillsControllerDescription {
     @Autowired
-    private GetSkills getSkills;
-//    @Autowired
-//    private GetSkillsForStudent getSkillsForStudent;
-    @Autowired
     private SaveSkillsForStudent saveSkillsForStudent;
-//    @Autowired
-//    private GetDesiredSkillsForStudent getDesiredSkillsForStudent;
     @Autowired
     private SaveDesiredSkillsForStudent saveDesiredSkillsForStudent;
-
-    @Override
-    public List<SkillInfoDTO> getSkills() {
-        throw new ru.urfu.mm.application.exception.NotImplementedException();
-//        return getSkills
-//                .getSkills()
-//                .stream()
-//                .map(x -> new SkillInfoDTO(x.getId(), x.getName()))
-//                .toList();
-    }
-
-    @Override
-    public List<SkillDTO> getActualSkills() {
-        throw new NotImplementedException();
-//        return getSkillsForStudent
-//                .getSkillsForStudent(UUID.fromString(getUserToken()))
-//                .stream()
-//                .map(x -> new SkillDTO(
-//                        x.getSkill().getId(),
-//                        x.getSkill().getName(),
-//                        SkillLevel.values()[x.getLevel().ordinal()]
-//                ))
-//                .toList();
-    }
 
     @Override
     public void saveActualSkills(@RequestBody SaveSkillsDTO saveSkillsDTO) {
@@ -58,19 +28,6 @@ public class SkillsController extends AbstractAuthorizedController implements Sk
                 .toList();
 
         saveSkillsForStudent.saveSkillsForStudent(UUID.fromString(getUserToken()), skills);
-    }
-
-    @Override
-    public List<SkillInfoDTO> getDesiredSkills() {
-        throw new NotImplementedException();
-//        return getDesiredSkillsForStudent
-//                .getDesiredSkillsForStudent(UUID.fromString(getUserToken()))
-//                .stream()
-//                .map(ru.urfu.mm.domain.StudentDesiredSkills::getSkill)
-//                .toList()
-//                .stream()
-//                .map(x -> new SkillInfoDTO(x.getId(), x.getName()))
-//                .toList();
     }
 
     @Override

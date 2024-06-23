@@ -22,17 +22,5 @@ public class EditModuleSpecialCourse {
             String department,
             String teacherName) {
         throw new NotImplementedException();
-//        var oldCourseValue = courseGateway.getById(courseId);
-
-//        if (oldCourseValue != null) {
-//            oldCourseValue.setName(courseName);
-//            oldCourseValue.setDepartment(department);
-//            oldCourseValue.setTeacher(teacherName);
-//            oldCourseValue.setControl(controlTypes);
-//            oldCourseValue.setCredits(creditsCount);
-//            oldCourseValue.setDescription(courseDescription);
-//
-//            courseGateway.save(oldCourseValue);
-//        }
     }
 }
