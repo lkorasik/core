@@ -14,7 +14,7 @@ import ru.urfu.mm.persistance.entity.enums.Control
 import ru.urfu.mm.persistance.repository.SpecialCourseRepository
 import java.util.*
 
-class `Course test` : BaseTestClass() {
+class `Academic group test`: BaseTestClass() {
     @Autowired
     private lateinit var authorization: AuthorizationDSL
     @Autowired

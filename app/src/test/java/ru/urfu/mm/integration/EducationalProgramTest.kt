@@ -23,7 +23,7 @@ class `Educational program test` : BaseTestClass() {
      */
     @Test
     fun `create program`() {
-        val bearer = authorization.registerAdministratorAccount(address())
+        val bearer = authorization.registerAdministratorAccount()
 
         val name = "Программа_" + UUID.randomUUID()
         val trainingDirection = "Направление_" + UUID.randomUUID()
@@ -34,7 +34,7 @@ class `Educational program test` : BaseTestClass() {
             .body(createProgramDTO)
             .header("Authorization", "Bearer $bearer")
             .whenever()
-            .baseUri(address())
+            .baseUri(configuration.address())
             .post(Endpoints.Program.create())
             .then()
             .statusCode(200)

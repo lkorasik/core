@@ -23,7 +23,7 @@ class `Educational module test` : BaseTestClass() {
      */
     @Test
     fun `create module`() {
-        val bearer = authorization.registerAdministratorAccount(address())
+        val bearer = authorization.registerAdministratorAccount()
 
         val name = "Модуль_" + UUID.randomUUID()
         val createProgramDTO = CreateModuleDTO(name)
@@ -33,7 +33,7 @@ class `Educational module test` : BaseTestClass() {
             .body(createProgramDTO)
             .header("Authorization", "Bearer $bearer")
             .whenever()
-            .baseUri(address())
+            .baseUri(configuration.address())
             .post(Endpoints.Module.create())
             .then()
             .statusCode(200)

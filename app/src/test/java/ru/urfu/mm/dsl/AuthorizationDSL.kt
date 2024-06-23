@@ -20,26 +20,32 @@ class AuthorizationDSL @Autowired constructor(
     private val registrationTokenRepository: RegistrationTokenRepository,
     private val configuration: TestConfiguration
 ) {
-    fun registerAsAdministratorAccount(registrationDTO: RegistrationDTO, address: String): AccessTokenDTO {
+    fun registerAsAdministratorAccount(registrationDTO: RegistrationDTO): AccessTokenDTO {
         val client = RestTemplate()
-        val uri = URI.create(address + Endpoints.Authentication.register())
+        val uri = URI.create(configuration.address() + Endpoints.Authentication.register())
         val postForEntity = client.postForEntity(uri, registrationDTO, AccessTokenDTO::class.java)
         return postForEntity.body!!
     }
 
-    fun registerAdministratorAccount(address: String): String {
-        val token = UUID.randomUUID()
-
-        val registrationToken = RegistrationToken(token)
-        registrationTokenRepository.save(registrationToken)
+    fun registerAdministratorAccount(): String {
+        val token = prepareDatabase()
 
         val password = UUID.randomUUID().toString().replace("-", "")
         val dto = RegistrationDTO(token, password, password)
 
         val client = RestTemplate()
-        val uri = URI.create(address + Endpoints.Authentication.register())
+        val uri = URI.create(configuration.address() + Endpoints.Authentication.register())
         val postForEntity = client.postForEntity(uri, dto, AccessTokenDTO::class.java)
 
         return postForEntity.body!!.accessToken
+    }
+
+    /**
+     * Подготовить базу данных для регистрации. Вставить токен.
+     */
+    fun prepareDatabase(): UUID {
+        val registrationToken = RegistrationTokenFactory.build()
+        registrationTokenRepository.save(registrationToken)
+        return registrationToken.registrationToken
     }
 }

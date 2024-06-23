@@ -52,7 +52,7 @@ class `Administrator login` : BaseTestClass() {
         val expected = AccessTokenDTO("", registrationToken.registrationToken.toString(), UserRole.ADMIN.value)
 
         val registrationDTO = RegistrationDTO(registrationToken.registrationToken, password, password)
-        authorizationDSL.registerAsAdministratorAccount(registrationDTO, address())
+        authorizationDSL.registerAsAdministratorAccount(registrationDTO)
 
         val loginDTO = LoginDTO(registrationToken.registrationToken, password)
 
@@ -60,7 +60,7 @@ class `Administrator login` : BaseTestClass() {
             .contentType(ContentType.JSON)
             .body(loginDTO)
             .whenever()
-            .baseUri(address())
+            .baseUri(configuration.address())
             .post(Endpoints.Authentication.login())
             .then()
             .statusCode(200)
@@ -86,7 +86,7 @@ class `Administrator login` : BaseTestClass() {
         registrationTokenRepository.save(registrationToken)
 
         val registrationDTO = RegistrationDTO(registrationToken.registrationToken, password, password)
-        authorizationDSL.registerAsAdministratorAccount(registrationDTO, address())
+        authorizationDSL.registerAsAdministratorAccount(registrationDTO)
 
         val loginDTO = LoginDTO(UUID.randomUUID(), password)
 
@@ -94,7 +94,7 @@ class `Administrator login` : BaseTestClass() {
             .contentType(ContentType.JSON)
             .body(loginDTO)
             .whenever()
-            .baseUri(address())
+            .baseUri(configuration.address())
             .post(Endpoints.Authentication.login())
             .then()
             .statusCode(400)
@@ -121,7 +121,7 @@ class `Administrator login` : BaseTestClass() {
         registrationTokenRepository.save(registrationToken)
 
         val registrationDTO = RegistrationDTO(registrationToken.registrationToken, password, password)
-        authorizationDSL.registerAsAdministratorAccount(registrationDTO, address())
+        authorizationDSL.registerAsAdministratorAccount(registrationDTO)
 
         val loginDTO = LoginDTO(registrationToken.registrationToken, UUID.randomUUID().toString())
 
@@ -129,7 +129,7 @@ class `Administrator login` : BaseTestClass() {
             .contentType(ContentType.JSON)
             .body(loginDTO)
             .whenever()
-            .baseUri(address())
+            .baseUri(configuration.address())
             .post(Endpoints.Authentication.login())
             .then()
             .statusCode(400)

@@ -43,21 +43,21 @@ class `Administrator registration` : BaseTestClass() {
 
     /**
      * Основной сценарий
+     * 1.
      */
     @Test
     fun `Register administrator`() {
         val password = DSL.generatePassword()
 
-        val registrationToken = RegistrationTokenFactory.build()
-        registrationTokenRepository.save(registrationToken)
+        val registrationToken = authorizationDSL.prepareDatabase()
 
-        val registrationDTO = RegistrationDTO(registrationToken.registrationToken, password, password)
+        val registrationDTO = RegistrationDTO(registrationToken, password, password)
 
         val actual = RestAssured.given()
             .contentType(ContentType.JSON)
             .body(registrationDTO)
             .whenever()
-            .baseUri(address())
+            .baseUri(configuration.address())
             .post(Endpoints.Authentication.register())
             .then()
             .statusCode(200)
@@ -66,13 +66,13 @@ class `Administrator registration` : BaseTestClass() {
 
         Assertions.assertNotNull(actual.accessToken)
         Assertions.assertEquals(actual.userEntityRole, UserRole.ADMIN.value)
-        Assertions.assertTrue(UUID.fromString(actual.userToken).equals(registrationToken.registrationToken))
+        Assertions.assertTrue(UUID.fromString(actual.userToken).equals(registrationToken))
 
         Assertions.assertTrue(registrationTokenRepository.findAll().isEmpty())
         Assertions.assertEquals(1, accountRepository.findAll().size)
 
         val account = accountRepository.findAll().stream().findFirst().get()
-        Assertions.assertEquals(account.login, registrationToken.registrationToken)
+        Assertions.assertEquals(account.login, registrationToken)
         Assertions.assertFalse(account.password.isEmpty())
         Assertions.assertEquals(account.role, UserEntityRole.ADMIN)
     }
@@ -91,7 +91,7 @@ class `Administrator registration` : BaseTestClass() {
             .contentType(ContentType.JSON)
             .body(registrationDTO)
             .whenever()
-            .baseUri(address())
+            .baseUri(configuration.address())
             .post(Endpoints.Authentication.register())
             .then()
             .statusCode(400)
@@ -111,16 +111,15 @@ class `Administrator registration` : BaseTestClass() {
     fun `Too short password`() {
         val password = DSL.generatePassword().substring(0, 5)
 
-        val registrationToken = RegistrationTokenFactory.build()
-        registrationTokenRepository.save(registrationToken)
+        val registrationToken = authorizationDSL.prepareDatabase()
 
-        val registrationDTO = RegistrationDTO(registrationToken.registrationToken, password, password)
+        val registrationDTO = RegistrationDTO(registrationToken, password, password)
 
         val actual = RestAssured.given()
             .contentType(ContentType.JSON)
             .body(registrationDTO)
             .whenever()
-            .baseUri(address())
+            .baseUri(configuration.address())
             .post(Endpoints.Authentication.register())
             .then()
             .statusCode(400)
