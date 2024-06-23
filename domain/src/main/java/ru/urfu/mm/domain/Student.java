@@ -32,6 +32,13 @@ public class Student {
         skills = new ArrayList<>();
     }
 
+    public Student(UUID id) {
+        this.id = id;
+        this.account = null;
+        this.plan = null;
+        this.skills = null;
+    }
+
     public UUID getId() {
         return id;
     }

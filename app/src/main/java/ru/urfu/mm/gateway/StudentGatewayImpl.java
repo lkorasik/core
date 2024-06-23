@@ -13,6 +13,7 @@ import ru.urfu.mm.persistance.entity.*;
 import ru.urfu.mm.persistance.repository.GroupRepository;
 import ru.urfu.mm.persistance.repository.StudentRepository;
 import ru.urfu.mm.service.mapper.AccountMapper;
+import ru.urfu.mm.service.mapper.StudentMapper;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,15 +24,19 @@ public class StudentGatewayImpl implements StudentGateway {
     private final StudentRepository studentRepository;
     private final GroupRepository groupRepository;
     private final AccountMapper userMapper;
+    private final StudentMapper studentMapper;
 
     @Autowired
     public StudentGatewayImpl(
             StudentRepository studentRepository,
             GroupRepository groupRepository,
-            AccountMapper userMapper) {
+            AccountMapper userMapper,
+            StudentMapper studentMapper
+    ) {
         this.studentRepository = studentRepository;
         this.groupRepository = groupRepository;
         this.userMapper = userMapper;
+        this.studentMapper = studentMapper;
     }
 
 //    @Override
@@ -152,6 +157,12 @@ public class StudentGatewayImpl implements StudentGateway {
     }
 
     @Override
+    public void save(Student student) {
+        StudentEntity entity = studentMapper.toEntity(student);
+        studentRepository.save(entity);
+    }
+
+    @Override
     public Optional<Student> findById(UUID studentId) {
         throw new ru.urfu.mm.application.exception.NotImplementedException();
 //        return studentRepository.findById(studentId)
@@ -182,12 +193,12 @@ public class StudentGatewayImpl implements StudentGateway {
 
     @Override
     public void saveGroupStudents(List<Student> students, AcademicGroup group) {
-        throw new ru.urfu.mm.application.exception.NotImplementedException();
 //        GroupEntity groupEntity = new GroupEntity(group.getId(), group.getNumber(), Years.fromDomain(group.getYear()));
 //        List<StudentEntity> studentEntities = students.stream()
 //                .map(x -> new StudentEntity(x.getId(), groupEntity))
 //                .toList();
 //        studentRepository.saveAll(studentEntities);
+        throw new NotImplementedException();
     }
 
     @Override

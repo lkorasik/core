@@ -39,6 +39,14 @@ public class AcademicGroup {
         this.baseSyllabus = baseSyllabus;
     }
 
+    public AcademicGroup(UUID id, String number, Years year, List<Student> students, BaseSyllabus baseSyllabus) {
+        this.id = id;
+        this.number = number;
+        this.year = year;
+        this.students = students;
+        this.baseSyllabus = baseSyllabus;
+    }
+
     public UUID getId() {
         return id;
     }

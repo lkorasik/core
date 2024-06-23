@@ -15,7 +15,7 @@ public class StudentMapper {
     }
 
     public StudentEntity toEntity(Student student) {
-        return new StudentEntity();
+        return new StudentEntity(student.getId());
     }
 
     public Student toDomain(StudentEntity entity) {
