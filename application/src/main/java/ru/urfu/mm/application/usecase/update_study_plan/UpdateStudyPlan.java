@@ -3,9 +3,9 @@ package ru.urfu.mm.application.usecase.update_study_plan;
 import ru.urfu.mm.application.gateway.CourseGateway;
 import ru.urfu.mm.application.gateway.StudyPlanGateway;
 import ru.urfu.mm.application.usecase.get_program_by_id.GetProgramById;
+import ru.urfu.mm.domain.BaseSyllabus;
 import ru.urfu.mm.domain.Course;
 import ru.urfu.mm.domain.EducationalProgram;
-import ru.urfu.mm.domain.Syllabus;
 
 import java.util.List;
 import java.util.UUID;
@@ -35,7 +35,7 @@ public class UpdateStudyPlan {
     public void update(UpdateStudyPlanRequest request) {
         EducationalProgram program = getProgramById.getProgramById(request.programId());
 
-        Syllabus syllabus = studyPlanGateway.findAllByProgram(program)
+        BaseSyllabus syllabus = studyPlanGateway.findAllByProgram(program)
                 .stream()
                 .filter(x -> x.getFirstSemesterPlan().getSemester().getYear() == request.startYear())
                 .findFirst()

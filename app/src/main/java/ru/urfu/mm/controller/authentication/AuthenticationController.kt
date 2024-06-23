@@ -16,7 +16,13 @@ class AuthenticationController @Autowired constructor(
     private val loginUser: LoginUser
 ) : AuthenticationControllerDescription {
     override fun register(dto: RegistrationDTO): AccessTokenDTO {
-        val request = CreateAccountRequest(dto.token, dto.password, dto.passwordAgain)
+        val request = object : CreateAccountRequest {
+            override fun getToken(): UUID = dto.token
+
+            override fun getPassword(): String = dto.password
+
+            override fun getPasswordAgain(): String = dto.passwordAgain
+        }
         val role = createAccount.createUser(request)
         val token = authenticationService.generateToken(dto)
 
@@ -24,14 +30,13 @@ class AuthenticationController @Autowired constructor(
     }
 
     override fun login(dto: LoginDTO): AccessTokenDTO {
-        val request = LoginRequest(dto.token, dto.password)
+        val request = object  : LoginRequest{
+            override fun getToken(): UUID = dto.token
+            override fun getPassword(): String = dto.password
+        }
         val account = loginUser.loginUser(request)
         val token = authenticationService.generateToken(dto)
 
         return AccessTokenDTO(token, dto.token.toString(), account.role.value)
-    }
-
-    override fun validateToken(tokenDTO: TokenDTO) {
-        authenticationService.validateToken(tokenDTO.token)
     }
 }

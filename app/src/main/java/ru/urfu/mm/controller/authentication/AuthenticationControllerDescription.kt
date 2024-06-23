@@ -17,8 +17,4 @@ interface AuthenticationControllerDescription {
     @Operation(summary = "Вход")
     @PostMapping(Endpoints.Authentication.LOGIN)
     fun login(@RequestBody dto: LoginDTO): AccessTokenDTO
-
-    @Operation(summary = "Проверка токена")
-    @PostMapping(Endpoints.Authentication.VALIDATE_TOKEN)
-    fun validateToken(@RequestBody tokenDTO: TokenDTO)
 }

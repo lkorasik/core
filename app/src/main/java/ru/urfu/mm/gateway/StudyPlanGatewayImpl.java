@@ -32,7 +32,7 @@ public class StudyPlanGatewayImpl implements StudyPlanGateway {
     }
 
     @Override
-    public void save(StudentSyllabus studentSyllabus, EducationalProgram educationalProgram) {
+    public void save(BaseSyllabus studentSyllabus, EducationalProgram educationalProgram) {
         throw new ru.urfu.mm.application.exception.NotImplementedException();
 //        Semester firstSemesterEntity = semesterRepository
 //                .findById(studentSyllabus.getFirstSemesterPlan().getSemester().getId())
@@ -86,7 +86,7 @@ public class StudyPlanGatewayImpl implements StudyPlanGateway {
     }
 
     @Override
-    public List<StudentSyllabus> findAllByProgram(EducationalProgram educationalProgram) {
+    public List<BaseSyllabus> findAllByProgram(EducationalProgram educationalProgram) {
         throw new NotImplementedException();
     }
 
