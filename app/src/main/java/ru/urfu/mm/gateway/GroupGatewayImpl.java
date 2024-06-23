@@ -53,11 +53,4 @@ public class GroupGatewayImpl implements GroupGateway {
         academicGroup.getStudents().addAll(students);
         return Optional.of(academicGroup);
     }
-
-    @Override
-    public AcademicGroup findByStudent(Student student) {
-        throw new NotImplementedException();
-//        GroupEntity entity = studentRepository.findById(student.getId()).get().getGroup();
-//        return new AcademicGroup(entity.getId(), entity.getNumber(), Years.toDomain(entity.getYear()));
-    }
 }

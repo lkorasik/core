@@ -33,8 +33,3 @@ data class RegistrationDTO(
     @Schema(description = "Повтор пароля", example = "123456789")
     val passwordAgain: String
 )
-
-@JvmRecord
-data class TokenDTO(
-    val token: String
-)

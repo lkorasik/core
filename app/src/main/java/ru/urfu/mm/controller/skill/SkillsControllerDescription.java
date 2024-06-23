@@ -16,17 +16,8 @@ import java.util.UUID;
 @Tag(name = "Skill", description = "Управление навыками")
 @RequestMapping(Endpoints.Skill.BASE)
 public interface SkillsControllerDescription {
-    @GetMapping
-    List<SkillInfoDTO> getSkills();
-
-    @GetMapping(Endpoints.Skill.ACTUAL)
-    List<SkillDTO> getActualSkills();
-
     @PostMapping(Endpoints.Skill.ACTUAL)
     void saveActualSkills(@RequestBody SaveSkillsDTO saveSkillsDTO);
-
-    @GetMapping(Endpoints.Skill.DESIRED)
-    List<SkillInfoDTO> getDesiredSkills();
 
     @PostMapping(Endpoints.Skill.DESIRED)
     void saveDesiredSkills(@RequestBody SaveSkillsDTO saveSkillsDTO);

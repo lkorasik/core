@@ -10,16 +10,16 @@ import ru.urfu.mm.controller.authentication.RegistrationDTO;
 
 @Service
 public class AuthenticationService {
-    private final UserService userService;
+    private final AccountService accountService;
     private final AuthenticationManager authenticationManager;
     private final JWTService jwtService;
 
     @Autowired
     public AuthenticationService(
-            UserService userService,
+            AccountService accountService,
             AuthenticationManager authenticationManager,
             JWTService jwtService) {
-        this.userService = userService;
+        this.accountService = accountService;
         this.authenticationManager = authenticationManager;
         this.jwtService = jwtService;
     }
@@ -34,7 +34,7 @@ public class AuthenticationService {
 
     private String generateToken(String principal, String credentials) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(principal, credentials));
-        UserDetails userDetails = userService.loadUserByUsername(principal);
+        UserDetails userDetails = accountService.loadUserByUsername(principal);
         return jwtService.generateToken(userDetails);
     }
 }

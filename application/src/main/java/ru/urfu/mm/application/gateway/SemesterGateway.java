@@ -8,7 +8,6 @@ import java.util.UUID;
 public interface SemesterGateway {
     void save(Semester semester);
     Semester getById(UUID semesterId);
-    List<Semester> GetLaterOrEqual(int year);
 
     /**
      * Получить список семестров для всего преиода обуения, который начинается с определенного года.

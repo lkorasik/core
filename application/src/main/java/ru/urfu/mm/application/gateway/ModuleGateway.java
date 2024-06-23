@@ -10,7 +10,6 @@ public interface ModuleGateway {
     EducationalModule find(UUID moduleId);
     Optional<EducationalModule> getById(UUID moduleId);
     List<EducationalModule> getAllModules();
-    List<EducationalModule> getModulesByIds(List<UUID> modulesIds);
     void save(EducationalModule educationalModule);
     void delete(EducationalModule educationalModule);
 }

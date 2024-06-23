@@ -9,5 +9,4 @@ import java.util.UUID;
 
 @Repository
 public interface RegistrationTokenRepository extends JpaRepository<RegistrationToken, UUID> {
-    Optional<RegistrationToken> findByRegistrationToken(UUID registrationToken);
 }

@@ -5,140 +5,19 @@ import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.application.usecase.*;
 import ru.urfu.mm.application.usecase.create_course.CreateCourse;
 import ru.urfu.mm.application.usecase.create_course.CreateCourseRequest;
-import ru.urfu.mm.application.usecase.load_available_courses.AvailableModuleResponse;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.controller.Endpoints;
 import ru.urfu.mm.domain.enums.ControlTypes;
-import ru.urfu.mm.domain.exception.NotImplementedException;
-
-import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping(Endpoints.Course.BASE)
 public class CourseController extends AbstractAuthorizedController implements CourseControllerDescription {
-    @Autowired
-    private GetAllCourses getAllCourses;
-    @Autowired
-    private GetEducationalModuleCourses getEducationalModuleCourses;
-//    @Autowired
-//    private GetSelectedCoursesIds getSelectedCoursesIds;
-//    @Autowired
-//    private SelectCourses selectCourses;
-//    @Autowired
-//    private GetCoursesByEducationalProgramAndSemesters getCoursesByEducationalProgramAndSemesters;
     @Autowired
     private EditModuleSpecialCourse editModuleSpecialCourse;
     @Autowired
     private DeleteCourse deleteCourse;
     @Autowired
     private CreateCourse createCourse;
-    @Autowired
-    private GetCourse getCourse;
-//    @Autowired
-//    private GetActualSpecialCoursesStatistics getActualSpecialCoursesStatistics;
-    @Autowired
-    private GetSpecialCourseStudentsCount getSpecialCourseStudentsCount;
-//    @Autowired
-//    private GetSelectedCoursesByStudentAndSemester getSelectedCoursesByStudentAndSemester;
-//    @Autowired
-//    private LoadAvailableCourses loadAvailableCourses;
-
-    @Override
-    public List<CourseForProgramDTO> specialCourse(@RequestBody GetCoursesDTO getCoursesDTO) {
-        throw new NotImplementedException();
-//        return getCoursesByEducationalProgramAndSemesters
-//                .getCoursesByEducationalProgramAndSemesters(UUID.fromString(getUserToken()), getCoursesDTO.semestersIds())
-//                .stream()
-//                .map(x -> new CourseForProgramDTO(
-//                        x.getId(),
-//                        x.getName(),
-//                        x.getCreditsCount(),
-//                        Control.values()[x.getControl().ordinal()],
-//                        x.getDescription(),
-//                        x.getSemesters()
-//                                .stream()
-//                                .map(y -> new Semester(
-//                                        y.getId(),
-//                                        y.getYear(),
-//                                        semesterTypeToEntityMapper.map(y.getType())
-//                                ))
-//                                .toList(),
-//                        x.getEducationalModuleId(),
-//                        x.getRequiredSemesterId()
-//                ))
-//                .toList();
-    }
-
-    @Override
-    public List<CoursesBySemesterDTO> selected(@RequestBody GetSelectedCoursesDTO getSelectedCoursesDTO) {
-        throw new NotImplementedException();
-//        var selected = getSelectedCoursesIds.getSelectedCoursesIds(UUID.fromString(getUserToken()), getSelectedCoursesDTO.semestersIds());
-//
-//        var result = new ArrayList<CoursesBySemesterDTO>();
-//        for (var key : selected.keySet()) {
-//            var item = new CoursesBySemesterDTO(key, selected.get(key));
-//            result.add(item);
-//        }
-//        return result;
-    }
-
-    @Override
-    public void select(@RequestBody SelectedCoursesDTO selectedCourses) {
-        throw new NotImplementedException();
-//        selectCourses.selectCourses(UUID.fromString(getUserToken()), selectedCourses.coursesBySemesters().stream().map(x -> Map.entry(x.semesterId(), x.coursesIds())).toList());
-    }
-
-    @Override
-    public List<CourseStatisticsDTO> getActualSpecialCoursesStatistics(@RequestParam List<UUID> semestersId) {
-        throw new NotImplementedException();
-//        return getActualSpecialCoursesStatistics
-//                .getActualSpecialCoursesStatistics(semestersId)
-//                .stream()
-//                .map(x -> new CourseStatisticsDTO(
-//                                x.getSpecialCourse().getId(),
-//                                x.getSpecialCourse().getName(),
-//                                getSpecialCourseStudentsCount.specialCourseStudentsCount(x.getSpecialCourse().getId())
-//                        )
-//                )
-//                .toList();
-    }
-
-    @Override
-    public List<CourseDTO> getAllCourses() {
-        throw new NotImplementedException();
-//        return getAllCourses
-//                .getAllCourses()
-//                .stream()
-//                .map(ModelConverterHelper::toDomain)
-//                .toList();
-    }
-
-    @Override
-    public List<CourseDTO> getEducationalModuleCourses(@RequestParam("moduleId") String moduleIdDTO) {
-        throw new NotImplementedException();
-//        return getEducationalModuleCourses
-//                .getEducationalModuleCourses(UUID.fromString(moduleIdDTO))
-//                .stream()
-//                .map(ModelConverterHelper::toDomain)
-//                .toList();
-    }
-
-    @Override
-    public CourseDTO getCourseById(@RequestParam("id") UUID courseId) {
-        throw new NotImplementedException();
-//        Course course = getCourse.getCourse(courseId);
-//        return new CourseDTO(
-//                course.getId(),
-//                course.getName(),
-//                course.getCredits(),
-//                Control.values()[course.getControl().ordinal()],
-//                course.getDescription(),
-//                course.getEducationalModule().getId(),
-//                course.getTeacher(),
-//                course.getDepartment()
-//        );
-    }
 
     @Override
     public void createModuleCourse(@RequestBody CreateModuleCourseDTO dto) {
@@ -170,26 +49,5 @@ public class CourseController extends AbstractAuthorizedController implements Co
                 editModuleCourseDTO.department(),
                 editModuleCourseDTO.teacherName()
         );
-    }
-
-    @Override
-    public List<SelectedCourseNameDTO> getSelectedCourseNamesBySemester(@RequestBody GetSelectedCoursesBySemesterDTO dto) {
-        throw new NotImplementedException();
-//        UUID studentId = UUID.fromString(getUserToken());
-//        return getSelectedCoursesByStudentAndSemester
-//                .getSelectedCoursesByStudentAndSemester(studentId, UUID.fromString(dto.semesterId()))
-//                .stream()
-//                .map(x -> new SelectedCourseNameDTO(
-//                        x.getSpecialCourse().getName(),
-//                        x.isRequiredCourse(),
-//                        x.getSpecialCourse().getId())
-//                )
-//                .toList();
-    }
-
-    @Override
-    public List<AvailableModuleResponse> loadAvailableCourses() {
-        throw new NotImplementedException();
-//        return loadAvailableCourses.loadAvailableCourses(UUID.fromString(getUserToken()));
     }
 }

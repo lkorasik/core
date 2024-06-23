@@ -9,5 +9,4 @@ import java.util.UUID;
 public interface GroupGateway {
     void save(AcademicGroup academicGroup);
     Optional<AcademicGroup> findById(UUID groupId);
-    AcademicGroup findByStudent(Student student);
 }

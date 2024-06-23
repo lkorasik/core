@@ -7,7 +7,6 @@ import java.util.UUID;
 
 public interface TokenGateway {
     void deleteToken(UUID token);
-    List<UUID> getTokensByGroup(AcademicGroup academicGroup);
     boolean isAdministratorToken(UUID token);
     boolean isStudentToken(UUID token);
 }
