@@ -66,7 +66,7 @@ class `Administrator registration` : BaseTestClass() {
 
         Assertions.assertNotNull(actual.accessToken)
         Assertions.assertEquals(actual.userEntityRole, UserRole.ADMIN.value)
-        Assertions.assertEquals(actual.userToken, registrationToken.registrationToken)
+        Assertions.assertTrue(UUID.fromString(actual.userToken).equals(registrationToken.registrationToken))
 
         Assertions.assertTrue(registrationTokenRepository.findAll().isEmpty())
         Assertions.assertEquals(1, accountRepository.findAll().size)
