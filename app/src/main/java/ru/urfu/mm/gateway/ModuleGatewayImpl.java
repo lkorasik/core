@@ -45,7 +45,7 @@ public class ModuleGatewayImpl implements ModuleGateway {
                             .stream()
                             .map(courseMapper::toDomain)
                             .toList();
-                    EducationalModule module = new EducationalModule(x.getId(), x.getName());
+                    EducationalModule module = new EducationalModule(x.getId(), x.getName(), courses);
                     return module;
                 });
     }
