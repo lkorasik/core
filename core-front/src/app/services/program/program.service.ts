@@ -42,4 +42,9 @@ export class ProgramService {
         let params = new HttpParams().set("programId", id.id);
         return this.authorizedClient.post<Syllabus[]>("api/programs/getPlan", params);
     }
+    
+    getAllSyllabi2(id: ProgramIdDto) {
+        let params = new HttpParams().set("programId", id.id);
+        return this.authorizedClient.get<SaveStudyPlanDTO[]>("api/programs/g", params);
+    }
 }
