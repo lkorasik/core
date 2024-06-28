@@ -19,6 +19,7 @@ import ru.urfu.mm.application.usecase.generate_student_registration_token.Genera
 import ru.urfu.mm.application.usecase.get_editable_syllabus.GetEditableSyllabus;
 import ru.urfu.mm.application.usecase.get_editable_syllabus.GetSyllabusDTO;
 import ru.urfu.mm.application.usecase.get_group.GetAcademicGroup;
+import ru.urfu.mm.application.usecase.get_new_syllabus.GetSyllabus;
 import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
 import ru.urfu.mm.application.usecase.get_all_modules.GetAllModules;
 import ru.urfu.mm.application.usecase.get_all_programs.GetAllPrograms;
@@ -204,6 +205,11 @@ public class UseCaseConfiguration {
     @Bean
     public GetEditableSyllabus getEditableSyllabus(GetAllSyllabi getAllSyllabi, GetAllModules getAllModules) {
         return new GetEditableSyllabus(getAllSyllabi, getAllModules);
+    }
+
+    @Bean
+    public GetSyllabus getSyllabus(BaseSyllabusPlanGateway baseSyllabusPlanGateway) {
+        return new GetSyllabus(baseSyllabusPlanGateway);
     }
 
     @Bean

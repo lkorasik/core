@@ -11,6 +11,8 @@ import ru.urfu.mm.application.usecase.create_syylabus.ModuleSelectionDTO;
 import ru.urfu.mm.application.usecase.get_all_programs.GetAllPrograms;
 import ru.urfu.mm.application.usecase.get_editable_syllabus.GetEditableSyllabus;
 import ru.urfu.mm.application.usecase.get_editable_syllabus.GetSyllabusDTO;
+import ru.urfu.mm.application.usecase.get_new_syllabus.GetSyllabus;
+import ru.urfu.mm.application.usecase.get_new_syllabus.GlobalResponse;
 import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
 import ru.urfu.mm.application.usecase.get_program_for_student.ProgramForStudentResponse;
 import ru.urfu.mm.application.usecase.get_program_by_id.GetProgramById;
@@ -20,7 +22,6 @@ import ru.urfu.mm.application.usecase.get_base_syllabus.GetAllSyllabi;
 import ru.urfu.mm.application.usecase.update_program.UpdateProgram;
 import ru.urfu.mm.application.usecase.update_program.UpdateProgramRequest;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
-import ru.urfu.mm.controller.Endpoints;
 import ru.urfu.mm.domain.BaseSyllabus;
 import ru.urfu.mm.domain.EducationalProgram;
 
@@ -47,6 +48,8 @@ public class ProgramController extends AbstractAuthorizedController implements P
     private CreateBaseSyllabus createBaseSyllabus;
     @Autowired
     private GetEditableSyllabus getEditableSyllabus;
+    @Autowired
+    private GetSyllabus getSyllabus;
 
     @Override
     public ProgramInfoDTO current() {
@@ -113,5 +116,11 @@ public class ProgramController extends AbstractAuthorizedController implements P
     @GetMapping("/g")
     public List<GetSyllabusDTO> getAllSyllabi2(@RequestParam("programId") UUID programId) {
         return getEditableSyllabus.getEditableSyllabus(programId);
+    }
+
+    @GetMapping("/getNewPlan")
+    public GlobalResponse getSyllabus(@RequestParam("programId") UUID programId, @RequestParam("startYear") int startYear) {
+        // [semesterId -> [courseId]]
+        return getSyllabus.getSyllabus(programId, startYear);
     }
 }
