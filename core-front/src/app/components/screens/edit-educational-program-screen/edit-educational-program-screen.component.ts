@@ -9,6 +9,7 @@ import { DialogComponent } from '../../base_components/dialog/dialog.component';
 import { ButtonComponent } from '../../base_components/button/button.component';
 import { ModuleService } from '../../../services/module/module.service';
 import { CourseSelectionDTO, ModuleDTO, SaveStudyPlanDTO } from '../../../services/program/saveStudyPlan.dto';
+import { ReqResponse } from '../../../services/program/getAllSyllabi2.dto';
 
 @Component({
     selector: 'app-edit-educational-program-screen',
@@ -35,6 +36,8 @@ export class EditEducationalProgramScreenComponent {
     isOpen: boolean = false;
     selectedYear: DropdownItem | undefined = undefined
 
+    newModules: ReqResponse[] = []
+
     constructor(private programService: ProgramService, private moduleService: ModuleService) {
         this.id = sessionStorage.getItem("programId")!;
 
@@ -51,7 +54,8 @@ export class EditEducationalProgramScreenComponent {
         })
 
         this.programService.saveStudyPlan2(this.id, 2023).subscribe(x => {
-            console.log(x)
+            this.newModules = x
+            this.availableYears = this.newModules.map(y => y.year).map(y => new DropdownItem(y.toString(), y.toString()))
         })
     }
 

@@ -6,9 +6,7 @@ import ru.urfu.mm.domain.AcademicGroup;
 import ru.urfu.mm.domain.BaseSyllabus;
 import ru.urfu.mm.domain.Course;
 
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -24,7 +22,7 @@ public class GetBaseSyllabus {
         this.moduleGateway = moduleGateway;
     }
 
-    public List<ModuleResponse> getBaseSyllabus(UUID programId, int startYear) {
+    public List<Response> getBaseSyllabus(UUID programId, int startYear) {
         // todo: Сюда надо добавить механизм получения планов по годам
         /*
         *План
@@ -32,15 +30,35 @@ public class GetBaseSyllabus {
         +--курс
         +---семестр
         */
-        BaseSyllabus syllabus = programGateway.findById(programId)
+        List<BaseSyllabus> baseSyllabi = programGateway.findById(programId)
                 .get()
                 .getAcademicGroups()
                 .stream()
                 .map(AcademicGroup::getBaseSyllabus)
-                .filter(x -> x.getFirstSemesterPlan().getSemester().getYear() == startYear)
-                .findFirst()
-                .get();
+                .toList();
 
+        Set<UUID> selectedSyllabiId = new HashSet<>();
+        List<BaseSyllabus> baseSyllabi1 = new ArrayList<>();
+        for(BaseSyllabus syllabus: baseSyllabi) {
+            if (selectedSyllabiId.contains(syllabus.getId())) {
+                // skip
+            } else {
+                selectedSyllabiId.add(syllabus.getId());
+                baseSyllabi1.add(syllabus);
+            }
+        }
+
+        return baseSyllabi1
+                .stream()
+                .map(x -> new Response(
+                        x.getId(),
+                        x.getFirstSemesterPlan().getSemester().getYear(),
+                        getModules(x)
+                ))
+                .toList();
+    }
+
+    private List<ModuleResponse> getModules(BaseSyllabus syllabus) {
         List<CourseResponse> firstCourses = syllabus.getFirstSemesterPlan()
                 .getRequiredCourses()
                 .stream()
