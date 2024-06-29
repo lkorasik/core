@@ -24,7 +24,4 @@ public interface ModulesControllerDescription {
     @Operation(summary = "Создать модуль")
     @PostMapping(Endpoints.Module.CREATE)
     void createModule(@RequestBody CreateModuleDTO createModuleDTO);
-
-    @DeleteMapping(Endpoints.Module.DELETE)
-    void deleteModule(@RequestBody ModuleIdDTO moduleIdDTO);
 }

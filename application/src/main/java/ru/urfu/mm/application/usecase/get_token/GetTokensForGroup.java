@@ -13,11 +13,9 @@ import java.util.List;
  */
 public class GetTokensForGroup {
     private final GetAcademicGroup getAcademicGroup;
-    private final StudentGateway studentGateway;
 
-    public GetTokensForGroup(GetAcademicGroup getAcademicGroup, StudentGateway studentGateway) {
+    public GetTokensForGroup(GetAcademicGroup getAcademicGroup) {
         this.getAcademicGroup = getAcademicGroup;
-        this.studentGateway = studentGateway;
     }
 
     public List<GetTokensForGroupResponse> getTokensForGroup(GetTokensForGroupRequest request) {

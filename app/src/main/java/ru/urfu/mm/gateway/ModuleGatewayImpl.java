@@ -34,11 +34,6 @@ public class ModuleGatewayImpl implements ModuleGateway {
     }
 
     @Override
-    public EducationalModule find(UUID moduleId) {
-        throw new NotImplementedException();
-    }
-
-    @Override
     public Optional<EducationalModule> getById(UUID moduleId) {
         return educationalModuleRepository.findById(moduleId)
                 .map(x -> {
@@ -64,25 +59,5 @@ public class ModuleGatewayImpl implements ModuleGateway {
     public void save(EducationalModule educationalModule) {
         EducationalModuleEntity entity = moduleMapper.toEntity(educationalModule);
         educationalModuleRepository.save(entity);
-    }
-
-    @Override
-    public void delete(EducationalModule educationalModule) {
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public EducationalModule getModuleByCourse(UUID courseId) {
-        return educationalModuleRepository.findAll()
-                .stream()
-                .filter(x -> x.getCourses()
-                        .stream()
-                        .map(SpecialCourse::getId)
-                        .toList()
-                        .contains(courseId)
-                )
-                .findFirst()
-                .map(moduleMapper::toDomain)
-                .get();
     }
 }

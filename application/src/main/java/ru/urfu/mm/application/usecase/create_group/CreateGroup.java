@@ -21,7 +21,6 @@ public class CreateGroup {
     private final GroupGateway groupGateway;
     private final ProgramGateway programGateway;
     private final SemesterGateway semesterGateway;
-    private final CreateBaseSyllabus createBaseSyllabus;
     private final BaseSyllabusPlanGateway baseSyllabusPlanGateway;
     private final BaseSemesterPlanGateway baseSemesterPlanGateway;
 
@@ -29,13 +28,11 @@ public class CreateGroup {
             GroupGateway groupGateway,
             ProgramGateway programGateway,
             SemesterGateway semesterGateway,
-            CreateBaseSyllabus createBaseSyllabus,
             BaseSyllabusPlanGateway baseSyllabusPlanGateway,
             BaseSemesterPlanGateway baseSemesterPlanGateway) {
         this.groupGateway = groupGateway;
         this.programGateway = programGateway;
         this.semesterGateway = semesterGateway;
-        this.createBaseSyllabus = createBaseSyllabus;
         this.baseSyllabusPlanGateway = baseSyllabusPlanGateway;
         this.baseSemesterPlanGateway = baseSemesterPlanGateway;
     }

@@ -19,22 +19,6 @@ import ru.urfu.mm.domain.enums.UserRole;
  * 4. Сохраняем изменения в студенте.
  */
 public class CreateStudent implements CreateUseCase {
-    private final StudentGateway studentGateway;
-    private final PasswordGateway passwordGateway;
-    private final UserGateway userGateway;
-    private final GroupGateway groupGateway;
-
-    public CreateStudent(
-            StudentGateway studentGateway,
-            PasswordGateway passwordGateway,
-            UserGateway userGateway,
-            GroupGateway groupGateway) {
-        this.studentGateway = studentGateway;
-        this.passwordGateway = passwordGateway;
-        this.userGateway = userGateway;
-        this.groupGateway = groupGateway;
-    }
-
     @Override
     public void create(CreateAccountRequest request) {
         throw new NotImplementedException();

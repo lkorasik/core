@@ -91,9 +91,9 @@ object Endpoints {
     object Group {
         const val BASE = "$API/groups"
 
-        const val GROUP = "/group"
+        const val CREATE = "/create"
         @JvmStatic
-        fun group() = "$BASE$GROUP"
+        fun create() = "$BASE$CREATE"
 
         const val GROUP_BY_ID = "/groupById"
         @JvmStatic
@@ -166,14 +166,18 @@ object Endpoints {
         const val AVAILABLE_YEARS = "/availableYears"
         @JvmStatic
         fun availableYears() = "$BASE$AVAILABLE_YEARS"
+    }
+
+    object Syllabus {
+        const val BASE = "$API/syllabus"
+
+        const val CREATE = "/create"
+        @JvmStatic
+        fun create() = "${Program.BASE}$CREATE"
 
         const val PLAN = "/plan"
         @JvmStatic
-        fun plan() = "$BASE$PLAN"
-
-        const val GET_PLAN = "/getPlan"
-        @JvmStatic
-        fun getPlan() = "$BASE$GET_PLAN"
+        fun plan() = "${Program.BASE}$PLAN"
     }
 
     /**
