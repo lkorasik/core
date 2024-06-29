@@ -11,6 +11,7 @@ import ru.urfu.mm.application.usecase.create_syylabus.CreateBaseSyllabus;
 import ru.urfu.mm.application.usecase.create_syylabus.CreateSyllabusRequest;
 import ru.urfu.mm.application.usecase.create_syylabus.ModuleSelectionDTO;
 import ru.urfu.mm.application.usecase.get_all_programs.GetAllPrograms;
+import ru.urfu.mm.application.usecase.get_modules_by_syllabus.GetModulesBySyllabus;
 import ru.urfu.mm.application.usecase.get_new_syllabus.GetSyllabus;
 import ru.urfu.mm.application.usecase.get_new_syllabus.GlobalResponse;
 import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
@@ -23,6 +24,7 @@ import ru.urfu.mm.application.usecase.update_program.UpdateProgram;
 import ru.urfu.mm.application.usecase.update_program.UpdateProgramRequest;
 import ru.urfu.mm.controller.AbstractAuthorizedController;
 import ru.urfu.mm.domain.BaseSyllabus;
+import ru.urfu.mm.domain.EducationalModule;
 import ru.urfu.mm.domain.EducationalProgram;
 
 import java.util.List;
@@ -49,6 +51,8 @@ public class ProgramController extends AbstractAuthorizedController implements P
     private CreateBaseSyllabus createBaseSyllabus;
     @Autowired
     private GetSyllabus getSyllabus;
+    @Autowired
+    private GetModulesBySyllabus getModulesBySyllabus;
 
     @Override
     public ProgramInfoDTO current() {
@@ -115,5 +119,10 @@ public class ProgramController extends AbstractAuthorizedController implements P
     @GetMapping("/getNewPlan")
     public GlobalResponse getSyllabus(@RequestParam("programId") UUID programId, @RequestParam("startYear") int startYear) {
         return getSyllabus.getSyllabus(programId, startYear);
+    }
+
+    @GetMapping("/fff")
+    public EducationalModule getSyllabus2(@RequestParam("programId") UUID programId, @RequestParam("startYear") int startYear) {
+        return getModulesBySyllabus.getModulesBySyllabus(programId, startYear);
     }
 }

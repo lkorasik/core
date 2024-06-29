@@ -7,6 +7,7 @@ import ru.urfu.mm.application.usecase.DeleteModuleById;
 import ru.urfu.mm.application.usecase.get_all_modules.GetAllModules;
 import ru.urfu.mm.application.usecase.get_module.GetModuleWithCourses;
 import ru.urfu.mm.application.usecase.get_module.ModuleWithCoursesResponse;
+import ru.urfu.mm.application.usecase.get_modules_by_syllabus.GetModulesBySyllabus;
 import ru.urfu.mm.controller.Endpoints;
 
 import java.util.*;
@@ -22,6 +23,8 @@ public class ModulesController implements ModulesControllerDescription {
     private DeleteModuleById deleteModuleById;
     @Autowired
     private GetModuleWithCourses getModuleWithCourses;
+    @Autowired
+    private GetModulesBySyllabus getModulesBySyllabus;
 
     @Override
     public List<ModuleDTO> getAllModules() {
@@ -64,5 +67,9 @@ public class ModulesController implements ModulesControllerDescription {
     @Override
     public void deleteModule(@RequestBody ModuleIdDTO moduleIdDTO) {
         deleteModuleById.deleteModuleById(moduleIdDTO.id());
+    }
+
+    public void getAllBySyllabus() {
+
     }
 }

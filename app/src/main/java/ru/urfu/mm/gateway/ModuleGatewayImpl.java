@@ -7,6 +7,7 @@ import ru.urfu.mm.domain.Course;
 import ru.urfu.mm.domain.EducationalModule;
 import ru.urfu.mm.domain.enums.ControlTypes;
 import ru.urfu.mm.persistance.entity.EducationalModuleEntity;
+import ru.urfu.mm.persistance.entity.SpecialCourse;
 import ru.urfu.mm.persistance.entity.enums.Control;
 import ru.urfu.mm.persistance.repository.EducationalModuleRepository;
 import ru.urfu.mm.service.mapper.CourseMapper;
@@ -68,5 +69,20 @@ public class ModuleGatewayImpl implements ModuleGateway {
     @Override
     public void delete(EducationalModule educationalModule) {
         throw new NotImplementedException();
+    }
+
+    @Override
+    public EducationalModule getModuleByCourse(UUID courseId) {
+        return educationalModuleRepository.findAll()
+                .stream()
+                .filter(x -> x.getCourses()
+                        .stream()
+                        .map(SpecialCourse::getId)
+                        .toList()
+                        .contains(courseId)
+                )
+                .findFirst()
+                .map(moduleMapper::toDomain)
+                .get();
     }
 }

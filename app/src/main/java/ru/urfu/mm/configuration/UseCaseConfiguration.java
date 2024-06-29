@@ -15,6 +15,7 @@ import ru.urfu.mm.application.usecase.create_syylabus.CreateBaseSyllabus;
 import ru.urfu.mm.application.usecase.download_tokens.DownloadTokens;
 import ru.urfu.mm.application.usecase.generate_student_registration_token.GenerateStudentRegistrationToken;
 import ru.urfu.mm.application.usecase.get_group.GetAcademicGroup;
+import ru.urfu.mm.application.usecase.get_modules_by_syllabus.GetModulesBySyllabus;
 import ru.urfu.mm.application.usecase.get_new_syllabus.GetSyllabus;
 import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
 import ru.urfu.mm.application.usecase.get_all_modules.GetAllModules;
@@ -194,6 +195,14 @@ public class UseCaseConfiguration {
     @Bean
     public GetAllSyllabi getStudyPlan(ProgramGateway programGateway) {
         return new GetAllSyllabi(programGateway);
+    }
+
+    @Bean
+    public GetModulesBySyllabus getModulesBySyllabus(
+            BaseSyllabusPlanGateway baseSyllabusPlanGateway,
+            ModuleGateway moduleGateway
+    ) {
+        return new GetModulesBySyllabus(baseSyllabusPlanGateway, moduleGateway);
     }
 
     @Bean

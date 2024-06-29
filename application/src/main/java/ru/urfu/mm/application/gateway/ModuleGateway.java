@@ -12,4 +12,5 @@ public interface ModuleGateway {
     List<EducationalModule> getAllModules();
     void save(EducationalModule educationalModule);
     void delete(EducationalModule educationalModule);
+    EducationalModule getModuleByCourse(UUID courseId);
 }

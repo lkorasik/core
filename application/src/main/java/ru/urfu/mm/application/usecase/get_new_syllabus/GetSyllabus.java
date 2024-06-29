@@ -56,5 +56,3 @@ public class GetSyllabus {
     }
 }
 
-record Response(UUID semesterId, List<UUID> requiredCourses, List<UUID> availableCourses, List<UUID> scienceWorks) {
-}

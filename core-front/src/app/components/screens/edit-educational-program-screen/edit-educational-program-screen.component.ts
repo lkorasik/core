@@ -140,7 +140,7 @@ export class EditEducationalProgramScreenComponent {
         this.selectedYear = item
 
         this.programService.getNewPlan(this.id, this.selectedYear.label).subscribe(x => {
-            console.log(x)
+            // module
         })
     }
 }
