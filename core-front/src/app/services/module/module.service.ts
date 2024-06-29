@@ -17,7 +17,7 @@ export class ModuleService {
     }
 
     public createModule(createModuleRequest: CreateModuleDto) {
-        return this.authorizedClient.post("api/module/create", createModuleRequest);
+        return this.authorizedClient.post("api/module", createModuleRequest);
     }
 
     getAllModulesWithCourses(): Observable<FullModuleDto[]> {
@@ -26,6 +26,6 @@ export class ModuleService {
 
     public getModuleById(getModuleById: GetModuleById) {
         let params = new HttpParams().set("id", getModuleById.id);
-        return this.authorizedClient.get<ModuleWithCoursesDTO>("api/module/module", params);
+        return this.authorizedClient.get<ModuleWithCoursesDTO>("api/module", params);
     }
 }

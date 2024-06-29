@@ -28,10 +28,10 @@ public class CreateAdministrator implements CreateUseCase {
 
     @Override
     public void create(CreateAccountRequest request) {
-        String encodedPassword = passwordGateway.encode(request.getPassword());
-        Account account = new Account(request.getToken(), encodedPassword, UserRole.ADMIN);
+        String encodedPassword = passwordGateway.encode(request.password());
+        Account account = new Account(request.token(), encodedPassword, UserRole.ADMIN);
         userGateway.save(account);
 
-        tokenGateway.deleteToken(request.getToken());
+        tokenGateway.deleteToken(request.token());
     }
 }

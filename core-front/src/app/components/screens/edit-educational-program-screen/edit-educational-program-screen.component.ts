@@ -30,8 +30,8 @@ export class EditEducationalProgramScreenComponent {
     title: string = ""
     trainingDirection: string = ""
     availableYears: DropdownItem[] = []
-    years: Year[] = []
     modules: Module[] = []
+    years: Year[] = []
     isOpen: boolean = false;
     selectedYear: DropdownItem | undefined = undefined
 
@@ -50,15 +50,8 @@ export class EditEducationalProgramScreenComponent {
             });
         })
 
-        this.programService.getAllSyllabi({ id: this.id }).subscribe(x => {
-            this.years = x.map(y => new Year(
-                y.firstSemesterPlan.semester.id, 
-                y.secondSemesterPlan.semester.id,
-                y.thirdSemesterPlan.semester.id,
-                y.fourthSemesterPlan.semester.id,
-                y.firstSemesterPlan.semester.year
-            ))
-            this.availableYears = x.map(y => y.firstSemesterPlan.semester).map(y => new DropdownItem(y.year.toString(), y.id.toString()))
+        this.programService.saveStudyPlan2(this.id, 2023).subscribe(x => {
+            console.log(x)
         })
     }
 

@@ -2,10 +2,8 @@ package ru.urfu.mm.controller.syllabus;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import ru.urfu.mm.application.usecase.get_base_syllabus.ModuleResponse;
 import ru.urfu.mm.controller.Endpoints;
 import ru.urfu.mm.controller.program.SyllabusDTO;
 import ru.urfu.mm.domain.BaseSyllabus;
@@ -23,4 +21,8 @@ public interface SyllabusControllerDescription {
     @Operation(summary = "Получить базовый план")
     @PostMapping(Endpoints.Syllabus.PLAN)
     List<BaseSyllabus> getAllSyllabi(@RequestParam("programId") UUID programId);
+
+    @Operation(summary = "Получить базовый план")
+    @GetMapping(Endpoints.Syllabus.PLAN + "2")
+    List<ModuleResponse> getSyllabus(@RequestParam("programId") UUID programId, @RequestParam("startYear") int startYear);
 }

@@ -16,13 +16,7 @@ class AuthenticationController @Autowired constructor(
     private val loginUser: LoginUser
 ) : AuthenticationControllerDescription {
     override fun register(dto: RegistrationDTO): AccessTokenDTO {
-        val request = object : CreateAccountRequest {
-            override fun getToken(): UUID = dto.token
-
-            override fun getPassword(): String = dto.password
-
-            override fun getPasswordAgain(): String = dto.passwordAgain
-        }
+        val request = CreateAccountRequest(dto.token, dto.password, dto.passwordAgain)
         val role = createAccount.createUser(request)
         val token = authenticationService.generateToken(dto)
 

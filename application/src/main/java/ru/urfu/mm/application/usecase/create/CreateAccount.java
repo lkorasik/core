@@ -30,10 +30,10 @@ public class CreateAccount {
     }
 
     public UserRole createUser(CreateAccountRequest request) {
-        UserRole role = determineRole(request.getToken());
+        UserRole role = determineRole(request.token());
 
-        ensurePasswordsSame(request.getPassword(), request.getPasswordAgain());
-        ensurePasswordStrongEnough(request.getPassword());
+        ensurePasswordsSame(request.password(), request.passwordAgain());
+        ensurePasswordStrongEnough(request.password());
 
         if (role == UserRole.ADMIN) {
             createAdministrator.create(request);

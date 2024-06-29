@@ -1,4 +1,4 @@
-package ru.urfu.mm.application.usecase.get_base_syllabus;
+package ru.urfu.mm.application.usecase.get_all_syllabi;
 
 import ru.urfu.mm.application.gateway.ProgramGateway;
 import ru.urfu.mm.domain.AcademicGroup;

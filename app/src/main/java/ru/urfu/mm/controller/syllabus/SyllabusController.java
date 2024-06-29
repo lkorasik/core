@@ -7,7 +7,9 @@ import ru.urfu.mm.application.usecase.create_syylabus.CourseSelectionDTO;
 import ru.urfu.mm.application.usecase.create_syylabus.CreateBaseSyllabus;
 import ru.urfu.mm.application.usecase.create_syylabus.CreateSyllabusRequest;
 import ru.urfu.mm.application.usecase.create_syylabus.ModuleSelectionDTO;
-import ru.urfu.mm.application.usecase.get_base_syllabus.GetAllSyllabi;
+import ru.urfu.mm.application.usecase.get_all_syllabi.GetAllSyllabi;
+import ru.urfu.mm.application.usecase.get_base_syllabus.GetBaseSyllabus;
+import ru.urfu.mm.application.usecase.get_base_syllabus.ModuleResponse;
 import ru.urfu.mm.controller.program.SyllabusDTO;
 import ru.urfu.mm.domain.BaseSyllabus;
 
@@ -21,6 +23,8 @@ public class SyllabusController implements SyllabusControllerDescription {
     private CreateBaseSyllabus createBaseSyllabus;
     @Autowired
     private GetAllSyllabi getAllSyllabi;
+    @Autowired
+    private GetBaseSyllabus getBaseSyllabus;
 
     @Override
     public void saveSyllabus(SyllabusDTO dto) {
@@ -41,5 +45,10 @@ public class SyllabusController implements SyllabusControllerDescription {
     @Override
     public List<BaseSyllabus> getAllSyllabi(UUID programId) {
         return getAllSyllabi.getStudyPlan(programId);
+    }
+
+    @Override
+    public List<ModuleResponse> getSyllabus(UUID programId, int startYear) {
+        return getBaseSyllabus.getBaseSyllabus(programId, startYear);
     }
 }
