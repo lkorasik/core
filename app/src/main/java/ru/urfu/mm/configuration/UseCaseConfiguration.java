@@ -211,9 +211,4 @@ public class UseCaseConfiguration {
     public GetSyllabus getSyllabus(BaseSyllabusPlanGateway baseSyllabusPlanGateway) {
         return new GetSyllabus(baseSyllabusPlanGateway);
     }
-
-    @Bean
-    public Logger logger() {
-        return LoggerFactory.getLogger(this.getClass());
-    }
 }
