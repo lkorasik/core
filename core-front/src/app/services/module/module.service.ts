@@ -11,15 +11,15 @@ export class ModuleService {
     constructor(private authorizedClient: AuthorizedHttpClient) { }
 
     public getAllModules() {
-        return this.authorizedClient.get<ModuleDTO[]>("api/modules/all");
+        return this.authorizedClient.get<ModuleDTO[]>("api/module/all");
     }
 
     public createModule(createModuleRequest: CreateModuleDto) {
-        return this.authorizedClient.post("api/modules/create", createModuleRequest);
+        return this.authorizedClient.post("api/module/create", createModuleRequest);
     }
 
     public getModuleById(getModuleById: GetModuleById) {
         let params = new HttpParams().set("id", getModuleById.id);
-        return this.authorizedClient.get<ModuleWithCoursesDTO>("api/modules/module", params);
+        return this.authorizedClient.get<ModuleWithCoursesDTO>("api/module/module", params);
     }
 }

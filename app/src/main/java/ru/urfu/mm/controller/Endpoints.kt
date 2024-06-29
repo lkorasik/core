@@ -71,17 +71,6 @@ object Endpoints {
     }
 
     /**
-     * Document API
-     */
-    object Document {
-        const val BASE = "$API/document"
-
-        const val GENERATE = "/generate"
-        @JvmStatic
-        fun generate() = "$BASE$GENERATE"
-    }
-
-    /**
      * Group API
      */
     object Group {

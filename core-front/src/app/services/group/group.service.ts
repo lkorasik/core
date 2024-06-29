@@ -17,49 +17,30 @@ export class GroupService {
 
     public getGroupsForProgram(group: GetGropupDTO) {
         let params = new HttpParams().set("programId", group.programId);
-        return this.authorizedClient.get<GroupDto[]>("api/groups/groupsByProgram", params);
+        return this.authorizedClient.get<GroupDto[]>("api/group/groupsByProgram", params);
     }
 
     public createGroup(createGroup: CreateGroupDTO) {
-        return this.authorizedClient.post("api/groups/group", createGroup);
+        return this.authorizedClient.post("api/group", createGroup);
     }
 
     public getGroup(getGroup: GetGroupIdDto) {
         let params = new HttpParams().set("groupId", getGroup.groupId);
-        return this.authorizedClient.get<GroupDto>("api/groups/groupById", params);
-
-        // let headers = new HttpHeaders().append("Authorization", "Bearer " + sessionStorage.getItem("token"));
-        // let params = new HttpParams().set("groupId", getGroup.groupId);
-        // return this.client.get<GroupDto>("api/groups/groupById", { headers, params });
+        return this.authorizedClient.get<GroupDto>("api/group", params);
     }
 
     public getTokens(groupId: GetTokensDto) {
         let params = new HttpParams().set("groupId", groupId.groupId);
-        return this.authorizedClient.get<TokenStatusDto[]>("api/groups/token", params);
-
-        // let headers = new HttpHeaders().append("Authorization", "Bearer " + sessionStorage.getItem("token"));
-        // let params = new HttpParams().set("groupId", groupId.groupId);
-        // return this.client.get<TokenStatusDto[]>("api/groups/token", { headers, params });
+        return this.authorizedClient.get<TokenStatusDto[]>("api/group/tokens", params);
     }
 
     public generateTokens(generateTokens: GenerateTokenDto) {
         let params = new HttpParams().set("groupId", generateTokens.groupId);
-        return this.authorizedClient.post<string[]>("api/groups/token", generateTokens, params);
-
-        // let headers = new HttpHeaders().append("Authorization", "Bearer " + sessionStorage.getItem("token"));
-        // let params = new HttpParams().set("groupId", generateTokens.groupId);
-        // return this.client.post<string[]>("api/groups/token", generateTokens, { headers, params });
+        return this.authorizedClient.post<string[]>("api/group/tokens", generateTokens, params);
     }
 
     public downloadTokensFile(groupNumber: string, groupId: GetTokensDto) {
-        // let headers = new HttpHeaders()
-            // .append("Authorization", "Bearer " + sessionStorage.getItem("token"))
-            // .append("Content-Type", "application/octet-stream")
-            // .append("Accept", "application/octet-stream");
-        // let params = new HttpParams().set("groupId", groupId.groupId);
-        // return this.client.get("api/groups/token_file", { params, headers })
-
-        this.downloadFile("api/groups/token_file", groupNumber + ".txt", groupId.groupId);
+        this.downloadFile("api/group/tokenFile", groupNumber + ".txt", groupId.groupId);
     }
 
     downloadFile(url: string, fileName: string, groupId: string) {

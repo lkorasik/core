@@ -28,11 +28,11 @@ export class ProgramService {
 
     getEducationalProgramById(id: ProgramIdDto) {
         let params = new HttpParams().set("id", id.id);
-        return this.authorizedClient.get<FullProgramDto>("api/program/program", params);
+        return this.authorizedClient.get<FullProgramDto>("api/program", params);
     }
 
     createEducationalProgram(createEducationalProgram: CreateProgramDTO) {
-        return this.authorizedClient.post("api/program/create", createEducationalProgram);
+        return this.authorizedClient.post("api/program", createEducationalProgram);
     }
 
     saveStudyPlan(saveStudyPlan: SaveStudyPlanDTO) {

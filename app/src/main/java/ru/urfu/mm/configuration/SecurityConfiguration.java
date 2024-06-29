@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import ru.urfu.mm.controller.Endpoints;
 import ru.urfu.mm.filter.JwtFilter;
 import ru.urfu.mm.service.AccountService;
 
@@ -32,8 +33,8 @@ public class SecurityConfiguration {
                     .requestMatchers("/swagger-ui/**").permitAll()
                     .requestMatchers("/v3/api-docs/**").permitAll()
                     .requestMatchers("/api/authentication/**").permitAll()
-                    .requestMatchers("/api/programs").permitAll()
-                    .requestMatchers("/api/programs/all").permitAll()
+                    .requestMatchers(Endpoints.Program.base()).permitAll()
+                    .requestMatchers(Endpoints.Program.all()).permitAll()
                     .anyRequest().authenticated();
         });
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
