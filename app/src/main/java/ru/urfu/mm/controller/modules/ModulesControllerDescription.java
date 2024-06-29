@@ -18,10 +18,10 @@ public interface ModulesControllerDescription {
     List<FullModuleDTO> getAllModulesWithCourses();
 
     @Operation(summary = "Получить информацию о конкретном модуле")
-    @GetMapping(Endpoints.Module.MODULE)
+    @GetMapping
     ModuleWithCoursesDTO getModuleById(@RequestParam("id") String moduleId);
 
     @Operation(summary = "Создать модуль")
-    @PostMapping(Endpoints.Module.CREATE)
+    @PostMapping
     void createModule(@RequestBody CreateModuleDTO createModuleDTO);
 }

@@ -12,11 +12,11 @@ import java.util.UUID;
 @RequestMapping(Endpoints.Program.BASE)
 public interface ProgramControllerDescription {
     @Operation(summary = "Получить программу по идентификатору")
-    @GetMapping(Endpoints.Program.PROGRAM)
+    @GetMapping
     FullProgramDTO getEducationalProgram(@RequestParam("id") UUID programId);
 
     @Operation(summary = "Создать программу")
-    @PostMapping(Endpoints.Program.CREATE)
+    @PostMapping
     void createEducationalProgram(@RequestBody CreateProgramDTO dto);
 
     @Operation(summary = "Получить все программы")

@@ -25,7 +25,7 @@ object Endpoints {
      * Course API
      */
     object Course {
-        const val BASE = "$API/courses"
+        const val BASE = "$API/course"
         @JvmStatic
         fun courses() = BASE
 
@@ -52,10 +52,6 @@ object Endpoints {
         const val COURSE = "/course"
         @JvmStatic
         fun course() = "$BASE$COURSE"
-
-        const val CREATE = "/create"
-        @JvmStatic
-        fun create() = "$BASE$CREATE"
 
         const val DELETE = "/delete"
         @JvmStatic
@@ -89,21 +85,15 @@ object Endpoints {
      * Group API
      */
     object Group {
-        const val BASE = "$API/groups"
-
-        const val CREATE = "/create"
+        const val BASE = "$API/group"
         @JvmStatic
-        fun create() = "$BASE$CREATE"
+        fun base() = BASE
 
-        const val GROUP_BY_ID = "/groupById"
-        @JvmStatic
-        fun groupById() = "$BASE$GROUP_BY_ID"
-
-        const val TOKEN = "/token"
+        const val TOKEN = "/tokens"
         @JvmStatic
         fun token() = "$BASE$TOKEN"
 
-        const val TOKEN_FILE = "/token_file"
+        const val TOKEN_FILE = "/tokenFile"
         @JvmStatic
         fun tokenFile() = "$BASE$TOKEN_FILE"
     }
@@ -112,7 +102,7 @@ object Endpoints {
      * Module API
      */
     object Module {
-        const val BASE = "$API/modules"
+        const val BASE = "$API/module"
         @JvmStatic
         fun modules() = BASE
 
@@ -124,14 +114,6 @@ object Endpoints {
         @JvmStatic
         fun allWithCourses() = "$BASE$ALL_WITH_COURSES"
 
-        const val MODULE = "/module"
-        @JvmStatic
-        fun module() = "$BASE$MODULE"
-
-        const val CREATE = "/create"
-        @JvmStatic
-        fun create() = "$BASE$CREATE"
-
         const val DELETE = "/delete"
         @JvmStatic
         fun delete() = "$BASE$DELETE"
@@ -142,14 +124,8 @@ object Endpoints {
      */
     object Program {
         const val BASE = "$API/program"
-
-        const val PROGRAM = "/program"
         @JvmStatic
-        fun program() = "$BASE$PROGRAM"
-
-        const val CREATE = "/create"
-        @JvmStatic
-        fun create() = "$BASE$CREATE"
+        fun base() = BASE
 
         const val ALL = "/all"
         @JvmStatic

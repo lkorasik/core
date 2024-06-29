@@ -10,6 +10,6 @@ import ru.urfu.mm.controller.Endpoints;
 @RequestMapping(Endpoints.Course.BASE)
 public interface CourseControllerDescription {
     @Operation(summary = "Создать новый курс")
-    @PostMapping(Endpoints.Course.CREATE)
+    @PostMapping
     void createModuleCourse(@RequestBody CreateModuleCourseDTO dto);
 }

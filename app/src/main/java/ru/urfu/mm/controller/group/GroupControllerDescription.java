@@ -16,11 +16,11 @@ import java.util.UUID;
 @RequestMapping(Endpoints.Group.BASE)
 public interface GroupControllerDescription {
     @Operation(summary = "Создать группу")
-    @PostMapping(Endpoints.Group.CREATE)
+    @PostMapping
     void createGroup(@RequestBody CreateGroupDTO dto);
 
     @Operation(summary = "Получить группу по идентификатору")
-    @GetMapping(Endpoints.Group.GROUP_BY_ID)
+    @GetMapping
     GroupDTO getGroup(@RequestParam("groupId") UUID groupId);
 
     @Operation(summary = "Сгенерировать токены")
