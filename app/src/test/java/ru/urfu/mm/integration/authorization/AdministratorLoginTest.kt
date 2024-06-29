@@ -28,8 +28,10 @@ import java.util.*
 class `Administrator login` : BaseTestClass() {
     @Autowired
     private lateinit var registrationTokenRepository: RegistrationTokenRepository
+
     @Autowired
     private lateinit var accountRepository: AccountRepository
+
     @Autowired
     private lateinit var authorizationDSL: AuthorizationDSL
 
