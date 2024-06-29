@@ -19,7 +19,7 @@ export class ProgramService {
     constructor(private client: HttpClient, private authorizedClient: AuthorizedHttpClient) {}
 
     getAllPrograms(): Observable<ProgramDTO[]> {
-        return this.client.get<ProgramDTO[]>("api/programs/all");
+        return this.client.get<ProgramDTO[]>("api/program/all");
     }
 
     getAllModulesWithCourses(): Observable<FullModuleDto[]> {
@@ -28,24 +28,24 @@ export class ProgramService {
 
     getEducationalProgramById(id: ProgramIdDto) {
         let params = new HttpParams().set("id", id.id);
-        return this.authorizedClient.get<FullProgramDto>("api/programs/program", params);
+        return this.authorizedClient.get<FullProgramDto>("api/program/program", params);
     }
 
     createEducationalProgram(createEducationalProgram: CreateProgramDTO) {
-        return this.authorizedClient.post("api/programs/create", createEducationalProgram);
+        return this.authorizedClient.post("api/program/create", createEducationalProgram);
     }
 
     saveStudyPlan(saveStudyPlan: SaveStudyPlanDTO) {
-        return this.authorizedClient.post("api/programs/plan", saveStudyPlan);
+        return this.authorizedClient.post("api/program/plan", saveStudyPlan);
     }
     
     getAllSyllabi(id: ProgramIdDto) {
         let params = new HttpParams().set("programId", id.id);
-        return this.authorizedClient.post<Syllabus[]>("api/programs/getPlan", params);
+        return this.authorizedClient.post<Syllabus[]>("api/program/getPlan", params);
     }
 
     getNewPlan(id: string, startYear: string) {
         let params = new HttpParams().set("programId", id).set("startYear", startYear);
-        return this.authorizedClient.get<GetNewPlan>("api/programs/getNewPlan", params);
+        return this.authorizedClient.get<GetNewPlan>("api/program/getNewPlan", params);
     }
 }

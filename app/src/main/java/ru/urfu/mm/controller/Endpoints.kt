@@ -141,11 +141,7 @@ object Endpoints {
      * Program API
      */
     object Program {
-        const val BASE = "$API/programs"
-
-        const val CURRENT = "/current"
-        @JvmStatic
-        fun current() = "$BASE$CURRENT"
+        const val BASE = "$API/program"
 
         const val PROGRAM = "/program"
         @JvmStatic
@@ -155,17 +151,9 @@ object Endpoints {
         @JvmStatic
         fun create() = "$BASE$CREATE"
 
-        const val UPDATE = "/update"
-        @JvmStatic
-        fun update() = "$BASE$UPDATE"
-
         const val ALL = "/all"
         @JvmStatic
         fun all() = "$BASE$ALL"
-
-        const val AVAILABLE_YEARS = "/availableYears"
-        @JvmStatic
-        fun availableYears() = "$BASE$AVAILABLE_YEARS"
     }
 
     object Syllabus {
