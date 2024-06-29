@@ -25,6 +25,13 @@ public class GetBaseSyllabus {
     }
 
     public List<ModuleResponse> getBaseSyllabus(UUID programId, int startYear) {
+        // todo: Сюда надо добавить механизм получения планов по годам
+        /*
+        *План
+        +-модуль
+        +--курс
+        +---семестр
+        */
         BaseSyllabus syllabus = programGateway.findById(programId)
                 .get()
                 .getAcademicGroups()
