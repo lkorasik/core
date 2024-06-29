@@ -1,4 +1,4 @@
-package ru.urfu.mm.application.usecase.create.account;
+package ru.urfu.mm.application.usecase.create;
 
 import java.util.UUID;
 

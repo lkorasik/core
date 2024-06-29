@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import ru.urfu.mm.application.gateway.*;
 import ru.urfu.mm.application.usecase.create.CreateAdministrator;
 import ru.urfu.mm.application.usecase.create.CreateStudent;
-import ru.urfu.mm.application.usecase.create.account.CreateAccount;
+import ru.urfu.mm.application.usecase.create.CreateAccount;
 import ru.urfu.mm.application.usecase.create_course.CreateCourse;
 import ru.urfu.mm.application.usecase.create_group.CreateGroup;
 import ru.urfu.mm.application.usecase.create_educational_program.CreateEducationalProgram;

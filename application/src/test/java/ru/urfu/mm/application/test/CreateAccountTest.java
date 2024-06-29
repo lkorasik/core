@@ -9,8 +9,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ru.urfu.mm.application.dsl.DSL;
 import ru.urfu.mm.application.gateway.TokenGateway;
 import ru.urfu.mm.application.usecase.create.*;
-import ru.urfu.mm.application.usecase.create.account.CreateAccount;
-import ru.urfu.mm.application.usecase.create.account.CreateAccountRequest;
+import ru.urfu.mm.application.usecase.create.CreateAccount;
+import ru.urfu.mm.application.usecase.create.CreateAccountRequest;
 
 import java.util.UUID;
 

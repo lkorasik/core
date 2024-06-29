@@ -3,7 +3,6 @@ package ru.urfu.mm.application.usecase.create;
 import ru.urfu.mm.application.gateway.PasswordGateway;
 import ru.urfu.mm.application.gateway.TokenGateway;
 import ru.urfu.mm.application.gateway.UserGateway;
-import ru.urfu.mm.application.usecase.create.account.CreateAccountRequest;
 import ru.urfu.mm.domain.Account;
 import ru.urfu.mm.domain.enums.UserRole;
 

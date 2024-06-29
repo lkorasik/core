@@ -1,7 +1,6 @@
-package ru.urfu.mm.application.usecase.create.account;
+package ru.urfu.mm.application.usecase.create;
 
 import ru.urfu.mm.application.gateway.TokenGateway;
-import ru.urfu.mm.application.usecase.create.*;
 import ru.urfu.mm.domain.enums.UserRole;
 
 import java.util.UUID;

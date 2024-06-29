@@ -2,8 +2,8 @@ package ru.urfu.mm.controller.authentication
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.RestController
-import ru.urfu.mm.application.usecase.create.account.CreateAccount
-import ru.urfu.mm.application.usecase.create.account.CreateAccountRequest
+import ru.urfu.mm.application.usecase.create.CreateAccount
+import ru.urfu.mm.application.usecase.create.CreateAccountRequest
 import ru.urfu.mm.application.usecase.login_user.LoginRequest
 import ru.urfu.mm.application.usecase.login_user.LoginUser
 import ru.urfu.mm.service.AuthenticationService

@@ -1,15 +1,6 @@
 package ru.urfu.mm.application.usecase.create;
 
 import ru.urfu.mm.application.exception.NotImplementedException;
-import ru.urfu.mm.application.gateway.GroupGateway;
-import ru.urfu.mm.application.gateway.PasswordGateway;
-import ru.urfu.mm.application.gateway.StudentGateway;
-import ru.urfu.mm.application.gateway.UserGateway;
-import ru.urfu.mm.application.usecase.create.account.CreateAccountRequest;
-import ru.urfu.mm.domain.AcademicGroup;
-import ru.urfu.mm.domain.Account;
-import ru.urfu.mm.domain.Student;
-import ru.urfu.mm.domain.enums.UserRole;
 
 /**
  * Создаем аккаунт студента
