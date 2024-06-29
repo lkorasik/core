@@ -3,6 +3,8 @@ import { AuthorizedHttpClient } from '../authorizedHttpClient';
 import { ModuleDTO } from './module.dto';
 import { CreateModuleDto, GetModuleById, ModuleWithCoursesDTO } from './dtos';
 import { HttpParams } from '@angular/common/http';
+import { FullModuleDto } from './fullModule.dto';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -16,6 +18,10 @@ export class ModuleService {
 
     public createModule(createModuleRequest: CreateModuleDto) {
         return this.authorizedClient.post("api/module/create", createModuleRequest);
+    }
+
+    getAllModulesWithCourses(): Observable<FullModuleDto[]> {
+        return this.authorizedClient.get<FullModuleDto[]>("api/module/allWithCourses");
     }
 
     public getModuleById(getModuleById: GetModuleById) {

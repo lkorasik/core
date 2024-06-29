@@ -43,7 +43,7 @@ export class EditEducationalProgramScreenComponent {
             this.trainingDirection = program.trainingDirection
         })
 
-        this.programService.getAllModulesWithCourses().subscribe(x => {
+        this.moduleService.getAllModulesWithCourses().subscribe(x => {
             this.modules = x.map(y => {
                 const courses = y.courses.map(course => new Course(course.id, course.name));
                 return new Module(y.id, y.name, courses)
