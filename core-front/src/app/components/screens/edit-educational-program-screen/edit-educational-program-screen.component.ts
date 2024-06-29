@@ -136,8 +136,12 @@ export class EditEducationalProgramScreenComponent {
         this.modules[index].dialogSelected = !this.modules[index].dialogSelected;
     }
 
-    on(item: DropdownItem) {
+    onSelectYear(item: DropdownItem) {
         this.selectedYear = item
+
+        this.programService.getNewPlan(this.id, this.selectedYear.label).subscribe(x => {
+            console.log(x)
+        })
     }
 }
 

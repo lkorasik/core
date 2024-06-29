@@ -10,6 +10,7 @@ import { SaveStudyPlanDTO } from "./saveStudyPlan.dto";
 import { AuthorizedHttpClient } from "../authorizedHttpClient";
 import { GetAllSyllabi } from "./getAllSyllabi.dto";
 import { Syllabus } from "./syllabus.dto";
+import { GetNewPlan } from "./getNewPlan.dto";
 
 @Injectable({
     providedIn: 'root'
@@ -42,9 +43,9 @@ export class ProgramService {
         let params = new HttpParams().set("programId", id.id);
         return this.authorizedClient.post<Syllabus[]>("api/programs/getPlan", params);
     }
-    
-    getAllSyllabi2(id: ProgramIdDto) {
-        let params = new HttpParams().set("programId", id.id);
-        return this.authorizedClient.get<SaveStudyPlanDTO[]>("api/programs/g", params);
+
+    getNewPlan(id: string, startYear: string) {
+        let params = new HttpParams().set("programId", id).set("startYear", startYear);
+        return this.authorizedClient.get<GetNewPlan>("api/programs/getNewPlan", params);
     }
 }

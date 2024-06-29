@@ -1,5 +1,7 @@
 package ru.urfu.mm.controller.program;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.application.usecase.create_educational_program.CreateEducationalProgram;
@@ -9,8 +11,6 @@ import ru.urfu.mm.application.usecase.create_syylabus.CreateBaseSyllabus;
 import ru.urfu.mm.application.usecase.create_syylabus.CreateSyllabusRequest;
 import ru.urfu.mm.application.usecase.create_syylabus.ModuleSelectionDTO;
 import ru.urfu.mm.application.usecase.get_all_programs.GetAllPrograms;
-import ru.urfu.mm.application.usecase.get_editable_syllabus.GetEditableSyllabus;
-import ru.urfu.mm.application.usecase.get_editable_syllabus.GetSyllabusDTO;
 import ru.urfu.mm.application.usecase.get_new_syllabus.GetSyllabus;
 import ru.urfu.mm.application.usecase.get_new_syllabus.GlobalResponse;
 import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
@@ -30,6 +30,7 @@ import java.util.UUID;
 
 @RestController
 public class ProgramController extends AbstractAuthorizedController implements ProgramControllerDescription {
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private GetAllPrograms getAvailablePrograms;
     @Autowired
@@ -46,8 +47,6 @@ public class ProgramController extends AbstractAuthorizedController implements P
     private GetAllSyllabi getAllSyllabi;
     @Autowired
     private CreateBaseSyllabus createBaseSyllabus;
-    @Autowired
-    private GetEditableSyllabus getEditableSyllabus;
     @Autowired
     private GetSyllabus getSyllabus;
 
@@ -113,14 +112,8 @@ public class ProgramController extends AbstractAuthorizedController implements P
         return getAllSyllabi.getStudyPlan(programId);
     }
 
-    @GetMapping("/g")
-    public List<GetSyllabusDTO> getAllSyllabi2(@RequestParam("programId") UUID programId) {
-        return getEditableSyllabus.getEditableSyllabus(programId);
-    }
-
     @GetMapping("/getNewPlan")
     public GlobalResponse getSyllabus(@RequestParam("programId") UUID programId, @RequestParam("startYear") int startYear) {
-        // [semesterId -> [courseId]]
         return getSyllabus.getSyllabus(programId, startYear);
     }
 }
