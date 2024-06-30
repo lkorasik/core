@@ -10,6 +10,7 @@ import { ButtonComponent } from '../../base_components/button/button.component';
 import { ModuleService } from '../../../services/module/module.service';
 import { CourseSelectionDTO, ModuleDTO, SaveStudyPlanDTO } from '../../../services/program/saveStudyPlan.dto';
 import { ReqResponse } from '../../../services/program/getAllSyllabi2.dto';
+import { SyllabusTableComponent } from '../../base_components/syllabus-table/syllabus-table.component';
 
 @Component({
     selector: 'app-edit-educational-program-screen',
@@ -21,7 +22,8 @@ import { ReqResponse } from '../../../services/program/getAllSyllabi2.dto';
         TextFieldComponent,
         DropdownComponent,
         DialogComponent,
-        ButtonComponent
+        ButtonComponent,
+        SyllabusTableComponent
     ],
     templateUrl: './edit-educational-program-screen.component.html',
     styleUrl: './edit-educational-program-screen.component.css'
@@ -55,7 +57,7 @@ export class EditEducationalProgramScreenComponent {
 
         this.programService.saveStudyPlan2(this.id, 2023).subscribe(x => {
             this.newModules = x
-            this.availableYears = this.newModules.map(y => y.year).map(y => new DropdownItem(y.toString(), y.toString()))
+            this.availableYears = this.newModules.map(y => y.year).map((y, i) => new DropdownItem(y.toString(), i.toString()))
         })
     }
 
