@@ -3,7 +3,6 @@ package ru.urfu.mm.controller.modules;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.urfu.mm.application.usecase.create_module.CreateModule;
-import ru.urfu.mm.application.usecase.DeleteModuleById;
 import ru.urfu.mm.application.usecase.get_all_modules.GetAllModules;
 import ru.urfu.mm.application.usecase.get_module.GetModuleWithCourses;
 import ru.urfu.mm.application.usecase.get_module.ModuleWithCoursesResponse;
@@ -18,8 +17,6 @@ public class ModulesController implements ModulesControllerDescription {
     private GetAllModules getAllModules;
     @Autowired
     private CreateModule createModule;
-    @Autowired
-    private DeleteModuleById deleteModuleById;
     @Autowired
     private GetModuleWithCourses getModuleWithCourses;
 
@@ -59,10 +56,5 @@ public class ModulesController implements ModulesControllerDescription {
     @Override
     public void createModule(@RequestBody CreateModuleDTO createModuleDTO) {
         createModule.createModule(createModuleDTO.moduleName());
-    }
-
-    @Override
-    public void deleteModule(@RequestBody ModuleIdDTO moduleIdDTO) {
-        deleteModuleById.deleteModuleById(moduleIdDTO.id());
     }
 }

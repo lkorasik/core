@@ -21,7 +21,7 @@ public class StudentMapper {
     public Student toDomain(StudentEntity entity) {
         return new Student(
                 entity.getId(),
-                accountMapper.toDomain(entity.getUser()),
+                entity.getUser() == null ? null : accountMapper.toDomain(entity.getUser()),
                 null
         );
     }

@@ -25,7 +25,7 @@ object Endpoints {
      * Course API
      */
     object Course {
-        const val BASE = "$API/courses"
+        const val BASE = "$API/course"
         @JvmStatic
         fun courses() = BASE
 
@@ -53,10 +53,6 @@ object Endpoints {
         @JvmStatic
         fun course() = "$BASE$COURSE"
 
-        const val CREATE = "/create"
-        @JvmStatic
-        fun create() = "$BASE$CREATE"
-
         const val DELETE = "/delete"
         @JvmStatic
         fun delete() = "$BASE$DELETE"
@@ -75,35 +71,18 @@ object Endpoints {
     }
 
     /**
-     * Document API
-     */
-    object Document {
-        const val BASE = "$API/document"
-
-        const val GENERATE = "/generate"
-        @JvmStatic
-        fun generate() = "$BASE$GENERATE"
-    }
-
-    /**
      * Group API
      */
     object Group {
-        const val BASE = "$API/groups"
-
-        const val GROUP = "/group"
+        const val BASE = "$API/group"
         @JvmStatic
-        fun group() = "$BASE$GROUP"
+        fun base() = BASE
 
-        const val GROUP_BY_ID = "/groupById"
-        @JvmStatic
-        fun groupById() = "$BASE$GROUP_BY_ID"
-
-        const val TOKEN = "/token"
+        const val TOKEN = "/tokens"
         @JvmStatic
         fun token() = "$BASE$TOKEN"
 
-        const val TOKEN_FILE = "/token_file"
+        const val TOKEN_FILE = "/tokenFile"
         @JvmStatic
         fun tokenFile() = "$BASE$TOKEN_FILE"
     }
@@ -112,7 +91,7 @@ object Endpoints {
      * Module API
      */
     object Module {
-        const val BASE = "$API/modules"
+        const val BASE = "$API/module"
         @JvmStatic
         fun modules() = BASE
 
@@ -124,14 +103,6 @@ object Endpoints {
         @JvmStatic
         fun allWithCourses() = "$BASE$ALL_WITH_COURSES"
 
-        const val MODULE = "/module"
-        @JvmStatic
-        fun module() = "$BASE$MODULE"
-
-        const val CREATE = "/create"
-        @JvmStatic
-        fun create() = "$BASE$CREATE"
-
         const val DELETE = "/delete"
         @JvmStatic
         fun delete() = "$BASE$DELETE"
@@ -141,39 +112,25 @@ object Endpoints {
      * Program API
      */
     object Program {
-        const val BASE = "$API/programs"
-
-        const val CURRENT = "/current"
+        const val BASE = "$API/program"
         @JvmStatic
-        fun current() = "$BASE$CURRENT"
-
-        const val PROGRAM = "/program"
-        @JvmStatic
-        fun program() = "$BASE$PROGRAM"
-
-        const val CREATE = "/create"
-        @JvmStatic
-        fun create() = "$BASE$CREATE"
-
-        const val UPDATE = "/update"
-        @JvmStatic
-        fun update() = "$BASE$UPDATE"
+        fun base() = BASE
 
         const val ALL = "/all"
         @JvmStatic
         fun all() = "$BASE$ALL"
+    }
 
-        const val AVAILABLE_YEARS = "/availableYears"
+    object Syllabus {
+        const val BASE = "$API/syllabus"
+
+        const val CREATE = "/create"
         @JvmStatic
-        fun availableYears() = "$BASE$AVAILABLE_YEARS"
+        fun create() = "${Program.BASE}$CREATE"
 
         const val PLAN = "/plan"
         @JvmStatic
-        fun plan() = "$BASE$PLAN"
-
-        const val GET_PLAN = "/getPlan"
-        @JvmStatic
-        fun getPlan() = "$BASE$GET_PLAN"
+        fun plan() = "${Program.BASE}$PLAN"
     }
 
     /**

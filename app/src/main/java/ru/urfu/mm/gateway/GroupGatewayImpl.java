@@ -45,12 +45,11 @@ public class GroupGatewayImpl implements GroupGateway {
     @Override
     public Optional<AcademicGroup> findById(UUID groupId) {
         GroupEntity entity = groupRepository.findById(groupId).get();
-        AcademicGroup academicGroup = academicGroupMapper.toDomain(entity);
+        AcademicGroup academicGroup = academicGroupMapper.toDomain2(entity);
         List<Student> students = entity.getStudents()
                 .stream()
                 .map(studentMapper::toDomain)
                 .toList();
-        academicGroup.getStudents().addAll(students);
         return Optional.of(academicGroup);
     }
 }

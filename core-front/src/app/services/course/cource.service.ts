@@ -11,7 +11,7 @@ export class CourceService {
     constructor(private authorizedClient: AuthorizedHttpClient) { }
 
     public createCourse(callback: Callback<void>, createModuleCourseRequest: CreateCourseDto) {
-        return this.authorizedClient.post<void>("api/courses/create", createModuleCourseRequest).subscribe(this.wrapCallback(callback));
+        return this.authorizedClient.post<void>("api/course", createModuleCourseRequest).subscribe(this.wrapCallback(callback));
     }
 
 

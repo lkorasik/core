@@ -13,12 +13,6 @@ import java.util.UUID;
  * Скачать регистрационные токены конкретной группы
  */
 public class DownloadTokens {
-    private final GetAcademicGroup getAcademicGroup;
-
-    public DownloadTokens(GetAcademicGroup getAcademicGroup) {
-        this.getAcademicGroup = getAcademicGroup;
-    }
-
     public File downloadTokens(DownloadTokensRequest request) {
         throw new NotImplementedException();
 //        AcademicGroup academicGroup = getAcademicGroup.getGroup(request.groupId());

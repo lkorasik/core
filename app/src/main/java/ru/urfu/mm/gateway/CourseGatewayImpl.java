@@ -5,17 +5,11 @@ import org.springframework.stereotype.Component;
 import ru.urfu.mm.application.gateway.CourseGateway;
 import ru.urfu.mm.domain.EducationalModule;
 import ru.urfu.mm.domain.*;
-import ru.urfu.mm.domain.exception.NotImplementedException;
 import ru.urfu.mm.persistance.entity.*;
-import ru.urfu.mm.persistance.entity.enums.Control;
-import ru.urfu.mm.persistance.repository.EducationalProgramToCoursesWithSemestersRepository;
-import ru.urfu.mm.persistance.repository.SelectedCoursesRepository;
 import ru.urfu.mm.persistance.repository.SpecialCourseRepository;
-import ru.urfu.mm.service.mapper.AccountMapper;
 import ru.urfu.mm.service.mapper.CourseMapper;
 import ru.urfu.mm.service.mapper.ModuleMapper;
 
-import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -33,11 +27,6 @@ public class CourseGatewayImpl implements CourseGateway {
         this.courseRepository = courseRepository;
         this.courseMapper = courseMapper;
         this.moduleMapper = moduleMapper;
-    }
-
-    @Override
-    public List<Course> getEducationalModuleCourses(UUID moduleId) {
-        throw new NotImplementedException();
     }
 
     @Override
@@ -60,10 +49,5 @@ public class CourseGatewayImpl implements CourseGateway {
                 moduleMapper.toEntity(module)
         );
         courseRepository.save(entity2);
-    }
-
-    @Override
-    public void delete(UUID id) {
-        throw new NotImplementedException();
     }
 }

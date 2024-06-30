@@ -6,6 +6,8 @@ import ru.urfu.mm.domain.AcademicGroup;
 import ru.urfu.mm.persistance.entity.GroupEntity;
 import ru.urfu.mm.persistance.entity.enums.Years;
 
+import java.util.Collections;
+
 @Service
 public class AcademicGroupMapper {
     private final BaseSyllabusMapper baseSyllabusMapper;
@@ -34,6 +36,16 @@ public class AcademicGroupMapper {
         return new AcademicGroup(
                 entity.getId(),
                 entity.getNumber(),
+                baseSyllabusMapper.toDomain(entity.getBaseSyllabus())
+        );
+    }
+
+    public AcademicGroup toDomain2(GroupEntity entity) {
+        return new AcademicGroup(
+                entity.getId(),
+                entity.getNumber(),
+                Years.toDomain(entity.getYear()),
+                entity.getStudents().stream().map(studentMapper::toDomain).toList(),
                 baseSyllabusMapper.toDomain(entity.getBaseSyllabus())
         );
     }

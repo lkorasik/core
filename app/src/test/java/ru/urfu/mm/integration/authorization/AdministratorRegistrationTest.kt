@@ -15,7 +15,6 @@ import ru.urfu.mm.controller.authentication.RegistrationDTO
 import ru.urfu.mm.domain.enums.UserRole
 import ru.urfu.mm.dsl.AuthorizationDSL
 import ru.urfu.mm.dsl.DSL
-import ru.urfu.mm.dsl.RegistrationTokenFactory
 import ru.urfu.mm.integration.BaseTestClass
 import ru.urfu.mm.persistance.entity.enums.UserEntityRole
 import ru.urfu.mm.persistance.repository.AccountRepository

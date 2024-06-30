@@ -1,10 +1,9 @@
 package ru.urfu.mm.controller.program;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
-import ru.urfu.mm.application.usecase.get_available_years.GetStudyPlanResponse;
 import ru.urfu.mm.controller.Endpoints;
-import ru.urfu.mm.domain.BaseSyllabus;
 
 import java.util.List;
 import java.util.UUID;
@@ -12,27 +11,15 @@ import java.util.UUID;
 @Tag(name = "Program", description = "Управление программами")
 @RequestMapping(Endpoints.Program.BASE)
 public interface ProgramControllerDescription {
-    @GetMapping(Endpoints.Program.CURRENT)
-    ProgramInfoDTO current();
-
-    @GetMapping(Endpoints.Program.PROGRAM)
+    @Operation(summary = "Получить программу по идентификатору")
+    @GetMapping
     FullProgramDTO getEducationalProgram(@RequestParam("id") UUID programId);
 
-    @PutMapping(Endpoints.Program.PROGRAM)
-    void updateEducationalProgram(@RequestBody UpdateProgramDTO dto);
-
-    @PostMapping(Endpoints.Program.CREATE)
+    @Operation(summary = "Создать программу")
+    @PostMapping
     void createEducationalProgram(@RequestBody CreateProgramDTO dto);
 
+    @Operation(summary = "Получить все программы")
     @GetMapping(Endpoints.Program.ALL)
     List<ShortProgramDTO> getAll();
-
-    @GetMapping(Endpoints.Program.AVAILABLE_YEARS)
-    List<GetStudyPlanResponse> laod(@RequestParam("id") UUID id);
-
-    @PostMapping(Endpoints.Program.PLAN)
-    void saveSyllabus(@RequestBody SyllabusDTO dto);
-
-    @PostMapping(Endpoints.Program.GET_PLAN)
-    List<BaseSyllabus> getAllSyllabi(@RequestParam("programId") UUID programId);
 }

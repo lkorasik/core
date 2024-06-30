@@ -15,13 +15,15 @@ import java.util.UUID;
 @Tag(name = "Group", description = "Управление академическими группами")
 @RequestMapping(Endpoints.Group.BASE)
 public interface GroupControllerDescription {
-    @PostMapping(Endpoints.Group.GROUP)
+    @Operation(summary = "Создать группу")
+    @PostMapping
     void createGroup(@RequestBody CreateGroupDTO dto);
 
     @Operation(summary = "Получить группу по идентификатору")
-    @GetMapping(Endpoints.Group.GROUP_BY_ID)
+    @GetMapping
     GroupDTO getGroup(@RequestParam("groupId") UUID groupId);
 
+    @Operation(summary = "Сгенерировать токены")
     @PostMapping(Endpoints.Group.TOKEN)
     List<UUID> generateTokens(@RequestBody GenerateTokenDTO generateTokenDTO);
 
@@ -29,6 +31,7 @@ public interface GroupControllerDescription {
     @GetMapping(Endpoints.Group.TOKEN)
     List<TokenStatusDTO> getTokens(@RequestParam("groupId") UUID groupId);
 
+    @Operation(summary = "Скачать файл с токенами")
     @GetMapping(Endpoints.Group.TOKEN_FILE)
     ResponseEntity<InputStreamResource> getFile(@RequestParam("groupId") UUID groupId) throws FileNotFoundException;
 }

@@ -1,14 +1,11 @@
 package ru.urfu.mm.configuration;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.urfu.mm.application.gateway.*;
-import ru.urfu.mm.application.usecase.*;
 import ru.urfu.mm.application.usecase.create.CreateAdministrator;
 import ru.urfu.mm.application.usecase.create.CreateStudent;
-import ru.urfu.mm.application.usecase.create.account.CreateAccount;
+import ru.urfu.mm.application.usecase.create.CreateAccount;
 import ru.urfu.mm.application.usecase.create_course.CreateCourse;
 import ru.urfu.mm.application.usecase.create_group.CreateGroup;
 import ru.urfu.mm.application.usecase.create_educational_program.CreateEducationalProgram;
@@ -16,17 +13,16 @@ import ru.urfu.mm.application.usecase.create_module.CreateModule;
 import ru.urfu.mm.application.usecase.create_syylabus.CreateBaseSyllabus;
 import ru.urfu.mm.application.usecase.download_tokens.DownloadTokens;
 import ru.urfu.mm.application.usecase.generate_student_registration_token.GenerateStudentRegistrationToken;
+import ru.urfu.mm.application.usecase.get_base_syllabus.GetBaseSyllabus;
 import ru.urfu.mm.application.usecase.get_group.GetAcademicGroup;
-import ru.urfu.mm.application.usecase.get_program_for_student.GetProgramForStudent;
+
 import ru.urfu.mm.application.usecase.get_all_modules.GetAllModules;
 import ru.urfu.mm.application.usecase.get_all_programs.GetAllPrograms;
 import ru.urfu.mm.application.usecase.get_module.GetModuleWithCourses;
 import ru.urfu.mm.application.usecase.get_program_by_id.GetProgramById;
-import ru.urfu.mm.application.usecase.get_available_years.GetAvailableYears;
-import ru.urfu.mm.application.usecase.get_base_syllabus.GetAllSyllabi;
+import ru.urfu.mm.application.usecase.get_all_syllabi.GetAllSyllabi;
 import ru.urfu.mm.application.usecase.get_token.GetTokensForGroup;
 import ru.urfu.mm.application.usecase.login_user.LoginUser;
-import ru.urfu.mm.application.usecase.update_program.UpdateProgram;
 
 @Configuration
 public class UseCaseConfiguration {
@@ -47,32 +43,13 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public CreateStudent createStudent(
-            PasswordGateway passwordGateway,
-            UserGateway userGateway,
-            StudentGateway studentGateway,
-            GroupGateway groupGateway) {
-        return new CreateStudent(
-                studentGateway,
-                passwordGateway,
-                userGateway,
-                groupGateway
-        );
+    public CreateStudent createStudent() {
+        return new CreateStudent();
     }
 
     @Bean
     public LoginUser loginUser(UserGateway userGateway, PasswordGateway passwordGateway) {
         return new LoginUser(userGateway, passwordGateway);
-    }
-
-    @Bean
-    public EditModuleSpecialCourse editModuleSpecialCourse(CourseGateway courseGateway) {
-        return new EditModuleSpecialCourse(courseGateway);
-    }
-
-    @Bean
-    public DeleteCourse deleteCourse(CourseGateway courseGateway) {
-        return new DeleteCourse(courseGateway);
     }
 
     @Bean
@@ -91,30 +68,8 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public DeleteModuleById deleteModuleById(ModuleGateway moduleGateway, CourseGateway courseGateway) {
-        return new DeleteModuleById(moduleGateway, courseGateway);
-    }
-
-    @Bean
     public GetAllPrograms getAllEducationalPrograms(ProgramGateway programGateway) {
         return new GetAllPrograms(programGateway);
-    }
-
-    @Bean
-    public SaveSkillsForStudent saveSkillsForStudent(SkillGateway skillGateway, StudentGateway studentGateway) {
-        return new SaveSkillsForStudent(skillGateway, studentGateway);
-    }
-
-    @Bean
-    public SaveDesiredSkillsForStudent saveDesiredSkillsForStudent(
-            SkillGateway skillGateway,
-            StudentGateway studentGateway) {
-        return new SaveDesiredSkillsForStudent(skillGateway, studentGateway);
-    }
-
-    @Bean
-    public GetProgramForStudent getProgramForStudent(StudentGateway studentGateway) {
-        return new GetProgramForStudent(studentGateway);
     }
 
     @Bean
@@ -135,15 +90,13 @@ public class UseCaseConfiguration {
             GroupGateway groupGateway,
             ProgramGateway programGateway,
             SemesterGateway semesterGateway,
-            CreateBaseSyllabus createBaseSyllabus,
-            BaseSyllabusPlanGateway baseSyllabusPlanGateway,
+            BaseSyllabusPlanGateway baseSyllabusPlan,
             BaseSemesterPlanGateway baseSemesterPlanGateway) {
         return new CreateGroup(
                 groupGateway,
                 programGateway,
                 semesterGateway,
-                createBaseSyllabus,
-                baseSyllabusPlanGateway,
+                baseSyllabusPlan,
                 baseSemesterPlanGateway
         );
     }
@@ -163,13 +116,13 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public GetTokensForGroup getTokensForGroup(GetAcademicGroup getAcademicGroup, StudentGateway studentGateway) {
-        return new GetTokensForGroup(getAcademicGroup, studentGateway);
+    public GetTokensForGroup getTokensForGroup(GetAcademicGroup getAcademicGroup) {
+        return new GetTokensForGroup(getAcademicGroup);
     }
 
     @Bean
-    public DownloadTokens downloadTokens(GetAcademicGroup getAcademicGroup) {
-        return new DownloadTokens(getAcademicGroup);
+    public DownloadTokens downloadTokens() {
+        return new DownloadTokens();
     }
 
     @Bean
@@ -183,22 +136,12 @@ public class UseCaseConfiguration {
     }
 
     @Bean
-    public UpdateProgram updateProgram(ProgramGateway programGateway) {
-        return new UpdateProgram(programGateway);
-    }
-
-    @Bean
-    public GetAvailableYears getAvailableYears(ProgramGateway programGateway) {
-        return new GetAvailableYears(programGateway);
-    }
-
-    @Bean
     public GetAllSyllabi getStudyPlan(ProgramGateway programGateway) {
         return new GetAllSyllabi(programGateway);
     }
 
     @Bean
-    public Logger logger() {
-        return LoggerFactory.getLogger(this.getClass());
+    public GetBaseSyllabus getBaseSyllabus(ProgramGateway programGateway, ModuleGateway moduleGateway) {
+        return new GetBaseSyllabus(programGateway, moduleGateway);
     }
 }

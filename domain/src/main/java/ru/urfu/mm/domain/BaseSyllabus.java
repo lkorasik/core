@@ -1,6 +1,7 @@
 package ru.urfu.mm.domain;
 
 import java.util.UUID;
+import java.util.stream.Stream;
 
 /**
  * Базовый учебный план

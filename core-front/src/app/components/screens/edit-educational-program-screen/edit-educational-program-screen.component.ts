@@ -9,6 +9,8 @@ import { DialogComponent } from '../../base_components/dialog/dialog.component';
 import { ButtonComponent } from '../../base_components/button/button.component';
 import { ModuleService } from '../../../services/module/module.service';
 import { CourseSelectionDTO, ModuleDTO, SaveStudyPlanDTO } from '../../../services/program/saveStudyPlan.dto';
+import { ReqResponse } from '../../../services/program/getAllSyllabi2.dto';
+import { SyllabusTableComponent } from '../../base_components/syllabus-table/syllabus-table.component';
 
 @Component({
     selector: 'app-edit-educational-program-screen',
@@ -20,7 +22,8 @@ import { CourseSelectionDTO, ModuleDTO, SaveStudyPlanDTO } from '../../../servic
         TextFieldComponent,
         DropdownComponent,
         DialogComponent,
-        ButtonComponent
+        ButtonComponent,
+        SyllabusTableComponent
     ],
     templateUrl: './edit-educational-program-screen.component.html',
     styleUrl: './edit-educational-program-screen.component.css'
@@ -29,11 +32,13 @@ export class EditEducationalProgramScreenComponent {
     id: string = ""
     title: string = ""
     trainingDirection: string = ""
-    years: DropdownItem[] = []
-    years2: Year[] = []
+    availableYears: DropdownItem[] = []
     modules: Module[] = []
+    years: Year[] = []
     isOpen: boolean = false;
-    year: DropdownItem | undefined = undefined
+    selectedYear: DropdownItem | undefined = undefined
+
+    newModules: ReqResponse[] = []
 
     constructor(private programService: ProgramService, private moduleService: ModuleService) {
         this.id = sessionStorage.getItem("programId")!;
@@ -43,27 +48,21 @@ export class EditEducationalProgramScreenComponent {
             this.trainingDirection = program.trainingDirection
         })
 
-        this.programService.getAllModulesWithCourses().subscribe(x => {
+        this.moduleService.getAllModulesWithCourses().subscribe(x => {
             this.modules = x.map(y => {
                 const courses = y.courses.map(course => new Course(course.id, course.name));
                 return new Module(y.id, y.name, courses)
             });
         })
 
-        this.programService.getAllSyllabi({ id: this.id }).subscribe(x => {
-            this.years2 = x.map(y => new Year(
-                y.firstSemesterPlan.semester.id, 
-                y.secondSemesterPlan.semester.id,
-                y.thirdSemesterPlan.semester.id,
-                y.fourthSemesterPlan.semester.id,
-                y.firstSemesterPlan.semester.year
-            ))
-            this.years = x.map(y => y.firstSemesterPlan.semester).map(y => new DropdownItem(y.year.toString(), y.id.toString()))
+        this.programService.saveStudyPlan2(this.id, 2023).subscribe(x => {
+            this.newModules = x
+            this.availableYears = this.newModules.map(y => y.year).map((y, i) => new DropdownItem(y.toString(), i.toString()))
         })
     }
 
     onSave() {
-        let year = this.years2.filter(x => x.firstSemesterId == this.year?.value)[0]
+        let year = this.years.filter(x => x.firstSemesterId == this.selectedYear?.value)[0]
         let modules = this.modules.filter(x => x.dialogSelected).map(x => new ModuleDTO(x.id, x.courses.map(y => {
             let semesterId:string = ""
             if (y.semesterNumber == 1) {
@@ -77,7 +76,7 @@ export class EditEducationalProgramScreenComponent {
             }
             return new CourseSelectionDTO(y.id, semesterId)
         })))
-        let request = new SaveStudyPlanDTO(this.id, this.year!.value, modules)
+        let request = new SaveStudyPlanDTO(this.id, this.selectedYear!.value, modules)
         this.programService.saveStudyPlan(request).subscribe(x => x)
     }
 
@@ -128,7 +127,7 @@ export class EditEducationalProgramScreenComponent {
     }
 
     shouldShowPlanConstructor() {
-        return this.year !== undefined
+        return this.selectedYear !== undefined
         // return this.modules.filter(x => x.dialogSelected).length != 0
     }
 
@@ -136,8 +135,12 @@ export class EditEducationalProgramScreenComponent {
         this.modules[index].dialogSelected = !this.modules[index].dialogSelected;
     }
 
-    on(item: DropdownItem) {
-        this.year = item
+    onSelectYear(item: DropdownItem) {
+        this.selectedYear = item
+
+        this.programService.getNewPlan(this.id, this.selectedYear.label).subscribe(x => {
+            // module
+        })
     }
 }
 
